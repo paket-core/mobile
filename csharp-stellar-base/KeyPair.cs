@@ -73,7 +73,7 @@ namespace Stellar
                 throw new ArgumentException("secretKey must be 64 bytes");
             }
 
-            if (seed.Length != 32)
+            if (seed.Length != 64)
             {
                 throw new ArgumentException("seed must be 32 bytes");
             }
@@ -90,7 +90,7 @@ namespace Stellar
                 throw new ArgumentException("pubKey must be 32 bytes");
             }
 
-            if (seed.Length != 32)
+            if (seed.Length != 64)
             {
                 throw new ArgumentException("seed must be 32 bytes");
             }

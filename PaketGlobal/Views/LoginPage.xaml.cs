@@ -69,7 +69,7 @@ namespace PaketGlobal
 
 					//Recover private key
 					var myKeyPair = KeyPair.FromRawSeed(seed);
-					var pubkey = Encoding.UTF8.GetString(myKeyPair.PublicKey, 0, myKeyPair.PublicKey.Length);
+					var pubkey = Encoders.Hex.EncodeData(myKeyPair.PublicKey);
 
 					var result = await App.Locator.ServiceClient.RecoverUser(pubkey);
 					if (result != null) {
@@ -93,13 +93,13 @@ namespace PaketGlobal
 
 					//Create new private key
 					var myKeyPair = KeyPair.FromRawSeed(seed);
-					var pubkey = Encoding.UTF8.GetString(myKeyPair.PublicKey, 0, myKeyPair.PublicKey.Length);
+					var pubkey = Encoders.Hex.EncodeData(myKeyPair.PublicKey);
 
 					var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName, ViewModel.PhoneNumber, pubkey);
 					if (result != null) {
+						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
+
 						Application.Current.MainPage = new MainPage();
-						//AlreadyRegisteredClicked(null, EventArgs.Empty);
-						//ShowError("Please check you email to activate your account.", true);
 					}
 				});
 			}
