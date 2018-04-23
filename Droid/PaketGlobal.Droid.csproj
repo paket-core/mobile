@@ -164,6 +164,19 @@
     <Reference Include="NBitcoin">
       <HintPath>..\packages\NBitcoin.4.1.1\lib\netstandard1.3\NBitcoin.dll</HintPath>
     </Reference>
+    <Reference Include="AndHUD">
+      <HintPath>..\packages\AndHUD.1.2.0\lib\MonoAndroid\AndHUD.dll</HintPath>
+    </Reference>
+    <Reference Include="Acr.UserDialogs">
+      <HintPath>..\packages\Acr.UserDialogs.7.0.1\lib\monoandroid70\Acr.UserDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="Java.Interop" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -190,6 +203,14 @@
     <AndroidResource Include="Resources\layout\Tabbar.axml" />
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_check_circle_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaketGlobal.ClientService\PaketGlobal.ClientService.csproj">

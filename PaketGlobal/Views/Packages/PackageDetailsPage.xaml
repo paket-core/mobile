@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackageDetailsPage"
+             xmlns:local="clr-namespace:PaketGlobal">
+    <local:BasePage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Spacing="0">
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Role" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding MyRole, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Status" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding Status, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Deadline" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding DeadlineString, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Launched" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding SendTimeString, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Collateral" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding Collateral, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Payment" FontSize="13" TextColor="#808080"/>
+                    <Label Text = "{Binding Payment, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                    <Label Text = "Events" FontSize="13" TextColor="#808080"/>
+                    <ListView x:Name="eventsList" RowHeight="100" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
+                            ItemsSource="{Binding Events}" ItemSelected="EventItemSelected" IsPullToRefreshEnabled="false">
+                          <ListView.ItemTemplate>
+                             <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                                        <Label Text="{Binding EventType, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                                        <Label Text="{Binding PaketUser, Mode=OneWay}" FontSize="13" TextColor="#808080"/>
+                                        <Label Text="{Binding TimeString, StringFormat='Sent: {0}' Mode=OneWay}" FontSize="13" TextColor="#808080"/>
+                                        <Label Text="{Binding GPSString, StringFormat='Location: {0}', StringFormat='Sent: {0}' Mode=OneWay}" FontSize="13" TextColor="#808080"/>
+                                    </StackLayout>
+                                 </ViewCell>                    
+                            </DataTemplate>
+                         </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </local:BasePage.Content>
+</local:BasePage>

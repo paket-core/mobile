@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace PaketGlobal.ClientService
@@ -55,7 +56,7 @@ namespace PaketGlobal.ClientService
 	public class PriceData : BaseData
 	{
 		[DataMember(Name = "buy_price")]
-		public int AvailableBuls { get; set; }
+		public int BuyPrice { get; set; }
 
 		[DataMember(Name = "sell_price")]
 		public int SellPrice { get; set; }
@@ -97,28 +98,108 @@ namespace PaketGlobal.ClientService
 	}
 
 	[DataContract]
+	public class PackagesData : BaseData
+	{
+		[DataMember(Name = "packages")]
+		public List<Package> Packages { get; set; }
+	}
+
+	[DataContract]
 	public class Package
 	{
-		[DataMember(Name = "PKT-id")]
-		public string PKTId { get; set; }
+		[DataMember(Name = "paket_id")]
+		public string PaketId { get; set; }
 
-		[DataMember(Name = "Recipient-id")]
-		public string RecipientId { get; set; }
+		[DataMember(Name = "paket_url")]
+		public string PaketUrl { get; set; }
+
+		[DataMember(Name = "launcher_pubkey")]
+		public string LauncherPubkey { get; set; }
+
+		[DataMember(Name = "my_role")]
+		public string MyRole { get; set; }
+
+		[DataMember(Name = "recipient_pubkey")]
+		public string RecipientPubkey { get; set; }
+
+		[DataMember(Name = "courier_pubkey")]
+		public string CourierPubkey { get; set; }
+
+		[DataMember(Name = "status")]
+		public string Status { get; set; }
+
+		[DataMember(Name = "blockchain_url")]
+		public string BlockchainUrl { get; set; }
+
+		[DataMember(Name = "custodian_pubkey")]
+		public string CustodianPubkey { get; set; }
+
+		[DataMember(Name = "deadline")]
+		public long Deadline { get; set; }
+
+		[DataMember(Name = "payment")]
+		public long Payment { get; set; }
 
 		[DataMember(Name = "collateral")]
 		public long Collateral { get; set; }
 
-		[DataMember(Name = "cost")]
-		public long Cost { get; set; }
-
-		[DataMember(Name = "deadline-timestamp")]
-		public long DeadlineTimestamp { get; set; }
-
 		[DataMember(Name = "send-timestamp")]
 		public long SendTimestamp { get; set; }
 
-		[DataMember(Name = "status")]
-		public string Status { get; set; }
+		[DataMember(Name = "events")]
+		public List<PackageEvent> Events { get; set; }
+
+		public DateTime DeadlineDT {
+			get { return DateTimeHelper.FromUnixTime(Deadline); }
+		}
+
+		public DateTime SendTimeDT {
+			get { return DateTimeHelper.FromUnixTime(SendTimestamp); }
+		}
+
+		public string DeadlineString {
+			get { return DeadlineDT.ToString(); }
+		}
+
+		public string SendTimeString {
+			get { return SendTimeDT.ToString(); }
+		}
+
+		//[DataMember(Name = "cost")]
+		//public long Cost { get; set; }
+
+		//[DataMember(Name = "deadline-timestamp")]
+		//public long DeadlineTimestamp { get; set; }
+
+
+	}
+
+	[DataContract]
+	public class PackageEvent
+	{
+		[DataMember(Name = "event_type")]
+		public string EventType { get; set; }
+
+		[DataMember(Name = "paket_user")]
+		public string PaketUser { get; set; }
+
+		[DataMember(Name = "timestamp")]
+		public long Timestamp { get; set; }
+
+		[DataMember(Name = "GPS")]
+		public double[] GPS { get; set; }
+
+		public DateTime TimestampDT {
+			get { return DateTimeHelper.FromUnixTime(Timestamp); }
+		}
+
+		public string TimeString {
+			get { return TimestampDT.ToString(); }
+		}
+
+		public string GPSString {
+			get { return String.Join(",", GPS); }
+		}
 	}
 
 	[DataContract]

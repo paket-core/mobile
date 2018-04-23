@@ -10,6 +10,10 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.UserName; }
 		}
 
+		public string FullName {
+			get { return App.Locator.AccountService.FullName; }
+		}
+
 		public string PhoneNumber {
 			get { return App.Locator.AccountService.PhoneNumber; }
 		}
@@ -18,9 +22,9 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.Pubkey; }
 		}
 
-		public void SetCredentials (string userName, string phoneNumber, string pubkey)
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string pubkey)
 		{
-			App.Locator.AccountService.SetCredentials(userName, phoneNumber, pubkey);
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, pubkey);
 		}
 
 		public void DeleteCredentials ()

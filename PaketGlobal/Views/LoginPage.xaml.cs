@@ -73,7 +73,7 @@ namespace PaketGlobal
 
 					var result = await App.Locator.ServiceClient.RecoverUser(pubkey);
 					if (result != null) {
-						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
+						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
 
 						MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
 
@@ -88,7 +88,7 @@ namespace PaketGlobal
 			if (IsValid()) {
 				await WithProgress(activityIndicator, async () => {
 					//Create new seed
-					var m = new Mnemonic(Wordlist.English, WordCount.TwentyFour);
+					var m = new Mnemonic(Wordlist.English, WordCount.Twelve);
 					var seed = m.DeriveSeed();
 
 					//Create new private key
@@ -97,7 +97,7 @@ namespace PaketGlobal
 
 					var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName, ViewModel.PhoneNumber, pubkey);
 					if (result != null) {
-						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
+						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
 
 						Application.Current.MainPage = new MainPage();
 					}

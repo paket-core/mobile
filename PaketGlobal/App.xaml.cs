@@ -1,4 +1,5 @@
 ﻿using System;
+using Acr.UserDialogs;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using PaketGlobal.ClientService;
@@ -43,6 +44,31 @@ namespace PaketGlobal
 				var navPage = Locator.NavigationService.Initialize(new LoginPage());
 				MainPage = navPage;
 			});
+		}
+
+		/// <summary>
+		/// Shows the loading indicator.
+		/// </summary>
+		/// <param name="isRunning">If set to <c>true</c> is running.</param>
+		/// <param name = "isCancel">If set to <c>true</c> user can cancel the loading event (just uses PopModalAync here)</param>
+		public static void ShowLoading(bool isRunning, bool isCancel = false)
+		{
+			if (isRunning == true) {
+				if (isCancel == true) {
+					UserDialogs.Instance.Loading("Loading", new Action(async () => {
+						if (Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
+							await Application.Current.MainPage.Navigation.PopModalAsync();
+						} else {
+							System.Diagnostics.Debug.WriteLine("Navigation: Can't pop modal without any modals pushed");
+						}
+						UserDialogs.Instance.Loading().Hide();
+					}));
+				} else {
+					UserDialogs.Instance.Loading(null);
+				}
+			} else {
+				UserDialogs.Instance.Loading().Hide();
+			}
 		}
 	}
 }

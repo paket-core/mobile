@@ -34,19 +34,26 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DrawerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Cells\MenuItemCell.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PackagesPage.xaml.cs">
-      <DependentUpon>PackagesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\WalletPage.xaml.cs">
-      <DependentUpon>WalletPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ValidationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml.cs">
+      <DependentUpon>PackagesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PackageDetailsPage.xaml.cs">
+      <DependentUpon>PackageDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\LaunchPackagePage.xaml.cs">
+      <DependentUpon>LaunchPackagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\User\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\WalletModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Wallet\WalletPage.xaml.cs">
+      <DependentUpon>WalletPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -54,15 +61,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\PackagesPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\WalletPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PackageDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\ProfilePage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\LaunchPackagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\User\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Wallet\WalletPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -73,5 +88,8 @@
     <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Cells\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Packages\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\User\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Wallet\" />
   </ItemGroup>
 </Project>

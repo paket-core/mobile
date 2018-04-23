@@ -8,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using GalaSoft.MvvmLight.Ioc;
+using Acr.UserDialogs;
 
 namespace PaketGlobal.Droid
 {
@@ -30,6 +31,8 @@ namespace PaketGlobal.Droid
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
 			LoadApplication(new App());
+
+			UserDialogs.Init(this);
 		}
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

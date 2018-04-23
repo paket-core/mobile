@@ -10,6 +10,8 @@ namespace PaketGlobal
 		public const string LoginPage = "LoginPage";
 		public const string ProfilePage = "ProfilePage";
 		public const string PackagesPage = "PackagesPage";
+		public const string PackageDetailsPage = "PackageDetailsDetail";
+		public const string LaunchPackagePage = "LaunchPackagePage";
 		public const string WalletPage = "WalletPage";
 
 		public T GetInstance<T>()
@@ -34,7 +36,11 @@ namespace PaketGlobal
 		}
 
 		public PackagesModel Packages {
-			get { return SimpleIoc.Default.GetInstanceWithoutCaching<PackagesModel>(); }
+			get { return SimpleIoc.Default.GetInstance<PackagesModel>(); }
+		}
+
+		public WalletModel Wallet {
+			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
 		public DrawerViewModel DrawerViewModel {
@@ -56,11 +62,21 @@ namespace PaketGlobal
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>
-		public Locator ()
+		public Locator()
 		{
 			// Models
-			SimpleIoc.Default.Register<DrawerViewModel>();
-			SimpleIoc.Default.Register<PackagesModel> ();
+
+			if (!SimpleIoc.Default.IsRegistered<DrawerViewModel>()) {
+				SimpleIoc.Default.Register<DrawerViewModel>();
+			}
+
+			if (!SimpleIoc.Default.IsRegistered<PackagesModel>()) {
+				SimpleIoc.Default.Register<PackagesModel>();
+			}
+
+			if (!SimpleIoc.Default.IsRegistered<WalletModel>()) {
+				SimpleIoc.Default.Register<WalletModel>();
+			}
 
 			if (!SimpleIoc.Default.IsRegistered<Workspace>()) {
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
@@ -73,10 +89,12 @@ namespace PaketGlobal
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {
 				var navigationService = new NavigationService();
 				navigationService.Configure(Locator.MainPage, typeof(MainPage));
-				//navigationService.Configure(Locator.LoginPage, typeof(LoginPage));
-				//navigationService.Configure(Locator.PackagesPage, typeof(PackagesPage));
-				//navigationService.Configure(Locator.ProfilePage, typeof(ProfilePage));
-				//navigationService.Configure(Locator.WalletPage, typeof(WalletPage));
+				navigationService.Configure(Locator.LoginPage, typeof(LoginPage));
+				navigationService.Configure(Locator.PackagesPage, typeof(PackagesPage));
+				navigationService.Configure(Locator.PackageDetailsPage, typeof(PackageDetailsPage));
+				navigationService.Configure(Locator.LaunchPackagePage, typeof(LaunchPackagePage));
+				navigationService.Configure(Locator.ProfilePage, typeof(ProfilePage));
+				navigationService.Configure(Locator.WalletPage, typeof(WalletPage));
 
 				SimpleIoc.Default.Register<INavigationService>(() => navigationService);
 			}

@@ -75,7 +75,7 @@ namespace PaketGlobal.ClientService
 			return await SendRequest<PriceData>(request);
 		}
 
-		public async Task<SendBulsData> SendBuls(string toPubkey, int amountBuls)
+		public async Task<SendBulsData> SendBuls(string toPubkey, long amountBuls)
 		{
 			var request = PrepareRequest("/v1/send_buls", Method.POST);
 
@@ -105,7 +105,7 @@ namespace PaketGlobal.ClientService
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-		public async Task<AcceptPackageData> LaunchPackage(string recipientPubkey, int deadlineTimestamp, string courierPubkey, int paymentBuls, int collateralBuls)
+		public async Task<LaunchPackageData> LaunchPackage(string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
 		{
 			var request = PrepareRequest("/v1/launch_package", Method.POST);
 
@@ -115,18 +115,20 @@ namespace PaketGlobal.ClientService
 			request.AddParameter("payment_buls", paymentBuls);
 			request.AddParameter("collateral_buls", collateralBuls);
 
-			return await SendRequest<AcceptPackageData>(request);
+			return await SendRequest<LaunchPackageData>(request);
 		}
 
-		public async Task<List<Package>> MyPackages(bool showInactive, DateTime fromDate)
+		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
 		{
 			var request = PrepareRequest("/v1/my_packages", Method.POST);
 
-			var ut = DateTimeHelper.ToUnixTime(fromDate);
 			request.AddParameter("show_inactive", showInactive);
-			request.AddParameter("from_date", ut.ToString());
+			if (fromDate.HasValue) {
+				var ut = DateTimeHelper.ToUnixTime(fromDate.Value);
+				request.AddParameter("from_date", ut.ToString());
+			}
 
-			return await SendRequest<List<Package>>(request);
+			return await SendRequest<PackagesData>(request);
 		}
 
 		public async Task<Package> Package(string paketId)
@@ -158,6 +160,8 @@ namespace PaketGlobal.ClientService
 		private RestRequest PrepareRequest(string url, Method method, string pubkey = null)
 		{
 			//System.Diagnostics.Debug.WriteLine("Request URL: {0}, Token: {1}", url, Profile.Token);
+
+			pubkey = "owner";
 
 			var request = new RestRequest(url);
 			pubkey = pubkey ?? TryGetPubKey?.Invoke();

@@ -5,9 +5,10 @@ namespace PaketGlobal
 	public interface IAccountService
 	{
 		string UserName { get; }
+		string FullName { get; }
 		string PhoneNumber { get; }
 		string Pubkey { get; }
-		void SetCredentials(string userName, string phoneNumber, string pubkey);
+		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey);
 		void DeleteCredentials();
 	}
 

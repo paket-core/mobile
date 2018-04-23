@@ -105,7 +105,16 @@ namespace PaketGlobal
 			MenuItems.Add(new MenuItem {
 				//IconName = Elements.Dices,
 				Text = "Profile",//IsLogged ? AppResources.LogoutLabel : AppResources.LoginLabel,
-				OnItemTouched = () => NavigateTo(new ProfilePage())
+				OnItemTouched = () => {
+					var p = App.Locator.Profile;
+					var user = new ClientService.UserDetails() {
+						Pubkey = p.Pubkey,
+						PaketUser = p.UserName,
+						FullName = p.FullName,
+						PhoneNumber = p.PhoneNumber
+					};
+					NavigateTo(new ProfilePage(user));
+				}
 			});
 		}
 

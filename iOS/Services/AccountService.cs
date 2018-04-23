@@ -14,6 +14,13 @@ namespace PaketGlobal.iOS
 			}
 		}
 
+		public string FullName {
+			get {
+				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				return account?.Properties["FullName"];
+			}
+		}
+
 		public string PhoneNumber {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
@@ -28,12 +35,13 @@ namespace PaketGlobal.iOS
 			}
 		}
 
-		public void SetCredentials(string userName, string phoneNumber, string pubkey)
+		public void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey)
 		{
-			if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(phoneNumber) && !string.IsNullOrWhiteSpace(pubkey)) {
+			if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(fullName) && !string.IsNullOrWhiteSpace(phoneNumber) && !string.IsNullOrWhiteSpace(pubkey)) {
 				var account = new Account {
 					Username = userName
 				};
+				account.Properties.Add("FullName", fullName);
 				account.Properties.Add("PhoneNumber", phoneNumber);
 				account.Properties.Add("Pubkey", pubkey);
 				AccountStore.Create().Save(account, App.AppName);

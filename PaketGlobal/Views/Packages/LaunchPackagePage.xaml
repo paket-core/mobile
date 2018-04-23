@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.LaunchPackagePage"
+             xmlns:local="clr-namespace:PaketGlobal">
+    <local:BasePage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Spacing="0">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Padding="13, 0, 15, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Label Text = "Recipient" TextColor="#00796B"/>
+                     </StackLayout>
+                     <StackLayout Padding="10, 0, 10, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Entry x:Name="entryRecepient" Text = "{Binding RecipientPubkey}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                                     Completed="HandleCompleted" Keyboard = "Text"/>
+                     </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Padding="13, 0, 15, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Label Text = "Courier" TextColor="#00796B"/>
+                     </StackLayout>
+                     <StackLayout Padding="10, 0, 10, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Entry x:Name="entryCourier" Text = "{Binding CourierPubkey}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                                     Completed="HandleCompleted" Keyboard = "Text"/>
+                     </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Padding="13, 0, 15, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Label Text = "Deadline" TextColor="#00796B"/>
+                     </StackLayout>
+                     <StackLayout Padding="10, 0, 10, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Entry x:Name="entryDeadline" Text = "{Binding Deadline}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                                     Completed="HandleCompleted" Keyboard = "Numeric"/>
+                     </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Padding="13, 0, 15, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Label Text = "Payment (BULs)" TextColor="#00796B"/>
+                     </StackLayout>
+                     <StackLayout Padding="10, 0, 10, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Entry x:Name="entryPayment" Text = "{Binding Payment}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                                     Completed="HandleCompleted" Keyboard = "Numeric"/>
+                     </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Padding="13, 0, 15, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Label Text = "Collateral (BULs)" TextColor="#00796B"/>
+                     </StackLayout>
+                     <StackLayout Padding="10, 0, 10, 0" Orientation="Vertical" BackgroundColor="White" Spacing="0">
+                        <Entry x:Name="entryCollateral" Text = "{Binding Collateral}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                                     Completed="HandleCompleted" Keyboard = "Numeric"/>
+                     </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </local:BasePage.Content>
+</local:BasePage>

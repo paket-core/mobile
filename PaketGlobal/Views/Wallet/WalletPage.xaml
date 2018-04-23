@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
+             xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView x:Name="contentWallet">
+                <StackLayout Orientation="Vertical" Spacing="0">
+                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                        <Label Text = "Balance" FontSize="13" TextColor="#808080"/>
+                        <Label Text = "{Binding Balance.AvailableBuls, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                        <Label Text = "Buy Price" FontSize="13" TextColor="#808080"/>
+                        <Label Text = "{Binding Price.BuyPrice, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                        <Label Text = "Sell Price" FontSize="13" TextColor="#808080"/>
+                        <Label Text = "{Binding Price.SellPrice, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                        <Label Text = "Send BULs" FontSize="13" TextColor="#808080"/>
+                        <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000" Text="{Binding FullName, Mode=TwoWay}"/>
+                        <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000" Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                        <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
+                            <xlabs:ExtendedButton x:Name="btnSend" Text="Send" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <AbsoluteLayout x:Name="layoutActivity" BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
+                <ActivityIndicator x:Name="activityIndicator"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
+                    Color="#FF4081"
+                    IsRunning="false"/>
+            </AbsoluteLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</local:BasePage>
