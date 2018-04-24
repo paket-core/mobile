@@ -86,6 +86,8 @@ namespace PaketGlobal
 				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl));
 			}
 
+			ServiceClient.TryGetPubKey = () => Profile.Pubkey;
+
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {
 				var navigationService = new NavigationService();
 				navigationService.Configure(Locator.MainPage, typeof(MainPage));

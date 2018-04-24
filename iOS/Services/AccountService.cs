@@ -35,15 +35,25 @@ namespace PaketGlobal.iOS
 			}
 		}
 
-		public void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey)
+		public string Mnemonic {
+			get {
+				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				return account?.Properties["Mnemonic"];
+			}
+		}
+
+		public void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
 		{
-			if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(fullName) && !string.IsNullOrWhiteSpace(phoneNumber) && !string.IsNullOrWhiteSpace(pubkey)) {
+			if (!String.IsNullOrWhiteSpace(userName) && !String.IsNullOrWhiteSpace(fullName)
+			    && !String.IsNullOrWhiteSpace(phoneNumber) && !String.IsNullOrWhiteSpace(pubkey)
+			    && !String.IsNullOrWhiteSpace(mnemonic)) {
 				var account = new Account {
 					Username = userName
 				};
 				account.Properties.Add("FullName", fullName);
 				account.Properties.Add("PhoneNumber", phoneNumber);
 				account.Properties.Add("Pubkey", pubkey);
+				account.Properties.Add("Mnemonic", mnemonic);
 				AccountStore.Create().Save(account, App.AppName);
 			}
 		}

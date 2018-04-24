@@ -98,8 +98,7 @@ namespace PaketGlobal
 			MenuItems.Add(new MenuItem {
 				//IconName = Elements.Add,
 				Text = "Wallet",
-				OnItemTouched = () => NavigateTo(new WalletPage()),
-				HasSeparator = true
+				OnItemTouched = () => NavigateTo(new WalletPage())
 			});
 
 			MenuItems.Add(new MenuItem {
@@ -113,8 +112,15 @@ namespace PaketGlobal
 						FullName = p.FullName,
 						PhoneNumber = p.PhoneNumber
 					};
-					NavigateTo(new ProfilePage(user));
-				}
+					NavigateTo(new ProfilePage(App.Locator.Profile));
+				},
+				HasSeparator = true
+			});
+
+			MenuItems.Add(new MenuItem {
+				//IconName = Elements.Logout,
+				Text = "Logout",
+				OnItemTouched = () => Workspace.Logout()
 			});
 		}
 

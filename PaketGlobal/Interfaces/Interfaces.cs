@@ -8,7 +8,8 @@ namespace PaketGlobal
 		string FullName { get; }
 		string PhoneNumber { get; }
 		string Pubkey { get; }
-		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey);
+		string Mnemonic { get; }
+		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
 		void DeleteCredentials();
 	}
 

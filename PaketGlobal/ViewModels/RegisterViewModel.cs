@@ -26,9 +26,9 @@ namespace PaketGlobal
 		{
 			base.Reset();
 
-			userName = null;
-			fullName = null;
-			phoneNumber = null;
+			UserName = null;
+			FullName = null;
+			PhoneNumber = null;
 		}
 	}
 }

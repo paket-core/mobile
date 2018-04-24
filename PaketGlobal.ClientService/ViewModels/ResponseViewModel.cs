@@ -48,8 +48,46 @@ namespace PaketGlobal.ClientService
 	[DataContract]
 	public class BalanceData : BaseData
 	{
-		[DataMember(Name = "available_buls")]
-		public int AvailableBuls { get; set; }
+		[DataMember(Name = "balance")]
+		public long Balance { get; set; }
+
+		[DataMember(Name = "sequence")]
+		public string Sequence { get; set; }
+
+		[DataMember(Name = "signers")]
+		public List<SignerData> Signers { get; set; }
+
+		[DataMember(Name = "thresholds")]
+		public ThresholdData Thresholds { get; set; }
+	}
+
+	[DataContract]
+	public class SignerData
+	{
+		[DataMember(Name = "key")]
+		public string Key { get; set; }
+
+		[DataMember(Name = "public_key")]
+		public string PublicKey { get; set; }
+
+		[DataMember(Name = "type")]
+		public string Type { get; set; }
+
+		[DataMember(Name = "weight")]
+		public int Weight { get; set; }
+	}
+
+	[DataContract]
+	public class ThresholdData
+	{
+		[DataMember(Name = "high_threshold")]
+		public int HighThreshold { get; set; }
+
+		[DataMember(Name = "low_threshold")]
+		public int LowThreshold { get; set; }
+
+		[DataMember(Name = "med_threshold")]
+		public int MedThreshold { get; set; }
 	}
 
 	[DataContract]

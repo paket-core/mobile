@@ -41,6 +41,8 @@ namespace PaketGlobal.ClientService
 
 		public async Task<UserData> RegisterUser(string paketUser, string fullName, string phoneNumber, string pubkey)
 		{
+			pubkey = "debug";//TODO for Debug purposes
+
 			var request = PrepareRequest("/v1/register_user", Method.POST, pubkey);
 
 			request.AddParameter("paket_user", paketUser);
@@ -52,6 +54,8 @@ namespace PaketGlobal.ClientService
 
 		public async Task<UserData> RecoverUser(string pubkey)
 		{
+			pubkey = "debug";//TODO for Debug purposes
+
 			var request = PrepareRequest("/v1/recover_user", Method.POST, pubkey);
 
 			return await SendRequest<UserData>(request);
@@ -63,7 +67,7 @@ namespace PaketGlobal.ClientService
 
 		public async Task<BalanceData> Balance()
 		{
-			var request = PrepareRequest("/v1/balance", Method.POST);
+			var request = PrepareRequest("/v1/bul_account", Method.POST);
 
 			return await SendRequest<BalanceData>(request);
 		}
@@ -159,16 +163,13 @@ namespace PaketGlobal.ClientService
 
 		private RestRequest PrepareRequest(string url, Method method, string pubkey = null)
 		{
-			//System.Diagnostics.Debug.WriteLine("Request URL: {0}, Token: {1}", url, Profile.Token);
-
-			pubkey = "owner";
-
 			var request = new RestRequest(url);
 			pubkey = pubkey ?? TryGetPubKey?.Invoke();
 			if (pubkey != null) {
 				request.AddHeader("Pubkey", pubkey);
 			}
-			//request.RequestFormat = DataFormat.Json;
+			request.AddHeader("Fingerprint", "fingerprint");
+			request.AddHeader("Signature", "signature");
 			request.Method = method;
 			request.Serializer = _serializer;
 			return request;

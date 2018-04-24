@@ -1,4 +1,6 @@
 ﻿using System;
+using NBitcoin;
+using Stellar;
 
 namespace PaketGlobal
 {
@@ -22,9 +24,20 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.Pubkey; }
 		}
 
-		public void SetCredentials (string userName, string fullName, string phoneNumber, string pubkey)
+		public string Mnemonic {
+			get { return App.Locator.AccountService.Mnemonic; }
+		}
+
+		public KeyPair KeyPair { get; set; }
+
+		public Profile()
 		{
-			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, pubkey);
+			TryRestoreKeyPair();
+		}
+
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
+		{
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, pubkey, mnemonic);
 		}
 
 		public void DeleteCredentials ()
@@ -32,10 +45,41 @@ namespace PaketGlobal
 			App.Locator.AccountService.DeleteCredentials ();
 		}
 
+		private void TryRestoreKeyPair()
+		{
+			if (!String.IsNullOrWhiteSpace(Pubkey) && !String.IsNullOrWhiteSpace(Mnemonic)) {
+				KeyPair = GenerateKeyPair(Mnemonic).KeyPair;
+			}
+		}
+
+		public KeyData GenerateKeyPair(string mnemonic = null)
+		{
+			//Restore seed from word list
+			var mo = String.IsNullOrWhiteSpace(mnemonic) ? new Mnemonic(Wordlist.English, WordCount.Twelve)
+						   : new Mnemonic(mnemonic, Wordlist.English);
+			var extKey = mo.DeriveExtKey();
+			var seed = extKey.PrivateKey.ToBytes();
+
+			//Recover private key
+			var kp = KeyPair.FromRawSeed(seed);
+
+			return new KeyData { Mnemonic = mo, KeyPair = kp };
+		}
+
 		protected virtual void OnChanged (EventArgs e)
 		{
 			if (Changed != null)
 				Changed (this, e);
+		}
+
+		public class KeyData
+		{
+			public Mnemonic Mnemonic { get; set; }
+			public KeyPair KeyPair { get; set; }
+
+			public string MnemonicString {
+				get { return Mnemonic != null ? String.Join(" ", Mnemonic.Words) : null; }
+			}
 		}
 	}
 }

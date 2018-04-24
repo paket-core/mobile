@@ -63,21 +63,23 @@ namespace PaketGlobal
 		{
 			if (IsValid()) {
 				await WithProgress(activityIndicator, async () => {
-					//Restore seed from word list
-					var m = new Mnemonic(entryMnemonic.Text, Wordlist.English);
-					var seed = m.DeriveSeed();
+					try {
+						//Generate private key
+						var kd = App.Locator.Profile.GenerateKeyPair(entryMnemonic.Text);
 
-					//Recover private key
-					var myKeyPair = KeyPair.FromRawSeed(seed);
-					var pubkey = Encoders.Hex.EncodeData(myKeyPair.PublicKey);
+						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
+						if (result != null) {
+							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
+															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							App.Locator.Profile.KeyPair = kd.KeyPair;
 
-					var result = await App.Locator.ServiceClient.RecoverUser(pubkey);
-					if (result != null) {
-						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
+							MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
 
-						MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
-
-						Application.Current.MainPage = new MainPage();
+							Application.Current.MainPage = new MainPage();
+						}
+					} catch (Exception ex) {
+						System.Diagnostics.Debug.WriteLine(ex);
+						ShowError(ex.Message);
 					}
 				});
 			}
@@ -87,19 +89,22 @@ namespace PaketGlobal
 		{
 			if (IsValid()) {
 				await WithProgress(activityIndicator, async () => {
-					//Create new seed
-					var m = new Mnemonic(Wordlist.English, WordCount.Twelve);
-					var seed = m.DeriveSeed();
+					try {
+						//Create new private key
+						var kd = App.Locator.Profile.GenerateKeyPair();
 
-					//Create new private key
-					var myKeyPair = KeyPair.FromRawSeed(seed);
-					var pubkey = Encoders.Hex.EncodeData(myKeyPair.PublicKey);
+						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
+						if (result != null) {
+							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
+															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							App.Locator.Profile.KeyPair = kd.KeyPair;
 
-					var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName, ViewModel.PhoneNumber, pubkey);
-					if (result != null) {
-						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName, result.UserDetails.PhoneNumber, result.UserDetails.Pubkey);
-
-						Application.Current.MainPage = new MainPage();
+							Application.Current.MainPage = new MainPage();
+						}
+					} catch (Exception ex) {
+						System.Diagnostics.Debug.WriteLine(ex);
+						ShowError(ex.Message);
 					}
 				});
 			}
@@ -117,7 +122,6 @@ namespace PaketGlobal
 			Title = "Create New Private Key";
 			await ViewHelper.ToggleViews(layoutRegistration, layoutLogin);
 			ViewModel.Reset();
-
 		}
 
 		#endregion Button Handlers

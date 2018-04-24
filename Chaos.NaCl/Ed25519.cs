@@ -8,7 +8,7 @@ namespace Chaos.NaCl
         public static readonly int PublicKeySizeInBytes = 32;
         public static readonly int SignatureSizeInBytes = 64;
         public static readonly int ExpandedPrivateKeySizeInBytes = 32 * 2;
-        public static readonly int PrivateKeySeedSizeInBytes = 64;
+        public static readonly int PrivateKeySeedSizeInBytes = 32;
         public static readonly int SharedKeySizeInBytes = 32;
 
         public static bool Verify(ArraySegment<byte> signature, ArraySegment<byte> message, ArraySegment<byte> publicKey)
