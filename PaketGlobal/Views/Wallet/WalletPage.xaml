@@ -2,31 +2,43 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
              xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <ScrollView x:Name="contentWallet">
-                <StackLayout Orientation="Vertical" Spacing="0">
-                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                        <Label Text = "Balance" FontSize="13" TextColor="#808080"/>
-                        <Label Text = "{Binding Balance.Balance, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                        <Label Text = "Buy Price" FontSize="13" TextColor="#808080"/>
-                        <Label Text = "{Binding Price.BuyPrice, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                        <Label Text = "Sell Price" FontSize="13" TextColor="#808080"/>
-                        <Label Text = "{Binding Price.SellPrice, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                        <Label Text = "Send BULs" FontSize="13" TextColor="#808080"/>
-                        <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
-                        <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
-                        <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
-                            <xlabs:ExtendedButton x:Name="btnSend" Text="Send" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
-                        </StackLayout>
-                    </StackLayout>
-                </StackLayout>
-            </ScrollView>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <TableView x:Name="contentWallet" Intent="Data" HasUnevenRows="true" RowHeight="-1" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
+                <TableRoot>
+                    <TableSection Title="Balance">
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                                <Label Text = "Balance" FontSize="13" TextColor="#808080"/>
+                                <Label Text = "{Binding Balance.Balance, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Prices">
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                                <Label Text = "Buy Price" FontSize="13" TextColor="#808080"/>
+                                <Label Text = "{Binding Price.BuyPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                                <Label Text = "Sell Price" FontSize="13" TextColor="#808080"/>
+                                <Label Text = "{Binding Price.SellPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Transactions">
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                                <Label Text="Send BULs" FontSize="13" TextColor="#808080"/>
+                                <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
+                                <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
+                                <xlabs:ExtendedButton x:Name="btnSend" Margin="0,20,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
 
             <AbsoluteLayout x:Name="layoutActivity" BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
                 <ActivityIndicator x:Name="activityIndicator"

@@ -26,7 +26,7 @@ namespace PaketGlobal
 
 		void LaunchPackageClicked()
 		{
-			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package());
+			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() { Deadline = DateTimeHelper.ToUnixTime(DateTime.Now) });
 		}
 
 		protected async override void OnAppearing()

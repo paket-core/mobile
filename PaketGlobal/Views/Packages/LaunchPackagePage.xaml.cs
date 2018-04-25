@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Acr.UserDialogs;
 using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
@@ -42,6 +43,39 @@ namespace PaketGlobal
 			App.ShowLoading(false, false);
 		}
 
+		void DeadlineTapped(object sender, System.EventArgs e)
+		{
+			var dpc = new DatePromptConfig();
+			dpc.OkText = "OK";
+			dpc.CancelText = "Cancel";
+			dpc.IsCancellable = true;
+			dpc.MinimumDate = DateTime.Today;
+			dpc.Title = "Please select a Deadline Date";
+			dpc.OnAction = dateResult =>
+			{
+				if (dateResult.Ok) {
+					var deadlineSecs = DateTimeHelper.ToUnixTime(dateResult.SelectedDate);
+
+					var ptc = new TimePromptConfig();
+					ptc.OkText = "OK";
+					ptc.CancelText = "Cancel";
+					ptc.IsCancellable = true;
+					ptc.SelectedTime = new TimeSpan(14, 0, 0);
+					ptc.Title = "Please select a Deadline Time";
+					ptc.OnAction = timeResult => {
+						if (timeResult.Ok) {
+							ViewModel.Deadline = deadlineSecs + (long)timeResult.SelectedTime.TotalSeconds;
+							entryDeadline.Text = ViewModel.DeadlineString;
+						}
+					};
+
+					UserDialogs.Instance.TimePrompt(ptc);
+				}
+			};
+
+			UserDialogs.Instance.DatePrompt(dpc);
+		}
+
 		void HandleCompleted(object sender, System.EventArgs e)
 		{
 			if (sender == entryRecepient) {
@@ -53,7 +87,7 @@ namespace PaketGlobal
 			} else if (sender == entryPayment) {
 				entryCollateral.Focus();
 			} else if (sender == entryCollateral) {
-				OnSaveClicked();
+				entryCollateral.Unfocus();
 			}
 		}
 	}

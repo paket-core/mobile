@@ -2,26 +2,38 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.ProfilePage"
              xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Orientation="Vertical" Spacing="0">
-                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                    <Label Text = "User Name" FontSize="13" TextColor="#808080"/>
-                    <Label Text = "{Binding UserName, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                    <Label Text = "Full Name" FontSize="13" TextColor="#808080"/>
-                    <Label Text = "{Binding FullName, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                    <Label Text = "Phone Number" FontSize="13" TextColor="#808080"/>
-                    <Label Text = "{Binding PhoneNumber, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                    <Label Text = "Mnemonic" FontSize="13" TextColor="#808080"/>
-                    <Label Text = "Use this mnemonic to recover private key" FontSize="12" TextColor="#808080"/>
-                    <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic Phrase" Keyboard="Text" InputEnabled="false" TintColor="#DE000000" Text="{Binding Mnemonic, Mode=OneWay}"/>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
+        <TableView x:Name="contentProfile" HasUnevenRows="true" RowHeight="-1">
+            <TableRoot>
+                <TableSection Title="User">
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                            <Label Text = "User Name" FontSize="13" TextColor="#808080"/>
+                            <Label Text = "{Binding UserName, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                            <Label Text = "Full Name" FontSize="13" TextColor="#808080"/>
+                            <Label Text = "{Binding FullName, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                            <Label Text = "Phone Number" FontSize="13" TextColor="#808080"/>
+                            <Label Text = "{Binding PhoneNumber, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="Keys">
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                            <Label Text = "Mnemonic" FontSize="13" TextColor="#808080"/>
+                            <Label Text = "Use this mnemonic to recover private key on another device" FontSize="12" TextColor="#808080"/>
+                            <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic Phrase" Keyboard="Text" InputEnabled="false" TintColor="#DE000000" Text="{Binding Mnemonic, Mode=OneWay}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
     </ContentPage.Content>
 </local:BasePage>

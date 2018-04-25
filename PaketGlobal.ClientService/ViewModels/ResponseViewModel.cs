@@ -154,14 +154,14 @@ namespace PaketGlobal.ClientService
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-		[DataMember(Name = "creation_promise")]
-		public string CreationPromise { get; set; }
+		[DataMember(Name = "escrow_address")]
+		public string EscrowAddress { get; set; }
 
-		[DataMember(Name = "paket_id")]
-		public string PaketId { get; set; }
+		[DataMember(Name = "payment_transaction")]
+		public string PaymentTransaction { get; set; }
 
-		[DataMember(Name = "payment_promise")]
-		public string PaymentPromise { get; set; }
+		[DataMember(Name = "refund_transaction")]
+		public string RefundTransaction { get; set; }
 	}
 
 	[DataContract]
