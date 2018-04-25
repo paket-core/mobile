@@ -18,7 +18,7 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
-			Title = "Please Login";
+			Title = "Restore Private Key";
 
 			BindingContext = new RegisterViewModel();
 		}
