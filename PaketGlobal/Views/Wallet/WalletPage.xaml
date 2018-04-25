@@ -19,8 +19,8 @@
                     </StackLayout>
                     <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                         <Label Text = "Send BULs" FontSize="13" TextColor="#808080"/>
-                        <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000" Text="{Binding FullName, Mode=TwoWay}"/>
-                        <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000" Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                        <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
+                        <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
                         <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                             <xlabs:ExtendedButton x:Name="btnSend" Text="Send" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
                         </StackLayout>

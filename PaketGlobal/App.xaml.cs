@@ -33,6 +33,9 @@ namespace PaketGlobal
 			//else
 				//MainPage = new NavigationPage(new MainPage());
 
+			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.ServiceClient.TrySign = Locator.Profile.SignData;
+
 			if (String.IsNullOrWhiteSpace(Locator.Profile.Pubkey)) {
 				var navPage = Locator.NavigationService.Initialize(new LoginPage());
 				MainPage = navPage;

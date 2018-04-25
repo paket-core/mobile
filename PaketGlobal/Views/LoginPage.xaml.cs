@@ -65,20 +65,23 @@ namespace PaketGlobal
 				await WithProgress(activityIndicator, async () => {
 					try {
 						//Generate private key
-						var kd = App.Locator.Profile.GenerateKeyPair(entryMnemonic.Text);
+						var kd = Profile.GenerateKeyPair(entryMnemonic.Text);
+						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
 						if (result != null) {
 							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
 															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
-							App.Locator.Profile.KeyPair = kd.KeyPair;
 
 							MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
 
 							Application.Current.MainPage = new MainPage();
+						} else {
+							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
+						App.Locator.Profile.KeyPair = null;
 						ShowError(ex.Message);
 					}
 				});
@@ -91,19 +94,22 @@ namespace PaketGlobal
 				await WithProgress(activityIndicator, async () => {
 					try {
 						//Create new private key
-						var kd = App.Locator.Profile.GenerateKeyPair();
+						var kd = Profile.GenerateKeyPair();
+						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
 							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
 															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
-							App.Locator.Profile.KeyPair = kd.KeyPair;
 
 							Application.Current.MainPage = new MainPage();
+						} else {
+							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
+						App.Locator.Profile.KeyPair = null;
 						ShowError(ex.Message);
 					}
 				});

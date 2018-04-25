@@ -1,5 +1,6 @@
 ﻿using System;
 using NBitcoin;
+using NBitcoin.DataEncoders;
 using Stellar;
 
 namespace PaketGlobal
@@ -52,7 +53,7 @@ namespace PaketGlobal
 			}
 		}
 
-		public KeyData GenerateKeyPair(string mnemonic = null)
+		public static KeyData GenerateKeyPair(string mnemonic = null)
 		{
 			//Restore seed from word list
 			var mo = String.IsNullOrWhiteSpace(mnemonic) ? new Mnemonic(Wordlist.English, WordCount.Twelve)
@@ -64,6 +65,13 @@ namespace PaketGlobal
 			var kp = KeyPair.FromRawSeed(seed);
 
 			return new KeyData { Mnemonic = mo, KeyPair = kp };
+		}
+
+		public string SignData(string data)
+		{
+			var signed = KeyPair.Sign(data);
+			var result = Encoders.Base64.EncodeData(signed);
+			return result;
 		}
 
 		protected virtual void OnChanged (EventArgs e)

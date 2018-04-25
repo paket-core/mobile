@@ -45,18 +45,26 @@ namespace PaketGlobal
 
 		private async void SendClicked(object sender, EventArgs e)
 		{
-			Unfocus();
+			if (IsValid()) {
+				Unfocus();
 
-			App.ShowLoading(true, false);
+				App.ShowLoading(true, false);
 
-			var result = await App.Locator.ServiceClient.SendBuls(entryRecepient.Text, long.Parse(entryAmount.Text));
-			if (result != null) {
-				ShowError("Sent successfully");
-			} else {
-				ShowError("Error occured");
+				var trans = await App.Locator.ServiceClient.PrepareSendBuls(entryRecepient.Text, long.Parse(entryAmount.Text));
+				if (trans != null) {
+					var signed = App.Locator.Profile.SignData(trans.Transaction);
+					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
+					if (result != null) {
+						ShowError("Sent successfully");
+					} else {
+						ShowError("Error occured");
+					}
+				} else {
+					ShowError("Error occured");
+				}
+
+				App.ShowLoading(false, false);
 			}
-
-			App.ShowLoading(false, false);
 		}
 
 		void PubkeyCompleted(object sender, System.EventArgs e)
@@ -67,6 +75,22 @@ namespace PaketGlobal
 		void BULsCompleted(object sender, System.EventArgs e)
 		{
 			entryAmount.Unfocus();
+		}
+
+		protected override bool IsValid()
+		{
+			if (!ValidationHelper.ValidateTextField(entryRecepient.Text)) {
+				//Workspace.OnValidationError(ValidationError.Password);
+				entryRecepient.Focus();
+				return false;
+			}
+			if (!ValidationHelper.ValidateTextField(entryAmount.Text)) {
+				//Workspace.OnValidationError(ValidationError.PasswordConfirmation);
+				entryAmount.Focus();
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

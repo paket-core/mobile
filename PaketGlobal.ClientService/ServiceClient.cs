@@ -15,6 +15,7 @@ namespace PaketGlobal.ClientService
 	public class ServiceClient
 	{
 		public delegate string PubKeyHandler();
+		public delegate string SignHandler(string data);
 
 		string _url;
 
@@ -23,6 +24,7 @@ namespace PaketGlobal.ClientService
 		ServiceStackSerializer _serializer;
 
 		public PubKeyHandler TryGetPubKey { get; set; }
+		public SignHandler TrySign { get; set; }
 
 		public ServiceClient(string url)
 		{
@@ -49,7 +51,7 @@ namespace PaketGlobal.ClientService
 			request.AddParameter("full_name", fullName);
 			request.AddParameter("phone_number", phoneNumber);
 
-			return await SendRequest<UserData>(request);
+			return await SendRequest<UserData>(request, pubkey);
 		}
 
 		public async Task<UserData> RecoverUser(string pubkey)
@@ -58,7 +60,7 @@ namespace PaketGlobal.ClientService
 
 			var request = PrepareRequest("/v1/recover_user", Method.POST, pubkey);
 
-			return await SendRequest<UserData>(request);
+			return await SendRequest<UserData>(request, pubkey);
 		}
 
 		#endregion User
@@ -79,14 +81,33 @@ namespace PaketGlobal.ClientService
 			return await SendRequest<PriceData>(request);
 		}
 
-		public async Task<SendBulsData> SendBuls(string toPubkey, long amountBuls)
+		public async Task<SubmitTransactionData> SendBuls(string toPubkey, long amountBuls)
 		{
 			var request = PrepareRequest("/v1/send_buls", Method.POST);
 
 			request.AddParameter("to_pubkey", toPubkey);
 			request.AddParameter("amount_buls", amountBuls);
 
+			return await SendRequest<SubmitTransactionData>(request);
+		}
+
+		public async Task<SendBulsData> PrepareSendBuls(string toPubkey, long amountBuls)
+		{
+			var request = PrepareRequest("/v1/prepare_send_buls", Method.POST);
+
+			request.AddParameter("to_pubkey", toPubkey);
+			request.AddParameter("amount_buls", amountBuls);
+
 			return await SendRequest<SendBulsData>(request);
+		}
+
+		public async Task<SubmitTransactionData> SubmitTransaction(string signedTrans)
+		{
+			var request = PrepareRequest("/v1/submit_transaction", Method.POST);
+
+			request.AddParameter("transaction", signedTrans);
+
+			return await SendRequest<SubmitTransactionData>(request);
 		}
 
 		public async Task<WalletPubkeyData> WalletPubkey()
@@ -161,22 +182,37 @@ namespace PaketGlobal.ClientService
 
 		#region Client Methods
 
+		private void SignRequest(RestRequest request, string pubkey)
+		{
+			StringBuilder fingerprint = new StringBuilder();
+			fingerprint.Append(request.Resource);
+
+			foreach (var p in request.Parameters) {
+				fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
+			}
+
+			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToUnixTime(DateTime.Now));
+			request.AddHeader("Fingerprint", fingerprint.ToString());
+
+			var signature = TrySign?.Invoke(fingerprint.ToString());
+			if (signature != null) request.AddHeader("Signature", signature);
+
+			pubkey = pubkey ?? TryGetPubKey?.Invoke();
+			if (pubkey != null) request.AddHeader("Pubkey", pubkey);
+		}
+
 		private RestRequest PrepareRequest(string url, Method method, string pubkey = null)
 		{
 			var request = new RestRequest(url);
-			pubkey = pubkey ?? TryGetPubKey?.Invoke();
-			if (pubkey != null) {
-				request.AddHeader("Pubkey", pubkey);
-			}
-			request.AddHeader("Fingerprint", "fingerprint");
-			request.AddHeader("Signature", "signature");
 			request.Method = method;
 			request.Serializer = _serializer;
 			return request;
 		}
 
-		private async Task<T> SendRequest<T>(RestRequest request, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
+		private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
 		{
+			SignRequest(request, pubkey);
+
 			try {
 				IRestResponse<T> response;
 

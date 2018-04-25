@@ -110,8 +110,37 @@ namespace PaketGlobal.ClientService
 	[DataContract]
 	public class SendBulsData : BaseData
 	{
-		[DataMember(Name = "promise")]
-		public string Promise { get; set; }
+		[DataMember(Name = "transaction")]
+		public string Transaction { get; set; }
+	}
+
+	[DataContract]
+	public class SubmitTransactionData : BaseData
+	{
+		[DataMember(Name = "transaction")]
+		public TransactionData Transaction { get; set; }
+	}
+
+	[DataContract]
+	public class TransactionData
+	{
+		[DataMember(Name = "envelope_xdr")]
+		public TransactionData EnvelopeXdr { get; set; }
+
+		[DataMember(Name = "hash")]
+		public TransactionData Hash { get; set; }
+
+		[DataMember(Name = "ledger")]
+		public TransactionData Ledger { get; set; }
+
+		[DataMember(Name = "result_meta_xdr")]
+		public TransactionData ResultMetaXdr { get; set; }
+
+		[DataMember(Name = "result_xdr")]
+		public TransactionData ResultXdr { get; set; }
+
+		[DataMember(Name = "_links")]
+		public Dictionary<string, Dictionary<string, string>> Links { get; set; }
 	}
 
 	//Packages
