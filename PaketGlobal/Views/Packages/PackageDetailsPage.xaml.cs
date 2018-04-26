@@ -11,6 +11,10 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
+			barcodeImage.BarcodeOptions.Width = 320;
+			barcodeImage.BarcodeOptions.Height = 320;
+			barcodeImage.BarcodeOptions.Margin = 10;
+
 			Title = "Package Details";
 
 			BindingContext = package;

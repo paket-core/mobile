@@ -18,6 +18,7 @@ namespace PaketGlobal
 			Title = "Packages";
 
 			ToolbarItems.Add(new ToolbarItem("Launch Package", "ic_add_circle_white_24dp.png", LaunchPackageClicked));
+			ToolbarItems.Add(new ToolbarItem("Accept Package", null, AcceptPackageClicked));
 
 			InitializeComponent();
 
@@ -27,6 +28,11 @@ namespace PaketGlobal
 		void LaunchPackageClicked()
 		{
 			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() { Deadline = DateTimeHelper.ToUnixTime(DateTime.Now) });
+		}
+
+		void AcceptPackageClicked()
+		{
+			App.Locator.NavigationService.NavigateTo(Locator.AcceptPackagePage);
 		}
 
 		protected async override void OnAppearing()

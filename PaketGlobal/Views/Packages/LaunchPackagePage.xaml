@@ -24,7 +24,7 @@
                     <ViewCell Tapped="DeadlineTapped">
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Deadline" TextColor="#00796B"/>
-                            <Entry x:Name="entryDeadline" IsEnabled="false" Text = "{Binding DeadlineString, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
+                            <Entry x:Name="entryDeadline" IsEnabled="false" Text = "{Binding DeadlineString, StringFormat='{0:MM.dd.yyyy}', Mode=TwoWay}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
                                          Completed="HandleCompleted" Keyboard = "Numeric"/>
                         </StackLayout>
                     </ViewCell>

@@ -12,6 +12,7 @@ namespace PaketGlobal
 		public const string PackagesPage = "PackagesPage";
 		public const string PackageDetailsPage = "PackageDetailsDetail";
 		public const string LaunchPackagePage = "LaunchPackagePage";
+		public const string AcceptPackagePage = "AcceptPackagePage";
 		public const string WalletPage = "WalletPage";
 
 		public T GetInstance<T>()
@@ -93,6 +94,7 @@ namespace PaketGlobal
 				navigationService.Configure(Locator.PackagesPage, typeof(PackagesPage));
 				navigationService.Configure(Locator.PackageDetailsPage, typeof(PackageDetailsPage));
 				navigationService.Configure(Locator.LaunchPackagePage, typeof(LaunchPackagePage));
+				navigationService.Configure(Locator.AcceptPackagePage, typeof(AcceptPackagePage));
 				navigationService.Configure(Locator.ProfilePage, typeof(ProfilePage));
 				navigationService.Configure(Locator.WalletPage, typeof(WalletPage));
 

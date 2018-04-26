@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackageDetailsPage"
-             xmlns:local="clr-namespace:PaketGlobal">
+             xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
     <local:BasePage.Content>
         <TableView x:Name="contentPackage" HasUnevenRows="true" RowHeight="-1">
             <TableRoot>
@@ -20,13 +20,13 @@
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Deadline" FontSize="13" TextColor="#808080"/>
-                            <Label Text = "{Binding DeadlineString, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <Label Text = "{Binding DeadlineDT, StringFormat='{0:MM.dd.yyyy}', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Launched" FontSize="13" TextColor="#808080"/>
-                            <Label Text = "{Binding SendTimeString, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <Label Text = "{Binding SendTimeDT, StringFormat='{0:MM.dd.yyyy h:mm tt}', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
@@ -44,6 +44,14 @@
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
+                <TableSection Title="Payment Info">
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="5">
+                            <Label Text = "Use this barcode to pass the paket to a courier or accept it by the recepient" LineBreakMode="WordWrap" FontSize="13" TextColor="#808080"/>
+                            <zxing:ZXingBarcodeImageView x:Name="barcodeImage" BarcodeValue="{Binding BarcodeData}" HorizontalOptions="FillAndExpand" HeightRequest="320"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
                 <TableSection Title="Events">
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Spacing="0">
@@ -56,7 +64,7 @@
                                             <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                                 <Label Text="{Binding EventType, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                                                 <Label Text="{Binding PaketUser, Mode=OneWay}" FontSize="13" TextColor="#808080"/>
-                                                <Label Text="{Binding TimeString, StringFormat='Sent: {0}' Mode=OneWay}" FontSize="13" TextColor="#808080"/>
+                                                <Label Text="{Binding TimestampDT, StringFormat='{0:MM.dd.yyyy h:mm tt}', Mode=OneWay}" FontSize="13" TextColor="#808080"/>
                                                 <Label Text="{Binding GPSString, StringFormat='Location: {0}', StringFormat='Sent: {0}' Mode=OneWay}" FontSize="13" TextColor="#808080"/>
                                             </StackLayout>
                                          </ViewCell>                    

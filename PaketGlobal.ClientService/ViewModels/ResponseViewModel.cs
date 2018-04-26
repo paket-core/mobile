@@ -232,6 +232,10 @@ namespace PaketGlobal.ClientService
 			get { return SendTimeDT.ToString(); }
 		}
 
+		public string BarcodeData {
+			get { return "Paket json"; }
+		}
+
 		//[DataMember(Name = "cost")]
 		//public long Cost { get; set; }
 

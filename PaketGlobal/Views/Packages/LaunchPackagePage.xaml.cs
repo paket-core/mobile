@@ -54,22 +54,10 @@ namespace PaketGlobal
 			dpc.OnAction = dateResult =>
 			{
 				if (dateResult.Ok) {
-					var deadlineSecs = DateTimeHelper.ToUnixTime(dateResult.SelectedDate);
-
-					var ptc = new TimePromptConfig();
-					ptc.OkText = "OK";
-					ptc.CancelText = "Cancel";
-					ptc.IsCancellable = true;
-					ptc.SelectedTime = new TimeSpan(14, 0, 0);
-					ptc.Title = "Please select a Deadline Time";
-					ptc.OnAction = timeResult => {
-						if (timeResult.Ok) {
-							ViewModel.Deadline = deadlineSecs + (long)timeResult.SelectedTime.TotalSeconds;
-							entryDeadline.Text = ViewModel.DeadlineString;
-						}
-					};
-
-					UserDialogs.Instance.TimePrompt(ptc);
+					var date = dateResult.SelectedDate;
+					date.AddSeconds(86399);//23:59.59 of selected day
+					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date);
+					entryDeadline.Text = ViewModel.DeadlineString;
 				}
 			};
 

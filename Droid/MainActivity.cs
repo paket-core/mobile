@@ -21,6 +21,8 @@ namespace PaketGlobal.Droid
 		{
 			Instance = this;
 
+			ZXing.Net.Mobile.Forms.Android.Platform.Init();
+
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 
@@ -38,6 +40,13 @@ namespace PaketGlobal.Droid
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
+		}
+
+		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+		{
+			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+			global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 
 		private void RegisterServiceContainers()
