@@ -165,6 +165,16 @@ namespace PaketGlobal.ClientService
 	}
 
 	[DataContract]
+	public class BarcodePackageData
+	{
+		[DataMember(Name = "escrow_address")]
+		public string EscrowAddress { get; set; }
+
+		[DataMember(Name = "payment_transaction")]
+		public string PaymentTransaction { get; set; }
+	}
+
+	[DataContract]
 	public class PackagesData : BaseData
 	{
 		[DataMember(Name = "packages")]
@@ -216,6 +226,9 @@ namespace PaketGlobal.ClientService
 		[DataMember(Name = "events")]
 		public List<PackageEvent> Events { get; set; }
 
+		[DataMember(Name = "payment_transaction")]
+		public string PaymentTransaction { get; set; }
+
 		public DateTime DeadlineDT {
 			get { return DateTimeHelper.FromUnixTime(Deadline); }
 		}
@@ -231,18 +244,6 @@ namespace PaketGlobal.ClientService
 		public string SendTimeString {
 			get { return SendTimeDT.ToString(); }
 		}
-
-		public string BarcodeData {
-			get { return "Paket json"; }
-		}
-
-		//[DataMember(Name = "cost")]
-		//public long Cost { get; set; }
-
-		//[DataMember(Name = "deadline-timestamp")]
-		//public long DeadlineTimestamp { get; set; }
-
-
 	}
 
 	[DataContract]

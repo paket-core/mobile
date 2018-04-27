@@ -55,12 +55,12 @@ namespace PaketGlobal
 					var signed = App.Locator.Profile.SignData(trans.Transaction);
 					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
 					if (result != null) {
-						ShowError("Sent successfully");
+						ShowError("Funds sent successfully");
 					} else {
-						ShowError("Error occured");
+						ShowError("Error sending funds");
 					}
 				} else {
-					ShowError("Error occured");
+					ShowError("Error sending funds");
 				}
 
 				App.ShowLoading(false, false);

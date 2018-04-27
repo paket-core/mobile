@@ -121,11 +121,12 @@ namespace PaketGlobal.ClientService
 
 		#region Packages
 
-		public async Task<AcceptPackageData> AcceptPackage(string paketId)
+		public async Task<AcceptPackageData> AcceptPackage(string paketId, string transaction = null)
 		{
 			var request = PrepareRequest("/v1/accept_package", Method.POST);
 
 			request.AddParameter("paket_id", paketId);
+			if (transaction != null) request.AddParameter("payment_transaction", transaction);
 
 			return await SendRequest<AcceptPackageData>(request);
 		}

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using NBitcoin;
 using NBitcoin.DataEncoders;
+using Newtonsoft.Json;
 using Stellar;
 
 namespace PaketGlobal
@@ -72,6 +74,72 @@ namespace PaketGlobal
 			var signed = KeyPair.Sign(data);
 			var result = Encoders.Base64.EncodeData(signed);
 			return result;
+		}
+
+		public bool AddTransaction(string paketId, string trans)
+		{
+			try {
+				Dictionary<string, string> transactions = null;
+				var transData = App.Locator.AccountService.Transactions;
+
+				if (transData != null) transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
+				else transactions = new Dictionary<string, string>();
+
+				if (!transactions.ContainsKey(paketId)) {
+					transactions.Add(paketId, trans);
+				}
+
+				transData = JsonConvert.SerializeObject(transactions);
+				App.Locator.AccountService.Transactions = transData;
+
+				return true;
+			} catch (Exception ex) {
+				System.Diagnostics.Debug.WriteLine(ex);
+				return false;
+			}
+		}
+
+
+		public string GetTransaction(string paketId)
+		{
+			try {
+				var transData = App.Locator.AccountService.Transactions;
+
+				if (transData == null) return null;
+
+				var transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
+
+				if (transactions.ContainsKey(paketId)) {
+					var trans = transactions["paketId"];
+					return trans;
+				}
+
+				return null;
+			} catch (Exception ex) {
+				System.Diagnostics.Debug.WriteLine(ex);
+				return null;
+			}
+		}
+
+		public bool RemoveTransaction(string paketId)
+		{
+			try {
+				var transData = App.Locator.AccountService.Transactions;
+
+				if (transData == null) return false;
+
+				var transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
+
+				if (transactions.ContainsKey(paketId)) {
+					transactions.Remove(paketId);
+					return false;
+				}
+
+				return false;
+			} catch (Exception ex) {
+				System.Diagnostics.Debug.WriteLine(ex);
+				return false;
+			}
 		}
 
 		protected virtual void OnChanged (EventArgs e)

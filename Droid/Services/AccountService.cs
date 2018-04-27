@@ -43,6 +43,23 @@ namespace PaketGlobal.Droid
 			}
 		}
 
+		public string Transactions {
+			get {
+				var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+				return account?.Properties["Transactions"];
+			}
+			set {
+				var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+				if (account != null) {
+					if (account.Properties.ContainsKey("Transactions")) {
+						account.Properties["Transactions"] = value;
+					} else {
+						account.Properties.Add("Transactions", value);
+					}
+				}
+			}
+		}
+
 		public void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
 		{
 			if (!String.IsNullOrWhiteSpace(userName) && !String.IsNullOrWhiteSpace(fullName)

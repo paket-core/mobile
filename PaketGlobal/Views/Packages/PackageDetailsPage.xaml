@@ -48,7 +48,7 @@
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="5">
                             <Label Text = "Use this barcode to pass the paket to a courier or accept it by the recepient" LineBreakMode="WordWrap" FontSize="13" TextColor="#808080"/>
-                            <zxing:ZXingBarcodeImageView x:Name="barcodeImage" BarcodeValue="{Binding BarcodeData}" HorizontalOptions="FillAndExpand" HeightRequest="320"/>
+                            <zxing:ZXingBarcodeImageView x:Name="barcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="320"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>

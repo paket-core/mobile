@@ -34,10 +34,25 @@ namespace PaketGlobal
 			var vm = ViewModel;
 			var result = await App.Locator.ServiceClient.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
 			if (result != null) {
-				System.Threading.Thread.Sleep(1000);
+				App.Locator.Profile.AddTransaction(result.EscrowAddress, result.PaymentTransaction);//save payment transaction data
 
-				await App.Locator.Packages.Load();
-				App.Locator.NavigationService.GoBack();
+				var trans = await App.Locator.ServiceClient.PrepareSendBuls(result.EscrowAddress, vm.Payment);
+				if (trans != null) {
+					var signed = App.Locator.Profile.SignData(trans.Transaction);
+					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+					if (paymentResult != null) {
+						await System.Threading.Tasks.Task.Delay(2000);
+						await App.Locator.Packages.Load();
+						ShowError("Package created successfully");
+						App.Locator.NavigationService.GoBack();
+					} else {
+						ShowError("Error sending payment");
+					}
+				} else {
+					ShowError("Error sending payment");
+				}
+			} else {
+				ShowError("Error during package creation");
 			}
 
 			App.ShowLoading(false, false);

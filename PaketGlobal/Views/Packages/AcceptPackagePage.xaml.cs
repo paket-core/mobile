@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Newtonsoft.Json;
+using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -9,6 +10,13 @@ namespace PaketGlobal
 	{
 		bool cleaned;
 		bool scanned;
+		BarcodePackageData data;
+
+		private Package ViewModel {
+			get {
+				return BindingContext as Package;
+			}
+		}
 
 		public AcceptPackagePage()
 		{
@@ -54,18 +62,99 @@ namespace PaketGlobal
 				Device.BeginInvokeOnMainThread(async () => {
 					StopScanning();
 
-					//TODO check scanned barcode, do stuff
-
-					if (true) {
-						scanned = true;
-						await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
-					} else {
-						StartScanning();
+					try {
+						data = JsonConvert.DeserializeObject<BarcodePackageData>(result.Text);
+					} catch (Exception ex) {
+						System.Diagnostics.Debug.WriteLine(ex);
 					}
 
-					App.Locator.NotificationService.ShowMessage(String.Format("Scanned Barcode: {0}", result.Text));
+					if (data != null && data.EscrowAddress != null && data.PaymentTransaction != null) {
+						scanned = true;
+
+						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
+						if (package != null) {
+							var myPubkey = App.Locator.Profile.Pubkey;
+							if (myPubkey == package.RecipientPubkey) {
+								//you are a recepient
+								Title = "Accept as a Recipient";
+							} else {/*if (myPubkey == package.CourierPubkey) {*/
+								//you are a courier
+								Title = "Accept as a Courier";
+							} /*else {
+								//you are nothing
+								ShowError("You are not participating in this delivery");
+								StartScanning();
+								return;
+							}*/
+
+							BindingContext = package;
+							await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
+						} else {
+							ShowError("Invalid package identifier");
+							StartScanning();
+						}
+					} else {
+						ShowError("Invalid barcode");
+						StartScanning();
+					}
 				});
 			};
+		}
+
+		async void AcceptClicked(object sender, System.EventArgs e)
+		{
+			var myPubkey = App.Locator.Profile.Pubkey;
+			if (myPubkey == ViewModel.CourierPubkey) {
+				//I'm a courier
+				App.ShowLoading(true, false);
+
+				var trans = await App.Locator.ServiceClient.PrepareSendBuls(data.EscrowAddress, ViewModel.Collateral);
+				if (trans != null) {
+					var signed = App.Locator.Profile.SignData(trans.Transaction);
+					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+					if (paymentResult != null) {
+						var acceptResult = App.Locator.ServiceClient.AcceptPackage(data.EscrowAddress);
+						if (acceptResult != null) {
+							App.Locator.Profile.AddTransaction(data.EscrowAddress, data.PaymentTransaction);
+							await System.Threading.Tasks.Task.Delay(2000);
+							await App.Locator.Packages.Load();
+							ShowError("Package accepted successfully");
+							App.Locator.NavigationService.GoBack();
+						} else {
+							ShowError("Error accepting the package");
+						}
+					} else {
+						ShowError("Error sending collateral");
+					}
+				} else {
+					ShowError("Error sending collateral");
+				}
+
+				App.ShowLoading(false, false);
+			} else if (myPubkey == ViewModel.RecipientPubkey) {
+				//I'm a recipient
+				App.ShowLoading(true, false);
+
+				var signed = App.Locator.Profile.SignData(data.PaymentTransaction);//sign the payment transaction
+				var submitResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+				if (submitResult != null) {
+					var result = await App.Locator.ServiceClient.AcceptPackage(data.EscrowAddress, data.PaymentTransaction);//accept the package
+					if (result != null) {
+						await System.Threading.Tasks.Task.Delay(2000);
+						await App.Locator.Packages.Load();
+						ShowError("Package accepted successfully");
+						App.Locator.NavigationService.GoBack();
+					} else {
+						ShowError("Error accepting the package");
+					}
+				} else {
+					ShowError("Error accepting the package");
+				}
+
+				App.ShowLoading(false, false);
+			} else {
+				ShowError("You are not participating in this delivery");
+			}
 		}
 
 		public void StartScanning()
@@ -84,7 +173,7 @@ namespace PaketGlobal
 			}
 		}
 
-		private void CleanUp()
+		protected override void CleanUp()
 		{
 			StopScanning();
 			cleaned = true;

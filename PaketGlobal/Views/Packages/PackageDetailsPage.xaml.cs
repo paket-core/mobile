@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
@@ -18,6 +19,15 @@ namespace PaketGlobal
 			Title = "Package Details";
 
 			BindingContext = package;
+
+			var transaction = App.Locator.Profile.GetTransaction(package.PaketId);
+
+			var data = new BarcodePackageData {
+				EscrowAddress = package.PaketId,
+				PaymentTransaction = transaction
+			};
+
+			barcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);
 		}
 
 		void EventItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
