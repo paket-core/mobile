@@ -186,7 +186,7 @@ namespace PaketGlobal.ClientService
 		private void SignRequest(RestRequest request, string pubkey)
 		{
 			StringBuilder fingerprint = new StringBuilder();
-			fingerprint.Append(request.Resource);
+			fingerprint.Append(_client.BaseUrl.OriginalString + request.Resource);
 
 			foreach (var p in request.Parameters) {
 				fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
