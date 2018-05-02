@@ -64,12 +64,13 @@ namespace PaketGlobal
 			dpc.OkText = "OK";
 			dpc.CancelText = "Cancel";
 			dpc.IsCancellable = true;
-			dpc.MinimumDate = ViewModel.DeadlineDT;
+			dpc.MinimumDate = DateTime.Today.AddDays(1);
+			dpc.SelectedDate = ViewModel.DeadlineDT.Date;
 			dpc.Title = "Please select a Deadline Date";
 			dpc.OnAction = dateResult =>
 			{
 				if (dateResult.Ok) {
-					var date = dateResult.SelectedDate;
+					var date = dateResult.SelectedDate.Date;
 					date = date.AddSeconds(86399);//23:59.59 of selected day
 					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date);
 					entryDeadline.Text = ViewModel.DeadlineString;
