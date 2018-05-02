@@ -227,13 +227,25 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\ic_check_circle_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_add_circle_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\ic_check_circle_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle_white_24dp.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\ic_check_circle_white_24dp.png" />
     <AndroidResource Include="Resources\drawable\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_check_circle_white_24dp.png" />
     <AndroidResource Include="Resources\drawable\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_check_circle_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_account_balance_wallet_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_account_balance_wallet_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_account_balance_wallet_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_balance_wallet_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_account_box_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_account_box_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_account_box_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_box_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_pages_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_pages_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable\ic_pages_white_36dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_pages_white_36dp.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PaketGlobal.ClientService\PaketGlobal.ClientService.csproj">

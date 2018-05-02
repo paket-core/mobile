@@ -22,9 +22,7 @@ namespace PaketGlobal
 		{
 			MasterPage = master;
 
-            //var convertor = new ElementToImageSourceConverter();
-
-			Title = "ChordIQ";
+			Title = "Paket Global";
 
 #if __IOS__
 			Icon = "hamburger.png";
@@ -58,7 +56,7 @@ namespace PaketGlobal
 				IsClippedToBounds = true,
 				HorizontalOptions = LayoutOptions.Fill,
 				VerticalOptions = LayoutOptions.Start,
-				HeightRequest = 200
+				HeightRequest = 100
 			};
 			headerLayout.BindingContext = App.Locator.Profile;
 			contentLayout.Children.Add (headerLayout);

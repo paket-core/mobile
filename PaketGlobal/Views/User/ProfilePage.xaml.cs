@@ -13,6 +13,13 @@ namespace PaketGlobal
 			Title = "Profile";
 
 			BindingContext = user;
+
+			ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+		}
+
+		void OnLogoutClicked()
+		{
+			App.Locator.Workspace.Logout();
 		}
 	}
 }

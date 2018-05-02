@@ -196,6 +196,21 @@
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <BundleResource Include="Resources\ic_add_circle_white_24dp.png" />
     <BundleResource Include="Resources\ic_add_circle_white_24dp%402x.png" />
+    <BundleResource Include="Resources\ic_add_circle_white_24dp%403x.png" />
+    <BundleResource Include="Resources\ic_check_circle_white_24dp.png" />
+    <BundleResource Include="Resources\ic_check_circle_white_24dp%402x.png" />
+    <BundleResource Include="Resources\ic_check_circle_white_24dp%403x.png" />
+    <BundleResource Include="Resources\ic_account_box_white_36dp.png" />
+    <BundleResource Include="Resources\ic_account_box_white_36dp%402x.png" />
+    <BundleResource Include="Resources\ic_account_box_white_36dp%403x.png" />
+    <BundleResource Include="Resources\ic_account_balance_wallet_white_36dp.png" />
+    <BundleResource Include="Resources\ic_account_balance_wallet_white_36dp%402x.png" />
+    <BundleResource Include="Resources\ic_account_balance_wallet_white_36dp%403x.png" />
+    <BundleResource Include="Resources\ic_pages_white_36dp.png" />
+    <BundleResource Include="Resources\ic_pages_white_36dp%402x.png" />
+    <BundleResource Include="Resources\ic_pages_white_36dp%403x.png" />
+    <BundleResource Include="Resources\hamburger.png" />
+    <BundleResource Include="Resources\hamburger%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -230,6 +245,8 @@
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Services\" />
+    <Folder Include="Assets.xcassets\ic_add_circle_white_36pt.imageset\" />
+    <Folder Include="Assets.xcassets\ic_check_circle_white_36p.imageset\" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

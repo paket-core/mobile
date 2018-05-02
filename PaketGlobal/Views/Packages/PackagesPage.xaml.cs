@@ -18,7 +18,7 @@ namespace PaketGlobal
 			Title = "Packages";
 
 			ToolbarItems.Add(new ToolbarItem("Launch Package", "ic_add_circle_white_24dp.png", LaunchPackageClicked));
-			ToolbarItems.Add(new ToolbarItem("Accept Package", null, AcceptPackageClicked));
+			ToolbarItems.Add(new ToolbarItem("Accept Package", "ic_check_circle_white_24dp.png", AcceptPackageClicked));
 
 			InitializeComponent();
 

@@ -25,15 +25,15 @@ namespace PaketGlobal
 
 			var cellContent = new StackLayout {
 				Orientation = StackOrientation.Horizontal,
-				Padding = 20,
-				Spacing = 30
+				Padding = 16,
+				Spacing = 16
 			};
 			cellWrapper.Children.Add (cellContent);
 
 			itemImage = new Image {
 				Aspect = Aspect.AspectFit,
-				WidthRequest = 35,
-				HeightRequest = 35,
+				WidthRequest = 36,
+				HeightRequest = 36,
 				HorizontalOptions = LayoutOptions.Start,
 				VerticalOptions = LayoutOptions.Center
 			};
@@ -62,7 +62,7 @@ namespace PaketGlobal
 
 		private void SetupBindings ()
 		{
-			//itemImage.SetBinding<MenuItem> (Image.SourceProperty, vm => vm.IconName, converter: new ElementToImageSourceConverter ());
+			itemImage.SetBinding<MenuItem>(Image.SourceProperty, vm => vm.IconName);//, converter: new ElementToImageSourceConverter ());
 			itemLabel.SetBinding<MenuItem> (Label.TextProperty, vm => vm.Text);
 			separatorLayout.SetBinding<MenuItem> (AbsoluteLayout.IsVisibleProperty, vm => vm.HasSeparator);
 		}

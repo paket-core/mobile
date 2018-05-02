@@ -81,29 +81,22 @@ namespace PaketGlobal
 		{
 			MenuItems.Clear();
 
-			//MenuItems.Add (new MenuItem {
-			//	IconName = Elements.Sampler,
-			//	Text = "Plan Sample",
-			//	OnItemTouched = () => NavigateTo (new MobileInspectorPage ()),
-			//	HasSeparator = true
-			//});
-
 			MenuItems.Add(new MenuItem {
-				//IconName = Elements.Notifications,
+				IconName = "ic_pages_white_36dp.png",
 				Text = "Packages",
 				OnItemTouched = () => NavigateTo(new PackagesPage()),
 				HasSeparator = true
 			});
 
 			MenuItems.Add(new MenuItem {
-				//IconName = Elements.Add,
+				IconName = "ic_account_balance_wallet_white_36dp.png",
 				Text = "Wallet",
 				OnItemTouched = () => NavigateTo(new WalletPage())
 			});
 
 			MenuItems.Add(new MenuItem {
-				//IconName = Elements.Dices,
-				Text = "Profile",//IsLogged ? AppResources.LogoutLabel : AppResources.LoginLabel,
+				IconName = "ic_account_box_white_36dp.png",
+				Text = "Profile",
 				OnItemTouched = () => {
 					var p = App.Locator.Profile;
 					var user = new ClientService.UserDetails() {
@@ -115,12 +108,6 @@ namespace PaketGlobal
 					NavigateTo(new ProfilePage(App.Locator.Profile));
 				},
 				HasSeparator = true
-			});
-
-			MenuItems.Add(new MenuItem {
-				//IconName = Elements.Logout,
-				Text = "Logout",
-				OnItemTouched = () => Workspace.Logout()
 			});
 		}
 
