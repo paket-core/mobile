@@ -238,11 +238,11 @@ namespace PaketGlobal.ClientService
 		}
 
 		public string DeadlineString {
-			get { return DeadlineDT.ToString(); }
+			get { return DeadlineDT.ToString("MM.dd.yyyy"); }
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString(); }
+			get { return SendTimeDT.ToString("MM.dd.yyyy h:mm tt"); }
 		}
 	}
 
