@@ -192,7 +192,7 @@ namespace PaketGlobal.ClientService
 				fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
 			}
 
-			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToUnixTime(DateTime.Now));
+			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.Now));
 			request.AddHeader("Fingerprint", fingerprint.ToString());
 
 			var signature = TrySign?.Invoke(fingerprint.ToString());
