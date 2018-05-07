@@ -84,7 +84,7 @@ namespace PaketGlobal
 			}
 
 			if (!SimpleIoc.Default.IsRegistered<ServiceClient>()) {
-				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl));
+				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl, Config.PrefundTestUrl));
 			}
 
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {

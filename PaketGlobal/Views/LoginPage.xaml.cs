@@ -100,10 +100,16 @@ namespace PaketGlobal
 						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
-							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							var prefundResult = await App.Locator.ServiceClient.FundTestUser(kd.KeyPair.Address);
 
-							Application.Current.MainPage = new MainPage();
+							if (prefundResult != null) {
+								App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
+																   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+
+								Application.Current.MainPage = new MainPage();
+							} else {
+								App.Locator.Profile.KeyPair = null;
+							}
 						} else {
 							App.Locator.Profile.KeyPair = null;
 						}

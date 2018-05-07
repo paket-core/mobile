@@ -43,6 +43,38 @@ namespace PaketGlobal.ClientService
 		public string Pubkey { get; set; }
 	}
 
+	[DataContract]
+	public class PrefundData : BaseData
+	{
+		[DataMember(Name = "hash")]
+		public string Hash { get; set; }
+
+		[DataMember(Name = "ledger")]
+		public int Ledger { get; set; }
+
+		[DataMember(Name = "envelope_xdr")]
+		public string EnvelopeXdr { get; set; }
+
+		[DataMember(Name = "result_xdr")]
+		public string ResultXdr { get; set; }
+
+		[DataMember(Name = "result_meta_xdr")]
+		public string ResultMetaXdr { get; set; }
+
+
+		[DataMember(Name = "type")]
+		public string Type { get; set; }
+
+		[DataMember(Name = "title")]
+		public string Title { get; set; }
+
+		[DataMember(Name = "detail")]
+		public string Detail { get; set; }
+
+		[DataMember(Name = "extras")]
+		public Dictionary<string, string> Extras { get; set; }
+	}
+
 	//Wallet
 
 	[DataContract]
