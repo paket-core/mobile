@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NBitcoin;
-using NBitcoin.DataEncoders;
-using Stellar;
+using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -102,15 +98,23 @@ namespace PaketGlobal
 						if (result != null) {
 							var prefundResult = await App.Locator.ServiceClient.FundTestUser(kd.KeyPair.Address);
 
-							if (prefundResult != null) {
-								App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-																   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							if (prefundResult != null && prefundResult.Hash != null) {
+								var added = await StellarHelper.AddTrustToken(kd.KeyPair, "SC2PO5YMP7VISFX75OH2DWETTEZ4HVZOECMDXOZIP3NBU3OFISSQXAEP");
+								if (added) {
+									App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
+																	   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
 
-								Application.Current.MainPage = new MainPage();
+									Application.Current.MainPage = new MainPage();
+								} else {
+									ShowError("Error addind trust token");
+									App.Locator.Profile.KeyPair = null;
+								}
 							} else {
+								ShowError("Error prefunding the account");
 								App.Locator.Profile.KeyPair = null;
 							}
 						} else {
+							ShowError("Error registering user");
 							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {

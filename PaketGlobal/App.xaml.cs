@@ -1,17 +1,14 @@
 ﻿using System;
-using Acr.UserDialogs;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Views;
-using PaketGlobal.ClientService;
+
 using Xamarin.Forms;
+using Acr.UserDialogs;
+
+using stellar_dotnetcore_sdk;
 
 namespace PaketGlobal
 {
 	public partial class App : Application
 	{
-		public static bool UseMockDataStore = true;
-		public static string BackendUrl = "https://localhost:5000";
-
 		private static Locator _locator;
 		public static Locator Locator { get { return _locator ?? (_locator = new Locator()); } }
 
@@ -23,15 +20,7 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
-			//if (UseMockDataStore)
-			//	DependencyService.Register<MockDataStore>();
-			//else
-				//DependencyService.Register<CloudDataStore>();
-
-			//if (Device.RuntimePlatform == Device.iOS)
-			//	MainPage = new MainPage();
-			//else
-				//MainPage = new NavigationPage(new MainPage());
+			Network.UseTestNetwork();//TODO for test porposals
 
 			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.ServiceClient.TrySign = Locator.Profile.SignData;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using NBitcoin;
 using NBitcoin.DataEncoders;
 using Newtonsoft.Json;
-using Stellar;
+using stellar_dotnetcore_sdk;
 
 namespace PaketGlobal
 {
@@ -64,14 +65,15 @@ namespace PaketGlobal
 			var seed = extKey.PrivateKey.ToBytes();
 
 			//Recover private key
-			var kp = KeyPair.FromRawSeed(seed);
+			var kp = KeyPair.FromSecretSeed(seed);
 
 			return new KeyData { Mnemonic = mo, KeyPair = kp };
 		}
 
 		public string SignData(string data)
 		{
-			var signed = KeyPair.Sign(data);
+			var bytes = Encoding.UTF8.GetBytes(data);
+			var signed = KeyPair.Sign(bytes);
 			var result = Encoders.Base64.EncodeData(signed);
 			return result;
 		}

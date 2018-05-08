@@ -85,9 +85,6 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Connectivity.Abstractions">
       <HintPath>..\packages\Xam.Plugin.Connectivity.3.0.2\lib\Xamarin.iOS10\Plugin.Connectivity.Abstractions.dll</HintPath>
     </Reference>
@@ -179,6 +176,16 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\Xamarin.iOS10\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nett">
+      <HintPath>..\packages\Nett.0.8.0\lib\netstandard2.0\Nett.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="stellar-dotnetstandard-sdk">
+      <HintPath>..\packages\stellar-dotnetstandard-sdk.1.0.0\lib\netstandard2.0\stellar-dotnetstandard-sdk.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -232,14 +239,6 @@
     <ProjectReference Include="..\PaketGlobal.ClientService\PaketGlobal.ClientService.csproj">
       <Project>{22C3EB85-D253-481F-A7E8-30EE23CC0F0A}</Project>
       <Name>PaketGlobal.ClientService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\generated\generated.csproj">
-      <Project>{0FA7289E-A8BC-4D10-8EB0-520880AB9EDA}</Project>
-      <Name>generated</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\csharp-stellar-base\csharp-stellar-base.csproj">
-      <Project>{4BE09292-F507-4EE2-8AD3-C5983F72A734}</Project>
-      <Name>csharp-stellar-base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
