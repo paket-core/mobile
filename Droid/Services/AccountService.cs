@@ -46,16 +46,18 @@ namespace PaketGlobal.Droid
 		public string Transactions {
 			get {
 				var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["Transactions"];
+				return (bool)account?.Properties.ContainsKey("Transactions") ? account?.Properties["Transactions"] : null;
 			}
 			set {
-				var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+				var store = AccountStore.Create(MainActivity.Instance);
+				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
 				if (account != null) {
 					if (account.Properties.ContainsKey("Transactions")) {
 						account.Properties["Transactions"] = value;
 					} else {
 						account.Properties.Add("Transactions", value);
 					}
+					store.Save(account, App.AppName);
 				}
 			}
 		}

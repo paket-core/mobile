@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using PaketGlobal.ClientService;
 
 namespace PaketGlobal
 {

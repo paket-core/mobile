@@ -3,8 +3,6 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-using PaketGlobal.ClientService;
-
 namespace PaketGlobal
 {
 	public class BaseViewModel : INotifyPropertyChanged

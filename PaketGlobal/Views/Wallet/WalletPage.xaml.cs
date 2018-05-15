@@ -50,9 +50,9 @@ namespace PaketGlobal
 
 				App.ShowLoading(true, false);
 
-				var trans = await App.Locator.ServiceClient.PrepareSendBuls(entryRecepient.Text, long.Parse(entryAmount.Text));
+				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, entryRecepient.Text, long.Parse(entryAmount.Text));
 				if (trans != null) {
-					var signed = App.Locator.Profile.SignData(trans.Transaction);
+					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
 					if (result != null) {
 						ShowError("Funds sent successfully");

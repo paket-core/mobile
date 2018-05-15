@@ -99,7 +99,7 @@ namespace PaketGlobal
 				Text = "Profile",
 				OnItemTouched = () => {
 					var p = App.Locator.Profile;
-					var user = new ClientService.UserDetails() {
+					var user = new UserDetails() {
 						Pubkey = p.Pubkey,
 						PaketUser = p.UserName,
 						FullName = p.FullName,

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 
 using stellar_dotnetcore_sdk;
+using stellar_dotnetcore_sdk.xdr;
 
 namespace PaketGlobal
 {
@@ -18,10 +19,10 @@ namespace PaketGlobal
 				var trustor = KeyPair.FromSecretSeed(trustorSeed);
 
 				const string assetCode = "BUL";
-				var asset = Asset.CreateNonNativeAsset(assetCode, trustor);
+				var asset = stellar_dotnetcore_sdk.Asset.CreateNonNativeAsset(assetCode, trustor);
 				var operation = new ChangeTrustOperation.Builder(asset, "922337203685").SetSourceAccount(kp).Build();
 
-				var transaction = new Transaction.Builder(source).AddOperation(operation).Build();
+				var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(source).AddOperation(operation).Build();
 				transaction.Sign(source.KeyPair);
 
 				var result = await server.SubmitTransaction(transaction);
@@ -38,6 +39,34 @@ namespace PaketGlobal
 				System.Diagnostics.Debug.WriteLine(ex);
 				return false;
 			}
+		}
+
+		public static async Task<string> SignTransaction(KeyPair keyPair, string xdrData)
+		{
+			var bytes = Convert.FromBase64String(xdrData);
+			var transEnv = TransactionEnvelope.Decode(new XdrDataInputStream(bytes));
+			var sourceKP = KeyPair.FromXdrPublicKey(transEnv.Tx.SourceAccount.InnerValue);
+
+			var server = new Server(horizon_url);
+			var accResponse = await server.Accounts.Account(sourceKP);
+			var source = new Account(sourceKP, accResponse.SequenceNumber);
+
+			var builder = new stellar_dotnetcore_sdk.Transaction.Builder(source);
+			foreach (var o in transEnv.Tx.Operations) {
+				var operation = PaymentOperation.FromXdr(o);
+				builder.AddOperation(operation);
+			}
+
+			if (transEnv.Tx.Memo != null && transEnv.Tx.Memo.Text != null) {
+				var m = stellar_dotnetcore_sdk.Memo.Text(transEnv.Tx.Memo.Text);
+				builder.AddMemo(m);
+			}
+
+			var trans = builder.Build();
+			trans.Sign(keyPair);
+			var signedXdrData = trans.ToEnvelopeXdrBase64();
+
+			return signedXdrData;
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace PaketGlobal.ClientService
+namespace PaketGlobal
 {
 	//Basic
 
@@ -157,19 +157,19 @@ namespace PaketGlobal.ClientService
 	public class TransactionData
 	{
 		[DataMember(Name = "envelope_xdr")]
-		public TransactionData EnvelopeXdr { get; set; }
+		public string EnvelopeXdr { get; set; }
 
 		[DataMember(Name = "hash")]
-		public TransactionData Hash { get; set; }
+		public string Hash { get; set; }
 
 		[DataMember(Name = "ledger")]
-		public TransactionData Ledger { get; set; }
+		public long Ledger { get; set; }
 
 		[DataMember(Name = "result_meta_xdr")]
-		public TransactionData ResultMetaXdr { get; set; }
+		public string ResultMetaXdr { get; set; }
 
 		[DataMember(Name = "result_xdr")]
-		public TransactionData ResultXdr { get; set; }
+		public string ResultXdr { get; set; }
 
 		[DataMember(Name = "_links")]
 		public Dictionary<string, Dictionary<string, string>> Links { get; set; }
@@ -186,7 +186,7 @@ namespace PaketGlobal.ClientService
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-		[DataMember(Name = "escrow_address")]
+		[DataMember(Name = "paket_id")]//"escrow_address")]
 		public string EscrowAddress { get; set; }
 
 		[DataMember(Name = "payment_transaction")]
@@ -211,6 +211,13 @@ namespace PaketGlobal.ClientService
 	{
 		[DataMember(Name = "packages")]
 		public List<Package> Packages { get; set; }
+	}
+
+	[DataContract]
+	public class PackageData : BaseData
+	{
+		[DataMember(Name = "package")]
+		public Package Package	 { get; set; }
 	}
 
 	[DataContract]

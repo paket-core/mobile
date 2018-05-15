@@ -1,7 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
 using GalaSoft.MvvmLight.Ioc;
-using PaketGlobal.ClientService;
 using System.Threading.Tasks;
 
 namespace PaketGlobal

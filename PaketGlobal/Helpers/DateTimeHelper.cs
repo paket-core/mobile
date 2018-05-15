@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PaketGlobal.ClientService
+namespace PaketGlobal
 {
 	public static class DateTimeHelper
 	{

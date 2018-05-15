@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -27,7 +26,13 @@ namespace PaketGlobal
 
 		void LaunchPackageClicked()
 		{
-			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() { Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)) });
+			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
+				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
+				//RecipientPubkey = "GDWDDROPMJ5FEXGU4ISVTVY34VX2OVYKZCXTNZNATWMQ5VMWQCXJ6Q2U",//TODO remove this
+				//CourierPubkey = "GAUANDHBLYEKBA77IIMCP73XQALF5Z47TBASRGV6XKVNIVAKV3BI3RH5",//TODO remove this
+				//Payment = 20,//TODO remove this
+				//Collateral = 21//TODO remove this
+			});
 		}
 
 		void AcceptPackageClicked()
@@ -37,10 +42,13 @@ namespace PaketGlobal
 
 		protected async override void OnAppearing()
 		{
-			if (firstLoad) {
+			var fl = firstLoad;
+
+			base.OnAppearing();
+
+			if (fl) {
 				await LoadPackages();
 			}
-			base.OnAppearing();
 		}
 
 		private async System.Threading.Tasks.Task LoadPackages()
@@ -66,11 +74,21 @@ namespace PaketGlobal
 			layoutActivity.IsVisible = false;
 		}
 
-		void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+		async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
 		{
 			if (e.SelectedItem != null) {
-				App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, ((ClientService.Package)e.SelectedItem));
+				App.ShowLoading(true, false);
+
+				var pkgData = (Package)e.SelectedItem;
+				var package = await App.Locator.ServiceClient.Package(pkgData.PaketId);
+				if (package != null) {
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package.Package);
+				} else {
+					ShowError("Error retrieving package details");
+				}
 				packagesList.SelectedItem = null;
+
+				App.ShowLoading(false, false);
 			}
 		}
 	}

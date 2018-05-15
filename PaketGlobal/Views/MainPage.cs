@@ -84,10 +84,10 @@ namespace PaketGlobal
 
 		protected override void OnDisappearing()
 		{
-			base.OnDisappearing();
-
 			MessagingCenter.Unsubscribe<object, bool>(this, MessagingCenterConstants.OnDrawerGestureStateChangeMessage);
 			MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnHideDrawerMessage);
+
+			base.OnDisappearing();
 		}
 	}
 }

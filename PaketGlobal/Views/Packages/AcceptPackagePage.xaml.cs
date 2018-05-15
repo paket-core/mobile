@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -72,9 +71,9 @@ namespace PaketGlobal
 						scanned = true;
 
 						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
-						if (package != null) {
+						if (package != null && package.Package != null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
-							if (myPubkey == package.RecipientPubkey) {
+							if (myPubkey == package.Package.RecipientPubkey) {
 								//you are a recepient
 								Title = "Accept as a Recipient";
 							} else {/*if (myPubkey == package.CourierPubkey) {*/
@@ -87,7 +86,7 @@ namespace PaketGlobal
 								return;
 							}*/
 
-							BindingContext = package;
+							BindingContext = package.Package;
 							await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
 						} else {
 							ShowError("Invalid package identifier");
@@ -104,38 +103,11 @@ namespace PaketGlobal
 		async void AcceptClicked(object sender, System.EventArgs e)
 		{
 			var myPubkey = App.Locator.Profile.Pubkey;
-			if (myPubkey == ViewModel.CourierPubkey) {
-				//I'm a courier
-				App.ShowLoading(true, false);
-
-				var trans = await App.Locator.ServiceClient.PrepareSendBuls(data.EscrowAddress, ViewModel.Collateral);
-				if (trans != null) {
-					var signed = App.Locator.Profile.SignData(trans.Transaction);
-					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
-					if (paymentResult != null) {
-						var acceptResult = App.Locator.ServiceClient.AcceptPackage(data.EscrowAddress);
-						if (acceptResult != null) {
-							App.Locator.Profile.AddTransaction(data.EscrowAddress, data.PaymentTransaction);
-							await System.Threading.Tasks.Task.Delay(2000);
-							await App.Locator.Packages.Load();
-							ShowError("Package accepted successfully");
-							App.Locator.NavigationService.GoBack();
-						} else {
-							ShowError("Error accepting the package");
-						}
-					} else {
-						ShowError("Error sending collateral");
-					}
-				} else {
-					ShowError("Error sending collateral");
-				}
-
-				App.ShowLoading(false, false);
-			} else if (myPubkey == ViewModel.RecipientPubkey) {
+			if (myPubkey == ViewModel.RecipientPubkey) {
 				//I'm a recipient
 				App.ShowLoading(true, false);
 
-				var signed = App.Locator.Profile.SignData(data.PaymentTransaction);//sign the payment transaction
+				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, data.PaymentTransaction);//sign the payment transaction
 				var submitResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
 				if (submitResult != null) {
 					var result = await App.Locator.ServiceClient.AcceptPackage(data.EscrowAddress, data.PaymentTransaction);//accept the package
@@ -153,7 +125,32 @@ namespace PaketGlobal
 
 				App.ShowLoading(false, false);
 			} else {
-				ShowError("You are not participating in this delivery");
+				//I'm a courier
+				App.ShowLoading(true, false);
+
+				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, data.EscrowAddress, ViewModel.Collateral);
+				if (trans != null) {
+					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
+					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+					if (paymentResult != null) {
+						var acceptResult = await App.Locator.ServiceClient.AcceptPackage(data.EscrowAddress);
+						if (acceptResult != null) {
+							App.Locator.Profile.AddTransaction(data.EscrowAddress, data.PaymentTransaction);
+							await System.Threading.Tasks.Task.Delay(2000);
+							await App.Locator.Packages.Load();
+							ShowError("Package accepted successfully");
+							App.Locator.NavigationService.GoBack();
+						} else {
+							ShowError("Error accepting the package");
+						}
+					} else {
+						ShowError("Error sending collateral");
+					}
+				} else {
+					ShowError("Error sending collateral");
+				}
+
+				App.ShowLoading(false, false);
 			}
 		}
 

@@ -186,6 +186,9 @@
     <Reference Include="stellar-dotnetstandard-sdk">
       <HintPath>..\packages\stellar-dotnetstandard-sdk.1.0.0\lib\netstandard2.0\stellar-dotnetstandard-sdk.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.106.2.2\lib\netstandard2.0\RestSharp.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -234,12 +237,6 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PaketGlobal.ClientService\PaketGlobal.ClientService.csproj">
-      <Project>{22C3EB85-D253-481F-A7E8-30EE23CC0F0A}</Project>
-      <Name>PaketGlobal.ClientService</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

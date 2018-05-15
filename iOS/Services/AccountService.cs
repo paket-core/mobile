@@ -48,13 +48,15 @@ namespace PaketGlobal.iOS
 				return account?.Properties["Transactions"];
 			}
 			set {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				var store = AccountStore.Create();
+				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
 				if (account != null) {
 					if (account.Properties.ContainsKey("Transactions")) {
 						account.Properties["Transactions"] = value;
 					} else {
 						account.Properties.Add("Transactions", value);
 					}
+					store.Save(account, App.AppName);
 				}
 			}
 		}

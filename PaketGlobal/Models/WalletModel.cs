@@ -1,5 +1,4 @@
 ﻿using System;
-using PaketGlobal.ClientService;
 
 namespace PaketGlobal
 {

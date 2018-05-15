@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using PaketGlobal.ClientService;
 using Xamarin.Forms;
 
 namespace PaketGlobal

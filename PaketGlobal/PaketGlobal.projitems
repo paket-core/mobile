@@ -55,6 +55,9 @@
       <DependentUpon>AcceptPackagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\StellarHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResponseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\DateTimeHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

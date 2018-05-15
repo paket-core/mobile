@@ -1,6 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
-using static PaketGlobal.ClientService.ServiceClient;
+using static PaketGlobal.ServiceClient;
 
 namespace PaketGlobal
 {
