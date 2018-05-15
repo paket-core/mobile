@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -9,6 +10,15 @@ namespace PaketGlobal
 		private PackagesModel ViewModel {
 			get {
 				return BindingContext as PackagesModel;
+			}
+		}
+
+		ICommand RefreshListCommand {
+			get {
+				return new Command(async () => {
+					await LoadPackages();
+					packagesList.IsRefreshing = false;
+				});
 			}
 		}
 
@@ -22,6 +32,7 @@ namespace PaketGlobal
 			InitializeComponent();
 
 			BindingContext = App.Locator.Packages;
+			packagesList.RefreshCommand = RefreshListCommand;
 		}
 
 		void LaunchPackageClicked()

@@ -5,7 +5,7 @@
         <AbsoluteLayout>
             
             <ListView x:Name="packagesList" RowHeight="75" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
-                    ItemsSource="{Binding PackagesList}" ItemSelected="PackageItemSelected" IsPullToRefreshEnabled="false">
+                    ItemsSource="{Binding PackagesList}" ItemSelected="PackageItemSelected" IsPullToRefreshEnabled="true">
                   <ListView.ItemTemplate>
                      <DataTemplate>
                         <ViewCell>
