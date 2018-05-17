@@ -68,5 +68,23 @@ namespace PaketGlobal
 
 			return signedXdrData;
 		}
+
+		public static async Task<bool> CheckAccountCreated(KeyPair kp)
+		{
+			try {
+				var server = new Server(horizon_url);
+				var accResponse = await server.Accounts.Account(kp);
+				return accResponse != null;
+			} catch (Exception ex) {
+				System.Diagnostics.Debug.WriteLine(ex);
+				return false;
+			}
+		}
+
+		public static async Task<bool> CheckTokenTrusted()
+		{
+			var result = await App.Locator.ServiceClient.Balance();
+			return result != null;
+		}
 	}
 }

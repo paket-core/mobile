@@ -45,7 +45,7 @@ namespace PaketGlobal.iOS
 		public string Transactions {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["Transactions"];
+				return account != null && account.Properties.ContainsKey("Transactions") ? account.Properties["Transactions"] : null;
 			}
 			set {
 				var store = AccountStore.Create();
@@ -55,6 +55,26 @@ namespace PaketGlobal.iOS
 						account.Properties["Transactions"] = value;
 					} else {
 						account.Properties.Add("Transactions", value);
+					}
+					store.Save(account, App.AppName);
+				}
+			}
+		}
+
+		public bool Activated {
+			get {
+				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				return account != null && account.Properties.ContainsKey("Activated") ? bool.Parse(account.Properties["Activated"]) : false;
+			}
+			set {
+				var store = AccountStore.Create();
+				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+				if (account != null) {
+					var b = value ? bool.TrueString : bool.FalseString;
+					if (account.Properties.ContainsKey("Activated")) {
+						account.Properties["Activated"] = b;
+					} else {
+						account.Properties.Add("Activated", b);
 					}
 					store.Save(account, App.AppName);
 				}

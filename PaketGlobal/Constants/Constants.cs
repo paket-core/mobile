@@ -15,7 +15,5 @@ namespace PaketGlobal
 		public const string OnSocialProfileRecievedMessage = "OnSocialProfileRecieved";
 		public const string OnSocialLoginStatusChangedMessage = "OnSocialLoginStatusChanged";
 
-		public const string OnRegistrationConfirmedMessage = "OnRegistrationConfirmedMessage";
-
 	}
 }

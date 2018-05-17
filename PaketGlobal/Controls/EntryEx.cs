@@ -7,6 +7,7 @@ namespace PaketGlobal
 	{
 		public static readonly BindableProperty TintColorProperty = BindableProperty.Create<EntryEx, Color> (p => p.TintColor, Color.Black);
 		public static readonly BindableProperty InputEnabledProperty = BindableProperty.Create<EntryEx, bool> (p => p.InputEnabled, true);
+		public static readonly BindableProperty EditEnabledProperty = BindableProperty.Create<EntryEx, bool>(p => p.EditEnabled, true);
 
 		public Color TintColor {
 			get {
@@ -24,6 +25,11 @@ namespace PaketGlobal
 			set {
 				SetValue (InputEnabledProperty, value);
 			}
+		}
+
+		public bool EditEnabled {
+			get { return (bool)GetValue(EditEnabledProperty); }
+			set { SetValue(EditEnabledProperty, value); }
 		}
 
 		public EntryEx () : base ()

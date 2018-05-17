@@ -25,11 +25,11 @@ namespace PaketGlobal
 			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.ServiceClient.TrySign = Locator.Profile.SignData;
 
-			if (String.IsNullOrWhiteSpace(Locator.Profile.Pubkey)) {
+			if (Locator.Profile.Activated) {
+				MainPage = new MainPage();
+			} else {
 				var navPage = Locator.NavigationService.Initialize(new LoginPage());
 				MainPage = navPage;
-			} else {
-				MainPage = new MainPage();
 			}
 
 			MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {

@@ -13,6 +13,7 @@ namespace PaketGlobal.Droid
 	class EntryExRenderer : EntryRenderer
 	{
 		private Drawable originalBackground;
+		private Android.Text.Method.IKeyListener keyListener;
 
 		public EntryExRenderer(Context context) : base(context)
 		{
@@ -36,9 +37,12 @@ namespace PaketGlobal.Droid
 			base.OnElementPropertyChanged (sender, e);
 
 			if (e.PropertyName == EntryEx.TintColorProperty.PropertyName) {
-				UpdateTintColor ();
+				UpdateTintColor();
 			} else if (e.PropertyName == EntryEx.InputEnabledProperty.PropertyName) {
 				Control.Enabled = ((EntryEx)Element).InputEnabled;
+			} else if (e.PropertyName == EntryEx.EditEnabledProperty.PropertyName) {
+				if (Control.KeyListener != null) keyListener = Control.KeyListener;
+				Control.KeyListener = ((EntryEx)Element).EditEnabled ? keyListener : null;
 			}
 		}
 

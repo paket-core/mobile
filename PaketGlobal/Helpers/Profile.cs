@@ -33,6 +33,11 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.Mnemonic; }
 		}
 
+		public bool Activated {
+			get { return App.Locator.AccountService.Activated; }
+			set { App.Locator.AccountService.Activated = value; }
+		}
+
 		public KeyPair KeyPair { get; set; }
 
 		public Profile()
