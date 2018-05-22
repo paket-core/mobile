@@ -88,7 +88,7 @@ namespace PaketGlobal
 		async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
 		{
 			if (e.SelectedItem != null) {
-				App.ShowLoading(true, false);
+				App.ShowLoading(true);
 
 				var pkgData = (Package)e.SelectedItem;
 				var package = await App.Locator.ServiceClient.Package(pkgData.PaketId);
@@ -99,7 +99,7 @@ namespace PaketGlobal
 				}
 				packagesList.SelectedItem = null;
 
-				App.ShowLoading(false, false);
+				App.ShowLoading(false);
 			}
 		}
 	}

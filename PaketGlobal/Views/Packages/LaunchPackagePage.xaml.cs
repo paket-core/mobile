@@ -28,7 +28,7 @@ namespace PaketGlobal
 		{
 			Unfocus();
 
-			App.ShowLoading(true, false);
+			App.ShowLoading(true);
 
 			var vm = ViewModel;
 			var result = await App.Locator.ServiceClient.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
@@ -54,7 +54,7 @@ namespace PaketGlobal
 				ShowError("Error during package creation");
 			}
 
-			App.ShowLoading(false, false);
+			App.ShowLoading(false);
 		}
 
 		void DeadlineTapped(object sender, System.EventArgs e)

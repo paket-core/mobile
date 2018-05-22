@@ -13,7 +13,7 @@ namespace PaketGlobal.Droid
 	class EntryExRenderer : EntryRenderer
 	{
 		private Drawable originalBackground;
-		private Android.Text.Method.IKeyListener keyListener;
+		private Android.Text.InputTypes inputTypes;
 
 		public EntryExRenderer(Context context) : base(context)
 		{
@@ -29,6 +29,10 @@ namespace PaketGlobal.Droid
 
 			if (e.NewElement != null) {
 				UpdateTintColor ();
+				Control.Enabled = ((EntryEx)e.NewElement).InputEnabled;
+				if (Control.InputType != Android.Text.InputTypes.Null) inputTypes = Control.InputType;
+				Control.InputType = ((EntryEx)e.NewElement).EditEnabled ? inputTypes : Android.Text.InputTypes.Null;
+				Control.SetTextIsSelectable(true);
 			}
 		}
 
@@ -41,8 +45,9 @@ namespace PaketGlobal.Droid
 			} else if (e.PropertyName == EntryEx.InputEnabledProperty.PropertyName) {
 				Control.Enabled = ((EntryEx)Element).InputEnabled;
 			} else if (e.PropertyName == EntryEx.EditEnabledProperty.PropertyName) {
-				if (Control.KeyListener != null) keyListener = Control.KeyListener;
-				Control.KeyListener = ((EntryEx)Element).EditEnabled ? keyListener : null;
+				if (Control.InputType != Android.Text.InputTypes.Null) inputTypes = Control.InputType;
+				Control.InputType = ((EntryEx)Element).EditEnabled ? inputTypes : Android.Text.InputTypes.Null;
+				Control.SetTextIsSelectable(true);
 			}
 		}
 

@@ -7,7 +7,7 @@
             <RelativeLayout x:Name="layoutBarcode"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
-                <zxing:ZXingScannerView x:Name="barcodeScaner" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                <zxing:ZXingScannerView x:Name="barcodeScaner" AutomationId="zxingScannerView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
                                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"/>
                 <Label x:Name="labelBarcode" Text="Scan the barcode containing package information" FontSize="26" TextColor="#AAFFFFFF" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>

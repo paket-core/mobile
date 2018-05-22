@@ -13,6 +13,8 @@ namespace PaketGlobal
 {
 	public class ServiceClient
 	{
+		public const string apiVersion = "v3";
+
 		public delegate string PubKeyHandler();
 		public delegate string SignHandler(string data);
 
@@ -46,7 +48,7 @@ namespace PaketGlobal
 		{
 			//pubkey = "debug";//TODO for Debug purposes
 
-			var request = PrepareRequest("v2/register_user", Method.POST);
+			var request = PrepareRequest(apiVersion + "/register_user", Method.POST);
 
 			request.AddParameter("paket_user", paketUser);
 			request.AddParameter("full_name", fullName);
@@ -74,7 +76,7 @@ namespace PaketGlobal
 		{
 			//pubkey = "debug";//TODO for Debug purposes
 
-			var request = PrepareRequest("v2/recover_user", Method.POST);
+			var request = PrepareRequest(apiVersion + "/recover_user", Method.POST);
 
 			return await SendRequest<UserData>(request, pubkey);
 		}
@@ -85,7 +87,7 @@ namespace PaketGlobal
 
 		public async Task<BalanceData> Balance()
 		{
-			var request = PrepareRequest("v2/bul_account", Method.POST);
+			var request = PrepareRequest(apiVersion + "/bul_account", Method.POST);
 
 			var pubkey = TryGetPubKey?.Invoke();
 			if (pubkey != null) request.AddParameter("queried_pubkey", pubkey);
@@ -95,14 +97,14 @@ namespace PaketGlobal
 
 		public async Task<PriceData> Price()
 		{
-			var request = PrepareRequest("v2/price", Method.POST);
+			var request = PrepareRequest(apiVersion + "/price", Method.POST);
 
 			return await SendRequest<PriceData>(request, signData: false);
 		}
 
 		public async Task<SubmitTransactionData> SendBuls(string toPubkey, long amountBuls)
 		{
-			var request = PrepareRequest("v2/send_buls", Method.POST);
+			var request = PrepareRequest(apiVersion + "/send_buls", Method.POST);
 
 			request.AddParameter("to_pubkey", toPubkey);
 			request.AddParameter("amount_buls", amountBuls);
@@ -112,7 +114,7 @@ namespace PaketGlobal
 
 		public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, long amountBuls)
 		{
-			var request = PrepareRequest("v2/prepare_send_buls", Method.POST);
+			var request = PrepareRequest(apiVersion + "/prepare_send_buls", Method.POST);
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
@@ -123,7 +125,7 @@ namespace PaketGlobal
 
 		public async Task<SubmitTransactionData> SubmitTransaction(string signedTrans)
 		{
-			var request = PrepareRequest("v2/submit_transaction", Method.POST);
+			var request = PrepareRequest(apiVersion + "/submit_transaction", Method.POST);
 
 			request.AddParameter("transaction", signedTrans);
 
@@ -132,7 +134,7 @@ namespace PaketGlobal
 
 		public async Task<WalletPubkeyData> WalletPubkey()
 		{
-			var request = PrepareRequest("v2/wallet_pubkey", Method.POST);
+			var request = PrepareRequest(apiVersion + "/wallet_pubkey", Method.POST);
 
 			return await SendRequest<WalletPubkeyData>(request);
 		}
@@ -143,7 +145,7 @@ namespace PaketGlobal
 
 		public async Task<AcceptPackageData> AcceptPackage(string paketId, string transaction = null)
 		{
-			var request = PrepareRequest("v2/accept_package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/accept_package", Method.POST);
 
 			request.AddParameter("paket_id", paketId);
 			if (transaction != null) request.AddParameter("payment_transaction", transaction);
@@ -153,7 +155,7 @@ namespace PaketGlobal
 
 		public async Task<LaunchPackageData> LaunchPackage(string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
 		{
-			var request = PrepareRequest("v2/launch_package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/launch_package", Method.POST);
 
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
@@ -166,7 +168,7 @@ namespace PaketGlobal
 
 		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
 		{
-			var request = PrepareRequest("v2/my_packages", Method.POST);
+			var request = PrepareRequest(apiVersion + "/my_packages", Method.POST);
 
 			request.AddParameter("show_inactive", showInactive);
 			if (fromDate.HasValue) {
@@ -179,7 +181,7 @@ namespace PaketGlobal
 
 		public async Task<PackageData> Package(string paketId)
 		{
-			var request = PrepareRequest("v2/package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/package", Method.POST);
 
 			request.AddParameter("paket_id", paketId);
 
@@ -188,7 +190,7 @@ namespace PaketGlobal
 
 		public async Task<RelayPackageData> RelayPackage(string paketId, string courierPubkey, int paymentBuls)
 		{
-			var request = PrepareRequest("v2/relay_package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/relay_package", Method.POST);
 
 			request.AddParameter("paket_id", paketId);
 			request.AddParameter("courier_pubkey", courierPubkey);

@@ -48,7 +48,7 @@ namespace PaketGlobal
 			if (IsValid()) {
 				Unfocus();
 
-				App.ShowLoading(true, false);
+				App.ShowLoading(true);
 
 				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, entryRecepient.Text, long.Parse(entryAmount.Text));
 				if (trans != null) {
@@ -63,7 +63,7 @@ namespace PaketGlobal
 					ShowError("Error sending funds");
 				}
 
-				App.ShowLoading(false, false);
+				App.ShowLoading(false);
 			}
 		}
 

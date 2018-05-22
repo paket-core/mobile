@@ -31,7 +31,7 @@
                 <xlabs:ExtendedButton x:Name="btnCheck" Text="Check Activation" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CheckActivationClicked"/>
                 <StackLayout Orientation="Vertical" Padding="0,20,0,5" Spacing="0">
                     <Label Text = "Use this mnemonic to recover private key on another device" FontSize="14" TextColor="#808080"/>
-                    <local:EntryEx x:Name="entryMnemonicPrompt" Placeholder="Mnemonic Phrase" Keyboard="Text" InputEnabled="false" TintColor="#DE000000"/>
+                    <local:EntryEx x:Name="entryMnemonicPrompt" EditEnabled="false" Placeholder="Mnemonic Phrase" Keyboard="Text" TintColor="#DE000000"/>
                 </StackLayout>
             </StackLayout>
             <ActivityIndicator x:Name="activityIndicator"

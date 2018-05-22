@@ -36,7 +36,6 @@ namespace PaketGlobal
 		protected override void OnDisappearing()
 		{
 			//MessagingCenter.Unsubscribe<object> (this, MessagingCenterConstants.OnApplicationSleepMessage);
-			CleanUp();
 			App.Locator.Workspace.AuthenticationRequired -= WorkspaceAuthenticationError;
 			App.Locator.Workspace.ConnectionError -= WorkspaceConnectionError;
 			App.Locator.Workspace.NetworkConnected -= WorkspaceNetworkConnected;

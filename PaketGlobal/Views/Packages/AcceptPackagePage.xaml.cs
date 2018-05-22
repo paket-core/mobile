@@ -59,8 +59,6 @@ namespace PaketGlobal
 			barcodeScaner.Options.UseFrontCameraIfAvailable = false;
 			barcodeScaner.OnScanResult += (result) => {
 				Device.BeginInvokeOnMainThread(async () => {
-					StopScanning();
-
 					try {
 						data = JsonConvert.DeserializeObject<BarcodePackageData>(result.Text);
 					} catch (Exception ex) {
@@ -68,6 +66,9 @@ namespace PaketGlobal
 					}
 
 					if (data != null && data.EscrowAddress != null && data.PaymentTransaction != null) {
+						App.ShowLoading(true);
+
+						StopScanning();
 						scanned = true;
 
 						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
@@ -92,6 +93,8 @@ namespace PaketGlobal
 							ShowError("Invalid package identifier");
 							StartScanning();
 						}
+
+						App.ShowLoading(false);
 					} else {
 						ShowError("Invalid barcode");
 						StartScanning();
@@ -105,7 +108,7 @@ namespace PaketGlobal
 			var myPubkey = App.Locator.Profile.Pubkey;
 			if (myPubkey == ViewModel.RecipientPubkey) {
 				//I'm a recipient
-				App.ShowLoading(true, false);
+				App.ShowLoading(true);
 
 				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, data.PaymentTransaction);//sign the payment transaction
 				var submitResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
@@ -123,10 +126,10 @@ namespace PaketGlobal
 					ShowError("Error accepting the package");
 				}
 
-				App.ShowLoading(false, false);
+				App.ShowLoading(false);
 			} else {
 				//I'm a courier
-				App.ShowLoading(true, false);
+				App.ShowLoading(true);
 
 				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, data.EscrowAddress, ViewModel.Collateral);
 				if (trans != null) {
@@ -150,7 +153,7 @@ namespace PaketGlobal
 					ShowError("Error sending collateral");
 				}
 
-				App.ShowLoading(false, false);
+				App.ShowLoading(false);
 			}
 		}
 
