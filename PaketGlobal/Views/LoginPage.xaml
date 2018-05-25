@@ -7,8 +7,10 @@
                 Source="back_login_1.jpg" Aspect="AspectFill"
                 AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"/>-->
             <StackLayout x:Name="layoutLogin" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize"
-                    Orientation="Vertical" Padding="18, 10, 18, 10">
+                    Orientation="Vertical" Padding="18, 10, 18, 10" Spacing="8">
                 <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" TintColor="#DE000000"/>
+                <Label Text = "or" FontSize="16" TextColor="#808080" HorizontalOptions="Center"/>
+                <local:EntryEx x:Name="entrySecretKey" Placeholder="Secret Key" Keyboard="Text" Completed="LoginSecretCompleted" TintColor="#DE000000"/>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnLogin" Text="Restore Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="LoginClicked"/>
                     <xlabs:ExtendedButton x:Name="btnGotoReg" Text="Generate New Key" Clicked="GoToRegistrationClicked"/>

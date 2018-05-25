@@ -58,7 +58,7 @@ namespace PaketGlobal
 				return false;
 			}
 
-			if (str.Length > 50 || str.Length < 2)
+			if (str.Length > 56 || str.Length < 2)
 				return false;
 
 			return true;

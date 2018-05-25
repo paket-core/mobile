@@ -80,8 +80,11 @@ namespace PaketGlobal
 	[DataContract]
 	public class BalanceData : BaseData
 	{
-		[DataMember(Name = "balance")]
-		public long Balance { get; set; }
+		[DataMember(Name = "bul_balance")]
+		public long BalanceBUL { get; set; }
+
+		[DataMember(Name = "xlm_balance")]
+		public long BalanceXLM { get; set; }
 
 		[DataMember(Name = "sequence")]
 		public string Sequence { get; set; }

@@ -170,11 +170,11 @@ namespace PaketGlobal
 		{
 			var request = PrepareRequest(apiVersion + "/my_packages", Method.POST);
 
-			request.AddParameter("show_inactive", showInactive);
-			if (fromDate.HasValue) {
-				var ut = DateTimeHelper.ToUnixTime(fromDate.Value);
-				request.AddParameter("from_date", ut.ToString());
-			}
+			//request.AddParameter("show_inactive", showInactive);
+			//if (fromDate.HasValue) {
+			//	var ut = DateTimeHelper.ToUnixTime(fromDate.Value);
+			//	request.AddParameter("from_date", ut.ToString());
+			//}
 
 			return await SendRequest<PackagesData>(request);
 		}

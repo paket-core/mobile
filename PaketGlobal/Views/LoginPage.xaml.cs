@@ -45,6 +45,11 @@ namespace PaketGlobal
 			LoginClicked(null, EventArgs.Empty);
 		}
 
+		void LoginSecretCompleted(object sender, System.EventArgs e)
+		{
+			LoginClicked(null, EventArgs.Empty);
+		}
+
 		void UserNameCompleted(object sender, EventArgs e)
 		{
 			entryFullName.Focus();
@@ -75,24 +80,34 @@ namespace PaketGlobal
 			if (IsValid()) {
 				await WithProgress(activityIndicator, async () => {
 					try {
-						//Generate private key
-						var kd = Profile.GenerateKeyPair(entryMnemonic.Text);
+						Profile.KeyData kd;
+
+						if (!String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
+							kd = Profile.GenerateKeyPairFromSeed(entrySecretKey.Text);
+						} else {
+							//Generate private key
+							kd = Profile.GenerateKeyPairFromMnemonic(entryMnemonic.Text);
+						}
+
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
 						if (result != null) {
-							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
+															   result?.UserDetails?.FullName,
+															   result?.UserDetails?.PhoneNumber,
+															   kd.KeyPair.SecretSeed,
+															   kd.MnemonicString);
 
-							App.Locator.Profile.Activated = true;
-							Application.Current.MainPage = new MainPage();
+							CheckActivation();
 						} else {
 							App.Locator.Profile.KeyPair = null;
+							Application.Current.MainPage = new MainPage();
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
-						ShowError(ex.Message);
+						ShowError(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
 					}
 				});
 			}
@@ -104,14 +119,17 @@ namespace PaketGlobal
 				await WithProgress(activityIndicator, async () => {
 					try {
 						//Create new private key
-						var kd = Profile.GenerateKeyPair();
+						var kd = Profile.GenerateKeyPairFromMnemonic();
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
-							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+							App.Locator.Profile.SetCredentials(ViewModel.UserName,
+															   ViewModel.FullName,
+															   ViewModel.PhoneNumber,
+							                                   kd.KeyPair.SecretSeed,
+															   kd.MnemonicString);
 							Title = "Activate Account";
 							entryMnemonicPrompt.Text = kd.MnemonicString;
 							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
@@ -176,8 +194,6 @@ namespace PaketGlobal
 
 		protected override bool IsValid()
 		{
-			//return true;
-
 			if (layoutRegistration.IsVisible) {
 				if (!ValidationHelper.ValidateTextField(entryUserName.Text)) {
 					//Workspace.OnValidationError(ValidationError.Password);
@@ -195,7 +211,12 @@ namespace PaketGlobal
 					return false;
 				}
 			} else {
-				if (!ValidationHelper.ValidateTextField(entryMnemonic.Text)) {
+				if (!String.IsNullOrWhiteSpace(entryMnemonic.Text) && !String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
+					ShowError("Please fill only one field");
+					return false;
+				}
+
+				if (!ValidationHelper.ValidateTextField(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text)) {
 					//Workspace.OnValidationError(ValidationError.Login);
 					entryMnemonic.Focus();
 					return false;

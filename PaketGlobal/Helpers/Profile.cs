@@ -11,6 +11,7 @@ namespace PaketGlobal
 {
 	public class Profile
 	{
+		KeyPair keyPair;
 		public event EventHandler<EventArgs> Changed;
 
 		public string UserName {
@@ -25,8 +26,8 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.PhoneNumber; }
 		}
 
-		public string Pubkey {
-			get { return App.Locator.AccountService.Pubkey; }
+		public string Seed {
+			get { return App.Locator.AccountService.Seed; }
 		}
 
 		public string Mnemonic {
@@ -38,16 +39,26 @@ namespace PaketGlobal
 			set { App.Locator.AccountService.Activated = value; }
 		}
 
-		public KeyPair KeyPair { get; set; }
+		public KeyPair KeyPair {
+			get { return keyPair; }
+			set {
+				keyPair = value;
+				if (keyPair != null) {
+					Pubkey = keyPair.Address;
+				}
+			}
+		}
+
+		public string Pubkey { get; private set; }
 
 		public Profile()
 		{
 			TryRestoreKeyPair();
 		}
 
-		public void SetCredentials (string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string seed, string mnemonic)
 		{
-			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, pubkey, mnemonic);
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, seed, mnemonic);
 		}
 
 		public void DeleteCredentials ()
@@ -57,19 +68,33 @@ namespace PaketGlobal
 
 		private void TryRestoreKeyPair()
 		{
-			if (!String.IsNullOrWhiteSpace(Pubkey) && !String.IsNullOrWhiteSpace(Mnemonic)) {
-				KeyPair = GenerateKeyPair(Mnemonic).KeyPair;
+			if (!String.IsNullOrWhiteSpace(Mnemonic)) {
+				KeyPair = GenerateKeyPairFromMnemonic(Mnemonic).KeyPair;
+			} else if (!String.IsNullOrWhiteSpace(Seed)) {
+				KeyPair = GenerateKeyPairFromSeed(Seed).KeyPair;
 			}
 		}
 
-		public static KeyData GenerateKeyPair(string mnemonic = null)
+		public static KeyData GenerateKeyPairFromMnemonic(string mnemonic = null)
 		{
 			//Restore seed from word list
 			var mo = String.IsNullOrWhiteSpace(mnemonic) ? new Mnemonic(Wordlist.English, WordCount.Twelve)
 						   : new Mnemonic(mnemonic, Wordlist.English);
 			var extKey = mo.DeriveExtKey();
-			var seed = extKey.PrivateKey.ToBytes();
+			//var seed = extKey.PrivateKey.ToBytes();
+			var seed = StrKey.EncodeStellarSecretSeed(extKey.PrivateKey.ToBytes());
+			var kd = GenerateKeyPair(seed, mo);
+			return kd;
+		}
 
+		public static KeyData GenerateKeyPairFromSeed(string seed)
+		{
+			var kd = GenerateKeyPair(seed);
+			return kd;
+		}
+
+		private static KeyData GenerateKeyPair(string seed, Mnemonic mo = null)
+		{
 			//Recover private key
 			var kp = KeyPair.FromSecretSeed(seed);
 			//var kp = KeyPair.FromSecretSeed("SDJGBJZMQ7Z4W3KMSMO2HYEV56DJPOZ7XRR7LJ5X2KW6VKBSLELR7MRQ");//Launcher
