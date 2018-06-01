@@ -21,7 +21,7 @@ namespace PaketGlobal
 
 			Title = (ViewModel == null) ? "Launch New Package" : "Edit Package";
 
-			ToolbarItems.Add(new ToolbarItem("Save", null, OnSaveClicked));
+			ToolbarItems.Add(new ToolbarItem("Launch", null, OnSaveClicked));
 		}
 
 		async void OnSaveClicked()

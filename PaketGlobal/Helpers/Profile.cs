@@ -56,6 +56,7 @@ namespace PaketGlobal
 
 		public void DeleteCredentials ()
 		{
+			KeyPair = null;
 			App.Locator.AccountService.DeleteCredentials ();
 		}
 
@@ -110,17 +111,25 @@ namespace PaketGlobal
 			return result;
 		}
 
-		public bool AddTransaction(string paketId, string trans)
+		public bool AddTransaction(string paketId, string paymentTranscation)
+		{
+			var transData = new LaunchPackageData {
+				PaymentTransaction = paymentTranscation
+			};
+			return AddTransaction(paketId, transData);
+		}
+
+		public bool AddTransaction(string paketId, LaunchPackageData transactionData)
 		{
 			try {
-				Dictionary<string, string> transactions = null;
+				Dictionary<string, LaunchPackageData> transactions = null;
 				var transData = App.Locator.AccountService.Transactions;
 
-				if (transData != null) transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
-				else transactions = new Dictionary<string, string>();
+				if (transData != null) transactions = JsonConvert.DeserializeObject<Dictionary<string, LaunchPackageData>>(transData);
+				else transactions = new Dictionary<string, LaunchPackageData>();
 
 				if (!transactions.ContainsKey(paketId)) {
-					transactions.Add(paketId, trans);
+					transactions.Add(paketId, transactionData);
 				}
 
 				transData = JsonConvert.SerializeObject(transactions);
@@ -134,14 +143,14 @@ namespace PaketGlobal
 		}
 
 
-		public string GetTransaction(string paketId)
+		public LaunchPackageData GetTransaction(string paketId)
 		{
 			try {
 				var transData = App.Locator.AccountService.Transactions;
 
 				if (transData == null) return null;
 
-				var transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
+				var transactions = JsonConvert.DeserializeObject<Dictionary<string, LaunchPackageData>>(transData);
 
 				if (transactions.ContainsKey(paketId)) {
 					var trans = transactions[paketId];

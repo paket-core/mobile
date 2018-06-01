@@ -38,11 +38,11 @@ namespace PaketGlobal
 		void LaunchPackageClicked()
 		{
 			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
-				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
-				//RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
-				//CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
-				//Payment = 20,//TODO remove this
-				//Collateral = 30//TODO remove this
+				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
+				RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
+				CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
+				Payment = 20,//TODO remove this
+				Collateral = 30//TODO remove this
 			});
 		}
 
@@ -91,9 +91,19 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var pkgData = (Package)e.SelectedItem;
-				var package = await App.Locator.ServiceClient.Package(pkgData.PaketId);
-				if (package != null) {
-					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package.Package);
+				var packageData = await App.Locator.ServiceClient.Package(pkgData.PaketId);
+				if (packageData != null) {
+					var balanceData = await App.Locator.ServiceClient.Balance(pkgData.PaketId);
+
+					packageData.Package.DeliveryStatus = balanceData != null && balanceData.BalanceBUL == 0 ?
+						DeliveryStatus.Delivered :
+						(balanceData == null ? DeliveryStatus.Closed : (DateTime.Now > packageData.Package.DeadlineDT ? DeliveryStatus.DeadlineExpired : DeliveryStatus.InTransit));
+
+					var myPubkey = App.Locator.Profile.Pubkey;
+					packageData.Package.MyRole = myPubkey == packageData.Package.LauncherPubkey ? PaketRole.Launcher :
+						(myPubkey == packageData.Package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
+					
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, packageData.Package);
 				} else {
 					ShowError("Error retrieving package details");
 				}

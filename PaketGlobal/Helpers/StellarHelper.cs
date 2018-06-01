@@ -60,13 +60,13 @@ namespace PaketGlobal
 												//Submit payment transaction
 												var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
 												if (paymentResult != null) {
-													var newLauncherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
-													if (newLauncherBalance.BalanceBUL == launcherBalance.BalanceBUL - paymentBuls) {
-														App.Locator.Profile.AddTransaction(escrowKP.Address, launchResult.PaymentTransaction);//save payment transaction data
+													//var newLauncherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
+													//if (newLauncherBalance.BalanceBUL == launcherBalance.BalanceBUL - paymentBuls) {
+														App.Locator.Profile.AddTransaction(escrowKP.Address, launchResult);//save payment transaction data
 														return StellarOperationResult.Success;
-													}
+													//}
 
-													return StellarOperationResult.IncositentBalance;
+													//return StellarOperationResult.IncositentBalance;
 												}
 
 												return StellarOperationResult.FailSendBuls;
@@ -126,13 +126,13 @@ namespace PaketGlobal
 				if (paymentResult != null) {
 					var acceptResult = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey);
 					if (acceptResult != null) {
-						var newCourierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
-						if (newCourierBalance.BalanceBUL == courierBalance.BalanceBUL - collateral) {
+						//var newCourierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
+						//if (newCourierBalance.BalanceBUL == courierBalance.BalanceBUL - collateral) {
 							App.Locator.Profile.AddTransaction(escrowPubkey, paymentTransaction);
 							return StellarOperationResult.Success;
-						}
+						//}
 
-						return StellarOperationResult.IncositentBalance;
+						//return StellarOperationResult.IncositentBalance;
 					} else {
 						return StellarOperationResult.FailAcceptPackage;
 					}
@@ -160,6 +160,23 @@ namespace PaketGlobal
 			} else {
 				return StellarOperationResult.FailAcceptPackage;
 			}
+		}
+
+		public static async Task<bool> RefundEscrow(string refundTranscation, string mergeTransaction)
+		{
+			var refundResult = await App.Locator.ServiceClient.SubmitTransaction(refundTranscation);
+			if (refundResult != null) {
+				var mergeResult = await ReclaimEscrow(mergeTransaction);
+				return mergeResult;
+			}
+
+			return false;
+		}
+
+		public static async Task<bool> ReclaimEscrow(string mergeTransaction)
+		{
+			var result = await App.Locator.ServiceClient.SubmitTransaction(mergeTransaction);
+			return result != null;
 		}
 
 		public static async Task<bool> AddTrustToken(KeyPair kp, string trustorSeed = "SC2PO5YMP7VISFX75OH2DWETTEZ4HVZOECMDXOZIP3NBU3OFISSQXAEP")

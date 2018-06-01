@@ -76,9 +76,11 @@ namespace PaketGlobal
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {
 								//you are a recepient
+								package.Package.MyRole = PaketRole.Recipient;
 								Title = "Accept as a Recipient";
 							} else {/*if (myPubkey == package.CourierPubkey) {*/
 								//you are a courier
+								package.Package.MyRole = PaketRole.Courier;
 								Title = "Accept as a Courier";
 							} /*else {
 								//you are nothing

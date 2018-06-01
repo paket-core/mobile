@@ -248,8 +248,7 @@ namespace PaketGlobal
 		[DataMember(Name = "launcher_pubkey")]
 		public string LauncherPubkey { get; set; }
 
-		[DataMember(Name = "my_role")]
-		public string MyRole { get; set; }
+		public PaketRole MyRole { get; set; }
 
 		[DataMember(Name = "recipient_pubkey")]
 		public string RecipientPubkey { get; set; }
@@ -283,6 +282,12 @@ namespace PaketGlobal
 
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
+
+		public DeliveryStatus DeliveryStatus { get; set; }
+
+		public DeliveryStatus DeliveryStatusPrivate {
+			get { return MyRole == PaketRole.Launcher ? DeliveryStatus : DeliveryStatus.None; }
+		}
 
 		public DateTime DeadlineDT {
 			get { return DateTimeHelper.FromUnixTime(Deadline); }

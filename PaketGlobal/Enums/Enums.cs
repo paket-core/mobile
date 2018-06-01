@@ -3,7 +3,7 @@ namespace PaketGlobal
 {
 	public enum StellarOperationResult
 	{
-		Success,
+		Success = 0,
 		FailSendBuls,
 		FailCreateAccount,
 		FailSubmitCreateAccount,
@@ -15,5 +15,21 @@ namespace PaketGlobal
 		IncositentBalance,
 		FailAcceptPackage,
 		FailSendCollateral
+	}
+
+	public enum PaketRole
+	{
+		Launcher = 0,
+		Courier,
+		Recipient
+	}
+
+	public enum DeliveryStatus
+	{
+		InTransit = 0,
+		Delivered,
+		DeadlineExpired,
+		Closed,
+		None
 	}
 }
