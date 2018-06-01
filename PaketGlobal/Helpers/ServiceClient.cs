@@ -85,12 +85,11 @@ namespace PaketGlobal
 
 		#region Wallet
 
-		public async Task<BalanceData> Balance()
+		public async Task<BalanceData> Balance(string pubkey)
 		{
 			var request = PrepareRequest(apiVersion + "/bul_account", Method.POST);
 
-			var pubkey = TryGetPubKey?.Invoke();
-			if (pubkey != null) request.AddParameter("queried_pubkey", pubkey);
+			request.AddParameter("queried_pubkey", pubkey);
 
 			return await SendRequest<BalanceData>(request, signData: false);
 		}
@@ -139,31 +138,42 @@ namespace PaketGlobal
 			return await SendRequest<WalletPubkeyData>(request);
 		}
 
+		public async Task<PrepareCreateAccountData> PrepareCrateAccount(string fromPubkey, string newPubkey, int startingBalance)
+		{
+			var request = PrepareRequest(apiVersion + "/prepare_create_account", Method.POST);
+
+			request.AddParameter("from_pubkey", fromPubkey);
+			request.AddParameter("new_pubkey", newPubkey);
+			request.AddParameter("starting_balance", startingBalance);
+
+			return await SendRequest<PrepareCreateAccountData>(request);
+		}
+
 		#endregion Wallet
 
 		#region Packages
 
-		public async Task<AcceptPackageData> AcceptPackage(string paketId, string transaction = null)
+		public async Task<AcceptPackageData> AcceptPackage(string escrowPubkey)
 		{
 			var request = PrepareRequest(apiVersion + "/accept_package", Method.POST);
 
-			request.AddParameter("paket_id", paketId);
-			if (transaction != null) request.AddParameter("payment_transaction", transaction);
+			request.AddParameter("escrow_pubkey", escrowPubkey);
 
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-		public async Task<LaunchPackageData> LaunchPackage(string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
+		public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls, SignHandler customSign)
 		{
-			var request = PrepareRequest(apiVersion + "/launch_package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
+			request.AddParameter("launcher_pubkey", launcherPubkey);
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("courier_pubkey", courierPubkey);
 			request.AddParameter("payment_buls", paymentBuls);
 			request.AddParameter("collateral_buls", collateralBuls);
 
-			return await SendRequest<LaunchPackageData>(request);
+			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
 
 		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
@@ -179,11 +189,11 @@ namespace PaketGlobal
 			return await SendRequest<PackagesData>(request);
 		}
 
-		public async Task<PackageData> Package(string paketId)
+		public async Task<PackageData> Package(string escrowPubkey)
 		{
 			var request = PrepareRequest(apiVersion + "/package", Method.POST);
 
-			request.AddParameter("paket_id", paketId);
+			request.AddParameter("escrow_pubkey", escrowPubkey);
 
 			return await SendRequest<PackageData>(request);
 		}
@@ -205,7 +215,7 @@ namespace PaketGlobal
 
 		#region Client Methods
 
-		private void SignRequest(RestRequest request, string pubkey, RestClient client, bool includePubkey = true)
+		private void SignRequest(RestRequest request, string pubkey, RestClient client, bool includePubkey = true, SignHandler customSign = null)
 		{
 			StringBuilder fingerprint = new StringBuilder();
 			fingerprint.Append(System.IO.Path.Combine(client.BaseUrl.AbsoluteUri + request.Resource));
@@ -217,7 +227,8 @@ namespace PaketGlobal
 			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.Now));
 			request.AddHeader("Fingerprint", fingerprint.ToString());
 
-			var signature = TrySign?.Invoke(fingerprint.ToString());
+			var signHandler = customSign ?? TrySign;
+			var signature = signHandler?.Invoke(fingerprint.ToString());
 			if (signature != null) request.AddHeader("Signature", signature);
 
 			if (includePubkey) {
@@ -235,11 +246,11 @@ namespace PaketGlobal
 			return request;
 		}
 
-		private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
+		private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
 		{
 			var client = customClient ?? restClient;
 
-			if (signData) SignRequest(request, pubkey, client);
+			if (signData) SignRequest(request, pubkey, client, customSign: customSign);
 
 			try {
 				IRestResponse<T> response;

@@ -92,7 +92,7 @@ namespace PaketGlobal
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
-						if (result != null) {
+						if (result != null) {//TODO Remove true case
 							App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
 															   result?.UserDetails?.FullName,
 															   result?.UserDetails?.PhoneNumber,
@@ -102,7 +102,6 @@ namespace PaketGlobal
 							CheckActivation();
 						} else {
 							App.Locator.Profile.KeyPair = null;
-							Application.Current.MainPage = new MainPage();
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
@@ -178,7 +177,7 @@ namespace PaketGlobal
 						App.Locator.Profile.Activated = true;
 						Application.Current.MainPage = new MainPage();
 					} else {
-						var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair, "SC2PO5YMP7VISFX75OH2DWETTEZ4HVZOECMDXOZIP3NBU3OFISSQXAEP");
+						var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
 						if (added) {
 							App.Locator.Profile.Activated = true;
 							Application.Current.MainPage = new MainPage();

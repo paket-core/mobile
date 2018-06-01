@@ -108,6 +108,52 @@ namespace PaketGlobal
 			Application.Current.MainPage = navPage;
 		}
 
+		protected void ShowError(StellarOperationResult error, bool lengthLong = false)
+		{
+			string message = null;
+
+			switch (error) {
+				case StellarOperationResult.FailSendBuls:
+					message = "Error sending BULs";
+					break;
+				case StellarOperationResult.FailCreateAccount:
+					message = "Error creating an account";
+					break;
+				case StellarOperationResult.FailSubmitCreateAccount:
+					message = "Error submiting the account creation";
+					break;
+				case StellarOperationResult.FailAddTrust:
+					message = "Error adding trust";
+					break;
+				case StellarOperationResult.LowBULsLauncher:
+					message = "Insufficient BULs from the Launcher";
+					break;
+				case StellarOperationResult.LowBULsCourier:
+					message = "Insufficient BULs from the Launcher";
+					break;
+				case StellarOperationResult.FailedLaunchPackage:
+					message = "Error launching the package";
+					break;
+				case StellarOperationResult.FaileSubmitOptions:
+					message = "Error submiting options";
+					break;
+				case StellarOperationResult.IncositentBalance:
+					message = "Inconsistent balance";
+					break;
+				case StellarOperationResult.FailAcceptPackage:
+					message = "Error accepting the package";
+					break;
+				case StellarOperationResult.FailSendCollateral:
+					message = "Error sending collateral";
+					break;
+				default:
+					message = "Some error occured";
+					break;
+			}
+
+			ShowError(message);
+		}
+
 		protected void ShowError(string error, bool lengthLong = false)
 		{
 			App.Locator.NotificationService.ShowMessage(error, lengthLong);

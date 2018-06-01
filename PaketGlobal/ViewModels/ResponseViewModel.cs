@@ -178,6 +178,13 @@ namespace PaketGlobal
 		public Dictionary<string, Dictionary<string, string>> Links { get; set; }
 	}
 
+	[DataContract]
+	public class PrepareCreateAccountData : BaseData
+	{
+		[DataMember(Name = "transaction")]
+		public string CreateTransaction { get; set; }
+	}
+
 	//Packages
 
 	[DataContract]
@@ -192,11 +199,17 @@ namespace PaketGlobal
 		[DataMember(Name = "paket_id")]//"escrow_address")]
 		public string EscrowAddress { get; set; }
 
+		[DataMember(Name = "set_options_transaction")]
+		public string SetOptionsTransaction { get; set; }
+
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
 
 		[DataMember(Name = "refund_transaction")]
 		public string RefundTransaction { get; set; }
+
+		[DataMember(Name = "merge_transaction")]
+		public string MergeTransaction { get; set; }
 	}
 
 	[DataContract]
@@ -226,7 +239,7 @@ namespace PaketGlobal
 	[DataContract]
 	public class Package
 	{
-		[DataMember(Name = "paket_id")]
+		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
 
 		[DataMember(Name = "paket_url")]

@@ -39,10 +39,10 @@ namespace PaketGlobal
 		{
 			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
 				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
-				//RecipientPubkey = "GDWDDROPMJ5FEXGU4ISVTVY34VX2OVYKZCXTNZNATWMQ5VMWQCXJ6Q2U",//TODO remove this
-				//CourierPubkey = "GAUANDHBLYEKBA77IIMCP73XQALF5Z47TBASRGV6XKVNIVAKV3BI3RH5",//TODO remove this
+				//RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
+				//CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
 				//Payment = 20,//TODO remove this
-				//Collateral = 21//TODO remove this
+				//Collateral = 30//TODO remove this
 			});
 		}
 

@@ -11,7 +11,6 @@ namespace PaketGlobal
 {
 	public class Profile
 	{
-		KeyPair keyPair;
 		public event EventHandler<EventArgs> Changed;
 
 		public string UserName {
@@ -39,17 +38,11 @@ namespace PaketGlobal
 			set { App.Locator.AccountService.Activated = value; }
 		}
 
-		public KeyPair KeyPair {
-			get { return keyPair; }
-			set {
-				keyPair = value;
-				if (keyPair != null) {
-					Pubkey = keyPair.Address;
-				}
-			}
-		}
+		public KeyPair KeyPair { get; set; }
 
-		public string Pubkey { get; private set; }
+		public string Pubkey {
+			get { return KeyPair?.Address; }
+		}
 
 		public Profile()
 		{
@@ -106,8 +99,13 @@ namespace PaketGlobal
 
 		public string SignData(string data)
 		{
+			return SignData(data, KeyPair);
+		}
+
+		public string SignData(string data, KeyPair kp)
+		{
 			var bytes = Encoding.UTF8.GetBytes(data);
-			var signed = KeyPair.Sign(bytes);
+			var signed = kp.Sign(bytes);
 			var result = Encoders.Base64.EncodeData(signed);
 			return result;
 		}

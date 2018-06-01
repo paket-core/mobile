@@ -58,6 +58,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResponseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\DateTimeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ServiceClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -99,5 +100,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\Packages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\User\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Wallet\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
   </ItemGroup>
 </Project>

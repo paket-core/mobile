@@ -31,27 +31,14 @@ namespace PaketGlobal
 			App.ShowLoading(true);
 
 			var vm = ViewModel;
-			var result = await App.Locator.ServiceClient.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
-			if (result != null) {
-				App.Locator.Profile.AddTransaction(result.EscrowAddress, result.PaymentTransaction);//save payment transaction data
-
-				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, result.EscrowAddress, vm.Payment);
-				if (trans != null) {
-					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
-					if (paymentResult != null) {
-						await System.Threading.Tasks.Task.Delay(2000);
-						await App.Locator.Packages.Load();
-						ShowError("Package created successfully");
-						App.Locator.NavigationService.GoBack();
-					} else {
-						ShowError("Error sending payment");
-					}
-				} else {
-					ShowError("Error sending payment");
-				}
+			var result = await StellarHelper.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
+			if (result == StellarOperationResult.Success) {
+				await System.Threading.Tasks.Task.Delay(2000);
+				await App.Locator.Packages.Load();
+				ShowError("Package created successfully");
+				App.Locator.NavigationService.GoBack();
 			} else {
-				ShowError("Error during package creation");
+				ShowError(result);
 			}
 
 			App.ShowLoading(false);
