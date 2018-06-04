@@ -48,12 +48,12 @@ namespace PaketGlobal
 				if (result) {
 					stackRefund.IsVisible = false;
 					lblStatus.Text = "Closed";
-					ShowError("Refunding successfull");
+					ShowMessage("Refunding successfull");
 				} else {
-					ShowError("Error during refunding");
+					ShowMessage("Error during refunding");
 				}
 			} else {
-				ShowError("Transcations data is missing");
+				ShowMessage("Transcations data is missing");
 			}
 
 			App.ShowLoading(false);
@@ -69,12 +69,12 @@ namespace PaketGlobal
 				if (result) {
 					stackReclaim.IsVisible = false;
 					lblStatus.Text = "Closed";
-					ShowError("Reclaiming successfull");
+					ShowMessage("Reclaiming successfull");
 				} else {
-					ShowError("Error during reclaiming");
+					ShowMessage("Error during reclaiming");
 				}
 			} else {
-				ShowError("Transcations data is missing");
+				ShowMessage("Transcations data is missing");
 			}
 
 			App.ShowLoading(false);

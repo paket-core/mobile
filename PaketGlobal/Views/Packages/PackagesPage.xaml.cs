@@ -64,25 +64,15 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadPackages()
  		{
-			placholderLabel.IsVisible = false;
-			layoutPlacholderLabel.IsVisible = false;
-
-			activityIndicator.IsRunning = true;
-
 			await ViewModel.Load();
 
-			if (ViewModel.PackagesList == null) {
-				placholderLabel.IsVisible = true;
-				layoutPlacholderLabel.IsVisible = true;
-			} else if (ViewModel.PackagesList.Count == 0) {
-				placholderLabel.IsVisible = true;
-				layoutPlacholderLabel.IsVisible = true;
-			}
-
-			await layoutActivity.FadeTo(0);
-			await packagesList.FadeTo(1);
-
+			activityIndicator.IsRunning = false;
 			layoutActivity.IsVisible = false;
+
+			placholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+
+			await packagesList.FadeTo(0);
+			await packagesList.FadeTo(1);
 		}
 
 		async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
@@ -91,22 +81,13 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var pkgData = (Package)e.SelectedItem;
-				var packageData = await App.Locator.ServiceClient.Package(pkgData.PaketId);
-				if (packageData != null) {
-					var balanceData = await App.Locator.ServiceClient.Balance(pkgData.PaketId);
-
-					packageData.Package.DeliveryStatus = balanceData != null && balanceData.BalanceBUL == 0 ?
-						DeliveryStatus.Delivered :
-						(balanceData == null ? DeliveryStatus.Closed : (DateTime.Now > packageData.Package.DeadlineDT ? DeliveryStatus.DeadlineExpired : DeliveryStatus.InTransit));
-
-					var myPubkey = App.Locator.Profile.Pubkey;
-					packageData.Package.MyRole = myPubkey == packageData.Package.LauncherPubkey ? PaketRole.Launcher :
-						(myPubkey == packageData.Package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
-					
-					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, packageData.Package);
+				var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
+				if (package != null) {
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package);
 				} else {
-					ShowError("Error retrieving package details");
+					ShowMessage("Error retrieving package details");
 				}
+
 				packagesList.SelectedItem = null;
 
 				App.ShowLoading(false);

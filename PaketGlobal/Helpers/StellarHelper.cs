@@ -10,7 +10,7 @@ namespace PaketGlobal
 	{
 		static string horizon_url = "https://horizon-testnet.stellar.org";
 
-		public static async Task<StellarOperationResult> LaunchPackage (string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
+		public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
 		{
 			//Check launcher's balance
 			var launcherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
@@ -25,7 +25,6 @@ namespace PaketGlobal
 			}
 
 			//Create escrow account
-			var escrowKP = KeyPair.Random();
 			var accountResult = await App.Locator.ServiceClient.PrepareCrateAccount(App.Locator.Profile.Pubkey, escrowKP.Address, 4);//Change to 20000200
 			if (accountResult != null) {
 				//Sign escrow account transaction

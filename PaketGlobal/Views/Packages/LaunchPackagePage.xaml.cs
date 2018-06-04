@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Acr.UserDialogs;
+using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -31,12 +32,22 @@ namespace PaketGlobal
 			App.ShowLoading(true);
 
 			var vm = ViewModel;
-			var result = await StellarHelper.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
+			var escrowKP = KeyPair.Random();
+			var result = await StellarHelper.LaunchPackage(escrowKP, vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
 			if (result == StellarOperationResult.Success) {
 				await System.Threading.Tasks.Task.Delay(2000);
 				await App.Locator.Packages.Load();
-				ShowError("Package created successfully");
+
+				var package = await PackageHelper.GetPackageDetails(escrowKP.Address);
+
+				ShowMessage("Package created successfully");
 				App.Locator.NavigationService.GoBack();
+
+				if (package != null) {
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package);
+				} else {
+					ShowMessage("Error retrieving package details");
+				}
 			} else {
 				ShowError(result);
 			}
@@ -58,7 +69,7 @@ namespace PaketGlobal
 				if (dateResult.Ok) {
 					var date = dateResult.SelectedDate.Date;
 					date = date.AddSeconds(86399);//23:59.59 of selected day
-					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date);
+					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date.ToUniversalTime());
 					entryDeadline.Text = ViewModel.DeadlineString;
 				}
 			};

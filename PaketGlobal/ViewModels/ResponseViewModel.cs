@@ -290,11 +290,11 @@ namespace PaketGlobal
 		}
 
 		public DateTime DeadlineDT {
-			get { return DateTimeHelper.FromUnixTime(Deadline); }
+			get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
 		}
 
 		public DateTime SendTimeDT {
-			get { return DateTimeHelper.FromUnixTime(SendTimestamp); }
+			get { return DateTimeHelper.FromUnixTime(SendTimestamp).ToLocalTime(); }
 		}
 
 		public string DeadlineString {
@@ -322,7 +322,7 @@ namespace PaketGlobal
 		public double[] GPS { get; set; }
 
 		public DateTime TimestampDT {
-			get { return DateTimeHelper.FromUnixTime(Timestamp); }
+			get { return DateTimeHelper.FromUnixTime(Timestamp).ToLocalTime(); }
 		}
 
 		public string TimeString {

@@ -23,17 +23,7 @@ namespace PaketGlobal
 
 			Title = "Accept Package";
 
-			SetupUserInterface();
-
 			ConfigureScanner();
-		}
-
-		protected override void SetupUserInterface()
-		{
-			base.SetupUserInterface();
-
-			RelativeLayout.SetXConstraint(labelBarcode, Constraint.RelativeToParent(p => (p.Width - labelBarcode.Measure(p.Width, p.Height).Request.Width) / 2f));
-			RelativeLayout.SetYConstraint(labelBarcode, Constraint.RelativeToParent(p => (p.Height - labelBarcode.Measure(p.Width, p.Height).Request.Height) / 2f));
 		}
 
 		protected override bool OnBackButtonPressed()
@@ -54,11 +44,20 @@ namespace PaketGlobal
 			base.OnDisappearing();
 		}
 
+		void ScannerOverlayTapped(object sender, EventArgs e)
+		{
+			barcodeScaner?.AutoFocus();
+		}
+
 		private void ConfigureScanner()
 		{
+			overlayBarcode.BindingContext = overlayBarcode;
+
 			barcodeScaner.Options.UseFrontCameraIfAvailable = false;
 			barcodeScaner.OnScanResult += (result) => {
 				Device.BeginInvokeOnMainThread(async () => {
+					StopScanning();
+
 					try {
 						data = JsonConvert.DeserializeObject<BarcodePackageData>(result.Text);
 					} catch (Exception ex) {
@@ -78,27 +77,22 @@ namespace PaketGlobal
 								//you are a recepient
 								package.Package.MyRole = PaketRole.Recipient;
 								Title = "Accept as a Recipient";
-							} else {/*if (myPubkey == package.CourierPubkey) {*/
+							} else {
 								//you are a courier
 								package.Package.MyRole = PaketRole.Courier;
 								Title = "Accept as a Courier";
-							} /*else {
-								//you are nothing
-								ShowError("You are not participating in this delivery");
-								StartScanning();
-								return;
-							}*/
+							}
 
 							BindingContext = package.Package;
 							await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
 						} else {
-							ShowError("Invalid package identifier");
+							ShowMessage("Invalid package identifier");
 							StartScanning();
 						}
 
 						App.ShowLoading(false);
 					} else {
-						ShowError("Invalid barcode");
+						ShowMessage("Invalid barcode");
 						StartScanning();
 					}
 				});
@@ -116,7 +110,7 @@ namespace PaketGlobal
 				if (result == StellarOperationResult.Success) {
 					await System.Threading.Tasks.Task.Delay(2000);
 					await App.Locator.Packages.Load();
-					ShowError("Package accepted successfully");
+					ShowMessage("Package accepted successfully");
 					App.Locator.NavigationService.GoBack();
 				} else {
 					ShowError(result);
@@ -131,7 +125,7 @@ namespace PaketGlobal
 				if (result == StellarOperationResult.Success) {
 					await System.Threading.Tasks.Task.Delay(2000);
 					await App.Locator.Packages.Load();
-					ShowError("Package accepted successfully");
+					ShowMessage("Package accepted successfully");
 					App.Locator.NavigationService.GoBack();
 				} else {
 					ShowError(result);

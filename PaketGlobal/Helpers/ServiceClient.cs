@@ -224,7 +224,7 @@ namespace PaketGlobal
 				fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
 			}
 
-			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.Now));
+			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.UtcNow));
 			request.AddHeader("Fingerprint", fingerprint.ToString());
 
 			var signHandler = customSign ?? TrySign;

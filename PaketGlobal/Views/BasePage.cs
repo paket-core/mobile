@@ -13,7 +13,7 @@ namespace PaketGlobal
 
 		public BasePage()
 		{
-
+			
 		}
 
 		protected override void OnAppearing()
@@ -70,14 +70,14 @@ namespace PaketGlobal
 			//	System.Diagnostics.Debug.WriteLine(args);
 			//}
 
-			ShowError(args.Message);//TODO for Debug only
+			ShowMessage(args.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(args);//TODO for Debug only
 		}
 
 		protected virtual void WorkspaceConnectionError(object sender, EventArgs e)
 		{
-			ShowError("Connection error has occured.");
+			ShowMessage("Connection error has occured.");
 		}
 
 		protected virtual void WorkspaceNetworkConnected(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace PaketGlobal
 
 			//ShowError(message);
 
-			ShowError(e.ServiceException.Message);//TODO for Debug only
+			ShowMessage(e.ServiceException.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(e.ServiceException);
 		}
@@ -151,10 +151,10 @@ namespace PaketGlobal
 					break;
 			}
 
-			ShowError(message);
+			ShowMessage(message);
 		}
 
-		protected void ShowError(string error, bool lengthLong = false)
+		protected void ShowMessage(string error, bool lengthLong = false)
 		{
 			App.Locator.NotificationService.ShowMessage(error, lengthLong);
 		}

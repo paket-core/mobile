@@ -92,7 +92,7 @@ namespace PaketGlobal
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
-						if (result != null) {//TODO Remove true case
+						if (true || result != null) {//TODO Remove true case
 							App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
 															   result?.UserDetails?.FullName,
 															   result?.UserDetails?.PhoneNumber,
@@ -106,7 +106,7 @@ namespace PaketGlobal
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
-						ShowError(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
+						ShowMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
 					}
 				});
 			}
@@ -134,13 +134,13 @@ namespace PaketGlobal
 							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
 							await ViewHelper.ToggleViews(layoutFundPrompt, layoutRegistration);
 						} else {
-							ShowError("Error registering user");
+							ShowMessage("Error registering user");
 							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
-						ShowError(ex.Message);
+						ShowMessage(ex.Message);
 					}
 				});
 			}
@@ -182,11 +182,11 @@ namespace PaketGlobal
 							App.Locator.Profile.Activated = true;
 							Application.Current.MainPage = new MainPage();
 						} else {
-							ShowError("Error adding trust token");
+							ShowMessage("Error adding trust token");
 						}
 					}
 				} else {
-					ShowError("Account isn't created yet");
+					ShowMessage("Account isn't created yet");
 				}
 			});
 		}
@@ -211,7 +211,7 @@ namespace PaketGlobal
 				}
 			} else {
 				if (!String.IsNullOrWhiteSpace(entryMnemonic.Text) && !String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
-					ShowError("Please fill only one field");
+					ShowMessage("Please fill only one field");
 					return false;
 				}
 

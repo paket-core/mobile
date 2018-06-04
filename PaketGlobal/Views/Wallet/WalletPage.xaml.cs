@@ -55,12 +55,12 @@ namespace PaketGlobal
 					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
 					if (result != null) {
-						ShowError("Funds sent successfully");
+						ShowMessage("Funds sent successfully");
 					} else {
-						ShowError("Error sending funds");
+						ShowMessage("Error sending funds");
 					}
 				} else {
-					ShowError("Error sending funds");
+					ShowMessage("Error sending funds");
 				}
 
 				App.ShowLoading(false);
