@@ -56,8 +56,6 @@ namespace PaketGlobal
 			barcodeScaner.Options.UseFrontCameraIfAvailable = false;
 			barcodeScaner.OnScanResult += (result) => {
 				Device.BeginInvokeOnMainThread(async () => {
-					StopScanning();
-
 					try {
 						data = JsonConvert.DeserializeObject<BarcodePackageData>(result.Text);
 					} catch (Exception ex) {
@@ -93,7 +91,6 @@ namespace PaketGlobal
 						App.ShowLoading(false);
 					} else {
 						ShowMessage("Invalid barcode");
-						StartScanning();
 					}
 				});
 			};
