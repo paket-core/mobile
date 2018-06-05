@@ -17,6 +17,16 @@ namespace PaketGlobal
 			Title = "Restore Private Key";
 
 			BindingContext = new RegisterViewModel();
+
+			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {
+				Title = "Activate Account";
+				ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+				layoutLogin.IsVisible = false;
+				layoutRegistration.IsVisible = false;
+				layoutFundPrompt.IsVisible = true;
+				entryMnemonicPrompt.Text = App.Locator.Profile.Mnemonic;
+				CheckActivation();
+			}
 		}
 
 		protected override bool OnBackButtonPressed()
@@ -24,13 +34,18 @@ namespace PaketGlobal
 			if (layoutRegistration.IsVisible) {
 				AlreadyRegisteredClicked(null, EventArgs.Empty);
 			}
-			//MessagingCenter.Unsubscribe<object> (this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
+
 			return true;
 		}
 
 		#region Entry Handlers
 
 		void LoginUserNameCompleted(object sender, EventArgs e)
+		{
+			LoginClicked(null, EventArgs.Empty);
+		}
+
+		void LoginSecretCompleted(object sender, System.EventArgs e)
 		{
 			LoginClicked(null, EventArgs.Empty);
 		}
@@ -55,30 +70,43 @@ namespace PaketGlobal
 
 		#region Button Handlers
 
+		void OnLogoutClicked()
+		{
+			App.Locator.Workspace.Logout();
+		}
+
 		private async void LoginClicked(object sender, EventArgs e)
 		{
 			if (IsValid()) {
 				await WithProgress(activityIndicator, async () => {
 					try {
-						//Generate private key
-						var kd = Profile.GenerateKeyPair(entryMnemonic.Text);
+						Profile.KeyData kd;
+
+						if (!String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
+							kd = Profile.GenerateKeyPairFromSeed(entrySecretKey.Text);
+						} else {
+							//Generate private key
+							kd = Profile.GenerateKeyPairFromMnemonic(entryMnemonic.Text);
+						}
+
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
-						if (result != null) {
-							App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-															   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
+						if (true || result != null) {//TODO Remove true case
+							App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
+															   result?.UserDetails?.FullName,
+															   result?.UserDetails?.PhoneNumber,
+															   kd.KeyPair.SecretSeed,
+															   kd.MnemonicString);
 
-							MessagingCenter.Unsubscribe<object>(this, MessagingCenterConstants.OnRegistrationConfirmedMessage);
-
-							Application.Current.MainPage = new MainPage();
+							CheckActivation();
 						} else {
 							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
-						ShowError(ex.Message);
+						ShowMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
 					}
 				});
 			}
@@ -90,37 +118,29 @@ namespace PaketGlobal
 				await WithProgress(activityIndicator, async () => {
 					try {
 						//Create new private key
-						var kd = Profile.GenerateKeyPair();
+						var kd = Profile.GenerateKeyPairFromMnemonic();
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
-							var prefundResult = await App.Locator.ServiceClient.FundTestUser(kd.KeyPair.Address);
-
-							if (prefundResult != null && prefundResult.Hash != null) {
-								var added = await StellarHelper.AddTrustToken(kd.KeyPair, "SC2PO5YMP7VISFX75OH2DWETTEZ4HVZOECMDXOZIP3NBU3OFISSQXAEP");
-								if (added) {
-									App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, result.UserDetails.FullName,
-																	   result.UserDetails.PhoneNumber, result.UserDetails.Pubkey, kd.MnemonicString);
-
-									Application.Current.MainPage = new MainPage();
-								} else {
-									ShowError("Error addind trust token");
-									App.Locator.Profile.KeyPair = null;
-								}
-							} else {
-								ShowError("Error prefunding the account");
-								App.Locator.Profile.KeyPair = null;
-							}
+							App.Locator.Profile.SetCredentials(ViewModel.UserName,
+															   ViewModel.FullName,
+															   ViewModel.PhoneNumber,
+							                                   kd.KeyPair.SecretSeed,
+															   kd.MnemonicString);
+							Title = "Activate Account";
+							entryMnemonicPrompt.Text = kd.MnemonicString;
+							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+							await ViewHelper.ToggleViews(layoutFundPrompt, layoutRegistration);
 						} else {
-							ShowError("Error registering user");
+							ShowMessage("Error registering user");
 							App.Locator.Profile.KeyPair = null;
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
-						ShowError(ex.Message);
+						ShowMessage(ex.Message);
 					}
 				});
 			}
@@ -140,12 +160,39 @@ namespace PaketGlobal
 			ViewModel.Reset();
 		}
 
+		void CheckActivationClicked(object sender, System.EventArgs e)
+		{
+			CheckActivation();
+		}
+
 		#endregion Button Handlers
+
+		public async void CheckActivation()
+		{
+			await WithProgress(activityIndicator, async () => {
+				var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
+				if (created) {
+					var trusted = await StellarHelper.CheckTokenTrusted();
+					if (trusted) {
+						App.Locator.Profile.Activated = true;
+						Application.Current.MainPage = new MainPage();
+					} else {
+						var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
+						if (added) {
+							App.Locator.Profile.Activated = true;
+							Application.Current.MainPage = new MainPage();
+						} else {
+							ShowMessage("Error adding trust token");
+						}
+					}
+				} else {
+					ShowMessage("Account isn't created yet");
+				}
+			});
+		}
 
 		protected override bool IsValid()
 		{
-			//return true;
-
 			if (layoutRegistration.IsVisible) {
 				if (!ValidationHelper.ValidateTextField(entryUserName.Text)) {
 					//Workspace.OnValidationError(ValidationError.Password);
@@ -163,7 +210,12 @@ namespace PaketGlobal
 					return false;
 				}
 			} else {
-				if (!ValidationHelper.ValidateTextField(entryMnemonic.Text)) {
+				if (!String.IsNullOrWhiteSpace(entryMnemonic.Text) && !String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
+					ShowMessage("Please fill only one field");
+					return false;
+				}
+
+				if (!ValidationHelper.ValidateTextField(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text)) {
 					//Workspace.OnValidationError(ValidationError.Login);
 					entryMnemonic.Focus();
 					return false;
@@ -181,10 +233,12 @@ namespace PaketGlobal
 				entryPhoneNumber.InputEnabled = enabled;
 				btnCreateAccount.IsEnabled = enabled;
 				btnAlreadyRegistered.IsEnabled = enabled;
-			} else {
+			} else if (layoutLogin.IsVisible) {
 				entryMnemonic.InputEnabled = enabled;
 				btnLogin.IsEnabled = enabled;
 				btnGotoReg.IsEnabled = enabled;
+			} else if (layoutFundPrompt.IsVisible) {
+				btnCheck.IsEnabled = enabled;
 			}
 		}
 	}

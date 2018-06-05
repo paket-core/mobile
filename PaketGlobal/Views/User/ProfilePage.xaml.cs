@@ -21,5 +21,11 @@ namespace PaketGlobal
 		{
 			App.Locator.Workspace.Logout();
 		}
+
+		void ShowClicked(object sender, System.EventArgs e)
+		{
+			btnShow.IsVisible = false;
+			entryMnemonic.IsVisible = true;
+		}
 	}
 }

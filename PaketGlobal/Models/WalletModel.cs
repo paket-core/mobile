@@ -24,7 +24,7 @@ namespace PaketGlobal
 
 		public async System.Threading.Tasks.Task Load()
 		{
-			var bal = await App.Locator.ServiceClient.Balance();
+			var bal = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 			if (bal != null) {
 				Balance = bal;
 			}

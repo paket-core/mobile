@@ -38,11 +38,11 @@ namespace PaketGlobal
 		void LaunchPackageClicked()
 		{
 			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
-				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
-				//RecipientPubkey = "GDWDDROPMJ5FEXGU4ISVTVY34VX2OVYKZCXTNZNATWMQ5VMWQCXJ6Q2U",//TODO remove this
-				//CourierPubkey = "GAUANDHBLYEKBA77IIMCP73XQALF5Z47TBASRGV6XKVNIVAKV3BI3RH5",//TODO remove this
-				//Payment = 20,//TODO remove this
-				//Collateral = 21//TODO remove this
+				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
+				RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
+				CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
+				Payment = 20,//TODO remove this
+				Collateral = 30//TODO remove this
 			});
 		}
 
@@ -64,42 +64,33 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadPackages()
  		{
-			placholderLabel.IsVisible = false;
-			layoutPlacholderLabel.IsVisible = false;
-
-			activityIndicator.IsRunning = true;
-
 			await ViewModel.Load();
 
-			if (ViewModel.PackagesList == null) {
-				placholderLabel.IsVisible = true;
-				layoutPlacholderLabel.IsVisible = true;
-			} else if (ViewModel.PackagesList.Count == 0) {
-				placholderLabel.IsVisible = true;
-				layoutPlacholderLabel.IsVisible = true;
-			}
-
-			await layoutActivity.FadeTo(0);
-			await packagesList.FadeTo(1);
-
+			activityIndicator.IsRunning = false;
 			layoutActivity.IsVisible = false;
+
+			placholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+
+			await packagesList.FadeTo(0);
+			await packagesList.FadeTo(1);
 		}
 
 		async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
 		{
 			if (e.SelectedItem != null) {
-				App.ShowLoading(true, false);
+				App.ShowLoading(true);
 
 				var pkgData = (Package)e.SelectedItem;
-				var package = await App.Locator.ServiceClient.Package(pkgData.PaketId);
+				var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
 				if (package != null) {
-					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package.Package);
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package);
 				} else {
-					ShowError("Error retrieving package details");
+					ShowMessage("Error retrieving package details");
 				}
+
 				packagesList.SelectedItem = null;
 
-				App.ShowLoading(false, false);
+				App.ShowLoading(false);
 			}
 		}
 	}

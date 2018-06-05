@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackageDetailsPage"
-             xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+                xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+    <local:BasePage.Resources>
+        <ResourceDictionary>
+            <local:DeliveryStatusToStringConverter x:Key="deliveryStatusToStringConverter" />
+            <local:DeliveryStatusToRefundVisibilityConverter x:Key="deliveryStatusToRefundVisibilityConverter" />
+            <local:RefundStatusToReclaimVisibilityConverter x:Key="refundStatusToReclaimVisibilityConverter" />
+            <local:PaketRoleToStringConverter x:Key="paketRoleToStringConverter" />
+        </ResourceDictionary>
+    </local:BasePage.Resources>
     <local:BasePage.Content>
         <TableView x:Name="contentPackage" HasUnevenRows="true" RowHeight="-1">
             <TableRoot>
@@ -8,19 +17,27 @@
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Role" FontSize="13" TextColor="#808080"/>
-                            <Label Text = "{Binding MyRole, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <Label Text = "{Binding MyRole, Converter={StaticResource paketRoleToStringConverter}, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Status" FontSize="13" TextColor="#808080"/>
-                            <Label Text = "{Binding Status, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <Label x:Name="lblStatus" Text = "{Binding DeliveryStatus, Converter={StaticResource deliveryStatusToStringConverter}, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <StackLayout x:Name="stackReclaim" IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}">
+                                <Label Text = "Package is delivered. You can reclaim unspent funds from the escrow." FontSize="13" TextColor="#7acd6a"/>
+                                <xlabs:ExtendedButton x:Name="btnReclaim" Margin="0,20,0,0" Text="Reclaim" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ReclaimClicked"/>
+                            </StackLayout>
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Deadline" FontSize="13" TextColor="#808080"/>
                             <Label Text = "{Binding DeadlineDT, StringFormat='{0:MM.dd.yyyy}', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <StackLayout x:Name="stackRefund" IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource deliveryStatusToRefundVisibilityConverter}, Mode=OneWay}">
+                                <Label Text = "Deadline Expired. You can refund from the escrow." FontSize="13" TextColor="#F44336"/>
+                                <xlabs:ExtendedButton x:Name="btnRefund" Margin="0,20,0,0" Text="Refund" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#F44336" Clicked="RefundClicked"/>
+                            </StackLayout>
                         </StackLayout>
                     </ViewCell>
                     <ViewCell>

@@ -17,35 +17,35 @@ namespace PaketGlobal.iOS
 		public string FullName {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["FullName"];
+				return account != null && account.Properties.ContainsKey("FullName") ? account.Properties["FullName"] : null;
 			}
 		}
 
 		public string PhoneNumber {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["PhoneNumber"];
+				return account != null && account.Properties.ContainsKey("PhoneNumber") ? account.Properties["PhoneNumber"] : null;
 			}
 		}
 
-		public string Pubkey {
+		public string Seed {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["Pubkey"];
+				return account != null && account.Properties.ContainsKey("Seed") ? account.Properties["Seed"] : null;
 			}
 		}
 
 		public string Mnemonic {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["Mnemonic"];
+				return account != null && account.Properties.ContainsKey("Mnemonic") ? account.Properties["Mnemonic"] : null;
 			}
 		}
 
 		public string Transactions {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Properties["Transactions"];
+				return account != null && account.Properties.ContainsKey("Transactions") ? account.Properties["Transactions"] : null;
 			}
 			set {
 				var store = AccountStore.Create();
@@ -61,18 +61,36 @@ namespace PaketGlobal.iOS
 			}
 		}
 
-		public void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
+		public bool Activated {
+			get {
+				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				return account != null && account.Properties.ContainsKey("Activated") ? bool.Parse(account.Properties["Activated"]) : false;
+			}
+			set {
+				var store = AccountStore.Create();
+				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+				if (account != null) {
+					var b = value ? bool.TrueString : bool.FalseString;
+					if (account.Properties.ContainsKey("Activated")) {
+						account.Properties["Activated"] = b;
+					} else {
+						account.Properties.Add("Activated", b);
+					}
+					store.Save(account, App.AppName);
+				}
+			}
+		}
+
+		public void SetCredentials(string userName, string fullName, string phoneNumber, string seed, string mnemonic)
 		{
-			if (!String.IsNullOrWhiteSpace(userName) && !String.IsNullOrWhiteSpace(fullName)
-			    && !String.IsNullOrWhiteSpace(phoneNumber) && !String.IsNullOrWhiteSpace(pubkey)
-			    && !String.IsNullOrWhiteSpace(mnemonic)) {
+			if (!String.IsNullOrWhiteSpace(seed) || !String.IsNullOrWhiteSpace(mnemonic)) {
 				var account = new Account {
-					Username = userName
+					Username = userName ?? "User"
 				};
-				account.Properties.Add("FullName", fullName);
-				account.Properties.Add("PhoneNumber", phoneNumber);
-				account.Properties.Add("Pubkey", pubkey);
-				account.Properties.Add("Mnemonic", mnemonic);
+				if (fullName != null) account.Properties.Add("FullName", fullName);
+				if (phoneNumber != null) account.Properties.Add("PhoneNumber", phoneNumber);
+				if (seed != null) account.Properties.Add("Seed", seed);
+				if (mnemonic != null) account.Properties.Add("Mnemonic", mnemonic);
 				AccountStore.Create().Save(account, App.AppName);
 			}
 		}

@@ -13,7 +13,7 @@ namespace PaketGlobal
 
 		public BasePage()
 		{
-
+			
 		}
 
 		protected override void OnAppearing()
@@ -36,7 +36,6 @@ namespace PaketGlobal
 		protected override void OnDisappearing()
 		{
 			//MessagingCenter.Unsubscribe<object> (this, MessagingCenterConstants.OnApplicationSleepMessage);
-			CleanUp();
 			App.Locator.Workspace.AuthenticationRequired -= WorkspaceAuthenticationError;
 			App.Locator.Workspace.ConnectionError -= WorkspaceConnectionError;
 			App.Locator.Workspace.NetworkConnected -= WorkspaceNetworkConnected;
@@ -71,14 +70,14 @@ namespace PaketGlobal
 			//	System.Diagnostics.Debug.WriteLine(args);
 			//}
 
-			ShowError(args.Message);//TODO for Debug only
+			ShowMessage(args.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(args);//TODO for Debug only
 		}
 
 		protected virtual void WorkspaceConnectionError(object sender, EventArgs e)
 		{
-			ShowError("Connection error has occured.");
+			ShowMessage("Connection error has occured.");
 		}
 
 		protected virtual void WorkspaceNetworkConnected(object sender, EventArgs e)
@@ -98,7 +97,7 @@ namespace PaketGlobal
 
 			//ShowError(message);
 
-			ShowError(e.ServiceException.Message);//TODO for Debug only
+			ShowMessage(e.ServiceException.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(e.ServiceException);
 		}
@@ -109,7 +108,53 @@ namespace PaketGlobal
 			Application.Current.MainPage = navPage;
 		}
 
-		protected void ShowError(string error, bool lengthLong = false)
+		protected void ShowError(StellarOperationResult error, bool lengthLong = false)
+		{
+			string message = null;
+
+			switch (error) {
+				case StellarOperationResult.FailSendBuls:
+					message = "Error sending BULs";
+					break;
+				case StellarOperationResult.FailCreateAccount:
+					message = "Error creating an account";
+					break;
+				case StellarOperationResult.FailSubmitCreateAccount:
+					message = "Error submiting the account creation";
+					break;
+				case StellarOperationResult.FailAddTrust:
+					message = "Error adding trust";
+					break;
+				case StellarOperationResult.LowBULsLauncher:
+					message = "Insufficient BULs from the Launcher";
+					break;
+				case StellarOperationResult.LowBULsCourier:
+					message = "Insufficient BULs from the Launcher";
+					break;
+				case StellarOperationResult.FailedLaunchPackage:
+					message = "Error launching the package";
+					break;
+				case StellarOperationResult.FaileSubmitOptions:
+					message = "Error submiting options";
+					break;
+				case StellarOperationResult.IncositentBalance:
+					message = "Inconsistent balance";
+					break;
+				case StellarOperationResult.FailAcceptPackage:
+					message = "Error accepting the package";
+					break;
+				case StellarOperationResult.FailSendCollateral:
+					message = "Error sending collateral";
+					break;
+				default:
+					message = "Some error occured";
+					break;
+			}
+
+			ShowMessage(message);
+		}
+
+		protected void ShowMessage(string error, bool lengthLong = false)
 		{
 			App.Locator.NotificationService.ShowMessage(error, lengthLong);
 		}

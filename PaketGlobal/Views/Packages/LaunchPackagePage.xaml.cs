@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Acr.UserDialogs;
+using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -21,40 +22,37 @@ namespace PaketGlobal
 
 			Title = (ViewModel == null) ? "Launch New Package" : "Edit Package";
 
-			ToolbarItems.Add(new ToolbarItem("Save", null, OnSaveClicked));
+			ToolbarItems.Add(new ToolbarItem("Launch", null, OnSaveClicked));
 		}
 
 		async void OnSaveClicked()
 		{
 			Unfocus();
 
-			App.ShowLoading(true, false);
+			App.ShowLoading(true);
 
 			var vm = ViewModel;
-			var result = await App.Locator.ServiceClient.LaunchPackage(vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
-			if (result != null) {
-				App.Locator.Profile.AddTransaction(result.EscrowAddress, result.PaymentTransaction);//save payment transaction data
+			var escrowKP = KeyPair.Random();
+			var result = await StellarHelper.LaunchPackage(escrowKP, vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
+			if (result == StellarOperationResult.Success) {
+				await System.Threading.Tasks.Task.Delay(2000);
+				await App.Locator.Packages.Load();
 
-				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, result.EscrowAddress, vm.Payment);
-				if (trans != null) {
-					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-					var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
-					if (paymentResult != null) {
-						await System.Threading.Tasks.Task.Delay(2000);
-						await App.Locator.Packages.Load();
-						ShowError("Package created successfully");
-						App.Locator.NavigationService.GoBack();
-					} else {
-						ShowError("Error sending payment");
-					}
+				var package = await PackageHelper.GetPackageDetails(escrowKP.Address);
+
+				ShowMessage("Package created successfully");
+				App.Locator.NavigationService.GoBack();
+
+				if (package != null) {
+					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package);
 				} else {
-					ShowError("Error sending payment");
+					ShowMessage("Error retrieving package details");
 				}
 			} else {
-				ShowError("Error during package creation");
+				ShowError(result);
 			}
 
-			App.ShowLoading(false, false);
+			App.ShowLoading(false);
 		}
 
 		void DeadlineTapped(object sender, System.EventArgs e)
@@ -71,7 +69,7 @@ namespace PaketGlobal
 				if (dateResult.Ok) {
 					var date = dateResult.SelectedDate.Date;
 					date = date.AddSeconds(86399);//23:59.59 of selected day
-					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date);
+					ViewModel.Deadline = DateTimeHelper.ToUnixTime(date.ToUniversalTime());
 					entryDeadline.Text = ViewModel.DeadlineString;
 				}
 			};

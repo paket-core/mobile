@@ -136,5 +136,4 @@ gdbserver
 Components/
 Config.production.cs
 Songtive.Engine.iOS.ipa
-AndroidManifest.xml
 .vs/Cycliq.Win/v15/sqlite3/storage.ide

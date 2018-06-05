@@ -80,8 +80,11 @@ namespace PaketGlobal
 	[DataContract]
 	public class BalanceData : BaseData
 	{
-		[DataMember(Name = "balance")]
-		public long Balance { get; set; }
+		[DataMember(Name = "bul_balance")]
+		public long BalanceBUL { get; set; }
+
+		[DataMember(Name = "xlm_balance")]
+		public long BalanceXLM { get; set; }
 
 		[DataMember(Name = "sequence")]
 		public string Sequence { get; set; }
@@ -175,6 +178,13 @@ namespace PaketGlobal
 		public Dictionary<string, Dictionary<string, string>> Links { get; set; }
 	}
 
+	[DataContract]
+	public class PrepareCreateAccountData : BaseData
+	{
+		[DataMember(Name = "transaction")]
+		public string CreateTransaction { get; set; }
+	}
+
 	//Packages
 
 	[DataContract]
@@ -189,11 +199,17 @@ namespace PaketGlobal
 		[DataMember(Name = "paket_id")]//"escrow_address")]
 		public string EscrowAddress { get; set; }
 
+		[DataMember(Name = "set_options_transaction")]
+		public string SetOptionsTransaction { get; set; }
+
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
 
 		[DataMember(Name = "refund_transaction")]
 		public string RefundTransaction { get; set; }
+
+		[DataMember(Name = "merge_transaction")]
+		public string MergeTransaction { get; set; }
 	}
 
 	[DataContract]
@@ -223,7 +239,7 @@ namespace PaketGlobal
 	[DataContract]
 	public class Package
 	{
-		[DataMember(Name = "paket_id")]
+		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
 
 		[DataMember(Name = "paket_url")]
@@ -232,8 +248,7 @@ namespace PaketGlobal
 		[DataMember(Name = "launcher_pubkey")]
 		public string LauncherPubkey { get; set; }
 
-		[DataMember(Name = "my_role")]
-		public string MyRole { get; set; }
+		public PaketRole MyRole { get; set; }
 
 		[DataMember(Name = "recipient_pubkey")]
 		public string RecipientPubkey { get; set; }
@@ -268,12 +283,18 @@ namespace PaketGlobal
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
 
+		public DeliveryStatus DeliveryStatus { get; set; }
+
+		public DeliveryStatus DeliveryStatusPrivate {
+			get { return MyRole == PaketRole.Launcher ? DeliveryStatus : DeliveryStatus.None; }
+		}
+
 		public DateTime DeadlineDT {
-			get { return DateTimeHelper.FromUnixTime(Deadline); }
+			get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
 		}
 
 		public DateTime SendTimeDT {
-			get { return DateTimeHelper.FromUnixTime(SendTimestamp); }
+			get { return DateTimeHelper.FromUnixTime(SendTimestamp).ToLocalTime(); }
 		}
 
 		public string DeadlineString {
@@ -301,7 +322,7 @@ namespace PaketGlobal
 		public double[] GPS { get; set; }
 
 		public DateTime TimestampDT {
-			get { return DateTimeHelper.FromUnixTime(Timestamp); }
+			get { return DateTimeHelper.FromUnixTime(Timestamp).ToLocalTime(); }
 		}
 
 		public string TimeString {

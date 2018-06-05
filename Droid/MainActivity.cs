@@ -46,7 +46,7 @@ namespace PaketGlobal.Droid
 		{
 			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-			global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+			global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 
 		private void RegisterServiceContainers()

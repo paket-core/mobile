@@ -25,46 +25,70 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.PhoneNumber; }
 		}
 
-		public string Pubkey {
-			get { return App.Locator.AccountService.Pubkey; }
+		public string Seed {
+			get { return App.Locator.AccountService.Seed; }
 		}
 
 		public string Mnemonic {
 			get { return App.Locator.AccountService.Mnemonic; }
 		}
 
+		public bool Activated {
+			get { return App.Locator.AccountService.Activated; }
+			set { App.Locator.AccountService.Activated = value; }
+		}
+
 		public KeyPair KeyPair { get; set; }
+
+		public string Pubkey {
+			get { return KeyPair?.Address; }
+		}
 
 		public Profile()
 		{
 			TryRestoreKeyPair();
 		}
 
-		public void SetCredentials (string userName, string fullName, string phoneNumber, string pubkey, string mnemonic)
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string seed, string mnemonic)
 		{
-			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, pubkey, mnemonic);
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, seed, mnemonic);
 		}
 
 		public void DeleteCredentials ()
 		{
+			KeyPair = null;
 			App.Locator.AccountService.DeleteCredentials ();
 		}
 
 		private void TryRestoreKeyPair()
 		{
-			if (!String.IsNullOrWhiteSpace(Pubkey) && !String.IsNullOrWhiteSpace(Mnemonic)) {
-				KeyPair = GenerateKeyPair(Mnemonic).KeyPair;
+			if (!String.IsNullOrWhiteSpace(Mnemonic)) {
+				KeyPair = GenerateKeyPairFromMnemonic(Mnemonic).KeyPair;
+			} else if (!String.IsNullOrWhiteSpace(Seed)) {
+				KeyPair = GenerateKeyPairFromSeed(Seed).KeyPair;
 			}
 		}
 
-		public static KeyData GenerateKeyPair(string mnemonic = null)
+		public static KeyData GenerateKeyPairFromMnemonic(string mnemonic = null)
 		{
 			//Restore seed from word list
 			var mo = String.IsNullOrWhiteSpace(mnemonic) ? new Mnemonic(Wordlist.English, WordCount.Twelve)
 						   : new Mnemonic(mnemonic, Wordlist.English);
 			var extKey = mo.DeriveExtKey();
-			var seed = extKey.PrivateKey.ToBytes();
+			//var seed = extKey.PrivateKey.ToBytes();
+			var seed = StrKey.EncodeStellarSecretSeed(extKey.PrivateKey.ToBytes());
+			var kd = GenerateKeyPair(seed, mo);
+			return kd;
+		}
 
+		public static KeyData GenerateKeyPairFromSeed(string seed)
+		{
+			var kd = GenerateKeyPair(seed);
+			return kd;
+		}
+
+		private static KeyData GenerateKeyPair(string seed, Mnemonic mo = null)
+		{
 			//Recover private key
 			var kp = KeyPair.FromSecretSeed(seed);
 			//var kp = KeyPair.FromSecretSeed("SDJGBJZMQ7Z4W3KMSMO2HYEV56DJPOZ7XRR7LJ5X2KW6VKBSLELR7MRQ");//Launcher
@@ -76,23 +100,36 @@ namespace PaketGlobal
 
 		public string SignData(string data)
 		{
+			return SignData(data, KeyPair);
+		}
+
+		public string SignData(string data, KeyPair kp)
+		{
 			var bytes = Encoding.UTF8.GetBytes(data);
-			var signed = KeyPair.Sign(bytes);
+			var signed = kp.Sign(bytes);
 			var result = Encoders.Base64.EncodeData(signed);
 			return result;
 		}
 
-		public bool AddTransaction(string paketId, string trans)
+		public bool AddTransaction(string paketId, string paymentTranscation)
+		{
+			var transData = new LaunchPackageData {
+				PaymentTransaction = paymentTranscation
+			};
+			return AddTransaction(paketId, transData);
+		}
+
+		public bool AddTransaction(string paketId, LaunchPackageData transactionData)
 		{
 			try {
-				Dictionary<string, string> transactions = null;
+				Dictionary<string, LaunchPackageData> transactions = null;
 				var transData = App.Locator.AccountService.Transactions;
 
-				if (transData != null) transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
-				else transactions = new Dictionary<string, string>();
+				if (transData != null) transactions = JsonConvert.DeserializeObject<Dictionary<string, LaunchPackageData>>(transData);
+				else transactions = new Dictionary<string, LaunchPackageData>();
 
 				if (!transactions.ContainsKey(paketId)) {
-					transactions.Add(paketId, trans);
+					transactions.Add(paketId, transactionData);
 				}
 
 				transData = JsonConvert.SerializeObject(transactions);
@@ -106,14 +143,14 @@ namespace PaketGlobal
 		}
 
 
-		public string GetTransaction(string paketId)
+		public LaunchPackageData GetTransaction(string paketId)
 		{
 			try {
 				var transData = App.Locator.AccountService.Transactions;
 
 				if (transData == null) return null;
 
-				var transactions = JsonConvert.DeserializeObject<Dictionary<string, string>>(transData);
+				var transactions = JsonConvert.DeserializeObject<Dictionary<string, LaunchPackageData>>(transData);
 
 				if (transactions.ContainsKey(paketId)) {
 					var trans = transactions[paketId];

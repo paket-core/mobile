@@ -27,9 +27,17 @@
                 <TableSection Title="Keys">
                     <ViewCell>
                         <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
+                            <Label Text = "Public Key" FontSize="13" TextColor="#808080"/>
+                            <Label Text = "This is your public key, used to interact with Stellar" FontSize="12" TextColor="#808080"/>
+                            <local:EntryEx x:Name="entryPubkey" Keyboard="Text" InputEnabled="false" TintColor="#DE000000" Text="{Binding Pubkey, Mode=OneWay}"/>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                             <Label Text = "Mnemonic" FontSize="13" TextColor="#808080"/>
                             <Label Text = "Use this mnemonic to recover private key on another device" FontSize="12" TextColor="#808080"/>
-                            <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic Phrase" Keyboard="Text" InputEnabled="false" TintColor="#DE000000" Text="{Binding Mnemonic, Mode=OneWay}"/>
+                            <xlabs:ExtendedButton x:Name="btnShow" Margin="0,20,0,20" Text="Show" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ShowClicked"/>
+                            <local:EntryEx x:Name="entryMnemonic" IsVisible="false" Keyboard="Text" InputEnabled="false" TintColor="#DE000000" Text="{Binding Mnemonic, Mode=OneWay}"/>
                         </StackLayout>
                     </ViewCell>
                 </TableSection>

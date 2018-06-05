@@ -7,8 +7,10 @@
                 Source="back_login_1.jpg" Aspect="AspectFill"
                 AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"/>-->
             <StackLayout x:Name="layoutLogin" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize"
-                    Orientation="Vertical" Padding="18, 10, 18, 10">
+                    Orientation="Vertical" Padding="18, 10, 18, 10" Spacing="8">
                 <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" TintColor="#DE000000"/>
+                <Label Text = "or" FontSize="16" TextColor="#808080" HorizontalOptions="Center"/>
+                <local:EntryEx x:Name="entrySecretKey" Placeholder="Secret Key" Keyboard="Text" Completed="LoginSecretCompleted" TintColor="#DE000000"/>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnLogin" Text="Restore Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="LoginClicked"/>
                     <xlabs:ExtendedButton x:Name="btnGotoReg" Text="Generate New Key" Clicked="GoToRegistrationClicked"/>
@@ -22,6 +24,16 @@
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnCreateAccount" Text="Generate Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CreateAccountClicked"/>
                     <xlabs:ExtendedButton x:Name="btnAlreadyRegistered" Text="Already Have a Key" Clicked="AlreadyRegisteredClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="layoutFundPrompt" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                         AbsoluteLayout.LayoutBounds="0.5, 0.5, 1.0, AutoSize" Padding="18, 10, 18, 10" Spacing="8">
+                <Label x:Name="labelPrompt" FontSize="14" TextColor="#808080" Text="Please send 0.001 BTC to this address to create your account" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <local:EntryEx x:Name="entryAddress" EditEnabled="false" Keyboard="Text" TintColor="#DE000000" Text="7ad7g72f727hf72e7hf72hfh7fh7f487458f48jf48jf4h7f4h7f4"/>
+                <xlabs:ExtendedButton x:Name="btnCheck" Text="Check Activation" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CheckActivationClicked"/>
+                <StackLayout Orientation="Vertical" Padding="0,20,0,5" Spacing="0">
+                    <Label Text = "Use this mnemonic to recover private key on another device" FontSize="14" TextColor="#808080"/>
+                    <local:EntryEx x:Name="entryMnemonicPrompt" EditEnabled="false" Placeholder="Mnemonic Phrase" Keyboard="Text" TintColor="#DE000000"/>
                 </StackLayout>
             </StackLayout>
             <ActivityIndicator x:Name="activityIndicator"
