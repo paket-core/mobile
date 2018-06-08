@@ -62,11 +62,19 @@ namespace PaketGlobal
 
 		private void TryRestoreKeyPair()
 		{
+			var kd = TryGetKeyData();
+			KeyPair = kd?.KeyPair;
+		}
+
+		public KeyData TryGetKeyData()
+		{
 			if (!String.IsNullOrWhiteSpace(Mnemonic)) {
-				KeyPair = GenerateKeyPairFromMnemonic(Mnemonic).KeyPair;
+				return GenerateKeyPairFromMnemonic(Mnemonic);
 			} else if (!String.IsNullOrWhiteSpace(Seed)) {
-				KeyPair = GenerateKeyPairFromSeed(Seed).KeyPair;
+				return GenerateKeyPairFromSeed(Seed);
 			}
+
+			return null;
 		}
 
 		public static KeyData GenerateKeyPairFromMnemonic(string mnemonic = null)

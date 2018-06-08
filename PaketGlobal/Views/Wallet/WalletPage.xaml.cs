@@ -25,12 +25,12 @@ namespace PaketGlobal
 		protected async override void OnAppearing()
 		{
 			if (firstLoad) {
-				await LoadPackages();
+				await LoadWallet();
 			}
 			base.OnAppearing();
 		}
 
-		private async System.Threading.Tasks.Task LoadPackages()
+		private async System.Threading.Tasks.Task LoadWallet()
 		{
 			layoutActivity.IsVisible = true;
 			activityIndicator.IsRunning = true;

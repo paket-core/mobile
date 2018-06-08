@@ -21,6 +21,13 @@ namespace PaketGlobal
 	//User
 
 	[DataContract]
+	public class CreateStellarAccountData : BaseData
+	{
+		[DataMember(Name = "payment_address")]
+		public string PaymentAddress { get; set; }
+	}
+
+	[DataContract]
 	public class UserData : BaseData
 	{
 		[DataMember(Name = "user_details")]
@@ -38,6 +45,9 @@ namespace PaketGlobal
 
 		[DataMember(Name = "phone_number")]
 		public string PhoneNumber { get; set; }
+
+		[DataMember(Name = "address")]
+		public string Address { get; set; }
 
 		[DataMember(Name = "pubkey")]
 		public string Pubkey { get; set; }

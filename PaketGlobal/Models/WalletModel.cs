@@ -17,11 +17,6 @@ namespace PaketGlobal
 			set { SetProperty(ref price, value); }
 		}
 
-		public WalletModel()
-		{
-
-		}
-
 		public async System.Threading.Tasks.Task Load()
 		{
 			var bal = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);

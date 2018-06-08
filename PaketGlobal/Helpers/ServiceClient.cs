@@ -13,7 +13,7 @@ namespace PaketGlobal
 {
 	public class ServiceClient
 	{
-		public const string apiVersion = "v3";
+		public readonly string apiVersion;
 
 		public delegate string PubKeyHandler();
 		public delegate string SignHandler(string data);
@@ -28,9 +28,10 @@ namespace PaketGlobal
 		public PubKeyHandler TryGetPubKey { get; set; }
 		public SignHandler TrySign { get; set; }
 
-		public ServiceClient(string url, string custom = null)
+		public ServiceClient(string url, string version, string custom = null)
 		{
 			restUrl = url;
+			apiVersion = version;
 			customUrl = custom;
 			_serializer = new ServiceStackSerializer();
 
@@ -48,13 +49,53 @@ namespace PaketGlobal
 		{
 			//pubkey = "debug";//TODO for Debug purposes
 
-			var request = PrepareRequest(apiVersion + "/register_user", Method.POST);
+			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
-			request.AddParameter("paket_user", paketUser);
-			request.AddParameter("full_name", fullName);
-			request.AddParameter("phone_number", phoneNumber);
+			request.AddParameter("call_sign", paketUser);
+			//request.AddParameter("full_name", fullName);
+			//request.AddParameter("phone_number", phoneNumber);
 
 			return await SendRequest<UserData>(request, pubkey);
+		}
+
+		public async Task<CreateStellarAccountData> CreateStellarAccount(PaymentCurrency currency)
+		{
+			//pubkey = "debug";//TODO for Debug purposes
+
+			var request = PrepareRequest(apiVersion + "/create_stellar_account", Method.POST);
+
+			request.AddParameter("payment_currency", currency.ToString());
+
+			return await SendRequest<CreateStellarAccountData>(request);
+		}
+
+		public async Task<UserData> GetUser(string pubkey)
+		{
+			//pubkey = "debug";//TODO for Debug purposes
+
+			var request = PrepareRequest(apiVersion + "/get_user", Method.POST);
+
+			request.AddParameter("pubkey", pubkey);
+
+			return await SendRequest<UserData>(request, signData: false);
+		}
+
+		public async Task<UserData> UserInfos()
+		{
+			return await UserInfos(null, null, null);
+		}
+
+		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address)
+		{
+			//pubkey = "debug";//TODO for Debug purposes
+
+			var request = PrepareRequest(apiVersion + "/user_infos", Method.POST);
+
+			if (fullName != null) request.AddParameter("full_name", fullName);
+			if (phoneNumber != null) request.AddParameter("phone_number", phoneNumber);
+			if (address != null) request.AddParameter("address", address);
+
+			return await SendRequest<UserData>(request);
 		}
 
 		public async Task<PrefundData> FundTestUser(string pubkey)
@@ -70,15 +111,6 @@ namespace PaketGlobal
 			request.AddParameter("addr", pubkey);
 
 			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
-		}
-
-		public async Task<UserData> RecoverUser(string pubkey)
-		{
-			//pubkey = "debug";//TODO for Debug purposes
-
-			var request = PrepareRequest(apiVersion + "/recover_user", Method.POST);
-
-			return await SendRequest<UserData>(request, pubkey);
 		}
 
 		#endregion User

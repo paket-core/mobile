@@ -14,9 +14,9 @@ namespace PaketGlobal
 		public const string AcceptPackagePage = "AcceptPackagePage";
 		public const string WalletPage = "WalletPage";
 
-		public T GetInstance<T>()
+		public T GetInstance<T>(string key = null)
 		{
-			return SimpleIoc.Default.GetInstance<T>();
+			return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
 		}
 
 		public Profile Profile {
@@ -28,7 +28,11 @@ namespace PaketGlobal
 		}
 
 		public ServiceClient ServiceClient {
-			get { return GetInstance<ServiceClient>(); }
+			get { return GetInstance<ServiceClient>("PackageService"); }
+		}
+
+		public ServiceClient FundServiceClient {
+			get { return GetInstance<ServiceClient>("FundService"); }
 		}
 
 		public NavigationService NavigationService {
@@ -82,8 +86,18 @@ namespace PaketGlobal
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
 			}
 
-			if (!SimpleIoc.Default.IsRegistered<ServiceClient>()) {
-				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl, Config.PrefundTestUrl));
+			if (!SimpleIoc.Default.IsRegistered<ServiceClient>("PackageService")) {
+				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl,
+																				  Config.ServerVersion,
+																				  Config.PrefundTestUrl),
+														  "PackageService");
+			}
+
+			if (!SimpleIoc.Default.IsRegistered<ServiceClient>("FundService")) {
+				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.FundServerUrl,
+																				  Config.FundServerVersion,
+																				  Config.PrefundTestUrl),
+														  "FundService");
 			}
 
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {

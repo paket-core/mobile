@@ -19,13 +19,23 @@ namespace PaketGlobal
 			BindingContext = new RegisterViewModel();
 
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {
-				Title = "Activate Account";
-				ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
-				layoutLogin.IsVisible = false;
-				layoutRegistration.IsVisible = false;
-				layoutFundPrompt.IsVisible = true;
-				entryMnemonicPrompt.Text = App.Locator.Profile.Mnemonic;
-				CheckActivation();
+				if (App.Locator.Profile.UserName != null) {
+					Title = "Activate Account";
+					ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+					layoutLogin.IsVisible = false;
+					layoutRegistration.IsVisible = false;
+					layoutFundPrompt.IsVisible = true;
+					layoutProvideInfo.IsVisible = false;
+					entryMnemonicPrompt.Text = App.Locator.Profile.Mnemonic;
+					CheckActivation();
+				} else {
+					Title = "Add Info";
+					ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+					layoutLogin.IsVisible = false;
+					layoutRegistration.IsVisible = false;
+					layoutFundPrompt.IsVisible = false;
+					layoutProvideInfo.IsVisible = true;
+				}
 			}
 		}
 
@@ -66,6 +76,22 @@ namespace PaketGlobal
 			CreateAccountClicked(null, EventArgs.Empty);
 		}
 
+		void UserNameInfoCompleted(object sender, EventArgs e)
+		{
+			entryFullNameInfo.Focus();
+		}
+
+		void FullNameInfoCompleted(object sender, EventArgs e)
+		{
+			entryPhoneNumberInfo.Focus();
+		}
+
+		void PhoneNumberInfoCompleted(object sender, EventArgs e)
+		{
+			entryPhoneNumberInfo.Unfocus();
+			ContinueClicked(null, EventArgs.Empty);
+		}
+
 		#endregion Entry Handlers
 
 		#region Button Handlers
@@ -91,17 +117,21 @@ namespace PaketGlobal
 
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
-						var result = await App.Locator.ServiceClient.RecoverUser(kd.KeyPair.Address);
-						if (true || result != null) {//TODO Remove true case
-							App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
+						var result = await App.Locator.FundServiceClient.GetUser(kd.KeyPair.Address);
+
+						App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
 															   result?.UserDetails?.FullName,
 															   result?.UserDetails?.PhoneNumber,
 															   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
-
+						
+						if (result != null) {
 							CheckActivation();
 						} else {
-							App.Locator.Profile.KeyPair = null;
+							//App.Locator.Profile.KeyPair = null;
+							Title = "Add Info";
+							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+							await ViewHelper.ToggleViews(layoutProvideInfo, layoutLogin);
 						}
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
@@ -121,7 +151,7 @@ namespace PaketGlobal
 						var kd = Profile.GenerateKeyPairFromMnemonic();
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
-						var result = await App.Locator.ServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+						var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
 							App.Locator.Profile.SetCredentials(ViewModel.UserName,
@@ -129,10 +159,18 @@ namespace PaketGlobal
 															   ViewModel.PhoneNumber,
 							                                   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
-							Title = "Activate Account";
-							entryMnemonicPrompt.Text = kd.MnemonicString;
-							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
-							await ViewHelper.ToggleViews(layoutFundPrompt, layoutRegistration);
+
+							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(PaymentCurrency.ETH);
+							if (createResult != null) {
+								Title = "Activate Account";
+								entryMnemonicPrompt.Text = kd.MnemonicString;
+								entryAddress.Text = createResult.PaymentAddress;
+								ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
+								await ViewHelper.ToggleViews(layoutFundPrompt, layoutRegistration);
+							} else {
+								ShowMessage("Error creating Stellar account");
+								App.Locator.Profile.KeyPair = null;
+							}
 						} else {
 							ShowMessage("Error registering user");
 							App.Locator.Profile.KeyPair = null;
@@ -140,6 +178,34 @@ namespace PaketGlobal
 					} catch (Exception ex) {
 						System.Diagnostics.Debug.WriteLine(ex);
 						App.Locator.Profile.KeyPair = null;
+						ShowMessage(ex.Message);
+					}
+				});
+			}
+		}
+
+		private async void ContinueClicked(object sender, System.EventArgs e)
+		{
+			if (IsValid()) {
+				await WithProgress(activityIndicator, async () => {
+					try {
+						//Retrievee private key
+						var kd = App.Locator.Profile.TryGetKeyData();
+
+						var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
+						if (result != null) {
+							App.Locator.Profile.SetCredentials(ViewModel.UserName,
+															   ViewModel.FullName,
+															   ViewModel.PhoneNumber,
+															   kd.KeyPair.SecretSeed,
+															   kd.MnemonicString);
+							CheckActivation();
+						} else {
+							ShowMessage("Error adding info");
+						}
+					} catch (Exception ex) {
+						System.Diagnostics.Debug.WriteLine(ex);
 						ShowMessage(ex.Message);
 					}
 				});
@@ -186,7 +252,7 @@ namespace PaketGlobal
 						}
 					}
 				} else {
-					ShowMessage("Account isn't created yet");
+					ShowMessage("Stellar account isn't created yet");
 				}
 			});
 		}
@@ -209,7 +275,7 @@ namespace PaketGlobal
 					entryPhoneNumber.Focus();
 					return false;
 				}
-			} else {
+			} else if (layoutLogin.IsVisible) {
 				if (!String.IsNullOrWhiteSpace(entryMnemonic.Text) && !String.IsNullOrWhiteSpace(entrySecretKey.Text)) {
 					ShowMessage("Please fill only one field");
 					return false;
@@ -218,6 +284,22 @@ namespace PaketGlobal
 				if (!ValidationHelper.ValidateTextField(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text)) {
 					//Workspace.OnValidationError(ValidationError.Login);
 					entryMnemonic.Focus();
+					return false;
+				}
+			} else if (layoutProvideInfo.IsVisible) {
+				if (!ValidationHelper.ValidateTextField(entryUserNameInfo.Text)) {
+					//Workspace.OnValidationError(ValidationError.Password);
+					entryUserNameInfo.Focus();
+					return false;
+				}
+				if (!ValidationHelper.ValidateTextField(entryFullNameInfo.Text)) {
+					//Workspace.OnValidationError(ValidationError.PasswordConfirmation);
+					entryFullNameInfo.Focus();
+					return false;
+				}
+				if (!ValidationHelper.ValidateTextField(entryPhoneNumberInfo.Text)) {
+					//Workspace.OnValidationError(ValidationError.Email);
+					entryPhoneNumberInfo.Focus();
 					return false;
 				}
 			}
