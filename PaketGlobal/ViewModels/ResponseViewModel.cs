@@ -23,7 +23,7 @@ namespace PaketGlobal
 	[DataContract]
 	public class CreateStellarAccountData : BaseData
 	{
-		[DataMember(Name = "payment_address")]
+		[DataMember(Name = "payment_pubkey")]
 		public string PaymentAddress { get; set; }
 	}
 
@@ -157,6 +157,19 @@ namespace PaketGlobal
 	{
 		[DataMember(Name = "transaction")]
 		public string Transaction { get; set; }
+	}
+
+	[DataContract]
+	public class PurchaseTokensData : BaseData
+	{
+		[DataMember(Name = "payment_amount")]
+		public int PaymentAmount { get; set; }
+
+		[DataMember(Name = "payment_currency")]
+		public string PaymentCurrency { get; set; }
+
+		[DataMember(Name = "payment_pubkey")]
+		public string PaymentAddress { get; set; }
 	}
 
 	[DataContract]

@@ -24,10 +24,10 @@ namespace PaketGlobal
 				Balance = bal;
 			}
 
-			var prc = await App.Locator.ServiceClient.Price();
-			if (prc != null) {
-				Price = prc;
-			}
+			//var prc = await App.Locator.ServiceClient.Price();
+			//if (prc != null) {
+			//	Price = prc;
+			//}
 		}
 	}
 }

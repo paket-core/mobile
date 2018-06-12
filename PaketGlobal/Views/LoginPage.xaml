@@ -22,6 +22,14 @@
                 <local:EntryEx x:Name="entryUserName" Placeholder="User Name" Keyboard="Text" Completed="UserNameCompleted" TintColor="#DE000000" Text="{Binding UserName, Mode=TwoWay}"/>
                 <local:EntryEx x:Name="entryFullName" Placeholder="Full Name" Keyboard="Text" Completed="FullNameCompleted" TintColor="#DE000000" Text="{Binding FullName, Mode=TwoWay}"/>
                 <local:EntryEx x:Name="entryPhoneNumber" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberCompleted" TintColor="#DE000000" Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Picker x:Name="pickerCurrency" SelectedItem="{Binding PaymentCurrency}" HorizontalOptions="FillAndExpand" Title="Select payment currency">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type local:PaymentCurrency}">
+                        <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                        <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnCreateAccount" Text="Generate Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CreateAccountClicked"/>
                     <xlabs:ExtendedButton x:Name="btnAlreadyRegistered" Text="Already Have a Key" Clicked="AlreadyRegisteredClicked"/>

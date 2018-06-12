@@ -160,7 +160,9 @@ namespace PaketGlobal
 							                                   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
 
-							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(PaymentCurrency.ETH);
+							var tempResult = await App.Locator.FundServiceClient.UserInfos("Full Name 1", "1231231", "Address 1");
+
+							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
 							if (createResult != null) {
 								Title = "Activate Account";
 								entryMnemonicPrompt.Text = kd.MnemonicString;
@@ -273,6 +275,11 @@ namespace PaketGlobal
 				if (!ValidationHelper.ValidateTextField(entryPhoneNumber.Text)) {
 					//Workspace.OnValidationError(ValidationError.Email);
 					entryPhoneNumber.Focus();
+					return false;
+				}
+
+				if (pickerCurrency.SelectedItem == null) {
+					ShowMessage("Please select payment currency");
 					return false;
 				}
 			} else if (layoutLogin.IsVisible) {

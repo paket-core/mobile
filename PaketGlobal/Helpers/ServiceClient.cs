@@ -133,6 +133,26 @@ namespace PaketGlobal
 			return await SendRequest<PriceData>(request, signData: false);
 		}
 
+		public async Task<PurchaseTokensData> PurchaseBULs(long euroCents, PaymentCurrency paymentCurrency)
+		{
+			var request = PrepareRequest(apiVersion + "/purchase_bul", Method.POST);
+
+			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("payment_currency", paymentCurrency.ToString());
+
+			return await SendRequest<PurchaseTokensData>(request);
+		}
+
+		public async Task<PurchaseTokensData> PurchaseXLMs(long euroCents, PaymentCurrency paymentCurrency)
+		{
+			var request = PrepareRequest(apiVersion + "/purchase_xlm", Method.POST);
+
+			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("payment_currency", paymentCurrency.ToString());
+
+			return await SendRequest<PurchaseTokensData>(request);
+		}
+
 		public async Task<SubmitTransactionData> SendBuls(string toPubkey, long amountBuls)
 		{
 			var request = PrepareRequest(apiVersion + "/send_buls", Method.POST);
