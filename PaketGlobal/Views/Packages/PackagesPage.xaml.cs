@@ -38,11 +38,11 @@ namespace PaketGlobal
 		void LaunchPackageClicked()
 		{
 			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
-				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
-				RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
-				CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
-				Payment = 20,//TODO remove this
-				Collateral = 30//TODO remove this
+				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
+				//RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
+				//CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
+				//Payment = 20,//TODO remove this
+				//Collateral = 30//TODO remove this
 			});
 		}
 

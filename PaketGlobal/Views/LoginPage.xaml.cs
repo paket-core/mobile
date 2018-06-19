@@ -128,7 +128,6 @@ namespace PaketGlobal
 						if (result != null) {
 							CheckActivation();
 						} else {
-							//App.Locator.Profile.KeyPair = null;
 							Title = "Add Info";
 							ToolbarItems.Add(new ToolbarItem("Logout", null, OnLogoutClicked));
 							await ViewHelper.ToggleViews(layoutProvideInfo, layoutLogin);

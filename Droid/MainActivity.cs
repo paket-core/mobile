@@ -1,14 +1,12 @@
-﻿using System;
-
+﻿using Android.OS;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.OS;
-using GalaSoft.MvvmLight.Ioc;
+
 using Acr.UserDialogs;
+using LY.Count.Android.Sdk;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace PaketGlobal.Droid
 {
@@ -19,14 +17,17 @@ namespace PaketGlobal.Droid
 
 		protected override void OnCreate(Bundle bundle)
 		{
+			base.OnCreate(bundle);
+
+			Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
+			//Countly.SharedInstance().SetLoggingEnabled(true);
+
 			Instance = this;
 
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
-
-			base.OnCreate(bundle);
 
 			RegisterServiceContainers();
 
@@ -35,6 +36,20 @@ namespace PaketGlobal.Droid
 			LoadApplication(new App());
 
 			UserDialogs.Init(this);
+		}
+
+		protected override void OnStart()
+		{
+			base.OnStart();
+
+			Countly.SharedInstance().OnStart(this);
+		}
+
+		protected override void OnStop()
+		{
+			Countly.SharedInstance().OnStop();
+
+			base.OnStop();
 		}
 
 		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
