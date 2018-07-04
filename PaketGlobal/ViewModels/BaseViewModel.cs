@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace PaketGlobal
 {
@@ -11,7 +12,7 @@ namespace PaketGlobal
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public ServiceClient ServiceClient {
-			get { return GetInstance<ServiceClient>(); }
+			get { return GetInstance<ServiceClient>("PackageService"); }
 		}
 
 		public Workspace Workspace {
@@ -48,9 +49,9 @@ namespace PaketGlobal
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		public T GetInstance<T>()
+		public T GetInstance<T>(string key = null)
 		{
-			return GalaSoft.MvvmLight.Ioc.SimpleIoc.Default.GetInstance<T>();
+			return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
 		}
 
 		public virtual void Reset()

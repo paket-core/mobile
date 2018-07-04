@@ -17,11 +17,6 @@ namespace PaketGlobal
 			set { SetProperty(ref price, value); }
 		}
 
-		public WalletModel()
-		{
-
-		}
-
 		public async System.Threading.Tasks.Task Load()
 		{
 			var bal = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
@@ -29,10 +24,10 @@ namespace PaketGlobal
 				Balance = bal;
 			}
 
-			var prc = await App.Locator.ServiceClient.Price();
-			if (prc != null) {
-				Price = prc;
-			}
+			//var prc = await App.Locator.ServiceClient.Price();
+			//if (prc != null) {
+			//	Price = prc;
+			//}
 		}
 	}
 }

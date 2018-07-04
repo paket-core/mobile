@@ -4,27 +4,55 @@ using System.Runtime.Serialization;
 
 namespace PaketGlobal
 {
-	//Basic
+    //Basic
 
-	public class RawBytes
-	{
-		public byte[] Data { get; set; }
-	}
+    public class RawBytes
+    {
+        public byte[] Data { get; set; }
+    }
 
-	[DataContract]
-	public class BaseData
-	{
-		[DataMember(Name = "status")]
-		public int Status { get; set; }
-	}
+    [DataContract]
+    public class BaseData
+    {
+        [DataMember(Name = "status")]
+        public int Status { get; set; }
+    }
 
-	//User
+    //User
 
-	[DataContract]
-	public class UserData : BaseData
-	{
-		[DataMember(Name = "user_details")]
-		public UserDetails UserDetails { get; set; }
+    [DataContract]
+    public class CreateStellarAccountData : BaseData
+    {
+        [DataMember(Name = "payment_pubkey")]
+        public string PaymentAddress { get; set; }
+    }
+
+    [DataContract]
+    public class UserData : BaseData
+    {
+        [DataMember(Name = "user_details")]
+        private UserDetails UserDetailsOne { get; set; }
+
+        [DataMember(Name = "user")]
+        private UserDetails UserDetailsTwo { get; set; }
+
+        [IgnoreDataMember]
+        public UserDetails UserDetails
+        {
+            get
+            {
+                if (UserDetailsOne!=null){
+                    return UserDetailsOne;
+                }
+                else if (UserDetailsTwo != null)
+                {
+                    return UserDetailsTwo;
+                }
+                else{
+                    return null;
+                }
+            }
+        }
 	}
 
 	[DataContract]
@@ -38,6 +66,9 @@ namespace PaketGlobal
 
 		[DataMember(Name = "phone_number")]
 		public string PhoneNumber { get; set; }
+
+		[DataMember(Name = "address")]
+		public string Address { get; set; }
 
 		[DataMember(Name = "pubkey")]
 		public string Pubkey { get; set; }
@@ -94,6 +125,20 @@ namespace PaketGlobal
 
 		[DataMember(Name = "thresholds")]
 		public ThresholdData Thresholds { get; set; }
+
+        public string FormattedBalanceBUL {
+            get {
+                return String.Format("{0}.00 BUL",BalanceBUL/1_000_000_0);   
+            }
+        }
+
+        public string FormattedBalanceXLM
+        {
+            get
+            {
+                return String.Format("{0}.00 XLMs", BalanceXLM/1_000_000_0);
+            }
+        }
 	}
 
 	[DataContract]
@@ -147,6 +192,19 @@ namespace PaketGlobal
 	{
 		[DataMember(Name = "transaction")]
 		public string Transaction { get; set; }
+	}
+
+	[DataContract]
+	public class PurchaseTokensData : BaseData
+	{
+		[DataMember(Name = "payment_amount")]
+		public int PaymentAmount { get; set; }
+
+		[DataMember(Name = "payment_currency")]
+		public string PaymentCurrency { get; set; }
+
+		[DataMember(Name = "payment_pubkey")]
+		public string PaymentAddress { get; set; }
 	}
 
 	[DataContract]
@@ -217,9 +275,6 @@ namespace PaketGlobal
 	{
 		[DataMember(Name = "escrow_address")]
 		public string EscrowAddress { get; set; }
-
-		[DataMember(Name = "payment_transaction")]
-		public string PaymentTransaction { get; set; }
 	}
 
 	[DataContract]

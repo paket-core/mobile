@@ -10,7 +10,7 @@ namespace PaketGlobal.iOS
 		public string UserName {
 			get {
 				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account?.Username;
+				return account != null && account.Properties.ContainsKey("PaketUser") ? account.Properties["PaketUser"] : null;
 			}
 		}
 
@@ -85,8 +85,9 @@ namespace PaketGlobal.iOS
 		{
 			if (!String.IsNullOrWhiteSpace(seed) || !String.IsNullOrWhiteSpace(mnemonic)) {
 				var account = new Account {
-					Username = userName ?? "User"
+					Username = "PaketUser"
 				};
+				if (userName != null) account.Properties.Add("PaketUser", userName);
 				if (fullName != null) account.Properties.Add("FullName", fullName);
 				if (phoneNumber != null) account.Properties.Add("PhoneNumber", phoneNumber);
 				if (seed != null) account.Properties.Add("Seed", seed);

@@ -13,7 +13,7 @@ namespace PaketGlobal
 {
 	public class ServiceClient
 	{
-		public const string apiVersion = "v3";
+		public readonly string apiVersion;
 
 		public delegate string PubKeyHandler();
 		public delegate string SignHandler(string data);
@@ -28,9 +28,10 @@ namespace PaketGlobal
 		public PubKeyHandler TryGetPubKey { get; set; }
 		public SignHandler TrySign { get; set; }
 
-		public ServiceClient(string url, string custom = null)
+		public ServiceClient(string url, string version, string custom = null)
 		{
 			restUrl = url;
+			apiVersion = version;
 			customUrl = custom;
 			_serializer = new ServiceStackSerializer();
 
@@ -48,13 +49,56 @@ namespace PaketGlobal
 		{
 			//pubkey = "debug";//TODO for Debug purposes
 
-			var request = PrepareRequest(apiVersion + "/register_user", Method.POST);
+			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
-			request.AddParameter("paket_user", paketUser);
-			request.AddParameter("full_name", fullName);
-			request.AddParameter("phone_number", phoneNumber);
+			request.AddParameter("call_sign", paketUser);
+			//request.AddParameter("full_name", fullName);
+			//request.AddParameter("phone_number", phoneNumber);
 
 			return await SendRequest<UserData>(request, pubkey);
+		}
+
+		public async Task<CreateStellarAccountData> CreateStellarAccount(PaymentCurrency currency)
+		{
+			//pubkey = "debug";//TODO for Debug purposes
+
+			var request = PrepareRequest(apiVersion + "/create_stellar_account", Method.POST);
+
+			request.AddParameter("payment_currency", currency.ToString());
+
+			return await SendRequest<CreateStellarAccountData>(request);
+		}
+
+        public async Task<UserData> GetUser(string pubkey, string call_sign)
+		{
+			var request = PrepareRequest(apiVersion + "/get_user", Method.POST);
+
+            if (pubkey != null) {
+                request.AddParameter("pubkey", pubkey);
+            }
+            else if(call_sign != null) {
+                request.AddParameter("call_sign", call_sign);
+            }
+
+			return await SendRequest<UserData>(request, signData: false);
+		}
+
+		public async Task<UserData> UserInfos()
+		{
+			return await UserInfos(null, null, null);
+		}
+
+		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address)
+		{
+			//pubkey = "debug";//TODO for Debug purposes
+
+			var request = PrepareRequest(apiVersion + "/user_infos", Method.POST);
+
+			if (fullName != null) request.AddParameter("full_name", fullName);
+			if (phoneNumber != null) request.AddParameter("phone_number", phoneNumber);
+			if (address != null) request.AddParameter("address", address);
+
+			return await SendRequest<UserData>(request);
 		}
 
 		public async Task<PrefundData> FundTestUser(string pubkey)
@@ -70,15 +114,6 @@ namespace PaketGlobal
 			request.AddParameter("addr", pubkey);
 
 			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
-		}
-
-		public async Task<UserData> RecoverUser(string pubkey)
-		{
-			//pubkey = "debug";//TODO for Debug purposes
-
-			var request = PrepareRequest(apiVersion + "/recover_user", Method.POST);
-
-			return await SendRequest<UserData>(request, pubkey);
 		}
 
 		#endregion User
@@ -101,6 +136,26 @@ namespace PaketGlobal
 			return await SendRequest<PriceData>(request, signData: false);
 		}
 
+		public async Task<PurchaseTokensData> PurchaseBULs(long euroCents, PaymentCurrency paymentCurrency)
+		{
+			var request = PrepareRequest(apiVersion + "/purchase_bul", Method.POST);
+
+			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("payment_currency", paymentCurrency.ToString());
+
+			return await SendRequest<PurchaseTokensData>(request);
+		}
+
+		public async Task<PurchaseTokensData> PurchaseXLMs(long euroCents, PaymentCurrency paymentCurrency)
+		{
+			var request = PrepareRequest(apiVersion + "/purchase_xlm", Method.POST);
+
+			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("payment_currency", paymentCurrency.ToString());
+
+			return await SendRequest<PurchaseTokensData>(request);
+		}
+
 		public async Task<SubmitTransactionData> SendBuls(string toPubkey, long amountBuls)
 		{
 			var request = PrepareRequest(apiVersion + "/send_buls", Method.POST);
@@ -117,7 +172,7 @@ namespace PaketGlobal
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
-			request.AddParameter("amount_buls", amountBuls);
+			request.AddParameter("amount_buls", amountBuls * 10000000L);
 
 			return await SendRequest<SendBulsData>(request);
 		}
@@ -140,11 +195,11 @@ namespace PaketGlobal
 
 		public async Task<PrepareCreateAccountData> PrepareCrateAccount(string fromPubkey, string newPubkey, int startingBalance)
 		{
-			var request = PrepareRequest(apiVersion + "/prepare_create_account", Method.POST);
+			var request = PrepareRequest(apiVersion + "/prepare_account", Method.POST);
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("new_pubkey", newPubkey);
-			request.AddParameter("starting_balance", startingBalance);
+			request.AddParameter("starting_balance", startingBalance * 10000000L);
 
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}

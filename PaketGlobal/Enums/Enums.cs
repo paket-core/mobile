@@ -32,4 +32,16 @@ namespace PaketGlobal
 		Closed,
 		None
 	}
+
+	public enum PaymentCurrency
+	{
+		ETH = 0,
+		BTC
+	}
+
+	public enum SpendCurrency
+	{
+		BUL = 0,
+		XLM
+	}
 }

@@ -1,25 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using UIKit;
 using Foundation;
+
+using CountlySDK;
 using GalaSoft.MvvmLight.Ioc;
-using UIKit;
 
 namespace PaketGlobal.iOS
 {
 	[Register("AppDelegate")]
 	public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
 	{
-		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
 			RegisterServiceContainers();
 			global::Xamarin.Forms.Forms.Init();
+
+			//Countly initialization
+			var config = new CountlyConfig() {
+				AppKey = Config.CountlyAppKey,
+				Host = Config.CountlyServerURL,
+				//EnableDebug = true,
+				Features = new NSObject[] { Constants.CLYCrashReporting }
+			};
+			Countly.SharedInstance().StartWithConfig(config);
+			Countly.SharedInstance().BeginSession();
+
 			LoadApplication(new App());
 
-			return base.FinishedLaunching(app, options);
+			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
 
 		private void RegisterServiceContainers()

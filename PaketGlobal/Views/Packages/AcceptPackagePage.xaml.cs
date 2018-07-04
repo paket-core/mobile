@@ -62,7 +62,7 @@ namespace PaketGlobal
 						System.Diagnostics.Debug.WriteLine(ex);
 					}
 
-					if (data != null && data.EscrowAddress != null && data.PaymentTransaction != null) {
+					if (data != null && data.EscrowAddress != null) {
 						App.ShowLoading(true);
 
 						StopScanning();
@@ -103,7 +103,7 @@ namespace PaketGlobal
 				//I'm a recipient
 				App.ShowLoading(true);
 
-				var result = await StellarHelper.AcceptPackageAsRecipient(data.EscrowAddress, data.PaymentTransaction);
+				var result = await StellarHelper.AcceptPackageAsRecipient(data.EscrowAddress, ViewModel.PaymentTransaction);
 				if (result == StellarOperationResult.Success) {
 					await System.Threading.Tasks.Task.Delay(2000);
 					await App.Locator.Packages.Load();
@@ -118,7 +118,7 @@ namespace PaketGlobal
 				//I'm a courier
 				App.ShowLoading(true);
 
-				var result = await StellarHelper.AcceptPackageAsCourier(data.EscrowAddress, ViewModel.Collateral, data.PaymentTransaction);
+				var result = await StellarHelper.AcceptPackageAsCourier(data.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction);
 				if (result == StellarOperationResult.Success) {
 					await System.Threading.Tasks.Task.Delay(2000);
 					await App.Locator.Packages.Load();

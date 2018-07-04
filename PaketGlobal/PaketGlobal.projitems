@@ -61,6 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enums\Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PackageHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ProfileModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

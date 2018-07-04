@@ -105,7 +105,7 @@ namespace PaketGlobal
 						FullName = p.FullName,
 						PhoneNumber = p.PhoneNumber
 					};
-					NavigateTo(new ProfilePage(App.Locator.Profile));
+					NavigateTo(new ProfilePage());
 				},
 				HasSeparator = true
 			});

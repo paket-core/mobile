@@ -8,6 +8,7 @@
                 AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"/>-->
             <StackLayout x:Name="layoutLogin" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize"
                     Orientation="Vertical" Padding="18, 10, 18, 10" Spacing="8">
+<!--                <local:EntryEx x:Name="entryPaketUser" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" TintColor="#DE000000"/>-->
                 <local:EntryEx x:Name="entryMnemonic" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" TintColor="#DE000000"/>
                 <Label Text = "or" FontSize="16" TextColor="#808080" HorizontalOptions="Center"/>
                 <local:EntryEx x:Name="entrySecretKey" Placeholder="Secret Key" Keyboard="Text" Completed="LoginSecretCompleted" TintColor="#DE000000"/>
@@ -21,9 +22,26 @@
                 <local:EntryEx x:Name="entryUserName" Placeholder="User Name" Keyboard="Text" Completed="UserNameCompleted" TintColor="#DE000000" Text="{Binding UserName, Mode=TwoWay}"/>
                 <local:EntryEx x:Name="entryFullName" Placeholder="Full Name" Keyboard="Text" Completed="FullNameCompleted" TintColor="#DE000000" Text="{Binding FullName, Mode=TwoWay}"/>
                 <local:EntryEx x:Name="entryPhoneNumber" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberCompleted" TintColor="#DE000000" Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Picker x:Name="pickerCurrency" SelectedItem="{Binding PaymentCurrency}" HorizontalOptions="FillAndExpand" Title="Select payment currency">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type local:PaymentCurrency}">
+                        <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                        <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnCreateAccount" Text="Generate Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CreateAccountClicked"/>
                     <xlabs:ExtendedButton x:Name="btnAlreadyRegistered" Text="Already Have a Key" Clicked="AlreadyRegisteredClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="layoutProvideInfo" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize" Padding="18, 10, 18, 10">
+                <local:EntryEx x:Name="entryUserNameInfo" Placeholder="User Name" Keyboard="Text" Completed="UserNameInfoCompleted" TintColor="#DE000000" Text="{Binding UserName, Mode=TwoWay}"/>
+                <local:EntryEx x:Name="entryFullNameInfo" Placeholder="Full Name" Keyboard="Text" Completed="FullNameInfoCompleted" TintColor="#DE000000" Text="{Binding FullName, Mode=TwoWay}"/>
+                <local:EntryEx x:Name="entryPhoneNumberInfo" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberInfoCompleted" TintColor="#DE000000" Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
+                    <xlabs:ExtendedButton x:Name="btnContinue" Text="Continue" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ContinueClicked"/>
                 </StackLayout>
             </StackLayout>
             <StackLayout x:Name="layoutFundPrompt" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
