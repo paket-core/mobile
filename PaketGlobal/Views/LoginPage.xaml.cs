@@ -18,8 +18,6 @@ namespace PaketGlobal
 
 			BindingContext = new RegisterViewModel();
 
-            entrySecretKey.Text = "SBZ5WNPT46ZDOUM4CNVBOVEKFZJOSTQ4MP3CC5Q2L4CWE3IWCRR2NDFW";
-
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {
 				if (App.Locator.Profile.UserName != null) {
 					Title = "Activate Account";
