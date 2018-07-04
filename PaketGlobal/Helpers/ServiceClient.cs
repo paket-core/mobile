@@ -90,8 +90,6 @@ namespace PaketGlobal
 
 		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address)
 		{
-			//pubkey = "debug";//TODO for Debug purposes
-
 			var request = PrepareRequest(apiVersion + "/user_infos", Method.POST);
 
 			if (fullName != null) request.AddParameter("full_name", fullName);
@@ -270,27 +268,29 @@ namespace PaketGlobal
 
 		#region Client Methods
 
-		private void SignRequest(RestRequest request, string pubkey, RestClient client, bool includePubkey = true, SignHandler customSign = null)
-		{
-			StringBuilder fingerprint = new StringBuilder();
-			fingerprint.Append(System.IO.Path.Combine(client.BaseUrl.AbsoluteUri + request.Resource));
+        private void SignRequest(RestRequest request, string pubkey, RestClient client, bool includePubkey = true, SignHandler customSign = null)
+        {
+            StringBuilder fingerprint = new StringBuilder();
+            fingerprint.Append(System.IO.Path.Combine(client.BaseUrl.AbsoluteUri + request.Resource));
 
-			foreach (var p in request.Parameters) {
-				fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
-			}
+            foreach (var p in request.Parameters)
+            {
+                fingerprint.AppendFormat(",{0}={1}", p.Name, p.Value);
+            }
 
-			fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.UtcNow));
-			request.AddHeader("Fingerprint", fingerprint.ToString());
+            fingerprint.AppendFormat(",{0}", DateTimeHelper.ToMilliUnixTime(DateTime.UtcNow));
+            request.AddHeader("Fingerprint", fingerprint.ToString());
 
-			var signHandler = customSign ?? TrySign;
-			var signature = signHandler?.Invoke(fingerprint.ToString());
-			if (signature != null) request.AddHeader("Signature", signature);
+            var signHandler = customSign ?? TrySign;
+            var signature = signHandler?.Invoke(fingerprint.ToString());
+            if (signature != null) request.AddHeader("Signature", signature);
 
-			if (includePubkey) {
-				pubkey = pubkey ?? TryGetPubKey?.Invoke();
-				if (pubkey != null) request.AddHeader("Pubkey", pubkey);
-			}
-		}
+            if (includePubkey)
+            {
+                pubkey = pubkey ?? TryGetPubKey?.Invoke();
+                if (pubkey != null) request.AddHeader("Pubkey", pubkey);
+            }
+        }
 
 		private RestRequest PrepareRequest(string url, Method method)
 		{

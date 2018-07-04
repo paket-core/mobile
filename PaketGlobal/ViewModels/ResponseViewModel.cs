@@ -72,6 +72,9 @@ namespace PaketGlobal
 
 		[DataMember(Name = "pubkey")]
 		public string Pubkey { get; set; }
+
+        [DataMember(Name = "call_sign")]
+        public string Call_Sign { get; set; }
 	}
 
 	[DataContract]

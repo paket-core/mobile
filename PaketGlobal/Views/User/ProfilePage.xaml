@@ -9,7 +9,7 @@
                         <ViewCell>
                             <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                 <Label Text = "User Name" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding UserName, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                                <Label Text = "{Binding PaketUser, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
@@ -21,7 +21,7 @@
                         <ViewCell>
                             <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                 <Label Text = "Phone Number" TextColor="#00796B"/>
-                                <Entry x:Name="entryPhoneNumber" Text = "{Binding PhoneNumber, Mode=TwoWay}" Placeholder="Enter Phone Number" HorizontalOptions="FillAndExpand" Keyboard = "Text"/>
+                                <Entry x:Name="entryPhoneNumber" Text = "{Binding PhoneNumber, Mode=TwoWay}" Placeholder="Enter Phone Number" HorizontalOptions="FillAndExpand"  Keyboard="Telephone" />
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
@@ -37,7 +37,7 @@
                             <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                 <Label Text = "Secret Seed" FontSize="13" TextColor="#808080"/>
                                 <Label Text = "This is your secret seed, used to interact with Stellar" FontSize="12" TextColor="#808080"/>
-                                <local:EntryEx x:Name="entrySeed" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
+                                <Label x:Name="entrySeed" TextColor="#DE000000"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell x:Name="cellMnemonic">
