@@ -45,6 +45,13 @@ namespace PaketGlobal
 				PaketUser = userInfo.UserDetails.PaketUser;
 				PhoneNumber = userInfo.UserDetails.PhoneNumber;
 				Address = userInfo.UserDetails.Address;
+
+                if (PaketUser==null){
+                    var result = await App.Locator.FundServiceClient.GetUser(Pubkey, null);
+                    if (result != null) {
+                        PaketUser = result.UserDetails.Call_Sign;
+                    }
+                }
 			}
 		}
 

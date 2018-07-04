@@ -18,6 +18,8 @@ namespace PaketGlobal
 
 			BindingContext = new RegisterViewModel();
 
+            entrySecretKey.Text = "SBZ5WNPT46ZDOUM4CNVBOVEKFZJOSTQ4MP3CC5Q2L4CWE3IWCRR2NDFW";
+
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {
 				if (App.Locator.Profile.UserName != null) {
 					Title = "Activate Account";
@@ -159,10 +161,11 @@ namespace PaketGlobal
 							                                   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
 
-							var tempResult = await App.Locator.FundServiceClient.UserInfos("Full Name 1", "1231231", "Address 1");
-
 							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
 							if (createResult != null) {
+
+                                var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, "");
+
 								Title = "Activate Account";
 								entryMnemonicPrompt.Text = kd.MnemonicString;
 								entryAddress.Text = createResult.PaymentAddress;
@@ -196,6 +199,8 @@ namespace PaketGlobal
 						var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
 																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
 						if (result != null) {
+                            var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, "");
+
 							App.Locator.Profile.SetCredentials(ViewModel.UserName,
 															   ViewModel.FullName,
 															   ViewModel.PhoneNumber,
@@ -316,13 +321,13 @@ namespace PaketGlobal
 		protected override void ToggleLayout(bool enabled)
 		{
 			if (layoutRegistration.IsVisible) {
-				entryUserName.InputEnabled = enabled;
-				entryFullName.InputEnabled = enabled;
-				entryPhoneNumber.InputEnabled = enabled;
+                entryUserName.IsEnabled = enabled;
+                entryFullName.IsEnabled = enabled;
+                entryPhoneNumber.IsEnabled = enabled;
 				btnCreateAccount.IsEnabled = enabled;
 				btnAlreadyRegistered.IsEnabled = enabled;
 			} else if (layoutLogin.IsVisible) {
-				entryMnemonic.InputEnabled = enabled;
+                entryMnemonic.IsEnabled = enabled;
 				btnLogin.IsEnabled = enabled;
 				btnGotoReg.IsEnabled = enabled;
 			} else if (layoutFundPrompt.IsVisible) {
