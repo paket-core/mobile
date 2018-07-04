@@ -161,6 +161,9 @@ namespace PaketGlobal
 							                                   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
 
+                            //don't remove this line!
+                             var tempResult = await App.Locator.FundServiceClient.UserInfos("Full Name 1", "1231231", "Address 1");
+
 							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
 							if (createResult != null) {
 
