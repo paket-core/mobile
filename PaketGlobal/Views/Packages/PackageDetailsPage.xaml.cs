@@ -21,11 +21,8 @@ namespace PaketGlobal
 
 			BindingContext = package;
 
-			var transData = App.Locator.Profile.GetTransaction(package.PaketId);
-
 			var data = new BarcodePackageData {
-				EscrowAddress = package.PaketId,
-				PaymentTransaction = transData?.PaymentTransaction
+				EscrowAddress = package.PaketId
 			};
 
 			barcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);

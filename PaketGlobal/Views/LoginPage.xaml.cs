@@ -117,7 +117,7 @@ namespace PaketGlobal
 
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
-						var result = await App.Locator.FundServiceClient.GetUser(kd.KeyPair.Address);
+                        var result = await App.Locator.FundServiceClient.GetUser(kd.KeyPair.Address,null);
 
 						App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
 															   result?.UserDetails?.FullName,

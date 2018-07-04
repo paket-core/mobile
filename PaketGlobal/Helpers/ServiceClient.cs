@@ -69,13 +69,16 @@ namespace PaketGlobal
 			return await SendRequest<CreateStellarAccountData>(request);
 		}
 
-		public async Task<UserData> GetUser(string pubkey)
+        public async Task<UserData> GetUser(string pubkey, string call_sign)
 		{
-			//pubkey = "debug";//TODO for Debug purposes
-
 			var request = PrepareRequest(apiVersion + "/get_user", Method.POST);
 
-			request.AddParameter("pubkey", pubkey);
+            if (pubkey != null) {
+                request.AddParameter("pubkey", pubkey);
+            }
+            else if(call_sign != null) {
+                request.AddParameter("call_sign", call_sign);
+            }
 
 			return await SendRequest<UserData>(request, signData: false);
 		}
@@ -169,7 +172,7 @@ namespace PaketGlobal
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
-			request.AddParameter("amount_buls", amountBuls);
+			request.AddParameter("amount_buls", amountBuls * 10000000L);
 
 			return await SendRequest<SendBulsData>(request);
 		}
@@ -192,11 +195,11 @@ namespace PaketGlobal
 
 		public async Task<PrepareCreateAccountData> PrepareCrateAccount(string fromPubkey, string newPubkey, int startingBalance)
 		{
-			var request = PrepareRequest(apiVersion + "/prepare_create_account", Method.POST);
+			var request = PrepareRequest(apiVersion + "/prepare_account", Method.POST);
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("new_pubkey", newPubkey);
-			request.AddParameter("starting_balance", startingBalance);
+			request.AddParameter("starting_balance", startingBalance * 10000000L);
 
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}

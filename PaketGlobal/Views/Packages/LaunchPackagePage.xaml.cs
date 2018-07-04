@@ -33,9 +33,46 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var vm = ViewModel;
-				var escrowKP = KeyPair.Random();
-				var result = await StellarHelper.LaunchPackage(escrowKP, vm.RecipientPubkey, vm.Deadline, vm.CourierPubkey, vm.Payment, vm.Collateral);
-				if (result == StellarOperationResult.Success) {
+				
+                var escrowKP = KeyPair.Random();
+
+                var recipientPubkey = vm.RecipientPubkey;
+                var courierPubkey = vm.CourierPubkey;
+
+                //get recipient pubkey if user entered callsign
+                if (recipientPubkey.Length != 56)
+                {
+                    var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);
+                    if (recipientResult == null) {
+                        App.ShowLoading(false);
+                        ShowMessage("Recipient not found");
+                        return;
+                    }
+                    else{
+                        recipientPubkey = recipientResult.UserDetails.Pubkey;
+                    }
+                }
+
+                //get courier pubkey if user entered callsign
+                if (courierPubkey.Length != 56)
+                {
+                    var courierResult = await App.Locator.FundServiceClient.GetUser(null, courierPubkey);
+                    if (courierResult == null)
+                    {
+                        App.ShowLoading(false);
+                        ShowMessage("Courier not found");
+                        return;
+                    }
+                    else
+                    {
+                        courierPubkey = courierResult.UserDetails.Pubkey;
+                    }
+                }
+
+                var result = await StellarHelper.LaunchPackage(escrowKP, recipientPubkey, vm.Deadline, courierPubkey, vm.Payment, vm.Collateral);
+
+       
+                if (result == StellarOperationResult.Success) {
 					await System.Threading.Tasks.Task.Delay(2000);
 					await App.Locator.Packages.Load();
 
@@ -59,6 +96,8 @@ namespace PaketGlobal
 
 		void DeadlineTapped(object sender, System.EventArgs e)
 		{
+            entryDeadline.Unfocus();
+
 			var dpc = new DatePromptConfig();
 			dpc.OkText = "OK";
 			dpc.CancelText = "Cancel";
