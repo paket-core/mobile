@@ -12,6 +12,8 @@ namespace DisableClipboardOperationsdemo.iOS
     public class HideClipboardEntryRenderer : EntryRenderer
     {
         private UITapGestureRecognizer tapGestureRecognizer;
+        private UILongPressGestureRecognizer longGestureRecognizer;
+        private UITapGestureRecognizer dobuleTapGestureRecognizer;
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
@@ -19,13 +21,21 @@ namespace DisableClipboardOperationsdemo.iOS
 
             if(Control!=null && tapGestureRecognizer==null) {
                 tapGestureRecognizer = new UITapGestureRecognizer(HandleTap);
+                longGestureRecognizer = new UILongPressGestureRecognizer(HandleTap);
+                longGestureRecognizer.MinimumPressDuration = 0.5f;
+
+                dobuleTapGestureRecognizer = new UITapGestureRecognizer(HandleTap);
+                dobuleTapGestureRecognizer.NumberOfTapsRequired = 2;
+
                 Control.InputView = new UIView();
                 Control.InputAccessoryView = new UIView();
                 Control.AddGestureRecognizer(tapGestureRecognizer);
+                Control.AddGestureRecognizer(longGestureRecognizer);
+                Control.AddGestureRecognizer(dobuleTapGestureRecognizer);
+
             }
         
         }
-
 
         private void HandleTap()
         {
