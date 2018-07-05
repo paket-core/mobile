@@ -1,88 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
-             xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+<local:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <TableView x:Name="contentWallet" Intent="Data" HasUnevenRows="true" RowHeight="-1" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <TableRoot>
-                    <TableSection Title="Balance">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Balance" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                <Label Text = "{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>
-                    <!--<TableSection Title="Prices">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Buy Price" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Price.BuyPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Sell Price" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Price.SellPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>-->
-                    <TableSection Title="Transactions">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Send BULs" FontSize="13" TextColor="#808080"/>
-                                <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
-                                <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
-                                <xlabs:ExtendedButton x:Name="btnSend" Margin="0,20,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Purchase BUL" FontSize="13" TextColor="#808080"/>
-                                <StackLayout x:Name="stackBULPurchase" Orientation="Vertical">
-                                    <Picker x:Name="pickerBULCurrency" WidthRequest="250" Title="Select payment currency">
-                                        <Picker.ItemsSource>
-                                            <x:Array Type="{x:Type local:PaymentCurrency}">
+            <ScrollView x:Name="contentWallet" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
+                <StackLayout Orientation="Vertical" Padding="0,10,10,0" Spacing="0">
+                    <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
+                        <Label Text = "Balance" TextColor="#FFA500"/>
+                        <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                            <Label Text = "{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                            <Label Text = "{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
+                        <Label Text = "Transactions" TextColor="#FFA500"/>
+                        <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                            <Label Text="Send BULs" FontSize="13" TextColor="#808080"/>
+                            <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
+                            <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
+                            <xlabs:ExtendedButton x:Name="btnSend" Margin="0,20,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                            <Label Text="Purchase BUL" FontSize="13" TextColor="#808080"/>
+                            <StackLayout x:Name="stackBULPurchase" Orientation="Vertical">
+                                <Picker x:Name="pickerBULCurrency" WidthRequest="250" Title="Select payment currency">
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type local:PaymentCurrency}">
                                             <local:PaymentCurrency>ETH</local:PaymentCurrency>
                                             <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                            </x:Array>
-                                        </Picker.ItemsSource>
-                                    </Picker>
-                                    <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                    <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
-                                </StackLayout>
-                                <StackLayout x:Name="stackBULResult" IsVisible="false" Orientation="Vertical">
-                                    <Label x:Name="labelAmountForBUL" FontSize="13" TextColor="#808080"/>
-                                    <local:EntryEx x:Name="entryBULAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
-                                </StackLayout>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+                                <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
+                                <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
                             </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Purchase XLM" FontSize="13" TextColor="#808080"/>
-                                <StackLayout x:Name="stackXLMPurchase" Orientation="Vertical">
-                                    <Picker x:Name="pickerXLMCurrency" WidthRequest="250" Title="Select payment currency">
-                                        <Picker.ItemsSource>
-                                            <x:Array Type="{x:Type local:PaymentCurrency}">
+                            <StackLayout x:Name="stackBULResult" IsVisible="false" Orientation="Vertical">
+                                <Label x:Name="labelAmountForBUL" FontSize="13" TextColor="#808080"/>
+                                <local:EntryEx x:Name="entryBULAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                            <Label Text="Purchase XLM" FontSize="13" TextColor="#808080"/>
+                            <StackLayout x:Name="stackXLMPurchase" Orientation="Vertical">
+                                <Picker x:Name="pickerXLMCurrency" WidthRequest="250" Title="Select payment currency">
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type local:PaymentCurrency}">
                                             <local:PaymentCurrency>ETH</local:PaymentCurrency>
                                             <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                            </x:Array>
-                                        </Picker.ItemsSource>
-                                    </Picker>
-                                    <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                    <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
-                                </StackLayout>
-                                <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">
-                                    <Label x:Name="labelAmountForXLM" FontSize="13" TextColor="#808080"/>
-                                    <local:EntryEx x:Name="entryXLMAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
-                                </StackLayout>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+                                <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
+                                <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
                             </StackLayout>
-                        </ViewCell>
-                    </TableSection>
-                </TableRoot>
-            </TableView>
-
+                            <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">
+                                <Label x:Name="labelAmountForXLM" FontSize="13" TextColor="#808080"/>
+                                <local:EntryEx x:Name="entryXLMAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+                <!--<TableSection Title="Prices"><ViewCell><StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0"><Label Text = "Buy Price" FontSize="13" TextColor="#808080"/><Label Text = "{Binding Price.BuyPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/></StackLayout></ViewCell><ViewCell><StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0"><Label Text = "Sell Price" FontSize="13" TextColor="#808080"/><Label Text = "{Binding Price.SellPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/></StackLayout></ViewCell></TableSection>-->
+            </ScrollView>
             <AbsoluteLayout x:Name="layoutActivity" BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
                 <ActivityIndicator x:Name="activityIndicator"
                     AbsoluteLayout.LayoutFlags="PositionProportional"
