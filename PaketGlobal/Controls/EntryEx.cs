@@ -3,6 +3,11 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
+    public class HideClipboardEntry : Entry
+    {
+
+    }
+
 	public class EntryEx : Entry
 	{
 		public static readonly BindableProperty TintColorProperty = BindableProperty.Create<EntryEx, Color> (p => p.TintColor, Color.Black);

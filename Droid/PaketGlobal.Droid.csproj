@@ -241,6 +241,7 @@
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenderers\EntryExRenderer.cs" />
+    <Compile Include="ViewRenderers\HideClipboardEntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
