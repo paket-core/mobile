@@ -16,7 +16,6 @@ namespace PaketGlobal
 
 			Title = "Restore Private Key";
 
-
 			BindingContext = new RegisterViewModel();
 
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {
@@ -93,6 +92,18 @@ namespace PaketGlobal
 			ContinueClicked(null, EventArgs.Empty);
 		}
 
+        void AddressCompleted(object sender, EventArgs e)
+        {
+            entryUserAddress.Unfocus();
+            ContinueClicked(null, EventArgs.Empty);
+        }
+
+        void AddressInfoCompleted(object sender, EventArgs e) 
+        {
+            entryAddressInfo.Unfocus();
+            ContinueClicked(null, EventArgs.Empty);
+        }
+
 		#endregion Entry Handlers
 
 		#region Button Handlers
@@ -152,7 +163,7 @@ namespace PaketGlobal
 						App.Locator.Profile.KeyPair = kd.KeyPair;
 
 						var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
+                                                                                      ViewModel.PhoneNumber,ViewModel.Address, kd.KeyPair.Address);
 						if (result != null) {
 							App.Locator.Profile.SetCredentials(ViewModel.UserName,
 															   ViewModel.FullName,
@@ -160,13 +171,9 @@ namespace PaketGlobal
 							                                   kd.KeyPair.SecretSeed,
 															   kd.MnemonicString);
 
-                            //don't remove this line!
-                             var tempResult = await App.Locator.FundServiceClient.UserInfos("Full Name 1", "1231231", "Address 1");
 
 							var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
 							if (createResult != null) {
-
-                                var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, "");
 
 								Title = "Activate Account";
 								entryMnemonicPrompt.Text = kd.MnemonicString;
@@ -199,10 +206,8 @@ namespace PaketGlobal
 						var kd = App.Locator.Profile.TryGetKeyData();
 
 						var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-																				  ViewModel.PhoneNumber, kd.KeyPair.Address);
+                                                                                      ViewModel.PhoneNumber,ViewModel.Address, kd.KeyPair.Address);
 						if (result != null) {
-                            var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, "");
-
 							App.Locator.Profile.SetCredentials(ViewModel.UserName,
 															   ViewModel.FullName,
 															   ViewModel.PhoneNumber,

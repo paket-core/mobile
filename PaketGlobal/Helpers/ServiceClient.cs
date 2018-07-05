@@ -45,15 +45,16 @@ namespace PaketGlobal
 
 		#region User
 
-		public async Task<UserData> RegisterUser(string paketUser, string fullName, string phoneNumber, string pubkey)
+        public async Task<UserData> RegisterUser(string paketUser, string fullName, string phoneNumber,string address, string pubkey)
 		{
 			//pubkey = "debug";//TODO for Debug purposes
 
 			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
 			request.AddParameter("call_sign", paketUser);
-			//request.AddParameter("full_name", fullName);
-			//request.AddParameter("phone_number", phoneNumber);
+			request.AddParameter("full_name", fullName);
+			request.AddParameter("phone_number", phoneNumber);
+            request.AddParameter("address", address);
 
 			return await SendRequest<UserData>(request, pubkey);
 		}
