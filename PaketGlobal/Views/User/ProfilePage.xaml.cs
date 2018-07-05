@@ -45,7 +45,11 @@ namespace PaketGlobal
 //			layoutActivity.IsVisible = true;
 //			activityIndicator.IsRunning = true;
 
+            App.ShowLoading(true);
+
 			await ViewModel.Load();
+
+            App.ShowLoading(false);
 
 			//await layoutActivity.FadeTo(0);
 			//await contentProfile.FadeTo(1);
