@@ -1,13 +1,15 @@
-﻿using DisableClipboardOperationsdemo.iOS;
-using UIKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using UIKit;
 using ObjCRuntime;
 using Foundation;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+
 using PaketGlobal;
+using PaketGlobal.iOS;
 
 [assembly: ExportRenderer(typeof(HideClipboardEntry), typeof(HideClipboardEntryRenderer))]
-namespace DisableClipboardOperationsdemo.iOS
+namespace PaketGlobal.iOS
 {
     public class HideClipboardEntryRenderer : EntryRenderer
     {

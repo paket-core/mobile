@@ -20,20 +20,17 @@
             <!-- START BUTTONS STYLES -->
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="BorderRadius" Value="4" />
-                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BorderRadius" Value="25" />
+                <Setter Property="Font" Value="Bold,17" />
                 <Setter Property="BackgroundColor" Value="{StaticResource GrayDark}" />
                 <Setter Property="HeightRequest">
                     <Setter.Value>
-                        <OnPlatform x:TypeArguments="x:Double" iOS="40" Android="50" />
+                        <OnPlatform x:TypeArguments="x:Double" iOS="50" Android="50" />
                     </Setter.Value>
                 </Setter>
             </Style>
             <Style x:Key="WizardButton" TargetType="xlabs:ExtendedButton" BasedOn="{StaticResource ButtonStyle}">
-                <Setter Property="BackgroundColor" Value="#3FFF" />
-                <Setter Property="BorderColor" Value="#AFFF" />
-                <Setter Property="TextColor" Value="#CFFF" />
-                <Setter Property="BorderWidth" Value=".5" />
+                <Setter Property="BackgroundColor" Value="#57c3c4" />
             </Style>
             <!-- END BUTTONS STYLE -->
         </ResourceDictionary>

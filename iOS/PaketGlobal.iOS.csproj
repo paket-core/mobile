@@ -238,6 +238,7 @@
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenders\HideClipboardEntryRenderer.cs" />
+    <Compile Include="ViewRenders\EntryWithoutBorders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

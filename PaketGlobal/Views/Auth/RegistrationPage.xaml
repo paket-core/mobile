@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.RegistrationPage"
-             xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+<local:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.RegistrationPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
     <local:BasePage.Content>
-        
-            <Grid VerticalOptions="Fill" HorizontalOptions="Fill" Padding="24" BackgroundColor="#EEEEEE">
-
-            <StackLayout Grid.Row="0" Padding="20,20,20,20"  BackgroundColor="Red">
-                    <Label Text="Create New Private Key" FontSize="Medium" Font="Bold" XAlign="Center" TextColor="Black" />
-             </StackLayout>
-
-            <StackLayout Grid.Row="1" Padding="15,15,15,15" BackgroundColor="Red">
-                <Label AutomationId="label2" Text="Before we get going, lets get you registered." FontSize="Medium" XAlign="Start" />
-                <Label AutomationId="label2" Text="Before we get going, lets get you registered." FontSize="Medium" XAlign="Start" />
-                <Label AutomationId="label2" Text="Before we get going, lets get you registered." FontSize="Medium" XAlign="Start" />
-                <Label AutomationId="label2" Text="Before we get going, lets get you registered." FontSize="Medium" XAlign="Start" />
-                <Label AutomationId="label2" Text="Before we get going, lets get you registered." FontSize="Medium" XAlign="Start" />
-            </StackLayout>
-                    
-            </Grid>
+        <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
+            <RelativeLayout>
+                <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
+                    <Label Text="Create New Private Key" XAlign="Center" Font="Bold,17"/>
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
+                    <StackLayout  Spacing="10">
+                        <local:EntryWithoutBorders FontSize="Default" Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
+                        <local:EntryWithoutBorders FontSize="Default" Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
+                        <local:EntryWithoutBorders FontSize="Default" Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
+                        <local:EntryWithoutBorders FontSize="Default" Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
+                        <local:EntryWithoutBorders FontSize="Default" Keyboard="Text" Placeholder="Select Payment Currency" HeightRequest="40"/>
+                    </StackLayout>
+                    <Button Text="Generate Key" Style="{StaticResource WizardButton}"/>
+                </StackLayout>
+                <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
+                    <Label Text="Already have a key" XAlign="Center" Font="Bold,30"/>
+                    <Button BackgroundColor="Transparent" Image="ic_pages_white_36dp.png"></Button>
+                </StackLayout>
+            </RelativeLayout>
+        </ScrollView>
     </local:BasePage.Content>
 </local:BasePage>
