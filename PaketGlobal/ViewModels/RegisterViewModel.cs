@@ -6,6 +6,8 @@ namespace PaketGlobal
 		private string userName;
 		private string fullName;
 		private string phoneNumber;
+        private string address;
+
 		private PaymentCurrency? paymentCurrency;
 
 		public string UserName {
@@ -28,6 +30,12 @@ namespace PaketGlobal
 			set { SetProperty(ref paymentCurrency, value); }
 		}
 
+        public string Address
+        {
+            get { return address; }
+            set { SetProperty(ref address, value); }
+        }
+
 		public override void Reset()
 		{
 			base.Reset();
@@ -36,6 +44,7 @@ namespace PaketGlobal
 			FullName = null;
 			PhoneNumber = null;
 			PaymentCurrency = null;
+            Address = null;
 		}
 	}
 }

@@ -22,6 +22,7 @@
                 <Entry x:Name="entryUserName" Placeholder="User Name" Keyboard="Text" Completed="UserNameCompleted"  Text="{Binding UserName, Mode=TwoWay}"/>
                 <Entry x:Name="entryFullName" Placeholder="Full Name" Keyboard="Text" Completed="FullNameCompleted"  Text="{Binding FullName, Mode=TwoWay}"/>
                 <Entry x:Name="entryPhoneNumber" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Entry x:Name="entryUserAddress" Placeholder="Address" Keyboard="Text" Completed="AddressCompleted"  Text="{Binding Address, Mode=TwoWay}"/>
                 <Picker x:Name="pickerCurrency" SelectedItem="{Binding PaymentCurrency}" HorizontalOptions="FillAndExpand" Title="Select payment currency">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type local:PaymentCurrency}">
@@ -40,6 +41,7 @@
                 <Entry x:Name="entryUserNameInfo" Placeholder="User Name" Keyboard="Text" Completed="UserNameInfoCompleted"  Text="{Binding UserName, Mode=TwoWay}"/>
                 <Entry x:Name="entryFullNameInfo" Placeholder="Full Name" Keyboard="Text" Completed="FullNameInfoCompleted"  Text="{Binding FullName, Mode=TwoWay}"/>
                 <Entry x:Name="entryPhoneNumberInfo" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberInfoCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Entry x:Name="entryAddressInfo" Placeholder="Address" Keyboard="Text" Completed="AddressInfoCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnContinue" Text="Continue" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ContinueClicked"/>
                 </StackLayout>
