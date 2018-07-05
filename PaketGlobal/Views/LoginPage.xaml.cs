@@ -16,6 +16,7 @@ namespace PaketGlobal
 
 			Title = "Restore Private Key";
 
+
 			BindingContext = new RegisterViewModel();
 
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {

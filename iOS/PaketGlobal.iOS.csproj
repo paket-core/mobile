@@ -233,6 +233,7 @@
     <Compile Include="Services\AppInfoService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenScale.cs" />
+    <Compile Include="ViewRenders\HideClipboardEntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -247,6 +248,7 @@
     <Folder Include="Services\" />
     <Folder Include="Assets.xcassets\ic_add_circle_white_36pt.imageset\" />
     <Folder Include="Assets.xcassets\ic_check_circle_white_36p.imageset\" />
+    <Folder Include="ViewRenders\" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

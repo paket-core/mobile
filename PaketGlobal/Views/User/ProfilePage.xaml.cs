@@ -24,7 +24,7 @@ namespace PaketGlobal
 			entrySeed.Text = App.Locator.Profile.Seed;
 			var mnemonic = App.Locator.Profile.Mnemonic;
 			if (String.IsNullOrWhiteSpace(mnemonic)) {
-				cellMnemonic.View.IsVisible = false;
+                cellMnemonic.IsVisible = false;
 			} else {
 				entryMnemonic.Text = mnemonic;
 			}
@@ -42,15 +42,19 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-			layoutActivity.IsVisible = true;
-			activityIndicator.IsRunning = true;
+//			layoutActivity.IsVisible = true;
+//			activityIndicator.IsRunning = true;
+
+            App.ShowLoading(true);
 
 			await ViewModel.Load();
 
-			await layoutActivity.FadeTo(0);
-			await contentProfile.FadeTo(1);
+            App.ShowLoading(false);
 
-			layoutActivity.IsVisible = false;
+			//await layoutActivity.FadeTo(0);
+			//await contentProfile.FadeTo(1);
+
+			//layoutActivity.IsVisible = false;
 		}
 
 		void OnLogoutClicked()
@@ -93,5 +97,6 @@ namespace PaketGlobal
 
 			return true;
 		}
+
 	}
 }

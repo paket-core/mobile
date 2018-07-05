@@ -47,11 +47,11 @@
             <StackLayout x:Name="layoutFundPrompt" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                          AbsoluteLayout.LayoutBounds="0.5, 0.5, 1.0, AutoSize" Padding="18, 10, 18, 10" Spacing="8">
                 <Label x:Name="labelPrompt" FontSize="14" TextColor="#808080" Text="Please send 0.001 BTC to this address to create your account" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Entry x:Name="entryAddress" IsEnabled="false" Keyboard="Text"  Text="7ad7g72f727hf72e7hf72hfh7fh7f487458f48jf48jf4h7f4h7f4"/>
+                <local:HideClipboardEntry x:Name="entryAddress" Text="7ad7g72f727hf72e7hf72hfh7fh7f487458f48jf48jf4h7f4h7f4"/>
                 <xlabs:ExtendedButton x:Name="btnCheck" Text="Check Activation" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CheckActivationClicked"/>
                 <StackLayout Orientation="Vertical" Padding="0,20,0,5" Spacing="0">
                     <Label Text = "Use this mnemonic to recover private key on another device" FontSize="14" TextColor="#808080"/>
-                    <Entry x:Name="entryMnemonicPrompt" IsEnabled="false" Placeholder="Mnemonic Phrase" Keyboard="Text" />
+                    <local:HideClipboardEntry x:Name="entryMnemonicPrompt" Placeholder="Mnemonic Phrase" />
                 </StackLayout>
             </StackLayout>
             <ActivityIndicator x:Name="activityIndicator"
