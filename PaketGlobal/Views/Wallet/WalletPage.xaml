@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <ScrollView x:Name="contentWallet" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <StackLayout Orientation="Vertical" Padding="0,10,10,0" Spacing="0">
+                <StackLayout Orientation="Vertical" Padding="0,10,10,0" Spacing="20">
                     <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
                         <Label Text = "Balance" TextColor="#FFA500"/>
                         <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
@@ -21,7 +21,7 @@
                             <Label Text="Send BULs" FontSize="13" TextColor="#808080"/>
                             <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
                             <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
-                            <xlabs:ExtendedButton x:Name="btnSend" Margin="0,20,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
+                            <xlabs:ExtendedButton x:Name="btnSend" Margin="0,5,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
                         </StackLayout>
                         <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
                             <Label Text="Purchase BUL" FontSize="13" TextColor="#808080"/>
@@ -35,7 +35,7 @@
                                     </Picker.ItemsSource>
                                 </Picker>
                                 <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
+                                <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,5,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
                             </StackLayout>
                             <StackLayout x:Name="stackBULResult" IsVisible="false" Orientation="Vertical">
                                 <Label x:Name="labelAmountForBUL" FontSize="13" TextColor="#808080"/>
@@ -54,7 +54,7 @@
                                     </Picker.ItemsSource>
                                 </Picker>
                                 <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
+                                <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,5,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
                             </StackLayout>
                             <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">
                                 <Label x:Name="labelAmountForXLM" FontSize="13" TextColor="#808080"/>
