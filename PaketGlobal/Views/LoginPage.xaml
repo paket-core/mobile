@@ -14,7 +14,7 @@
                 <Entry x:Name="entrySecretKey" Placeholder="Secret Key" Keyboard="Text" Completed="LoginSecretCompleted" />
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnLogin" Text="Restore Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="LoginClicked"/>
-                    <xlabs:ExtendedButton x:Name="btnGotoReg" Text="Generate New Key" Clicked="GoToRegistrationClicked"/>
+                    <xlabs:ExtendedButton x:Name="btnGotoReg" Text="Generate New Key" Clicked="GoToRegistrationClicked" Style="{StaticResource WizardButton}"/>
                 </StackLayout>
             </StackLayout>
             <StackLayout x:Name="layoutRegistration" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
