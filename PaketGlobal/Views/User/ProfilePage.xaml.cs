@@ -42,19 +42,15 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-//			layoutActivity.IsVisible = true;
-//			activityIndicator.IsRunning = true;
-
-            App.ShowLoading(true);
+			layoutActivity.IsVisible = true;
+			activityIndicator.IsRunning = true;
 
 			await ViewModel.Load();
 
-            App.ShowLoading(false);
+			await layoutActivity.FadeTo(0);
+			await contentProfile.FadeTo(1);
 
-			//await layoutActivity.FadeTo(0);
-			//await contentProfile.FadeTo(1);
-
-			//layoutActivity.IsVisible = false;
+			layoutActivity.IsVisible = false;
 		}
 
 		void OnLogoutClicked()
