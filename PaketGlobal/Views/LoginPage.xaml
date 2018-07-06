@@ -41,7 +41,7 @@
                 <Entry x:Name="entryUserNameInfo" Placeholder="User Name" Keyboard="Text" Completed="UserNameInfoCompleted"  Text="{Binding UserName, Mode=TwoWay}"/>
                 <Entry x:Name="entryFullNameInfo" Placeholder="Full Name" Keyboard="Text" Completed="FullNameInfoCompleted"  Text="{Binding FullName, Mode=TwoWay}"/>
                 <Entry x:Name="entryPhoneNumberInfo" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberInfoCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
-                <Entry x:Name="entryAddressInfo" Placeholder="Address" Keyboard="Text" Completed="AddressInfoCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Entry x:Name="entryAddressInfo" Placeholder="Address" Keyboard="Text" Completed="AddressInfoCompleted"  Text="{Binding Address, Mode=TwoWay}"/>
                 <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
                     <xlabs:ExtendedButton x:Name="btnContinue" Text="Continue" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ContinueClicked"/>
                 </StackLayout>

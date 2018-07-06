@@ -72,8 +72,7 @@ namespace PaketGlobal
 
 		void PhoneNumberCompleted(object sender, EventArgs e)
 		{
-			entryPhoneNumber.Unfocus();
-			CreateAccountClicked(null, EventArgs.Empty);
+            entryUserAddress.Focus();
 		}
 
 		void UserNameInfoCompleted(object sender, EventArgs e)
@@ -88,8 +87,7 @@ namespace PaketGlobal
 
 		void PhoneNumberInfoCompleted(object sender, EventArgs e)
 		{
-			entryPhoneNumberInfo.Unfocus();
-			ContinueClicked(null, EventArgs.Empty);
+            entryAddressInfo.Focus();
 		}
 
         void AddressCompleted(object sender, EventArgs e)
@@ -289,8 +287,15 @@ namespace PaketGlobal
 					return false;
 				}
 
+                if (!ValidationHelper.ValidateTextField(entryUserAddress.Text))
+                {
+                    //Workspace.OnValidationError(ValidationError.Email);
+                    entryUserAddress.Focus();
+                    return false;
+                }
+
 				if (pickerCurrency.SelectedItem == null) {
-					ShowMessage("Please select payment currency");
+                    pickerCurrency.Focus();
 					return false;
 				}
 			} else if (layoutLogin.IsVisible) {
@@ -320,6 +325,13 @@ namespace PaketGlobal
 					entryPhoneNumberInfo.Focus();
 					return false;
 				}
+
+                if (!ValidationHelper.ValidateTextField(entryAddressInfo.Text))
+                {
+                    //Workspace.OnValidationError(ValidationError.Email);
+                    entryAddressInfo.Focus();
+                    return false;
+                }
 			}
 
 			return true;
@@ -331,6 +343,7 @@ namespace PaketGlobal
                 entryUserName.IsEnabled = enabled;
                 entryFullName.IsEnabled = enabled;
                 entryPhoneNumber.IsEnabled = enabled;
+                entryUserAddress.IsEnabled = enabled;
 				btnCreateAccount.IsEnabled = enabled;
 				btnAlreadyRegistered.IsEnabled = enabled;
 			} else if (layoutLogin.IsVisible) {
