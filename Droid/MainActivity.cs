@@ -10,6 +10,8 @@ using Android.Graphics;
 using Android.Widget;
 using Android.Views;
 using System;
+using Xamarin.Forms.Platform.Android;
+using System.Threading.Tasks;
 
 namespace PaketGlobal.Droid
 {
@@ -22,8 +24,9 @@ namespace PaketGlobal.Droid
 		{
 			base.OnCreate(bundle);
 
-            Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
-            AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
+
+         //   Window.SetSoftInputMode(SoftInput.AdjustResize);
+          //  AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
 
 			Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
@@ -42,6 +45,8 @@ namespace PaketGlobal.Droid
 			LoadApplication(new App());
 
 			UserDialogs.Init(this);
+
+            InitializeUIAsync();
 		}
 
 		protected override void OnStart()
@@ -90,6 +95,31 @@ namespace PaketGlobal.Droid
 				});
 			}
 		}
+
+        private void InitializeUIAsync()
+        {
+            // from https://forums.xamarin.com/discussion/comment/282515#Comment_282515
+            try
+            {
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                {
+                    Window.DecorView.SystemUiVisibility = 0;
+
+                    var statusBarHeightInfo = typeof(FormsAppCompatActivity).GetField("_statusBarHeight",
+                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+                    if (statusBarHeightInfo != null)
+                    {
+                        statusBarHeightInfo.SetValue(this, 0);
+                    }
+      
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
 	}
 
     public class AndroidBug5497WorkaroundForXamarinAndroid     {
@@ -99,5 +129,5 @@ namespace PaketGlobal.Droid
 
         // CREDIT TO Joseph Johnson (http://stackoverflow.com/users/341631/joseph-johnson) for publishing the original Android solution on stackoverflow.com
 
-        public static void assistActivity(Activity activity)         {             new AndroidBug5497WorkaroundForXamarinAndroid(activity);         }          private Android.Views.View mChildOfContent;         private int usableHeightPrevious;         private FrameLayout.LayoutParams frameLayoutParams;          private AndroidBug5497WorkaroundForXamarinAndroid(Activity activity)         {             FrameLayout content = (FrameLayout)activity.FindViewById(Android.Resource.Id.Content);             mChildOfContent = content.GetChildAt(0);             ViewTreeObserver vto = mChildOfContent.ViewTreeObserver;             vto.GlobalLayout += (object sender, EventArgs e) => {                 possiblyResizeChildOfContent();             };             frameLayoutParams = (FrameLayout.LayoutParams)mChildOfContent.LayoutParameters;         }          private void possiblyResizeChildOfContent()         {             int usableHeightNow = computeUsableHeight();             if (usableHeightNow != usableHeightPrevious)             {                 int usableHeightSansKeyboard = mChildOfContent.RootView.Height;                 int heightDifference = usableHeightSansKeyboard - usableHeightNow;                  frameLayoutParams.Height = usableHeightSansKeyboard - heightDifference;                  mChildOfContent.RequestLayout();                 usableHeightPrevious = usableHeightNow;             }         }          private int computeUsableHeight()         {             Rect r = new Rect();             mChildOfContent.GetWindowVisibleDisplayFrame(r);             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)             {                 return (r.Bottom - r.Top);             }             return r.Bottom;         }      } 
+        public static void assistActivity(Activity activity)         {             new AndroidBug5497WorkaroundForXamarinAndroid(activity);         }          private Android.Views.View mChildOfContent;         private int usableHeightPrevious;         private FrameLayout.LayoutParams frameLayoutParams;          private AndroidBug5497WorkaroundForXamarinAndroid(Activity activity)         {             FrameLayout content = (FrameLayout)activity.FindViewById(Android.Resource.Id.Content);             mChildOfContent = content.GetChildAt(0);             ViewTreeObserver vto = mChildOfContent.ViewTreeObserver;             vto.GlobalLayout += (object sender, EventArgs e) => {                 possiblyResizeChildOfContent();             };             frameLayoutParams = (FrameLayout.LayoutParams)mChildOfContent.LayoutParameters;         }          private void possiblyResizeChildOfContent()         {             int usableHeightNow = computeUsableHeight();             if (usableHeightNow != usableHeightPrevious)             {                 int usableHeightSansKeyboard = mChildOfContent.RootView.Height;                 int heightDifference = usableHeightSansKeyboard - usableHeightNow;                  frameLayoutParams.Height = usableHeightSansKeyboard;                  mChildOfContent.RequestLayout();                 usableHeightPrevious = usableHeightNow;             }         }          private int computeUsableHeight()         {             Rect r = new Rect();             mChildOfContent.GetWindowVisibleDisplayFrame(r);             if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)             {                 return (r.Bottom - r.Top);             }             return r.Bottom;         }      } 
 }
