@@ -4,6 +4,7 @@ using Xamarin.Forms.Platform.Android;
 using Android.Graphics.Drawables;
 using Android.Content;
 using Android.Graphics;
+using Android.Support.V4.Content;
 
 using PaketGlobal;
 using PaketGlobal.Droid;

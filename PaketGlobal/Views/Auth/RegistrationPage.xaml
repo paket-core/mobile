@@ -3,7 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.RegistrationPage"
     xmlns:local="clr-namespace:PaketGlobal"
-    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
         <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
             <RelativeLayout>
@@ -33,15 +34,8 @@
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.55}">
                     <Label Text="Use this mnemonic to recover private key on another device" XAlign="Center" Font="Regular,17"/>
                            <StackLayout Spacing="10">
-                            <Label Text="witch collapse practice feed shame open despair creek road again ice least " XAlign="Center" Font="Regular,15" TextColor="Gray">
-                            <Label.GestureRecognizers>
-        <TapGestureRecognizer
-            Tapped="YourFunctionToHandleMadTaps" 
-            NumberOfTapsRequired="1" 
-        />
-   </Label.GestureRecognizers>
-                        </Label>
-                        
+                            <Label x:Name="MnemonicLabel" Text="witch collapse practice feed shame open despair creek road again ice least " XAlign="Center" Font="Regular,15" TextColor="Gray"
+                                   xe:TouchEffect.Color="Gray"/>                        
                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
                 </StackLayout>

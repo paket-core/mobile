@@ -22,6 +22,8 @@ namespace PaketGlobal.Droid
 		{
 			base.OnCreate(bundle);
 
+            XamEffects.Droid.Effects.Init();
+
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
             AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
 

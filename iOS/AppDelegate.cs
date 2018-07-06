@@ -4,6 +4,7 @@ using Foundation;
 using CountlySDK;
 using GalaSoft.MvvmLight.Ioc;
 
+
 namespace PaketGlobal.iOS
 {
 	[Register("AppDelegate")]
@@ -14,7 +15,10 @@ namespace PaketGlobal.iOS
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
 			RegisterServiceContainers();
-			global::Xamarin.Forms.Forms.Init();
+			
+            global::Xamarin.Forms.Forms.Init();
+
+            XamEffects.iOS.Effects.Init(); //write here
 
 			//Countly initialization
 			var config = new CountlyConfig() {
