@@ -3,10 +3,6 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-    public class EntryWithoutBorders : Entry
-    {
-
-    }
 
     public class HideClipboardEntry : Entry
     {
