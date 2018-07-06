@@ -23,9 +23,6 @@ namespace PaketGlobal
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize | Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Pan);;
 
-          //  Current.On<Android>();
-          // Current.On<Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);
-
 			Network.UseTestNetwork();//TODO for test porposals
 
 			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;

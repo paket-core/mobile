@@ -56,7 +56,7 @@
                                 <Entry x:Name="entryAmountForXLM" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" />
                                 <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,5,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
                             </StackLayout>
-                            <StackLayout x:Name="stackXLMResult" IsVisible="true" Orientation="Vertical">
+                            <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">
                                 <Label x:Name="labelAmountForXLM" FontSize="13" TextColor="#808080"/>
                                 <Entry x:Name="entryXLMAddress" Keyboard="Text"/>
                             </StackLayout>
