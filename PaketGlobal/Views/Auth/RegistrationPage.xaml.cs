@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using Xamarin.Forms;
-using XamEffects;
 
 namespace PaketGlobal
 {
@@ -13,12 +11,13 @@ namespace PaketGlobal
         public RegistrationPage()
         {
        
-
             InitializeComponent();
 
             LongMnemonicTapCommand = new Command(() =>
             {
                 Console.WriteLine("LONG TAP");
+
+                App.Locator.ClipboardService.SendTextToClipboard(MnemonicLabel.Text);
             });
 
             XamEffects.Commands.SetLongTap(MnemonicLabel, LongMnemonicTapCommand);

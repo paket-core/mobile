@@ -91,6 +91,13 @@ namespace PaketGlobal.Droid
 					return new AccountService();
 				});
 			}
+
+            if (!SimpleIoc.Default.IsRegistered<IClipboardService>())
+            {
+                SimpleIoc.Default.Register<IClipboardService>(() => {
+                    return new ClipboardService();
+                });
+            }
 		}
 	}
 

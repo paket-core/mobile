@@ -17,10 +17,10 @@ namespace PaketGlobal
 		}
 
 		public App()
-		{
-            XamEffects.Effects.Init();
-
+        {
             InitializeComponent();
+
+            XamEffects.Effects.Init();
 
 			Network.UseTestNetwork();//TODO for test porposals
 

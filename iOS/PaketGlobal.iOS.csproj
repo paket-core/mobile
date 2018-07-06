@@ -251,6 +251,7 @@
     <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenders\HideClipboardEntryRenderer.cs" />
     <Compile Include="ViewRenders\PaketEntry.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

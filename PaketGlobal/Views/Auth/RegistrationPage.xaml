@@ -14,16 +14,17 @@
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
                     <Label Text="Activate Account" XAlign="Center" Font="Bold,17"/>
                 </StackLayout>
-                <Button BackgroundColor="Transparent" IsVisible="false" Image="hamburger.png"
+<!--                <Button BackgroundColor="Transparent" IsVisible="false" Image="hamburger.png"
                         RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85, Constant=0}"
-                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=ActivateTitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=ActivateTitleLabel, Property=Y, Factor=1, Constant=12}"></Button>-->
                 <StackLayout x:Name="BTCStackLayout" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=ActivateTitleLabel, Property=Y, Factor=1, Constant=100}">
                     <StackLayout Spacing="20">
                         <Label Text="Please send 0.0001 BTC to this address to create your account" XAlign="Center" Font="Bold,22"/>
                         <StackLayout Spacing="10">
-                            <Label Text="P3E53XjqK4Cxt71BGeP2VhpcotM8LZ853C8 " XAlign="Center" Font="Regular,15" TextColor="Gray"/>
+                            <Label Text="P3E53XjqK4Cxt71BGeP2VhpcotM8LZ853C8 " XAlign="Center" Font="Regular,15" TextColor="Gray"
+                                   xe:TouchEffect.Color="Gray"/>
                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
                         <Button Text="Check Activation" BackgroundColor="#4C66E0" Style="{StaticResource WizardButton}"/>

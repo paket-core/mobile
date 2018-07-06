@@ -252,6 +252,7 @@
     <Compile Include="ViewRenderers\EntryExRenderer.cs" />
     <Compile Include="ViewRenderers\HideClipboardEntryRenderer.cs" />
     <Compile Include="ViewRenderers\PaketEntry.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

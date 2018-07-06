@@ -63,6 +63,11 @@ namespace PaketGlobal
 			get { return GetInstance<INotificationService>(); }
 		}
 
+        public IClipboardService ClipboardService
+        {
+            get { return GetInstance<IClipboardService>(); }
+        }
+
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>
