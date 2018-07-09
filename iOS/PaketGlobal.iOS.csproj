@@ -244,6 +244,30 @@
     <BundleResource Include="Resources\dropdown_arrow%403x.png" />
     <BundleResource Include="Resources\dropdown_arrow%402x.png" />
     <BundleResource Include="Resources\dropdown_arrow.png" />
+    <BundleResource Include="Resources\waiting_pickup%403x.png" />
+    <BundleResource Include="Resources\waiting_pickup%402x.png" />
+    <BundleResource Include="Resources\waiting_pickup.png" />
+    <BundleResource Include="Resources\in_transit%403x.png" />
+    <BundleResource Include="Resources\in_transit%402x.png" />
+    <BundleResource Include="Resources\in_transit.png" />
+    <BundleResource Include="Resources\point_1%403x.png" />
+    <BundleResource Include="Resources\point_1%402x.png" />
+    <BundleResource Include="Resources\point_1.png" />
+    <BundleResource Include="Resources\point_0%403x.png" />
+    <BundleResource Include="Resources\point_0%402x.png" />
+    <BundleResource Include="Resources\point_0.png" />
+    <BundleResource Include="Resources\add%403x.png" />
+    <BundleResource Include="Resources\add%402x.png" />
+    <BundleResource Include="Resources\add.png" />
+    <BundleResource Include="Resources\qr_code%403x.png" />
+    <BundleResource Include="Resources\qr_code%402x.png" />
+    <BundleResource Include="Resources\qr_code.png" />
+    <BundleResource Include="Resources\back_arrow%403x.png" />
+    <BundleResource Include="Resources\back_arrow%402x.png" />
+    <BundleResource Include="Resources\back_arrow.png" />
+    <BundleResource Include="Resources\arrow_forward%403x.png" />
+    <BundleResource Include="Resources\arrow_forward%402x.png" />
+    <BundleResource Include="Resources\arrow_forward.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

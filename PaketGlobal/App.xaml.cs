@@ -32,12 +32,12 @@ namespace PaketGlobal
 			if (Locator.Profile.Activated) {
 				MainPage = new MainPage();
 			} else {
-                var navPage = new PackagesPage();
+                var navPage = new RestoreKeyPage();
 				MainPage = navPage;
 			}
 
 			MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
-                var navPage = new RegistrationPage();
+                var navPage = new RestoreKeyPage();
 				MainPage = navPage;
 			});
 		}
