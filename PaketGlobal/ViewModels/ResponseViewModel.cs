@@ -362,6 +362,22 @@ namespace PaketGlobal
 		public string SendTimeString {
 			get { return SendTimeDT.ToString("MM.dd.yyyy h:mm tt"); }
 		}
+
+        public string FormattedCollateral
+        {
+            get
+            {
+                return String.Format("{0}.00 BULs", Collateral / 1_000_000_0);
+            }
+        }
+
+        public string FormattedPayment
+        {
+            get
+            {
+                return String.Format("{0}.00 BULs", Payment / 1_000_000_0);
+            }
+        }
 	}
 
 	[DataContract]
