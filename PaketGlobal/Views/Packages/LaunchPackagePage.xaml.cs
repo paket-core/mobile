@@ -18,6 +18,7 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
+
 			BindingContext = package;
 
 			Title = (ViewModel == null) ? "Launch New Package" : "Edit Package";

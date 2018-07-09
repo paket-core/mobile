@@ -84,7 +84,7 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var currency = (PaymentCurrency)pickerBULCurrency.SelectedItem;
-				var amount = long.Parse(entryAmountForBUL.Text);
+                var amount = long.Parse(entryAmountForBUL.Text) * 100;
 				var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
 
 				App.ShowLoading(false);
@@ -105,7 +105,7 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var currency = (PaymentCurrency)pickerXLMCurrency.SelectedItem;
-				var amount = long.Parse(entryAmountForXLM.Text);
+                var amount = long.Parse(entryAmountForXLM.Text) * 100;
 				var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
 
 				App.ShowLoading(false);
