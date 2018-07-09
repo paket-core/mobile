@@ -13,13 +13,12 @@ namespace PaketGlobal.iOS
 		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+            XFGloss.iOS.Library.Init();
+            XamEffects.iOS.Effects.Init(); //write here
+            global::Xamarin.Forms.Forms.Init();
 
 			RegisterServiceContainers();
 			
-            global::Xamarin.Forms.Forms.Init();
-
-            XamEffects.iOS.Effects.Init(); //write here
-
 			//Countly initialization
 			var config = new CountlyConfig() {
 				AppKey = Config.CountlyAppKey,

@@ -8,10 +8,10 @@ using Xamarin.Forms.Platform.iOS;
 using PaketGlobal;
 using PaketGlobal.iOS;
 
-[assembly: ExportRenderer(typeof(MaterialFrame), typeof(MaterialFrameRenderer))]
+[assembly: ExportRenderer(typeof(PaketFrame), typeof(PaketFrameRender))]
 namespace PaketGlobal.iOS
 {
-    public class MaterialFrameRenderer : FrameRenderer
+    public class PaketFrameRender : FrameRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Frame> e)
         {
@@ -19,16 +19,13 @@ namespace PaketGlobal.iOS
 
             if (Layer != null)
             {
-                if (Layer.ShadowOpacity != 0.1f)
-                {
-                    Layer.BorderColor = UIColor.White.CGColor;
-                    Layer.CornerRadius = 15;
+                Layer.BorderColor = UIColor.White.CGColor;
+                Layer.CornerRadius = 15;
 
-                    Layer.MasksToBounds = false;
-                    Layer.ShadowOffset = new CGSize(-2, 2);
-                    Layer.ShadowRadius = 4;
-                    Layer.ShadowOpacity = 0.1f;
-                }
+                Layer.MasksToBounds = false;
+                Layer.ShadowOffset = new CGSize(-2, 2);
+                Layer.ShadowRadius = 4;
+                Layer.ShadowOpacity = 0.1f;
             }
         }
     }

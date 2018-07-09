@@ -32,7 +32,7 @@ namespace PaketGlobal
 			if (Locator.Profile.Activated) {
 				MainPage = new MainPage();
 			} else {
-                var navPage = new RegistrationPage();
+                var navPage = new PackagesPage();
 				MainPage = navPage;
 			}
 

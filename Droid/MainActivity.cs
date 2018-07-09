@@ -23,6 +23,8 @@ namespace PaketGlobal.Droid
 			base.OnCreate(bundle);
 
             XamEffects.Droid.Effects.Init();
+            XFGloss.Droid.Library.Init(this, bundle);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustResize);
             AndroidBug5497WorkaroundForXamarinAndroid.assistActivity(this);
@@ -32,7 +34,6 @@ namespace PaketGlobal.Droid
 
             Instance = this;
 
-			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;

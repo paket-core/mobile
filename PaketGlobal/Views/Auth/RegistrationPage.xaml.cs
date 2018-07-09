@@ -15,8 +15,6 @@ namespace PaketGlobal
 
             LongMnemonicTapCommand = new Command(() =>
             {
-                Console.WriteLine("LONG TAP");
-
                 App.Locator.ClipboardService.SendTextToClipboard(MnemonicLabel.Text);
             });
 

@@ -234,6 +234,9 @@
     <Reference Include="ZXing.Net.Mobile.Forms">
       <HintPath>..\packages\ZXing.Net.Mobile.Forms.2.4.1\lib\MonoAndroid71\ZXing.Net.Mobile.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="XFGloss">
+      <HintPath>..\packages\Ansuria.XFGloss.1.1.3\lib\monoandroid80\XFGloss.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -251,8 +254,9 @@
     <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenderers\EntryExRenderer.cs" />
     <Compile Include="ViewRenderers\HideClipboardEntryRenderer.cs" />
-    <Compile Include="ViewRenderers\PaketEntry.cs" />
+    <Compile Include="ViewRenderers\PaketEntryRender.cs" />
     <Compile Include="Services\ClipboardService.cs" />
+    <Compile Include="ViewRenderers\PaketProgressRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

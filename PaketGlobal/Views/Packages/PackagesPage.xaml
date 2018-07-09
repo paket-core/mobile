@@ -1,37 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackagesPage"
-             xmlns:local="clr-namespace:PaketGlobal">
+<local:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackagesPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss">
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
-        <AbsoluteLayout>
-            <AbsoluteLayout BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <Label x:Name="placholderLabel" TextColor="#D3D3D3" FontSize = "20" Text="No Packages Found"
-                    IsVisible = "false"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"/>
-            </AbsoluteLayout>
-            
-            <ListView x:Name="packagesList" RowHeight="75" Opacity="0" BackgroundColor="Transparent" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"
-                    ItemsSource="{Binding PackagesList}" ItemSelected="PackageItemSelected" IsPullToRefreshEnabled="true">
-                  <ListView.ItemTemplate>
-                     <DataTemplate>
+        <RelativeLayout>
+            <BoxView x:Name="HeaderView" 
+                   RelativeLayout.XConstraint = "0" HeightRequest="200"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <StackLayout Spacing="20" Padding="30,30,30,30" RelativeLayout.XConstraint = "0" RelativeLayout.YConstraint="10">
+                <Label x:Name="MyPackagesTitleLabel" Text="My Packages" Font="Bold,23" TextColor="White"/>
+                <Label x:Name="MyPackagesSubTitleLabel" Text="Heare you can create and track all your packages" Font="Regular,14" TextColor="#CDCDCD"/>
+                <Image Source="ic_account_box_white_36dp.png" HorizontalOptions="Start"/>
+            </StackLayout>
+            <ListView x:Name="PakagesView" BackgroundColor="#F0F0F0"
+                      SeparatorVisibility="None" RowHeight="150" VerticalOptions="Fill"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-200}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="{Binding DeadlineDT, StringFormat='Deadline: {0:MM.dd.yyyy}' Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                <Label Text="{Binding Status, Mode=OneWay}" FontSize="13" TextColor="#808080"/>
-                                <Label Text="{Binding SendTimeDT, StringFormat='Sent: {0:MM.dd.yyyy h:mm tt}' Mode=OneWay}" FontSize="13" TextColor="#808080"/>
-                            </StackLayout>
-                         </ViewCell>                    
+                            <RelativeLayout>
+                                <StackLayout Orientation="Vertical" 
+                                 Padding="10,10,10,10"  BackgroundColor="Transparent"
+                                 HeightRequest="130"
+                                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                                    <local:PaketFrame BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
+                                 CornerRadius="15"/>
+                                </StackLayout>
+                                <Image Source="tab_feed.png" HorizontalOptions="Start"
+                                       RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30"/>
+                                <Label Text="In Transit" Font="Bold,16" TextColor="Black"
+                                       RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="35"/>
+                                <local:PaketProgress Progress="0.5" 
+                                             RelativeLayout.XConstraint="35" 
+                                             RelativeLayout.YConstraint="80"
+                                             RelativeLayout.HeightConstraint="1"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
+                                <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}">
+                                    <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
+                                        <Label Text="SENT" Font="Bold,10" TextColor="#787878"/>
+                                        <Label Text="06.20.2018" Font="Bold,12" TextColor="Black"/>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
+                                        <Label Text="DEADLINE" Font="Bold,10" TextColor="#787878"/>
+                                        <Label Text="06.24.2018" Font="Bold,12" TextColor="Black"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </RelativeLayout>
+                        </ViewCell>
                     </DataTemplate>
-                 </ListView.ItemTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-
-            <AbsoluteLayout x:Name="layoutActivity" BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <ActivityIndicator x:Name="activityIndicator"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
-                    Color="#FF4081"
-                    IsRunning="true"/>
-            </AbsoluteLayout>
-        </AbsoluteLayout>
+        </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

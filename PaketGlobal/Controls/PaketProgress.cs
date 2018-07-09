@@ -1,7 +1,10 @@
 ﻿using System;
-namespace PaketGlobal.Controls
+
+using Xamarin.Forms;
+
+namespace PaketGlobal
 {
-    public class PaketProgress
+    public class PaketProgress : ProgressBar
     {
         public PaketProgress()
         {

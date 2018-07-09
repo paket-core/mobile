@@ -66,6 +66,8 @@
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketProgress.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
