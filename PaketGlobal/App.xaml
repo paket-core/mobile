@@ -13,10 +13,6 @@
             <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
             <Color x:Key="LightTextColor">#999999</Color>
             <Color x:Key="GrayDark">#959595</Color>
-            <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="BarTextColor" Value="White" />
-            </Style>
             <!-- START BUTTONS STYLES -->
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="White" />

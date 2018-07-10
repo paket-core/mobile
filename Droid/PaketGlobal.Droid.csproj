@@ -132,9 +132,6 @@
     <Reference Include="System.Buffers">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
-    <Reference Include="NBitcoin">
-      <HintPath>..\packages\NBitcoin.4.1.1.21\lib\netstandard2.0\NBitcoin.dll</HintPath>
-    </Reference>
     <Reference Include="Plugin.Connectivity.Abstractions">
       <HintPath>..\packages\Xam.Plugin.Connectivity.3.2.0\lib\MonoAndroid10\Plugin.Connectivity.Abstractions.dll</HintPath>
     </Reference>
@@ -237,6 +234,18 @@
     <Reference Include="XFGloss">
       <HintPath>..\packages\Ansuria.XFGloss.1.1.3\lib\monoandroid80\XFGloss.dll</HintPath>
     </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="RoundedBoxView.Forms.Plugin.Android">
+      <HintPath>..\packages\Xam.Plugins.Forms.RoundedBoxView.1.0.0.7\lib\MonoAndroid10\RoundedBoxView.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="BottomNavigationBar">
+      <HintPath>..\packages\BottomNavigationBar.1.4.0.3\lib\MonoAndroid403\BottomNavigationBar.dll</HintPath>
+    </Reference>
+    <Reference Include="NBitcoin">
+      <HintPath>..\packages\NBitcoin.4.1.1.25\lib\netstandard2.0\NBitcoin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -257,6 +266,14 @@
     <Compile Include="ViewRenderers\PaketEntryRender.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="ViewRenderers\PaketProgressRender.cs" />
+    <Compile Include="ViewRenderers\PaketPickerRender.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Renderers\BottomBarPageRenderer.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Utils\IPageController.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Utils\MeasureSpecFactory.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Utils\PageController.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Utils\ReflectedProxy.cs" />
+    <Compile Include="ViewRenderers\BottomBar\Utils\ResourceManagerEx.cs" />
+    <Compile Include="ViewRenderers\ListViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -323,6 +340,18 @@
     <AndroidResource Include="Resources\drawable\qr_code.png" />
     <AndroidResource Include="Resources\drawable\back_arrow.png" />
     <AndroidResource Include="Resources\drawable\arrow_forward.png" />
+    <AndroidResource Include="Resources\drawable\packages_icon.png" />
+    <AndroidResource Include="Resources\drawable\wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable\profile_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\packages_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\profile_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\packages_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\profile_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\packages_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\profile_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

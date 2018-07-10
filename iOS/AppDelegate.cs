@@ -4,6 +4,7 @@ using Foundation;
 using CountlySDK;
 using GalaSoft.MvvmLight.Ioc;
 
+using RoundedBoxView.Forms.Plugin.iOSUnified;
 
 namespace PaketGlobal.iOS
 {
@@ -14,7 +15,9 @@ namespace PaketGlobal.iOS
 		{
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
             XFGloss.iOS.Library.Init();
-            XamEffects.iOS.Effects.Init(); //write here
+            XamEffects.iOS.Effects.Init(); 
+            RoundedBoxViewRenderer.Init();
+
             global::Xamarin.Forms.Forms.Init();
 
 			RegisterServiceContainers();
@@ -30,6 +33,8 @@ namespace PaketGlobal.iOS
 			Countly.SharedInstance().BeginSession();
 
 			LoadApplication(new App());
+
+            uiApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
 
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}

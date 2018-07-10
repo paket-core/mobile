@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.PackagesPage"
     xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:Views="clr-namespace:XF.Controls.Views"
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss">
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
@@ -12,18 +13,28 @@
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
         <RelativeLayout>
-            <BoxView x:Name="HeaderView" 
+    <!--        <BoxView x:Name="HeaderView" 
                    RelativeLayout.XConstraint = "0" HeightRequest="200"
-                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
-            <StackLayout Spacing="20" Padding="30,30,30,30" RelativeLayout.XConstraint = "0" RelativeLayout.YConstraint="10">
-                <Label x:Name="MyPackagesTitleLabel" Text="My Packages" Font="Bold,23" TextColor="White"/>
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>-->
+            <StackLayout x:Name="HeaderView" Spacing="20" Padding="27,40,35,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label x:Name="MyPackagesTitleLabel" Text="My Packages" Font="Bold,23" TextColor="White" 
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+                        <StackLayout Spacing="15" HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                            <Button BackgroundColor="Transparent" Image="qr_code.png"/>
+                            <Button BackgroundColor="Transparent" Image="add.png"/>
+                        </StackLayout>
+                    </StackLayout>
                 <Label x:Name="MyPackagesSubTitleLabel" Text="Heare you can create and track all your packages" Font="Regular,14" TextColor="#CDCDCD"/>
-                <Image Source="ic_account_box_white_36dp.png" HorizontalOptions="Start"/>
+                <Image Source="search_icon.png" HorizontalOptions="Start"/>
             </StackLayout>
-            <ListView x:Name="PakagesView" BackgroundColor="#F0F0F0"
-                      SeparatorVisibility="None" RowHeight="150" VerticalOptions="Fill"
+            <Views:ListView x:Name="PakagesView" BackgroundColor="#F0F0F0" 
+                      Scrolled="OnListViewScrolled"
+                      SeparatorVisibility="None" RowHeight="150" VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
                       RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-200}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-55}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
                 <ListView.ItemTemplate>
@@ -37,15 +48,20 @@
                                     <local:PaketFrame BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
                                  CornerRadius="15"/>
                                 </StackLayout>
-                                <Image Source="tab_feed.png" HorizontalOptions="Start"
+                                <Image Source="in_transit.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30"/>
                                 <Label Text="In Transit" Font="Bold,16" TextColor="Black"
-                                       RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="35"/>
+                                       RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="30"/>
                                 <local:PaketProgress Progress="0.5" 
-                                             RelativeLayout.XConstraint="35" 
-                                             RelativeLayout.YConstraint="80"
+                                             RelativeLayout.XConstraint="37" 
+                                             RelativeLayout.YConstraint="77"
                                              RelativeLayout.HeightConstraint="1"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
+                                <Image Source="point_0.png" HorizontalOptions="Start"
+                                       RelativeLayout.XConstraint="33" RelativeLayout.YConstraint="71"/>
+                                <Image Source="point_1.png" HorizontalOptions="Start"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.88}"
+                                       RelativeLayout.YConstraint="71"/>
                                 <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}">
                                     <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
@@ -53,15 +69,15 @@
                                         <Label Text="06.20.2018" Font="Bold,12" TextColor="Black"/>
                                     </StackLayout>
                                     <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
-                                        <Label Text="DEADLINE" Font="Bold,10" TextColor="#787878"/>
-                                        <Label Text="06.24.2018" Font="Bold,12" TextColor="Black"/>
+                                        <Label Text="DEADLINE" Font="Bold,10" TextColor="#787878" XAlign="End"/>
+                                        <Label Text="06.24.2018" Font="Bold,12" TextColor="Black" XAlign="End"/>
                                     </StackLayout>
                                 </StackLayout>
                             </RelativeLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </Views:ListView >
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

@@ -18,8 +18,8 @@ namespace PaketGlobal.iOS
         {
             base.OnElementChanged(e);
 
-            Control.ProgressTintColor = Color.FromRgb(182, 231, 233).ToUIColor();
-            Control.TrackTintColor = Color.FromRgb(188, 203, 219).ToUIColor();
+            Control.ProgressTintColor = Color.FromHex("#53C5C7").ToUIColor();
+            Control.TrackTintColor = Color.FromHex("#E5E5E5").ToUIColor();
         }
     }
 }

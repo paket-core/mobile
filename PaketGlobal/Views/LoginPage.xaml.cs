@@ -16,6 +16,8 @@ namespace PaketGlobal
 
 			Title = "Restore Private Key";
 
+            entrySecretKey.Text = "SCTEYQYE4CE6G22BYYQUVDPNL23VP7LG2IF2IG4Q3NYMVRWY6OLFQYJQ";
+
 			BindingContext = new RegisterViewModel();
 
 			if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey)) {

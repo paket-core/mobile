@@ -11,7 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -27,7 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Workspace.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Config.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DrawerPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DrawerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Cells\MenuItemCell.cs" />
@@ -71,6 +69,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\RestoreKeyPage.xaml.cs">
       <DependentUpon>RestoreKeyPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\ActivationPage.xaml.cs">
+      <DependentUpon>ActivationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketButton.xaml.cs">
+      <DependentUpon>PaketButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\BottomBarPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\BottomBarPageExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -107,6 +118,18 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\RestoreKeyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\ActivationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\PaketButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

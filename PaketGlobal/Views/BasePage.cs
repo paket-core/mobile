@@ -209,6 +209,19 @@ namespace PaketGlobal
 			ViewHelper.SwitchActivityIndicator(indicator, false);
 		}
 
+        public async Task WithProgressButton(PaketButton button, Func<Task> action)
+        {
+            button.IsBusy = true;
+
+            ToggleLayout(false);
+
+            await action();
+
+            ToggleLayout(true);
+
+            button.IsBusy = false;
+        }
+
 		protected virtual void ToggleLayout(bool enabled)
 		{
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xf:BottomBarPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xf="clr-namespace:PaketGlobal"
+    xmlns:local="clr-namespace:PaketGlobal"
+                  x:Class="PaketGlobal.MainPage">
+    <local:PackagesPage Title="Packages"
+                         Icon="packages_icon.png"
+                         xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+    <local:WalletPage Title="Wallet"
+                 Icon="wallet_icon.png"
+                 xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+    <local:ProfilePage Title="Profile"
+                 Icon="profile_icon.png"
+                 xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+</xf:BottomBarPage>

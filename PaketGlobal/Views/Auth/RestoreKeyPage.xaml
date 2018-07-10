@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
+    NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.RestoreKeyPage"
     xmlns:local="clr-namespace:PaketGlobal"
@@ -23,13 +24,13 @@
                         <Label Text="Or" Font="Regular,16" TextColor="Black"/>
                         <local:PaketEntry x:Name="entrySecretKey" FontSize="Default" Keyboard="Text" Placeholder="Secret Key" HeightRequest="40"/>
                     </StackLayout>
-                    <Button Text="Restore Key" Style="{StaticResource WizardButton}" BackgroundColor="#4D64E8"/>
+                    <local:PaketButton x:Name="restoreButton" Text="Restore Key" Clicked="LoginClicked"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
                     <Label Text="Generate New Key" XAlign="Center" Font="Bold,30"/>
-                    <Button BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
+                    <Button x:Name="generateButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
                 </StackLayout>
             </RelativeLayout>
         </ScrollView>

@@ -14,6 +14,8 @@ namespace PaketGlobal
 		public const string AcceptPackagePage = "AcceptPackagePage";
 		public const string WalletPage = "WalletPage";
         public const string RegistrationPage = "RegistrationPage";
+        public const string ActivationPage = "ActivationPage";
+
 
 		public T GetInstance<T>(string key = null)
 		{
@@ -117,6 +119,7 @@ namespace PaketGlobal
 				navigationService.Configure(Locator.ProfilePage, typeof(ProfilePage));
 				navigationService.Configure(Locator.WalletPage, typeof(WalletPage));
                 navigationService.Configure(Locator.RegistrationPage, typeof(RegistrationPage));
+                navigationService.Configure(Locator.ActivationPage, typeof(ActivationPage));
 
 				SimpleIoc.Default.Register<INavigationService>(() => navigationService);
 			}

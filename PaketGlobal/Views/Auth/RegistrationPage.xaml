@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
+    NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.RegistrationPage"
     xmlns:local="clr-namespace:PaketGlobal"
@@ -7,39 +8,12 @@
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
    <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
-            <RelativeLayout x:Name="layoutLogin">
+            <RelativeLayout x:Name="layoutRegistration">
                 <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
-                    <Label Text="Restore Private Key" XAlign="Center" Font="Bold,17"/>
-                </StackLayout>
-                <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
-                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
-                    <StackLayout  Spacing="25">
-                        <local:PaketEntry x:Name="entryMnemonic"  FontSize="Default" Keyboard="Text" Placeholder="Mnemonic Phrase" HeightRequest="40"/>
-                        <Label Text="Or" Font="Regular,16" TextColor="Black"/>
-                        <local:PaketEntry x:Name="entrySecretKey" FontSize="Default" Keyboard="Text" Placeholder="Secret Key" HeightRequest="40"/>
-                    </StackLayout>
-                    <Button Text="Restore Key" Style="{StaticResource WizardButton}" BackgroundColor="#4D64E8"/>
-                </StackLayout>
-                <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
-                    <Label Text="Generate New Key" XAlign="Center" Font="Bold,30"/>
-                    <Button BackgroundColor="Transparent" Image="arrow_forward.png"></Button>
-                </StackLayout>
-            </RelativeLayout>
-           <!-- <RelativeLayout x:Name="layoutProvideInfo" IsVisible="false">
-            </RelativeLayout>
-            <RelativeLayout x:Name="layoutRegistration" IsVisible="false">
-                <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
-                    <Label Text="Create New Private Key" XAlign="Center" Font="Bold,17"/>
+                    <Label Text="Create New Private Key" x:Name="titleLabel" XAlign="Center" Font="Bold,17"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -50,18 +24,25 @@
                         <local:PaketEntry x:Name="entryFullName"  Text="{Binding FullName, Mode=TwoWay}" FontSize="Default" Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryPhoneNumber"  Text="{Binding PhoneNumber, Mode=TwoWay}" FontSize="Default" Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryUserAddress" Text="{Binding Address, Mode=TwoWay}" FontSize="Default" Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryCurrency" FontSize="Default" Keyboard="Text" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" Placeholder="Select Payment Currency" HeightRequest="40" />
+                        <local:PaketPicker x:Name="pickerCurrency" SelectedItem="{Binding PaymentCurrency}" Title="Select Payment Currency" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40" FontSize="Default">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type local:PaymentCurrency}">
+                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                                     <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                                 </x:Array>
+                             </Picker.ItemsSource>
+                            </local:PaketPicker>
                     </StackLayout>
-                    <Button Text="Generate Key" Style="{StaticResource WizardButton}"/>
+                    <local:PaketButton Text="Generate Key" x:Name="generateButton" Clicked="CreateAccountClicked" ButtonBackground="#4D64E8"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
-                    <Label Text="Already have a key" XAlign="Center" Font="Bold,30"/>
-                    <Button BackgroundColor="Transparent" Image="arrow_forward.png"></Button>
+                    <Label Text="Already have a key" XAlign="Center" Font="Bold,30" />
+                    <Button x:Name="backButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnBack"/>
                 </StackLayout>
             </RelativeLayout>
-             <RelativeLayout x:Name="layoutFundPrompt" IsVisible="false">
+<!--             <RelativeLayout x:Name="layoutFundPrompt" IsVisible="false">
                 <StackLayout x:Name="activateTitleLabel" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"

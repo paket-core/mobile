@@ -10,6 +10,7 @@ using Android.Graphics;
 using Android.Widget;
 using Android.Views;
 using System;
+using RoundedBoxView.Forms.Plugin.Droid;
 
 namespace PaketGlobal.Droid
 {
@@ -42,7 +43,9 @@ namespace PaketGlobal.Droid
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			LoadApplication(new App());
+            RoundedBoxViewRenderer.Init();
+
+            LoadApplication(new App());
 
 			UserDialogs.Init(this);
 		}
