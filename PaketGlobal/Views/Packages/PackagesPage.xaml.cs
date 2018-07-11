@@ -109,18 +109,9 @@ namespace PaketGlobal
 
         private async Task LoadPackages()
         {
-            ActivityIndicator.IsRunning = true;
-            ActivityIndicator.IsVisible = true;
             PlacholderLabel.IsVisible = false;
 
             await ViewModel.Load();
-
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
-            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
 
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
@@ -140,8 +131,8 @@ namespace PaketGlobal
             var newPackage = new Package()
             {
                 Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
-                CourierPubkey="GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",
-                RecipientPubkey="GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA"
+                CourierPubkey="",
+                RecipientPubkey=""
             };
 
             var packagePage = new LaunchPackagePage(newPackage);

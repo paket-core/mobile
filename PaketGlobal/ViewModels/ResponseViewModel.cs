@@ -360,17 +360,37 @@ namespace PaketGlobal
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString("MM.dd.yyyy h:mm tt"); }
+			get { return SendTimeDT.ToString("MM.dd.yyyy"); }
 		}
 
         public string StatusIcon
         {
-            get { return "in_transit.png"; }
+            get { 
+                if (Status=="waiting pickup") {
+                    return "waiting_pickup.png";  
+                }
+                return "in_transit.png";
+            }
+        }
+
+        public string FormattedStatus
+        {
+            get
+            {
+                return Status.ToUpperInvariant();
+            }
         }
 
         public float Progress
         {
-            get { return 0.5f }
+            get { 
+                if (Status == "waiting pickup")
+                {
+                    return 0.1f;
+                }
+
+                return 0.5f;
+            }
         }
 	}
 
