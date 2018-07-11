@@ -48,7 +48,7 @@ namespace PaketGlobal.Droid
 
             Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
             editText.SetTypeface(tf, TypefaceStyle.Normal);
-            editText.SetTextSize(Android.Util.ComplexUnitType.Pt,12);
+            editText.SetTextSize(Android.Util.ComplexUnitType.Pt,14);
                     
             Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);           
         }

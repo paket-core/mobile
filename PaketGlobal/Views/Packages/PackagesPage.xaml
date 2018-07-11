@@ -14,7 +14,7 @@
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
         <RelativeLayout>
-            <Label x:Name="TitleLabel" TextColor="White" Text="My Packages" XAlign="Center" Font="Bold,17"
+            <Label x:Name="TitleLabel" TextColor="White" Text="My Packages" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -29,7 +29,7 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                 <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
                     <StackLayout Spacing="0" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
-                        <Label x:Name="MyPackagesTitleLabel" Text="My Packages" Font="Bold,23" TextColor="White" 
+                        <Label x:Name="MyPackagesTitleLabel" Text="My Packages" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
                     </StackLayout>
@@ -38,7 +38,7 @@
                         <Button Clicked="LaunchPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="add.png" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                      </StackLayout>
                 </StackLayout>
-                <Label x:Name="MyPackagesSubTitleLabel" Text="Heare you can create and track&#x0a;all your packages" Font="Regular,14" TextColor="#CDCDCD"/>
+                <Label x:Name="MyPackagesSubTitleLabel" Text="Heare you can create and track&#x0a;all your packages" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#CDCDCD"/>
                 <Image Source="search_icon.png" HorizontalOptions="Start"/>
             </StackLayout>
             <Views:ListView x:Name="PakagesView" BackgroundColor="#F0F0F0" 
@@ -64,8 +64,8 @@
                                  CornerRadius="15"/>
                                 </StackLayout>
                                 <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Start"
-                                       RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30"/>
-                                <Label Text="{Binding FormattedStatus, Mode=OneWay}" Font="Bold,16" TextColor="Black"
+                                       RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="29"/>
+                                <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
                                        RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="30"/>
                                 <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
                                              RelativeLayout.XConstraint="37" 
@@ -80,12 +80,12 @@
                                 <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}">
                                     <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
-                                        <Label Text="SENT" Font="Bold,10" TextColor="#787878"/>
-                                        <Label Text="{Binding SendTimeString, Mode=OneWay}" Font="Bold,12" TextColor="Black"/>
+                                        <Label Text="SENT" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                        <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
                                     </StackLayout>
                                     <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
-                                        <Label Text="DEADLINE" Font="Bold,10" TextColor="#787878" XAlign="End"/>
-                                        <Label Text="{Binding DeadlineString, Mode=OneWay}" Font="Bold,12" TextColor="Black" XAlign="End"/>
+                                        <Label Text="DEADLINE" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
+                                        <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
                                     </StackLayout>
                                 </StackLayout>
                             </RelativeLayout>

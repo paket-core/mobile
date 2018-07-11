@@ -299,6 +299,12 @@
     <BundleResource Include="Resources\Poppins-Medium.ttf" />
     <BundleResource Include="Resources\Poppins-Regular.ttf" />
     <BundleResource Include="Resources\Poppins-SemiBold.ttf" />
+    <BundleResource Include="Resources\information_icon%403x.png" />
+    <BundleResource Include="Resources\information_icon%402x.png" />
+    <BundleResource Include="Resources\information_icon.png" />
+    <BundleResource Include="Resources\icon_calendar%403x.png" />
+    <BundleResource Include="Resources\icon_calendar%402x.png" />
+    <BundleResource Include="Resources\icon_calendar.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

@@ -130,7 +130,6 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-                Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
                 CourierPubkey="",
                 RecipientPubkey=""
             };

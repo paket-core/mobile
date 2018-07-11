@@ -356,7 +356,12 @@ namespace PaketGlobal
 		}
 
 		public string DeadlineString {
-			get { return DeadlineDT.ToString("MM.dd.yyyy"); }
+			get { 
+                if(DeadlineDT.Year==1970) {
+                    return "";
+                }
+                return DeadlineDT.ToString("MM.dd.yyyy");
+            }
 		}
 
 		public string SendTimeString {

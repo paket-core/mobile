@@ -370,6 +370,14 @@
     <AndroidResource Include="Resources\drawable-hdpi\arrow_back_white.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\arrow_back_white.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\arrow_back_white.png" />
+    <AndroidResource Include="Resources\drawable\information_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\information_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\information_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\information_icon.png" />
+    <AndroidResource Include="Resources\drawable\icon_calendar.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\icon_calendar.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\icon_calendar.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\icon_calendar.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
