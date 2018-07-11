@@ -13,7 +13,7 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
-                    <Label Text="Restore Private Key" XAlign="Center" Font="Bold,17" TextColor="Black"/>
+                    <Label Text="Restore Private Key" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -21,7 +21,7 @@
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="25">
                         <local:PaketEntry x:Name="entryMnemonic"  FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Mnemonic Phrase" HeightRequest="40"/>
-                        <Label Text="Or" Font="Regular,16" TextColor="Black"/>
+                        <Label Text="Or" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
                         <local:PaketEntry x:Name="entrySecretKey" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Secret Key" HeightRequest="40"/>
                     </StackLayout>
                     <local:PaketButton x:Name="restoreButton" Text="Restore Key" Clicked="LoginClicked"/>
@@ -29,7 +29,7 @@
                 <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
-                    <Label Text="Generate New Key" XAlign="Center" Font="Bold,30" TextColor="Black"/>
+                    <Label Text="Generate New Key" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                     <Button x:Name="generateButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
                 </StackLayout>
             </RelativeLayout>

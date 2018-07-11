@@ -14,7 +14,7 @@
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
         <RelativeLayout>
-            <Label x:Name="TitleLabel" TextColor="White" Text="Create Package" XAlign="Center" Font="Bold,17"
+            <Label x:Name="TitleLabel" TextColor="White" Text="Create Package" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -39,44 +39,47 @@
                                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
                         <StackLayout Spacing="30">
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
-                                <Label TextColor="Black" Text="PARTICIPANTS" XAlign="Start" Font="Bold,15"/>
+                                <Label TextColor="Black" Text="PARTICIPANTS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="10">
-                                    <local:PaketEntry x:Name="entryRecepient" Text="{Binding RecipientPubkey}" LineColor="#E5E5E5" FontSize="Default" Keyboard="Text" Placeholder="Recipient" HeightRequest="40"/>
-                                    <local:PaketEntry x:Name="entryCourier"  Text="{Binding CourierPubkey}" LineColor="#E5E5E5" FontSize="Default" Keyboard="Text" Placeholder="Courier" HeightRequest="40"/>
+                                    <local:PaketEntry x:Name="EntryRecepient" Completed="FieldCompleted"  Text="{Binding RecipientPubkey}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Recipient" HeightRequest="40"/>
+                                    <local:PaketEntry x:Name="EntryCourier" Completed="FieldCompleted" Text="{Binding CourierPubkey}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Courier" HeightRequest="40"/>
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
-                                <Label TextColor="Black" Text="INFORMATION" XAlign="Start" Font="Bold,15"/>
+                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                                <Label TextColor="Black" Text="INFORMATION" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                <Image Source="information_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                                </StackLayout>
                                 <StackLayout Spacing="15">
-                                    <Label TextColor="#A7A7A7" Text="Please pick deadline date" XAlign="Start" Font="Regular,13"/>
+                                    <Label TextColor="#5F5F5F" Text="Please pick deadline date" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13"/>
                                     <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" Orientation="Horizontal" HeightRequest="40" BackgroundColor="White">
                                         <StackLayout VerticalOptions="Center" Orientation="Horizontal" Spacing="20" HeightRequest="40" BackgroundColor="White">
-                                            <Button Text="1 Day"  WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="1 Week" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="2 Week" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="Specific Date" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="1 Day" x:Name="DayButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="1 Week" x:Name="OneWeekButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="2 Week" x:Name="TwoWeekButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="Specific Date" x:Name="CustomDateButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
                                         </StackLayout>
                                     </ScrollView>
                                     <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="Deadline" XAlign="Start" Font="Regular,13"/>
-                                        <local:PaketPicker Title="Selected Date" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40" FontSize="Default"/>
+                                        <Label TextColor="#5F5F5F" Text="Deadline" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13"/>
+                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="Selected Date" LineColor="#E5E5E5" ImageWidth="25" ImageHeight="25" Image="icon_calendar.png" HeightRequest="40"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
-                                <Label TextColor="Black" Text="FUNDS" XAlign="Start" Font="Bold,15"/>
+                                <Label TextColor="Black" Text="FUNDS" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" Font="Regular,13"/>
-                                        <local:PaketEntry Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" FontSize="Default"/>
+                                        <Label TextColor="#5F5F5F" Text="Payment" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="13"/>
+                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Text= "{Binding Payment}" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
                                     </StackLayout>
                                     <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="Collateral" XAlign="Start" Font="Regular,13"/>
-                                        <local:PaketEntry Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" FontSize="Default"/>
+                                        <Label TextColor="#5F5F5F" Text="Collateral" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13"/>
+                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Text= "{Binding Collateral}" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-                            <local:PaketButton Text="Launch"/>
+                            <local:PaketButton Text="Launch" x:Name="LaunchButton" Clicked="CreateClicked"/>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0" HeightRequest="30"></StackLayout>
                         </StackLayout>
                     </ScrollView>

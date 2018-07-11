@@ -68,7 +68,7 @@ namespace PaketGlobal.iOS
             textField.BorderStyle = UITextBorderStyle.None;
             textField.Layer.MasksToBounds = true;
 
-            textField.Font = UIFont.FromName("Poppins-Medium", 12);
+            textField.Font = UIFont.FromName("Poppins-Medium", 14);
             textField.TextColor = Xamarin.Forms.Color.FromHex("#555555").ToUIColor();
         }
 
