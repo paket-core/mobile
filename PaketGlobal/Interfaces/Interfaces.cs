@@ -37,4 +37,9 @@ namespace PaketGlobal
         string GetTextFromClipboard();
         void SendTextToClipboard(string text);
     }
+
+    public interface IDeviceService
+    {
+        bool IsIphoneX();
+    }
 }

@@ -43,7 +43,7 @@ namespace PaketGlobal.Droid
                 }
             }
             editText.CompoundDrawablePadding = 25;
-            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
+            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);           
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)

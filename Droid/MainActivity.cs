@@ -102,6 +102,13 @@ namespace PaketGlobal.Droid
                     return new ClipboardService();
                 });
             }
+
+            if (!SimpleIoc.Default.IsRegistered<IDeviceService>())
+            {
+                SimpleIoc.Default.Register<IDeviceService>(() => {
+                    return new DeviceService();
+                });
+            }
 		}
 	}
 

@@ -206,7 +206,8 @@ namespace PaketGlobal.Droid
 		protected override void OnLayout (bool changed, int l, int t, int r, int b)
 		{
 			int width = r - l;
-			int height = b - t;
+			int height = b - t - 100;
+         //   height = 2280;
 
 			var context = Context;
 

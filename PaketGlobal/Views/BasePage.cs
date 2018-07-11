@@ -104,7 +104,7 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
 		{
-			var navPage = App.Locator.NavigationService.Initialize(new LoginPage());
+            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
 			Application.Current.MainPage = navPage;
 		}
 
