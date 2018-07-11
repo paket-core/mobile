@@ -63,11 +63,11 @@
                                     <local:PaketFrame BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
                                  CornerRadius="15"/>
                                 </StackLayout>
-                                <Image Source="in_transit.png" HorizontalOptions="Start"
+                                <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30"/>
-                                <Label Text="In Transit" Font="Bold,16" TextColor="Black"
+                                <Label Text="{Binding FormattedStatus, Mode=OneWay}" Font="Bold,16" TextColor="Black"
                                        RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="30"/>
-                                <local:PaketProgress Progress="0.5" 
+                                <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
                                              RelativeLayout.XConstraint="37" 
                                              RelativeLayout.YConstraint="77"
                                              RelativeLayout.HeightConstraint="1"
@@ -81,11 +81,11 @@
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}">
                                     <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
                                         <Label Text="SENT" Font="Bold,10" TextColor="#787878"/>
-                                        <Label Text="06.20.2018" Font="Bold,12" TextColor="Black"/>
+                                        <Label Text="{Binding SendTimeString, Mode=OneWay}" Font="Bold,12" TextColor="Black"/>
                                     </StackLayout>
                                     <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
                                         <Label Text="DEADLINE" Font="Bold,10" TextColor="#787878" XAlign="End"/>
-                                        <Label Text="06.24.2018" Font="Bold,12" TextColor="Black" XAlign="End"/>
+                                        <Label Text="{Binding DeadlineString, Mode=OneWay}" Font="Bold,12" TextColor="Black" XAlign="End"/>
                                     </StackLayout>
                                 </StackLayout>
                             </RelativeLayout>
@@ -102,7 +102,7 @@
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-200}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}"/>
-            <ActivityIndicator x:Name="ActivityIndicator" IsVisible="false" IsRunning="false"
+            <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
                       VerticalOptions="CenterAndExpand"
                       Color="#606686"
                       HorizontalOptions="CenterAndExpand" RelativeLayout.HeightConstraint="40" RelativeLayout.WidthConstraint="40"

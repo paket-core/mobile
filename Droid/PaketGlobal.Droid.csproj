@@ -366,11 +366,21 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\add_icon_small.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\qr_code_small.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\add_icon_small.png" />
+    <AndroidResource Include="Resources\drawable\arrow_back_white.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\arrow_back_white.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\arrow_back_white.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\arrow_back_white.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Services\" />
     <Folder Include="ViewRenderers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Poppins-Bold.ttf" />
+    <AndroidAsset Include="Assets\Poppins-Medium.ttf" />
+    <AndroidAsset Include="Assets\Poppins-Regular.ttf" />
+    <AndroidAsset Include="Assets\Poppins-SemiBold.ttf" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

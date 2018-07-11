@@ -292,6 +292,13 @@
     <BundleResource Include="Resources\add_icon_small%403x.png" />
     <BundleResource Include="Resources\add_icon_small%402x.png" />
     <BundleResource Include="Resources\add_icon_small.png" />
+    <BundleResource Include="Resources\arrow_back_white%403x.png" />
+    <BundleResource Include="Resources\arrow_back_white%402x.png" />
+    <BundleResource Include="Resources\arrow_back_white.png" />
+    <BundleResource Include="Resources\Poppins-Bold.ttf" />
+    <BundleResource Include="Resources\Poppins-Medium.ttf" />
+    <BundleResource Include="Resources\Poppins-Regular.ttf" />
+    <BundleResource Include="Resources\Poppins-SemiBold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

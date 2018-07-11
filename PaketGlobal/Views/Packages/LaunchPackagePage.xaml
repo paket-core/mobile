@@ -1,45 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
+    NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.LaunchPackagePage"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PaketGlobal.LaunchPackagePage"
+    xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
     xmlns:local="clr-namespace:PaketGlobal">
-    <ContentPage.Content>
-        <ScrollView x:Name="contentPackage">
-            <StackLayout Orientation="Vertical" Padding="0,10,10,0" Spacing="0">
-                <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
-                    <Label Text = "Participants" TextColor="#FFA500"/>
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="0">
-                        <Label Text = "Recipient" TextColor="#00796B"/>
-                        <Entry x:Name="entryRecepient" Text = "{Binding RecipientPubkey}" HorizontalOptions="FillAndExpand" Placeholder="Pub Key or callsign"
-                                         Completed="HandleCompleted" Keyboard = "Text"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="0">
-                        <Label Text = "Courier" TextColor="#00796B"/>
-                        <Entry x:Name="entryCourier" Text = "{Binding CourierPubkey}" HorizontalOptions="FillAndExpand" Placeholder="Pub Key or callsign"
-                                         Completed="HandleCompleted" Keyboard = "Text"/>
-                    </StackLayout>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
-                    <Label Text = "Information" TextColor="#FFA500"/>
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="0">
-                        <Label Text = "Deadline" TextColor="#00796B"/>
-                        <Entry x:Name="entryDeadline" Focused="DeadlineTapped" Text = "{Binding DeadlineString, Mode=TwoWay}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"/>
-                    </StackLayout>
-                </StackLayout>
-                <StackLayout Orientation="Vertical" Padding="15,0,0,5" Spacing="10">
-                    <Label Text = "Funds" TextColor="#FFA500"/>
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="0">
-                        <Label Text = "Payment (BULs)" TextColor="#00796B"/>
-                        <Entry x:Name="entryPayment" Text = "{Binding Payment}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
-                                         Completed="HandleCompleted" Keyboard = "Numeric"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="0">
-                        <Label Text = "Collateral (BULs)" TextColor="#00796B"/>
-                        <Entry x:Name="entryCollateral" Text = "{Binding Collateral}" HorizontalOptions="FillAndExpand" Placeholder="{Binding Name}"
-                                         Completed="HandleCompleted" Keyboard = "Numeric"/>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </ScrollView>
-    </ContentPage.Content>
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+    <local:BasePage.Content>
+        <RelativeLayout>
+            <Label x:Name="TitleLabel" TextColor="White" Text="Create Package" XAlign="Center" Font="Bold,17"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnBack"
+                   RelativeLayout.XConstraint = "23"
+                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+            <Frame x:Name="PakagesView" BackgroundColor="White" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      Padding="15"
+                      CornerRadius="18"
+                      HasShadow="false"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
+                <RelativeLayout>
+                    <ScrollView BackgroundColor="White" 
+                                HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
+                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
+                        <StackLayout Spacing="30">
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                                <Label TextColor="Black" Text="PARTICIPANTS" XAlign="Start" Font="Bold,15"/>
+                                <StackLayout Spacing="10">
+                                    <local:PaketEntry x:Name="entryRecepient" Text="{Binding RecipientPubkey}" LineColor="#E5E5E5" FontSize="Default" Keyboard="Text" Placeholder="Recipient" HeightRequest="40"/>
+                                    <local:PaketEntry x:Name="entryCourier"  Text="{Binding CourierPubkey}" LineColor="#E5E5E5" FontSize="Default" Keyboard="Text" Placeholder="Courier" HeightRequest="40"/>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                                <Label TextColor="Black" Text="INFORMATION" XAlign="Start" Font="Bold,15"/>
+                                <StackLayout Spacing="15">
+                                    <Label TextColor="#A7A7A7" Text="Please pick deadline date" XAlign="Start" Font="Regular,13"/>
+                                    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" Orientation="Horizontal" HeightRequest="40" BackgroundColor="White">
+                                        <StackLayout VerticalOptions="Center" Orientation="Horizontal" Spacing="20" HeightRequest="40" BackgroundColor="White">
+                                            <Button Text="1 Day"  WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="1 Week" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="2 Week" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                            <Button Text="Specific Date" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                                        </StackLayout>
+                                    </ScrollView>
+                                    <StackLayout Spacing="0">
+                                        <Label TextColor="#A7A7A7" Text="Deadline" XAlign="Start" Font="Regular,13"/>
+                                        <local:PaketPicker Title="Selected Date" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40" FontSize="Default"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                                <Label TextColor="Black" Text="FUNDS" XAlign="Start" Font="Bold,15"/>
+                                <StackLayout Spacing="10">
+                                    <StackLayout Spacing="0">
+                                        <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" Font="Regular,13"/>
+                                        <local:PaketEntry Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" FontSize="Default"/>
+                                    </StackLayout>
+                                    <StackLayout Spacing="0">
+                                        <Label TextColor="#A7A7A7" Text="Collateral" XAlign="Start" Font="Regular,13"/>
+                                        <local:PaketEntry Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" FontSize="Default"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                            <local:PaketButton Text="Launch"/>
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0" HeightRequest="30"></StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </RelativeLayout>
+            </Frame>
+        </RelativeLayout>
+    </local:BasePage.Content>
 </local:BasePage>

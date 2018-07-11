@@ -15,6 +15,32 @@ namespace PaketGlobal.iOS
 {
     public class PaketEntryRenderer : EntryRenderer
     {
+        CALayer BottomBorder;
+
+        public override void LayoutSubviews()
+        {
+            base.LayoutSubviews();
+
+            if (BottomBorder == null)
+            {
+                if (this.Frame.Size.Width != 0)
+                {
+                    var textField = this.Control;
+                    var element = (PaketEntry)this.Element;
+
+                    BottomBorder = new CALayer
+                    {
+                        Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width - 8, 1.0f),
+                        BorderWidth = 2.0f,
+                        BorderColor = element.LineColor.ToCGColor()
+                    };
+
+                    textField.Layer.AddSublayer(BottomBorder);
+                    textField.Layer.MasksToBounds = true;
+                }
+            }
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
@@ -40,15 +66,10 @@ namespace PaketGlobal.iOS
             }
 
             textField.BorderStyle = UITextBorderStyle.None;
-            CALayer bottomBorder = new CALayer
-            {
-                Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width, 1.0f),
-                BorderWidth = 2.0f,
-                BorderColor = element.LineColor.ToCGColor()
-            };
-
-            textField.Layer.AddSublayer(bottomBorder);
             textField.Layer.MasksToBounds = true;
+
+            textField.Font = UIFont.FromName("Poppins-Medium", 12);
+            textField.TextColor = Xamarin.Forms.Color.FromHex("#555555").ToUIColor();
         }
 
         private UIView GetImageView(string imagePath, int height, int width)

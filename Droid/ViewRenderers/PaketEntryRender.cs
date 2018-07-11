@@ -42,7 +42,14 @@ namespace PaketGlobal.Droid
                         break;
                 }
             }
+
+
             editText.CompoundDrawablePadding = 25;
+
+            Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
+            editText.SetTypeface(tf, TypefaceStyle.Normal);
+            editText.SetTextSize(Android.Util.ComplexUnitType.Pt,12);
+                    
             Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);           
         }
 
