@@ -286,6 +286,12 @@
     <BundleResource Include="Resources\search_icon%403x.png" />
     <BundleResource Include="Resources\search_icon%402x.png" />
     <BundleResource Include="Resources\search_icon.png" />
+    <BundleResource Include="Resources\qr_code_small%403x.png" />
+    <BundleResource Include="Resources\qr_code_small%402x.png" />
+    <BundleResource Include="Resources\qr_code_small.png" />
+    <BundleResource Include="Resources\add_icon_small%403x.png" />
+    <BundleResource Include="Resources\add_icon_small%402x.png" />
+    <BundleResource Include="Resources\add_icon_small.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -302,6 +308,7 @@
     <Compile Include="ViewRenders\PaketPickerRender.cs" />
     <Compile Include="ViewRenders\BottomBarRender.cs" />
     <Compile Include="ViewRenders\ListViewRenderer.cs" />
+    <Compile Include="Services\DeviceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

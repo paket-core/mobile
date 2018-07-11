@@ -28,8 +28,9 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidSupportedAbis>arm64-v8a;armeabi-v7a;x86;x86_64;armeabi</AndroidSupportedAbis>
+    <AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -274,6 +275,7 @@
     <Compile Include="ViewRenderers\BottomBar\Utils\ReflectedProxy.cs" />
     <Compile Include="ViewRenderers\BottomBar\Utils\ResourceManagerEx.cs" />
     <Compile Include="ViewRenderers\ListViewRenderer.cs" />
+    <Compile Include="Services\DeviceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -352,6 +354,18 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\packages_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\wallet_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\profile_icon.png" />
+    <AndroidResource Include="Resources\drawable\search_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\search_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\search_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\search_icon.png" />
+    <AndroidResource Include="Resources\drawable\qr_code_small.png" />
+    <AndroidResource Include="Resources\drawable\add_icon_small.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\qr_code_small.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\add_icon_small.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\qr_code_small.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\add_icon_small.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\qr_code_small.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\add_icon_small.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

@@ -1,44 +1,158 @@
 ﻿using System;
-
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
-using XFGloss;
 
 namespace PaketGlobal
 {
-	public partial class PackagesPage : BasePage
-	{
-		public PackagesPage()
-		{
+    public partial class PackagesPage : BasePage
+    {
+        private PackagesModel ViewModel
+        {
+            get
+            {
+                return BindingContext as PackagesModel;
+            }
+        }
+
+        ICommand RefreshListCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await LoadPackages();
+                    PakagesView.IsRefreshing = false;
+                });
+            }
+        }
+
+        private float MaxOffset
+        {
+            get
+            {
+#if __IOS__
+                if (App.Locator.DeviceService.IsIphoneX() == true)
+                {
+                    return 130.0f;
+                }
+                return 150.0f;
+#else
+                return 150.0f;
+#endif
+            }
+        }
+
+        public PackagesPage()
+        {
             InitializeComponent();
 
-            PakagesView.ItemsSource = new List<string>() { "item 1", "item 2", "Item 3" , "Item 3", "Item 3", "Item 3", "Item 3", "Item 3", "Item 3" };
-		}
+            BindingContext = App.Locator.Packages;
+
+            PakagesView.RefreshCommand = RefreshListCommand;
+
+            if (MaxOffset <= 130.0f)
+            {
+                TitleLabel.TranslationY = 18;
+                RightButtons.TranslationY = 18;
+            }
+
+#if __ANDROID__
+            HeaderView.TranslationY = -20;
+            TitleLabel.TranslationY = 0;
+#endif
+        }
+
+        protected async override void OnAppearing()
+        {
+            var fl = firstLoad;
+
+            base.OnAppearing();
+
+            if (fl)
+            {
+                await LoadPackages();
+            }
+        }
 
 
         private void OnListViewScrolled(object sender, ScrolledEventArgs args)
         {
-            Console.WriteLine($"Offset = {args.ScrollY}");
-
             var yOffset = args.ScrollY;
 
-            if(yOffset<0)
+            if (yOffset < 0)
             {
                 yOffset = 0;
             }
-            else if(yOffset>150)
+            else if (yOffset > MaxOffset)
             {
-                yOffset = 150;
+                yOffset = MaxOffset;
             }
 
-            var opacity = 1 - (yOffset / 150.0f);
-
-            HeaderView.Opacity = opacity;
-          //  HeaderView.TranslateTo(0, (yOffset * (-1)));
             PakagesView.TranslateTo(0, (yOffset * (-1)));
+
+            HeaderView.Opacity = 1 - (yOffset / MaxOffset);
+
+            if (HeaderView.Opacity < 0.4f)
+            {
+                RightButtons.Opacity = TitleLabel.Opacity = (yOffset / MaxOffset);
+            }
+            else
+            {
+                RightButtons.Opacity = TitleLabel.Opacity = 0;
+            }
+
+            RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - 60; }));
         }
 
-	}
+        private async Task LoadPackages()
+        {
+            ActivityIndicator.IsRunning = true;
+            ActivityIndicator.IsVisible = true;
+            PlacholderLabel.IsVisible = false;
+
+            await ViewModel.Load();
+
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+            ViewModel.PackagesList.AddRange(ViewModel.PackagesList);
+
+            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+            PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+        }
+
+
+        async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+
+        }
+
+        #region Buttons Actions
+
+        private void LaunchPackageClicked(object sender, EventArgs e)
+        {
+            var newPackage = new Package()
+            {
+                Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1)),
+                CourierPubkey="GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",
+                RecipientPubkey="GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA"
+            };
+
+            var packagePage = new LaunchPackagePage(newPackage);
+            Navigation.PushAsync(packagePage);
+        }
+
+        private void AcceptPackageClicked(object sender, EventArgs e)
+        {
+            App.Locator.NavigationService.NavigateTo(Locator.AcceptPackagePage);
+        }
+
+        #endregion
+    }
 }

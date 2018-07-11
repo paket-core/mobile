@@ -5,13 +5,27 @@
     xmlns:xf="clr-namespace:PaketGlobal"
     xmlns:local="clr-namespace:PaketGlobal"
                   x:Class="PaketGlobal.MainPage">
-    <local:PackagesPage Title="Packages"
-                         Icon="packages_icon.png"
-                         xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
-    <local:WalletPage Title="Wallet"
-                 Icon="wallet_icon.png"
-                 xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
-    <local:ProfilePage Title="Profile"
-                 Icon="profile_icon.png"
-                 xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+
+ <!--       <ContentPage Title="Packages" Icon="packages_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+        <ContentPage Title="Wallet" Icon="wallet_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+        <ContentPage Title="Profile" Icon="profile_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>-->
+
+       <NavigationPage Title="Packages" Icon="packages_icon.png">
+             <x:Arguments>
+             <local:PackagesPage Title="Packages" Icon="packages_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+             </x:Arguments>
+        </NavigationPage>
+
+      <NavigationPage Title="Wallet" Icon="wallet_icon.png">
+             <x:Arguments>
+                <local:WalletPage Title="Wallet" Icon="wallet_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+             </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Profile" Icon="profile_icon.png">
+             <x:Arguments>
+                <local:ProfilePage Title="Profile" Icon="profile_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
+             </x:Arguments>
+        </NavigationPage>
+
 </xf:BottomBarPage>

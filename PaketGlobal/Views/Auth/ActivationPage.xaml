@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -13,7 +13,7 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
-                    <Label Text="Activate Account" XAlign="Center" Font="Bold,17"/>
+                    <Label Text="Activate Account" XAlign="Center" Font="Bold,17" TextColor="Black"/>
                 </StackLayout>
                 <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_arrow.png"
                         Clicked="OnBack"
@@ -23,7 +23,7 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=100}">
                     <StackLayout Spacing="20">
-                        <Label Text="Please send 0.001 BTC to this address to create your account" XAlign="Center" Font="Bold,22"/>
+                        <Label Text="Please send 0.001 BTC to this address to create your account" XAlign="Center" Font="Bold,22" TextColor="Black"/>
                         <StackLayout Spacing="10">
                             <Label x:Name="addressLabel" Text="7ad7g72f727hf72e7hf72hfh7fh7f487458f48jf48jf4h7f4h7f4 " XAlign="Center" Font="Regular,15" TextColor="Gray"
                                    xe:TouchEffect.Color="Gray"/>

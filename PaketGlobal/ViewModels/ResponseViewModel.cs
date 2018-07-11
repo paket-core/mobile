@@ -362,6 +362,16 @@ namespace PaketGlobal
 		public string SendTimeString {
 			get { return SendTimeDT.ToString("MM.dd.yyyy h:mm tt"); }
 		}
+
+        public string StatusIcon
+        {
+            get { return "in_transit.png"; }
+        }
+
+        public float Progress
+        {
+            get { return 0.5f }
+        }
 	}
 
 	[DataContract]

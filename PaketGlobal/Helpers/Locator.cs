@@ -6,7 +6,6 @@ namespace PaketGlobal
 	public class Locator
 	{
 		public const string MainPage = "MainPage";
-		public const string LoginPage = "LoginPage";
 		public const string ProfilePage = "ProfilePage";
 		public const string PackagesPage = "PackagesPage";
 		public const string PackageDetailsPage = "PackageDetailsDetail";
@@ -71,6 +70,11 @@ namespace PaketGlobal
             get { return GetInstance<IClipboardService>(); }
         }
 
+        public IDeviceService DeviceService
+        {
+            get { return GetInstance<IDeviceService>(); }
+        }
+
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>
@@ -111,7 +115,6 @@ namespace PaketGlobal
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {
 				var navigationService = new NavigationService();
 				navigationService.Configure(Locator.MainPage, typeof(MainPage));
-				navigationService.Configure(Locator.LoginPage, typeof(LoginPage));
 				navigationService.Configure(Locator.PackagesPage, typeof(PackagesPage));
 				navigationService.Configure(Locator.PackageDetailsPage, typeof(PackageDetailsPage));
 				navigationService.Configure(Locator.LaunchPackagePage, typeof(LaunchPackagePage));

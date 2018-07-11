@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -13,23 +13,23 @@
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
-                    <Label Text="Restore Private Key" XAlign="Center" Font="Bold,17"/>
+                    <Label Text="Restore Private Key" XAlign="Center" Font="Bold,17" TextColor="Black"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="25">
-                        <local:PaketEntry x:Name="entryMnemonic"  FontSize="Default" Keyboard="Text" Placeholder="Mnemonic Phrase" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryMnemonic"  FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Mnemonic Phrase" HeightRequest="40"/>
                         <Label Text="Or" Font="Regular,16" TextColor="Black"/>
-                        <local:PaketEntry x:Name="entrySecretKey" FontSize="Default" Keyboard="Text" Placeholder="Secret Key" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entrySecretKey" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Secret Key" HeightRequest="40"/>
                     </StackLayout>
                     <local:PaketButton x:Name="restoreButton" Text="Restore Key" Clicked="LoginClicked"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
-                    <Label Text="Generate New Key" XAlign="Center" Font="Bold,30"/>
+                    <Label Text="Generate New Key" XAlign="Center" Font="Bold,30" TextColor="Black"/>
                     <Button x:Name="generateButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
                 </StackLayout>
             </RelativeLayout>
