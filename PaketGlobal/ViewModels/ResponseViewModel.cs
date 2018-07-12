@@ -368,11 +368,31 @@ namespace PaketGlobal
 			get { return SendTimeDT.ToString("MM.dd.yyyy"); }
 		}
 
+        public string StatusIconWithText
+        {
+            get
+            {
+                if (Status == "waiting pickup")
+                {
+                    return "waiting_status_icon.png";
+                }
+                else if (Status == "delivered")
+                {
+                    return "delivered_status_icon.png";
+                }
+                return "in_transit_status.png";
+            }  
+        }
+
         public string StatusIcon
         {
             get { 
                 if (Status=="waiting pickup") {
                     return "waiting_pickup.png";  
+                }
+                else if (Status == "delivered")
+                {
+                    return "delivered_icon.png";
                 }
                 return "in_transit.png";
             }
@@ -393,8 +413,26 @@ namespace PaketGlobal
                 {
                     return 0.1f;
                 }
+                else if (Status == "delivered")
+                {
+                    return 1.0f;
+                }
 
                 return 0.5f;
+            }
+        }
+
+        public string ProgressIcon
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+
+                    return "point_0";
+                }
+
+                return "point_1";
             }
         }
 	}

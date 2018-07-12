@@ -17,15 +17,15 @@
             
             <!-- FONTS -->
             <OnPlatform x:TypeArguments="x:String" x:Key="SemiBoldFont">
-                <On Platform="Android" Value="OpenSans-Bold.ttf#Open Sans" />
+                <On Platform="Android" Value="Poppins-SemiBold.ttf#Poppins" />
                 <On Platform="iOS" Value="Poppins-SemiBold" />
             </OnPlatform>
             <OnPlatform x:TypeArguments="x:String" x:Key="NormalFont">
-                <On Platform="Android" Value="OpenSans-Regular.ttf#Open Sans" />
+                <On Platform="Android" Value="Poppins-Regular.ttf#Poppins" />
                 <On Platform="iOS" Value="Poppins-Regular" />
             </OnPlatform>
             <OnPlatform x:TypeArguments="x:String" x:Key="MediumFont">
-                <On Platform="Android" Value="OpenSans-Regular.ttf#Open Sans" />
+                <On Platform="Android" Value="Poppins-Medium.ttf#Poppins" />
                 <On Platform="iOS" Value="Poppins-Medium" />
             </OnPlatform>
             <!-- FONTS -->

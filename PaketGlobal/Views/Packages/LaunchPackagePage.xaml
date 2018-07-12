@@ -71,11 +71,11 @@
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#5F5F5F" Text="Payment" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="13"/>
-                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Text= "{Binding Payment}" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
+                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
                                     </StackLayout>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#5F5F5F" Text="Collateral" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13"/>
-                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Text= "{Binding Collateral}" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
+                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="40" />
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

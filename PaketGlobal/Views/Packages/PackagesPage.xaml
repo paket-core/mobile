@@ -60,13 +60,14 @@
                                  Padding="10,10,10,10"  BackgroundColor="Transparent"
                                  HeightRequest="130"
                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                                    <local:PaketFrame BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
+                                    <local:PaketFrame TopCorners="0" BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
                                  CornerRadius="15"/>
                                 </StackLayout>
-                                <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Start"
-                                       RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="29"/>
-                                <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
-                                       RelativeLayout.XConstraint="75" RelativeLayout.YConstraint="30"/>
+                                <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
+                                     <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                     <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
+                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </StackLayout>
                                 <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
                                              RelativeLayout.XConstraint="37" 
                                              RelativeLayout.YConstraint="77"
@@ -74,11 +75,11 @@
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
                                 <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="33" RelativeLayout.YConstraint="71"/>
-                                <Image Source="point_1.png" HorizontalOptions="Start"
+                                <Image Source="{Binding ProgressIcon, Mode=OneWay}" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.88}"
                                        RelativeLayout.YConstraint="71"/>
                                 <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
-                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}">
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.82}">
                                     <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
                                         <Label Text="SENT" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
                                         <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>

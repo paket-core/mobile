@@ -60,7 +60,7 @@ namespace PaketGlobal
             }
 
 #if __ANDROID__
-            HeaderView.TranslationY = -20;
+            HeaderView.TranslationY = -30;
             TitleLabel.TranslationY = 0;
 #endif
         }
@@ -119,9 +119,15 @@ namespace PaketGlobal
         }
 
 
-        async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        private void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItem == null) 
+                return;
 
+            var packagePage = new PackageDetailsPage(PakagesView.SelectedItem as Package);
+            Navigation.PushAsync(packagePage);
+
+            PakagesView.SelectedItem = null;
         }
 
         #region Buttons Actions
@@ -130,8 +136,8 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-                CourierPubkey="",
-                RecipientPubkey=""
+                //CourierPubkey="SBZVFQY5TUX3EA2MWF2V2KGJJQ2LVQACIOAUTETMVHVTFN7VLG7WUXVH",
+                //RecipientPubkey="SBZVFQY5TUX3EA2MWF2V2KGJJQ2LVQACIOAUTETMVHVTFN7VLG7WUXVH"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);

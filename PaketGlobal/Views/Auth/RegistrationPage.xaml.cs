@@ -38,6 +38,8 @@ namespace PaketGlobal
 
         private void OnBack(object sender, EventArgs e)
         {
+            Unfocus();
+
             App.Locator.NavigationService.GoBack();
         }
 
@@ -45,6 +47,8 @@ namespace PaketGlobal
         {
             if (IsValid())
             {
+                Unfocus();
+
                 await WithProgressButton(generateButton, async () =>
                 {
                     if (IsAddedInfo){

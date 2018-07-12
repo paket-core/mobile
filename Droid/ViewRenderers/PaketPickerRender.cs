@@ -48,7 +48,7 @@ namespace PaketGlobal.Droid
 
             Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
             editText.SetTypeface(tf, TypefaceStyle.Normal);
-            editText.SetTextSize(Android.Util.ComplexUnitType.Pt, 14);
+            editText.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
 
             Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
         }
@@ -58,6 +58,8 @@ namespace PaketGlobal.Droid
             if(imageEntryImage.Contains(".png")){
                 imageEntryImage = imageEntryImage.Replace(".png", "");
             }
+
+         //   var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
 
             int resID = Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
             var drawable = ContextCompat.GetDrawable(this.Context, resID);
