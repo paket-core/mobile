@@ -305,6 +305,18 @@
     <BundleResource Include="Resources\icon_calendar%403x.png" />
     <BundleResource Include="Resources\icon_calendar%402x.png" />
     <BundleResource Include="Resources\icon_calendar.png" />
+    <BundleResource Include="Resources\delivered_icon%403x.png" />
+    <BundleResource Include="Resources\delivered_icon%402x.png" />
+    <BundleResource Include="Resources\delivered_icon.png" />
+    <BundleResource Include="Resources\in_transit_status%403x.png" />
+    <BundleResource Include="Resources\in_transit_status%402x.png" />
+    <BundleResource Include="Resources\in_transit_status.png" />
+    <BundleResource Include="Resources\waiting_status_icon%403x.png" />
+    <BundleResource Include="Resources\waiting_status_icon%402x.png" />
+    <BundleResource Include="Resources\waiting_status_icon.png" />
+    <BundleResource Include="Resources\delivered_status_icon%403x.png" />
+    <BundleResource Include="Resources\delivered_status_icon%402x.png" />
+    <BundleResource Include="Resources\delivered_status_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

@@ -276,6 +276,7 @@
     <Compile Include="ViewRenderers\BottomBar\Utils\ResourceManagerEx.cs" />
     <Compile Include="ViewRenderers\ListViewRenderer.cs" />
     <Compile Include="Services\DeviceService.cs" />
+    <Compile Include="ViewRenderers\PaketFrameRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -378,6 +379,23 @@
     <AndroidResource Include="Resources\drawable-hdpi\icon_calendar.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon_calendar.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon_calendar.png" />
+    <AndroidResource Include="Resources\drawable\delivered_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\delivered_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\delivered_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\delivered_icon.png" />
+    <AndroidResource Include="Resources\drawable\in_transit_status.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\in_transit_status.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\in_transit_status.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\in_transit_status.png" />
+    <AndroidResource Include="Resources\layout\PaketFrameLayout.axml" />
+    <AndroidResource Include="Resources\drawable\waiting_status_icon.png" />
+    <AndroidResource Include="Resources\drawable\delivered_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\waiting_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\delivered_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\waiting_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\delivered_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\waiting_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\delivered_status_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

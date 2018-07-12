@@ -8,34 +8,54 @@ namespace PaketGlobal
 	public partial class PackageDetailsPage : BasePage
 	{
 		private Package ViewModel { get { return BindingContext as Package; } }
+       
+        private Command BarcodeTapCommand;
 
 		public PackageDetailsPage(Package package)
 		{
 			InitializeComponent();
 
-			barcodeImage.BarcodeOptions.Width = 320;
-			barcodeImage.BarcodeOptions.Height = 320;
-			barcodeImage.BarcodeOptions.Margin = 10;
+            BindingContext = package;
 
-			Title = "Package Details";
+            #if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                TitleLabel.TranslationY = 35;
+                BackButton.TranslationY = 10;
+            }
+            else
+            {
+                TitleLabel.TranslationY = 24;
+            }
+#elif __ANDROID__
+            TitleLabel.TranslationY = 5;
+            BackButton.TranslationY = -18;
+            BackButton.TranslationX = -25;
+#endif
 
-			BindingContext = package;
+            var data = new BarcodePackageData {
+              EscrowAddress = package.PaketId
+            };
+            BarcodeImage.BarcodeOptions.Width = 300;
+            BarcodeImage.BarcodeOptions.Height = 300;
+            BarcodeImage.BarcodeOptions.Margin = 1;
+            BarcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);
 
-			var data = new BarcodePackageData {
-				EscrowAddress = package.PaketId
-			};
 
-			barcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);
+            BarcodeTapCommand = new Command(() =>
+            {
+                BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
+            });
+
+            XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
 		}
 
-		void EventItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-		{
-			if (e.SelectedItem != null) {
-				eventsList.SelectedItem = null;
-			}
-		}
+        private void OnBack(object sender, System.EventArgs e)
+        {
+            Navigation.PopAsync();
+        }
 
-		async void RefundClicked(object sender, System.EventArgs e)
+		private async void RefundClicked(object sender, System.EventArgs e)
 		{
 			App.ShowLoading(true);
 
@@ -43,8 +63,8 @@ namespace PaketGlobal
 			if (transData != null) {
 				var result = await StellarHelper.RefundEscrow(transData.RefundTransaction, transData.MergeTransaction);
 				if (result) {
-					stackRefund.IsVisible = false;
-					lblStatus.Text = "Closed";
+				//	stackRefund.IsVisible = false;
+				//	lblStatus.Text = "Closed";
 					ShowMessage("Refunding successfull");
 				} else {
 					ShowMessage("Error during refunding");
@@ -56,7 +76,7 @@ namespace PaketGlobal
 			App.ShowLoading(false);
 		}
 
-		async void ReclaimClicked(object sender, System.EventArgs e)
+		private async void ReclaimClicked(object sender, System.EventArgs e)
 		{
 			App.ShowLoading(true);
 
@@ -64,8 +84,8 @@ namespace PaketGlobal
 			if (transData != null) {
 				var result = await StellarHelper.ReclaimEscrow(transData.MergeTransaction);
 				if (result) {
-					stackReclaim.IsVisible = false;
-					lblStatus.Text = "Closed";
+				//	stackReclaim.IsVisible = false;
+				//	lblStatus.Text = "Closed";
 					ShowMessage("Reclaiming successfull");
 				} else {
 					ShowMessage("Error during reclaiming");

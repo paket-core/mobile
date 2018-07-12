@@ -31,8 +31,10 @@ namespace PaketGlobal
                 TitleLabel.TranslationY = 24;
             }
 #elif __ANDROID__
-            TitleLabel.TranslationY = 0;
-            #endif
+            TitleLabel.TranslationY = 5;
+            BackButton.TranslationY = -18;
+            BackButton.TranslationX = -25;
+#endif
         }
 
         private void OnBack(object sender, System.EventArgs e)
@@ -43,6 +45,7 @@ namespace PaketGlobal
         private void PickerFocused(object sender, Xamarin.Forms.FocusEventArgs e)
         {
             EntryDeadline.Unfocus();
+            Unfocus();
 
             var dpc = new DatePromptConfig();
             dpc.OkText = "OK";
@@ -117,9 +120,66 @@ namespace PaketGlobal
         {
             if (IsValid())
             {
+                Unfocus();
+
                 await WithProgressButton(LaunchButton, async () =>
                 {
+                    var vm = ViewModel;
 
+                    var escrowKP = KeyPair.Random();
+
+                    var recipientPubkey = vm.RecipientPubkey;
+                    var courierPubkey = vm.CourierPubkey;
+
+                    //get recipient pubkey if user entered callsign
+                    if (recipientPubkey.Length != 56)
+                    {
+                        var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);
+                        if (recipientResult == null)
+                        {
+                            ShowMessage("Recipient not found");
+                            return;
+                        }
+                        else
+                        {
+                            recipientPubkey = recipientResult.UserDetails.Pubkey;
+                        }
+                    }
+
+                    //get courier pubkey if user entered callsign
+                    if (courierPubkey.Length != 56)
+                    {
+                        var courierResult = await App.Locator.FundServiceClient.GetUser(null, courierPubkey);
+                        if (courierResult == null)
+                        {
+                            ShowMessage("Courier not found");
+                            return;
+                        }
+                        else
+                        {
+                            courierPubkey = courierResult.UserDetails.Pubkey;
+                        }
+                    }
+
+ 
+                    long payment = Convert.ToInt64(Convert.ToDecimal(EntryPayment.Text));
+                    long collateral = Convert.ToInt64(Convert.ToDecimal(EntryCollateral.Text));
+
+                    var result = await StellarHelper.LaunchPackage(escrowKP, recipientPubkey, vm.Deadline, courierPubkey, payment, collateral);
+
+                    if (result == StellarOperationResult.Success)
+                    {
+                        await System.Threading.Tasks.Task.Delay(2000);
+                        await App.Locator.Packages.Load();
+
+                        OnBack(BackButton, null);
+                    }
+                    else
+                    {
+                        ShowError(result);
+                    }
+
+                    App.ShowLoading(false);
                 });
             }
         }
@@ -141,6 +201,11 @@ namespace PaketGlobal
                 EntryCourier.Focus();
                 return false;
             }
+            else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
+            {
+                ShowMessage("Please select deadline date");
+                return false;
+            }
             else if (!ValidationHelper.ValidateTextField(EntryPayment.Text))
             {
                 EntryPayment.Focus();
@@ -151,12 +216,7 @@ namespace PaketGlobal
                 EntryCollateral.Focus();
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
-            {
-                ShowMessage("Please select deadline date");
-                return false;
-            }
-
+    
             return true;
         }
 

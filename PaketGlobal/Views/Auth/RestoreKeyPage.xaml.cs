@@ -28,6 +28,8 @@ namespace PaketGlobal
 
         void OnGenerate(object sender, EventArgs e)
         {
+            Unfocus();
+
             App.Locator.NavigationService.NavigateTo(Locator.RegistrationPage);
         }
 
@@ -35,6 +37,8 @@ namespace PaketGlobal
         {
             if (IsValid())
             {
+                Unfocus();
+
                 await WithProgressButton(restoreButton, async () =>
                 {
                     try
@@ -85,6 +89,8 @@ namespace PaketGlobal
 
         public async void CheckActivation()
         {
+            Unfocus();
+
             await WithProgressButton(restoreButton, async () =>
             {
                 var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);

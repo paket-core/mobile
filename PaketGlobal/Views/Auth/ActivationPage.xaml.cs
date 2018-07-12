@@ -38,11 +38,15 @@ namespace PaketGlobal
 
         private void OnBack(object sender, EventArgs e)
         {
+            Unfocus();
+
             App.Locator.NavigationService.GoBack();
         }
 
         private async void CheckActivation(object sender, EventArgs e)
         {
+            Unfocus();
+
             await WithProgressButton(checkButton, async () =>
             {
                 var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
