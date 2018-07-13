@@ -25,7 +25,7 @@
             <Frame x:Name="PakagesView" BackgroundColor="White" 
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
-                      Padding="15"
+                      Padding="20"
                       CornerRadius="18"
                       HasShadow="false"
                       RelativeLayout.XConstraint = "0"

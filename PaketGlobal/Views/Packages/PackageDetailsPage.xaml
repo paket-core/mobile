@@ -96,6 +96,10 @@
                                             IsVisible="{Binding DeliveryStatusPrivate,
                                             Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
                                             Mode=OneWay}"/>
+                                    <Button HorizontalOptions="Center" x:Name="ReclaimButton" Clicked="ReclaimClicked" Text="Reclaim" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                            IsVisible="{Binding DeliveryStatusPrivate,
+                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
+                                            Mode=OneWay}"/>
                                 </StackLayout>
                             </RelativeLayout>
                         </StackLayout>
@@ -165,18 +169,13 @@
     <StackLayout x:Name="EventsInfoView" Padding="20,15,15,25" BackgroundColor="Transparent" Spacing="15">
         <StackLayout Spacing="15">
             <Label TextColor="Black" Text="EVENTS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-
-
-      <ScrollView x:Name="EventsScrollView" Orientation="Horizontal" BackgroundColor="Transparent" HeightRequest="100" VerticalScrollBarVisibility="Default"
-                  HorizontalScrollBarVisibility="Never">
-             <RelativeLayout>
-                                                
-            </RelativeLayout>                        
-       </ScrollView>
-                                        
-                                        
         </StackLayout>
-    </StackLayout>
+        <Grid HorizontalOptions="FillAndExpand" HeightRequest="110">
+            <ScrollView  Orientation="Horizontal" x:Name="EventsScrollView" VerticalScrollBarVisibility="Never"
+                             HorizontalScrollBarVisibility="Never"/> 
+        </Grid>
+                                  
+        </StackLayout>
 </local:PaketFrame>
 
 

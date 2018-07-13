@@ -33,7 +33,7 @@ namespace PaketGlobal
 #elif __ANDROID__
             TitleLabel.TranslationY = 5;
             BackButton.TranslationY = -18;
-            BackButton.TranslationX = -25;
+            BackButton.TranslationX = -30;
 #endif
         }
 

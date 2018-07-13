@@ -5,21 +5,21 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-	public partial class PackageDetailsPage : BasePage
-	{
-		private Package ViewModel { get { return BindingContext as Package; } }
-       
+    public partial class PackageDetailsPage : BasePage
+    {
+        private Package ViewModel { get { return BindingContext as Package; } }
+
         private Command BarcodeTapCommand;
 
-		public PackageDetailsPage(Package package)
-		{
-			InitializeComponent();
+        public PackageDetailsPage(Package package)
+        {
+            InitializeComponent();
 
             BindingContext = package;
 
             AddEvents();
 
-            #if __IOS__
+#if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
                 TitleLabel.TranslationY = 35;
@@ -32,80 +32,76 @@ namespace PaketGlobal
 #elif __ANDROID__
             TitleLabel.TranslationY = 5;
             BackButton.TranslationY = -18;
-            BackButton.TranslationX = -25;
+            BackButton.TranslationX = -30;
 #endif
 
-            var data = new BarcodePackageData {
-              EscrowAddress = package.PaketId
+            var data = new BarcodePackageData
+            {
+                EscrowAddress = package.PaketId
             };
             BarcodeImage.BarcodeOptions.Width = 300;
             BarcodeImage.BarcodeOptions.Height = 300;
             BarcodeImage.BarcodeOptions.Margin = 1;
             BarcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);
-
-
             BarcodeTapCommand = new Command(() =>
             {
                 BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
             });
 
             XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
-		}
+        }
 
         private void OnBack(object sender, System.EventArgs e)
         {
             Navigation.PopAsync();
         }
 
-		private async void RefundClicked(object sender, System.EventArgs e)
-		{
-            RefundButton.IsVisible = false;
-            return;
+        private async void RefundClicked(object sender, System.EventArgs e)
+        {
+            App.ShowLoading(true);
 
-			App.ShowLoading(true);
+            var result = await StellarHelper.RefundEscrow(ViewModel.RefundTransaction, ViewModel.MergeTransaction);
+            if (result)
+            {
+                RefundButton.IsVisible = false;
+                //  lblStatus.Text = "Closed";
+                ShowMessage("Refunding successfull");
+            }
+            else
+            {
+                ShowMessage("Error during refunding");
+            }
 
-			var transData = App.Locator.Profile.GetTransaction(ViewModel.PaketId);
-			if (transData != null) {
-				var result = await StellarHelper.RefundEscrow(transData.RefundTransaction, transData.MergeTransaction);
-				if (result) {
-					RefundButton.IsVisible = false;
-				//	lblStatus.Text = "Closed";
-					ShowMessage("Refunding successfull");
-				} else {
-					ShowMessage("Error during refunding");
-				}
-			} else {
-				ShowMessage("Transcations data is missing");
-			}
+            App.ShowLoading(false);
+        }
 
-			App.ShowLoading(false);
-		}
+        private async void ReclaimClicked(object sender, System.EventArgs e)
+        {
+            App.ShowLoading(true);
 
-		private async void ReclaimClicked(object sender, System.EventArgs e)
-		{
-			App.ShowLoading(true);
+            var result = await StellarHelper.ReclaimEscrow(ViewModel.MergeTransaction);
+            if (result)
+            {
+                ReclaimButton.IsVisible = false;
+                //  lblStatus.Text = "Closed";
+                ShowMessage("Reclaiming successfull");
+            }
+            else
+            {
+                ShowMessage("Error during reclaiming");
+            }
 
-			var transData = App.Locator.Profile.GetTransaction(ViewModel.PaketId);
-			if (transData != null) {
-				var result = await StellarHelper.ReclaimEscrow(transData.MergeTransaction);
-				if (result) {
-				//	stackReclaim.IsVisible = false;
-				//	lblStatus.Text = "Closed";
-					ShowMessage("Reclaiming successfull");
-				} else {
-					ShowMessage("Error during reclaiming");
-				}
-			} else {
-				ShowMessage("Transcations data is missing");
-			}
-
-			App.ShowLoading(false);
-		}
+            App.ShowLoading(false);
+        }
 
 
         private void AddEvents()
         {
             var package = ViewModel;
+
+            StackLayout lastStackView = null;
+
+            RelativeLayout relativeLayout = new RelativeLayout();
 
             for (int i = 0; i < package.Events.Count; i++)
             {
@@ -116,12 +112,12 @@ namespace PaketGlobal
                 var frame = new Frame()
                 {
                     HorizontalOptions = LayoutOptions.Start,
-                    Padding = 5,
+                    Padding = 3,
                     HasShadow = false,
                     BackgroundColor = Color.FromHex("#A5A5A5"),
-                    CornerRadius = 5
+                    CornerRadius = 5,
+                    HeightRequest = 16
                 };
-
 
                 var eventTypeLabel = new Label()
                 {
@@ -129,12 +125,12 @@ namespace PaketGlobal
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
                     TextColor = Color.White,
-                    FontSize = 12
+                    FontSize = 10,
+                    HeightRequest = 16,
                 };
                 eventTypeLabel.SetDynamicResource(Label.FontFamilyProperty, "NormalFont");
 
                 frame.Content = eventTypeLabel;
-
 
                 stack.Children.Add(frame);
 
@@ -159,21 +155,13 @@ namespace PaketGlobal
                 stack.Children.Add(userLabel);
 
 
-                var stackProgressView = new StackLayout()
+                var progressImage = new Image()
                 {
-                    Orientation = StackOrientation.Horizontal,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    Padding = 0
-                };
-
-                var img = new Image()
-                {
-                    Source = "point_1.png",
+                    Source = "point_2.png",
                     HorizontalOptions = LayoutOptions.Start
                 };
 
-                stackProgressView.Children.Add(img);
-
+    
 
                 var line = new BoxView()
                 {
@@ -182,13 +170,60 @@ namespace PaketGlobal
                     VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.FillAndExpand
                 };
+  
+                if(lastStackView==null)
+                {
+                    relativeLayout.Children.Add(stack,
+                                        Constraint.RelativeToParent((parent) => { return 0; }));
 
-                stackProgressView.Children.Add(line);
+                    relativeLayout.Children.Add(line,
+                            Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
+                            Constraint.RelativeToParent((parent) => { return 85; }),
+                            Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
+                            Constraint.Constant(0.5f));
 
-                stack.Children.Add(stackProgressView);
 
-                EventsStackView.Children.Add(stack);
+                    relativeLayout.Children.Add(progressImage,
+                                      Constraint.RelativeToParent((parent) => { return 0; }),
+                                      Constraint.RelativeToParent((parent) =>{return 78;}));
+                }
+                else{
+                    relativeLayout.Children.Add(stack,
+                                   Constraint.RelativeToView(lastStackView, (parent, view) =>{
+                                        return view.X + view.Width + 20; 
+                                   }));
+
+                    if(i != (package.Events.Count - 1))
+                    {
+                        relativeLayout.Children.Add(line,
+                                Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
+                                Constraint.RelativeToParent((parent) => { return 85; }),
+                                Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
+                                Constraint.Constant(0.5f)); 
+                    }
+
+             
+
+
+                    relativeLayout.Children.Add(progressImage,
+                                   Constraint.RelativeToView(lastStackView, (parent, view) => {
+                                       return view.X + view.Width + 20;
+                                   }),
+                                   Constraint.RelativeToParent((parent) => { return 78; }));
+                }
+
+
+                lastStackView = stack;
+            }
+
+            if (lastStackView != null)
+            {
+                EventsScrollView.Content = relativeLayout;
+            }
+            else
+            {
+                EventsInfoViewFrame.IsVisible = false;
             }
         }
-	}
+    }
 }

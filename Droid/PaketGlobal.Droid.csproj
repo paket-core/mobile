@@ -396,6 +396,10 @@
     <AndroidResource Include="Resources\drawable-xhdpi\delivered_status_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\waiting_status_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\delivered_status_icon.png" />
+    <AndroidResource Include="Resources\drawable\point_2.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\point_2.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\point_2.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\point_2.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

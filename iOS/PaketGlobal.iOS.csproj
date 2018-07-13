@@ -317,6 +317,9 @@
     <BundleResource Include="Resources\delivered_status_icon%403x.png" />
     <BundleResource Include="Resources\delivered_status_icon%402x.png" />
     <BundleResource Include="Resources\delivered_status_icon.png" />
+    <BundleResource Include="Resources\point_2%403x.png" />
+    <BundleResource Include="Resources\point_2%402x.png" />
+    <BundleResource Include="Resources\point_2.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
