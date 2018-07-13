@@ -56,17 +56,26 @@ namespace PaketGlobal.Droid
 
         private BitmapDrawable GetDrawable(string imageEntryImage)
         {
-            if(imageEntryImage.Contains(".png")){
+            if (imageEntryImage.Contains(".png"))
+            {
                 imageEntryImage = imageEntryImage.Replace(".png", "");
             }
 
-         //   var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
-
             int resID = Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
-            var drawable = ContextCompat.GetDrawable(this.Context, resID);
-            var bitmap = ((BitmapDrawable)drawable).Bitmap;
 
-            return new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 2, element.ImageHeight * 2, true));
+            return (BitmapDrawable)ContextCompat.GetDrawable(this.Context, resID);
+
+         //   if(imageEntryImage.Contains(".png")){
+         //       imageEntryImage = imageEntryImage.Replace(".png", "");
+         //   }
+
+         ////   var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
+
+            //int resID = Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
+            //var drawable = ContextCompat.GetDrawable(this.Context, resID);
+            //var bitmap = ((BitmapDrawable)drawable).Bitmap;
+
+            //return new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 2, element.ImageHeight * 2, true));
         }
 
     }

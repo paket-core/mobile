@@ -20,7 +20,7 @@
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="10">
-                        <local:PaketEntry x:Name="entryUserName" Completed="Handle_Completed" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryUserName" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryFullName"  Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryPhoneNumber"  Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryUserAddress" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Address" HeightRequest="40"/>

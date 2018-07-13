@@ -247,6 +247,12 @@
     <Reference Include="NBitcoin">
       <HintPath>..\packages\NBitcoin.4.1.1.25\lib\netstandard2.0\NBitcoin.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Toast.Abstractions">
+      <HintPath>..\packages\Plugin.Toast.2.0.0\lib\MonoAndroid10\Plugin.Toast.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Toast">
+      <HintPath>..\packages\Plugin.Toast.2.0.0\lib\MonoAndroid10\Plugin.Toast.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -277,6 +283,8 @@
     <Compile Include="ViewRenderers\ListViewRenderer.cs" />
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="ViewRenderers\PaketFrameRender.cs" />
+    <Compile Include="ViewRenderers\CellWithoutSelectionRender.cs" />
+    <Compile Include="ViewRenderers\SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -400,11 +408,28 @@
     <AndroidResource Include="Resources\drawable-hdpi\point_2.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\point_2.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\point_2.png" />
+    <AndroidResource Include="Resources\drawable\bul_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bul_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bul_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\bul_icon.png" />
+    <AndroidResource Include="Resources\drawable\sp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\sp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\sp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\sp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\sp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon_calendar.png" />
+    <AndroidResource Include="Resources\layout\EntryLayout.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\copy128.png" />
+    <AndroidResource Include="Resources\drawable\copy128.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\copy128.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\copy128.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\copy128.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Services\" />
     <Folder Include="ViewRenderers\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

@@ -54,7 +54,7 @@
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <local:CellWithoutSelection>
                             <RelativeLayout>
                                 <StackLayout Orientation="Vertical" 
                                  Padding="10,10,10,10"  BackgroundColor="Transparent"
@@ -90,7 +90,7 @@
                                     </StackLayout>
                                 </StackLayout>
                             </RelativeLayout>
-                        </ViewCell>
+                        </local:CellWithoutSelection>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </Views:ListView >

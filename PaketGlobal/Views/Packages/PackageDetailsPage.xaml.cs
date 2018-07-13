@@ -64,6 +64,8 @@ namespace PaketGlobal
             if (result)
             {
                 RefundButton.IsVisible = false;
+                RefundLabel.IsVisible = false;
+
                 //  lblStatus.Text = "Closed";
                 ShowMessage("Refunding successfull");
             }
@@ -83,6 +85,8 @@ namespace PaketGlobal
             if (result)
             {
                 ReclaimButton.IsVisible = false;
+                ReclaimLabel.IsVisible = false;
+
                 //  lblStatus.Text = "Closed";
                 ShowMessage("Reclaiming successfull");
             }

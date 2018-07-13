@@ -139,6 +139,7 @@ namespace PaketGlobal.Droid
 
 					// create bottomBar control
 					_bottomBar = BottomNavigationBar.BottomBar.Attach (_frameLayout, null);
+
 					_bottomBar.NoTabletGoodness ();
 					if (bottomBarPage.FixedMode)
 					{
@@ -153,11 +154,11 @@ namespace PaketGlobal.Droid
 							_bottomBar.UseDarkThemeWithAlpha(true);
 							break;
 						case BottomBarPage.BarThemeTypes.DarkWithoutAlpha:
-							_bottomBar.UseDarkThemeWithAlpha(false);
 							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
+
 					_bottomBar.LayoutParameters = new LayoutParams (LayoutParams.MatchParent, LayoutParams.MatchParent);
 					_bottomBar.SetOnTabClickListener (this);
 
@@ -206,7 +207,7 @@ namespace PaketGlobal.Droid
 		protected override void OnLayout (bool changed, int l, int t, int r, int b)
 		{
 			int width = r - l;
-			int height = b - t - 100;
+			int height = b - t - 90;
          //   height = 2280;
 
 			var context = Context;

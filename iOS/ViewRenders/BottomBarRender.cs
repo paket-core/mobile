@@ -19,6 +19,8 @@ namespace PaketGlobal.iOS
 
             TabBar.Translucent = false;
             TabBar.BarTintColor = UIColor.White;
+            TabBar.ShadowImage = new UIImage();
+            TabBar.BackgroundImage = new UIImage();
         }
     }
 }
