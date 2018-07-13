@@ -49,7 +49,7 @@
                                             </x:Array>
                                         </Picker.ItemsSource>
                                     </Picker>
-                                    <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
+                                    <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
                                     <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
                                 </StackLayout>
                                 <StackLayout x:Name="stackBULResult" IsVisible="false" Orientation="Vertical">
@@ -70,7 +70,7 @@
                                             </x:Array>
                                         </Picker.ItemsSource>
                                     </Picker>
-                                    <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro Cents" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
+                                    <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
                                     <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
                                 </StackLayout>
                                 <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">

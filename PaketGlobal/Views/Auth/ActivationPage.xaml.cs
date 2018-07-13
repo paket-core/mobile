@@ -6,8 +6,8 @@ namespace PaketGlobal
 {
     public partial class ActivationPage : BasePage
     {
-        private Command LongMnemonicTapCommand;
-        private Command LongAddressTapCommand;
+        //private Command MnemonicTapCommand;
+        //private Command AddressTapCommand;
 
         public ActivationPage()
         {
@@ -19,19 +19,19 @@ namespace PaketGlobal
 
         private void AddLongTaps()
         {
-            LongMnemonicTapCommand = new Command(() =>
-            {
-                App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
-            });
+            //MnemonicTapCommand = new Command(() =>
+            //{
+            //    App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
+            //});
 
-            XamEffects.Commands.SetLongTap(mnemonicLabel, LongMnemonicTapCommand);
+            //XamEffects.Commands.SetTap(mnemonicStackView, MnemonicTapCommand);
 
-            LongAddressTapCommand = new Command(() =>
-            {
-                App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
-            });
+            //AddressTapCommand = new Command(() =>
+            //{
+            //    App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
+            //});
 
-            XamEffects.Commands.SetLongTap(addressLabel, LongAddressTapCommand);
+            //XamEffects.Commands.SetTap(btcStackView, AddressTapCommand);
         }
 
         #region Button Actions
@@ -76,11 +76,24 @@ namespace PaketGlobal
             });
         }
 
+        void OnCopyMnemonic(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
+            ShowMessage("Copied to clipboard");
+
+        }
+
+        void OnCopyAddress(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
+            ShowMessage("Copied to clipboard");
+        }
+
         #endregion
 
         protected override void ToggleLayout(bool enabled)
         {
-            backButton.IsEnabled = enabled;
+            App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
         }
     }
 }

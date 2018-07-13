@@ -441,6 +441,22 @@ namespace PaketGlobal
                 return "point_1";
             }
         }
+
+        public string FormattedCollateral
+        {
+            get
+            {
+                return String.Format("{0}.00 BULs", Collateral / 1_000_000_0);
+            }
+        }
+
+        public string FormattedPayment
+        {
+            get
+            {
+                return String.Format("{0}.00 BULs", Payment / 1_000_000_0);
+            }
+        }
 	}
 
 	[DataContract]

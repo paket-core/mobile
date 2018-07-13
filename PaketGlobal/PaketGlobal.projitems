@@ -25,7 +25,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DrawerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Cells\MenuItemCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
@@ -79,6 +78,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CellWithoutSelection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -131,7 +131,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\Cells\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Packages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\User\" />

@@ -127,6 +127,9 @@ namespace PaketGlobal
             App.ShowLoading(true);
 
             var pkgData = (Package)e.SelectedItem;
+
+            PakagesView.SelectedItem = null;
+
             var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
             if (package != null)
             {
@@ -138,7 +141,6 @@ namespace PaketGlobal
                 ShowMessage("Error retrieving package details");
             }
 
-            PakagesView.SelectedItem = null;
 
             App.ShowLoading(false);
 

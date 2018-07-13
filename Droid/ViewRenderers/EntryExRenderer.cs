@@ -2,10 +2,10 @@
 using Xamarin.Forms.Platform.Android;
 
 using Android.Graphics.Drawables;
+using Android.Content;
 
 using PaketGlobal;
 using PaketGlobal.Droid;
-using Android.Content;
 
 [assembly: ExportRenderer (typeof (EntryEx), typeof (EntryExRenderer))]
 namespace PaketGlobal.Droid

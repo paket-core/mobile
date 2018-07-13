@@ -160,7 +160,7 @@ namespace PaketGlobal
 			var request = PrepareRequest(apiVersion + "/send_buls", Method.POST);
 
 			request.AddParameter("to_pubkey", toPubkey);
-			request.AddParameter("amount_buls", amountBuls);
+            request.AddParameter("amount_buls", amountBuls * 10000000);
 
 			return await SendRequest<SubmitTransactionData>(request);
 		}
@@ -171,7 +171,7 @@ namespace PaketGlobal
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
-			request.AddParameter("amount_buls", amountBuls * 10000000L);
+            request.AddParameter("amount_buls", amountBuls * 10000000);
 
 			return await SendRequest<SendBulsData>(request);
 		}
@@ -198,7 +198,7 @@ namespace PaketGlobal
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("new_pubkey", newPubkey);
-			request.AddParameter("starting_balance", startingBalance * 10000000L);
+            request.AddParameter("starting_balance", startingBalance * 10000000);
 
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}
@@ -224,8 +224,8 @@ namespace PaketGlobal
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("courier_pubkey", courierPubkey);
-			request.AddParameter("payment_buls", paymentBuls);
-			request.AddParameter("collateral_buls", collateralBuls);
+            request.AddParameter("payment_buls", paymentBuls*10000000);
+            request.AddParameter("collateral_buls", collateralBuls*10000000);
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
@@ -258,7 +258,7 @@ namespace PaketGlobal
 
 			request.AddParameter("paket_id", paketId);
 			request.AddParameter("courier_pubkey", courierPubkey);
-			request.AddParameter("payment_buls", paymentBuls);
+            request.AddParameter("payment_buls", paymentBuls*10000000);
 
 			return await SendRequest<RelayPackageData>(request);
 		}

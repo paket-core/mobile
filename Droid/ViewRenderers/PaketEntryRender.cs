@@ -51,12 +51,14 @@ namespace PaketGlobal.Droid
             editText.SetTypeface(tf, TypefaceStyle.Normal);
             editText.SetTextSize(Android.Util.ComplexUnitType.Dip,14);
                     
-            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);           
+            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);  
+
+            Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)
         {
-          //  var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
+            //  var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
 
             if (imageEntryImage.Contains(".png"))
             {
@@ -64,10 +66,14 @@ namespace PaketGlobal.Droid
             }
 
             int resID = Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
-            var drawable = ContextCompat.GetDrawable(this.Context, resID);
-            var bitmap = ((BitmapDrawable)drawable).Bitmap;
 
-            return new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 2, element.ImageHeight * 2, true));
+            return (BitmapDrawable)ContextCompat.GetDrawable(this.Context, resID);
+
+
+            //var drawable = ContextCompat.GetDrawable(this.Context, resID);
+            //var bitmap = ((BitmapDrawable)drawable).Bitmap;
+
+            //return new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 3, element.ImageHeight * 3, true));
         }
 
     }

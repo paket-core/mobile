@@ -61,13 +61,13 @@
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                     <Label Text = "Collateral" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding Collateral, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                                    <Label Text = "{Binding FormattedCollateral, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                                 </StackLayout>
                             </ViewCell>
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
                                     <Label Text = "Payment" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding Payment, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
+                                    <Label Text = "{Binding FormattedPayment, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
                                     <xlabs:ExtendedButton x:Name="btnAccept" Margin="0,20,0,0" Text="Accept" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="AcceptClicked"/>
                                 </StackLayout>
                             </ViewCell>

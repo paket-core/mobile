@@ -215,6 +215,15 @@
     <Reference Include="NBitcoin">
       <HintPath>..\packages\NBitcoin.4.1.1.25\lib\netstandard2.0\NBitcoin.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Toast.Abstractions">
+      <HintPath>..\packages\Plugin.Toast.2.0.0\lib\Xamarin.iOS10\Plugin.Toast.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Toast">
+      <HintPath>..\packages\Plugin.Toast.2.0.0\lib\Xamarin.iOS10\Plugin.Toast.dll</HintPath>
+    </Reference>
+    <Reference Include="Toast">
+      <HintPath>..\packages\Toast.iOS.1.1.0\lib\xamarinios10\Toast.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
@@ -320,6 +329,18 @@
     <BundleResource Include="Resources\point_2%403x.png" />
     <BundleResource Include="Resources\point_2%402x.png" />
     <BundleResource Include="Resources\point_2.png" />
+    <BundleResource Include="Resources\bul_icon%403x.png" />
+    <BundleResource Include="Resources\bul_icon%402x.png" />
+    <BundleResource Include="Resources\bul_icon.png" />
+    <BundleResource Include="Resources\splash%403x.png" />
+    <BundleResource Include="Resources\splash%402x.png" />
+    <BundleResource Include="Resources\splash.png" />
+    <BundleResource Include="Resources\Paket Global%403x.png" />
+    <BundleResource Include="Resources\Paket Global%402x.png" />
+    <BundleResource Include="Resources\Paket Global.png" />
+    <BundleResource Include="Resources\copy_icon%403x.png" />
+    <BundleResource Include="Resources\copy_icon%402x.png" />
+    <BundleResource Include="Resources\copy_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -337,6 +358,7 @@
     <Compile Include="ViewRenders\BottomBarRender.cs" />
     <Compile Include="ViewRenders\ListViewRenderer.cs" />
     <Compile Include="Services\DeviceService.cs" />
+    <Compile Include="ViewRenders\CellWithoutSelectionRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
