@@ -119,15 +119,29 @@ namespace PaketGlobal
         }
 
 
-        private void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        private async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null) 
                 return;
 
-            var packagePage = new PackageDetailsPage(PakagesView.SelectedItem as Package);
-            Navigation.PushAsync(packagePage);
+            App.ShowLoading(true);
+
+            var pkgData = (Package)e.SelectedItem;
+            var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
+            if (package != null)
+            {
+                var packagePage = new PackageDetailsPage(package);
+                await Navigation.PushAsync(packagePage);
+            }
+            else
+            {
+                ShowMessage("Error retrieving package details");
+            }
 
             PakagesView.SelectedItem = null;
+
+            App.ShowLoading(false);
+
         }
 
         #region Buttons Actions
