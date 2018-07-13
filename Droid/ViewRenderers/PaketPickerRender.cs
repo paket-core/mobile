@@ -30,6 +30,7 @@ namespace PaketGlobal.Droid
 
             element = (PaketPicker)this.Element;
 
+            Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, Control.PaddingBottom);
 
             var editText = this.Control;
             if (!string.IsNullOrEmpty(element.Image))
@@ -50,7 +51,7 @@ namespace PaketGlobal.Droid
             editText.SetTypeface(tf, TypefaceStyle.Normal);
             editText.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
 
-            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcAtop);
+            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)

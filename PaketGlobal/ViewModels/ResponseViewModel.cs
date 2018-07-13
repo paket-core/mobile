@@ -341,6 +341,12 @@ namespace PaketGlobal
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
 
+        [DataMember(Name = "refund_transaction")]
+        public string RefundTransaction { get; set; }
+
+        [DataMember(Name = "merge_transaction")]
+        public string MergeTransaction { get; set; }
+
 		public DeliveryStatus DeliveryStatus { get; set; }
 
 		public DeliveryStatus DeliveryStatusPrivate {
