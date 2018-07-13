@@ -165,23 +165,20 @@
     <StackLayout x:Name="EventsInfoView" Padding="20,15,15,25" BackgroundColor="Transparent" Spacing="15">
         <StackLayout Spacing="15">
             <Label TextColor="Black" Text="EVENTS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-            <StackLayout Spacing="5" >
-                <StackLayout Spacing="0">
-                    <Label TextColor="#5F5F5F" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                    <Label TextColor="#5F5F5F" Text="{Binding Collateral, StringFormat='{0}.00 BULs', Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
-                </StackLayout>
-                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-            </StackLayout>
-            <StackLayout Spacing="5" >
-                <StackLayout Spacing="0">
-                    <Label TextColor="#5F5F5F" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                    <Label TextColor="#5F5F5F" Text="{Binding Payment, StringFormat='{0}.00 BULs', Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
-                </StackLayout>
-                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-            </StackLayout>
+
+
+      <ScrollView x:Name="EventsScrollView" Orientation="Horizontal" BackgroundColor="Transparent" HeightRequest="100" VerticalScrollBarVisibility="Default"
+                  HorizontalScrollBarVisibility="Never">
+             <RelativeLayout>
+                                                
+            </RelativeLayout>                        
+       </ScrollView>
+                                        
+                                        
         </StackLayout>
     </StackLayout>
 </local:PaketFrame>
+
 
 
 
@@ -193,6 +190,9 @@
                    </ScrollView>
                     
                 </RelativeLayout>
+
+
+                
             </Frame>
         </RelativeLayout>
     </local:BasePage.Content>
