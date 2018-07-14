@@ -80,7 +80,6 @@ namespace PaketGlobal
         {
             App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
             ShowMessage("Copied to clipboard");
-
         }
 
         void OnCopyAddress(object sender, System.EventArgs e)

@@ -51,9 +51,9 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
         }
 
-        private void OnBack(object sender, System.EventArgs e)
+        private async void OnBack(object sender, System.EventArgs e)
         {
-            Navigation.PopAsync();
+           await Navigation.PopAsync();
         }
 
         private async void RefundClicked(object sender, System.EventArgs e)

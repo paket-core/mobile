@@ -1,29 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.AcceptPackagePage"
                 xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+                xmlns:Views="clr-namespace:XF.Controls.Views"
+                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+                NavigationPage.HasNavigationBar="False">
     <local:BasePage.Resources>
         <ResourceDictionary>
             <local:PaketRoleToStringConverter x:Key="paketRoleToStringConverter" />
         </ResourceDictionary>
     </local:BasePage.Resources>
+
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+    
     <local:BasePage.Content>
         <RelativeLayout>
             <RelativeLayout x:Name="layoutBarcode"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
                 <zxing:ZXingScannerView x:Name="barcodeScaner" AutomationId="zxingScannerView"
+                                        RelativeLayout.YConstraint="180"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"/>
-                <zxing:ZXingDefaultOverlay x:Name="overlayBarcode" ShowFlashButton="false" TopText="Scan the barcode containing package information" BottomText="Scanning will happen automatically" AutomationId="zxingDefaultOverlay"
-                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
+                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=-180}"/>
+                <zxing:ZXingDefaultOverlay x:Name="overlayBarcode" ShowFlashButton="false" TopText="" BottomText="" AutomationId="zxingDefaultOverlay"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+                                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}">
                     <zxing:ZXingDefaultOverlay.GestureRecognizers>
                         <TapGestureRecognizer
                                 Tapped="ScannerOverlayTapped"/>
                     </zxing:ZXingDefaultOverlay.GestureRecognizers>
                 </zxing:ZXingDefaultOverlay>
+
+            <Label x:Name="TitleLabel" TextColor="White" Text="Accept Package" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnBack"
+                   RelativeLayout.XConstraint = "23"
+                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="Scan the barcode containing&#x0a;package inforamtion" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
+                   RelativeLayout.YConstraint="100"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+
+            <Frame VerticalOptions="End" BackgroundColor="Black" Opacity="0.5" HasShadow="false" CornerRadius="0"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.80}"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2}">
+                               <Label x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="Scanning will happen automatically" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+             </Frame>
+
+            <BoxView VerticalOptions="Center" BackgroundColor="#D43F51"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"
+                          RelativeLayout.HeightConstraint="1"/> 
             </RelativeLayout>
+            
             <RelativeLayout x:Name="layoutAccept" IsVisible="false"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">

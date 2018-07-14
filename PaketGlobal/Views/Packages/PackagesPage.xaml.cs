@@ -162,7 +162,8 @@ namespace PaketGlobal
 
         private void AcceptPackageClicked(object sender, EventArgs e)
         {
-            App.Locator.NavigationService.NavigateTo(Locator.AcceptPackagePage);
+            var packagePage = new AcceptPackagePage();
+            Navigation.PushModalAsync(packagePage);
         }
 
         #endregion

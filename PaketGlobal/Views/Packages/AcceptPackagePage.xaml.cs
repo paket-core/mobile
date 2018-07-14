@@ -21,16 +21,31 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
-			Title = "Accept Package";
+            #if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                TitleLabel.TranslationY = 35;
+                BackButton.TranslationY = 10;
+            }
+            else
+            {
+                TitleLabel.TranslationY = 24;
+            }
+#elif __ANDROID__
+            TitleLabel.TranslationY = 5;
+            BackButton.TranslationY = -18;
+            BackButton.TranslationX = -30;
+#endif
 
 			ConfigureScanner();
 		}
 
-		protected override bool OnBackButtonPressed()
-		{
-			CleanUp();
-			return base.OnBackButtonPressed();
-		}
+        private void OnBack(object sender, System.EventArgs e)
+        {
+            CleanUp();
+            Navigation.PopModalAsync();
+        }
+
 
 		protected override void OnAppearing()
 		{
@@ -54,6 +69,9 @@ namespace PaketGlobal
 			overlayBarcode.BindingContext = overlayBarcode;
 
 			barcodeScaner.Options.UseFrontCameraIfAvailable = false;
+
+            barcodeScaner?.AutoFocus();
+
 			barcodeScaner.OnScanResult += (result) => {
 				Device.BeginInvokeOnMainThread(async () => {
 					try {

@@ -16,7 +16,7 @@
              </x:Arguments>
         </NavigationPage>
 
-      <NavigationPage Title="Wallet" Icon="wallet_icon.png">
+<!--      <NavigationPage Title="Wallet" Icon="wallet_icon.png">
              <x:Arguments>
                 <local:WalletPage Title="Wallet" Icon="wallet_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
              </x:Arguments>
@@ -26,6 +26,6 @@
              <x:Arguments>
                 <local:ProfilePage Title="Profile" Icon="profile_icon.png" xf:BottomBarPageExtensions.TabColor="#FFFFFF"/>
              </x:Arguments>
-        </NavigationPage>
+        </NavigationPage>-->
 
 </xf:BottomBarPage>
