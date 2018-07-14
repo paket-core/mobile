@@ -22,16 +22,20 @@ namespace PaketGlobal.iOS
 
             var element = (PaketFrame)this.Element;
 
-            if (Layer != null && element.TopCorners == 0)
+            if(element!=null)
             {
-                Layer.BorderColor = UIColor.White.CGColor;
-                Layer.CornerRadius = 15;
+                if (Layer != null && element.TopCorners == 0)
+                {
+                    Layer.BorderColor = UIColor.White.CGColor;
+                    Layer.CornerRadius = 15;
 
-                Layer.MasksToBounds = false;
-                Layer.ShadowOffset = new CGSize(-2, 2);
-                Layer.ShadowRadius = 4;
-                Layer.ShadowOpacity = 0.1f;
+                    Layer.MasksToBounds = false;
+                    Layer.ShadowOffset = new CGSize(-2, 2);
+                    Layer.ShadowRadius = 4;
+                    Layer.ShadowOpacity = 0.1f;
+                }  
             }
+ 
         }
 
         public override void LayoutSubviews()
@@ -40,12 +44,15 @@ namespace PaketGlobal.iOS
 
             var element = (PaketFrame)this.Element;
 
-            if (element.TopCorners > 0)
+            if (element != null)
             {
-                MaskLayer = new CAShapeLayer();
-                MaskLayer.Path = UIBezierPath.FromRoundedRect(Bounds, (UIRectCorner.TopLeft | UIRectCorner.TopRight), new CGSize(element.TopCorners, element.TopCorners)).CGPath;
-                Layer.Mask = MaskLayer;
-            }
+                if (element.TopCorners > 0)
+                {
+                    MaskLayer = new CAShapeLayer();
+                    MaskLayer.Path = UIBezierPath.FromRoundedRect(Bounds, (UIRectCorner.TopLeft | UIRectCorner.TopRight), new CGSize(element.TopCorners, element.TopCorners)).CGPath;
+                    Layer.Mask = MaskLayer;
+                } 
+            }    
         }
     }
 }

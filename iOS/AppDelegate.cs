@@ -14,6 +14,7 @@ namespace PaketGlobal.iOS
 		public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
 		{
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
             XFGloss.iOS.Library.Init();
             XamEffects.iOS.Effects.Init(); 
             RoundedBoxViewRenderer.Init();
