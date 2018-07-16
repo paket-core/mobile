@@ -51,7 +51,16 @@ namespace PaketGlobal.Droid
             editText.SetTypeface(tf, TypefaceStyle.Normal);
             editText.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
 
-            Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);
+            if (element.BackgroundV == 0)
+            {
+                Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);
+            }
+            else
+            {
+                Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutGray);
+            }
+
+          //  Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)
