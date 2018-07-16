@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -284,7 +283,7 @@
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="ViewRenderers\PaketFrameRender.cs" />
     <Compile Include="ViewRenderers\CellWithoutSelectionRender.cs" />
-    <Compile Include="ViewRenderers\SplashActivity.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -424,6 +423,39 @@
     <AndroidResource Include="Resources\drawable-xhdpi\copy_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\copy_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\copy_icon.png" />
+    <AndroidResource Include="Resources\drawable\profile_color_icon.png" />
+    <AndroidResource Include="Resources\drawable\key_icon.png" />
+    <AndroidResource Include="Resources\drawable\swift_on.png" />
+    <AndroidResource Include="Resources\drawable\swift_off.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\profile_color_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\key_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\swift_on.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\swift_off.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\profile_color_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\key_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\swift_on.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\swift_off.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\profile_color_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\key_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\swift_on.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\swift_off.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\profile_color_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\key_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\swift_on.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\swift_off.png" />
+    <AndroidResource Include="Resources\layout\EntryLayoutGray.xml" />
+    <AndroidResource Include="Resources\layout\EntryLayoutLightGray.xml" />
+    <AndroidResource Include="Resources\drawable\splash_background.xml" />
+    <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidResource Include="Resources\drawable\logo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\splash.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\splash.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\splash.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\splash.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
