@@ -340,6 +340,18 @@
     <BundleResource Include="Resources\copy_icon%403x.png" />
     <BundleResource Include="Resources\copy_icon%402x.png" />
     <BundleResource Include="Resources\copy_icon.png" />
+    <BundleResource Include="Resources\profile_color_icon%403x.png" />
+    <BundleResource Include="Resources\profile_color_icon%402x.png" />
+    <BundleResource Include="Resources\profile_color_icon.png" />
+    <BundleResource Include="Resources\key_icon%403x.png" />
+    <BundleResource Include="Resources\key_icon%402x.png" />
+    <BundleResource Include="Resources\key_icon.png" />
+    <BundleResource Include="Resources\swift_on%403x.png" />
+    <BundleResource Include="Resources\swift_on%402x.png" />
+    <BundleResource Include="Resources\swift_on.png" />
+    <BundleResource Include="Resources\swift_off%403x.png" />
+    <BundleResource Include="Resources\swift_off%402x.png" />
+    <BundleResource Include="Resources\swift_off.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
