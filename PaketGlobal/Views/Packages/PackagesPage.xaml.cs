@@ -79,6 +79,11 @@ namespace PaketGlobal
             }
 
             App.Locator.DeviceService.setStausBarLight();
+
+            if (ViewModel.PackagesList.Count>0)
+            {
+                PlacholderLabel.IsVisible = false;
+            }
         }
 
 
@@ -156,8 +161,8 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-                //CourierPubkey="SBZVFQY5TUX3EA2MWF2V2KGJJQ2LVQACIOAUTETMVHVTFN7VLG7WUXVH",
-                //RecipientPubkey="SBZVFQY5TUX3EA2MWF2V2KGJJQ2LVQACIOAUTETMVHVTFN7VLG7WUXVH"
+                CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+                RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);
