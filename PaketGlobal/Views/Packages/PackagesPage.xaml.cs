@@ -63,6 +63,8 @@ namespace PaketGlobal
             HeaderView.TranslationY = -30;
             TitleLabel.TranslationY = 0;
 #endif
+
+            App.Locator.DeviceService.setStausBarLight();
         }
 
         protected async override void OnAppearing()
@@ -75,6 +77,8 @@ namespace PaketGlobal
             {
                 await LoadPackages();
             }
+
+            App.Locator.DeviceService.setStausBarLight();
         }
 
 
@@ -163,7 +167,10 @@ namespace PaketGlobal
         private void AcceptPackageClicked(object sender, EventArgs e)
         {
             var packagePage = new AcceptPackagePage();
-            Navigation.PushModalAsync(packagePage);
+
+            var navigationPage = new NavigationPage(packagePage); 
+
+            Navigation.PushModalAsync(navigationPage);
         }
 
         #endregion

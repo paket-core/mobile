@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            entrySecretKey.Text = "SBZ5WNPT46ZDOUM4CNVBOVEKFZJOSTQ4MP3CC5Q2L4CWE3IWCRR2NDFW";
+           // entrySecretKey.Text = "SBZ5WNPT46ZDOUM4CNVBOVEKFZJOSTQ4MP3CC5Q2L4CWE3IWCRR2NDFW";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -22,6 +22,8 @@ namespace PaketGlobal
                     CheckActivation();
                 }
             }
+
+            App.Locator.DeviceService.setStausBarBlack();
         }
 
 #region Buttons Actions

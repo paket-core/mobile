@@ -53,7 +53,8 @@ namespace PaketGlobal.Droid
                     
             Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);  
 
-            Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);
+            //Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);           
+            //Control.Background.SetColorFilter(Android.Graphics.Color.Transparent, Android.Graphics.PorterDuff.Mode.SrcOver);
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)

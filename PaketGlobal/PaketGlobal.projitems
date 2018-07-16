@@ -22,9 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Interfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Workspace.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Config.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DrawerViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
@@ -130,7 +127,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Packages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\User\" />
