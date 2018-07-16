@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           // entrySecretKey.Text = "SBZ5WNPT46ZDOUM4CNVBOVEKFZJOSTQ4MP3CC5Q2L4CWE3IWCRR2NDFW";
+            entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -32,7 +32,9 @@ namespace PaketGlobal
         {
             Unfocus();
 
-            App.Locator.NavigationService.NavigateTo(Locator.RegistrationPage);
+            var page = new RegistrationPage(false);
+
+            Navigation.PushAsync(page,true);
         }
 
         private async void LoginClicked(object sender, EventArgs e)
@@ -73,7 +75,9 @@ namespace PaketGlobal
                         }
                         else
                         {
-                            App.Locator.NavigationService.NavigateTo(Locator.RegistrationPage,true);
+                            var page = new RegistrationPage(true);
+
+                            await Navigation.PushAsync(page, true);
                         }
                     }
                     catch (Exception ex)

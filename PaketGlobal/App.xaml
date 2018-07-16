@@ -14,6 +14,16 @@
             <Color x:Key="MediumGrayTextColor">#4d4d4d</Color>
             <Color x:Key="LightTextColor">#999999</Color>
             <Color x:Key="GrayDark">#959595</Color>
+
+            <OnPlatform x:TypeArguments="x:Double" x:Key="CopyHeight">
+                <On Platform="Android" Value="40" />
+                <On Platform="iOS" Value="30" />
+            </OnPlatform>
+            
+            <OnPlatform x:TypeArguments="x:Double" x:Key="EntrySize">
+                <On Platform="Android" Value="40" />
+                <On Platform="iOS" Value="26" />
+            </OnPlatform>
             
             <!-- FONTS -->
             <OnPlatform x:TypeArguments="x:String" x:Key="SemiBoldFont">

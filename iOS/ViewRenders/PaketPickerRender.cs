@@ -54,11 +54,11 @@ namespace PaketGlobal.iOS
                 {
                     case ImageAlignment.Left:
                         textField.LeftViewMode = UITextFieldViewMode.Always;
-                        textField.LeftView = GetImageView(element.Image, element.ImageHeight, element.ImageWidth);
+                        textField.LeftView = GetImageView(element.Image);
                         break;
                     case ImageAlignment.Right:
                         textField.RightViewMode = UITextFieldViewMode.Always;
-                        textField.RightView = GetImageView(element.Image, element.ImageHeight, element.ImageWidth);
+                        textField.RightView = GetImageView(element.Image);
                         break;
                 }
             }
@@ -68,16 +68,13 @@ namespace PaketGlobal.iOS
             textField.TextColor = Xamarin.Forms.Color.FromHex("#555555").ToUIColor();
         }
 
-        private UIView GetImageView(string imagePath, int height, int width)
+        private UIView GetImageView(string imagePath)
         {
             var uiImageView = new UIImageView(UIImage.FromBundle(imagePath))
             {
-                Frame = new RectangleF(0, 0, width, height)
             };
-            UIView objLeftView = new UIView(new System.Drawing.Rectangle(0, 0, width + 10, height));
-            objLeftView.AddSubview(uiImageView);
 
-            return objLeftView;
+            return uiImageView;
         }
     }
 }

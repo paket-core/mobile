@@ -22,6 +22,7 @@
             <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
+
     <local:BasePage.Content>
         <RelativeLayout>
             <Label x:Name="TitleLabel" TextColor="White" Text="Package Details" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
@@ -79,8 +80,8 @@
              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#5F5F5F" Text="Role" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#5F5F5F" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                                                <Label TextColor="#A7A7A7" Text="Role" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#555555" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
@@ -113,15 +114,15 @@
                                         <Label TextColor="Black" Text="FUNDS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#5F5F5F" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#5F5F5F" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                                                <Label TextColor="#A7A7A7" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#5F5F5F" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#5F5F5F" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                                                <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
