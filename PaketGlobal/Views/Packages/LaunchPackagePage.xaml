@@ -68,7 +68,7 @@
                                     </ScrollView>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="Deadline" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="Selected Date" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
+                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="Selected date" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
