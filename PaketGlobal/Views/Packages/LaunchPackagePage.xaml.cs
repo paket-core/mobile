@@ -206,12 +206,12 @@ namespace PaketGlobal
                 ShowMessage("Please select deadline date");
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(EntryPayment.Text))
+            else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
             {
                 EntryPayment.Focus();
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(EntryCollateral.Text))
+            else if (!ValidationHelper.ValidateNumber(EntryCollateral.Text))
             {
                 EntryCollateral.Focus();
                 return false;
