@@ -118,7 +118,7 @@ namespace PaketGlobal
 				return StellarOperationResult.LowBULsCourier;
 			}
 
-			var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, collateral);
+            var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, (collateral/10000000));
 			if (trans != null) {
 				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 				var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
