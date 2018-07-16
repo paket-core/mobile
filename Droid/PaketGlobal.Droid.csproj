@@ -419,11 +419,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\sp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon_calendar.png" />
     <AndroidResource Include="Resources\layout\EntryLayout.xml" />
-    <AndroidResource Include="Resources\drawable-hdpi\copy128.png" />
-    <AndroidResource Include="Resources\drawable\copy128.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\copy128.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\copy128.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\copy128.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\copy_icon.png" />
+    <AndroidResource Include="Resources\drawable\copy_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\copy_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\copy_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\copy_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

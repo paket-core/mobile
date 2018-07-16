@@ -38,11 +38,20 @@ namespace PaketGlobal
 #endif
 
 			ConfigureScanner();
+
+            App.Locator.DeviceService.setStausBarLight();
+
+            MessagingCenter.Subscribe<PackageDetailsPage, bool>(this, "AcceptPackage", (sender, arg) => {
+                OnBack(BackButton, null);
+            });
 		}
 
         private void OnBack(object sender, System.EventArgs e)
         {
             CleanUp();
+
+            MessagingCenter.Unsubscribe<PackageDetailsPage,bool>(this, "AcceptPackage");
+
             Navigation.PopModalAsync();
         }
 
@@ -50,7 +59,10 @@ namespace PaketGlobal
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
+
 			if (!scanned) StartScanning();
+
+            App.Locator.DeviceService.setStausBarLight();
 		}
 
 		protected override void OnDisappearing()
@@ -90,66 +102,34 @@ namespace PaketGlobal
 						if (package != null && package.Package != null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {
-								//you are a recepient
+                                //you are a recepient //Title = "Accept as a Recipient";
 								package.Package.MyRole = PaketRole.Recipient;
-								Title = "Accept as a Recipient";
-							} else {
-								//you are a courier
+							} 
+                            else {
+                                //you are a courier //Title = "Accept as a Courier";
 								package.Package.MyRole = PaketRole.Courier;
-								Title = "Accept as a Courier";
 							}
 
 							BindingContext = package.Package;
-							await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
-						} else {
+
+                            var packagePage = new PackageDetailsPage(package.Package, true, data);
+                            await Navigation.PushAsync(packagePage);
+						} 
+                        else {
 							ShowMessage("Invalid package identifier");
 							StartScanning();
 						}
 
 						App.ShowLoading(false);
-					} else {
+					} 
+                    else {
 						ShowMessage("Invalid barcode");
 					}
 				});
 			};
 		}
 
-		async void AcceptClicked(object sender, System.EventArgs e)
-		{
-			var myPubkey = App.Locator.Profile.Pubkey;
-			if (myPubkey == ViewModel.RecipientPubkey) {
-				//I'm a recipient
-				App.ShowLoading(true);
-
-				var result = await StellarHelper.AcceptPackageAsRecipient(data.EscrowAddress, ViewModel.PaymentTransaction);
-				if (result == StellarOperationResult.Success) {
-					await System.Threading.Tasks.Task.Delay(2000);
-					await App.Locator.Packages.Load();
-					ShowMessage("Package accepted successfully");
-					App.Locator.NavigationService.GoBack();
-				} else {
-					ShowError(result);
-				}
-
-				App.ShowLoading(false);
-			} else {
-				//I'm a courier
-				App.ShowLoading(true);
-
-				var result = await StellarHelper.AcceptPackageAsCourier(data.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction);
-				if (result == StellarOperationResult.Success) {
-					await System.Threading.Tasks.Task.Delay(2000);
-					await App.Locator.Packages.Load();
-					ShowMessage("Package accepted successfully");
-					App.Locator.NavigationService.GoBack();
-				} else {
-					ShowError(result);
-				}
-
-				App.ShowLoading(false);
-			}
-		}
-
+	
 		public void StartScanning()
 		{
 			if (!cleaned && barcodeScaner != null) {

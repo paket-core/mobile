@@ -28,7 +28,7 @@
                         <StackLayout Orientation="Horizontal" Spacing="5"  x:Name="btcStackView">
                             <Label x:Name="addressLabel" Text="17AQ4avXZBiCmW5Tu4QyP1SfxG31dbrR62" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13" TextColor="#555555"
                                     VerticalOptions="Center"/>
-                            <Button Image="copy_icon.png"  Clicked="OnCopyAddress" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                            <Button Image="copy_icon.png" BackgroundColor="Transparent" Clicked="OnCopyAddress" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
                         </StackLayout>
                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
@@ -40,9 +40,9 @@
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.7}">
                     <Label Text="Use this mnemonic to recover private key on another device" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="13" TextColor="#5F5F5F"/>
                     <StackLayout Spacing="10">
-                        <StackLayout x:Name="mnemonicStackView" Orientation="Horizontal" Spacing="5" >
+                        <StackLayout x:Name="mnemonicStackView" Orientation="Horizontal" Spacing="15" >
                              <Label x:Name="mnemonicLabel" Text="witch collapse practice feed shame open despair creek road again ice least" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="13" TextColor="#555555"/>
-                            <Button Image="copy_icon.png" Clicked="OnCopyMnemonic" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                             <Button Image="copy_icon.png" BackgroundColor="Transparent" Clicked="OnCopyMnemonic" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
                         </StackLayout>
                         <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                     </StackLayout>

@@ -12,5 +12,14 @@ namespace PaketGlobal.Droid
         {
             return false;
         }
+
+        public void setStausBarLight()
+        {
+        }
+
+
+        public void setStausBarBlack()
+        {
+        }
     }
 }

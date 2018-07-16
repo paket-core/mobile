@@ -442,6 +442,24 @@ namespace PaketGlobal
             }
         }
 
+        public string RoleString
+        {
+            get
+            {
+                if (MyRole == PaketRole.Courier)
+                {
+                    return "Courier";
+                }
+                else if (MyRole == PaketRole.Recipient)
+                {
+                    return "Recipient";
+                }
+                else{
+                    return "Launcher";
+                }
+            }
+        }
+
         public string FormattedCollateral
         {
             get

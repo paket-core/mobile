@@ -27,6 +27,8 @@ namespace PaketGlobal
         public static readonly BindableProperty ImageAlignmentProperty =
             BindableProperty.Create(nameof(ImageAlignment), typeof(ImageAlignment), typeof(PaketEntry), ImageAlignment.Right);
 
+
+
         public Color LineColor
         {
             get { return (Color)GetValue(LineColorProperty); }

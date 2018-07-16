@@ -25,6 +25,8 @@ namespace PaketGlobal
                 generateButton.Text = "Complete Registration";
                 titleLabel.Text = "Add Info";
             }
+
+            App.Locator.DeviceService.setStausBarBlack();
         }
 
         public RegistrationPage()

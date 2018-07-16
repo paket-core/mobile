@@ -358,6 +358,7 @@
     <Compile Include="ViewRenders\ListViewRenderer.cs" />
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="ViewRenders\CellWithoutSelectionRender.cs" />
+    <Compile Include="ViewRenders\BasePageRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

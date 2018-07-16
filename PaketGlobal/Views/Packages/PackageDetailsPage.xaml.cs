@@ -11,11 +11,17 @@ namespace PaketGlobal
 
         private Command BarcodeTapCommand;
 
-        public PackageDetailsPage(Package package)
+        private bool CanAcceptPackage = false;
+        private BarcodePackageData BarcodeData;
+
+        public PackageDetailsPage(Package package, bool canAcceptPackage = false, BarcodePackageData barcodePackageData = null)
         {
             InitializeComponent();
 
             BindingContext = package;
+
+            CanAcceptPackage = canAcceptPackage;
+            BarcodeData = barcodePackageData;
 
             AddEvents();
 
@@ -49,11 +55,24 @@ namespace PaketGlobal
             });
 
             XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
+
+            App.Locator.DeviceService.setStausBarLight();
+
+            if(CanAcceptPackage)
+            {
+                AcceptButton.IsVisible = true;
+            }
         }
 
         private async void OnBack(object sender, System.EventArgs e)
         {
-           await Navigation.PopAsync();
+            if(CanAcceptPackage)
+            {
+                MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);  
+            }
+            else{
+                await Navigation.PopAsync();
+            }
         }
 
         private async void RefundClicked(object sender, System.EventArgs e)
@@ -96,6 +115,61 @@ namespace PaketGlobal
             }
 
             App.ShowLoading(false);
+        }
+
+        private async void AcceptClicked(object sender, System.EventArgs e)
+        {
+            var myPubkey = App.Locator.Profile.Pubkey;
+            if (myPubkey == ViewModel.RecipientPubkey)
+            {
+                //I'm a recipient
+                App.ShowLoading(true);
+
+                var result = await StellarHelper.AcceptPackageAsRecipient(BarcodeData.EscrowAddress, ViewModel.PaymentTransaction);
+                if (result == StellarOperationResult.Success)
+                {
+                    await System.Threading.Tasks.Task.Delay(2000);
+
+                    await App.Locator.Packages.Load();
+
+                    ShowMessage("Package accepted successfully");
+
+                    await Navigation.PopAsync();
+
+                    MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
+                }
+                else
+                {
+                    ShowError(result);
+                }
+
+                App.ShowLoading(false);
+            }
+            else
+            {
+                //I'm a courier
+                App.ShowLoading(true);
+
+                var result = await StellarHelper.AcceptPackageAsCourier(BarcodeData.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction);
+                if (result == StellarOperationResult.Success)
+                {
+                    await System.Threading.Tasks.Task.Delay(2000);
+
+                    await App.Locator.Packages.Load();
+
+                    ShowMessage("Package accepted successfully");
+
+                    await Navigation.PopAsync();
+
+                    MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
+                }
+                else
+                {
+                    ShowError(result);
+                }
+
+                App.ShowLoading(false);
+            }
         }
 
 

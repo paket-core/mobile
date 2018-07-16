@@ -80,7 +80,7 @@
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
                                                 <Label TextColor="#5F5F5F" Text="Role" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#5F5F5F" Text="Launcher" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                                                <Label TextColor="#5F5F5F" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
@@ -96,6 +96,8 @@
                                             IsVisible="{Binding DeliveryStatusPrivate,
                                             Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
                                             Mode=OneWay}"/>
+                                        <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="Accept Package" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                            IsVisible="false"/>
                                     </StackLayout>
                                 </RelativeLayout>
                             </StackLayout>

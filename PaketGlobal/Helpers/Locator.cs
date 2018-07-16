@@ -49,9 +49,6 @@ namespace PaketGlobal
 			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
-		public DrawerViewModel DrawerViewModel {
-			get { return SimpleIoc.Default.GetInstance<DrawerViewModel>(); }
-		}
 
 		public IAccountService AccountService {
 			get { return GetInstance<IAccountService>(); }
@@ -81,10 +78,6 @@ namespace PaketGlobal
 		public Locator()
 		{
 			// Models
-
-			if (!SimpleIoc.Default.IsRegistered<DrawerViewModel>()) {
-				SimpleIoc.Default.Register<DrawerViewModel>();
-			}
 
 			if (!SimpleIoc.Default.IsRegistered<PackagesModel>()) {
 				SimpleIoc.Default.Register<PackagesModel>();

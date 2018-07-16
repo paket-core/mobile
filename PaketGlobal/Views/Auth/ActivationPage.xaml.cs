@@ -6,33 +6,19 @@ namespace PaketGlobal
 {
     public partial class ActivationPage : BasePage
     {
-        //private Command MnemonicTapCommand;
-        //private Command AddressTapCommand;
-
         public ActivationPage()
         {
             InitializeComponent();
-            AddLongTaps();
 
             mnemonicLabel.Text = App.Locator.Profile.Mnemonic;
+
+            App.Locator.DeviceService.setStausBarBlack();
+
+#if __ANDROID__
+            backButton.TranslationX = -25;
+#endif
         }
 
-        private void AddLongTaps()
-        {
-            //MnemonicTapCommand = new Command(() =>
-            //{
-            //    App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
-            //});
-
-            //XamEffects.Commands.SetTap(mnemonicStackView, MnemonicTapCommand);
-
-            //AddressTapCommand = new Command(() =>
-            //{
-            //    App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
-            //});
-
-            //XamEffects.Commands.SetTap(btcStackView, AddressTapCommand);
-        }
 
         #region Button Actions
 
@@ -76,13 +62,13 @@ namespace PaketGlobal
             });
         }
 
-        void OnCopyMnemonic(object sender, System.EventArgs e)
+        void OnCopyMnemonic(object sender, EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
             ShowMessage("Copied to clipboard");
         }
 
-        void OnCopyAddress(object sender, System.EventArgs e)
+        void OnCopyAddress(object sender, EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
             ShowMessage("Copied to clipboard");
@@ -92,7 +78,7 @@ namespace PaketGlobal
 
         protected override void ToggleLayout(bool enabled)
         {
-            App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
+            backButton.IsEnabled = enabled;
         }
     }
 }
