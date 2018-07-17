@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.ProfilePage"
-                xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-                xmlns:Views="clr-namespace:XF.Controls.Views"
-                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+<local:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.ProfilePage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:Views="clr-namespace:XF.Controls.Views"
+    xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
                 NavigationPage.HasNavigationBar="False" BackgroundColor="White">
-    
-
-
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
             <xfg:GradientStep StepColor="#ef6fb5" StepPercentage="0" />
             <xfg:GradientStep StepColor="#db2a4a" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
-    
     <local:BasePage.Content>
         <RelativeLayout>
-
             <Label x:Name="TitleLabel" TextColor="White" Text="Profile" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="24"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="22"/>
-
             <Button x:Name="LogoutButton" BackgroundColor="Transparent" Text="Logout" TextColor="White" FontFamily="{StaticResource NormalFont}" FontSize="12"
                    Clicked="OnLogoutClicked" IsVisible="false"
                    RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.77}"
                    RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
-
-                <Frame x:Name="ProfileView" BackgroundColor="White" 
+            <Frame x:Name="ProfileView" BackgroundColor="White" 
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       Padding="0"
@@ -38,135 +34,97 @@
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=LogoutButton, Property=Y, Factor=1, Constant=60}">
-
-
                 <RelativeLayout>
                     <ScrollView BackgroundColor="Transparent" x:Name="MainScrollView" IsVisible="false"
                                 HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
                                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
-
                         <StackLayout x:Name="Main" Spacing="30" Padding="0,0,0,0">
-
-
                             <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="22,22,22,0">
                                 <StackLayout Orientation="Horizontal" Padding="0,0,0,0">
-                                <Label TextColor="Black" Text="GENERAL SETTINGS" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                <Image Source="profile_color_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                                    <Label TextColor="Black" Text="GENERAL SETTINGS" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                    <Image Source="profile_color_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
                                 </StackLayout>
-                               <StackLayout Spacing="20">
-                                        <StackLayout Spacing="0">
+                                <StackLayout Spacing="20">
+                                    <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="User Name" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                         <local:PaketEntry x:Name="EntryUserName" IsEnabled="false" Text="{Binding PaketUser, Mode=TwoWay}" Placeholder="Enter User Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
-
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="Full Name" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                         <local:PaketEntry x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="Enter Full Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
-
-                                            <StackLayout Spacing="0">
+                                    <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="Phone Number" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                         <local:PaketEntry x:Name="PhoneEntry" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="Enter Phone Number" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
-
                                     </StackLayout>
-
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="Address" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                         <local:PaketEntry x:Name="AddressEntry"   Text="{Binding Address, Mode=TwoWay}" Placeholder="Enter Address" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
-                                
                                 </StackLayout>
                             </StackLayout>
-
-
-                    <Frame x:Name="KeysView" BackgroundColor="#FAFAFA" 
+                            <Frame x:Name="KeysView" BackgroundColor="#FAFAFA" 
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       Padding="0"
                       CornerRadius="18"
                       HasShadow="false">
-
-                    <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="22,22,22,0">
-
-                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
-                                <Label TextColor="Black" Text="KEYS" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                <Image Source="key_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                                <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="22,22,22,0">
+                                    <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                                        <Label TextColor="Black" Text="KEYS" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        <Image Source="key_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
+                                    </StackLayout>
+                                    <StackLayout Spacing="10">
+                                        <StackLayout>
+                                            <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                                                <Label TextColor="#555555" Text="Display Secret Data" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                                                <Button x:Name="SwitchButton" Clicked="ShowClicked" Image="swift_off.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="32" WidthRequest="61"/>
+                                            </StackLayout>
+                                            <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                        </StackLayout>
+                                        <StackLayout Spacing="20">
+                                            <StackLayout Spacing="10" Padding="0,15,0,0">
+                                                <StackLayout Spacing="0">
+                                                    <Label TextColor="#A7A7A7"  Text="Secred Seed" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                    <StackLayout Orientation="Horizontal" Padding="0,0,10,0" Spacing="10">
+                                                        <Label TextColor="#555555" x:Name="SecretLabel" LineBreakMode="MiddleTruncation" Text="•••••••••" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        <Button Image="copy_icon.png" Clicked="SecretCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30"/>
+                                                    </StackLayout>
+                                                    <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                                </StackLayout>
+                                                <Label TextColor="#454545" Text="Here’s your secred seed, used to interact&#x0a;with Stellar" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                                            </StackLayout>
+                                            <StackLayout Spacing="10" x:Name="MnemonicView">
+                                                <StackLayout Spacing="0">
+                                                    <Label TextColor="#A7A7A7" Text="Mnemonic Phrase" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                    <StackLayout Orientation="Horizontal" Padding="0,0,10,0" Spacing="10">
+                                                        <Label TextColor="#555555" x:Name="MnemonicLabel" LineBreakMode="MiddleTruncation" Text="••••••••••" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        <Button Image="copy_icon.png" Clicked="MnemonicCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30"/>
+                                                    </StackLayout>
+                                                    <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                                </StackLayout>
+                                                <Label TextColor="#454545" Text="Here’s your mnemonic phrase, used to interact&#x0a;with Stellar" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                                            </StackLayout>
+                                            <BoxView HeightRequest="5" Color="Transparent"></BoxView>
+                                        </StackLayout>
+                                    </StackLayout>
                                 </StackLayout>
-
-                                 <StackLayout Spacing="10">
-
-                                <StackLayout>
-
-                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
-                                <Label TextColor="#555555" Text="Display Secret Data" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="12"/>
-                                <Button x:Name="SwitchButton" Clicked="ShowClicked" Image="swift_off.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="32" WidthRequest="61"/>
-                                </StackLayout>
-                                <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                                </StackLayout>
-
-
-                                <StackLayout Spacing="20">
-
-                                <StackLayout Spacing="10" Padding="0,15,0,0">
-                                <StackLayout Spacing="0">
-                                <Label TextColor="#A7A7A7"  Text="Secred Seed" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0" Spacing="10">
-                                <Label TextColor="#555555" x:Name="SecretLabel" LineBreakMode="MiddleTruncation" Text="•••••••••" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                <Button Image="copy_icon.png" Clicked="SecretCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30"/>
-                                </StackLayout>
-                                <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                                </StackLayout>
-                                <Label TextColor="#454545" Text="Here’s your secred seed, used to interact&#x0a;with Stellar" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                </StackLayout>
-
-                                <StackLayout Spacing="10" x:Name="MnemonicView">
-                                <StackLayout Spacing="0">
-                                <Label TextColor="#A7A7A7" Text="Mnemonic Phrase" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0" Spacing="10">
-                                <Label TextColor="#555555" x:Name="MnemonicLabel" LineBreakMode="MiddleTruncation" Text="••••••••••" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                <Button Image="copy_icon.png" Clicked="MnemonicCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30"/>
-                                </StackLayout>
-                                <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                                </StackLayout>
-                                <Label TextColor="#454545" Text="Here’s your mnemonic phrase, used to interact&#x0a;with Stellar" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                </StackLayout>
-                                            
-                                <BoxView HeightRequest="5" Color="Transparent"></BoxView>
-                                            
-                                </StackLayout>
-
-                                    
-                                </StackLayout>
-                                
-
-                     </StackLayout>
-                            
-                      </Frame>
-                
-                    <StackLayout Padding="30,0,30,0">
-                        <local:PaketButton HorizontalOptions="Center" x:Name="UpdateButton"  Text="Update Profile" Clicked="SaveClicked" ButtonBackground="#4D64E8"/>
-                 </StackLayout>
-                            
-                    <BoxView HeightRequest="10" Color="Transparent"></BoxView>
-
-                        
+                            </Frame>
+                            <StackLayout Padding="30,0,30,0">
+                                <local:PaketButton HorizontalOptions="Center" x:Name="UpdateButton"  Text="Update Profile" Clicked="SaveClicked" ButtonBackground="#4D64E8"/>
+                            </StackLayout>
+                            <BoxView HeightRequest="10" Color="Transparent"></BoxView>
                         </StackLayout>
-
-                    
                     </ScrollView>
-                    </RelativeLayout>
-
-                </Frame>
-                                                
-
-                <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
+                </RelativeLayout>
+            </Frame>
+            <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
                       VerticalOptions="CenterAndExpand"
                       Color="#606686"
                       HorizontalOptions="CenterAndExpand" RelativeLayout.HeightConstraint="40" RelativeLayout.WidthConstraint="40"
                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.5,Constant=-20}"
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=0.5,Constant=40}"/>
-            
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>
