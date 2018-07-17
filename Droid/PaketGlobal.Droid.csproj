@@ -456,6 +456,21 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\splash.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
+    <AndroidResource Include="Resources\drawable\xlm_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable\bul_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable\refresh_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\xlm_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\bul_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\refresh_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\xlm_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\bul_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\refresh_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\xlm_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\bul_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\refresh_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\xlm_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\bul_wallet_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\refresh_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
              xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-                BackgroundColor="White">
-    <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <TableView x:Name="contentWallet" Intent="Data" HasUnevenRows="true" RowHeight="-1" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <TableRoot>
-                    <TableSection Title="Balance">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Balance" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                <Label Text = "{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>
-                    <!--<TableSection Title="Prices">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Buy Price" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Price.BuyPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text = "Sell Price" FontSize="13" TextColor="#808080"/>
-                                <Label Text = "{Binding Price.SellPrice, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>-->
-                    <TableSection Title="Transactions">
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Send BULs" FontSize="13" TextColor="#808080"/>
-                                <local:EntryEx x:Name="entryRecepient" Placeholder="To Pubkey" WidthRequest="250" Keyboard="Text" Completed="PubkeyCompleted" TintColor="#DE000000"/>
-                                <local:EntryEx x:Name="entryAmount" Placeholder="Amount BULs" WidthRequest="250" Keyboard="Numeric" Completed="BULsCompleted" TintColor="#DE000000"/>
-                                <xlabs:ExtendedButton x:Name="btnSend" Margin="0,20,0,0" Text="Send" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="SendClicked"/>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Purchase BUL" FontSize="13" TextColor="#808080"/>
-                                <StackLayout x:Name="stackBULPurchase" Orientation="Vertical">
-                                    <Picker x:Name="pickerBULCurrency" WidthRequest="250" Title="Select payment currency">
-                                        <Picker.ItemsSource>
-                                            <x:Array Type="{x:Type local:PaymentCurrency}">
-                                            <local:PaymentCurrency>ETH</local:PaymentCurrency>
-                                            <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                            </x:Array>
-                                        </Picker.ItemsSource>
-                                    </Picker>
-                                    <local:EntryEx x:Name="entryAmountForBUL" Placeholder="Amount in Euro" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                    <xlabs:ExtendedButton x:Name="btnBuyBUL" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyBULClicked"/>
-                                </StackLayout>
-                                <StackLayout x:Name="stackBULResult" IsVisible="false" Orientation="Vertical">
-                                    <Label x:Name="labelAmountForBUL" FontSize="13" TextColor="#808080"/>
-                                    <local:EntryEx x:Name="entryBULAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
-                                </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                        <ViewCell>
-                            <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                <Label Text="Purchase XLM" FontSize="13" TextColor="#808080"/>
-                                <StackLayout x:Name="stackXLMPurchase" Orientation="Vertical">
-                                    <Picker x:Name="pickerXLMCurrency" WidthRequest="250" Title="Select payment currency">
-                                        <Picker.ItemsSource>
-                                            <x:Array Type="{x:Type local:PaymentCurrency}">
-                                            <local:PaymentCurrency>ETH</local:PaymentCurrency>
-                                            <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                            </x:Array>
-                                        </Picker.ItemsSource>
-                                    </Picker>
-                                    <local:EntryEx x:Name="entryAmountForXLM" Placeholder="Amount in Euro" WidthRequest="250" Keyboard="Numeric" TintColor="#DE000000"/>
-                                    <xlabs:ExtendedButton x:Name="btnBuyXLM" Margin="0,20,0,0" Text="Purchase" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="BuyXLMClicked"/>
-                                </StackLayout>
-                                <StackLayout x:Name="stackXLMResult" IsVisible="false" Orientation="Vertical">
-                                    <Label x:Name="labelAmountForXLM" FontSize="13" TextColor="#808080"/>
-                                    <local:EntryEx x:Name="entryXLMAddress" Keyboard="Text" EditEnabled="false" TintColor="#DE000000"/>
-                                </StackLayout>
-                            </StackLayout>
-                        </ViewCell>
-                    </TableSection>
-                </TableRoot>
-            </TableView>
+                NavigationPage.HasNavigationBar="False"
+                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss">
 
-            <AbsoluteLayout x:Name="layoutActivity" BackgroundColor="#FFFFFFFF" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0">
-                <ActivityIndicator x:Name="activityIndicator"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    AbsoluteLayout.LayoutBounds="0.5, 0.5, AutoSize, AutoSize"
-                    Color="#FF4081"
-                    IsRunning="false"/>
-            </AbsoluteLayout>
-        </AbsoluteLayout>
-    </ContentPage.Content>
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300" x:Name="Gradient">
+            <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+    
+    <local:BasePage.Content>
+            <RelativeLayout>
+
+                <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
+                     <Label x:Name="TitleLabel" Text="Wallet" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+                     <Button WidthRequest="28" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
+                </StackLayout>
+                <Label Text="Your Balance" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" 
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+                </StackLayout>
+
+
+
+        <BoxView x:Name="BackgroundView" BackgroundColor="#F0F0F0" 
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
+        </BoxView>
+            
+        <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" 
+                      Orientation="Horizontal"
+                      VerticalScrollBarVisibility="Never"
+                      HorizontalScrollBarVisibility="Never"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="160"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "160">
+
+                <StackLayout BackgroundColor="Transparent" HeightRequest="150" Orientation="Horizontal" Spacing="0" VerticalOptions="Center" HorizontalOptions="Start">
+                      <BoxView WidthRequest="8" HeightRequest="150" BackgroundColor="Transparent">
+                      </BoxView>
+                    
+                      <local:PaketFrame WidthRequest="280" HeightRequest="150" BackgroundColor="White">
+                        <StackLayout BackgroundColor="Transparent" Spacing="10">
+                            <Image Source="bul_wallet_icon.png" HorizontalOptions="Start"/>
+                            <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
+                            <Button HeightRequest="10" WidthRequest="88" Image="show_bul_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
+                        </StackLayout>
+                      </local:PaketFrame>
+                        
+                        <BoxView WidthRequest="20" HeightRequest="150" BackgroundColor="Transparent">
+                        </BoxView>
+
+                       <local:PaketFrame WidthRequest="280" HeightRequest="150" BackgroundColor="White">
+                        <StackLayout BackgroundColor="Transparent" Spacing="10">
+                            <Image Source="xlm_wallet_icon.png" HorizontalOptions="Start"/>
+                            <Label Text="{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
+                            <Button HeightRequest="10" WidthRequest="88" Image="show_xlm_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
+                        </StackLayout>
+                      </local:PaketFrame>
+
+                      <BoxView WidthRequest="5" HeightRequest="150" BackgroundColor="Transparent">
+                      </BoxView>
+                </StackLayout>
+        </ScrollView>
+
+        <ScrollView x:Name="TransactionsScrollView" BackgroundColor="Teal" 
+                      Orientation="Vertical"
+                      VerticalScrollBarVisibility="Never"
+                      HorizontalScrollBarVisibility="Never"
+                      VerticalOptions="StartAndExpand"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "320">
+
+
+                <StackLayout Padding="25,20,25,20" Spacing="20">
+                            <Label Text="Transactions" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black" 
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Start"/>
+
+                    <local:PaketFrame HeightRequest="70" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+
+                    </local:PaketFrame>
+
+                    
+                </StackLayout>
+
+         </ScrollView>
+            
+
+            </RelativeLayout>
+    </local:BasePage.Content>
+
+    
 </local:BasePage>
