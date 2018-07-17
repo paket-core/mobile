@@ -36,9 +36,9 @@ namespace PaketGlobal
 #if __IOS__
                 if (App.Locator.DeviceService.IsIphoneX() == true)
                 {
-                    return 130.0f;
+                    return 120.0f;
                 }
-                return 150.0f;
+                return 135.0f;
 #else
                 return 150.0f;
 #endif
@@ -55,8 +55,8 @@ namespace PaketGlobal
 
             if (MaxOffset <= 130.0f)
             {
-                TitleLabel.TranslationY = 18;
-                RightButtons.TranslationY = 18;
+                TitleLabel.TranslationY = 22;
+                RightButtons.TranslationY = 22;
             }
 
 #if __ANDROID__
@@ -113,7 +113,7 @@ namespace PaketGlobal
                 RightButtons.Opacity = TitleLabel.Opacity = 0;
             }
 
-            RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - 60; }));
+            RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
         }
 
         private async Task LoadPackages()
