@@ -239,6 +239,8 @@ namespace PaketGlobal
 
             if (xOffset>((max-290)/2))
             {
+                Unfocus();
+
                 await  TransactionsBULScrollView.FadeTo(0);
                 await  TransactionsBULScrollView.ScaleTo(0.8f);
 
@@ -249,6 +251,8 @@ namespace PaketGlobal
                 await TransactionsXLMScrollView.ScaleTo(1);
             }
             else{
+                Unfocus();
+
                 await TransactionsBULScrollView.FadeTo(1);
                 await TransactionsBULScrollView.ScaleTo(1);
 

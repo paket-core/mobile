@@ -4,11 +4,12 @@ using Xamarin.Forms;
 using Acr.UserDialogs;
 
 using stellar_dotnetcore_sdk;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace PaketGlobal
 {
-	public partial class App : Application
-	{
+	public partial class App : Xamarin.Forms.Application
+    {
 		private static Locator _locator;
 		public static Locator Locator { get { return _locator ?? (_locator = new Locator()); } }
 
@@ -20,7 +21,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            XamEffects.Effects.Init();
+            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize | Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Pan); ;              XamEffects.Effects.Init();
 
 			Network.UseTestNetwork();//TODO for test porposals
 
@@ -52,8 +53,8 @@ namespace PaketGlobal
 			if (isRunning == true) {
 				if (isCancel == true) {
 					UserDialogs.Instance.Loading("Loading", new Action(async () => {
-						if (Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
-							await Application.Current.MainPage.Navigation.PopModalAsync();
+						if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
+							await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
 						} else {
 							System.Diagnostics.Debug.WriteLine("Navigation: Can't pop modal without any modals pushed");
 						}
