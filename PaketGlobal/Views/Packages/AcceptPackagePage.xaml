@@ -44,7 +44,7 @@
                    Clicked="OnBack"
                    RelativeLayout.XConstraint = "23"
                    RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
-            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="Scan the barcode containing&#x0a;package inforamtion" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
+            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="Scan the barcode containing&#x0a;package information" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
                    RelativeLayout.YConstraint="100"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>

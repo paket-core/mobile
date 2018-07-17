@@ -24,6 +24,7 @@ namespace PaketGlobal
             if(IsAddedInfo){
                 generateButton.Text = "Complete Registration";
                 titleLabel.Text = "Add Info";
+                pickerCurrency.IsVisible = false;
             }
 
             App.Locator.DeviceService.setStausBarBlack();
