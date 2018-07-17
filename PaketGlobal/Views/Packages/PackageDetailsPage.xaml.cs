@@ -23,8 +23,6 @@ namespace PaketGlobal
             CanAcceptPackage = canAcceptPackage;
             BarcodeData = barcodePackageData;
 
-            AddEvents();
-
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
@@ -61,6 +59,11 @@ namespace PaketGlobal
             if(CanAcceptPackage)
             {
                 AcceptButton.IsVisible = true;
+                PaymentInfoViewFrame.IsVisible = false;
+                EventsInfoViewFrame.IsVisible = false;
+            }
+            else{
+                AddEvents();
             }
         }
 
@@ -134,8 +137,6 @@ namespace PaketGlobal
 
                     ShowMessage("Package accepted successfully");
 
-                    await Navigation.PopAsync();
-
                     MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
                 }
                 else
@@ -158,8 +159,6 @@ namespace PaketGlobal
                     await App.Locator.Packages.Load();
 
                     ShowMessage("Package accepted successfully");
-
-                    await Navigation.PopAsync();
 
                     MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
                 }

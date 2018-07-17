@@ -37,24 +37,23 @@ namespace PaketGlobal
         {
             PurchaseXLMTapCommand = new Command(() =>
             {
-               
+                PurchaseXLMEntryViews.IsVisible = !PurchaseXLMEntryViews.IsVisible;
             });
 
             PurchaseBULTapCommand = new Command(() =>
             {
-
+                PurchaseBULEntryViews.IsVisible = !PurchaseBULEntryViews.IsVisible;
             });
 
             SendBULTapCommand = new Command(() =>
             {
                 SendBULEntryViews.IsVisible = !SendBULEntryViews.IsVisible;
-                PurchaseBULView.IsVisible = !SendBULEntryViews.IsVisible;
             });
 
 
-            XamEffects.Commands.SetTap(PurchaseXLMView, PurchaseXLMTapCommand);
-            XamEffects.Commands.SetTap(PurchaseXLMView, PurchaseBULTapCommand);
-            XamEffects.Commands.SetTap(SendBULView, SendBULTapCommand);
+            XamEffects.Commands.SetTap(PurchaseXLMStackView, PurchaseXLMTapCommand);
+            XamEffects.Commands.SetTap(PurchaseBULStackView, PurchaseBULTapCommand);
+            XamEffects.Commands.SetTap(SendBULStackView, SendBULTapCommand);
         }
 
 		protected async override void OnAppearing()
@@ -113,108 +112,113 @@ namespace PaketGlobal
 
 		private async void SendClicked(object sender, EventArgs e)
 		{
-			//if (IsValid()) {
-			//	Unfocus();
+			if (IsValid()) {
+				Unfocus();
 
-			//	App.ShowLoading(true);
+				App.ShowLoading(true);
 
-			//	var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, entryRecepient.Text, long.Parse(entryAmount.Text));
-			//	if (trans != null) {
-			//		var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-			//		var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
-			//		if (result != null) {
-			//			await ViewModel.Load();
-			//			ShowMessage("Funds sent successfully");
-			//		} else {
-			//			ShowMessage("Error sending funds");
-			//		}
-			//	} else {
-			//		ShowMessage("Error sending funds");
-			//	}
+                var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, EntryRecepient.Text, long.Parse(EntryAmount.Text));
+				if (trans != null) {
+					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
+					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
+					
+                    if (result != null) {
+						await ViewModel.Load();
 
-			//	App.ShowLoading(false);
-			//}
+						ShowMessage("Funds sent successfully");
+					} 
+                    else {
+						ShowMessage("Error sending funds");
+					}
+				} else {
+					ShowMessage("Error sending funds");
+				}
+
+				App.ShowLoading(false);
+		    }
 		}
 
         private async void BuyBULClicked(object sender, System.EventArgs e)
 		{
-			//if (IsValid(SpendCurrency.BUL)) {
-				//App.ShowLoading(true);
+			if (IsValid(SpendCurrency.BUL)) {
+				App.ShowLoading(true);
 
-				//var currency = (PaymentCurrency)pickerBULCurrency.SelectedItem;
-    //            var amount = long.Parse(entryAmountForBUL.Text) * 100;
-				//var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
+				var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
+                var amount = long.Parse(EntryAmountForBUL.Text) * 100;
+				var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
 
-				//App.ShowLoading(false);
+				App.ShowLoading(false);
 
-				//if (result != null) {
-				//	labelAmountForBUL.Text = String.Format("Please send your {0} to this address to purchase your BULs", currency);
-				//	entryBULAddress.Text = result.PaymentAddress;
-				//	await ViewHelper.ToggleViews(stackBULResult, stackBULPurchase);
-				//} else {
-				//	ShowMessage("Error purchasing BULs");
-				//}
-	//		}
+				if (result != null) {
+					//labelAmountForBUL.Text = String.Format("Please send your {0} to this address to purchase your BULs", currency);
+					
+     //               entryBULAddress.Text = result.PaymentAddress;
+
+					//await ViewHelper.ToggleViews(stackBULResult, stackBULPurchase);
+				} 
+                else {
+					ShowMessage("Error purchasing BULs");
+				}
+			}
 		}
 
 		private async void BuyXLMClicked(object sender, System.EventArgs e)
 		{
-			//if (IsValid(SpendCurrency.XLM)) {
-			//	App.ShowLoading(true);
+			if (IsValid(SpendCurrency.XLM)) {
+				App.ShowLoading(true);
 
-			//	var currency = (PaymentCurrency)pickerXLMCurrency.SelectedItem;
-   //             var amount = long.Parse(entryAmountForXLM.Text) * 100;
-			//	var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
+				var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
+                var amount = long.Parse(EntryAmountForXLM.Text) * 100;
+				var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
 
-			//	App.ShowLoading(false);
+				App.ShowLoading(false);
 
-			//	if (result != null) {
-			//		labelAmountForXLM.Text = String.Format("Please send your {0} to this address to purchase your XLMs", currency);
-			//		entryXLMAddress.Text = result.PaymentAddress;
-			//		await ViewHelper.ToggleViews(stackXLMResult, stackXLMPurchase);
-			//	} else {
-			//		ShowMessage("Error purchasing XLMs");
-			//	}
-			//}
+				if (result != null) {
+					//labelAmountForXLM.Text = String.Format("Please send your {0} to this address to purchase your XLMs", currency);
+					//entryXLMAddress.Text = result.PaymentAddress;
+					//await ViewHelper.ToggleViews(stackXLMResult, stackXLMPurchase);
+				} 
+                else {
+					ShowMessage("Error purchasing XLMs");
+				}
+			}
 		}
 
 		protected override bool IsValid()
 		{
-			//if (!ValidationHelper.ValidateTextField(entryRecepient.Text)) {
-			//	//Workspace.OnValidationError(ValidationError.Password);
-			//	entryRecepient.Focus();
-			//	return false;
-			//}
-			//if (!ValidationHelper.ValidateNumber(entryAmount.Text)) {
-			//	//Workspace.OnValidationError(ValidationError.PasswordConfirmation);
-			//	entryAmount.Focus();
-			//	return false;
-			//}
+			if (!ValidationHelper.ValidateTextField(EntryRecepient.Text)) {
+                EntryRecepient.Focus();
+				return false;
+			}
+			if (!ValidationHelper.ValidateNumber(EntryAmount.Text)) {
+                EntryAmount.Focus();
+				return false;
+			}
 
 			return true;
 		}
 
 		private bool IsValid(SpendCurrency spendCurrency)
 		{
-			//if (spendCurrency == SpendCurrency.BUL) {
-			//	if (pickerBULCurrency.SelectedItem == null) {
-			//		ShowMessage("Please select payment currency");
-			//		return false;
-			//	}
-			//	if (!ValidationHelper.ValidateNumber(entryAmountForBUL.Text)) {
-			//		entryAmountForBUL.Focus();
-			//		return false;
-			//	}
-			//} else {
-			//	if (pickerXLMCurrency.SelectedItem == null) {
-			//		ShowMessage("Please select payment currency");
-			//		return false;
-			//	}
-			//	if (!ValidationHelper.ValidateNumber(entryAmountForXLM.Text)) {
-			//		entryAmountForXLM.Focus();
-			//		return false;
-			//	}
-			//}
+			if (spendCurrency == SpendCurrency.BUL) {
+				if (PickerBULCurrency.SelectedItem == null) {
+					ShowMessage("Please select payment currency");
+					return false;
+				}
+				if (!ValidationHelper.ValidateNumber(EntryAmountForBUL.Text)) {
+                    EntryAmountForBUL.Focus();
+					return false;
+				}
+			} else {
+				if (PickerXLMCurrency.SelectedItem == null) {
+					ShowMessage("Please select payment currency");
+					return false;
+				}
+				if (!ValidationHelper.ValidateNumber(EntryAmountForXLM.Text)) {
+                    EntryAmountForXLM.Focus();
+					return false;
+				}
+			}
 
 			return true;
 		}
