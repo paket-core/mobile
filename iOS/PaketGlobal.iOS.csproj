@@ -352,6 +352,21 @@
     <BundleResource Include="Resources\swift_off%403x.png" />
     <BundleResource Include="Resources\swift_off%402x.png" />
     <BundleResource Include="Resources\swift_off.png" />
+    <BundleResource Include="Resources\refresh_icon%403x.png" />
+    <BundleResource Include="Resources\refresh_icon%402x.png" />
+    <BundleResource Include="Resources\refresh_icon.png" />
+    <BundleResource Include="Resources\xlm_wallet_icon%403x.png" />
+    <BundleResource Include="Resources\xlm_wallet_icon%402x.png" />
+    <BundleResource Include="Resources\xlm_wallet_icon.png" />
+    <BundleResource Include="Resources\bul_wallet_icon%403x.png" />
+    <BundleResource Include="Resources\bul_wallet_icon%402x.png" />
+    <BundleResource Include="Resources\bul_wallet_icon.png" />
+    <BundleResource Include="Resources\show_xlm_button%403x.png" />
+    <BundleResource Include="Resources\show_xlm_button%402x.png" />
+    <BundleResource Include="Resources\show_xlm_button.png" />
+    <BundleResource Include="Resources\show_bul_button%403x.png" />
+    <BundleResource Include="Resources\show_bul_button%402x.png" />
+    <BundleResource Include="Resources\show_bul_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

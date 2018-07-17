@@ -131,7 +131,7 @@ namespace PaketGlobal
 
         public string FormattedBalanceBUL {
             get {
-                return String.Format("{0}.00 BUL",BalanceBUL/1_000_000_0);   
+                return String.Format("{0}.00",BalanceBUL/1_000_000_0);   
             }
         }
 
@@ -139,7 +139,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00 XLMs", BalanceXLM/1_000_000_0);
+                return String.Format("{0}.00", BalanceXLM/1_000_000_0);
             }
         }
 	}
