@@ -188,7 +188,7 @@ namespace PaketGlobal
                 entryUserAddress.Focus();
                 return false;
             }
-            else if (pickerCurrency.SelectedItem==null)
+            else if (pickerCurrency.SelectedItem==null && IsAddedInfo==false)
             {
                 ShowMessage("Please select payment currency");
                 return false;
