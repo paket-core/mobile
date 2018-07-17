@@ -32,8 +32,6 @@ namespace PaketGlobal.Droid
              
                 GradientDrawable gd = (GradientDrawable)Background;
                 gd.SetColor(element.BackgroundColor.ToAndroid());
-
-               // Background.SetColorFilter(Android.Graphics.Color.Red, Android.Graphics.PorterDuff.Mode.SrcOver);
             }
         }
     }
