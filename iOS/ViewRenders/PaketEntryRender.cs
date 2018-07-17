@@ -30,7 +30,7 @@ namespace PaketGlobal.iOS
 
                     BottomBorder = new CALayer
                     {
-                        Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width - 5, 1.0f),
+                        Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width, 1.0f),
                         BorderWidth = 2.0f,
                         BorderColor = element.LineColor.ToCGColor()
                     };
