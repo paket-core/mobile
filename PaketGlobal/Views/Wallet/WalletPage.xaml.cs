@@ -13,6 +13,11 @@ namespace PaketGlobal
 			}
 		}
 
+        private Command PurchaseXLMTapCommand;
+        private Command PurchaseBULTapCommand;
+        private Command SendBULTapCommand;
+
+
 		public WalletPage()
 		{
 			InitializeComponent();
@@ -24,7 +29,33 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -20;
 #endif
+
+            AddCommands();
 		}
+
+        private void AddCommands()
+        {
+            PurchaseXLMTapCommand = new Command(() =>
+            {
+               
+            });
+
+            PurchaseBULTapCommand = new Command(() =>
+            {
+
+            });
+
+            SendBULTapCommand = new Command(() =>
+            {
+                SendBULEntryViews.IsVisible = !SendBULEntryViews.IsVisible;
+                PurchaseBULView.IsVisible = !SendBULEntryViews.IsVisible;
+            });
+
+
+            XamEffects.Commands.SetTap(PurchaseXLMView, PurchaseXLMTapCommand);
+            XamEffects.Commands.SetTap(PurchaseXLMView, PurchaseBULTapCommand);
+            XamEffects.Commands.SetTap(SendBULView, SendBULTapCommand);
+        }
 
 		protected async override void OnAppearing()
 		{
@@ -60,6 +91,26 @@ namespace PaketGlobal
 		//	entryAmount.Unfocus();
 		}
 
+        private async void ReloadClicked(object sender, System.EventArgs e)
+        {
+            App.ShowLoading(true);
+
+            await ViewModel.Load();
+
+            App.ShowLoading(false);
+        }
+
+
+        private void ShowXLMActivityClicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("ShowXLMActivityClicked");
+        }
+
+        private void ShowBULActivityClicked(object sender, EventArgs e)
+        {
+            Console.WriteLine("ShowBULActivityClicked");
+        }
+
 		private async void SendClicked(object sender, EventArgs e)
 		{
 			//if (IsValid()) {
@@ -85,7 +136,7 @@ namespace PaketGlobal
 			//}
 		}
 
-		async void BuyBULClicked(object sender, System.EventArgs e)
+        private async void BuyBULClicked(object sender, System.EventArgs e)
 		{
 			//if (IsValid(SpendCurrency.BUL)) {
 				//App.ShowLoading(true);
@@ -106,7 +157,7 @@ namespace PaketGlobal
 	//		}
 		}
 
-		async void BuyXLMClicked(object sender, System.EventArgs e)
+		private async void BuyXLMClicked(object sender, System.EventArgs e)
 		{
 			//if (IsValid(SpendCurrency.XLM)) {
 			//	App.ShowLoading(true);
@@ -167,5 +218,44 @@ namespace PaketGlobal
 
 			return true;
 		}
+
+        private void TransactionsScrolled(object sender, Xamarin.Forms.ScrolledEventArgs e)
+        {
+
+        }
+
+        private async void WalletsScrolled(object sender, Xamarin.Forms.ScrolledEventArgs e)
+        {
+            var xOffset = e.ScrollX;
+
+            var max = TopScrollView.ContentSize.Width;
+
+
+            Console.WriteLine(xOffset);
+
+            if (xOffset>((max-290)/2))
+            {
+                await  TransactionsBULScrollView.FadeTo(0);
+                await  TransactionsBULScrollView.ScaleTo(0.8f);
+
+                TransactionsXLMScrollView.IsVisible = true;
+                TransactionsBULScrollView.IsVisible = false;
+
+                await TransactionsXLMScrollView.FadeTo(1);
+                await TransactionsXLMScrollView.ScaleTo(1);
+            }
+            else{
+                await TransactionsBULScrollView.FadeTo(1);
+                await TransactionsBULScrollView.ScaleTo(1);
+
+                TransactionsXLMScrollView.IsVisible = false;
+                TransactionsBULScrollView.IsVisible = true;
+
+                await TransactionsXLMScrollView.FadeTo(0);
+                await TransactionsXLMScrollView.ScaleTo(0.8f);
+            }
+        }
+
+
 	}
 }
