@@ -471,6 +471,16 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\xlm_wallet_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\bul_wallet_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\refresh_icon.png" />
+    <AndroidResource Include="Resources\drawable\show_xlm_button.png" />
+    <AndroidResource Include="Resources\drawable\show_bul_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\show_xlm_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\show_bul_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\show_xlm_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\show_bul_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\show_xlm_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\show_bul_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\show_xlm_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\show_bul_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

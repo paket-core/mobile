@@ -22,7 +22,7 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarLight();
 
 #if __ANDROID__
-            HeaderView.TranslationY = -30;
+            HeaderView.TranslationY = -20;
 #endif
 		}
 

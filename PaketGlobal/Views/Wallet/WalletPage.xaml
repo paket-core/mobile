@@ -73,7 +73,7 @@
                 </StackLayout>
         </ScrollView>
 
-        <ScrollView x:Name="TransactionsScrollView" BackgroundColor="Teal" 
+        <ScrollView x:Name="TransactionsScrollView" BackgroundColor="Transparent"
                       Orientation="Vertical"
                       VerticalScrollBarVisibility="Never"
                       HorizontalScrollBarVisibility="Never"
@@ -83,15 +83,20 @@
                       RelativeLayout.YConstraint = "320">
 
 
-                <StackLayout Padding="25,20,25,20" Spacing="20">
-                            <Label Text="Transactions" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black" 
+                <StackLayout Padding="10,20,10,20" Spacing="20" VerticalOptions="Start">
+                    <StackLayout Padding="10,0,10,0">
+                        <Label Text="Transactions" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black" 
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Start"/>
+                    </StackLayout>
 
-                    <local:PaketFrame HeightRequest="70" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
-
+                    <local:PaketFrame BackgroundColor="White" HeightRequest="20">
+                     <StackLayout></StackLayout>
                     </local:PaketFrame>
 
+                    <local:PaketFrame BackgroundColor="White" HeightRequest="20">
+                     <StackLayout></StackLayout>
+                    </local:PaketFrame>
                     
                 </StackLayout>
 
