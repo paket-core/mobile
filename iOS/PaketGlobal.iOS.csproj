@@ -367,6 +367,12 @@
     <BundleResource Include="Resources\show_bul_button%403x.png" />
     <BundleResource Include="Resources\show_bul_button%402x.png" />
     <BundleResource Include="Resources\show_bul_button.png" />
+    <BundleResource Include="Resources\get_icon%403x.png" />
+    <BundleResource Include="Resources\get_icon%402x.png" />
+    <BundleResource Include="Resources\get_icon.png" />
+    <BundleResource Include="Resources\send_icon%403x.png" />
+    <BundleResource Include="Resources\send_icon%402x.png" />
+    <BundleResource Include="Resources\send_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

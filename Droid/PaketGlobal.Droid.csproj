@@ -481,6 +481,16 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\show_bul_button.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\show_xlm_button.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\show_bul_button.png" />
+    <AndroidResource Include="Resources\drawable\get_icon.png" />
+    <AndroidResource Include="Resources\drawable\send_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\get_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\send_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\get_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\send_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\get_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\send_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\get_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\send_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
