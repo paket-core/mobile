@@ -25,9 +25,9 @@ namespace PaketGlobal
             #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
-                TitleLabel.TranslationY = 35;
-                LogoutButton.TranslationY = 10;
-                LogoutButton.TranslationX = 20;
+                TitleLabel.TranslationY = 25;
+                LogoutButton.TranslationY = 8;
+                LogoutButton.TranslationX = 22;
             }
             else
             {
