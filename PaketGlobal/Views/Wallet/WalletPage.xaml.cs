@@ -95,9 +95,22 @@ namespace PaketGlobal
             stackLayout.FadeTo(1, 500, Easing.SinIn);
             stackLayout.ScaleTo(1, 250);
 
-            //System.Threading.Tasks.Task.Delay(2000);
-
-            //MainScrollView.ScrollToAsync(stackLayout, ScrollToPosition.End, true);
+            if(stackLayout==PurchaseBULEntryViews)
+            {
+                var visible = SendBULEntryViews.IsVisible;
+                if(visible)
+                {
+                    HideEntry(SendBULEntryViews);
+                }
+            }
+            else if (stackLayout == SendBULEntryViews)
+            {
+                var visible = PurchaseBULEntryViews.IsVisible;
+                if (visible)
+                {
+                    HideEntry(PurchaseBULEntryViews);
+                }
+            }
         }
 
         private void HideEntry(StackLayout stackLayout)
@@ -182,6 +195,8 @@ namespace PaketGlobal
 
             SendBULSSuccessView.IsVisible = false;
             SundBULSMainStackView.IsVisible = true;    
+
+            HideEntry(SendBULEntryViews);
         }
 
         private void DonePurchaseXLMClicked(object sender, EventArgs e)
@@ -196,7 +211,9 @@ namespace PaketGlobal
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseXlmAddress);
                 ShowMessage("Copied to clipboard");
-            }  
+            }
+
+            HideEntry(PurchaseBULEntryViews);
         }
 
         private void DonePurchaseBULSClicked(object sender, EventArgs e)
@@ -212,6 +229,8 @@ namespace PaketGlobal
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseBullAddress);
                 ShowMessage("Copied to clipboard");
             }
+
+            HideEntry(PurchaseXLMEntryViews);
         }
 
 		private async void SendClicked(object sender, EventArgs e)
@@ -406,6 +425,11 @@ namespace PaketGlobal
             if (xOffset>((max-290)/2))
             {
                 Unfocus();
+   
+                Gradient.Steps = null;
+
+                Gradient.AddStep(Color.FromHex("#39C8C8"), 0);
+                Gradient.AddStep(Color.FromHex("#53E1E1"), 1);
 
                 await  TransactionsBULScrollView.FadeTo(0);
                 await  TransactionsBULScrollView.ScaleTo(0.8f);
@@ -418,6 +442,12 @@ namespace PaketGlobal
             }
             else{
                 Unfocus();
+
+                Gradient.Steps = null;
+
+                Gradient.AddStep(Color.FromHex("#4D64E8"), 0);
+                Gradient.AddStep(Color.FromHex("#6786EF"), 1);
+
 
                 await TransactionsBULScrollView.FadeTo(1);
                 await TransactionsBULScrollView.ScaleTo(1);

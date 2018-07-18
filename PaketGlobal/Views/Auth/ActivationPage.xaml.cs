@@ -43,7 +43,10 @@ namespace PaketGlobal
                     if (trusted)
                     {
                         App.Locator.Profile.Activated = true;
-                        Application.Current.MainPage = new MainPage();
+
+                        var navigationPage = new NavigationPage(new MainPage()); 
+
+                        Application.Current.MainPage = navigationPage;
                     }
                     else
                     {
@@ -51,7 +54,10 @@ namespace PaketGlobal
                         if (added)
                         {
                             App.Locator.Profile.Activated = true;
-                            Application.Current.MainPage = new MainPage();
+
+                            var navigationPage = new NavigationPage(new MainPage()); 
+
+                            Application.Current.MainPage = navigationPage;
                         }
                         else
                         {

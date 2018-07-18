@@ -48,6 +48,7 @@ namespace PaketGlobal.Droid
 
             editText.CompoundDrawablePadding = 25;
 
+
             Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
             editText.SetTypeface(tf, TypefaceStyle.Normal);
             editText.SetTextSize(Android.Util.ComplexUnitType.Dip,14);
