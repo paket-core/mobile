@@ -82,6 +82,37 @@ namespace PaketGlobal.Droid
 			}
 		}
 
+        public bool ShowNotifications {
+            get{
+                var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+                if(account.Properties.ContainsKey("ShowNotifications")){
+                    if(account.Properties["ShowNotifications"]=="false"){
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            set{
+                var store = AccountStore.Create(MainActivity.Instance);
+                var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+                if (account != null)
+                {
+                    var b = value ? bool.TrueString : bool.FalseString;
+                    if (account.Properties.ContainsKey("Activated"))
+                    {
+                        account.Properties["ShowNotifications"] = b;
+                    }
+                    else
+                    {
+                        account.Properties.Add("ShowNotifications", b);
+                    }
+                    store.Save(account, App.AppName);
+                } 
+            }
+        }
+
+
 		public void SetCredentials(string userName, string fullName, string phoneNumber, string seed, string mnemonic)
 		{
 			if (!String.IsNullOrWhiteSpace(seed) || !String.IsNullOrWhiteSpace(mnemonic)) {
@@ -93,6 +124,9 @@ namespace PaketGlobal.Droid
 				if (phoneNumber != null) account.Properties.Add("PhoneNumber", phoneNumber);
 				if (seed != null) account.Properties.Add("Seed", seed);
 				if (mnemonic != null) account.Properties.Add("Mnemonic", mnemonic);
+
+                account.Properties.Add("ShowNotifications", "true");
+
 				AccountStore.Create(MainActivity.Instance).Save(account, App.AppName);
 			}
 		}
