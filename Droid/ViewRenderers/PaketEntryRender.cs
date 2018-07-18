@@ -31,6 +31,7 @@ namespace PaketGlobal.Droid
             Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, Control.PaddingBottom);
 
             var editText = this.Control;
+
             if (!string.IsNullOrEmpty(element.Image))
             {
                 switch (element.ImageAlignment)

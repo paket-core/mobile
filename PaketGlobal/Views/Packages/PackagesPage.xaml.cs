@@ -165,13 +165,13 @@ namespace PaketGlobal
                 RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
-
             var packagePage = new LaunchPackagePage(newPackage);
             Navigation.PushAsync(packagePage);
         }
 
         private void AcceptPackageClicked(object sender, EventArgs e)
         {
+            //var mainPage = (BottomBarPage)App.Current.MainPage;
             var packagePage = new AcceptPackagePage();
 
             var navigationPage = new NavigationPage(packagePage); 

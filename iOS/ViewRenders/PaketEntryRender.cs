@@ -15,30 +15,31 @@ namespace PaketGlobal.iOS
 {
     public class PaketEntryRenderer : EntryRenderer
     {
-        CALayer BottomBorder;
+        UIView BottomBorder;
 
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
 
+            var textField = this.Control;
+            var element = (PaketEntry)this.Element;
+
             if (BottomBorder == null)
             {
-                if (this.Frame.Size.Width != 0)
+                if (this.Frame.Size.Width > 0)
                 {
-                    var textField = this.Control;
-                    var element = (PaketEntry)this.Element;
-
-                    BottomBorder = new CALayer
+                    BottomBorder = new UIView
                     {
                         Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width, 1.0f),
-                        BorderWidth = 2.0f,
-                        BorderColor = element.LineColor.ToCGColor()
+                        BackgroundColor = element.LineColor.ToUIColor()
                     };
 
-                    textField.Layer.AddSublayer(BottomBorder);
-                    textField.Layer.MasksToBounds = true;
+                    textField.AddSubview(BottomBorder);
                 }
             }
+
+            BottomBorder.Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width, 1.0f);
+
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
@@ -70,6 +71,13 @@ namespace PaketGlobal.iOS
 
             textField.Font = UIFont.FromName("Poppins-Medium", 14);
             textField.TextColor = Xamarin.Forms.Color.FromHex("#555555").ToUIColor();
+            textField.SpellCheckingType = UITextSpellCheckingType.No;
+            textField.AutocorrectionType = UITextAutocorrectionType.No;
+            textField.AutocapitalizationType = UITextAutocapitalizationType.Sentences;
+
+            if(element.IsEnabled==false) {
+                textField.TextColor = Xamarin.Forms.Color.FromHex("#A7A7A7").ToUIColor();
+            }
         }
 
         private UIView GetImageView(string imagePath, int height, int width)
@@ -78,7 +86,7 @@ namespace PaketGlobal.iOS
             {
                 Frame = new RectangleF(0, 0, width, height)
             };
-            UIView objLeftView = new UIView(new System.Drawing.Rectangle(0, 0, width + 10, height));
+            UIView objLeftView = new UIView(new System.Drawing.Rectangle(0, 0, width + 5, height));
             objLeftView.AddSubview(uiImageView);
 
             return objLeftView;
