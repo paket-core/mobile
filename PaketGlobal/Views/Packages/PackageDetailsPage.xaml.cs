@@ -70,7 +70,7 @@ namespace PaketGlobal
 
         private async void OnBack(object sender, System.EventArgs e)
         {
-            await Navigation.PopAsync();
+            await Navigation.PopToRootAsync();
         }
 
         private async void RefundClicked(object sender, System.EventArgs e)
@@ -132,7 +132,7 @@ namespace PaketGlobal
 
                     ShowMessage("Package accepted successfully");
 
-                    MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
+                    await Navigation.PopToRootAsync();
                 }
                 else
                 {
@@ -155,7 +155,7 @@ namespace PaketGlobal
 
                     ShowMessage("Package accepted successfully");
 
-                    MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);
+                   await  Navigation.PopToRootAsync();
                 }
                 else
                 {
