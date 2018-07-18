@@ -6,20 +6,26 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-	public class PackagesModel : BaseViewModel
-	{
+    public class PackagesModel : BaseViewModel
+    {
         private System.Timers.Timer timer;
         private bool isneedTimer = false;
 
-		private List<Package> packagesList = new List<Package>();
+        private List<Package> packagesList = new List<Package>();
 
-		public List<Package> PackagesList {
-			get { return packagesList; }
-			set { SetProperty(ref packagesList, value); }
-		}
+        public List<Package> PackagesList
+        {
+            get { return packagesList; }
+            set { SetProperty(ref packagesList, value); }
+        }
 
-		public PackagesModel()
-		{
+        public PackagesModel()
+        {
+            SubscribeToNotifications();
+        }
+
+        private void SubscribeToNotifications()
+        {
             MessagingCenter.Subscribe<string, string>("MyApp", "OnStartApp", (sender, arg) =>
             {
                 if (timer != null)
@@ -36,7 +42,8 @@ namespace PaketGlobal
                 }
             });
 
-            MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
+            MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) =>
+            {
                 if (timer != null)
                 {
                     StopTimer();
@@ -44,7 +51,7 @@ namespace PaketGlobal
                     timer = null;
                 }
             });
-		}
+        }
 
         private void StartTimer()
         {
@@ -61,64 +68,67 @@ namespace PaketGlobal
             timer.Enabled = false;
         }
 
-        public override void Reset()
+        private void CreateTimer()
         {
-            base.Reset();
-
-            if(timer!=null)
-            {
-                StopTimer();
-
-                timer = null;
-
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
-            }
+            timer = new System.Timers.Timer();
+            //Execute the function every 10 seconds.
+            timer.Interval = 10000;
+            //Don't start automaticly the timer.
+            timer.AutoReset = false;
+            //Attach a function to handle.
+            timer.Elapsed += async (sender, e) => await Refresh();
+            //Start timer.
+            timer.Start();
         }
 
 
-		public async System.Threading.Tasks.Task Load()
-		{
-			var result = await App.Locator.ServiceClient.MyPackages();
-			if (result != null) {
-				PackagesList = result.Packages;
+        public async System.Threading.Tasks.Task Load()
+        {
+            var result = await App.Locator.ServiceClient.MyPackages();
+            if (result != null)
+            {
+                PackagesList = result.Packages;
 
-                if(timer==null){
+                if (timer == null)
+                {
                     isneedTimer = true;
 
-                    timer = new System.Timers.Timer();
-                    //Execute the function every 10 seconds.
-                    timer.Interval = 10000;
-                    //Don't start automaticly the timer.
-                    timer.AutoReset = false;
-                    //Attach a function to handle.
-                    timer.Elapsed += async (sender, e) => await Refresh();
-                    //Start timer.
-                    timer.Start();
+                    CreateTimer();
                 }
-			}
-		}
+            }
+        }
 
-        private async  System.Threading.Tasks.Task Refresh()
+        private async System.Threading.Tasks.Task Refresh()
         {
             var result = await App.Locator.ServiceClient.MyPackages();
 
-            if(result.Packages!=null)
+            if (result.Packages != null)
             {
                 var packages = result.Packages;
 
-                foreach (Package p1 in packages)
+                bool enabled = App.Locator.AccountService.ShowNotifications;
+
+                if(enabled)
                 {
-                    foreach (Package p2 in PackagesList)
+                    foreach (Package p1 in packages)
                     {
-                        if(p1.PaketId==p2.PaketId)
+                        foreach (Package p2 in PackagesList)
                         {
-                            if(p1.Status!=p2.Status)
+                            if (p1.PaketId == p2.PaketId)
                             {
+                                if (p1.Status != p2.Status)
+                                {
+#if __IOS__
+                                    Device.BeginInvokeOnMainThread(() => {
+                                        App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
+                                    });
+#else
                                 App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}",p1.FormattedStatus), false);
+#endif
+                                }
                             }
                         }
-                    }
+                    }  
                 }
 
                 PackagesList = packages;
@@ -127,6 +137,21 @@ namespace PaketGlobal
             if(isneedTimer)
             {
                 timer.Start();
+            }
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+
+            if (timer != null)
+            {
+                StopTimer();
+
+                timer = null;
+
+                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
+                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
             }
         }
 
