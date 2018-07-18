@@ -49,11 +49,11 @@
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
 
-            <Frame VerticalOptions="End" BackgroundColor="Black" Opacity="0.5" HasShadow="false" CornerRadius="0"
+            <Frame VerticalOptions="EndAndExpand" BackgroundColor="Black" Opacity="0.5" HasShadow="false" CornerRadius="0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-80}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-78}"
                           RelativeLayout.HeightConstraint="80">
-                               <Label HorizontalOptions="Center" HeightRequest="60" VerticalOptions="CenterAndExpand" x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="Scanning will happen automatically" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                               <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="Scanning will happen automatically" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
              </Frame>
 
             <BoxView VerticalOptions="Center" BackgroundColor="#D43F51"

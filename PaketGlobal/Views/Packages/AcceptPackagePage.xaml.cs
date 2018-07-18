@@ -8,7 +8,6 @@ namespace PaketGlobal
 	public partial class AcceptPackagePage : BasePage
 	{
 		bool cleaned;
-		bool scanned;
 		BarcodePackageData data;
 
 		private Package ViewModel {
@@ -40,19 +39,13 @@ namespace PaketGlobal
 			ConfigureScanner();
 
             App.Locator.DeviceService.setStausBarLight();
-
-            MessagingCenter.Subscribe<PackageDetailsPage, bool>(this, "AcceptPackage", (sender, arg) => {
-                OnBack(BackButton, null);
-            });
 		}
 
         private void OnBack(object sender, System.EventArgs e)
         {
             CleanUp();
 
-            MessagingCenter.Unsubscribe<PackageDetailsPage,bool>(this, "AcceptPackage");
-
-            Navigation.PopModalAsync();
+            Navigation.PopToRootAsync();
         }
 
 
@@ -60,14 +53,17 @@ namespace PaketGlobal
 		{
 			base.OnAppearing();
 
-			if (!scanned) StartScanning();
+            if (barcodeScaner.IsScanning==false) 
+                StartScanning();
 
             App.Locator.DeviceService.setStausBarLight();
 		}
 
 		protected override void OnDisappearing()
 		{
-			if (!scanned) StopScanning();
+            if (barcodeScaner.IsScanning==true) 
+                StopScanning();
+            
 			base.OnDisappearing();
 		}
 
@@ -96,7 +92,6 @@ namespace PaketGlobal
 						App.ShowLoading(true);
 
 						StopScanning();
-						scanned = true;
 
 						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
 						if (package != null && package.Package != null) {
