@@ -376,6 +376,12 @@
     <BundleResource Include="Resources\ok_icon%403x.png" />
     <BundleResource Include="Resources\ok_icon%402x.png" />
     <BundleResource Include="Resources\ok_icon.png" />
+    <BundleResource Include="Resources\eth_icon%403x.png" />
+    <BundleResource Include="Resources\eth_icon%402x.png" />
+    <BundleResource Include="Resources\eth_icon.png" />
+    <BundleResource Include="Resources\btc_icon%403x.png" />
+    <BundleResource Include="Resources\btc_icon%402x.png" />
+    <BundleResource Include="Resources\btc_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
