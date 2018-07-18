@@ -60,7 +60,9 @@ namespace PaketGlobal
 
 				App.ShowLoading(true);
 
-				var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, entryRecepient.Text, long.Parse(entryAmount.Text));
+                var recipientPubkey = entryRecepient.Text;                  //get recipient pubkey if user entered callsign                 if (recipientPubkey.Length != 56)                 {                     var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);                     if (recipientResult == null)                     {                         ShowMessage("Recipient not found");                          App.ShowLoading(false);                          return;                     }                     else                     {                         recipientPubkey = recipientResult.UserDetails.Pubkey;                     }                 }
+
+                var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipientPubkey, long.Parse(entryAmount.Text));
 				if (trans != null) {
 					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
