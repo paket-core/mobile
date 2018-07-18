@@ -44,6 +44,7 @@
         <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" 
                       Orientation="Horizontal"
                       Scrolled="WalletsScrolled"
+                        IsEnabled="false"
                       VerticalScrollBarVisibility="Never"
                       HorizontalScrollBarVisibility="Never"
                       RelativeLayout.XConstraint = "0"
