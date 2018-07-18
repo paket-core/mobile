@@ -495,6 +495,17 @@
     <AndroidResource Include="Resources\drawable-hdpi\ok_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ok_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ok_icon.png" />
+    <AndroidResource Include="Resources\drawable\eth_icon.png" />
+    <AndroidResource Include="Resources\drawable\btc_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\eth_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btc_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\eth_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btc_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\eth_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\btc_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\eth_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\btc_icon.png" />
+    <AndroidResource Include="Resources\layout\EntryLayoutTransparent.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
