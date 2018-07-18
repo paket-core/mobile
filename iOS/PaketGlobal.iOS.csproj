@@ -373,6 +373,9 @@
     <BundleResource Include="Resources\send_icon%403x.png" />
     <BundleResource Include="Resources\send_icon%402x.png" />
     <BundleResource Include="Resources\send_icon.png" />
+    <BundleResource Include="Resources\ok_icon%403x.png" />
+    <BundleResource Include="Resources\ok_icon%402x.png" />
+    <BundleResource Include="Resources\ok_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
