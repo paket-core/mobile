@@ -143,7 +143,10 @@ namespace PaketGlobal
             if (package != null)
             {
                 var packagePage = new PackageDetailsPage(package);
-                await Navigation.PushAsync(packagePage);
+
+                var mainPage = App.Current.MainPage;
+
+                await mainPage.Navigation.PushAsync(packagePage);
             }
             else
             {
@@ -157,26 +160,28 @@ namespace PaketGlobal
 
         #region Buttons Actions
 
-        private void LaunchPackageClicked(object sender, EventArgs e)
+        private async void LaunchPackageClicked(object sender, EventArgs e)
         {
             var newPackage = new Package()
             {
-                CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
-                RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+                //CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+                //RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);
-            Navigation.PushAsync(packagePage);
+          
+            var mainPage = App.Current.MainPage;
+
+            await mainPage.Navigation.PushAsync(packagePage);
         }
 
-        private void AcceptPackageClicked(object sender, EventArgs e)
+        private async void AcceptPackageClicked(object sender, EventArgs e)
         {
-            //var mainPage = (BottomBarPage)App.Current.MainPage;
             var packagePage = new AcceptPackagePage();
 
-            var navigationPage = new NavigationPage(packagePage); 
+            var mainPage = App.Current.MainPage;
 
-            Navigation.PushModalAsync(navigationPage);
+            await mainPage.Navigation.PushAsync(packagePage);
         }
 
         #endregion

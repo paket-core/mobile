@@ -62,7 +62,7 @@
                             <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
                              <ActivityIndicator x:Name="ActivityIndicatorBUL" IsVisible="true" IsRunning="true"
                       Color="#606686"
-                      HorizontalOptions="Start"/>
+                      HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20"/>
                     
                             <Button Clicked="ShowBULActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_bul_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
                         </StackLayout>
@@ -76,8 +76,8 @@
                             <Image Source="xlm_wallet_icon.png" HorizontalOptions="Start"/>
                             <Label Text="{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
                                               <ActivityIndicator x:Name="ActivityIndicatorXLM" IsVisible="true" IsRunning="true"
-                      Color="#606686"
-                      HorizontalOptions="Start"/>
+                      Color="#606686" 
+                      HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20"/>
                                     <Button Clicked="ShowXLMActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_xlm_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
                         </StackLayout>
                       </local:PaketFrameWithShadow>

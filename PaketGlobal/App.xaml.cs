@@ -31,7 +31,9 @@ namespace PaketGlobal
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 
 			if (Locator.Profile.Activated) {
-				MainPage = new MainPage();
+                var navigationPage = new NavigationPage(new MainPage()); 
+
+                MainPage = navigationPage;
 			} else {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
