@@ -5,24 +5,26 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-	public partial class WalletPage : BasePage
-	{
-		private WalletModel ViewModel {
-			get {
-				return BindingContext as WalletModel;
-			}
-		}
+    public partial class WalletPage : BasePage
+    {
+        private WalletModel ViewModel
+        {
+            get
+            {
+                return BindingContext as WalletModel;
+            }
+        }
 
         private Command PurchaseXLMTapCommand;
         private Command PurchaseBULTapCommand;
         private Command SendBULTapCommand;
 
 
-		public WalletPage()
-		{
-			InitializeComponent();
+        public WalletPage()
+        {
+            InitializeComponent();
 
-			BindingContext = App.Locator.Wallet;
+            BindingContext = App.Locator.Wallet;
 
             App.Locator.DeviceService.setStausBarLight();
 
@@ -31,23 +33,48 @@ namespace PaketGlobal
 #endif
 
             AddCommands();
-		}
+        }
 
         private void AddCommands()
         {
             PurchaseXLMTapCommand = new Command(() =>
             {
-                PurchaseXLMEntryViews.IsVisible = !PurchaseXLMEntryViews.IsVisible;
+                var visible = !PurchaseXLMEntryViews.IsVisible;
+                if (visible)
+                {
+                    ShowEntry(PurchaseXLMEntryViews);
+                }
+                else
+                {
+                    HideEntry(PurchaseXLMEntryViews);
+                }
             });
 
             PurchaseBULTapCommand = new Command(() =>
             {
-                PurchaseBULEntryViews.IsVisible = !PurchaseBULEntryViews.IsVisible;
+                var visible = !PurchaseBULEntryViews.IsVisible;
+                if (visible)
+                {
+                    ShowEntry(PurchaseBULEntryViews);
+                }
+                else
+                {
+                    HideEntry(PurchaseBULEntryViews);
+                }
             });
 
             SendBULTapCommand = new Command(() =>
             {
-                SendBULEntryViews.IsVisible = !SendBULEntryViews.IsVisible;
+                var visible = !SendBULEntryViews.IsVisible;
+                if (visible)
+                {
+                    ShowEntry(SendBULEntryViews);
+                }
+                else
+                {
+                    HideEntry(SendBULEntryViews);
+                }
+
             });
 
 
@@ -56,15 +83,53 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(SendBULStackView, SendBULTapCommand);
         }
 
+        private void ShowEntry(StackLayout stackLayout)
+        {
+            stackLayout.Opacity = 0;
+            stackLayout.Scale = 0.8;
+            stackLayout.IsVisible = true;
+            stackLayout.FadeTo(1, 500, Easing.SinIn);
+            stackLayout.ScaleTo(1, 250);
+
+            //System.Threading.Tasks.Task.Delay(2000);
+
+            //MainScrollView.ScrollToAsync(stackLayout, ScrollToPosition.End, true);
+        }
+
+        private void HideEntry(StackLayout stackLayout)
+        {
+            Action<double> callback = input => stackLayout.HeightRequest = input;
+
+            double startingHeight = stackLayout.Height;
+            double endingHeight = -30;
+            uint rate = 16;
+            uint length = 250;
+
+            Easing easing = Easing.CubicOut;
+#if __ANDROID__
+            stackLayout.Opacity = 0;
+#else
+            stackLayout.FadeTo(0, length, easing);
+#endif
+            stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                stackLayout.IsVisible = false;
+                stackLayout.HeightRequest = startingHeight;
+            });
+        }
+
+
 		protected async override void OnAppearing()
 		{
-			if (firstLoad) {
-				await LoadWallet();
-			}
-
             App.Locator.DeviceService.setStausBarLight();
 
-			base.OnAppearing();
+            var fl = firstLoad;
+
+            base.OnAppearing();
+
+            if (fl)
+            {
+                await LoadWallet();
+            }
 		}
 
 		private async System.Threading.Tasks.Task LoadWallet()
@@ -80,15 +145,6 @@ namespace PaketGlobal
 			//layoutActivity.IsVisible = false;
 		}
 
-		void PubkeyCompleted(object sender, System.EventArgs e)
-		{
-		//	entryAmount.Focus();
-		}
-
-		void BULsCompleted(object sender, System.EventArgs e)
-		{
-		//	entryAmount.Unfocus();
-		}
 
         private async void ReloadClicked(object sender, System.EventArgs e)
         {
@@ -183,6 +239,38 @@ namespace PaketGlobal
 				}
 			}
 		}
+
+        private void FieldCompleted(object sender, EventArgs e)
+        {
+            if (sender == EntryRecepient)
+            {
+                if (!ValidationHelper.ValidateNumber(EntryAmount.Text))
+                {
+                    EntryAmount.Focus();
+                }
+            }
+            else if (sender == EntryAmount)
+            {
+                if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
+                {
+                    EntryRecepient.Focus();
+                }
+            }
+            else if (sender == EntryAmountForBUL)
+            {
+                if (PickerBULCurrency.SelectedItem==null)
+                {
+                    PickerBULCurrency.Focus();
+                }
+            }
+            else if (sender == EntryAmountForXLM)
+            {
+                if (PickerXLMCurrency.SelectedItem == null)
+                {
+                    PickerXLMCurrency.Focus();
+                }
+            }
+        }
 
 		protected override bool IsValid()
 		{

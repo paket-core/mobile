@@ -166,6 +166,37 @@ namespace PaketGlobal
 
 #endregion
 
+        private void FieldCompleted(object sender, EventArgs e)
+        {
+            if(sender == entryUserName){
+                if (!ValidationHelper.ValidateTextField(entryFullName.Text))
+                {
+                    entryFullName.Focus();
+                }
+            }
+            else if (sender == entryFullName)
+            {
+                if (!ValidationHelper.ValidateTextField(entryPhoneNumber.Text))
+                {
+                    entryPhoneNumber.Focus();
+                }
+            }
+            else if (sender == entryPhoneNumber)
+            {
+                if (!ValidationHelper.ValidateTextField(entryUserAddress.Text))
+                {
+                    entryUserAddress.Focus();
+                }
+            }
+            else if (sender == entryUserAddress)
+            {
+                if(pickerCurrency.SelectedItem==null && IsAddedInfo==false)
+                {
+                    pickerCurrency.Focus();
+                }
+            }
+        }
+
         protected override bool IsValid()
         {
             if (!ValidationHelper.ValidateTextField(entryUserName.Text))
