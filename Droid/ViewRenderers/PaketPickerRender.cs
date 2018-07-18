@@ -55,6 +55,10 @@ namespace PaketGlobal.Droid
             {
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);
             }
+            else if (element.BackgroundV == 3)
+            {
+                Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutTransparent);
+            }
             else
             {
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutGray);

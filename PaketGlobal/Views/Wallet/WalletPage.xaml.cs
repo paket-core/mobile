@@ -201,6 +201,7 @@ namespace PaketGlobal
 
         private void DonePurchaseXLMClicked(object sender, EventArgs e)
         {
+            IconXLMCurrencyView.IsVisible = false;
             PickerXLMCurrency.SelectedItem = null;
             EntryAmountForXLM.Text = "";
 
@@ -213,13 +214,14 @@ namespace PaketGlobal
                 ShowMessage("Copied to clipboard");
             }
 
-            HideEntry(PurchaseBULEntryViews);
+            HideEntry(PurchaseXLMEntryViews);
         }
 
         private void DonePurchaseBULSClicked(object sender, EventArgs e)
         {
             PickerBULCurrency.SelectedItem = null;
             EntryAmountForBUL.Text = "";
+            IconBULCurrencyView.IsVisible = false;
 
             PurchaseBULSSuccessView.IsVisible = false;
             PurchaseBULMainView.IsVisible = true;
@@ -230,7 +232,7 @@ namespace PaketGlobal
                 ShowMessage("Copied to clipboard");
             }
 
-            HideEntry(PurchaseXLMEntryViews);
+            HideEntry(PurchaseBULEntryViews);
         }
 
 		private async void SendClicked(object sender, EventArgs e)
@@ -365,6 +367,44 @@ namespace PaketGlobal
                 if (PickerXLMCurrency.SelectedItem == null)
                 {
                     PickerXLMCurrency.Focus();
+                }
+            }
+        }
+
+        private void PickerUnfocused(object sender, EventArgs e){
+            if(sender==PickerBULCurrency)
+            {
+                if(PickerBULCurrency.SelectedItem!=null)
+                {
+                    IconBULCurrencyView.IsVisible = true;
+
+                    var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
+
+                    if(currency == PaymentCurrency.BTC)
+                    {
+                        IconBULCurrencyView.Source = "btc_icon.png"; 
+                    }
+                    else{
+                        IconBULCurrencyView.Source = "eth_icon.png";
+                    }
+                }
+            }
+            else if (sender == PickerXLMCurrency)
+            {
+                if (PickerXLMCurrency.SelectedItem != null)
+                {
+                    IconXLMCurrencyView.IsVisible = true;
+
+                    var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
+
+                    if (currency == PaymentCurrency.BTC)
+                    {
+                        IconXLMCurrencyView.Source = "btc_icon.png";
+                    }
+                    else
+                    {
+                        IconXLMCurrencyView.Source = "eth_icon.png";
+                    }
                 }
             }
         }

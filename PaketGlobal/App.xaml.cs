@@ -69,5 +69,26 @@ namespace PaketGlobal
 				UserDialogs.Instance.Loading().Hide();
 			}
 		}
-	}
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
+        }
+
+        protected override void OnSleep()
+        {
+            base.OnSleep();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStopApp", "");
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
+        }
+    }
 }
