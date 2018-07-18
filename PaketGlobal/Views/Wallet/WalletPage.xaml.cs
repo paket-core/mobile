@@ -19,6 +19,10 @@ namespace PaketGlobal
         private Command PurchaseBULTapCommand;
         private Command SendBULTapCommand;
 
+        private string PurchaseBullAddress = null;
+        private string PurchaseXlmAddress = null;
+
+
 
         public WalletPage()
         {
@@ -134,15 +138,15 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadWallet()
 		{
-			//layoutActivity.IsVisible = true;
-			//activityIndicator.IsRunning = true;
-
 			await ViewModel.Load();
 
-			//await layoutActivity.FadeTo(0);
-			//await contentWallet.FadeTo(1);
+            ActivityIndicatorBUL.IsRunning = false;
+            ActivityIndicatorBUL.IsVisible = false;
 
-			//layoutActivity.IsVisible = false;
+            ActivityIndicatorXLM.IsRunning = false;
+            ActivityIndicatorXLM.IsVisible = false;
+
+            RefreshButton.IsVisible = true;
 		}
 
 
@@ -166,14 +170,75 @@ namespace PaketGlobal
             Console.WriteLine("ShowBULActivityClicked");
         }
 
+        private void DoneSendBULSClicked(object sender, EventArgs e)
+        {
+            EntryRecepient.Text = "";
+            EntryAmount.Text = "";
+
+            SendBULSSuccessView.IsVisible = false;
+            SundBULSMainStackView.IsVisible = true;    
+        }
+
+        private void DonePurchaseXLMClicked(object sender, EventArgs e)
+        {
+            PickerXLMCurrency.SelectedItem = null;
+            EntryAmountForXLM.Text = "";
+
+            PurchaseXLMSuccessView.IsVisible = false;
+            PurchaseXLMMainView.IsVisible = true;
+
+            if (PurchaseXlmAddress != null)
+            {
+                App.Locator.ClipboardService.SendTextToClipboard(PurchaseXlmAddress);
+                ShowMessage("Copied to clipboard");
+            }  
+        }
+
+        private void DonePurchaseBULSClicked(object sender, EventArgs e)
+        {
+            PickerBULCurrency.SelectedItem = null;
+            EntryAmountForBUL.Text = "";
+
+            PurchaseBULSSuccessView.IsVisible = false;
+            PurchaseBULMainView.IsVisible = true;
+
+            if(PurchaseBullAddress != null)
+            {
+                App.Locator.ClipboardService.SendTextToClipboard(PurchaseBullAddress);
+                ShowMessage("Copied to clipboard");
+            }
+        }
+
 		private async void SendClicked(object sender, EventArgs e)
 		{
+
 			if (IsValid()) {
 				Unfocus();
 
 				App.ShowLoading(true);
 
-                var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, EntryRecepient.Text, long.Parse(EntryAmount.Text));
+                var recipientPubkey = EntryRecepient.Text;
+
+                //get recipient pubkey if user entered callsign
+                if (recipientPubkey.Length != 56)
+                {
+                    var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);
+                    if (recipientResult == null)
+                    {
+                        ShowMessage("Recipient not found");
+
+                        App.ShowLoading(false);
+
+                        return;
+                    }
+                    else
+                    {
+                        recipientPubkey = recipientResult.UserDetails.Pubkey;
+                    }
+                }
+
+
+                var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipientPubkey, long.Parse(EntryAmount.Text));
 				if (trans != null) {
 					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
@@ -181,12 +246,14 @@ namespace PaketGlobal
                     if (result != null) {
 						await ViewModel.Load();
 
-						ShowMessage("Funds sent successfully");
+                        SundBULSMainStackView.IsVisible = false;   
+                        SendBULSSuccessView.IsVisible = true;
 					} 
                     else {
 						ShowMessage("Error sending funds");
 					}
-				} else {
+				} 
+                else {
 					ShowMessage("Error sending funds");
 				}
 
@@ -206,11 +273,13 @@ namespace PaketGlobal
 				App.ShowLoading(false);
 
 				if (result != null) {
-					//labelAmountForBUL.Text = String.Format("Please send your {0} to this address to purchase your BULs", currency);
-					
-     //               entryBULAddress.Text = result.PaymentAddress;
+                    PurchaseBullAddress = result.PaymentAddress;
 
-					//await ViewHelper.ToggleViews(stackBULResult, stackBULPurchase);
+                    var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency,result.PaymentAddress);
+                    PurchaseBULSuccessLabel.Text = successString;
+
+                    PurchaseBULMainView.IsVisible = false;
+                    PurchaseBULSSuccessView.IsVisible = true;
 				} 
                 else {
 					ShowMessage("Error purchasing BULs");
@@ -230,9 +299,13 @@ namespace PaketGlobal
 				App.ShowLoading(false);
 
 				if (result != null) {
-					//labelAmountForXLM.Text = String.Format("Please send your {0} to this address to purchase your XLMs", currency);
-					//entryXLMAddress.Text = result.PaymentAddress;
-					//await ViewHelper.ToggleViews(stackXLMResult, stackXLMPurchase);
+                    PurchaseXlmAddress = result.PaymentAddress;
+
+                    var successString = String.Format("Please send your {0} to the address {1} to purchase your XLMs", currency, result.PaymentAddress);
+                    PurchaseXLMSuccessLabel.Text = successString;
+
+                    PurchaseXLMMainView.IsVisible = false;
+                    PurchaseXLMSuccessView.IsVisible = true;
 				} 
                 else {
 					ShowMessage("Error purchasing XLMs");
