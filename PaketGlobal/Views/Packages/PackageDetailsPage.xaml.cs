@@ -61,6 +61,7 @@ namespace PaketGlobal
                 AcceptButton.IsVisible = true;
                 PaymentInfoViewFrame.IsVisible = false;
                 EventsInfoViewFrame.IsVisible = false;
+                FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
                 AddEvents();
@@ -69,13 +70,7 @@ namespace PaketGlobal
 
         private async void OnBack(object sender, System.EventArgs e)
         {
-            if(CanAcceptPackage)
-            {
-                MessagingCenter.Send<PackageDetailsPage, bool>(this, "AcceptPackage", true);  
-            }
-            else{
-                await Navigation.PopAsync();
-            }
+            await Navigation.PopAsync();
         }
 
         private async void RefundClicked(object sender, System.EventArgs e)

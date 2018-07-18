@@ -392,6 +392,7 @@
     <Compile Include="Services\DeviceService.cs" />
     <Compile Include="ViewRenders\CellWithoutSelectionRender.cs" />
     <Compile Include="ViewRenders\BasePageRender.cs" />
+    <Compile Include="ViewRenders\PaketFrameWithShadow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

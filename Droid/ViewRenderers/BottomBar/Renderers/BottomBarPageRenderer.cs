@@ -32,12 +32,15 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
 using Xamarin.Forms;
+using Android.Views.InputMethods;
 
 [assembly: ExportRenderer (typeof (BottomBarPage), typeof (BottomBarPageRenderer))]
 namespace PaketGlobal.Droid
 {
     public class BottomBarPageRenderer : VisualElementRenderer<BottomBarPage>, IOnTabClickListener
 	{
+        private int changedTabsHeight = 0;
+
 		bool _disposed;
 		BottomNavigationBar.BottomBar _bottomBar;
 		FrameLayout _frameLayout;
@@ -208,12 +211,31 @@ namespace PaketGlobal.Droid
 		{
 			int width = r - l;
 			int height = b - t;
-         //   height = 2280;
+            //   height = 2280;
+
+            _bottomBar.HideShadow();
 
 			var context = Context;
 
 			_bottomBar.Measure (MeasureSpecFactory.MakeMeasureSpec (width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec (height, MeasureSpecMode.AtMost));
 			int tabsHeight = Math.Min (height, Math.Max (_bottomBar.MeasuredHeight, _bottomBar.MinimumHeight));
+
+            //if(changedTabsHeight!=tabsHeight)
+            //{
+            //    if(changedTabsHeight!=0)
+            //    {
+            //        if (changedTabsHeight > tabsHeight)
+            //        {
+            //            _bottomBar.Hide(false);
+            //        }
+            //        else
+            //        {
+            //            _bottomBar.Show(false);
+            //        }
+            //    }
+                   
+            //    changedTabsHeight = tabsHeight;            
+            //}
 
 			if (width > 0 && height > 0) {
 				_pageController.ContainerArea = new Rectangle(0, 0, context.FromPixels(width), context.FromPixels(_frameLayout.MeasuredHeight));

@@ -15,4 +15,9 @@ namespace PaketGlobal
             set { SetValue(TopCornersProperty, value); }
         }
     }
+
+    public class PaketFrameWithShadow : Frame
+    {
+
+    }
 }

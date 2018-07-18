@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -20,10 +20,10 @@
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="10">
-                        <local:PaketEntry x:Name="entryUserName" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryFullName"  BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryPhoneNumber" BackgroundV="1" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryUserAddress" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryFullName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="1" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
                         <local:PaketPicker x:Name="pickerCurrency" BackgroundV="1" SelectedItem="{Binding PaymentCurrency}" Title="Select Payment Currency" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type local:PaymentCurrency}">
