@@ -13,6 +13,7 @@ namespace PaketGlobal
 		bool Activated { get; set; }
 		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
 		void DeleteCredentials();
+        bool ShowNotifications { get; set; }
 	}
 
 	public interface IAppInfoService

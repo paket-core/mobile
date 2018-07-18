@@ -45,6 +45,14 @@ namespace PaketGlobal
             if (String.IsNullOrWhiteSpace(mnemonic)) {
                 MnemonicView.IsVisible = false;
 			}
+
+            if(App.Locator.AccountService.ShowNotifications)
+            {
+                KeysButton.Image = "swift_on.png";
+            }
+            else{
+                KeysButton.Image = "swift_off.png";
+            }
 		}
 
 		protected async override void OnAppearing()
@@ -93,6 +101,22 @@ namespace PaketGlobal
 			}
 		}
 
+        private void NotificationsClicked(object sender, System.EventArgs e)
+        {
+            bool enabled = !App.Locator.AccountService.ShowNotifications;
+
+            if (enabled)
+            {
+                NotificationsButton.Image = "swift_on.png";
+            }
+            else
+            {
+                NotificationsButton.Image = "swift_off.png";
+            }
+
+            App.Locator.AccountService.ShowNotifications = enabled;
+        }
+
         private void ShowClicked(object sender, System.EventArgs e)
         {
             IsShowSecret = !IsShowSecret;
@@ -101,12 +125,12 @@ namespace PaketGlobal
             {
                 SecretLabel.Text = App.Locator.Profile.Seed;
                 MnemonicLabel.Text = App.Locator.Profile.Mnemonic;
-                SwitchButton.Image = "swift_on.png";
+                KeysButton.Image = "swift_on.png";
             }
             else{
                 SecretLabel.Text = "•••••••••";
                 MnemonicLabel.Text = "•••••••••";
-                SwitchButton.Image = "swift_off.png";
+                KeysButton.Image = "swift_off.png";
             }
 
         }

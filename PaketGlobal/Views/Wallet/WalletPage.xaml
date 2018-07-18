@@ -1,287 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WalletPage"
-             xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
-                NavigationPage.HasNavigationBar="False"
-                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
-                xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
-
-    <xfg:ContentPageGloss.BackgroundGradient>
-        <xfg:Gradient Rotation="300" x:Name="Gradient">
-            <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
-            <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
-        </xfg:Gradient>
-    </xfg:ContentPageGloss.BackgroundGradient>
-    
-    <local:BasePage.Content>
+<local:BasePage xmlns:local="clr-namespace:PaketGlobal" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects" xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" x:Class="PaketGlobal.WalletPage" NavigationPage.HasNavigationBar="False">
+   <xfg:ContentPageGloss.BackgroundGradient>
+      <xfg:Gradient Rotation="300" x:Name="Gradient">
+         <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
+         <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
+      </xfg:Gradient>
+   </xfg:ContentPageGloss.BackgroundGradient>
+   <local:BasePage.Content>
+      <RelativeLayout>
+         <ScrollView x:Name="MainScrollView" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
             <RelativeLayout>
-
-            <ScrollView x:Name="MainScrollView" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-
-                
-                <RelativeLayout>
-                <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
-                     <Label x:Name="TitleLabel" Text="Wallet" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
-                               HorizontalOptions="StartAndExpand"
-                               VerticalOptions="Center"/>
+               <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                  <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
+                     <Label x:Name="TitleLabel" Text="Wallet" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                      <Button WidthRequest="28" x:Name="RefreshButton" IsVisible="false" Clicked="ReloadClicked" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
-                </StackLayout>
-                <Label Text="Your Balance" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" 
-                               HorizontalOptions="StartAndExpand"
-                               VerticalOptions="Center"/>
-                </StackLayout>
-
-
-       <BoxView x:Name="BackgroundView" BackgroundColor="#F0F0F0" 
-                      RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-200}"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
-        </BoxView>
-            
-        <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" 
-                      Orientation="Horizontal"
-                      Scrolled="WalletsScrolled"
-                        IsEnabled="false"
-                      VerticalScrollBarVisibility="Never"
-                      HorizontalScrollBarVisibility="Never"
-                      RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="150"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "160">
-
-                <StackLayout BackgroundColor="Transparent" HeightRequest="150" Orientation="Horizontal" Spacing="0">
-                      <BoxView WidthRequest="8" HeightRequest="150" BackgroundColor="Transparent">
-                      </BoxView>
-                    
-                      <local:PaketFrameWithShadow VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
+                  </StackLayout>
+                  <Label Text="Your Balance" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+               </StackLayout>
+               <BoxView x:Name="BackgroundView" BackgroundColor="#F0F0F0" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-200}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}" />
+               <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" Orientation="Horizontal" Scrolled="WalletsScrolled" IsEnabled="false" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="150" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="160">
+                  <StackLayout BackgroundColor="Transparent" HeightRequest="150" Orientation="Horizontal" Spacing="0">
+                     <BoxView WidthRequest="8" HeightRequest="150" BackgroundColor="Transparent" />
+                     <local:PaketFrameWithShadow VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
                         <StackLayout BackgroundColor="Transparent" Spacing="10">
-                            <Image Source="bul_wallet_icon.png" HorizontalOptions="Start"/>
-                            <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
-                             <ActivityIndicator x:Name="ActivityIndicatorBUL" IsVisible="true" IsRunning="true"
-                      Color="#606686"
-                      HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20"/>
-                    
-                            <Button Clicked="ShowBULActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_bul_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
+                           <Image Source="bul_wallet_icon.png" HorizontalOptions="Start" />
+                           <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black" />
+                           <ActivityIndicator x:Name="ActivityIndicatorBUL" IsVisible="true" IsRunning="true" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
+                           <Button Clicked="ShowBULActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_bul_button.png" VerticalOptions="Start" HorizontalOptions="Start" />
                         </StackLayout>
-                      </local:PaketFrameWithShadow>
-                        
-                        <BoxView WidthRequest="20" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent">
-                        </BoxView>
-
-                       <local:PaketFrameWithShadow VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
+                     </local:PaketFrameWithShadow>
+                     <BoxView WidthRequest="20" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent" />
+                     <local:PaketFrameWithShadow VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
                         <StackLayout BackgroundColor="Transparent" Spacing="10">
-                            <Image Source="xlm_wallet_icon.png" HorizontalOptions="Start"/>
-                            <Label Text="{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black"/>
-                                              <ActivityIndicator x:Name="ActivityIndicatorXLM" IsVisible="true" IsRunning="true"
-                      Color="#606686" 
-                      HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20"/>
-                                    <Button Clicked="ShowXLMActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_xlm_button.png" VerticalOptions="Start" HorizontalOptions="Start"/>
+                           <Image Source="xlm_wallet_icon.png" HorizontalOptions="Start" />
+                           <Label Text="{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black" />
+                           <ActivityIndicator x:Name="ActivityIndicatorXLM" IsVisible="true" IsRunning="true" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
+                           <Button Clicked="ShowXLMActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_xlm_button.png" VerticalOptions="Start" HorizontalOptions="Start" />
                         </StackLayout>
-                      </local:PaketFrameWithShadow>
-
-                      <BoxView WidthRequest="5" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent">
-                      </BoxView>
-                </StackLayout>
-        </ScrollView>
-
-        <StackLayout Padding="27,0,27,0" VerticalOptions="StartAndExpand"
-                     RelativeLayout.XConstraint = "0"
-                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                     RelativeLayout.YConstraint = "340">
-        <Label Text="Transactions" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black" 
-                               HorizontalOptions="StartAndExpand"
-               x:Name="TransactionsLabel"
-                               VerticalOptions="Start" IsVisible="false"/>
-        </StackLayout>
-            
-        <StackLayout x:Name="TransactionsBULScrollView" BackgroundColor="Transparent"
-                      Orientation="Vertical" IsVisible="false"
-                      VerticalOptions="StartAndExpand"
-                      RelativeLayout.XConstraint = "0"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "360">
-
-                
-        <StackLayout  Padding="10,20,10,20" Spacing="20" VerticalOptions="FillAndExpand">
-
-                    <local:PaketFrameWithShadow  CornerRadius="15" VerticalOptions="FillAndExpand" BackgroundColor="White" x:Name="SendBULFrameView">
-
-                                <StackLayout>
-                                             <StackLayout x:Name="SundBULSMainStackView" VerticalOptions="FillAndExpand" Spacing="30">
-                
-                     <StackLayout Orientation="Horizontal" Spacing="20"  x:Name="SendBULStackView" xe:TouchEffect.Color="Transparent">
-                         <Image VerticalOptions="Center" Source="send_icon.png"/>
-                         <Label VerticalOptions="Center" Text="Send BUL" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                     </StackLayout>
-
-                        <StackLayout x:Name="SendBULEntryViews" IsVisible="false" Spacing="20">
-                            <local:PaketEntry x:Name="EntryRecepient" IsSpellCheckEnabled="false" Completed="FieldCompleted" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Enter recipient" HeightRequest="40"/>
-                            <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5"  Keyboard="Numeric" Placeholder="Enter amount" HeightRequest="40"/>
-                            <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton"  Text="Send" Clicked="SendClicked" ButtonBackground="#4D64E8"/>
-                            </StackLayout>
-
-
-                                    
-                        </StackLayout>
-
-
-                        <StackLayout x:Name="SendBULSSuccessView" Spacing="30" IsVisible="false">
-                        <Image Source="ok_icon.png" HorizontalOptions="Center" ></Image>
-                        <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        <Label HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
-                        <local:PaketButton HorizontalOptions="Center" Text="Done" Clicked="DoneSendBULSClicked" ButtonBackground="#4D64E8"/>
-                          </StackLayout>
-                                    
-                                </StackLayout>
-
-         
-               
-                    </local:PaketFrameWithShadow>
-
-                    <local:PaketFrameWithShadow CornerRadius="15" BackgroundColor="White"  x:Name="PurchaseBULFrameView">
-
-                                <StackLayout>
-
-                                        <StackLayout x:Name="PurchaseBULMainView" VerticalOptions="FillAndExpand" Spacing="30">
-
-                                    <StackLayout Orientation="Horizontal" Spacing="20" xe:TouchEffect.Color="Transparent" x:Name="PurchaseBULStackView">
-                         <Image VerticalOptions="Center" Source="get_icon.png"/>
-                         <Label VerticalOptions="Center" Text="Purchase BUL" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        </StackLayout>
-
-                        <StackLayout x:Name="PurchaseBULEntryViews" IsVisible="false" Spacing="20">
-
-
-                                            <StackLayout Spacing="0">
-                              <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
-
-                              <Image IsVisible="false" VerticalOptions="Start" x:Name="IconBULCurrencyView" Source="btc_icon.png" HorizontalOptions="Start"/>
-                  
-
-                                <StackLayout  Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                                                 <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerBULCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
-                            <Picker.ItemsSource>
-                                <x:Array Type="{x:Type local:PaymentCurrency}">
-                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
-                                     <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                 </x:Array>
-                             </Picker.ItemsSource>
-                            </local:PaketPicker>
-                                         
-                                </StackLayout>
-                                                
+                     </local:PaketFrameWithShadow>
+                     <BoxView WidthRequest="5" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent" />
+                  </StackLayout>
+               </ScrollView>
+               <StackLayout Padding="27,0,27,0" VerticalOptions="StartAndExpand" RelativeLayout.XConstraint="0" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="340">
+                  <Label Text="Transactions" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black" HorizontalOptions="StartAndExpand" x:Name="TransactionsLabel" VerticalOptions="Start" IsVisible="false" />
+               </StackLayout>
+               <StackLayout x:Name="TransactionsBULScrollView" BackgroundColor="Transparent" Orientation="Vertical" IsVisible="false" VerticalOptions="StartAndExpand" RelativeLayout.XConstraint="0" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="360">
+                  <StackLayout Padding="10,20,10,20" Spacing="20" VerticalOptions="FillAndExpand">
+                     <local:PaketFrameWithShadow CornerRadius="15" VerticalOptions="FillAndExpand" BackgroundColor="White" x:Name="SendBULFrameView">
+                        <StackLayout>
+                           <StackLayout x:Name="SundBULSMainStackView" VerticalOptions="FillAndExpand" Spacing="30">
+                              <StackLayout Orientation="Horizontal" Spacing="20" x:Name="SendBULStackView" xe:TouchEffect.Color="Transparent">
+                                 <Image VerticalOptions="Center" Source="send_icon.png" />
+                                 <Label VerticalOptions="Center" Text="Send BUL" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
                               </StackLayout>
-
-                                                            <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                
-                                            </StackLayout>
-
-
-                            <local:PaketEntry x:Name="EntryAmountForBUL" Completed="FieldCompleted"  LineColor="#E5E5E5"  Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40"/>
-                            <local:PaketButton HorizontalOptions="Center"   Text="Purchase" Clicked="BuyBULClicked" ButtonBackground="#4D64E8"/>
-                            </StackLayout>
-                        </StackLayout>
-                                    
-                         <StackLayout x:Name="PurchaseBULSSuccessView" Spacing="25" IsVisible="false">
-                        <Image Source="ok_icon.png" HorizontalOptions="Center" ></Image>
-                        <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        <Label x:Name="PurchaseBULSuccessLabel" HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
-                        <local:PaketButton HorizontalOptions="Center" Text="Done &amp; Copy Address" Clicked="DonePurchaseBULSClicked" ButtonBackground="#4D64E8"/>
-                          </StackLayout>
-                                    
-                                </StackLayout>
-
-                        
-                                    
-                       
-                    </local:PaketFrameWithShadow>
-                    
-                </StackLayout>
-
-         </StackLayout>
-
-
-            <StackLayout x:Name="TransactionsXLMScrollView" BackgroundColor="Transparent"
-                      Orientation="Vertical"
-                      VerticalOptions="StartAndExpand"
-                      RelativeLayout.XConstraint = "0"
-                      Opacity = "0"
-                      IsVisible="false"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "360">
-
-
-                <StackLayout Padding="10,20,10,20" Spacing="20" VerticalOptions="Start">
-                    <local:PaketFrameWithShadow CornerRadius="15" x:Name="PurchaseXLMView" BackgroundColor="White">
-
-                  <StackLayout>
-                    <StackLayout x:Name="PurchaseXLMMainView" VerticalOptions="FillAndExpand" Spacing="30">
-
-                            <StackLayout Orientation="Horizontal" Spacing="20" x:Name="PurchaseXLMStackView">
-                         <Image VerticalOptions="Center" Source="get_icon.png"/>
-                         <Label VerticalOptions="Center" Text="Purchase XLM" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        </StackLayout>
-
-                        <StackLayout x:Name="PurchaseXLMEntryViews" IsVisible="false" Spacing="20">
-
-                                     <StackLayout Spacing="0">
-                              <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
-
-                              <Image IsVisible="false" VerticalOptions="Start" x:Name="IconXLMCurrencyView" Source="btc_icon.png" HorizontalOptions="Start"/>
-                  
-
-                                <StackLayout Spacing="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                                                 <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerXLMCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
-                            <Picker.ItemsSource>
-                                <x:Array Type="{x:Type local:PaymentCurrency}">
-                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
-                                     <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                 </x:Array>
-                             </Picker.ItemsSource>
-                            </local:PaketPicker>
-                                         
-                                </StackLayout>
-                                                
+                              <StackLayout x:Name="SendBULEntryViews" IsVisible="false" Spacing="20">
+                                 <local:PaketEntry x:Name="EntryRecepient" IsSpellCheckEnabled="false" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Enter recipient" HeightRequest="40" />
+                                 <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount" HeightRequest="40" />
+                                 <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="Send" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>
-
-                                                            <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                
-                                            </StackLayout>
-                                        
-                            <local:PaketEntry x:Name="EntryAmountForXLM" Completed="FieldCompleted" LineColor="#E5E5E5"  Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40"/>
-                            <local:PaketButton HorizontalOptions="Center"   Text="Purchase" Clicked="BuyXLMClicked" ButtonBackground="#4D64E8"/>
-                            </StackLayout>
+                           </StackLayout>
+                           <StackLayout x:Name="SendBULSSuccessView" Spacing="30" IsVisible="false">
+                              <Image Source="ok_icon.png" HorizontalOptions="Center" />
+                              <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
+                              <Label HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F" />
+                              <local:PaketButton HorizontalOptions="Center" Text="Done" Clicked="DoneSendBULSClicked" ButtonBackground="#4D64E8" />
+                           </StackLayout>
                         </StackLayout>
-
-                                              <StackLayout x:Name="PurchaseXLMSuccessView" Spacing="25" IsVisible="false">
-                        <Image Source="ok_icon.png" HorizontalOptions="Center" ></Image>
-                        <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        <Label x:Name="PurchaseXLMSuccessLabel" HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
-                        <local:PaketButton HorizontalOptions="Center" Text="Done &amp; Copy Address" Clicked="DonePurchaseXLMClicked" ButtonBackground="#4D64E8"/>
-                          </StackLayout>
-
-                                    
-                                </StackLayout>
-                                    
-
-
-                    </local:PaketFrameWithShadow>
-                    
-                </StackLayout>
-
-         </StackLayout>                    
-                </RelativeLayout>
-
-
-                
-            </ScrollView>
-
-                       
+                     </local:PaketFrameWithShadow>
+                     <local:PaketFrameWithShadow CornerRadius="15" BackgroundColor="White" x:Name="PurchaseBULFrameView">
+                        <StackLayout>
+                           <StackLayout x:Name="PurchaseBULMainView" VerticalOptions="FillAndExpand" Spacing="30">
+                              <StackLayout Orientation="Horizontal" Spacing="20" xe:TouchEffect.Color="Transparent" x:Name="PurchaseBULStackView">
+                                 <Image VerticalOptions="Center" Source="get_icon.png" />
+                                 <Label VerticalOptions="Center" Text="Purchase BUL" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
+                              </StackLayout>
+                              <StackLayout x:Name="PurchaseBULEntryViews" IsVisible="false" Spacing="20">
+                                 <StackLayout Spacing="0">
+                                    <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
+                                       <Image IsVisible="false" VerticalOptions="Start" x:Name="IconBULCurrencyView" Source="btc_icon.png" HorizontalOptions="Start" />
+                                       <StackLayout Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerBULCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
+                                             <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type local:PaymentCurrency}">
+                                                   <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                                                   <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                                                </x:Array>
+                                             </Picker.ItemsSource>
+                                          </local:PaketPicker>
+                                       </StackLayout>
+                                    </StackLayout>
+                                    <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                 </StackLayout>
+                                 <local:PaketEntry x:Name="EntryAmountForBUL" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40" />
+                                 <local:PaketButton HorizontalOptions="Center" Text="Purchase" Clicked="BuyBULClicked" ButtonBackground="#4D64E8" />
+                              </StackLayout>
+                           </StackLayout>
+                           <StackLayout x:Name="PurchaseBULSSuccessView" Spacing="25" IsVisible="false">
+                              <Image Source="ok_icon.png" HorizontalOptions="Center" />
+                              <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
+                              <Label x:Name="PurchaseBULSuccessLabel" HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F" />
+                              <local:PaketButton HorizontalOptions="Center" Text="Done &amp; Copy Address" Clicked="DonePurchaseBULSClicked" ButtonBackground="#4D64E8" />
+                           </StackLayout>
+                        </StackLayout>
+                     </local:PaketFrameWithShadow>
+                  </StackLayout>
+               </StackLayout>
+               <StackLayout x:Name="TransactionsXLMScrollView" BackgroundColor="Transparent" Orientation="Vertical" VerticalOptions="StartAndExpand" RelativeLayout.XConstraint="0" Opacity="0" IsVisible="false" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="360">
+                  <StackLayout Padding="10,20,10,20" Spacing="20" VerticalOptions="Start">
+                     <local:PaketFrameWithShadow CornerRadius="15" x:Name="PurchaseXLMView" BackgroundColor="White">
+                        <StackLayout>
+                           <StackLayout x:Name="PurchaseXLMMainView" VerticalOptions="FillAndExpand" Spacing="30">
+                              <StackLayout Orientation="Horizontal" Spacing="20" x:Name="PurchaseXLMStackView">
+                                 <Image VerticalOptions="Center" Source="get_icon.png" />
+                                 <Label VerticalOptions="Center" Text="Purchase XLM" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
+                              </StackLayout>
+                              <StackLayout x:Name="PurchaseXLMEntryViews" IsVisible="false" Spacing="20">
+                                 <StackLayout Spacing="0">
+                                    <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
+                                       <Image IsVisible="false" VerticalOptions="Start" x:Name="IconXLMCurrencyView" Source="btc_icon.png" HorizontalOptions="Start" />
+                                       <StackLayout Spacing="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
+                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerXLMCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
+                                             <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type local:PaymentCurrency}">
+                                                   <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                                                   <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                                                </x:Array>
+                                             </Picker.ItemsSource>
+                                          </local:PaketPicker>
+                                       </StackLayout>
+                                    </StackLayout>
+                                    <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                 </StackLayout>
+                                 <local:PaketEntry x:Name="EntryAmountForXLM" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40" />
+                                 <local:PaketButton HorizontalOptions="Center" Text="Purchase" Clicked="BuyXLMClicked" ButtonBackground="#4D64E8" />
+                              </StackLayout>
+                           </StackLayout>
+                           <StackLayout x:Name="PurchaseXLMSuccessView" Spacing="25" IsVisible="false">
+                              <Image Source="ok_icon.png" HorizontalOptions="Center" />
+                              <Label HorizontalOptions="Center" XAlign="Center" Text="Transaction Completed" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
+                              <Label x:Name="PurchaseXLMSuccessLabel" HorizontalOptions="Center" XAlign="Center" Text="Your transaction has been successfully processed. Thank you" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F" />
+                              <local:PaketButton HorizontalOptions="Center" Text="Done &amp; Copy Address" Clicked="DonePurchaseXLMClicked" ButtonBackground="#4D64E8" />
+                           </StackLayout>
+                        </StackLayout>
+                     </local:PaketFrameWithShadow>
+                  </StackLayout>
+               </StackLayout>
             </RelativeLayout>
-    </local:BasePage.Content>
-
-    
+         </ScrollView>
+      </RelativeLayout>
+   </local:BasePage.Content>
 </local:BasePage>
