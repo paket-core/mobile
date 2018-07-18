@@ -491,6 +491,10 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\send_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\get_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\send_icon.png" />
+    <AndroidResource Include="Resources\drawable\ok_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ok_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ok_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ok_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
