@@ -147,6 +147,11 @@ namespace PaketGlobal
             ActivityIndicatorXLM.IsVisible = false;
 
             RefreshButton.IsVisible = true;
+
+            TransactionsBULScrollView.IsVisible = true;
+            TransactionsLabel.IsVisible = true;
+
+            TopScrollView.IsEnabled = true;
 		}
 
 
