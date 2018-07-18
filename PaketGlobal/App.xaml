@@ -53,7 +53,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="WizardButton" TargetType="xlabs:ExtendedButton" BasedOn="{StaticResource ButtonStyle}">
+            <Style x:Key="WizardButton" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
                 <Setter Property="BackgroundColor" Value="#57c3c4" />
             </Style>
             <Style x:Key="DateButtonStyle" TargetType="Button">
@@ -68,7 +68,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="DateButton" TargetType="xlabs:ExtendedButton" BasedOn="{StaticResource DateButtonStyle}">
+            <Style x:Key="DateButton" TargetType="Button" BasedOn="{StaticResource DateButtonStyle}">
                 <Setter Property="BackgroundColor" Value="#FFFFFF"/>
                 <Setter Property="BorderColor" Value="#4D64E8"/>
                 <Setter Property="BorderWidth" Value="1" />

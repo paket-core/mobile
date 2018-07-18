@@ -22,14 +22,14 @@ namespace PaketGlobal.iOS
             base.LayoutSubviews();
 
             if(BottomBorder==null){
-                if (this.Frame.Size.Width!=0){
+                if (this.Frame.Size.Width > 0){
                     var textField = this.Control;
                     var element = (PaketPicker)this.Element;
 
                     BottomBorder = new CALayer
                     {
-                        Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width-8, 1.0f),
-                        BorderWidth = 2.0f,
+                        Frame = new CGRect(0.0f, element.HeightRequest - 1, this.Frame.Width, 1.0f),
+                        BorderWidth = 1.0f,
                         BorderColor = element.LineColor.ToCGColor()
                     };
 
@@ -54,11 +54,11 @@ namespace PaketGlobal.iOS
                 {
                     case ImageAlignment.Left:
                         textField.LeftViewMode = UITextFieldViewMode.Always;
-                        textField.LeftView = GetImageView(element.Image);
+                        textField.LeftView = GetImageView(element.Image, element.ImageWidth, element.ImageHeight);
                         break;
                     case ImageAlignment.Right:
                         textField.RightViewMode = UITextFieldViewMode.Always;
-                        textField.RightView = GetImageView(element.Image);
+                        textField.RightView = GetImageView(element.Image, element.ImageWidth, element.ImageHeight);
                         break;
                 }
             }
@@ -68,11 +68,13 @@ namespace PaketGlobal.iOS
             textField.TextColor = Xamarin.Forms.Color.FromHex("#555555").ToUIColor();
         }
 
-        private UIView GetImageView(string imagePath)
+        private UIView GetImageView(string imagePath, int height, int width)
         {
             var uiImageView = new UIImageView(UIImage.FromBundle(imagePath))
             {
             };
+            //UIView objLeftView = new UIView(new System.Drawing.Rectangle(0, 0, uiImageView.Frame.Size.Width + 5, uiImageView.Frame.Size.Height));
+            //objLeftView.AddSubview(uiImageView);
 
             return uiImageView;
         }

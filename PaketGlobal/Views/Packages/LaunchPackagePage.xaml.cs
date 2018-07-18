@@ -184,9 +184,36 @@ namespace PaketGlobal
             }
         }
 
-        private void FieldCompleted(object sender, System.EventArgs e)
+        private void FieldCompleted(object sender, EventArgs e)
         {
-            
+            if (sender == EntryRecepient)
+            {
+                if (!ValidationHelper.ValidateTextField(EntryCourier.Text))
+                {
+                    EntryCourier.Focus();
+                }
+            }
+            else if (sender == EntryCourier)
+            {
+                if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
+                {
+                    EntryRecepient.Focus();
+                }
+            }
+            else if (sender == EntryPayment)
+            {
+                if (!ValidationHelper.ValidateNumber(EntryCollateral.Text))
+                {
+                    EntryCollateral.Focus();
+                }
+            }
+            else if (sender == EntryCollateral)
+            {
+                if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
+                {
+                    EntryPayment.Focus();
+                }
+            }
         }
 
         protected override bool IsValid()
