@@ -89,31 +89,31 @@ namespace PaketGlobal
 
         private void OnListViewScrolled(object sender, ScrolledEventArgs args)
         {
-            var yOffset = args.ScrollY;
+            //var yOffset = args.ScrollY;
 
-            if (yOffset < 0)
-            {
-                yOffset = 0;
-            }
-            else if (yOffset > MaxOffset)
-            {
-                yOffset = MaxOffset;
-            }
+            //if (yOffset < 0)
+            //{
+            //    yOffset = 0;
+            //}
+            //else if (yOffset > MaxOffset)
+            //{
+            //    yOffset = MaxOffset;
+            //}
 
-            PakagesView.TranslateTo(0, (yOffset * (-1)));
+            //PakagesView.TranslateTo(0, (yOffset * (-1)));
 
-            HeaderView.Opacity = 1 - (yOffset / MaxOffset);
+            //HeaderView.Opacity = 1 - (yOffset / MaxOffset);
 
-            if (HeaderView.Opacity < 0.4f)
-            {
-                RightButtons.Opacity = TitleLabel.Opacity = (yOffset / MaxOffset);
-            }
-            else
-            {
-                RightButtons.Opacity = TitleLabel.Opacity = 0;
-            }
+            //if (HeaderView.Opacity < 0.4f)
+            //{
+            //    RightButtons.Opacity = TitleLabel.Opacity = (yOffset / MaxOffset);
+            //}
+            //else
+            //{
+            //    RightButtons.Opacity = TitleLabel.Opacity = 0;
+            //}
 
-            RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
+            //RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
         }
 
         private async Task LoadPackages()

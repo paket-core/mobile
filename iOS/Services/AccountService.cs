@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Foundation;
+
 using Xamarin.Auth;
 
 namespace PaketGlobal.iOS
@@ -60,6 +62,25 @@ namespace PaketGlobal.iOS
 				}
 			}
 		}
+
+        public bool ShowNotifications
+        {
+            get
+            {
+                string value = NSUserDefaults.StandardUserDefaults.StringForKey("Notifications"); 
+
+                if (value==null)
+                {
+                    return true;
+                }
+
+                return NSUserDefaults.StandardUserDefaults.BoolForKey("Notifications");
+            }
+            set{
+                NSUserDefaults.StandardUserDefaults.SetBool(value, "Notifications");
+                NSUserDefaults.StandardUserDefaults.Synchronize();
+            }
+        }
 
 		public bool Activated {
 			get {
