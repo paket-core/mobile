@@ -235,7 +235,7 @@ namespace PaketGlobal
             HideEntry(PurchaseBULEntryViews);
         }
 
-		private async void SendClicked(object sender, EventArgs e)
+        private async void SendClicked(object sender, EventArgs e)
 		{
 
 			if (IsValid()) {
@@ -263,25 +263,36 @@ namespace PaketGlobal
                     }
                 }
 
+                try{
+                    double amount = double.Parse(EntryAmount.Text);
 
-                var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipientPubkey, long.Parse(EntryAmount.Text));
-				if (trans != null) {
-					var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-					var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
-					
-                    if (result != null) {
-						await ViewModel.Load();
+                    var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipientPubkey, amount);
+                    if (trans != null)
+                    {
+                        var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
+                        var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
 
-                        SundBULSMainStackView.IsVisible = false;   
-                        SendBULSSuccessView.IsVisible = true;
-					} 
-                    else {
-						ShowMessage("Error sending funds");
-					}
-				} 
-                else {
-					ShowMessage("Error sending funds");
-				}
+                        if (result != null)
+                        {
+                            await ViewModel.Load();
+
+                            SundBULSMainStackView.IsVisible = false;
+                            SendBULSSuccessView.IsVisible = true;
+                        }
+                        else
+                        {
+                            ShowMessage("Error sending funds");
+                        }
+                    }
+                    else
+                    {
+                        ShowMessage("Error sending funds");
+                    }  
+                }
+                catch (Exception exc)
+                {
+                    ShowMessage(exc.Message);
+                }
 
 				App.ShowLoading(false);
 		    }
@@ -290,52 +301,72 @@ namespace PaketGlobal
         private async void BuyBULClicked(object sender, System.EventArgs e)
 		{
 			if (IsValid(SpendCurrency.BUL)) {
-				App.ShowLoading(true);
 
-				var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
-                var amount = long.Parse(EntryAmountForBUL.Text) * 100;
-				var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
+                try{
+                    App.ShowLoading(true);
 
-				App.ShowLoading(false);
+                    var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
 
-				if (result != null) {
-                    PurchaseBullAddress = result.PaymentAddress;
+                    double amount = double.Parse(EntryAmountForBUL.Text);
 
-                    var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency,result.PaymentAddress);
-                    PurchaseBULSuccessLabel.Text = successString;
+                    var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
 
-                    PurchaseBULMainView.IsVisible = false;
-                    PurchaseBULSSuccessView.IsVisible = true;
-				} 
-                else {
-					ShowMessage("Error purchasing BULs");
-				}
+                    if (result != null)
+                    {
+                        PurchaseBullAddress = result.PaymentAddress;
+
+                        var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency, result.PaymentAddress);
+                        PurchaseBULSuccessLabel.Text = successString;
+
+                        PurchaseBULMainView.IsVisible = false;
+                        PurchaseBULSSuccessView.IsVisible = true;
+                    }
+                    else
+                    {
+                        ShowMessage("Error purchasing BULs");
+                    }  
+                }
+                catch(Exception)
+                {
+                    ShowMessage("Error purchasing BULs");
+                }
+
+                App.ShowLoading(false);
 			}
 		}
 
 		private async void BuyXLMClicked(object sender, System.EventArgs e)
 		{
 			if (IsValid(SpendCurrency.XLM)) {
-				App.ShowLoading(true);
+                try{
+                    App.ShowLoading(true);
 
-				var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
-                var amount = long.Parse(EntryAmountForXLM.Text) * 100;
-				var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
+                    var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
+                    var amount = double.Parse(EntryAmountForXLM.Text);
+                    var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
 
-				App.ShowLoading(false);
+                    if (result != null)
+                    {
+                        PurchaseXlmAddress = result.PaymentAddress;
 
-				if (result != null) {
-                    PurchaseXlmAddress = result.PaymentAddress;
+                        var successString = String.Format("Please send your {0} to the address {1} to purchase your XLMs", currency, result.PaymentAddress);
+                        PurchaseXLMSuccessLabel.Text = successString;
 
-                    var successString = String.Format("Please send your {0} to the address {1} to purchase your XLMs", currency, result.PaymentAddress);
-                    PurchaseXLMSuccessLabel.Text = successString;
+                        PurchaseXLMMainView.IsVisible = false;
+                        PurchaseXLMSuccessView.IsVisible = true;
+                    }
+                    else
+                    {
+                        ShowMessage("Error purchasing XLMs");
+                    }
 
-                    PurchaseXLMMainView.IsVisible = false;
-                    PurchaseXLMSuccessView.IsVisible = true;
-				} 
-                else {
-					ShowMessage("Error purchasing XLMs");
-				}
+                }
+                catch(Exception)
+                {
+                    ShowMessage("Error purchasing XLMs");
+                }
+
+                App.ShowLoading(false);
 			}
 		}
 

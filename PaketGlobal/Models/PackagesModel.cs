@@ -29,62 +29,66 @@ namespace PaketGlobal
         {
             MessagingCenter.Subscribe<string, string>("MyApp", "OnStartApp", (sender, arg) =>
             {
-                if (timer != null)
-                {
-                    StartTimer();
-                }
+                StartTimer();
             });
 
             MessagingCenter.Subscribe<string, string>("MyApp", "OnStopApp", (sender, arg) =>
             {
-                if (timer != null)
-                {
-                    StopTimer();
-                }
+                StopTimer();
             });
 
             MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) =>
             {
-                if (timer != null)
-                {
-                    StopTimer();
-
-                    timer = null;
-                }
+                StopTimer();
             });
         }
 
         private void StartTimer()
         {
-            isneedTimer = true;
-            timer.Enabled = true;
-            timer.Start();
+            if(timer!=null)
+            {
+                isneedTimer = true;
+                timer.Enabled = true;
+                timer.Start();  
+            }
+            else{
+                CreateTimer();
+            }
         }
 
         private void StopTimer()
         {
-            isneedTimer = false;
-            timer.Close();
-            timer.Stop();
-            timer.Enabled = false;
+            if(timer!=null)
+            {
+                isneedTimer = false;
+                timer.Close();
+                timer.Stop();
+                timer.Enabled = false;
+                timer = null;
+            }
         }
 
         private void CreateTimer()
         {
-            timer = new System.Timers.Timer();
-            //Execute the function every 10 seconds.
-            timer.Interval = 10000;
-            //Don't start automaticly the timer.
-            timer.AutoReset = false;
-            //Attach a function to handle.
-            timer.Elapsed += async (sender, e) => await Refresh();
-            //Start timer.
-            timer.Start();
+            if(timer==null)
+            {
+                timer = new System.Timers.Timer();
+                //Execute the function every 10 seconds.
+                timer.Interval = 10000;
+                //Don't start automaticly the timer.
+                timer.AutoReset = false;
+                //Attach a function to handle.
+                timer.Elapsed += async (sender, e) => await Refresh();
+                //Start timer.
+                timer.Start();
+            }
         }
 
 
         public async System.Threading.Tasks.Task Load()
         {
+            StopTimer();
+
             var result = await App.Locator.ServiceClient.MyPackages();
             if (result != null)
             {
@@ -126,10 +130,10 @@ namespace PaketGlobal
                                 if (enabled)
                                 {
 #if __IOS__
-                                    Device.BeginInvokeOnMainThread(() => {
-                                        App.Locator.NotificationService.ShowNotification(p1);
+                                    //Device.BeginInvokeOnMainThread(() => {
+                                      //  App.Locator.NotificationService.ShowNotification(p1);
                                         //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
-                                    });
+                                    //});
 #else
                                     App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
 #endif
@@ -137,6 +141,18 @@ namespace PaketGlobal
                             }
                         }
                     }
+                }
+
+                if (PackagesList.Count < packages.Count && enabled)
+                {
+#if __IOS__
+                                   // Device.BeginInvokeOnMainThread(() => {
+                                        //App.Locator.NotificationService.ShowNotification(p1);
+                                        //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
+                                    //});
+#else
+                    App.Locator.NotificationService.ShowMessage("A new package is available", false);
+#endif 
                 }
 
                 PackagesList = packages;
@@ -155,8 +171,6 @@ namespace PaketGlobal
             if (timer != null)
             {
                 StopTimer();
-
-                timer = null;
 
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
