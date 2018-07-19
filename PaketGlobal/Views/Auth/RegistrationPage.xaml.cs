@@ -103,9 +103,13 @@ namespace PaketGlobal
                                                                    kd.MnemonicString);
 
 
+                               // var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
                                 var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
+
                                 if (createResult != null)
                                 {
+                                    App.ShowLoading(false);
+
                                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
                                 }
                                 else
@@ -150,6 +154,9 @@ namespace PaketGlobal
                     var trusted = await StellarHelper.CheckTokenTrusted();
                     if (trusted)
                     {
+
+                        App.ShowLoading(false);
+
                         App.Locator.Profile.Activated = true;
 
                         var navigationPage = new NavigationPage(new MainPage()); 
@@ -161,6 +168,8 @@ namespace PaketGlobal
                         var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
                         if (added)
                         {
+                            App.ShowLoading(false);
+
                             App.Locator.Profile.Activated = true;
 
                             var navigationPage = new NavigationPage(new MainPage());
