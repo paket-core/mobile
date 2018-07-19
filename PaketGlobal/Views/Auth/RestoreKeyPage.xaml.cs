@@ -11,14 +11,12 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-          //  entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
+           // entrySecretKey.Text = "SAW36MQCTVNGMSW352LZP6YVRN3KBZRDL5ATHSQTG6WQE3BAZDIA6JXB";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
                 if (App.Locator.Profile.UserName != null)
                 {
-                    App.ShowLoading(true);
-
                     CheckActivation();
                 }
             }

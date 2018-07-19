@@ -29,13 +29,13 @@ namespace PaketGlobal
 
 			//Check launcher's balance
 			var launcherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
-			if (launcherBalance == null || launcherBalance.BalanceBUL < paymentBuls) {
+            if (launcherBalance == null || launcherBalance.BalanceBUL < payment) {
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
 			//Check courier's balance
 			var courierBalance = await App.Locator.ServiceClient.Balance(courierPubkey);
-			if (courierBalance == null || launcherBalance.BalanceBUL < collateralBuls) {
+            if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
 			}
 
