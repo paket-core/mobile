@@ -49,7 +49,7 @@
                       SeparatorVisibility="None" RowHeight="150" VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-205}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-210}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
                 <ListView.ItemTemplate>

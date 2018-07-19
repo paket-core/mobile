@@ -10,6 +10,7 @@ namespace PaketGlobal
     {
         private System.Timers.Timer timer;
         private bool isneedTimer = false;
+        public string CurrentDisplayPackageId = "";
 
         private List<Package> packagesList = new List<Package>();
 
@@ -108,15 +109,21 @@ namespace PaketGlobal
 
                 bool enabled = App.Locator.AccountService.ShowNotifications;
 
-                if(enabled)
+
+                foreach (Package p1 in packages)
                 {
-                    foreach (Package p1 in packages)
+                    foreach (Package p2 in PackagesList)
                     {
-                        foreach (Package p2 in PackagesList)
+                        if (p1.PaketId == p2.PaketId)
                         {
-                            if (p1.PaketId == p2.PaketId)
+                            if (p1.Status != p2.Status)
                             {
-                                if (p1.Status != p2.Status)
+                                if (p1.PaketId == CurrentDisplayPackageId)
+                                {
+                                    MessagingCenter.Send(this, "CurrentDisplayPackageChanged", p1);
+                                }
+
+                                if (enabled)
                                 {
 #if __IOS__
                                     Device.BeginInvokeOnMainThread(() => {
@@ -124,18 +131,18 @@ namespace PaketGlobal
                                         //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
                                     });
 #else
-                                App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}",p1.FormattedStatus), false);
+                                    App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
 #endif
                                 }
                             }
                         }
-                    }  
+                    }
                 }
 
                 PackagesList = packages;
             }
 
-            if(isneedTimer)
+            if (isneedTimer)
             {
                 timer.Start();
             }
@@ -153,9 +160,9 @@ namespace PaketGlobal
 
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
-                MessagingCenter.Unsubscribe<Workspace, bool>(this,"Logout");
+                MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
             }
         }
 
-	}
+    }
 }

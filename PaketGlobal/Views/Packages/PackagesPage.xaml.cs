@@ -84,6 +84,8 @@ namespace PaketGlobal
             {
                 PlacholderLabel.IsVisible = false;
             }
+
+            ViewModel.CurrentDisplayPackageId = "";
         }
 
 
@@ -142,6 +144,8 @@ namespace PaketGlobal
             var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
             if (package != null)
             {
+                ViewModel.CurrentDisplayPackageId = pkgData.PaketId;
+
                 var packagePage = new PackageDetailsPage(package);
 
                 var mainPage = App.Current.MainPage;
