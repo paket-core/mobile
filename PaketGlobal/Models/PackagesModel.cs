@@ -120,7 +120,8 @@ namespace PaketGlobal
                                 {
 #if __IOS__
                                     Device.BeginInvokeOnMainThread(() => {
-                                        App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
+                                        App.Locator.NotificationService.ShowNotification(p1);
+                                        //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
                                     });
 #else
                                 App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}",p1.FormattedStatus), false);
@@ -152,6 +153,7 @@ namespace PaketGlobal
 
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
+                MessagingCenter.Unsubscribe<Workspace, bool>(this,"Logout");
             }
         }
 

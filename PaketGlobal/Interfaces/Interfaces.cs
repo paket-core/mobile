@@ -26,6 +26,7 @@ namespace PaketGlobal
 	public interface INotificationService
 	{
 		void ShowMessage(string text, bool lengthLong = false);
+        void ShowNotification(Package package);
 	}
 
 	public interface IScreenScale
