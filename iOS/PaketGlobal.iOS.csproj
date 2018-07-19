@@ -402,6 +402,10 @@
     <Compile Include="ViewRenders\CellWithoutSelectionRender.cs" />
     <Compile Include="ViewRenders\BasePageRender.cs" />
     <Compile Include="ViewRenders\PaketFrameWithShadow.cs" />
+    <Compile Include="ViewRenders\BannerView.cs" />
+    <Compile Include="ViewRenders\BannerView.designer.cs">
+      <DependentUpon>BannerView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -410,6 +414,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="ViewRenders\BannerViewNib.xib" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
