@@ -122,8 +122,10 @@ namespace PaketGlobal
             {
                 Unfocus();
 
-                await WithProgressButton(LaunchButton, async () =>
-                {
+                App.ShowLoading(true);
+
+                //await WithProgressButton(LaunchButton, async () =>
+                //{
                     var vm = ViewModel;
 
                     var escrowKP = KeyPair.Random();
@@ -138,6 +140,9 @@ namespace PaketGlobal
                         if (recipientResult == null)
                         {
                             ShowMessage("Recipient not found");
+
+                            App.ShowLoading(false);
+
                             return;
                         }
                         else
@@ -153,6 +158,9 @@ namespace PaketGlobal
                         if (courierResult == null)
                         {
                             ShowMessage("Courier not found");
+
+                            App.ShowLoading(false);
+
                             return;
                         }
                         else
@@ -161,9 +169,10 @@ namespace PaketGlobal
                         }
                     }
 
- 
-                    long payment = Convert.ToInt64(Convert.ToDecimal(EntryPayment.Text));
-                    long collateral = Convert.ToInt64(Convert.ToDecimal(EntryCollateral.Text));
+
+                try{
+                    double payment = double.Parse(EntryPayment.Text);
+                    double collateral = double.Parse(EntryCollateral.Text);
 
                     var result = await StellarHelper.LaunchPackage(escrowKP, recipientPubkey, vm.Deadline, courierPubkey, payment, collateral);
 
@@ -178,9 +187,14 @@ namespace PaketGlobal
                     {
                         ShowError(result);
                     }
+                }
+                catch (Exception exc)
+                {
+                    ShowMessage(exc.Message);
+                }
 
-                    App.ShowLoading(false);
-                });
+                App.ShowLoading(false);
+             //   });
             }
         }
 

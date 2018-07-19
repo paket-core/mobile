@@ -118,15 +118,15 @@
                                         <Label TextColor="Black" Text="FUNDS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#A7A7A7" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                <Label TextColor="#A7A7A7" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>

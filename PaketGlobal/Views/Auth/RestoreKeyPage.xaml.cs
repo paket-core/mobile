@@ -11,13 +11,13 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           // entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
+          //  entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
                 if (App.Locator.Profile.UserName != null)
                 {
-                    restoreButton.IsBusy = true;
+                    App.ShowLoading(true);
 
                     CheckActivation();
                 }
@@ -43,8 +43,10 @@ namespace PaketGlobal
             {
                 Unfocus();
 
-                await WithProgressButton(restoreButton, async () =>
-                {
+                App.ShowLoading(true);
+
+              //  await WithProgressButton(restoreButton, async () =>
+              //  {
                     try
                     {
                         Profile.KeyData kd;
@@ -75,6 +77,9 @@ namespace PaketGlobal
                         }
                         else
                         {
+
+                        App.ShowLoading(false);
+
                             var page = new RegistrationPage(true);
 
                             await Navigation.PushAsync(page, true);
@@ -82,13 +87,16 @@ namespace PaketGlobal
                     }
                     catch (Exception ex)
                     {
+
+                         App.ShowLoading(false);
+
                         System.Diagnostics.Debug.WriteLine(ex);
 
                         App.Locator.Profile.KeyPair = null;
 
                         ShowMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
                     }
-                });
+               // });
             }
         }
 #endregion
@@ -97,8 +105,8 @@ namespace PaketGlobal
         {
             Unfocus();
 
-            await WithProgressButton(restoreButton, async () =>
-            {
+          //  await WithProgressButton(restoreButton, async () =>
+           // {
                 var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
 
                 if (created)
@@ -106,6 +114,8 @@ namespace PaketGlobal
                     var trusted = await StellarHelper.CheckTokenTrusted();
                     if (trusted)
                     {
+                        App.ShowLoading(false);
+
                         App.Locator.Profile.Activated = true;
 
                         var navigationPage = new NavigationPage(new MainPage());
@@ -118,6 +128,8 @@ namespace PaketGlobal
 
                         if (added)
                         {
+                            App.ShowLoading(false);
+
                             App.Locator.Profile.Activated = true;
 
                             var navigationPage = new NavigationPage(new MainPage());
@@ -126,15 +138,19 @@ namespace PaketGlobal
                         }
                         else
                         {
+                           App.ShowLoading(false);
+
                             ShowMessage("Error adding trust token");
                         }
                     }
                 }
                 else
                 {
+                    App.ShowLoading(false);
+
                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
                 }
-            });
+           // });
 
         }
 
