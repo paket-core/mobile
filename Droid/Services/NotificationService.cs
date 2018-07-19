@@ -16,5 +16,10 @@
 				}
 			});
 		}
+
+        public void ShowNotification(Package package)
+        {
+
+        }
 	}
 }
