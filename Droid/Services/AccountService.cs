@@ -86,7 +86,7 @@ namespace PaketGlobal.Droid
             get{
                 var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
                 if(account.Properties.ContainsKey("ShowNotifications")){
-                    if(account.Properties["ShowNotifications"]=="false"){
+                    if(account.Properties["ShowNotifications"] == bool.FalseString){
                         return false;
                     }
                 }

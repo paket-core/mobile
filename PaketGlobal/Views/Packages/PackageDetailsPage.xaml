@@ -14,7 +14,11 @@
             <local:DeliveryStatusToRefundVisibilityConverter x:Key="deliveryStatusToRefundVisibilityConverter" />
             <local:RefundStatusToReclaimVisibilityConverter x:Key="refundStatusToReclaimVisibilityConverter" />
             <local:PaketRoleToStringConverter x:Key="paketRoleToStringConverter" />
+            <local:PackageIconStatusConverter x:Key="packageIconStatusConverter" />
+            <local:PackageProgressStatusConverter x:Key="packageProgressStatusConverter" />
+            <local:PackageProgressIconConverter x:Key="packageProgressIconConverter" />
         </ResourceDictionary>
+
     </local:BasePage.Resources>
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
@@ -52,16 +56,16 @@
                             <StackLayout x:Name="InfoVew" BackgroundColor="Transparent">
                                 <RelativeLayout>
                                     <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="17" RelativeLayout.YConstraint="15">
-                                        <Image Source="{Binding StatusIconWithText, Mode=OneWay}" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                        <Image Source="{Binding Status, Converter={StaticResource packageIconStatusConverter}, Mode=OneWay}" HorizontalOptions="Start" VerticalOptions="Start"/>
                                     </StackLayout>
-                                    <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
+                                    <local:PaketProgress Progress="{Binding Status, Converter={StaticResource packageProgressStatusConverter}, Mode=OneWay}"
                                              RelativeLayout.XConstraint="20" 
                                              RelativeLayout.YConstraint="55"
                                              RelativeLayout.HeightConstraint="1"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.87}"/>
                                     <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="15" RelativeLayout.YConstraint="49"/>
-                                    <Image Source="{Binding ProgressIcon, Mode=OneWay}" HorizontalOptions="Start"
+                                    <Image Source="{Binding Status, Converter={StaticResource packageProgressIconConverter}, Mode=OneWay}" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.91}"
                                        RelativeLayout.YConstraint="49"/>
                                     <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
