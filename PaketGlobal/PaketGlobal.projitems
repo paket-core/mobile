@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CellWithoutSelection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\StellarConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

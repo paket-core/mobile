@@ -131,7 +131,7 @@ namespace PaketGlobal
 
         public string FormattedBalanceBUL {
             get {
-                return String.Format("{0}.00",BalanceBUL/1_000_000_0);   
+                return StellarConverter.ConvertValueToString(BalanceBUL);  
             }
         }
 
@@ -139,7 +139,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00", BalanceXLM/1_000_000_0);
+                return StellarConverter.ConvertValueToString(BalanceXLM);  
             }
         }
 	}
@@ -481,7 +481,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00 BULs", Collateral / 1_000_000_0);
+                return StellarConverter.ConvertValueToString(Collateral);  
             }
         }
 
@@ -489,7 +489,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00 BULs", Payment / 1_000_000_0);
+                return StellarConverter.ConvertValueToString(Payment);  
             }
         }
 	}

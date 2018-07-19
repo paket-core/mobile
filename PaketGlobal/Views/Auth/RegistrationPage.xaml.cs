@@ -52,8 +52,10 @@ namespace PaketGlobal
             {
                 Unfocus();
 
-                await WithProgressButton(generateButton, async () =>
-                {
+                App.ShowLoading(true);
+
+              //  await WithProgressButton(generateButton, async () =>
+              //  {
                     if (IsAddedInfo){
                         try
                         {
@@ -73,11 +75,13 @@ namespace PaketGlobal
                             }
                             else
                             {
+                                App.ShowLoading(false);
                                 ShowMessage("Error adding info");
                             }
                         }
                         catch (Exception ex)
                         {
+                            App.ShowLoading(false);
                             System.Diagnostics.Debug.WriteLine(ex);
                             ShowMessage(ex.Message);
                         }
@@ -106,6 +110,8 @@ namespace PaketGlobal
                                 }
                                 else
                                 {
+                                    App.ShowLoading(false);
+
                                     ShowMessage("Error creating Stellar account");
 
                                     App.Locator.Profile.KeyPair = null;
@@ -113,6 +119,8 @@ namespace PaketGlobal
                             }
                             else
                             {
+                                App.ShowLoading(false);
+
                                 ShowMessage("Error registering user");
 
                                 App.Locator.Profile.KeyPair = null;
@@ -120,6 +128,8 @@ namespace PaketGlobal
                         }
                         catch (Exception ex)
                         {
+                            App.ShowLoading(false);
+
                             System.Diagnostics.Debug.WriteLine(ex);
 
                             App.Locator.Profile.KeyPair = null;
@@ -127,13 +137,13 @@ namespace PaketGlobal
                             ShowMessage(ex.Message);
                         }
                     }
-                });
+               // });
             }
         }
 
         public async void CheckActivation()
         {
-            await WithProgressButton(generateButton, async () => {
+         //   await WithProgressButton(generateButton, async () => {
                 var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
                 if (created)
                 {
@@ -159,15 +169,17 @@ namespace PaketGlobal
                         }
                         else
                         {
+                            App.ShowLoading(false);
                             ShowMessage("Error adding trust token");
                         }
                     }
                 }
                 else
                 {
+                    App.ShowLoading(false);
                     ShowMessage("Stellar account isn't created yet");
                 }
-            });
+           // });
         }
 
 #endregion
