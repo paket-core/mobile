@@ -65,6 +65,22 @@ namespace PaketGlobal
             }
             else{
                 AddEvents();
+
+                MessagingCenter.Subscribe<PackagesModel, Package>(this, "CurrentDisplayPackageChanged", (sender, arg) =>
+                {
+                    var _package = BindingContext as Package;
+                    _package.Status = arg.Status;
+                });
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            if (CanAcceptPackage == false)
+            {
+                MessagingCenter.Unsubscribe<PackagesModel, Package>(this, "CurrentDisplayPackageChanged");
             }
         }
 

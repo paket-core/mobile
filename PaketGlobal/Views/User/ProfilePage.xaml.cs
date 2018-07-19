@@ -48,10 +48,10 @@ namespace PaketGlobal
 
             if(App.Locator.AccountService.ShowNotifications)
             {
-                KeysButton.Image = "swift_on.png";
+                NotificationsButton.Image = "swift_on.png";
             }
             else{
-                KeysButton.Image = "swift_off.png";
+                NotificationsButton.Image = "swift_off.png";
             }
 		}
 

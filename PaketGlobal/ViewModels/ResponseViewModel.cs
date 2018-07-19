@@ -295,7 +295,7 @@ namespace PaketGlobal
 	}
 
 	[DataContract]
-	public class Package
+    public class Package : BaseViewModel
 	{
 		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
@@ -315,7 +315,24 @@ namespace PaketGlobal
 		public string CourierPubkey { get; set; }
 
 		[DataMember(Name = "status")]
-		public string Status { get; set; }
+        private string status { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
 
 		[DataMember(Name = "blockchain_url")]
 		public string BlockchainUrl { get; set; }
