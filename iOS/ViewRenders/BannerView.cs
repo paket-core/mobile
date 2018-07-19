@@ -32,7 +32,7 @@ namespace PaketGlobal.iOS.ViewRenders
         {
             base.LayoutSubviews();
 
-            MainView.BackgroundColor = UIColor.White.ColorWithAlpha(0.95f);
+            MainView.BackgroundColor = UIColor.White.ColorWithAlpha(0.97f);
 
             MainView.Layer.BorderColor = UIColor.White.CGColor;
             MainView.Layer.CornerRadius = 15;
