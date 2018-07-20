@@ -76,6 +76,7 @@ namespace PaketGlobal
             if (fl)
             {
                 await LoadPackages();
+                await App.Locator.Wallet.Load();
             }
 
             App.Locator.DeviceService.setStausBarLight();
@@ -137,7 +138,7 @@ namespace PaketGlobal
 
             App.ShowLoading(true);
 
-            var pkgData = (Package)e.SelectedItem;
+            var pkgData = (Package)PakagesView.SelectedItem;
 
             PakagesView.SelectedItem = null;
 
@@ -168,7 +169,7 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-               // CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+              //  CourierPubkey="GBRFMUI55YYMDE5ROZDDRFD4XHWTQOCUAOL7KUG2TTZEKK5WDJB53NMT",
               //  RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 

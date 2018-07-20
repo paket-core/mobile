@@ -28,8 +28,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
-    <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -284,6 +282,9 @@
     <Compile Include="ViewRenderers\PaketFrameRender.cs" />
     <Compile Include="ViewRenderers\CellWithoutSelectionRender.cs" />
     <Compile Include="SplashActivity.cs" />
+    <Compile Include="ViewRenderers\BannerView.cs" />
+    <Compile Include="ViewRenderers\CustomListeners.cs" />
+    <Compile Include="Utils\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -506,12 +507,25 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\eth_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\btc_icon.png" />
     <AndroidResource Include="Resources\layout\EntryLayoutTransparent.xml" />
+    <AndroidResource Include="Resources\layout\banner_notification.axml" />
+    <AndroidResource Include="Resources\anim\slide_in_left.xml" />
+    <AndroidResource Include="Resources\anim\slide_in_right.xml" />
+    <AndroidResource Include="Resources\anim\slide_in_top.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_left.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_right.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_top.xml" />
+    <AndroidResource Include="Resources\drawable\color_wallet.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\color_wallet.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\color_wallet.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\color_wallet.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\color_wallet.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Services\" />
     <Folder Include="ViewRenderers\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

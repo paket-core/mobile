@@ -82,6 +82,7 @@ for more details</string>
             <connections>
                 <outlet property="IconView" destination="YYf-QQ-PMO" id="Xdo-Gh-P5S"/>
                 <outlet property="MainView" destination="iUP-Kr-KYN" id="gmV-8R-tHw"/>
+                <outlet property="SubTitleLabel" destination="iiR-7R-RT5" id="NYq-1J-nee"/>
                 <outlet property="TitleLabel" destination="FuR-BX-zbg" id="Exw-Sg-YaL"/>
             </connections>
         </view>

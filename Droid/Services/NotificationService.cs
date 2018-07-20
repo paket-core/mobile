@@ -1,7 +1,13 @@
-﻿namespace PaketGlobal.Droid
+﻿using System;
+using System.Collections.Generic;
+
+namespace PaketGlobal.Droid
 {
 	public class NotificationService : INotificationService
 	{
+        private BannerView mBanner;
+        private Action<string> callback;
+
 		public NotificationService()
 		{
 
@@ -17,9 +23,52 @@
 			});
 		}
 
-        public void ShowNotification(Package package)
-        {
 
+        public void ShowWalletNotification(string title, string subTitle, Action<string> action)
+        {
+            if (mBanner == null)
+            {
+                mBanner = new BannerView(GetContext());
+                mBanner.BannerFinished += HandleBannerFinished;
+            }
+
+            callback = action;
+
+            mBanner.ShowWallet(title, subTitle);
         }
-	}
+
+        public void ShowPackageNotification(Package package, Action<string> action)
+        {
+            if(mBanner==null)
+            {
+                mBanner = new BannerView(GetContext());
+                mBanner.BannerFinished += HandleBannerFinished;
+            }
+
+            callback = action;
+
+            var list = new List<Package>();
+            list.Add(package);
+            mBanner.ShowPackage(list);
+        }
+
+        private static Android.Content.Context GetContext()
+        {
+            return Xamarin.Forms.Forms.Context;
+        }
+
+        protected virtual void HandleBannerFinished(bool canceled, Package package)
+        {
+            if (!canceled)
+            {
+                if(package == null)
+                {
+                    callback(null);
+                }
+                else{
+                    callback(package.PaketId);         
+                }
+            }
+        }
+    }
 }

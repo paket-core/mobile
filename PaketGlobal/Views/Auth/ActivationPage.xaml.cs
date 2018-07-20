@@ -11,6 +11,18 @@ namespace PaketGlobal
             InitializeComponent();
 
             mnemonicLabel.Text = App.Locator.Profile.Mnemonic;
+            addressLabel.Text = App.Locator.AccountService.ActivationAddress;
+
+            if(addressLabel.Text != null)
+            {
+                if(addressLabel.Text.Length>2)
+                {
+                    if(addressLabel.Text.Substring(0,2) == "0x")
+                    {
+                        sendLabel.Text = "Please send 0.001 ETH to this address to create your account";
+                    }
+                }
+            }
 
             App.Locator.DeviceService.setStausBarBlack();
 
