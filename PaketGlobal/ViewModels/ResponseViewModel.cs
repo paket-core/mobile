@@ -297,6 +297,8 @@ namespace PaketGlobal
 	[DataContract]
     public class Package : BaseViewModel
 	{
+        public bool isNewPackage { get; set; }
+
 		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
 

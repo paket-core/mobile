@@ -382,6 +382,9 @@
     <BundleResource Include="Resources\btc_icon%403x.png" />
     <BundleResource Include="Resources\btc_icon%402x.png" />
     <BundleResource Include="Resources\btc_icon.png" />
+    <BundleResource Include="Resources\color_wallet%403x.png" />
+    <BundleResource Include="Resources\color_wallet%402x.png" />
+    <BundleResource Include="Resources\color_wallet.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

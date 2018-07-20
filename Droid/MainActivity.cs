@@ -20,10 +20,10 @@ namespace PaketGlobal.Droid
 	{
 		internal static MainActivity Instance { get; private set; }
 
+
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-
 
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
