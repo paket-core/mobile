@@ -129,7 +129,7 @@ namespace PaketGlobal
 					message = "Insufficient BULs from the Launcher";
 					break;
 				case StellarOperationResult.LowBULsCourier:
-					message = "Insufficient BULs from the Launcher";
+                    message = "Insufficient BULs from the Courier";
 					break;
 				case StellarOperationResult.FailedLaunchPackage:
 					message = "Error launching the package";

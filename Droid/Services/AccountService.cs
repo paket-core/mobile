@@ -84,14 +84,21 @@ namespace PaketGlobal.Droid
 
         public bool ShowNotifications {
             get{
-                var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
-                if(account.Properties.ContainsKey("ShowNotifications")){
-                    if(account.Properties["ShowNotifications"] == bool.FalseString){
-                        return false;
+                try{
+                    var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+                    if (account.Properties.ContainsKey("ShowNotifications"))
+                    {
+                        if (account.Properties["ShowNotifications"] == bool.FalseString)
+                        {
+                            return false;
+                        }
                     }
-                }
 
-                return true;
+                    return true;
+                }
+                catch{
+                    return false;
+                }
             }
             set{
                 var store = AccountStore.Create(MainActivity.Instance);
@@ -99,7 +106,7 @@ namespace PaketGlobal.Droid
                 if (account != null)
                 {
                     var b = value ? bool.TrueString : bool.FalseString;
-                    if (account.Properties.ContainsKey("Activated"))
+                    if (account.Properties.ContainsKey("ShowNotifications"))
                     {
                         account.Properties["ShowNotifications"] = b;
                     }
@@ -109,6 +116,44 @@ namespace PaketGlobal.Droid
                     }
                     store.Save(account, App.AppName);
                 } 
+            }
+        }
+
+        public string ActivationAddress
+        {
+            get{
+                try
+                {
+                    var account = AccountStore.Create(MainActivity.Instance).FindAccountsForService(App.AppName).FirstOrDefault();
+                    if (account.Properties.ContainsKey("ActivationAddress"))
+                    {
+                        return account.Properties["ActivationAddress"];
+                    }
+
+                    return "";
+                }
+                catch
+                {
+                    return "";
+                }
+            }
+            set
+            {
+                var store = AccountStore.Create(MainActivity.Instance);
+                var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+                if (account != null)
+                {
+                    var b = value;
+                    if (account.Properties.ContainsKey("ActivationAddress"))
+                    {
+                        account.Properties["ActivationAddress"] = b;
+                    }
+                    else
+                    {
+                        account.Properties.Add("ActivationAddress", b);
+                    }
+                    store.Save(account, App.AppName);
+                }
             }
         }
 

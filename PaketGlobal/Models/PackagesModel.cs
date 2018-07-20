@@ -43,7 +43,7 @@ namespace PaketGlobal
             });
         }
 
-        private void StartTimer()
+        public void StartTimer()
         {
             if(timer!=null)
             {
@@ -56,7 +56,7 @@ namespace PaketGlobal
             }
         }
 
-        private void StopTimer()
+        public void StopTimer()
         {
             if(timer!=null)
             {
@@ -129,14 +129,9 @@ namespace PaketGlobal
 
                                 if (enabled)
                                 {
-#if __IOS__
-                                    //Device.BeginInvokeOnMainThread(() => {
-                                      //  App.Locator.NotificationService.ShowNotification(p1);
-                                        //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
-                                    //});
-#else
-                                    App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
-#endif
+                                    Device.BeginInvokeOnMainThread(() => {
+                                        App.Locator.NotificationService.ShowPackageNotification(p1,DidClickNotification);
+                                    });
                                 }
                             }
                         }
@@ -145,14 +140,13 @@ namespace PaketGlobal
 
                 if (PackagesList.Count < packages.Count && enabled)
                 {
-#if __IOS__
-                                   // Device.BeginInvokeOnMainThread(() => {
-                                        //App.Locator.NotificationService.ShowNotification(p1);
-                                        //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
-                                    //});
-#else
-                    App.Locator.NotificationService.ShowMessage("A new package is available", false);
-#endif 
+                    //get new package
+                    var package = packages[packages.Count-1];
+                    package.isNewPackage = true;
+
+                    Device.BeginInvokeOnMainThread(() => {
+                        App.Locator.NotificationService.ShowPackageNotification(package,DidClickNotification);
+                    });
                 }
 
                 PackagesList = packages;
@@ -176,6 +170,11 @@ namespace PaketGlobal
                 MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
                 MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
             }
+        }
+
+        private void DidClickNotification(string obj)
+        {
+            MessagingCenter.Send<string, string>("MyApp", "DidClickPackageNotification", obj);
         }
 
     }

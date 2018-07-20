@@ -34,7 +34,7 @@ namespace PaketGlobal
             });
         }
 
-        private void StartTimer()
+        public void StartTimer()
         {
             if (timer != null)
             {
@@ -48,7 +48,7 @@ namespace PaketGlobal
 
         }
 
-        private void StopTimer()
+        public void StopTimer()
         {
             if (timer != null)
             {
@@ -121,14 +121,10 @@ namespace PaketGlobal
                 {
                     if (enabled)
                     {
-#if __IOS__
-                                   // Device.BeginInvokeOnMainThread(() => {
-                                        //App.Locator.NotificationService.ShowNotification(p1);
-                                        //App.Locator.NotificationService.ShowMessage(String.Format("Your package in {0}", p1.FormattedStatus), false);
-                                    //});
-#else
-                        App.Locator.NotificationService.ShowMessage("Your balance has been changed", false);
-#endif
+                        Device.BeginInvokeOnMainThread(() => {
+                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page for more details\n",DidClickNotification);
+
+                        });
                     } 
                 }
 
@@ -154,5 +150,11 @@ namespace PaketGlobal
                 MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
             }
         }
+
+        private void DidClickNotification(string obj)
+        {
+            MessagingCenter.Send<string, string>("MyApp", "DidClickWalletNotification", "");
+        }
+
 	}
 }

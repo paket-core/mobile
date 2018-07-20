@@ -18,6 +18,8 @@ namespace PaketGlobal.iOS.ViewRenders
         UILabel TitleLabel { get; set; }
         [Outlet]
         UIImageView IconView { get; set; }
+        [Outlet]
+        UILabel SubTitleLabel { get; set; }
 
         [Action("OnClickBanner:")]
         partial void OnClickBanner(UIButton sender);

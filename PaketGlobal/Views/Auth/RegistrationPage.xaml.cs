@@ -103,11 +103,13 @@ namespace PaketGlobal
                                                                    kd.MnemonicString);
 
 
-                               // var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
-                                var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
+                                var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+                               // var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
 
                                 if (createResult != null)
                                 {
+                                    App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
+
                                     App.ShowLoading(false);
 
                                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);

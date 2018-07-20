@@ -14,6 +14,7 @@ namespace PaketGlobal
 		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
 		void DeleteCredentials();
         bool ShowNotifications { get; set; }
+        string ActivationAddress { get; set; }
 	}
 
 	public interface IAppInfoService
@@ -26,7 +27,8 @@ namespace PaketGlobal
 	public interface INotificationService
 	{
 		void ShowMessage(string text, bool lengthLong = false);
-        void ShowNotification(Package package);
+        void ShowPackageNotification(Package package, Action<string> callback);
+        void ShowWalletNotification(string title, string subTitle, Action<string> callback);
 	}
 
 	public interface IScreenScale
