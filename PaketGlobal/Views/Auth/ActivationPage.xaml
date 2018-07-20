@@ -23,11 +23,11 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=100}">
                     <StackLayout Spacing="40">
-                        <Label Text="Please send 0.001 BTC to this address to create your account" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
+                        <Label x:Name="sendLabel" Text="Please send 0.001 BTC to this address to create your account" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                         <StackLayout Spacing="10">
                         <StackLayout Orientation="Horizontal" Spacing="5"  x:Name="btcStackView">
                             <Label x:Name="addressLabel" Text="17AQ4avXZBiCmW5Tu4QyP1SfxG31dbrR62" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="13" TextColor="#555555"
-                                    VerticalOptions="Center"/>
+                                    VerticalOptions="Center" LineBreakMode="MiddleTruncation"/>
                             <Button Image="copy_icon.png" BackgroundColor="Transparent" Clicked="OnCopyAddress" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
                         </StackLayout>
                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />

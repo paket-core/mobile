@@ -171,6 +171,10 @@ namespace PaketGlobal
 
 
                 try{
+
+                    App.Locator.Wallet.StopTimer();
+                    App.Locator.Packages.StopTimer();
+
                     double payment = double.Parse(EntryPayment.Text);
                     double collateral = double.Parse(EntryCollateral.Text);
 
@@ -194,6 +198,11 @@ namespace PaketGlobal
                 }
 
                 App.ShowLoading(false);
+
+                App.Locator.Wallet.StartTimer();
+                App.Locator.Packages.StartTimer();
+
+
              //   });
             }
         }

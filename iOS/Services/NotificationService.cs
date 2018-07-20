@@ -16,6 +16,8 @@ namespace PaketGlobal.iOS
 	{
         private string CurrentPackageId;
 
+        private Action<string> callback;
+
 		public NotificationService()
 		{
             Toast.GlobalAnimator = new ScaleAnimator();
@@ -25,7 +27,7 @@ namespace PaketGlobal.iOS
             Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
-		public void ShowMessage(string text, bool lengthLong = false)
+        public void ShowMessage(string text, bool lengthLong = false)
 		{
             // More configurations
             Toast.MakeToast(text)
@@ -34,37 +36,59 @@ namespace PaketGlobal.iOS
                  .Show();
 		}
 
-        public void ShowNotification(Package package)
+        public void ShowWalletNotification(string title, string subTitle, Action<string> action)
         {
-            var bannerView = BannerView.View();
-            bannerView.Frame = new CGRect(10, -140, UIScreen.MainScreen.Bounds.Size.Width - 20, 130);
-            bannerView.Alpha = 0;
-            bannerView.SetPackage(package, DidClickBanner);
-
-            var application = UIApplication.SharedApplication.Delegate as AppDelegate;
-
-            foreach(UIView view in application.Window.Subviews)
+            if(IsShow()==false)
             {
-                if(view is BannerView)
-                {
-                    return;
-                }
+                callback = action;
+
+                var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var bannerView = BannerView.View();
+                bannerView.SetWallet(DidClickBanner);
+                bannerView.Show();
+                application.Window.AddSubview(bannerView);
+
+                CurrentPackageId = null;
             }
+        }
 
-            application.Window.AddSubview(bannerView);
-
-            UIView.Animate(0.3f, () =>
+        public void ShowPackageNotification(Package package, Action<string> action)
+        {
+            if (IsShow() == false)
             {
-                bannerView.Alpha = 1;
-                bannerView.Frame = new CGRect(10, 40, UIScreen.MainScreen.Bounds.Size.Width - 20, 130);
-            });
+                callback = action;
 
-            CurrentPackageId = package.PaketId;
+                var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var bannerView = BannerView.View();
+                bannerView.SetPackage(package, DidClickBanner);
+                bannerView.Show();
+                application.Window.AddSubview(bannerView);
+
+                CurrentPackageId = package.PaketId;
+            }
         }
 
         private void DidClickBanner()
         {
-            Console.WriteLine("Send Back DATA");
+            callback(CurrentPackageId);
+        }
+
+
+        private bool IsShow()
+        {
+            var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+            foreach (UIView view in application.Window.Subviews)
+            {
+                if (view is BannerView)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 	}
 }
