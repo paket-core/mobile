@@ -22,6 +22,21 @@ namespace PaketGlobal
             }
 
             App.Locator.DeviceService.setStausBarBlack();
+
+            #if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                botBg.TranslationY = botBg.TranslationY - 40;
+                botStack.TranslationY = botStack.TranslationY - 40;
+            }
+#endif
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarBlack();
         }
 
 #region Buttons Actions

@@ -13,6 +13,11 @@ namespace PaketGlobal.Droid
             return false;
         }
 
+        public bool IsIphonePlus()
+        {
+            return false;
+        }
+
         public void setStausBarLight()
         {
         }

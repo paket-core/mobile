@@ -13,11 +13,11 @@ namespace PaketGlobal
             mnemonicLabel.Text = App.Locator.Profile.Mnemonic;
             addressLabel.Text = App.Locator.AccountService.ActivationAddress;
 
-            if(addressLabel.Text != null)
+            if (addressLabel.Text != null)
             {
-                if(addressLabel.Text.Length>2)
+                if (addressLabel.Text.Length > 2)
                 {
-                    if(addressLabel.Text.Substring(0,2) == "0x")
+                    if (addressLabel.Text.Substring(0, 2) == "0x")
                     {
                         sendLabel.Text = "Please send 0.001 ETH to this address to create your account";
                     }
@@ -28,7 +28,30 @@ namespace PaketGlobal
 
 #if __ANDROID__
             backButton.TranslationX = -25;
+#else
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                mnemonicBg.TranslationY = mnemonicBg.TranslationY - 35;
+                mnemonicStack.TranslationY = mnemonicStack.TranslationY - 10;
+            }
+            else{
+                if (App.Locator.DeviceService.IsIphonePlus() == true)
+                {
+                    mnemonicStack.TranslationY = mnemonicStack.TranslationY+5;
+                }
+                else{
+                    mnemonicStack.TranslationY = mnemonicStack.TranslationY - 10;
+                }
+                mnemonicBg.TranslationY = mnemonicBg.TranslationY - 10;
+            }
 #endif
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarBlack();
         }
 
 

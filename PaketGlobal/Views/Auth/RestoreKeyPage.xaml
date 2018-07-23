@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -11,8 +11,7 @@
             <RelativeLayout x:Name="layoutLogin">
                 <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                    RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.05}">
+                    RelativeLayout.YConstraint="20">
                     <Label Text="Restore Private Key" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
@@ -26,9 +25,19 @@
                     </StackLayout>
                     <local:PaketButton x:Name="restoreButton" Text="Restore Key" Clicked="LoginClicked"/>
                 </StackLayout>
-                <StackLayout VerticalOptions="End" BackgroundColor="Transparent"
+                 <Image BackgroundColor="Transparent"
+                          Aspect="Fill"
+                          x:Name="botBg"
+                          HorizontalOptions="Fill"
+                          VerticalOptions="Start"
+                          RelativeLayout.HeightConstraint="206"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.77}">
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-206}"
+                        Source="login_bg.png">
+                </Image>
+                <StackLayout x:Name="botStack" VerticalOptions="Start" BackgroundColor="Transparent"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.80}">
                     <Label Text="Generate New Key" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                     <Button x:Name="generateButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
                 </StackLayout>

@@ -385,6 +385,12 @@
     <BundleResource Include="Resources\color_wallet%403x.png" />
     <BundleResource Include="Resources\color_wallet%402x.png" />
     <BundleResource Include="Resources\color_wallet.png" />
+    <BundleResource Include="Resources\login_bg%403x.png" />
+    <BundleResource Include="Resources\login_bg%402x.png" />
+    <BundleResource Include="Resources\login_bg.png" />
+    <BundleResource Include="Resources\mnemonic_bg%403x.png" />
+    <BundleResource Include="Resources\mnemonic_bg%402x.png" />
+    <BundleResource Include="Resources\mnemonic_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
