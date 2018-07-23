@@ -519,6 +519,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\color_wallet.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\color_wallet.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\color_wallet.png" />
+    <AndroidResource Include="Resources\drawable\mnemonic_bg.png" />
+    <AndroidResource Include="Resources\drawable\login_bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\mnemonic_bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\login_bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\mnemonic_bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\login_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\mnemonic_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\login_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\login_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
