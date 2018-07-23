@@ -21,13 +21,22 @@ namespace PaketGlobal
 
             IsAddedInfo = isAddedInfo;
 
-            if(IsAddedInfo){
+            if (IsAddedInfo)
+            {
                 generateButton.Text = "Complete Registration";
                 titleLabel.Text = "Add Info";
                 pickerCurrency.IsVisible = false;
             }
 
             App.Locator.DeviceService.setStausBarBlack();
+
+#if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                botBg.TranslationY = botBg.TranslationY - 40;
+                botStack.TranslationY = botStack.TranslationY - 40;
+            }
+#endif
         }
 
         public RegistrationPage()
@@ -35,6 +44,13 @@ namespace PaketGlobal
             InitializeComponent();
 
             BindingContext = new RegisterViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarBlack();
         }
 
 #region Button Actions

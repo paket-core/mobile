@@ -45,6 +45,7 @@ namespace PaketGlobal
     public interface IDeviceService
     {
         bool IsIphoneX();
+        bool IsIphonePlus();
 
         void setStausBarLight();
         void setStausBarBlack();

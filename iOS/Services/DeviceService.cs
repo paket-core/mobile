@@ -9,6 +9,12 @@ namespace PaketGlobal.iOS
             return UIScreen.MainScreen.Bounds.Size.Height == 812;
         }
 
+        public bool IsIphonePlus()
+        {
+            return UIScreen.MainScreen.Bounds.Size.Width == 414;
+        }
+
+
         public void setStausBarLight()
         {
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent,false);
@@ -17,7 +23,7 @@ namespace PaketGlobal.iOS
 
         public void setStausBarBlack()
         {
-            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque,false);
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default,false);
         }
     }
 }
