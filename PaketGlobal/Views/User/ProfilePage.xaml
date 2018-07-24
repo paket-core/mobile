@@ -26,7 +26,7 @@
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Full Name" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="Enter Full Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry Keyboard="Text" CapSentences="1" x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="Enter Full Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Phone Number" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
