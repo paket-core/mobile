@@ -52,6 +52,11 @@ namespace PaketGlobal
 			return true;
 		}
 
+		public static bool ValidateMnemonic(string str)
+		{
+			return !String.IsNullOrWhiteSpace(str);
+		}
+
 		public static bool ValidateTextField (string str)
 		{
 			if (String.IsNullOrWhiteSpace (str)) {
