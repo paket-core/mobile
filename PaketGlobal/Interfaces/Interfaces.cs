@@ -49,5 +49,8 @@ namespace PaketGlobal
 
         void setStausBarLight();
         void setStausBarBlack();
+
+        int ScreenHeight();
+        int ScreenWidth();
     }
 }

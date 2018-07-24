@@ -78,6 +78,11 @@ namespace PaketGlobal.iOS
             if(element.IsEnabled==false) {
                 textField.TextColor = Xamarin.Forms.Color.FromHex("#A7A7A7").ToUIColor();
             }
+
+            if(element.CapSentences==1)
+            {
+                textField.AutocapitalizationType = UITextAutocapitalizationType.Sentences;
+            }
         }
 
         private UIView GetImageView(string imagePath, int height, int width)

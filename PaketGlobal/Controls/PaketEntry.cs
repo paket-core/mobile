@@ -30,6 +30,16 @@ namespace PaketGlobal
         public static readonly BindableProperty BackgroundProperty =
             BindableProperty.Create(nameof(BackgroundV), typeof(int), typeof(PaketEntry), 0);
 
+        public static readonly BindableProperty CapSentencesProperty =
+            BindableProperty.Create(nameof(CapSentences), typeof(int), typeof(PaketEntry), 0);
+
+
+        public int CapSentences
+        {
+            get { return (int)GetValue(CapSentencesProperty); }
+            set { SetValue(CapSentencesProperty, value); }
+        }
+
         public int BackgroundV
         {
             get { return (int)GetValue(BackgroundProperty); }
