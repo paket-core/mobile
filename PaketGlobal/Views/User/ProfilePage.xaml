@@ -34,7 +34,7 @@
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Address" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="AddressEntry" Text="{Binding Address, Mode=TwoWay}" Placeholder="Enter Address" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="Enter Address" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                             <StackLayout Spacing="10" Padding="0,20,0,0">
                               <Label TextColor="Black" Text="ADVANCED SETTINGS" HorizontalOptions="Start" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" />
