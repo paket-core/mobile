@@ -126,9 +126,9 @@ namespace PaketGlobal
                                 {
                                     App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
 
-                                    App.ShowLoading(false);
-
                                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+
+                                    App.ShowLoading(false);
                                 }
                                 else
                                 {
@@ -171,28 +171,27 @@ namespace PaketGlobal
                 {
                     var trusted = await StellarHelper.CheckTokenTrusted();
                     if (trusted)
-                    {
-
-                        App.ShowLoading(false);
-
+                    {                       
                         App.Locator.Profile.Activated = true;
 
                         var navigationPage = new NavigationPage(new MainPage()); 
 
                         Application.Current.MainPage = navigationPage;
+
+                        App.ShowLoading(false);
                     }
                     else
                     {
                         var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
                         if (added)
                         {
-                            App.ShowLoading(false);
-
                             App.Locator.Profile.Activated = true;
 
                             var navigationPage = new NavigationPage(new MainPage());
 
                             Application.Current.MainPage = navigationPage;
+
+                            App.ShowLoading(false);
                         }
                         else
                         {
