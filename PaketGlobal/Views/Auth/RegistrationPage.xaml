@@ -20,7 +20,7 @@
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="10">
                         <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryFullName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="1" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
                         <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
                         <local:PaketPicker x:Name="pickerCurrency" BackgroundV="1" SelectedItem="{Binding PaymentCurrency}" Title="Select Payment Currency" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">

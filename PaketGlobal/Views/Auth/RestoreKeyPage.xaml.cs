@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            //entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
+           // entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -91,11 +91,12 @@ namespace PaketGlobal
                         else
                         {
 
-                        App.ShowLoading(false);
-
                             var page = new RegistrationPage(true);
 
                             await Navigation.PushAsync(page, true);
+
+                            App.ShowLoading(false);
+
                         }
                     }
                     catch (Exception ex)
@@ -127,13 +128,13 @@ namespace PaketGlobal
                     var trusted = await StellarHelper.CheckTokenTrusted();
                     if (trusted)
                     {
-                        App.ShowLoading(false);
-
                         App.Locator.Profile.Activated = true;
 
                         var navigationPage = new NavigationPage(new MainPage());
 
                         Application.Current.MainPage = navigationPage;
+
+                        App.ShowLoading(false);
                     }
                     else
                     {
@@ -141,27 +142,25 @@ namespace PaketGlobal
 
                         if (added)
                         {
-                            App.ShowLoading(false);
-
                             App.Locator.Profile.Activated = true;
 
                             var navigationPage = new NavigationPage(new MainPage());
 
                             Application.Current.MainPage = navigationPage;
+
+                            App.ShowLoading(false);
                         }
                         else
                         {
-                           App.ShowLoading(false);
-
                             ShowMessage("Error adding trust token");
+                            App.ShowLoading(false);
                         }
                     }
                 }
                 else
                 {
-                    App.ShowLoading(false);
-
                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+                    App.ShowLoading(false);
                 }
            // });
 

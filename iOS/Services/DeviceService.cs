@@ -25,5 +25,16 @@ namespace PaketGlobal.iOS
         {
             UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.Default,false);
         }
+
+        public int ScreenHeight()
+        {
+            return (int)(UIScreen.MainScreen.Bounds.Size.Height);
+        }
+
+        public int ScreenWidth()
+        {
+            return (int)(UIScreen.MainScreen.Bounds.Size.Width);
+
+        }
     }
 }
