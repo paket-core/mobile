@@ -47,7 +47,7 @@ namespace PaketGlobal.Droid
 
             if(element.CapSentences==1)
             {
-                editText.SetRawInputType(Android.Text.InputTypes.TextFlagCapWords);
+				editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextFlagCapWords);
             }
             editText.CompoundDrawablePadding = 25;
 

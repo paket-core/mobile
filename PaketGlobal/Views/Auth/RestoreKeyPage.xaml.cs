@@ -167,16 +167,15 @@ namespace PaketGlobal
         }
 
 
-        protected override bool IsValid()
-        {
-            if (!ValidationHelper.ValidateTextField(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text))
-            {
-                entryMnemonic.Focus();
-                return false;
-            }
+		protected override bool IsValid()
+		{
+			if (!ValidationHelper.ValidateMnemonic(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text)) {
+				entryMnemonic.Focus();
+				return false;
+			}
 
-            return true;
-        }
+			return true;
+		}
 
         protected override void ToggleLayout(bool enabled)
         {
