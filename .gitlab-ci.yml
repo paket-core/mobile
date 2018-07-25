@@ -22,8 +22,8 @@ job:
   script:
   - echo %ANDROID_HOME%
   - echo "Release build..."
-  #- set androidSdkPath=%ANDROID_HOME%
-  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:androidSdkPath=%ANDROID_HOME% /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
+  #- set androidSdkPath=%ANDROID_HOME%\platforms\android-25
+  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:androidSdkPath=%ANDROID_HOME%\platforms\android-25 /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
     untracked: true
   tags:
