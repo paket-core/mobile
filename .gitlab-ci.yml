@@ -20,7 +20,9 @@ job:
   - del tmpFile
   - call "%VSWHERE%\VC\Auxiliary\Build\vcvars64.bat"
   script:
+  - echo %ANDROID_HOME%
   - echo "Release build..."
+  - set androidSdkPath=%ANDROID_HOME%
   - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
     untracked: true
