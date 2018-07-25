@@ -8,14 +8,20 @@ job:
   - echo "starting build for %PROJECT_NAME%"
   - echo "Restoring NuGet Packages..."
   - 'setlocal'
-  - 'chcp 65001'
+  - 'chcp 65001' #Change code page
+  - echo Import-Module BitsTransfer > download_nuget.ps1
+  - 'echo Start-BitsTransfer "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" >> download_nuget.ps1'
   - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
+  - del download_nuget.ps1
   - nuget.exe restore
   - del nuget.exe
-  #- 'call "calling_vcvars64.bat"'
+  - '"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -property installationPath > tmpFile'
+  - set /p VSWHERE= < tmpFile
+  - del tmpFile
+  - call "%VSWHERE%\VC\Auxiliary\Build\vcvars64.bat"
   script:
   - echo "Release build..."
-  #- 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
+  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
     untracked: true
   tags:
