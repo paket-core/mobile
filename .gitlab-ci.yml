@@ -29,7 +29,7 @@ job:
   artifacts:
     expire_in: 1 week
     paths:
-      - *.apk
+      - "*.apk"
   tags:
   except:
   - tags
