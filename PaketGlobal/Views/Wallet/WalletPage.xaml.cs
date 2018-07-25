@@ -408,6 +408,7 @@ namespace PaketGlobal
             if(sender==PickerBULCurrency)
             {
                 if(PickerBULCurrency.SelectedItem!=null)
+                    
                 {
                     IconBULCurrencyView.IsVisible = true;
 
