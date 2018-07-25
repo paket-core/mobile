@@ -1,0 +1,23 @@
+variables:
+  PROJECT_NAME: "PaketGlobal"
+stages:
+  - build
+job:
+  stage: build
+  before_script:
+  - echo "starting build for %PROJECT_NAME%"
+  - echo "Restoring NuGet Packages..."
+  - 'setlocal'
+  - 'chcp 65001'
+  - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
+  - nuget.exe restore
+  - del nuget.exe
+  #- 'call "calling_vcvars64.bat"'
+  script:
+  - echo "Release build..."
+  #- 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
+  artifacts:
+    untracked: true
+  tags:
+  except:
+  - tags
