@@ -6,7 +6,7 @@ job:
   stage: build
   before_script:
   - echo "starting build for %PROJECT_NAME%"
-  - echo "Restoring NuGet Packages..."
+  #- echo "Restoring NuGet Packages..."
   - 'setlocal'
   - 'chcp 65001'
   - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
