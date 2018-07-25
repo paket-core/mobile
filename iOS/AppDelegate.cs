@@ -4,6 +4,8 @@ using Foundation;
 using CountlySDK;
 using GalaSoft.MvvmLight.Ioc;
 
+using RoundedBoxView.Forms.Plugin.iOSUnified;
+
 namespace PaketGlobal.iOS
 {
 	[Register("AppDelegate")]
@@ -13,9 +15,14 @@ namespace PaketGlobal.iOS
 		{
 			ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
-			RegisterServiceContainers();
-			global::Xamarin.Forms.Forms.Init();
+            XFGloss.iOS.Library.Init();
+            XamEffects.iOS.Effects.Init(); 
+            RoundedBoxViewRenderer.Init();
 
+            global::Xamarin.Forms.Forms.Init();
+
+			RegisterServiceContainers();
+			
 			//Countly initialization
 			var config = new CountlyConfig() {
 				AppKey = Config.CountlyAppKey,
@@ -27,6 +34,8 @@ namespace PaketGlobal.iOS
 			Countly.SharedInstance().BeginSession();
 
 			LoadApplication(new App());
+
+            uiApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
 
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
@@ -50,6 +59,20 @@ namespace PaketGlobal.iOS
 					return new AccountService();
 				});
 			}
+
+            if (!SimpleIoc.Default.IsRegistered<IClipboardService>())
+            {
+                SimpleIoc.Default.Register<IClipboardService>(() => {
+                    return new ClipboardService();
+                });
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<IDeviceService>())
+            {
+                SimpleIoc.Default.Register<IDeviceService>(() => {
+                    return new DeviceService();
+                });
+            }
 		}
 	}
 }

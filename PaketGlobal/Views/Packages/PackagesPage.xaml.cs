@@ -1,97 +1,194 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
+
 using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-	public partial class PackagesPage : BasePage
-	{
-		private PackagesModel ViewModel {
-			get {
-				return BindingContext as PackagesModel;
-			}
-		}
+    public partial class PackagesPage : BasePage
+    {
+        private PackagesModel ViewModel
+        {
+            get
+            {
+                return BindingContext as PackagesModel;
+            }
+        }
 
-		ICommand RefreshListCommand {
-			get {
-				return new Command(async () => {
-					await LoadPackages();
-					packagesList.IsRefreshing = false;
-				});
-			}
-		}
+        ICommand RefreshListCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await LoadPackages();
+                    PakagesView.IsRefreshing = false;
+                });
+            }
+        }
 
-		public PackagesPage()
-		{
-			Title = "Packages";
+        private float MaxOffset
+        {
+            get
+            {
+#if __IOS__
+                if (App.Locator.DeviceService.IsIphoneX() == true)
+                {
+                    return 120.0f;
+                }
+                return 135.0f;
+#else
+                return 150.0f;
+#endif
+            }
+        }
 
-			ToolbarItems.Add(new ToolbarItem("Launch Package", "ic_add_circle_white_24dp.png", LaunchPackageClicked));
-			ToolbarItems.Add(new ToolbarItem("Accept Package", "ic_check_circle_white_24dp.png", AcceptPackageClicked));
+        public PackagesPage()
+        {
+            InitializeComponent();
 
-			InitializeComponent();
+            BindingContext = App.Locator.Packages;
 
-			BindingContext = App.Locator.Packages;
-			packagesList.RefreshCommand = RefreshListCommand;
-		}
+            PakagesView.RefreshCommand = RefreshListCommand;
 
-		void LaunchPackageClicked()
-		{
-			App.Locator.NavigationService.NavigateTo(Locator.LaunchPackagePage, new Package() {
-				Deadline = DateTimeHelper.ToUnixTime(DateTime.Now.AddDays(1))//,
-				//RecipientPubkey = "GDEO6AUQ3OIIHL2R2IBAWXWJR6NQ5YSCSLJOKHHJUQWRNDFIWO67VCLW",//TODO remove this
-				//CourierPubkey = "GD6UGA2SMQWHCCAUS2WIH4IYBCYKVXCLAZBMMRWSCQZJOF7QNZKBFWKA",//TODO remove this
-				//Payment = 20,//TODO remove this
-				//Collateral = 30//TODO remove this
-			});
-		}
+            if (MaxOffset <= 130.0f)
+            {
+                TitleLabel.TranslationY = 22;
+                RightButtons.TranslationY = 22;
+            }
 
-		void AcceptPackageClicked()
-		{
-			App.Locator.NavigationService.NavigateTo(Locator.AcceptPackagePage);
-		}
+#if __ANDROID__
+            HeaderView.TranslationY = -30;
+            TitleLabel.TranslationY = 0;
+#endif
 
-		protected async override void OnAppearing()
-		{
-			var fl = firstLoad;
+            App.Locator.DeviceService.setStausBarLight();
+        }
 
-			base.OnAppearing();
+        protected async override void OnAppearing()
+        {
+            var fl = firstLoad;
 
-			if (fl) {
-				await LoadPackages();
-			}
-		}
+            base.OnAppearing();
 
-		private async System.Threading.Tasks.Task LoadPackages()
- 		{
-			await ViewModel.Load();
+            if (fl)
+            {
+                await LoadPackages();
+                await App.Locator.Wallet.Load();
+            }
 
-			activityIndicator.IsRunning = false;
-			layoutActivity.IsVisible = false;
+            App.Locator.DeviceService.setStausBarLight();
 
-			placholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+            if (ViewModel.PackagesList.Count>0)
+            {
+                PlacholderLabel.IsVisible = false;
+            }
 
-			await packagesList.FadeTo(0);
-			await packagesList.FadeTo(1);
-		}
+            ViewModel.CurrentDisplayPackageId = "";
+        }
 
-		async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-		{
-			if (e.SelectedItem != null) {
-				App.ShowLoading(true);
 
-				var pkgData = (Package)e.SelectedItem;
-				var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
-				if (package != null) {
-					App.Locator.NavigationService.NavigateTo(Locator.PackageDetailsPage, package);
-				} else {
-					ShowMessage("Error retrieving package details");
-				}
+        private void OnListViewScrolled(object sender, ScrolledEventArgs args)
+        {
+            //var yOffset = args.ScrollY;
 
-				packagesList.SelectedItem = null;
+            //if (yOffset < 0)
+            //{
+            //    yOffset = 0;
+            //}
+            //else if (yOffset > MaxOffset)
+            //{
+            //    yOffset = MaxOffset;
+            //}
 
-				App.ShowLoading(false);
-			}
-		}
-	}
+            //PakagesView.TranslateTo(0, (yOffset * (-1)));
+
+            //HeaderView.Opacity = 1 - (yOffset / MaxOffset);
+
+            //if (HeaderView.Opacity < 0.4f)
+            //{
+            //    RightButtons.Opacity = TitleLabel.Opacity = (yOffset / MaxOffset);
+            //}
+            //else
+            //{
+            //    RightButtons.Opacity = TitleLabel.Opacity = 0;
+            //}
+
+            //RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
+        }
+
+        private async Task LoadPackages()
+        {
+            PlacholderLabel.IsVisible = false;
+
+            await ViewModel.Load();
+
+            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+            PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+        }
+
+
+        private async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null) 
+                return;
+
+            App.ShowLoading(true);
+
+            var pkgData = (Package)PakagesView.SelectedItem;
+
+            PakagesView.SelectedItem = null;
+
+            var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
+            if (package != null)
+            {
+                ViewModel.CurrentDisplayPackageId = pkgData.PaketId;
+
+                var packagePage = new PackageDetailsPage(package);
+
+                var mainPage = App.Current.MainPage;
+
+                await mainPage.Navigation.PushAsync(packagePage);
+            }
+            else
+            {
+                ShowMessage("Error retrieving package details");
+            }
+
+
+            App.ShowLoading(false);
+
+        }
+
+        #region Buttons Actions
+
+        private async void LaunchPackageClicked(object sender, EventArgs e)
+        {
+            var newPackage = new Package()
+            {
+              //  CourierPubkey="GBRFMUI55YYMDE5ROZDDRFD4XHWTQOCUAOL7KUG2TTZEKK5WDJB53NMT",
+              //  RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+            };
+
+            var packagePage = new LaunchPackagePage(newPackage);
+          
+            var mainPage = App.Current.MainPage;
+
+            await mainPage.Navigation.PushAsync(packagePage);
+        }
+
+        private async void AcceptPackageClicked(object sender, EventArgs e)
+        {
+            var packagePage = new AcceptPackagePage();
+
+            var mainPage = App.Current.MainPage;
+
+            await mainPage.Navigation.PushAsync(packagePage);
+        }
+
+        #endregion
+    }
 }

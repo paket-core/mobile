@@ -8,8 +8,8 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace PaketGlobal
 {
-    public partial class App : Xamarin.Forms.Application
-	{
+	public partial class App : Xamarin.Forms.Application
+    {
 		private static Locator _locator;
 		public static Locator Locator { get { return _locator ?? (_locator = new Locator()); } }
 
@@ -18,10 +18,10 @@ namespace PaketGlobal
 		}
 
 		public App()
-		{
-			InitializeComponent();
+        {
+            InitializeComponent();
 
-            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize | Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Pan);;
+            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
 
 			Network.UseTestNetwork();//TODO for test porposals
 
@@ -31,14 +31,16 @@ namespace PaketGlobal
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 
 			if (Locator.Profile.Activated) {
-				MainPage = new MainPage();
+                var navigationPage = new NavigationPage(new MainPage()); 
+
+                MainPage = navigationPage;
 			} else {
-				var navPage = Locator.NavigationService.Initialize(new LoginPage());
+                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
 			}
 
 			MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
-				var navPage = Locator.NavigationService.Initialize(new LoginPage());
+                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
 			});
 		}
@@ -52,20 +54,41 @@ namespace PaketGlobal
 		{
 			if (isRunning == true) {
 				if (isCancel == true) {
-					UserDialogs.Instance.Loading("Loading", new Action(async () => {
-                        if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
-                            await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
+					UserDialogs.Instance.Loading("", new Action(async () => {
+						if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
+							await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
 						} else {
 							System.Diagnostics.Debug.WriteLine("Navigation: Can't pop modal without any modals pushed");
 						}
 						UserDialogs.Instance.Loading().Hide();
 					}));
 				} else {
-					UserDialogs.Instance.Loading(null);
+					UserDialogs.Instance.Loading("");
 				}
 			} else {
 				UserDialogs.Instance.Loading().Hide();
 			}
 		}
-	}
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
+        }
+
+        protected override void OnSleep()
+        {
+            base.OnSleep();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStopApp", "");
+        }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
+        }
+    }
 }

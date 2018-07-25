@@ -11,26 +11,17 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\BasePage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Profile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Locator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PackagesModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Interfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Workspace.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Config.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Constants\Constants.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DrawerPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DrawerViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuItem.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Cells\MenuItemCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ViewHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
@@ -62,13 +53,33 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\PackageHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ProfileModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\RegistrationPage.xaml.cs">
+      <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketProgress.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\RestoreKeyPage.xaml.cs">
+      <DependentUpon>RestoreKeyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\ActivationPage.xaml.cs">
+      <DependentUpon>ActivationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketButton.xaml.cs">
+      <DependentUpon>PaketButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\BottomBarPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\BottomBarPageExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CellWithoutSelection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\StellarConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -93,17 +104,36 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\RestoreKeyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\ActivationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\PaketButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Constants\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\Cells\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Packages\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\User\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Wallet\" />
     <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Auth\" />
   </ItemGroup>
 </Project>

@@ -104,7 +104,7 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
 		{
-			var navPage = App.Locator.NavigationService.Initialize(new LoginPage());
+            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
 			Application.Current.MainPage = navPage;
 		}
 
@@ -129,7 +129,7 @@ namespace PaketGlobal
 					message = "Insufficient BULs from the Launcher";
 					break;
 				case StellarOperationResult.LowBULsCourier:
-					message = "Insufficient BULs from the Launcher";
+                    message = "Insufficient BULs from the Courier";
 					break;
 				case StellarOperationResult.FailedLaunchPackage:
 					message = "Error launching the package";
@@ -208,6 +208,19 @@ namespace PaketGlobal
 			ToggleLayout(true);
 			ViewHelper.SwitchActivityIndicator(indicator, false);
 		}
+
+        public async Task WithProgressButton(PaketButton button, Func<Task> action)
+        {
+            button.IsBusy = true;
+
+            ToggleLayout(false);
+
+            await action();
+
+            ToggleLayout(true);
+
+            button.IsBusy = false;
+        }
 
 		protected virtual void ToggleLayout(bool enabled)
 		{

@@ -1,65 +1,122 @@
 ﻿using System;
 using System.Linq;
 
+using Foundation;
+
 using Xamarin.Auth;
 
 namespace PaketGlobal.iOS
 {
-	public class AccountService : IAccountService
-	{
-		public string UserName {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("PaketUser") ? account.Properties["PaketUser"] : null;
-			}
-		}
+    public class AccountService : IAccountService
+    {
+        public string UserName
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("PaketUser") ? account.Properties["PaketUser"] : null;
+            }
+        }
 
-		public string FullName {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("FullName") ? account.Properties["FullName"] : null;
-			}
-		}
+        public string FullName
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("FullName") ? account.Properties["FullName"] : null;
+            }
+        }
 
-		public string PhoneNumber {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("PhoneNumber") ? account.Properties["PhoneNumber"] : null;
-			}
-		}
+        public string PhoneNumber
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("PhoneNumber") ? account.Properties["PhoneNumber"] : null;
+            }
+        }
 
-		public string Seed {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("Seed") ? account.Properties["Seed"] : null;
-			}
-		}
+        public string Seed
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("Seed") ? account.Properties["Seed"] : null;
+            }
+        }
 
-		public string Mnemonic {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("Mnemonic") ? account.Properties["Mnemonic"] : null;
-			}
-		}
+        public string Mnemonic
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("Mnemonic") ? account.Properties["Mnemonic"] : null;
+            }
+        }
 
-		public string Transactions {
-			get {
-				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
-				return account != null && account.Properties.ContainsKey("Transactions") ? account.Properties["Transactions"] : null;
-			}
-			set {
-				var store = AccountStore.Create();
-				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
-				if (account != null) {
-					if (account.Properties.ContainsKey("Transactions")) {
-						account.Properties["Transactions"] = value;
-					} else {
-						account.Properties.Add("Transactions", value);
-					}
-					store.Save(account, App.AppName);
-				}
-			}
-		}
+        public string Transactions
+        {
+            get
+            {
+                var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+                return account != null && account.Properties.ContainsKey("Transactions") ? account.Properties["Transactions"] : null;
+            }
+            set
+            {
+                var store = AccountStore.Create();
+                var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+                if (account != null)
+                {
+                    if (account.Properties.ContainsKey("Transactions"))
+                    {
+                        account.Properties["Transactions"] = value;
+                    }
+                    else
+                    {
+                        account.Properties.Add("Transactions", value);
+                    }
+                    store.Save(account, App.AppName);
+                }
+            }
+        }
+
+        public string ActivationAddress{
+            get
+            {
+                string value = NSUserDefaults.StandardUserDefaults.StringForKey("ActivationAddress");
+
+                if (value == null)
+                {
+                    return "";
+                }
+
+                return NSUserDefaults.StandardUserDefaults.StringForKey("ActivationAddress");
+            }
+            set
+            {
+                NSUserDefaults.StandardUserDefaults.SetString(value, "ActivationAddress");
+                NSUserDefaults.StandardUserDefaults.Synchronize();
+            } 
+        }
+
+        public bool ShowNotifications
+        {
+            get
+            {
+                string value = NSUserDefaults.StandardUserDefaults.StringForKey("Notifications"); 
+
+                if (value==null)
+                {
+                    return true;
+                }
+
+                return NSUserDefaults.StandardUserDefaults.BoolForKey("Notifications");
+            }
+            set{
+                NSUserDefaults.StandardUserDefaults.SetBool(value, "Notifications");
+                NSUserDefaults.StandardUserDefaults.Synchronize();
+            }
+        }
 
 		public bool Activated {
 			get {

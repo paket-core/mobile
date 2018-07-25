@@ -1,20 +1,94 @@
 ﻿using System;
+
 using UIKit;
 using Foundation;
+using CoreGraphics;
+
+using GlobalToast;
+using GlobalToast.Animation;
+
+using PaketGlobal.iOS;
+using PaketGlobal.iOS.ViewRenders;
 
 namespace PaketGlobal.iOS
 {
 	public class NotificationService : INotificationService
 	{
+        private string CurrentPackageId;
+
+        private Action<string> callback;
+
 		public NotificationService()
 		{
-
+            Toast.GlobalAnimator = new ScaleAnimator();
+            Toast.GlobalLayout.MarginBottom = 16f;
+            Toast.GlobalAppearance.MessageColor = UIColor.White;
+            Toast.GlobalAppearance.TitleFont = UIFont.FromName("Poppins-Regular", 12);
+            Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
-		public void ShowMessage(string text, bool lengthLong = false)
+        public void ShowMessage(string text, bool lengthLong = false)
 		{
-			var alert = new UIAlertView("", text, null, "OK");
-			alert.Show();
+            // More configurations
+            Toast.MakeToast(text)
+                 .SetShowShadow(false) // Default is true
+                 .SetPosition(ToastPosition.Bottom) // Default is Bottom
+                 .Show();
 		}
+
+        public void ShowWalletNotification(string title, string subTitle, Action<string> action)
+        {
+            if(IsShow()==false)
+            {
+                callback = action;
+
+                var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var bannerView = BannerView.View();
+                bannerView.SetWallet(DidClickBanner);
+                bannerView.Show();
+                application.Window.AddSubview(bannerView);
+
+                CurrentPackageId = null;
+            }
+        }
+
+        public void ShowPackageNotification(Package package, Action<string> action)
+        {
+            if (IsShow() == false)
+            {
+                callback = action;
+
+                var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var bannerView = BannerView.View();
+                bannerView.SetPackage(package, DidClickBanner);
+                bannerView.Show();
+                application.Window.AddSubview(bannerView);
+
+                CurrentPackageId = package.PaketId;
+            }
+        }
+
+        private void DidClickBanner()
+        {
+            callback(CurrentPackageId);
+        }
+
+
+        private bool IsShow()
+        {
+            var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+            foreach (UIView view in application.Window.Subviews)
+            {
+                if (view is BannerView)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 	}
 }

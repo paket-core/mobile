@@ -10,26 +10,30 @@ using Android.Graphics;
 using Android.Widget;
 using Android.Views;
 using System;
+using RoundedBoxView.Forms.Plugin.Droid;
 using Xamarin.Forms.Platform.Android;
-using System.Threading.Tasks;
 
 namespace PaketGlobal.Droid
 {
-	[Activity(Label = "PaketGlobal.Droid", Icon = "@drawable/icon", Theme = "@style/MyTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
+    [Activity(Label = "PaketGlobal.Droid", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : FormsAppCompatActivity
 	{
 		internal static MainActivity Instance { get; private set; }
+
 
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 
+            XamEffects.Droid.Effects.Init();
+            XFGloss.Droid.Library.Init(this, bundle);
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
 			Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
+            //Countly.SharedInstance().SetLoggingEnabled(true);
 
             Instance = this;
 
-			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
@@ -38,7 +42,9 @@ namespace PaketGlobal.Droid
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 
-			LoadApplication(new App());
+            RoundedBoxViewRenderer.Init();
+
+            LoadApplication(new App());
 
 			UserDialogs.Init(this);
 
@@ -59,7 +65,8 @@ namespace PaketGlobal.Droid
 			base.OnStop();
 		}
 
-		protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
 		{
 			base.OnActivityResult(requestCode, resultCode, data);
 		}
@@ -70,6 +77,12 @@ namespace PaketGlobal.Droid
 
 			global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
+
+        private void InitializeUIAsync()         {
+            // from https://forums.xamarin.com/discussion/comment/282515#Comment_282515
+            try             {                 if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)                 {                     Window.DecorView.SystemUiVisibility = 0;                      var statusBarHeightInfo = typeof(FormsAppCompatActivity).GetField("_statusBarHeight",                         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);                      if (statusBarHeightInfo != null)                     {                         statusBarHeightInfo.SetValue(this, 0);                     }
+
+                }             }             catch (Exception ex)             {                 Console.WriteLine(ex);             }         }
 
 		private void RegisterServiceContainers()
 		{
@@ -90,32 +103,22 @@ namespace PaketGlobal.Droid
 					return new AccountService();
 				});
 			}
+
+            if (!SimpleIoc.Default.IsRegistered<IClipboardService>())
+            {
+                SimpleIoc.Default.Register<IClipboardService>(() => {
+                    return new ClipboardService();
+                });
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<IDeviceService>())
+            {
+                SimpleIoc.Default.Register<IDeviceService>(() => {
+                    return new DeviceService();
+                });
+            }
 		}
-
-        private void InitializeUIAsync()
-        {
-            // from https://forums.xamarin.com/discussion/comment/282515#Comment_282515
-            try
-            {
-                if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-                {
-                    Window.DecorView.SystemUiVisibility = 0;
-
-                    var statusBarHeightInfo = typeof(FormsAppCompatActivity).GetField("_statusBarHeight",
-                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-
-                    if (statusBarHeightInfo != null)
-                    {
-                        statusBarHeightInfo.SetValue(this, 0);
-                    }
-      
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-        }
 	}
 
+   
 }

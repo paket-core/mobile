@@ -8,7 +8,6 @@ namespace PaketGlobal
 	public partial class AcceptPackagePage : BasePage
 	{
 		bool cleaned;
-		bool scanned;
 		BarcodePackageData data;
 
 		private Package ViewModel {
@@ -21,26 +20,50 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
-			Title = "Accept Package";
+            #if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                TitleLabel.TranslationY = 35;
+                BackButton.TranslationY = 10;
+            }
+            else
+            {
+                TitleLabel.TranslationY = 24;
+            }
+#elif __ANDROID__
+            TitleLabel.TranslationY = 5;
+            BackButton.TranslationY = -18;
+            BackButton.TranslationX = -30;
+#endif
 
 			ConfigureScanner();
+
+            App.Locator.DeviceService.setStausBarLight();
 		}
 
-		protected override bool OnBackButtonPressed()
-		{
-			CleanUp();
-			return base.OnBackButtonPressed();
-		}
+        private void OnBack(object sender, System.EventArgs e)
+        {
+            CleanUp();
+
+            Navigation.PopToRootAsync();
+        }
+
 
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			if (!scanned) StartScanning();
+
+            if (barcodeScaner.IsScanning==false) 
+                StartScanning();
+
+            App.Locator.DeviceService.setStausBarLight();
 		}
 
 		protected override void OnDisappearing()
 		{
-			if (!scanned) StopScanning();
+            if (barcodeScaner.IsScanning==true) 
+                StopScanning();
+            
 			base.OnDisappearing();
 		}
 
@@ -54,6 +77,9 @@ namespace PaketGlobal
 			overlayBarcode.BindingContext = overlayBarcode;
 
 			barcodeScaner.Options.UseFrontCameraIfAvailable = false;
+
+            barcodeScaner?.AutoFocus();
+
 			barcodeScaner.OnScanResult += (result) => {
 				Device.BeginInvokeOnMainThread(async () => {
 					try {
@@ -66,72 +92,39 @@ namespace PaketGlobal
 						App.ShowLoading(true);
 
 						StopScanning();
-						scanned = true;
 
 						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
 						if (package != null && package.Package != null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {
-								//you are a recepient
+                                //you are a recepient //Title = "Accept as a Recipient";
 								package.Package.MyRole = PaketRole.Recipient;
-								Title = "Accept as a Recipient";
-							} else {
-								//you are a courier
+							} 
+                            else {
+                                //you are a courier //Title = "Accept as a Courier";
 								package.Package.MyRole = PaketRole.Courier;
-								Title = "Accept as a Courier";
 							}
 
 							BindingContext = package.Package;
-							await ViewHelper.ToggleViews(layoutAccept, layoutBarcode);
-						} else {
+
+                            var packagePage = new PackageDetailsPage(package.Package, true, data);
+                            await Navigation.PushAsync(packagePage);
+						} 
+                        else {
 							ShowMessage("Invalid package identifier");
 							StartScanning();
 						}
 
 						App.ShowLoading(false);
-					} else {
+					} 
+                    else {
 						ShowMessage("Invalid barcode");
 					}
 				});
 			};
 		}
 
-		async void AcceptClicked(object sender, System.EventArgs e)
-		{
-			var myPubkey = App.Locator.Profile.Pubkey;
-			if (myPubkey == ViewModel.RecipientPubkey) {
-				//I'm a recipient
-				App.ShowLoading(true);
-
-				var result = await StellarHelper.AcceptPackageAsRecipient(data.EscrowAddress, ViewModel.PaymentTransaction);
-				if (result == StellarOperationResult.Success) {
-					await System.Threading.Tasks.Task.Delay(2000);
-					await App.Locator.Packages.Load();
-					ShowMessage("Package accepted successfully");
-					App.Locator.NavigationService.GoBack();
-				} else {
-					ShowError(result);
-				}
-
-				App.ShowLoading(false);
-			} else {
-				//I'm a courier
-				App.ShowLoading(true);
-
-				var result = await StellarHelper.AcceptPackageAsCourier(data.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction);
-				if (result == StellarOperationResult.Success) {
-					await System.Threading.Tasks.Task.Delay(2000);
-					await App.Locator.Packages.Load();
-					ShowMessage("Package accepted successfully");
-					App.Locator.NavigationService.GoBack();
-				} else {
-					ShowError(result);
-				}
-
-				App.ShowLoading(false);
-			}
-		}
-
+	
 		public void StartScanning()
 		{
 			if (!cleaned && barcodeScaner != null) {

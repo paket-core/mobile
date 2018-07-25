@@ -13,6 +13,8 @@ namespace PaketGlobal
 		bool Activated { get; set; }
 		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
 		void DeleteCredentials();
+        bool ShowNotifications { get; set; }
+        string ActivationAddress { get; set; }
 	}
 
 	public interface IAppInfoService
@@ -25,10 +27,30 @@ namespace PaketGlobal
 	public interface INotificationService
 	{
 		void ShowMessage(string text, bool lengthLong = false);
+        void ShowPackageNotification(Package package, Action<string> callback);
+        void ShowWalletNotification(string title, string subTitle, Action<string> callback);
 	}
 
 	public interface IScreenScale
 	{
 		float GetScreenScale();
 	}
+
+    public interface IClipboardService
+    {
+        string GetTextFromClipboard();
+        void SendTextToClipboard(string text);
+    }
+
+    public interface IDeviceService
+    {
+        bool IsIphoneX();
+        bool IsIphonePlus();
+
+        void setStausBarLight();
+        void setStausBarBlack();
+
+        int ScreenHeight();
+        int ScreenWidth();
+    }
 }

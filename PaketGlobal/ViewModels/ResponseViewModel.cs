@@ -131,7 +131,7 @@ namespace PaketGlobal
 
         public string FormattedBalanceBUL {
             get {
-                return String.Format("{0}.00 BUL",BalanceBUL/1_000_000_0);   
+                return StellarConverter.ConvertValueToString(BalanceBUL);  
             }
         }
 
@@ -139,7 +139,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00 XLMs", BalanceXLM/1_000_000_0);
+                return StellarConverter.ConvertValueToString(BalanceXLM);  
             }
         }
 	}
@@ -295,8 +295,10 @@ namespace PaketGlobal
 	}
 
 	[DataContract]
-	public class Package
+    public class Package : BaseViewModel
 	{
+        public bool isNewPackage { get; set; }
+
 		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
 
@@ -315,7 +317,24 @@ namespace PaketGlobal
 		public string CourierPubkey { get; set; }
 
 		[DataMember(Name = "status")]
-		public string Status { get; set; }
+        private string status { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                return status;
+            }
+
+            set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    OnPropertyChanged("Status");
+                }
+            }
+        }
 
 		[DataMember(Name = "blockchain_url")]
 		public string BlockchainUrl { get; set; }
@@ -341,6 +360,12 @@ namespace PaketGlobal
 		[DataMember(Name = "payment_transaction")]
 		public string PaymentTransaction { get; set; }
 
+        [DataMember(Name = "refund_transaction")]
+        public string RefundTransaction { get; set; }
+
+        [DataMember(Name = "merge_transaction")]
+        public string MergeTransaction { get; set; }
+
 		public DeliveryStatus DeliveryStatus { get; set; }
 
 		public DeliveryStatus DeliveryStatusPrivate {
@@ -356,18 +381,109 @@ namespace PaketGlobal
 		}
 
 		public string DeadlineString {
-			get { return DeadlineDT.ToString("MM.dd.yyyy"); }
+			get { 
+                if(DeadlineDT.Year==1970) {
+                    return "";
+                }
+                return DeadlineDT.ToString("MM.dd.yyyy");
+            }
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString("MM.dd.yyyy h:mm tt"); }
+			get { return SendTimeDT.ToString("MM.dd.yyyy"); }
 		}
+
+        public string StatusIconWithText
+        {
+            get
+            {
+                if (Status == "waiting pickup")
+                {
+                    return "waiting_status_icon.png";
+                }
+                else if (Status == "delivered")
+                {
+                    return "delivered_status_icon.png";
+                }
+                return "in_transit_status.png";
+            }  
+        }
+
+        public string StatusIcon
+        {
+            get { 
+                if (Status=="waiting pickup") {
+                    return "waiting_pickup.png";  
+                }
+                else if (Status == "delivered")
+                {
+                    return "delivered_icon.png";
+                }
+                return "in_transit.png";
+            }
+        }
+
+        public string FormattedStatus
+        {
+            get
+            {
+                return Status.ToUpperInvariant();
+            }
+        }
+
+        public float Progress
+        {
+            get { 
+                if (Status == "waiting pickup")
+                {
+                    return 0.1f;
+                }
+                else if (Status == "delivered")
+                {
+                    return 1.0f;
+                }
+
+                return 0.5f;
+            }
+        }
+
+        public string ProgressIcon
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+
+                    return "point_0";
+                }
+
+                return "point_1";
+            }
+        }
+
+        public string RoleString
+        {
+            get
+            {
+                if (MyRole == PaketRole.Courier)
+                {
+                    return "Courier";
+                }
+                else if (MyRole == PaketRole.Recipient)
+                {
+                    return "Recipient";
+                }
+                else{
+                    return "Launcher";
+                }
+            }
+        }
 
         public string FormattedCollateral
         {
             get
             {
-                return String.Format("{0}.00 BULs", Collateral / 1_000_000_0);
+                return StellarConverter.ConvertValueToString(Collateral);  
             }
         }
 
@@ -375,7 +491,7 @@ namespace PaketGlobal
         {
             get
             {
-                return String.Format("{0}.00 BULs", Payment / 1_000_000_0);
+                return StellarConverter.ConvertValueToString(Payment);  
             }
         }
 	}

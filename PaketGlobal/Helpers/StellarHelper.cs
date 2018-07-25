@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 
 using stellar_dotnetcore_sdk;
 using stellar_dotnetcore_sdk.xdr;
+using static PaketGlobal.ServiceClient;
 
 namespace PaketGlobal
 {
@@ -10,17 +11,31 @@ namespace PaketGlobal
 	{
 		static string horizon_url = "https://horizon-testnet.stellar.org";
 
-		public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls)
+        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls)
 		{
+            var payment =  StellarConverter.ConvertBULToStroops(paymentBuls);
+
+            if (StellarConverter.IsValidBUL(payment)==false)
+            {
+                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
+
+            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+
+            if (StellarConverter.IsValidBUL(collateral)==false)
+            {
+                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
+
 			//Check launcher's balance
 			var launcherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
-			if (launcherBalance == null || launcherBalance.BalanceBUL < paymentBuls) {
+            if (launcherBalance == null || launcherBalance.BalanceBUL < payment) {
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
 			//Check courier's balance
 			var courierBalance = await App.Locator.ServiceClient.Balance(courierPubkey);
-			if (courierBalance == null || launcherBalance.BalanceBUL < collateralBuls) {
+            if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
 			}
 
@@ -118,7 +133,7 @@ namespace PaketGlobal
 				return StellarOperationResult.LowBULsCourier;
 			}
 
-            var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, (collateral/10000000));
+            var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, (collateral/10000000.0f));
 			if (trans != null) {
 				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 				var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);

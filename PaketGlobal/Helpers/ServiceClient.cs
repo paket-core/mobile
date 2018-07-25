@@ -135,43 +135,41 @@ namespace PaketGlobal
 			return await SendRequest<PriceData>(request, signData: false);
 		}
 
-		public async Task<PurchaseTokensData> PurchaseBULs(long euroCents, PaymentCurrency paymentCurrency)
+        public async Task<PurchaseTokensData> PurchaseBULs(double euroCents, PaymentCurrency paymentCurrency)
 		{
 			var request = PrepareRequest(apiVersion + "/purchase_bul", Method.POST);
 
-			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("euro_cents", euroCents * 100);
 			request.AddParameter("payment_currency", paymentCurrency.ToString());
 
 			return await SendRequest<PurchaseTokensData>(request);
 		}
 
-		public async Task<PurchaseTokensData> PurchaseXLMs(long euroCents, PaymentCurrency paymentCurrency)
+        public async Task<PurchaseTokensData> PurchaseXLMs(double euroCents, PaymentCurrency paymentCurrency)
 		{
 			var request = PrepareRequest(apiVersion + "/purchase_xlm", Method.POST);
 
-			request.AddParameter("euro_cents", euroCents);
+			request.AddParameter("euro_cents", euroCents * 100);
 			request.AddParameter("payment_currency", paymentCurrency.ToString());
 
 			return await SendRequest<PurchaseTokensData>(request);
 		}
 
-		public async Task<SubmitTransactionData> SendBuls(string toPubkey, long amountBuls)
-		{
-			var request = PrepareRequest(apiVersion + "/send_buls", Method.POST);
 
-			request.AddParameter("to_pubkey", toPubkey);
-            request.AddParameter("amount_buls", amountBuls * 10000000);
-
-			return await SendRequest<SubmitTransactionData>(request);
-		}
-
-		public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, long amountBuls)
+        public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, double amountBuls)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_send_buls", Method.POST);
 
+            var amount =  StellarConverter.ConvertBULToStroops(amountBuls);
+
+            if(StellarConverter.IsValidBUL(amount)==false)
+            {
+                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
+
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
-			request.AddParameter("amount_buls", amountBuls * 10000000);
+            request.AddParameter("amount_buls", amount);
 
 			return await SendRequest<SendBulsData>(request);
 		}
@@ -198,7 +196,7 @@ namespace PaketGlobal
 
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("new_pubkey", newPubkey);
-			request.AddParameter("starting_balance", startingBalance * 10000000);
+            request.AddParameter("starting_balance", startingBalance * 10000000);
 
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}
@@ -216,16 +214,30 @@ namespace PaketGlobal
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-		public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, long paymentBuls, long collateralBuls, SignHandler customSign)
+        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
+
+            var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+
+            if (StellarConverter.IsValidBUL(payment)==false)
+            {
+                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
+
+            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+
+            if (StellarConverter.IsValidBUL(collateral)==false)
+            {
+                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
 
 			request.AddParameter("launcher_pubkey", launcherPubkey);
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("courier_pubkey", courierPubkey);
-            request.AddParameter("payment_buls", paymentBuls * 10000000);
-            request.AddParameter("collateral_buls", collateralBuls * 10000000);
+            request.AddParameter("payment_buls", payment);
+            request.AddParameter("collateral_buls", collateral);
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
@@ -252,16 +264,6 @@ namespace PaketGlobal
 			return await SendRequest<PackageData>(request);
 		}
 
-		public async Task<RelayPackageData> RelayPackage(string paketId, string courierPubkey, int paymentBuls)
-		{
-			var request = PrepareRequest(apiVersion + "/relay_package", Method.POST);
-
-			request.AddParameter("paket_id", paketId);
-			request.AddParameter("courier_pubkey", courierPubkey);
-			request.AddParameter("payment_buls", paymentBuls);
-
-			return await SendRequest<RelayPackageData>(request);
-		}
 
 		#endregion Packages
 

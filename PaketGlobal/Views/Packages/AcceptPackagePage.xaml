@@ -1,80 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.AcceptPackagePage"
                 xmlns:local="clr-namespace:PaketGlobal" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+                xmlns:Views="clr-namespace:XF.Controls.Views"
+                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+                NavigationPage.HasNavigationBar="False">
     <local:BasePage.Resources>
         <ResourceDictionary>
             <local:PaketRoleToStringConverter x:Key="paketRoleToStringConverter" />
         </ResourceDictionary>
     </local:BasePage.Resources>
+
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+    
     <local:BasePage.Content>
         <RelativeLayout>
             <RelativeLayout x:Name="layoutBarcode"
                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
                 <zxing:ZXingScannerView x:Name="barcodeScaner" AutomationId="zxingScannerView"
+                                        RelativeLayout.YConstraint="180"
                                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}"/>
-                <zxing:ZXingDefaultOverlay x:Name="overlayBarcode" ShowFlashButton="false" TopText="Scan the barcode containing package information" BottomText="Scanning will happen automatically" AutomationId="zxingDefaultOverlay"
-                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
+                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=-180}"/>
+                <zxing:ZXingDefaultOverlay x:Name="overlayBarcode" ShowFlashButton="false" TopText="" BottomText="" AutomationId="zxingDefaultOverlay"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
+                                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}">
                     <zxing:ZXingDefaultOverlay.GestureRecognizers>
                         <TapGestureRecognizer
                                 Tapped="ScannerOverlayTapped"/>
                     </zxing:ZXingDefaultOverlay.GestureRecognizers>
                 </zxing:ZXingDefaultOverlay>
+
+            <Label x:Name="TitleLabel" TextColor="White" Text="Accept Package" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnBack"
+                   RelativeLayout.XConstraint = "23"
+                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="Scan the barcode containing&#x0a;package information" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
+                   RelativeLayout.YConstraint="100"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+
+            <Frame VerticalOptions="EndAndExpand" BackgroundColor="Black" Opacity="0.5" HasShadow="false" CornerRadius="0"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-78}"
+                          RelativeLayout.HeightConstraint="80">
+                               <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="Scanning will happen automatically" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+             </Frame>
+
+            <BoxView VerticalOptions="Center" BackgroundColor="#D43F51"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5,Constant=70}"
+                          RelativeLayout.HeightConstraint="1"/> 
             </RelativeLayout>
-            <RelativeLayout x:Name="layoutAccept" IsVisible="false"
-                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
-                <TableView x:Name="contentPackage" HasUnevenRows="true" RowHeight="-1"
-                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
-                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
-                    <TableRoot>
-                        <TableSection Title="Information">
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Role" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding MyRole, Converter={StaticResource paketRoleToStringConverter}, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                </StackLayout>
-                            </ViewCell>
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Status" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding Status, Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                </StackLayout>
-                            </ViewCell>
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Deadline" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding DeadlineDT, StringFormat='{0:MM.dd.yyyy}', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                </StackLayout>
-                            </ViewCell>
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Launched" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding SendTimeDT, StringFormat='{0:MM.dd.yyyy h:mm tt}', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                </StackLayout>
-                            </ViewCell>
-                        </TableSection>
-                        <TableSection Title="Funds">
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Collateral" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding Collateral, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                </StackLayout>
-                            </ViewCell>
-                            <ViewCell>
-                                <StackLayout Orientation="Vertical" Padding="15,8,15,5" Spacing="0">
-                                    <Label Text = "Payment" FontSize="13" TextColor="#808080"/>
-                                    <Label Text = "{Binding Payment, StringFormat='{0}.00 BULs', Mode=OneWay}" FontSize="17" TextColor="#000000"/>
-                                    <xlabs:ExtendedButton x:Name="btnAccept" Margin="0,20,0,0" Text="Accept" HorizontalOptions="Center" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="AcceptClicked"/>
-                                </StackLayout>
-                            </ViewCell>
-                        </TableSection>
-                    </TableRoot>
-                </TableView>
-            </RelativeLayout>
+            
+           
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>
