@@ -22,6 +22,7 @@ job:
   script:
   - echo %ANDROID_HOME%
   - echo "Release build..."
+  - dir %ANDROID_HOME%
   - set androidSdkPath="C:\Install\android-sdk-windows\platforms\android-25"
   - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
