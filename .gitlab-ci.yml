@@ -31,4 +31,4 @@ job:
   tags:
     - Android
   only:
-    tags: true
+    - tags
