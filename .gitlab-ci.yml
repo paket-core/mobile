@@ -27,8 +27,7 @@ job:
   artifacts:
     expire_in: 1 week
     paths: 
-    - PaketGlobal\Droid\bin\Release\com.paket.PaketGlobal.apk
-    #  - "*.apk"
+    - "*.apk"
   tags:
   except:
   - tags
