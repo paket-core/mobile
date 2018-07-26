@@ -13,6 +13,7 @@ job:
   - 'echo Start-BitsTransfer "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" >> download_nuget.ps1'
   - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
   - del download_nuget.ps1
+  - echo %CI_PROJECT_DIR%
   - nuget.exe restore
   - del nuget.exe
   - '"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -property installationPath > tmpFile'
