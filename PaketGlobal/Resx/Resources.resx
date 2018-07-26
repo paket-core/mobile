@@ -37,6 +37,10 @@
     <value>Address</value>
     </data>
 
+    <data name="GeneralSettings" xml:space="preserve">
+    <value>GENERAL SETTINGS</value>
+    </data>
+    
     <data name="AdvancedSettings" xml:space="preserve">
     <value>ADVANCED SETTINGS</value>
     </data>
@@ -64,5 +68,15 @@
     <data name="UpdateProfile" xml:space="preserve">
     <value>UPDATE PROFILE</value>
     </data>
+
+    <data name="MnemonicPhrase" xml:space="preserve">
+    <value>Mnemonic Phrase</value>
+    </data>
+
+    <data name="MnemonicProfileInfo" xml:space="preserve">
+    <value>Here’s your mnemonic phrase, used to interact&#xA;with Stellar</value>
+    </data>
+    
+
     
 </root>
