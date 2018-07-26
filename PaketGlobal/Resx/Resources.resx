@@ -77,6 +77,76 @@
     <value>Here’s your mnemonic phrase, used to interact&#xA;with Stellar</value>
     </data>
     
+    <data name="Wallet" xml:space="preserve">
+    <value>Wallet</value>
+    </data>
 
+    <data name="YourBalance" xml:space="preserve">
+    <value>Your Balance</value>
+    </data>
+
+    <data name="Transactions" xml:space="preserve">
+    <value>Transactions</value>
+    </data>
+
+    <data name="SendBul" xml:space="preserve">
+    <value>Send BUL</value>
+    </data>
+
+    <data name="EnterRecipient" xml:space="preserve">
+    <value>Enter recipient</value>
+    </data>
+
+    <data name="EnterAmount" xml:space="preserve">
+    <value>Enter amount</value>
+    </data>
+
+    <data name="Send" xml:space="preserve">
+    <value>Send</value>
+    </data>
+
+    <data name="PurchaseBul" xml:space="preserve">
+    <value>Purchase BUL</value>
+    </data>
+
+    <data name="PurchaseXlm" xml:space="preserve">
+    <value>Purchase XLM</value>
+    </data>
+    
+    <data name="SelectPaymentCurrency" xml:space="preserve">
+    <value>Select payment currency</value>
+    </data>
+
+    <data name="AmountEuro" xml:space="preserve">
+    <value>Enter amount in Euro</value>
+    </data>
+
+    <data name="Purchase" xml:space="preserve">
+    <value>Purchase</value>
+    </data>
+
+    <data name="TransactionCompleted" xml:space="preserve">
+    <value>Transaction Completed</value>
+    </data>
+
+    <data name="TransactionProcessed" xml:space="preserve">
+    <value>Your transaction has been successfully processed. Thank you</value>
+    </data> 
+
+    <data name="Done" xml:space="preserve">
+    <value>Done</value>
+    </data> 
+
+    <data name="Done" xml:space="preserve">
+    <value>Done</value>
+    </data> 
+
+    <data name="AwaitingPayment" xml:space="preserve">
+    <value>Awaiting Payment</value>
+    </data> 
+
+    <data name="DoneCopy" xml:space="preserve">
+    <value>Done &amp; Copy Address</value>
+    </data> 
     
 </root>
