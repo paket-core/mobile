@@ -1,6 +1,11 @@
 ﻿using System;
 namespace PaketGlobal
 {
+    public enum ApiErrorCode
+    {
+       
+    }
+
 	public enum StellarOperationResult
 	{
 		Success = 0,
