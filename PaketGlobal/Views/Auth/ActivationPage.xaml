@@ -12,7 +12,7 @@
                 <StackLayout x:Name="activateTitleLabel" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.YConstraint="20">
-                    <Label Text="Activate Account" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
+                    <Label Text="{local:Translate ActivateAccount}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
                 </StackLayout>
                 <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_arrow.png"
                         Clicked="OnBack"
@@ -22,7 +22,7 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=100}">
                     <StackLayout Spacing="40">
-                        <Label x:Name="sendLabel" Text="Please send 0.001 BTC to this address to create your account" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
+                        <Label x:Name="sendLabel" Text="{local:Translate ActivateSend}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                         <StackLayout Spacing="10">
                         <StackLayout Orientation="Horizontal" Spacing="5"  x:Name="btcStackView">
                             <Label x:Name="addressLabel" Text="17AQ4avXZBiCmW5Tu4QyP1SfxG31dbrR62" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="13" TextColor="#555555"
@@ -31,7 +31,7 @@
                         </StackLayout>
                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
-                        <local:PaketButton x:Name="checkButton" Text="Check Activation" Clicked="CheckActivation" ButtonBackground="#4D64E8"/>
+                        <local:PaketButton x:Name="checkButton" Text="{local:Translate CheckActivation}" Clicked="CheckActivation" ButtonBackground="#4D64E8"/>
                     </StackLayout>
                 </StackLayout>
                 <Image BackgroundColor="Transparent"
@@ -48,8 +48,8 @@
                           VerticalOptions="Start"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}">
-                    <Label XAlign="Center" Text="MNEMONIC" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                    <Label XAlign="Start" Text="Use this mnemonic to recover private key&#xA;on another device" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
+                    <Label XAlign="Center" Text="{local:Translate MnemonicUpperCase}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                    <Label XAlign="Start" Text="{local:Translate ActivationMnemonicInfo}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
                     <StackLayout Spacing="10">
                         <StackLayout Orientation="Horizontal" Spacing="15" >
                              <Label x:Name="mnemonicLabel" Text="witch collapse practice feed shame open despair creek road again ice least" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="13" TextColor="#555555"/>

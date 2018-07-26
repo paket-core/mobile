@@ -36,7 +36,7 @@
                     </zxing:ZXingDefaultOverlay.GestureRecognizers>
                 </zxing:ZXingDefaultOverlay>
 
-            <Label x:Name="TitleLabel" TextColor="White" Text="Accept Package" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+            <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate AcceptPackage}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -44,7 +44,7 @@
                    Clicked="OnBack"
                    RelativeLayout.XConstraint = "23"
                    RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
-            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="Scan the barcode containing&#x0a;package information" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
+            <Label x:Name="TopLabel" TextColor="White" Opacity="0.7" Text="{local:Translate ScanInfo}" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"
                    RelativeLayout.YConstraint="100"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -53,7 +53,7 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-78}"
                           RelativeLayout.HeightConstraint="80">
-                               <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="Scanning will happen automatically" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
+                               <Label HorizontalOptions="Center" VerticalOptions="Center" x:Name="BotLabel" TextColor="White" Opacity="0.7" Text="{local:Translate AutoScan}" XAlign="Center" FontFamily="{StaticResource MediumFont}" FontSize="12"/>
              </Frame>
 
             <BoxView VerticalOptions="Center" BackgroundColor="#D43F51"

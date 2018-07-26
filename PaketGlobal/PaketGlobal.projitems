@@ -80,6 +80,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PullToRefreshLayout.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILocalize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TranslateExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resx\AppResources.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

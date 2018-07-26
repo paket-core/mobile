@@ -150,13 +150,13 @@ namespace PaketGlobal
         private void SecretCopyClicked(object sender, System.EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(App.Locator.Profile.Seed);
-            ShowMessage("Copied to clipboard");
+            ShowMessage(AppResources.Copied);
         }
 
         private void MnemonicCopyClicked(object sender, System.EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(App.Locator.Profile.Mnemonic);
-            ShowMessage("Copied to clipboard");        
+            ShowMessage(AppResources.Copied);        
         }
 
 		protected override bool IsValid()

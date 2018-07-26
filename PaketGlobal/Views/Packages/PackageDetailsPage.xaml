@@ -30,7 +30,7 @@
 
     <local:BasePage.Content>
         <RelativeLayout>
-            <Label x:Name="TitleLabel" TextColor="White" Text="Package Details" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+            <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate PackageDetails}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -78,11 +78,11 @@
                                     <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
                                         <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
-                                            <Label Text="SENT" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                            <Label Text="{local:Translate Sent}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
                                             <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
                                         </StackLayout>
                                         <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
-                                            <Label Text="DEADLINE" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
+                                            <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
                                             <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
                                         </StackLayout>
                                     </StackLayout>
@@ -91,7 +91,7 @@
              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#A7A7A7" Text="Role" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#A7A7A7" Text="{local:Translate Role}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                 <Label TextColor="#555555" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
@@ -102,13 +102,13 @@
                                             Mode=OneWay}"/>
                                         <Button HorizontalOptions="Center" x:Name="ReclaimButton" Clicked="ReclaimClicked" Text="Reclaim" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
                                             IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
-                                        <Label TextColor="#5F5F5F" x:Name="ReclaimLabel" Text="Package is delivered.&#x0a;You can reclaim unspent funds from the escrow." XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
+                                        <Label TextColor="#5F5F5F" x:Name="ReclaimLabel" Text="{local:Translate PackageDelivered}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
                                            IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
-                                        <Label TextColor="#5F5F5F" x:Name="RefundLabel" Text="Deadline Expired.&#x0a;You can refund from the escrow." XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
+                                        <Label TextColor="#5F5F5F" x:Name="RefundLabel" Text="{local:Translate PackageExpired}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
                                             IsVisible="{Binding DeliveryStatusPrivate,
                                             Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
                                             Mode=OneWay}"/>
-                                        <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="Accept Package" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                        <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="{local:Translate AcceptPackage}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
                                             IsVisible="false"/>
                                     </StackLayout>
                                 </RelativeLayout>
@@ -122,17 +122,17 @@
                       TopCorners="15">
                                 <StackLayout x:Name="FundInfoView" Padding="20,20,15,25" BackgroundColor="Transparent" Spacing="15">
                                     <StackLayout Spacing="15">
-                                        <Label TextColor="Black" Text="FUNDS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        <Label TextColor="Black" Text="{local:Translate Funds}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#A7A7A7" Text="Payment" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                 <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                         </StackLayout>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
-                                                <Label TextColor="#A7A7A7" Text="Collaretal" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                 <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             </StackLayout>
                                             <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
@@ -149,10 +149,10 @@
                       TopCorners="15">
                                 <StackLayout x:Name="PaymentInfoView" Padding="20,0,15,5" BackgroundColor="Transparent" Spacing="15">
                                     <StackLayout Spacing="15">
-                                        <Label TextColor="Black" Text="PAYMENT INFO" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        <Label TextColor="Black" Text="{local:Translate PaymentInfo}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0" x:Name="BarcodeView" Orientation="Horizontal"  xe:TouchEffect.Color="Gray">
-                                                <Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="Use this barcode to pass the paket to a&#x0a;courier or accept it by the recepient" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                                                <Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="{local:Translate PackageBarcodeInfo}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
                                                 <Image Source="dropdown_arrow.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                             </StackLayout>
                                             <zxing:ZXingBarcodeImageView IsVisible="false" x:Name="BarcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="300"/>
@@ -169,7 +169,7 @@
                       TopCorners="15">
                                 <StackLayout x:Name="EventsInfoView" Padding="20,15,15,25" BackgroundColor="Transparent" Spacing="15">
                                     <StackLayout Spacing="15">
-                                        <Label TextColor="Black" Text="EVENTS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        <Label TextColor="Black" Text="{local:Translate Events}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                     </StackLayout>
                                     <Grid HorizontalOptions="FillAndExpand" HeightRequest="110">
                                         <ScrollView  Orientation="Horizontal" x:Name="EventsScrollView" VerticalScrollBarVisibility="Never"
