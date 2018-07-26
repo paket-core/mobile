@@ -14,12 +14,11 @@ job:
   - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
   - del download_nuget.ps1
   - nuget.exe restore
-  
+  #- del nuget.exe
   - '"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -property installationPath > tmpFile'
   - set /p VSWHERE= < tmpFile
   - del tmpFile
   - call "%VSWHERE%\VC\Auxiliary\Build\vcvars64.bat"
-  - del nuget.exe
   script:
   - echo %ANDROID_HOME%
   - echo "Release build..."
