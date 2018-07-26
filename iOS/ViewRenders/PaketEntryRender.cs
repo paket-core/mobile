@@ -81,7 +81,7 @@ namespace PaketGlobal.iOS
 
             if(element.CapSentences==1)
             {
-                textField.AutocapitalizationType = UITextAutocapitalizationType.Sentences;
+                textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
             }
         }
 

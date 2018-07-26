@@ -286,6 +286,8 @@
     <Compile Include="ViewRenderers\BannerView.cs" />
     <Compile Include="ViewRenderers\CustomListeners.cs" />
     <Compile Include="Utils\Extensions.cs" />
+    <Compile Include="ViewRenderers\PullToRefreshLayoutRenderer.cs" />
+    <Compile Include="Utils\Localize.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

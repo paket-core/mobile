@@ -77,6 +77,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CellWithoutSelection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\StellarConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PullToRefreshLayout.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILocalize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\TranslateExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -124,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LogicalName>PaketGlobal.Resources.resources</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -135,5 +142,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Enums\" />
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Auth\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns:local="clr-namespace:PaketGlobal" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:Views="clr-namespace:XF.Controls.Views" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" x:Class="PaketGlobal.ProfilePage" NavigationPage.HasNavigationBar="False" BackgroundColor="White">
+<local:BasePage xmlns:local="clr-namespace:PaketGlobal" 
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:Views="clr-namespace:XF.Controls.Views"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+                xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+                xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                x:Class="PaketGlobal.ProfilePage"
+                NavigationPage.HasNavigationBar="False"
+                BackgroundColor="White">
    <xfg:ContentPageGloss.BackgroundGradient>
       <xfg:Gradient Rotation="300">
          <xfg:GradientStep StepColor="#ef6fb5" StepPercentage="0" />
@@ -8,10 +17,15 @@
    </xfg:ContentPageGloss.BackgroundGradient>
    <local:BasePage.Content>
       <RelativeLayout>
-         <Label x:Name="TitleLabel" TextColor="White" Text="Profile" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" RelativeLayout.YConstraint="30" RelativeLayout.XConstraint="22" />
+         <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate Profile}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" RelativeLayout.YConstraint="30" RelativeLayout.XConstraint="22" />
          <Button x:Name="LogoutButton" BackgroundColor="Transparent" Text="Logout" TextColor="White" FontFamily="{StaticResource NormalFont}" FontSize="12" Clicked="OnLogoutClicked" IsVisible="false" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.77}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}" />
          <Frame x:Name="ProfileView" BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="0" CornerRadius="18" HasShadow="false" IsVisible="true" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=LogoutButton, Property=Y, Factor=1, Constant=60}">
             <RelativeLayout>
+                <local:PullToRefreshLayout
+                x:Name="PullToRefresh"
+                IsPullToRefreshEnabled="True"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
+                        
                <ScrollView BackgroundColor="Transparent" x:Name="MainScrollView" IsVisible="false" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
                   <StackLayout x:Name="Main" Spacing="30" Padding="0,0,0,0">
                      <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="22,22,22,0">
@@ -96,6 +110,7 @@
                      <BoxView HeightRequest="10" Color="Transparent" />
                   </StackLayout>
                </ScrollView>
+                </local:PullToRefreshLayout>
             </RelativeLayout>
          </Frame>
          <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true" VerticalOptions="CenterAndExpand" Color="#606686" HorizontalOptions="CenterAndExpand" RelativeLayout.HeightConstraint="40" RelativeLayout.WidthConstraint="40" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.5,Constant=-20}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=0.5,Constant=40}" />

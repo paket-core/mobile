@@ -53,6 +53,18 @@ namespace PaketGlobal
             else{
                 NotificationsButton.Image = "swift_off.png";
             }
+
+
+            var refreshCommand = new Command(async () =>
+            {
+                PullToRefresh.IsRefreshing = true;
+
+                await LoadProfile();
+
+                PullToRefresh.IsRefreshing = false;
+            });
+
+            PullToRefresh.RefreshCommand = refreshCommand;
 		}
 
 		protected async override void OnAppearing()
@@ -65,17 +77,17 @@ namespace PaketGlobal
 
             if (fl)
             {
+                ActivityIndicator.IsVisible = true;
+                ActivityIndicator.IsRunning = true;
+                MainScrollView.IsVisible = false;
+                LogoutButton.IsVisible = false;
+
                 await LoadProfile();
             }
 		}
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-            ActivityIndicator.IsVisible = true;
-            ActivityIndicator.IsRunning = true;
-            MainScrollView.IsVisible = false;
-            LogoutButton.IsVisible = false;
-
             await ViewModel.Load();
 
             ActivityIndicator.IsVisible = false;
