@@ -102,8 +102,8 @@ namespace PaketGlobal
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
-            PullToRefresh.IsEnabled = false;
-            PullToRefresh.IsPullToRefreshEnabled = false;
+            //PullToRefresh.IsEnabled = false;
+            //PullToRefresh.IsPullToRefreshEnabled = false;
         }
 
         private void ShowEntry(StackLayout stackLayout)
