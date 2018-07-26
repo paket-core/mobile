@@ -26,9 +26,8 @@ job:
   - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:"Build" /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
     expire_in: 1 week
-    paths:
+    path: "%PROJECT_NAME%\Droid\bin\Release\com.paket.PaketGlobal.apk"
     #  - "*.apk"
-      - "%PROJECT_NAME%\Droid\bin\Release\com.paket.PaketGlobal.apk"
   tags:
   except:
   - tags
