@@ -28,7 +28,7 @@ job:
   artifacts:
     expire_in: 1 week
     paths:
-    - 'Droid\bin\Release\*.apk'
+    - "*.apk"
   tags:
   except:
   - tags
