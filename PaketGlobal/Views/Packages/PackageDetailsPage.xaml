@@ -7,7 +7,8 @@
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
     xmlns:local="clr-namespace:PaketGlobal"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects"
-    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    >
     <local:BasePage.Resources>
         <ResourceDictionary>
             <local:DeliveryStatusToStringConverter x:Key="deliveryStatusToStringConverter" />
@@ -48,6 +49,12 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
                 <RelativeLayout>
+                        
+                <local:PullToRefreshLayout
+                x:Name="PullToRefresh"
+                IsPullToRefreshEnabled="True"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
+                            
                     <ScrollView BackgroundColor="Transparent" 
                                 HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
                                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -172,6 +179,7 @@
                             </local:PaketFrame>
                         </StackLayout>
                     </ScrollView>
+                </local:PullToRefreshLayout>
                 </RelativeLayout>
             </Frame>
         </RelativeLayout>

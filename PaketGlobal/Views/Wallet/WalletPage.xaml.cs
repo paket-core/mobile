@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
-
+                 
 namespace PaketGlobal
 {
     public partial class WalletPage : BasePage
@@ -37,6 +37,7 @@ namespace PaketGlobal
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
             XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
 #endif
+
 
             AddCommands();
         }
@@ -87,6 +88,22 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PurchaseXLMStackView, PurchaseXLMTapCommand);
             XamEffects.Commands.SetTap(PurchaseBULStackView, PurchaseBULTapCommand);
             XamEffects.Commands.SetTap(SendBULStackView, SendBULTapCommand);
+
+
+            var refreshCommand = new Command(async () =>
+            {
+                PullToRefresh.IsRefreshing = true;
+                RefreshButton.IsVisible = false;
+
+                await LoadWallet();
+
+                PullToRefresh.IsRefreshing = false;
+                RefreshButton.IsVisible = true;
+            });
+
+            PullToRefresh.RefreshCommand = refreshCommand;
+            PullToRefresh.IsEnabled = false;
+            PullToRefresh.IsPullToRefreshEnabled = false;
         }
 
         private void ShowEntry(StackLayout stackLayout)

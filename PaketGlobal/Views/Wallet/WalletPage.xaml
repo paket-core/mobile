@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:BasePage xmlns:local="clr-namespace:PaketGlobal" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects" xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" x:Class="PaketGlobal.WalletPage" NavigationPage.HasNavigationBar="False">
+<local:BasePage xmlns:local="clr-namespace:PaketGlobal" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects" xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms" x:Class="PaketGlobal.WalletPage"
+                NavigationPage.HasNavigationBar="False">
    <xfg:ContentPageGloss.BackgroundGradient>
       <xfg:Gradient Rotation="300" x:Name="Gradient">
          <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
@@ -8,6 +9,11 @@
    </xfg:ContentPageGloss.BackgroundGradient>
    <local:BasePage.Content>
       <RelativeLayout>
+            <local:PullToRefreshLayout
+                x:Name="PullToRefresh"
+                IsPullToRefreshEnabled="True"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                
          <ScrollView x:Name="MainScrollView" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
             <RelativeLayout>
                <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
@@ -149,6 +155,8 @@
                </StackLayout>
             </RelativeLayout>
          </ScrollView>
+                   </local:PullToRefreshLayout>
+
       </RelativeLayout>
    </local:BasePage.Content>
 </local:BasePage>

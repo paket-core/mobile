@@ -38,6 +38,8 @@ namespace PaketGlobal
 
 		public async Task Load()
 		{
+            var oldName = PaketUser;
+
 			var userInfo = await App.Locator.FundServiceClient.UserInfos();
 			if (userInfo != null) {
 				Pubkey = userInfo.UserDetails.Pubkey;
@@ -45,6 +47,11 @@ namespace PaketGlobal
 				PaketUser = userInfo.UserDetails.PaketUser;
 				PhoneNumber = userInfo.UserDetails.PhoneNumber;
 				Address = userInfo.UserDetails.Address;
+
+                if(oldName!=null)
+                {
+                    PaketUser = oldName;
+                }
 
                 if (PaketUser==null){
                     var result = await App.Locator.FundServiceClient.GetUser(Pubkey, null);

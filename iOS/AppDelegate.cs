@@ -37,6 +37,7 @@ namespace PaketGlobal.iOS
 
             uiApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
 
+
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
 
