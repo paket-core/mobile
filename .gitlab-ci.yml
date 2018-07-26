@@ -25,7 +25,7 @@ job:
   #- dir %ANDROID_HOME%
   #- set androidSdkPath="C:\Install\android-sdk-windows\platforms\android-25"
   - set PATH=%PATH%;%ANDROID_HOME%\tools\bin;%ANDROID_HOME%\build-tools\25.0.3
-  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:restore /verbosity:quiet "%PROJECT_NAME%.sln"'
+  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration="Ad-Hoc" /p:Platform="Any CPU" /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:restore /p:ArchiveOnBuild=true /verbosity:quiet "%PROJECT_NAME%.sln"'
   artifacts:
     expire_in: 1 week
     paths:
