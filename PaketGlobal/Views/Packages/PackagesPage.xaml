@@ -94,7 +94,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </Views:ListView >
-            <Label x:Name="PlacholderLabel" IsVisible="false"
+            <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false"
                 Text = "No Packages Found"
                       XAlign="Center" YAlign="Center"
                       VerticalOptions="FillAndExpand"

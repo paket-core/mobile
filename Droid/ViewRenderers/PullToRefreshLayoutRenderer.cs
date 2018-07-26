@@ -35,6 +35,9 @@ namespace PaketGlobal.Droid
         IVisualElementRenderer,
         SwipeRefreshLayout.IOnRefreshListener
     {
+        private int mTouchSlop;
+        private float mPrevX;
+
         /// <summary>
         /// Used for registration with dependency service
         /// </summary>
@@ -50,7 +53,8 @@ namespace PaketGlobal.Droid
         public PullToRefreshLayoutRenderer()
             : base(Forms.Context)
         {
-            
+            mTouchSlop = ViewConfiguration.Get(Context).ScaledTouchSlop;
+
         }
 
         /// <summary>
@@ -208,6 +212,11 @@ namespace PaketGlobal.Droid
 
         bool CanScrollUp(Android.Views.View view)
         {
+            if(this.RefreshView.IsPullToRefreshEnabled==false)
+            {
+                return true;
+            }
+
             var viewGroup = view as ViewGroup;
             if (viewGroup == null)
                 return base.CanChildScrollUp();
@@ -218,7 +227,8 @@ namespace PaketGlobal.Droid
                 //is a scroll container such as listview, scroll view, gridview
                 if (viewGroup.IsScrollContainer)
                 {
-                    return base.CanChildScrollUp();
+                    var can =  base.CanChildScrollUp();
+                    return can;
                 }
             }
 
@@ -384,6 +394,28 @@ namespace PaketGlobal.Droid
         public void SetLabelFor(int? id)
         {
             
+        }
+
+        public override bool OnInterceptTouchEvent(MotionEvent ev)
+        {
+            var action = ev.Action.ToString();
+
+            if(action == "Down")
+            {
+                mPrevX = ev.GetX();
+            }
+            else if (action == "Move")
+            {
+                float eventX = ev.GetX();
+                float xDiff = Math.Abs(eventX - mPrevX);
+
+                if (xDiff > mTouchSlop)
+                {
+                    return false;
+                }
+            }
+
+            return base.OnInterceptTouchEvent(ev);
         }
     }
 }

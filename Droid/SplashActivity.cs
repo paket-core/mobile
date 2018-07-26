@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Util;
-using PaketGlobal.Droid;
 
-namespace com.xamarin.sample.splashscreen
+
+namespace PaketGlobal.Droid
 {
     [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : AppCompatActivity

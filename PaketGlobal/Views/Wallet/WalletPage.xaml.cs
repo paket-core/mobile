@@ -24,7 +24,6 @@ namespace PaketGlobal
 
         private bool IsAnimationEnabled = true;
 
-
         public WalletPage()
         {
             InitializeComponent();
@@ -36,11 +35,10 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -20;
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
-            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;  
 #endif
 
-
-            AddCommands();
+            AddCommands();      
         }
 
         private void AddCommands()
@@ -103,8 +101,7 @@ namespace PaketGlobal
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
-            PullToRefresh.IsEnabled = false;
-            PullToRefresh.IsPullToRefreshEnabled = false;
+
         }
 
         private void ShowEntry(StackLayout stackLayout)
@@ -212,12 +209,10 @@ namespace PaketGlobal
 
         private void ShowXLMActivityClicked(object sender, EventArgs e)
         {
-            Console.WriteLine("ShowXLMActivityClicked");
         }
 
         private void ShowBULActivityClicked(object sender, EventArgs e)
         {
-            Console.WriteLine("ShowBULActivityClicked");
         }
 
         private void DoneSendBULSClicked(object sender, EventArgs e)
@@ -521,21 +516,24 @@ namespace PaketGlobal
             var xOffset = e.ScrollX;
 
             var max = TopScrollView.ContentSize.Width;
+            var w = BULFrameView.WidthRequest;
 
+            if (w <= 0)
+            {
+                w = 290;
+            }
 
-            Console.WriteLine(xOffset);
-
-            if (xOffset>((max-290)/2))
+            if (xOffset > ((max - w) / 2))
             {
                 Unfocus();
-   
+
                 Gradient.Steps = null;
 
                 Gradient.AddStep(Color.FromHex("#39C8C8"), 0);
                 Gradient.AddStep(Color.FromHex("#53E1E1"), 1);
 
-                await  TransactionsBULScrollView.FadeTo(0);
-                await  TransactionsBULScrollView.ScaleTo(0.8f);
+                await TransactionsBULScrollView.FadeTo(0);
+                await TransactionsBULScrollView.ScaleTo(0.8f);
 
                 TransactionsXLMScrollView.IsVisible = true;
                 TransactionsBULScrollView.IsVisible = false;
@@ -543,7 +541,8 @@ namespace PaketGlobal
                 await TransactionsXLMScrollView.FadeTo(1);
                 await TransactionsXLMScrollView.ScaleTo(1);
             }
-            else{
+            else
+            {
                 Unfocus();
 
                 Gradient.Steps = null;
@@ -564,5 +563,14 @@ namespace PaketGlobal
         }
 
 
+        void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+       
+        }
+
+        void Handle_Unfocused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+      
+        }
 	}
 }
