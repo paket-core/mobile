@@ -22,6 +22,7 @@ namespace PaketGlobal
         private string PurchaseBullAddress = null;
         private string PurchaseXlmAddress = null;
 
+        private bool IsAnimationEnabled = false;
 
 
         public WalletPage()
@@ -102,17 +103,23 @@ namespace PaketGlobal
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
-            //PullToRefresh.IsEnabled = false;
-            //PullToRefresh.IsPullToRefreshEnabled = false;
+            PullToRefresh.IsEnabled = false;
+            PullToRefresh.IsPullToRefreshEnabled = false;
         }
 
         private void ShowEntry(StackLayout stackLayout)
         {
-            stackLayout.Opacity = 0;
-            stackLayout.Scale = 0.8;
-            stackLayout.IsVisible = true;
-            stackLayout.FadeTo(1, 500, Easing.SinIn);
-            stackLayout.ScaleTo(1, 250);
+            if (IsAnimationEnabled)
+            {
+                stackLayout.Opacity = 0;
+                stackLayout.Scale = 0.8;
+                stackLayout.IsVisible = true;
+                stackLayout.FadeTo(1, 500, Easing.SinIn);
+                stackLayout.ScaleTo(1, 250);
+            }
+            else{
+                stackLayout.IsVisible = true;
+            }
 
             if(stackLayout==PurchaseBULEntryViews)
             {
@@ -134,23 +141,29 @@ namespace PaketGlobal
 
         private void HideEntry(StackLayout stackLayout)
         {
-            Action<double> callback = input => stackLayout.HeightRequest = input;
+            if(IsAnimationEnabled)
+            {
+                Action<double> callback = input => stackLayout.HeightRequest = input;
 
-            double startingHeight = stackLayout.Height;
-            double endingHeight = -30;
-            uint rate = 16;
-            uint length = 250;
+                double startingHeight = stackLayout.Height;
+                double endingHeight = -30;
+                uint rate = 16;
+                uint length = 250;
 
-            Easing easing = Easing.CubicOut;
+                Easing easing = Easing.CubicOut;
 #if __ANDROID__
-            stackLayout.Opacity = 0;
+                stackLayout.Opacity = 0;
 #else
             stackLayout.FadeTo(0, length, easing);
 #endif
-            stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                    stackLayout.IsVisible = false;
+                    stackLayout.HeightRequest = startingHeight;
+                });   
+            }
+            else{
                 stackLayout.IsVisible = false;
-                stackLayout.HeightRequest = startingHeight;
-            });
+            }
         }
 
 
