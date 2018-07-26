@@ -23,8 +23,8 @@ namespace PaketGlobal
 
             if (IsAddedInfo)
             {
-                generateButton.Text = "Complete Registration";
-                titleLabel.Text = "Add Info";
+                generateButton.Text = AppResources.CompleteRegistration;
+                titleLabel.Text = AppResources.AddInfo;
                 pickerCurrency.IsVisible = false;
             }
 

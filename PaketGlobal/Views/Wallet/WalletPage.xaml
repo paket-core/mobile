@@ -62,8 +62,8 @@
                                  <Label VerticalOptions="Center" Text="{local:Translate SendBul}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
                               </StackLayout>
                               <StackLayout x:Name="SendBULEntryViews" IsVisible="false" Spacing="20">
-                                 <local:PaketEntry x:Name="EntryRecepient" IsSpellCheckEnabled="false" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" Placeholder="Enter recipient" HeightRequest="40" />
-                                 <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount" HeightRequest="40" />
+                                 <local:PaketEntry x:Name="EntryRecepient" IsSpellCheckEnabled="false" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate EnterRecipient}" HeightRequest="40" />
+                                 <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
                                  <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="{local:Translate Send}" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>
                            </StackLayout>
@@ -99,7 +99,7 @@
                                     </StackLayout>
                                     <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                  </StackLayout>
-                                 <local:PaketEntry x:Name="EntryAmountForBUL" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40" />
+                                 <local:PaketEntry x:Name="EntryAmountForBUL" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
                                  <local:PaketButton HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyBULClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>
                            </StackLayout>
@@ -139,7 +139,7 @@
                                     </StackLayout>
                                     <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                  </StackLayout>
-                                 <local:PaketEntry x:Name="EntryAmountForXLM" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="Enter amount in Euro" HeightRequest="40" />
+                                 <local:PaketEntry x:Name="EntryAmountForXLM" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
                                  <local:PaketButton HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyXLMClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>
                            </StackLayout>

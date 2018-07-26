@@ -22,7 +22,7 @@ namespace PaketGlobal
         private string PurchaseBullAddress = null;
         private string PurchaseXlmAddress = null;
 
-        private bool IsAnimationEnabled = false;
+        private bool IsAnimationEnabled = true;
 
 
         public WalletPage()
@@ -243,7 +243,7 @@ namespace PaketGlobal
             if (PurchaseXlmAddress != null)
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseXlmAddress);
-                ShowMessage("Copied to clipboard");
+                ShowMessage(AppResources.Copied);
             }
 
             HideEntry(PurchaseXLMEntryViews);
@@ -261,7 +261,7 @@ namespace PaketGlobal
             if(PurchaseBullAddress != null)
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseBullAddress);
-                ShowMessage("Copied to clipboard");
+                ShowMessage(AppResources.Copied);
             }
 
             HideEntry(PurchaseBULEntryViews);

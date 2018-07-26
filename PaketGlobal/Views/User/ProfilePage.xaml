@@ -24,6 +24,7 @@
                 <local:PullToRefreshLayout
                 x:Name="PullToRefresh"
                 IsPullToRefreshEnabled="True"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
                         
                <ScrollView BackgroundColor="Transparent" x:Name="MainScrollView" IsVisible="false" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
