@@ -30,3 +30,5 @@ job:
     - 'Droid/bin/Release/*.apk'
   tags:
     - Android
+  only:
+    - tags
