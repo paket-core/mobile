@@ -23,7 +23,7 @@ job:
   - echo %ANDROID_HOME%
   - echo "Release build..."
   - set PATH=%PATH%;%ANDROID_HOME%\tools\bin;%ANDROID_HOME%\build-tools\25.0.3
-  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform=Android /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:rebuild /verbosity:quiet "paket-mobile\Droid\PaketGlobal.Droid.csproj"'
+  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform=Android /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:rebuild /verbosity:quiet "Droid\PaketGlobal.Droid.csproj"'
   artifacts:
     expire_in: 1 week
     paths: 
