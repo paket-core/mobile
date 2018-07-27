@@ -100,9 +100,9 @@
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       TextColor="#D3D3D3" FontSize = "20"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-200}"
+                      RelativeLayout.HeightConstraint="30"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}"/>
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=400}"/>
             <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
                       VerticalOptions="CenterAndExpand"
                       Color="#606686"
