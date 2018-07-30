@@ -42,8 +42,6 @@ namespace PaketGlobal
             {
                 IsAnimationEnabled = false;
             }
-
-            TitleLabel.Text = CrossDeviceInfo.Current.Model;
 #endif
 
             AddCommands();
