@@ -538,6 +538,7 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\login_bg.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_bg.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\login_bg.png" />
+    <AndroidResource Include="Resources\layout\SplashScreen.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
