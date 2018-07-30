@@ -7,15 +7,12 @@ using Android.Support.V7.App;
 namespace PaketGlobal.Droid
 {
     [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
-    public class SplashActivity : Activity
+    public class SplashActivity : AppCompatActivity
     {
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.SplashScreen);
-          
-            //FindViewById<TextView>(Resource.Id.txtAppVersion).Text = $"Version {PackageManager.GetPackageInfo(PackageName, 0).VersionName}";
         }
 
         // Launches the startup task
@@ -23,7 +20,7 @@ namespace PaketGlobal.Droid
         {
             base.OnResume();
         
-           // StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
 
         // Prevent the back button from canceling the startup process
