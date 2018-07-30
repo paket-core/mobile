@@ -144,7 +144,4 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\Auth\" />
     <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)change-log.md" />
-  </ItemGroup>
 </Project>
