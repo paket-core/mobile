@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PaketGlobal.PackageDetailsPage"
+    xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    >
+    
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+
+    <local:BasePage.Content>
+
+         <RelativeLayout>
+            <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate BullBalance}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnBack"
+                   RelativeLayout.XConstraint = "23"
+                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+            <Frame x:Name="FrameView" BackgroundColor="White" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      Padding="0"
+                      CornerRadius="18"
+                      HasShadow="false"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
+                <RelativeLayout>
+
+                   <local:PullToRefreshLayout
+                x:Name="PullToRefresh"
+                IsPullToRefreshEnabled="True"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
+
+
+
+                        </local:PullToRefreshLayout>
+
+
+
+                    </RelativeLayout>
+
+                </Frame>
+
+            </RelativeLayout>
+
+        
+    </local:BasePage.Content>
+
+
+
+    
+</local:BasePage>
