@@ -38,7 +38,7 @@ namespace PaketGlobal
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
             XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150; 
 
-            if(CrossDeviceInfo.Current.Model.ToLower().Contains("htc"))
+            if(CrossDeviceInfo.Current.Model.ToLower().Contains("htc_m10h"))
             {
                 IsAnimationEnabled = false;
             }
