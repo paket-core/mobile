@@ -21,6 +21,8 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+
+
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
 
 			Network.UseTestNetwork();//TODO for test porposals
@@ -54,7 +56,7 @@ namespace PaketGlobal
 		{
 			if (isRunning == true) {
 				if (isCancel == true) {
-					UserDialogs.Instance.Loading("", new Action(async () => {
+					UserDialogs.Instance.Loading(" ", new Action(async () => {
 						if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
 							await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
 						} else {
@@ -63,7 +65,7 @@ namespace PaketGlobal
 						UserDialogs.Instance.Loading().Hide();
 					}));
 				} else {
-					UserDialogs.Instance.Loading("");
+					UserDialogs.Instance.Loading(" ");
 				}
 			} else {
 				UserDialogs.Instance.Loading().Hide();

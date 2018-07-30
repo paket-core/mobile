@@ -253,6 +253,10 @@
     <data name="AddInfo" xml:space="preserve">
         <value>Add Info</value>
     </data>
+    
+    <data name="BullBalance" xml:space="preserve">
+        <value>BULL Balance</value>
+    </data>
 
 
 </root>
