@@ -223,6 +223,9 @@
     <Reference Include="Toast">
       <HintPath>..\packages\Toast.iOS.1.1.0\lib\xamarinios10\Toast.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.DeviceInfo">
+      <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.0.0.13\lib\xamarinios10\Plugin.DeviceInfo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -419,6 +422,8 @@
     <Compile Include="ViewRenders\BannerView.designer.cs">
       <DependentUpon>BannerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewRenders\PullToRefreshLayoutRenderer.cs" />
+    <Compile Include="Utils\Localize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -435,6 +440,7 @@
     <Folder Include="Assets.xcassets\ic_add_circle_white_36pt.imageset\" />
     <Folder Include="Assets.xcassets\ic_check_circle_white_36p.imageset\" />
     <Folder Include="ViewRenders\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -12,18 +12,18 @@
                 <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.YConstraint="20">
-                    <Label Text="Create New Private Key" x:Name="titleLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
+                    <Label Text="{local:Translate CreateNewKey}" x:Name="titleLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="10">
-                        <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="User Name" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Full Name" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="1" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="Phone Number" HeightRequest="40"/>
-                        <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Address" HeightRequest="40"/>
-                        <local:PaketPicker x:Name="pickerCurrency" BackgroundV="1" SelectedItem="{Binding PaymentCurrency}" Title="Select Payment Currency" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
+                        <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate UserName}" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate FullName}" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="1" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate Address}" HeightRequest="40"/>
+                        <local:PaketPicker x:Name="pickerCurrency" BackgroundV="1" SelectedItem="{Binding PaymentCurrency}" Title="{local:Translate SelectPayment}" LineColor="#E5E5E5" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                             <Picker.ItemsSource>
                                 <x:Array Type="{x:Type local:PaymentCurrency}">
                                     <local:PaymentCurrency>ETH</local:PaymentCurrency>
@@ -32,7 +32,7 @@
                              </Picker.ItemsSource>
                             </local:PaketPicker>
                     </StackLayout>
-                    <local:PaketButton Text="Generate Key" x:Name="generateButton" Clicked="CreateAccountClicked" ButtonBackground="#4D64E8"/>
+                    <local:PaketButton Text="{local:Translate GenerateKey}" x:Name="generateButton" Clicked="CreateAccountClicked" ButtonBackground="#4D64E8"/>
                 </StackLayout>
                 <Image BackgroundColor="Transparent"
                           Aspect="Fill"
@@ -47,7 +47,7 @@
                 <StackLayout x:Name="botStack" VerticalOptions="Start" BackgroundColor="Transparent"
                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.80}">
-                    <Label Text="Already have a key" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" XAlign="Center" Font="Bold,30" TextColor="Black"/>
+                    <Label Text="{local:Translate IHaveKey}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" XAlign="Center" TextColor="Black"/>
                     <Button x:Name="backButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnBack"/>
                 </StackLayout>
             </RelativeLayout>

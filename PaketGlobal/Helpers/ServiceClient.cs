@@ -426,14 +426,14 @@ namespace PaketGlobal
 
 		public class ServiceException : Exception
 		{
-			//public ApiErrorCode ApiErrorCode { get; set; }
+			public ApiErrorCode ApiErrorCode { get; set; }
 			public int StatusCode { get; set; }
 
-			//public ServiceException(int statusCode, String message, ApiErrorCode apiErrorCode) : base(message)
-			//{
-			//	StatusCode = statusCode;
-			//	ApiErrorCode = apiErrorCode;
-			//}
+			public ServiceException(int statusCode, String message, ApiErrorCode apiErrorCode) : base(message)
+			{
+				StatusCode = statusCode;
+				ApiErrorCode = apiErrorCode;
+			}
 
 			public ServiceException(int statusCode, String message) : base(message)
 			{
@@ -470,8 +470,6 @@ namespace PaketGlobal
 			public int Status { get; set; }
 			[DataMember(Name = "error")]
 			public string Message { get; set; }
-			//[DataMember(Name = "errcode")]
-			//public ApiErrorCode Code { get; set; }
 		}
 	}
 }

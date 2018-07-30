@@ -19,7 +19,7 @@ namespace PaketGlobal
                 {
                     if (addressLabel.Text.Substring(0, 2) == "0x")
                     {
-                        sendLabel.Text = "Please send 0.001 ETH to this address to create your account";
+                        sendLabel.Text = AppResources.ActivationEth;
                     }
                 }
             }
@@ -106,13 +106,13 @@ namespace PaketGlobal
         void OnCopyMnemonic(object sender, EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
-            ShowMessage("Copied to clipboard");
+            ShowMessage(AppResources.Copied);
         }
 
         void OnCopyAddress(object sender, EventArgs e)
         {
             App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
-            ShowMessage("Copied to clipboard");
+            ShowMessage(AppResources.Copied);
         }
 
         #endregion

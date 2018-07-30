@@ -26,7 +26,6 @@ namespace PaketGlobal
 			App.Locator.Workspace.ConnectionError += WorkspaceConnectionError;
 			App.Locator.Workspace.NetworkConnected += WorkspaceNetworkConnected;
 			App.Locator.Workspace.ServiceError += WorkspaceServiceError;
-			//App.Locator.Workspace.ValidationError += WorkspaceValidationError;
 			App.Locator.Workspace.LoggedOut += WorkspaceLoggedOut;
 			if (firstLoad) {
 				firstLoad = false;
@@ -35,12 +34,10 @@ namespace PaketGlobal
 
 		protected override void OnDisappearing()
 		{
-			//MessagingCenter.Unsubscribe<object> (this, MessagingCenterConstants.OnApplicationSleepMessage);
 			App.Locator.Workspace.AuthenticationRequired -= WorkspaceAuthenticationError;
 			App.Locator.Workspace.ConnectionError -= WorkspaceConnectionError;
 			App.Locator.Workspace.NetworkConnected -= WorkspaceNetworkConnected;
 			App.Locator.Workspace.ServiceError -= WorkspaceServiceError;
-			//App.Locator.Workspace.ValidationError -= WorkspaceValidationError;
 			App.Locator.Workspace.LoggedOut -= WorkspaceLoggedOut;
 			if (ForegroundChanged != null) {
 				ForegroundChanged(false);
@@ -50,26 +47,6 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceAuthenticationError(object sender, ServiceClient.UnAuthorizedException args)
 		{
-			//var serializer = SimpleIoc.Default.GetInstance<ISerializer>();
-			//var error = serializer.FromString<ErrorReplyWrapper>(args.Message);
-
-			//if (error != null) {
-			//	string message = error.Error;
-
-			//	//switch (error.Error.Code) {
-			//	//	case ApiErrorCode.Default:
-			//	//		message = "Unexpected service error, please try again later.";
-			//	//		break;
-			//	//	default:
-			//	//		message = "Unexpected service error, please try again later.";
-			//	//		break;
-			//	//}
-
-			//	ShowError(message);
-
-			//	System.Diagnostics.Debug.WriteLine(args);
-			//}
-
 			ShowMessage(args.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(args);//TODO for Debug only
@@ -87,16 +64,6 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceServiceError(object sender, ServiceClient.ServiceErrorEventArgs e)
 		{
-			//string message;
-
-			//switch (e.ServiceException.ApiErrorCode) {
-			//	default:
-			//		message = "Unexpected service error, please try again later.";
-			//		break;
-			//}
-
-			//ShowError(message);
-
 			ShowMessage(e.ServiceException.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(e.ServiceException);
@@ -200,13 +167,7 @@ namespace PaketGlobal
 
 		public async Task WithProgress(ActivityIndicator indicator, Func<Task> action)
 		{
-			ViewHelper.SwitchActivityIndicator(indicator, true);
-			ToggleLayout(false);
-
 			await action();
-
-			ToggleLayout(true);
-			ViewHelper.SwitchActivityIndicator(indicator, false);
 		}
 
         public async Task WithProgressButton(PaketButton button, Func<Task> action)

@@ -72,6 +72,17 @@ namespace PaketGlobal
                     _package.Status = arg.Status;
                 });
             }
+
+            var refreshCommand = new Command(async () =>
+            {
+                PullToRefresh.IsRefreshing = true;
+
+                BindingContext = await PackageHelper.GetPackageDetails(ViewModel.PaketId);
+
+                PullToRefresh.IsRefreshing = false;
+            });
+
+            PullToRefresh.RefreshCommand = refreshCommand;
         }
 
         protected override void OnDisappearing()

@@ -5,16 +5,10 @@ namespace PaketGlobal
 {
 	public class ProfileModel : BaseViewModel
 	{
-		private string pubkey;
 		private string fullName;
 		private string paketUser;
 		private string phoneNumber;
 		private string address;
-
-		public string Pubkey {
-			get { return pubkey; }
-			set { SetProperty(ref pubkey, value); }
-		}
 
 		public string FullName {
 			get { return fullName; }
@@ -38,20 +32,16 @@ namespace PaketGlobal
 
 		public async Task Load()
 		{
+			var result = await App.Locator.FundServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
+			if (result != null) {
+				PaketUser = result.UserDetails.PaketUser;
+			}
+
 			var userInfo = await App.Locator.FundServiceClient.UserInfos();
 			if (userInfo != null) {
-				Pubkey = userInfo.UserDetails.Pubkey;
 				FullName = userInfo.UserDetails.FullName;
-				PaketUser = userInfo.UserDetails.PaketUser;
 				PhoneNumber = userInfo.UserDetails.PhoneNumber;
 				Address = userInfo.UserDetails.Address;
-
-                if (PaketUser==null){
-                    var result = await App.Locator.FundServiceClient.GetUser(Pubkey, null);
-                    if (result != null) {
-                        PaketUser = result.UserDetails.Call_Sign;
-                    }
-                }
 			}
 		}
 

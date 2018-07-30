@@ -47,6 +47,7 @@ namespace PaketGlobal.Droid
             LoadApplication(new App());
 
 			UserDialogs.Init(this);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
 
             InitializeUIAsync();
 		}

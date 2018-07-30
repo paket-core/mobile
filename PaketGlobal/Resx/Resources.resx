@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Profile" xml:space="preserve">
+        <value>Profile</value>
+    </data>
+    <data name="Logout" xml:space="preserve">
+        <value>Logout</value>
+    </data>
+    <data name="UserName" xml:space="preserve">
+        <value>User Name</value>
+    </data>
+    <data name="FullName" xml:space="preserve">
+        <value>Full Name</value>
+    </data>
+    <data name="PhoneNumber" xml:space="preserve">
+        <value>Phone Number</value>
+    </data>
+    <data name="Address" xml:space="preserve">
+        <value>Address</value>
+    </data>
+    <data name="GeneralSettings" xml:space="preserve">
+        <value>GENERAL SETTINGS</value>
+    </data>
+    <data name="AdvancedSettings" xml:space="preserve">
+        <value>ADVANCED SETTINGS</value>
+    </data>
+    <data name="EnableNotification" xml:space="preserve">
+        <value>Display Notifications</value>
+    </data>
+    <data name="KeysSettings" xml:space="preserve">
+        <value>KEYS</value>
+    </data>
+    <data name="DisplayKeys" xml:space="preserve">
+        <value>Display Secret Data</value>
+    </data>
+    <data name="SecretSeed" xml:space="preserve">
+        <value>Display Secret Seed</value>
+    </data>
+    <data name="SecretSeedProfileInfo" xml:space="preserve">
+        <value>Here’s your secred seed, used to interact&#xA;with Stellar</value>
+    </data>
+    <data name="UpdateProfile" xml:space="preserve">
+        <value>UPDATE PROFILE</value>
+    </data>
+    <data name="MnemonicPhrase" xml:space="preserve">
+        <value>Mnemonic Phrase</value>
+    </data>
+    <data name="MnemonicProfileInfo" xml:space="preserve">
+        <value>Here’s your mnemonic phrase, used to interact&#xA;with Stellar</value>
+    </data>
+    <data name="Wallet" xml:space="preserve">
+        <value>Wallet</value>
+    </data>
+    <data name="YourBalance" xml:space="preserve">
+        <value>Your Balance</value>
+    </data>
+    <data name="Transactions" xml:space="preserve">
+        <value>Transactions</value>
+    </data>
+    <data name="SendBul" xml:space="preserve">
+        <value>Send BUL</value>
+    </data>
+    <data name="EnterRecipient" xml:space="preserve">
+        <value>Enter recipient</value>
+    </data>
+    <data name="EnterAmount" xml:space="preserve">
+        <value>Enter amount</value>
+    </data>
+    <data name="Send" xml:space="preserve">
+        <value>Send</value>
+    </data>
+    <data name="PurchaseBul" xml:space="preserve">
+        <value>Purchase BUL</value>
+    </data>
+    <data name="PurchaseXlm" xml:space="preserve">
+        <value>Purchase XLM</value>
+    </data>
+    <data name="SelectPaymentCurrency" xml:space="preserve">
+        <value>Select payment currency</value>
+    </data>
+    <data name="AmountEuro" xml:space="preserve">
+        <value>Enter amount in Euro</value>
+    </data>
+    <data name="Purchase" xml:space="preserve">
+        <value>Purchase</value>
+    </data>
+    <data name="TransactionCompleted" xml:space="preserve">
+        <value>Transaction Completed</value>
+    </data>
+    <data name="TransactionProcessed" xml:space="preserve">
+        <value>Your transaction has been successfully processed. Thank you</value>
+    </data>
+    <data name="Done" xml:space="preserve">
+        <value>Done</value>
+    </data>
+    <data name="AwaitingPayment" xml:space="preserve">
+        <value>Awaiting Payment</value>
+    </data>
+    <data name="DoneCopy" xml:space="preserve">
+        <value>Done &amp; Copy Address</value>
+    </data>
+    <data name="MyPackages" xml:space="preserve">
+        <value>My Packages</value>
+    </data>
+    <data name="MyPackagesInfo" xml:space="preserve">
+        <value>Heare you can create and track&#x0a;all your packages</value>
+    </data>
+    <data name="Sent" xml:space="preserve">
+        <value>SENT</value>
+    </data>
+    <data name="Deadline" xml:space="preserve">
+        <value>DEADLINE</value>
+    </data>
+    <data name="PackageDetails" xml:space="preserve">
+        <value>Package Details</value>
+    </data>
+    <data name="Role" xml:space="preserve">
+        <value>Role</value>
+    </data>
+    <data name="PackageDelivered" xml:space="preserve">
+        <value>Package is delivered.&#x0a;You can reclaim unspent funds from the escrow.</value>
+    </data>
+    <data name="PackageExpired" xml:space="preserve">
+        <value>Deadline Expired.&#x0a;You can refund from the escrow.</value>
+    </data>
+    <data name="AcceptPackage" xml:space="preserve">
+        <value>Accept Package</value>
+    </data>
+    <data name="Funds" xml:space="preserve">
+        <value>FUNDS</value>
+    </data>
+    <data name="Payment" xml:space="preserve">
+        <value>Payment</value>
+    </data>
+    <data name="Collateral" xml:space="preserve">
+        <value>Collateral</value>
+    </data>
+    <data name="PaymentInfo" xml:space="preserve">
+        <value>PAYMENT INFO</value>
+    </data>
+    <data name="PackageBarcodeInfo" xml:space="preserve">
+        <value>Use this barcode to pass the paket to a&#x0a;courier or accept it by the recepient</value>
+    </data>
+    <data name="Events" xml:space="preserve">
+        <value>EVENTS</value>
+    </data>
+    <data name="CreatePackage" xml:space="preserve">
+        <value>Create Package</value>
+    </data>
+    <data name="Participants" xml:space="preserve">
+        <value>PARTICIPANTS</value>
+    </data>
+    <data name="Recipient" xml:space="preserve">
+        <value>Recipient</value>
+    </data>
+    <data name="Courier" xml:space="preserve">
+        <value>Courier</value>
+    </data>
+    <data name="Information" xml:space="preserve">
+        <value>INFORMATION</value>
+    </data>
+    <data name="PickDeadlineDate" xml:space="preserve">
+        <value>Please pick deadline date</value>
+    </data>
+    <data name="Day1" xml:space="preserve">
+        <value>1 Day</value>
+    </data>
+    <data name="Week1" xml:space="preserve">
+        <value>1 Week</value>
+    </data>
+    <data name="Week2" xml:space="preserve">
+        <value>2 Week</value>
+    </data>
+    <data name="SpecificDate" xml:space="preserve">
+        <value>Specific Date</value>
+    </data>
+    <data name="Launch" xml:space="preserve">
+        <value>Launch</value>
+    </data>
+    <data name="ScanInfo" xml:space="preserve">
+        <value>Scan the barcode containing&#x0a;package information</value>
+    </data>
+    <data name="AutoScan" xml:space="preserve">
+        <value>Scanning will happen automatically</value>
+    </data>
+    <data name="ActivateAccount" xml:space="preserve">
+        <value>Activate Account</value>
+    </data>
+    <data name="ActivateSend" xml:space="preserve">
+        <value>Please send 0.001 BTC to this address to create your account</value>
+    </data>
+    <data name="CheckActivation" xml:space="preserve">
+        <value>CHECK ACTIVATION</value>
+    </data>
+    <data name="MnemonicUpperCase" xml:space="preserve">
+        <value>MNEMONIC</value>
+    </data>
+    <data name="ActivationMnemonicInfo" xml:space="preserve">
+        <value>Use this mnemonic to recover private key&#xA;on another device</value>
+    </data>
+    <data name="CreateNewKey" xml:space="preserve">
+        <value>Create New Private Key</value>
+    </data>
+    <data name="SelectPayment" xml:space="preserve">
+        <value>Select Payment Currency</value>
+    </data>
+    <data name="GenerateKey" xml:space="preserve">
+        <value>GENERATE KEY</value>
+    </data>
+    <data name="IHaveKey" xml:space="preserve">
+        <value>Already have a key</value>
+    </data>
+    <data name="RestorePrivateKey" xml:space="preserve">
+        <value>Restore Private Key</value>
+    </data>
+    <data name="Or" xml:space="preserve">
+        <value>Or</value>
+    </data>
+    <data name="RestoreKey" xml:space="preserve">
+        <value>RESTORE KEY</value>
+    </data>
+    <data name="GenerateNewKey" xml:space="preserve">
+        <value>Generate New Key</value>
+    </data>
+    <data name="SecretKey" xml:space="preserve">
+        <value>Secret Key</value>
+    </data>
+
+    <data name="Copied" xml:space="preserve">
+        <value>Copied to clipboard</value>
+    </data>
+
+    <data name="ActivationEth" xml:space="preserve">
+        <value>Please send 0.001 ETH to this address to create your account</value>
+    </data>
+
+    <data name="CompleteRegistration" xml:space="preserve">
+        <value>Complete Registration</value>
+    </data>
+
+    <data name="AddInfo" xml:space="preserve">
+        <value>Add Info</value>
+    </data>
+    
+    <data name="BullBalance" xml:space="preserve">
+        <value>BULL Balance</value>
+    </data>
+
+
+</root>

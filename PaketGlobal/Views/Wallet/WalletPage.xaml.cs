@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Plugin.DeviceInfo;
 
 using Xamarin.Forms;
-
+                 
 namespace PaketGlobal
 {
     public partial class WalletPage : BasePage
@@ -22,7 +23,7 @@ namespace PaketGlobal
         private string PurchaseBullAddress = null;
         private string PurchaseXlmAddress = null;
 
-
+        private bool IsAnimationEnabled = true;
 
         public WalletPage()
         {
@@ -35,7 +36,12 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -20;
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
-            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150; 
+
+            if(CrossDeviceInfo.Current.Model.ToLower().Contains("htc_m10h"))
+            {
+                IsAnimationEnabled = false;
+            }
 #endif
 
             AddCommands();
@@ -87,15 +93,36 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PurchaseXLMStackView, PurchaseXLMTapCommand);
             XamEffects.Commands.SetTap(PurchaseBULStackView, PurchaseBULTapCommand);
             XamEffects.Commands.SetTap(SendBULStackView, SendBULTapCommand);
+
+
+            var refreshCommand = new Command(async () =>
+            {
+                PullToRefresh.IsRefreshing = true;
+                RefreshButton.IsVisible = false;
+
+                await LoadWallet();
+
+                PullToRefresh.IsRefreshing = false;
+                RefreshButton.IsVisible = true;
+            });
+
+            PullToRefresh.RefreshCommand = refreshCommand;
+
         }
 
         private void ShowEntry(StackLayout stackLayout)
         {
-            stackLayout.Opacity = 0;
-            stackLayout.Scale = 0.8;
-            stackLayout.IsVisible = true;
-            stackLayout.FadeTo(1, 500, Easing.SinIn);
-            stackLayout.ScaleTo(1, 250);
+            if (IsAnimationEnabled)
+            {
+                stackLayout.Opacity = 0;
+                stackLayout.Scale = 0.8;
+                stackLayout.IsVisible = true;
+                stackLayout.FadeTo(1, 500, Easing.SinIn);
+                stackLayout.ScaleTo(1, 250);
+            }
+            else{
+                stackLayout.IsVisible = true;
+            }
 
             if(stackLayout==PurchaseBULEntryViews)
             {
@@ -117,23 +144,29 @@ namespace PaketGlobal
 
         private void HideEntry(StackLayout stackLayout)
         {
-            Action<double> callback = input => stackLayout.HeightRequest = input;
+            if(IsAnimationEnabled)
+            {
+                Action<double> callback = input => stackLayout.HeightRequest = input;
 
-            double startingHeight = stackLayout.Height;
-            double endingHeight = -30;
-            uint rate = 16;
-            uint length = 250;
+                double startingHeight = stackLayout.Height;
+                double endingHeight = -30;
+                uint rate = 16;
+                uint length = 250;
 
-            Easing easing = Easing.CubicOut;
+                Easing easing = Easing.CubicOut;
 #if __ANDROID__
-            stackLayout.Opacity = 0;
+                stackLayout.Opacity = 0;
 #else
             stackLayout.FadeTo(0, length, easing);
 #endif
-            stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                    stackLayout.IsVisible = false;
+                    stackLayout.HeightRequest = startingHeight;
+                });   
+            }
+            else{
                 stackLayout.IsVisible = false;
-                stackLayout.HeightRequest = startingHeight;
-            });
+            }
         }
 
 
@@ -182,12 +215,10 @@ namespace PaketGlobal
 
         private void ShowXLMActivityClicked(object sender, EventArgs e)
         {
-            Console.WriteLine("ShowXLMActivityClicked");
         }
 
         private void ShowBULActivityClicked(object sender, EventArgs e)
         {
-            Console.WriteLine("ShowBULActivityClicked");
         }
 
         private void DoneSendBULSClicked(object sender, EventArgs e)
@@ -213,7 +244,7 @@ namespace PaketGlobal
             if (PurchaseXlmAddress != null)
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseXlmAddress);
-                ShowMessage("Copied to clipboard");
+                ShowMessage(AppResources.Copied);
             }
 
             HideEntry(PurchaseXLMEntryViews);
@@ -231,7 +262,7 @@ namespace PaketGlobal
             if(PurchaseBullAddress != null)
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseBullAddress);
-                ShowMessage("Copied to clipboard");
+                ShowMessage(AppResources.Copied);
             }
 
             HideEntry(PurchaseBULEntryViews);
@@ -491,21 +522,24 @@ namespace PaketGlobal
             var xOffset = e.ScrollX;
 
             var max = TopScrollView.ContentSize.Width;
+            var w = BULFrameView.WidthRequest;
 
+            if (w <= 0)
+            {
+                w = 290;
+            }
 
-            Console.WriteLine(xOffset);
-
-            if (xOffset>((max-290)/2))
+            if (xOffset > ((max - w) / 2))
             {
                 Unfocus();
-   
+
                 Gradient.Steps = null;
 
                 Gradient.AddStep(Color.FromHex("#39C8C8"), 0);
                 Gradient.AddStep(Color.FromHex("#53E1E1"), 1);
 
-                await  TransactionsBULScrollView.FadeTo(0);
-                await  TransactionsBULScrollView.ScaleTo(0.8f);
+                await TransactionsBULScrollView.FadeTo(0);
+                await TransactionsBULScrollView.ScaleTo(0.8f);
 
                 TransactionsXLMScrollView.IsVisible = true;
                 TransactionsBULScrollView.IsVisible = false;
@@ -513,7 +547,8 @@ namespace PaketGlobal
                 await TransactionsXLMScrollView.FadeTo(1);
                 await TransactionsXLMScrollView.ScaleTo(1);
             }
-            else{
+            else
+            {
                 Unfocus();
 
                 Gradient.Steps = null;
@@ -534,5 +569,14 @@ namespace PaketGlobal
         }
 
 
+        void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+       
+        }
+
+        void Handle_Unfocused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+      
+        }
 	}
 }

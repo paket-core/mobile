@@ -27,32 +27,27 @@ namespace PaketGlobal
         public string PaymentAddress { get; set; }
     }
 
-    [DataContract]
-    public class UserData : BaseData
-    {
-        [DataMember(Name = "user_details")]
-        private UserDetails UserDetailsOne { get; set; }
+	[DataContract]
+	public class UserData : BaseData
+	{
+		[DataMember(Name = "user_details")]
+		private UserDetails UserDetailsOne { get; set; }
 
-        [DataMember(Name = "user")]
-        private UserDetails UserDetailsTwo { get; set; }
+		[DataMember(Name = "user")]
+		private UserDetails UserDetailsTwo { get; set; }
 
-        [IgnoreDataMember]
-        public UserDetails UserDetails
-        {
-            get
-            {
-                if (UserDetailsOne!=null){
-                    return UserDetailsOne;
-                }
-                else if (UserDetailsTwo != null)
-                {
-                    return UserDetailsTwo;
-                }
-                else{
-                    return null;
-                }
-            }
-        }
+		[IgnoreDataMember]
+		public UserDetails UserDetails {
+			get {
+				if (UserDetailsOne != null) {
+					return UserDetailsOne;
+				} else if (UserDetailsTwo != null) {
+					return UserDetailsTwo;
+				} else {
+					return null;
+				}
+			}
+		}
 	}
 
 	[DataContract]
@@ -61,7 +56,7 @@ namespace PaketGlobal
 		[DataMember(Name = "full_name")]
 		public string FullName { get; set; }
 
-		[DataMember(Name = "paket_user")]
+		[DataMember(Name = "call_sign")]
 		public string PaketUser { get; set; }
 
 		[DataMember(Name = "phone_number")]
@@ -72,9 +67,6 @@ namespace PaketGlobal
 
 		[DataMember(Name = "pubkey")]
 		public string Pubkey { get; set; }
-
-        [DataMember(Name = "call_sign")]
-        public string Call_Sign { get; set; }
 	}
 
 	[DataContract]
