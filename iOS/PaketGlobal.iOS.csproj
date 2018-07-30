@@ -223,6 +223,9 @@
     <Reference Include="Toast">
       <HintPath>..\packages\Toast.iOS.1.1.0\lib\xamarinios10\Toast.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.DeviceInfo">
+      <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.0.0.13\lib\xamarinios10\Plugin.DeviceInfo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />

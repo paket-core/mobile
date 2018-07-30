@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Plugin.DeviceInfo;
 
 using Xamarin.Forms;
                  
@@ -38,7 +39,7 @@ namespace PaketGlobal
             XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;  
 #endif
 
-            AddCommands();      
+            AddCommands();
         }
 
         private void AddCommands()

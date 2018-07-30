@@ -47,7 +47,7 @@
                 <StackLayout x:Name="botStack" VerticalOptions="Start" BackgroundColor="Transparent"
                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.80}">
-                    <Label Text="{local:Translate IHaveKey}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" XAlign="Center" Font="Bold,30" TextColor="Black"/>
+                    <Label Text="{local:Translate IHaveKey}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" XAlign="Center" TextColor="Black"/>
                     <Button x:Name="backButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnBack"/>
                 </StackLayout>
             </RelativeLayout>
