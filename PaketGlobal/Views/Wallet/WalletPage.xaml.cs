@@ -36,7 +36,14 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -20;
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
-            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;  
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150; 
+
+            if(CrossDeviceInfo.Current.Model.ToLower().Contains("htc"))
+            {
+                IsAnimationEnabled = false;
+            }
+
+            TitleLabel.Text = CrossDeviceInfo.Current.Model;
 #endif
 
             AddCommands();
