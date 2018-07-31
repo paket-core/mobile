@@ -126,7 +126,7 @@ namespace PaketGlobal
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
 
-            ErrorImage.IsVisible = false;
+            StatusImage.IsVisible = false;
         }
 
         public void FocusField()
@@ -136,76 +136,79 @@ namespace PaketGlobal
 
         private void ShowErrorWithText(string text)
         {
-            ErrorImage.IsVisible = true;
             TopLabel.TextColor = Color.FromHex("#D43F51");
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
+
+            StatusImage.Source = "warning.png";
+            StatusImage.IsVisible = true;
+        }
+
+        private void ShowSuccess()
+        {
+            TopLabel.Text = TopText;
+            TopLabel.IsVisible = (TopLabel.Text.Length > 0);
+            TopLabel.TextColor = Color.FromHex("#A7A7A7");
+
+            StatusImage.Source = "success.png";
+            StatusImage.IsVisible = true;
         }
 
         public async Task<string> CheckValidCallSignOrPubKey()
         {
-            if (String.IsNullOrWhiteSpace(Text) == false)
-            {
-                if(Text.Length==56)
-                {
-                    var valid = StellarHelper.IsValidPubKey(Text);
+			if (String.IsNullOrWhiteSpace(Text) == false) {
+				if (Text.Length == 56) {
+					var valid = StellarHelper.IsValidPubKey(Text);
 
-                    if(valid==false)
-                    {
-                        ShowErrorWithText(AppResources.InvalidPubKey);                  
+					if (valid == false) {
+						ShowErrorWithText(AppResources.InvalidPubKey);
 
-                        return "";
-                    }
-                    else{
-                        this.IsBusy = true;
+						return "";
+					} else {
+						this.IsBusy = true;
 
-                        var result = await App.Locator.FundServiceClient.GetUser(Text, null);
+						var result = await App.Locator.FundServiceClient.GetUser(Text, null);
 
-                        if (result == null)
-                        {
-                            ShowErrorWithText(AppResources.UserNotRegistered);
-                        }
-                        else{
-                            var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
+						var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
 
-                            if (!trusted)
-                            {
-                                ShowErrorWithText(AppResources.UserNotTrusted);
-                            }
-                        }
+						if (result == null && !trusted) {
+							ShowErrorWithText(AppResources.UserNotRegistered);
+						} else if (!trusted) {
+							ShowErrorWithText(AppResources.UserNotTrusted);
+						} else if (result != null && trusted) {
+							ShowSuccess();
+						}
 
-                        this.IsBusy = false;
-                    }
+						this.IsBusy = false;
+					}
 
-                    return Text;
-                }
-                else{
-                    this.IsBusy = true;
+					return Text;
+				} else {
+					this.IsBusy = true;
 
-                    var result = await App.Locator.FundServiceClient.GetUser(null, Text);
+					var result = await App.Locator.FundServiceClient.GetUser(null, Text);
 
-                    if (result == null)
-                    {
-                        ShowErrorWithText(AppResources.UserNotFound);
+					if (result == null) {
+						ShowErrorWithText(AppResources.UserNotFound);
 
-                        this.IsBusy = false;  
+						this.IsBusy = false;
 
-                        return "";
-                    }
-                    else{
-                        var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(result.UserDetails.Pubkey);
+						return "";
+					} else {
+						var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(result.UserDetails.Pubkey);
 
-                        if (!trusted)
-                        {
-                            ShowErrorWithText(AppResources.UserNotTrusted);
-                        }
-                    }
+						if (!trusted) {
+							ShowErrorWithText(AppResources.UserNotTrusted);
+						} else {
+							ShowSuccess();
+						}
+					}
 
-                    this.IsBusy = false;  
+					this.IsBusy = false;
 
-                    return result.UserDetails.Pubkey;
-                }
-            }
+					return result.UserDetails.Pubkey;
+				}
+			}
 
             return "";
         }

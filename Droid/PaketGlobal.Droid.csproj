@@ -542,6 +542,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\warning.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\warning.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\warning.png" />
+    <AndroidResource Include="Resources\drawable\success.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\success.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\success.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\success.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\success.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
