@@ -87,7 +87,45 @@ namespace PaketGlobal
             }
         }
 
- 
+        internal static string InvalidPubKey
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPubKey", resourceCulture);
+            }
+        }
+
+        internal static string UserNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+
+        internal static string SelectDeadlineDate
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectDeadlineDate", resourceCulture);
+            }
+        }
+
+        internal static string UserNotRegistered
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotRegistered", resourceCulture);
+            }
+        }
+
+        internal static string UserNotTrusted
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotTrusted", resourceCulture);
+            }
+        }
 
     }
 }
