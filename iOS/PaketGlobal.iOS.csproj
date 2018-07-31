@@ -394,6 +394,9 @@
     <BundleResource Include="Resources\mnemonic_bg%403x.png" />
     <BundleResource Include="Resources\mnemonic_bg%402x.png" />
     <BundleResource Include="Resources\mnemonic_bg.png" />
+    <BundleResource Include="Resources\warning%403x.png" />
+    <BundleResource Include="Resources\warning%402x.png" />
+    <BundleResource Include="Resources\warning.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -402,7 +405,6 @@
     <Compile Include="Services\AppInfoService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenScale.cs" />
-    <Compile Include="ViewRenders\HideClipboardEntryRenderer.cs" />
     <Compile Include="ViewRenders\PaketEntryRender.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="ViewRenders\PaketFrameRender.cs" />

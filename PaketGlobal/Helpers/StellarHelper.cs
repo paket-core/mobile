@@ -290,5 +290,19 @@ namespace PaketGlobal
 			var result = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 			return result != null;
 		}
+
+        public static async Task<bool> CheckTokenTrustedWithPubKey(string pubKey)
+        {
+            var result = await App.Locator.ServiceClient.Balance(pubKey);
+            return result != null;
+        }
+
+        public static bool IsValidPubKey(string key)
+        {
+            return IsValid(StrKey.VersionByte.ACCOUNT_ID, key);
+        }
+
+        public static bool IsValid(StrKey.VersionByte versionByte, string encoded)         {
+            if (encoded?.Length != 56)             {                 return false;             }              try             {                 var decoded = StrKey.DecodeCheck(versionByte, encoded);                 if (decoded.Length != 32)                 {                     return false;                 }             }             catch             {                 return false;             }             return true;         }
 	}
 }

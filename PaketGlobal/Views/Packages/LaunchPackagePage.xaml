@@ -41,18 +41,22 @@
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
                                 <Label TextColor="Black" Text="{local:Translate Participants}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="10">
-                                    <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="{local:Translate Recipient}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryRecepient" Completed="FieldCompleted"  Text="{Binding RecipientPubkey}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Enter recipient" HeightRequest="{StaticResource EntrySize}"/>
-                                    </StackLayout>
-                                    <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="{local:Translate Courier}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryCourier" Completed="FieldCompleted" Text="{Binding CourierPubkey}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="Enter courier" HeightRequest="{StaticResource EntrySize}"/>
-                                    </StackLayout>
+                                    <local:PaketEntryWithProgress x:Name="EntryRecepient"
+                                                                  TopText="{local:Translate Recipient}"
+                                                                  Text="{Binding RecipientPubkey}"
+                                                                  Placholder="{local:Translate EnterRecipient}"
+                                                                  Completed="FieldCompleted"
+                                                                  Unfocus="FieldUnfocus"/>
+                                    <local:PaketEntryWithProgress x:Name="EntryCourier"
+                                                                  TopText="{local:Translate Courier}"
+                                                                  Text="{Binding CourierPubkey}"
+                                                                  Placholder="{local:Translate EnterCourier}"
+                                                                  Completed="FieldCompleted"
+                                                                  Unfocus="FieldUnfocus"/>
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
-                                <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                                <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
                                     <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                     <Image Source="information_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
                                 </StackLayout>

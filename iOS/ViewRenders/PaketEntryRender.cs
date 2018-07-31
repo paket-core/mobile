@@ -75,7 +75,8 @@ namespace PaketGlobal.iOS
             textField.AutocorrectionType = UITextAutocorrectionType.No;
             textField.AutocapitalizationType = UITextAutocapitalizationType.Sentences;
 
-            if(element.IsEnabled==false) {
+            if(element.IsEnabled==false)
+            {
                 textField.TextColor = Xamarin.Forms.Color.FromHex("#A7A7A7").ToUIColor();
             }
 
@@ -83,6 +84,7 @@ namespace PaketGlobal.iOS
             {
                 textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
             }
+
         }
 
         private UIView GetImageView(string imagePath, int height, int width)
