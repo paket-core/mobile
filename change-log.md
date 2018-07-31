@@ -1,4 +1,4 @@
-﻿# Change Log and Release Notes
+# Change Log and Release Notes
 
 ## Changelog
 
