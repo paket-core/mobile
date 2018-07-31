@@ -13,7 +13,7 @@
                        RelativeLayout.HeightConstraint="20"
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-10}"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-25}"/>
-    <Image x:Name="ErrorImage" Source="warning.png" IsVisible="false"
+    <Image x:Name="StatusImage" Source="warning.png" IsVisible="false"
                        RelativeLayout.WidthConstraint="20"
                        RelativeLayout.HeightConstraint="20"
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-10}"
