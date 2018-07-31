@@ -75,6 +75,9 @@
     <data name="EnterRecipient" xml:space="preserve">
         <value>Enter recipient</value>
     </data>
+    <data name="EnterCourier" xml:space="preserve">
+        <value>Enter courier</value>
+    </data>
     <data name="EnterAmount" xml:space="preserve">
         <value>Enter amount</value>
     </data>
@@ -257,6 +260,27 @@
     <data name="BullBalance" xml:space="preserve">
         <value>BULL Balance</value>
     </data>
+
+    <data name="InvalidPubKey" xml:space="preserve">
+        <value>Invalid public key</value>
+    </data>
+
+    <data name="UserNotFound" xml:space="preserve">
+        <value>User not found</value>
+    </data>
+
+   <data name="SelectDeadlineDate" xml:space="preserve">
+        <value>Please select deadline date</value>
+    </data>
+
+    <data name="UserNotRegistered" xml:space="preserve">
+        <value>Not registered on server</value>
+    </data>
+
+        <data name="UserNotTrusted" xml:space="preserve">
+        <value>The account is not trusted</value>
+    </data>
+
 
 
 </root>

@@ -5,9 +5,14 @@ using Android.Graphics.Drawables;
 using Android.Content;
 using Android.Graphics;
 using Android.Support.V4.Content;
+using Android.Widget;
+using Android.Support.V7.Widget;
+using Android.Views;
 
 using PaketGlobal;
 using PaketGlobal.Droid;
+
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(PaketEntry), typeof(PaketEntryRenderer))]
 namespace PaketGlobal.Droid
@@ -19,6 +24,12 @@ namespace PaketGlobal.Droid
         {
 
         }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
@@ -55,8 +66,6 @@ namespace PaketGlobal.Droid
             Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
             editText.SetTypeface(tf, TypefaceStyle.Normal);
             editText.SetTextSize(Android.Util.ComplexUnitType.Dip,14);
-                    
-           // Control.Background.SetColorFilter(element.LineColor.ToAndroid(), PorterDuff.Mode.SrcIn);  
 
             if (element.BackgroundV==0)
             {
@@ -72,15 +81,11 @@ namespace PaketGlobal.Droid
             }
             else{
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutLightGray);
-            }
-                      
-            //Control.Background.SetColorFilter(Android.Graphics.Color.Transparent, Android.Graphics.PorterDuff.Mode.SrcOver);
+            }  
         }
 
         private BitmapDrawable GetDrawable(string imageEntryImage)
         {
-            //  var resID = (int)typeof(Resource.Drawable).GetField(imageEntryImage).GetValue(null);
-
             if (imageEntryImage.Contains(".png"))
             {
                 imageEntryImage = imageEntryImage.Replace(".png", "");
@@ -89,12 +94,6 @@ namespace PaketGlobal.Droid
             int resID = Resources.GetIdentifier(imageEntryImage, "drawable", this.Context.PackageName);
 
             return (BitmapDrawable)ContextCompat.GetDrawable(this.Context, resID);
-
-
-            //var drawable = ContextCompat.GetDrawable(this.Context, resID);
-            //var bitmap = ((BitmapDrawable)drawable).Bitmap;
-
-            //return new BitmapDrawable(Resources, Bitmap.CreateScaledBitmap(bitmap, element.ImageWidth * 3, element.ImageHeight * 3, true));
         }
 
     }

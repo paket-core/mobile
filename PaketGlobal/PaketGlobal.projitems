@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Interfaces.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Workspace.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Config.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controls\EntryEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegisterViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ValidationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml.cs">
@@ -80,6 +79,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ILocalize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\TranslateExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resx\AppResources.Designer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketEntryWithProgress.xaml.cs">
+      <DependentUpon>PaketEntryWithProgress.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -130,6 +132,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LogicalName>PaketGlobal.Resources.resources</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\PaketEntryWithProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
