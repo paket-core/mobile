@@ -397,6 +397,9 @@
     <BundleResource Include="Resources\warning%403x.png" />
     <BundleResource Include="Resources\warning%402x.png" />
     <BundleResource Include="Resources\warning.png" />
+    <BundleResource Include="Resources\success%403x.png" />
+    <BundleResource Include="Resources\success%402x.png" />
+    <BundleResource Include="Resources\success.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

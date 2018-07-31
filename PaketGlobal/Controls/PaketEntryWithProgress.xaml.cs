@@ -126,7 +126,7 @@ namespace PaketGlobal
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
 
-            ErrorImage.IsVisible = false;
+            StatusImage.IsVisible = false;
         }
 
         public void FocusField()
@@ -136,10 +136,22 @@ namespace PaketGlobal
 
         private void ShowErrorWithText(string text)
         {
-            ErrorImage.IsVisible = true;
             TopLabel.TextColor = Color.FromHex("#D43F51");
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
+
+            StatusImage.Source = "warning.png";
+            StatusImage.IsVisible = true;
+        }
+
+        private void ShowSuccess()
+        {
+            TopLabel.Text = TopText;
+            TopLabel.IsVisible = (TopLabel.Text.Length > 0);
+            TopLabel.TextColor = Color.FromHex("#A7A7A7");
+
+            StatusImage.Source = "success.png";
+            StatusImage.IsVisible = true;
         }
 
         public async Task<string> CheckValidCallSignOrPubKey()
@@ -161,17 +173,19 @@ namespace PaketGlobal
 
                         var result = await App.Locator.FundServiceClient.GetUser(Text, null);
 
-                        if (result == null)
-                        {
-                            ShowErrorWithText(AppResources.UserNotRegistered);
-                        }
-                        else{
-                            var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
+                        var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
 
-                            if (!trusted)
-                            {
-                                ShowErrorWithText(AppResources.UserNotTrusted);
-                            }
+                        if(result==null && trusted==false)
+                        {
+                            ShowErrorWithText(AppResources.UserNotRegistered); 
+                        }
+                        else if (trusted == false)
+                        {
+                            ShowErrorWithText(AppResources.UserNotTrusted);
+                        }
+                        else if(result!=null && trusted==true)
+                        {
+                            ShowSuccess();
                         }
 
                         this.IsBusy = false;
@@ -199,8 +213,11 @@ namespace PaketGlobal
                         {
                             ShowErrorWithText(AppResources.UserNotTrusted);
                         }
+                        else{
+                            ShowSuccess();
+                        }
                     }
-
+                                            
                     this.IsBusy = false;  
 
                     return result.UserDetails.Pubkey;
