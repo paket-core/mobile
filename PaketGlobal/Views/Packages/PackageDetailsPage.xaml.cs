@@ -13,6 +13,7 @@ namespace PaketGlobal
 
         private bool CanAcceptPackage = false;
         private BarcodePackageData BarcodeData;
+        public bool ShouldDismiss = false;
 
         public PackageDetailsPage(Package package, bool canAcceptPackage = false, BarcodePackageData barcodePackageData = null)
         {
@@ -97,7 +98,13 @@ namespace PaketGlobal
 
         private async void OnBack(object sender, System.EventArgs e)
         {
-            await Navigation.PopToRootAsync();
+            if(ShouldDismiss)
+            {
+                await this.Navigation.PopModalAsync();
+            }
+            else{
+                await Navigation.PopToRootAsync();  
+            }
         }
 
         private async void RefundClicked(object sender, System.EventArgs e)

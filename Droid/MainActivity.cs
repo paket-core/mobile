@@ -23,7 +23,18 @@ using Xamarin.Forms.Platform.Android;
 namespace PaketGlobal.Droid
 {
     [Activity(Label = "PaketGlobal.Droid", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : FormsAppCompatActivity
+
+
+	[IntentFilter (new[] { Intent.ActionView },
+        Categories = new[] {
+            Intent.ActionView,
+            Intent.CategoryDefault,
+            Intent.CategoryBrowsable
+        },
+        DataScheme = "paketglobal",
+        DataHost="packages")]
+
+	public class MainActivity : FormsAppCompatActivity
 	{
 		internal static MainActivity Instance { get; private set; }
 
@@ -42,7 +53,6 @@ namespace PaketGlobal.Droid
 
             Instance = this;
 
-
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 
@@ -58,6 +68,25 @@ namespace PaketGlobal.Droid
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
 
             InitializeUIAsync();
+
+            if (Intent != null && Intent.DataString != null)
+            {
+                try
+                {
+                    string package = "";
+                    package = Intent.Data.GetQueryParameter("id");
+                    package = "GD2RD7SRPHD2VIM2ORNYDVI4SQV4GHU4EIKZBLQ5GBKB2QQYSPBLFVIF";
+
+                    if (package != null && package != "")
+                    {
+                        Xamarin.Forms.MessagingCenter.Send<string, string>("MyApp", "AppLaunchedFromDeepLink", package);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
 		}
 
 		protected override void OnStart()
