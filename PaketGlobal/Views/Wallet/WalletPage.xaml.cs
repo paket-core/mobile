@@ -227,6 +227,7 @@ namespace PaketGlobal
         {
             EntryRecepient.Text = "";
             EntryAmount.Text = "";
+            EntryRecepient.ToDefaultState();
 
             SendBULSSuccessView.IsVisible = false;
             SundBULSMainStackView.IsVisible = true;    

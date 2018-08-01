@@ -65,6 +65,7 @@
                                 <local:PaketEntryWithProgress x:Name="EntryRecepient"
                                                                   TopText=""
                                                                   Text=""
+                                                                  EntryHeight="40"
                                                                   Placholder="{local:Translate EnterRecipient}"
                                                                   Completed="FieldCompleted"
                                                                   Unfocus="FieldUnfocus"/>

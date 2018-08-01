@@ -12,6 +12,13 @@ Milestone version: v.1.1.9
 
 ### Milestone v.1.1.9  
 
+01-08-2018
+
+* Add proper errors for invalid / nonexistent user
+    https://github.com/paket-core/mobile/issues/24
+* Remove "loading" text messages
+    https://github.com/paket-core/mobile/issues/25
+
 31-07-2018
 
 * Add registration indication to pubkey / call-sign fields

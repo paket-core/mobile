@@ -127,5 +127,77 @@ namespace PaketGlobal
             }
         }
 
+        internal static string InvalidBarcode
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidBarcode", resourceCulture);
+            }
+        }
+
+        internal static string InvalidPackageId
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPackageId", resourceCulture);
+            }
+        }
+
+        internal static string PickDeadlineDate
+        {
+            get
+            {
+                return ResourceManager.GetString("PickDeadlineDate", resourceCulture);
+            }
+        }
+
+        internal static string Cancel
+        {
+            get
+            {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+
+        internal static string OK
+        {
+            get
+            {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+
+        internal static string RefundingOK
+        {
+            get
+            {
+                return ResourceManager.GetString("RefundingOK", resourceCulture);
+            }
+        }
+
+        internal static string ReclaimingOK
+        {
+            get
+            {
+                return ResourceManager.GetString("ReclaimingOK", resourceCulture);
+            }
+        }
+
+        internal static string PackageAccepted
+        {
+            get
+            {
+                return ResourceManager.GetString("PackageAccepted", resourceCulture);
+            }
+        }
+
+        internal static string ErrorGetPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorGetPackage", resourceCulture);
+            }
+        }
+
     }
 }

@@ -111,14 +111,14 @@ namespace PaketGlobal
                             await Navigation.PushAsync(packagePage);
 						} 
                         else {
-							ShowMessage("Invalid package identifier");
+                            ShowMessage(AppResources.InvalidPackageId);
 							StartScanning();
 						}
 
 						App.ShowLoading(false);
 					} 
                     else {
-						ShowMessage("Invalid barcode");
+                        ShowMessage(AppResources.InvalidBarcode);
 					}
 				});
 			};

@@ -310,34 +310,45 @@ namespace PaketGlobal
 
 			if (signData) SignRequest(request, pubkey, client, customSign: customSign);
 
-			try {
-				IRestResponse<T> response;
+            try
+            {
+                IRestResponse<T> response;
 
-				if (responseStream != null) {
-					request.ResponseWriter = (obj) => {
-						obj.CopyTo(responseStream);
-						obj.Close();
-					};
-					response = await client.ExecuteTaskAsync<T>(request);
-					responseStream.Dispose();
-				} else {
-					response = await client.ExecuteTaskAsync<T>(request);
-					if (rb != null) {
-						rb.Data = response.RawBytes;
-					}
-				}
+                if (responseStream != null)
+                {
+                    request.ResponseWriter = (obj) =>
+                    {
+                        obj.CopyTo(responseStream);
+                        obj.Close();
+                    };
+                    response = await client.ExecuteTaskAsync<T>(request);
+                    responseStream.Dispose();
+                }
+                else
+                {
+                    response = await client.ExecuteTaskAsync<T>(request);
+                    if (rb != null)
+                    {
+                        rb.Data = response.RawBytes;
+                    }
+                }
 
-				System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
-				ServiceStackSerializer.HandleStatusCode(response);
-				return response.Data;
-			} catch (WebException e) {
-				System.Diagnostics.Debug.WriteLine("SendRequest to: {0} Error: {1}", client.BaseUrl, e.ToString());
-				if (!suppressNoConnection)
-					App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
-			} catch (ServiceException e) {
-				System.Diagnostics.Debug.WriteLine(e);
-				if (!suppressServerErrors)
-					App.Locator.Workspace.OnServiceError(new ServiceErrorEventArgs(e));
+                System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                ServiceStackSerializer.HandleStatusCode(response);
+                return response.Data;
+            }
+            catch (WebException e)
+            {
+                System.Diagnostics.Debug.WriteLine("SendRequest to: {0} Error: {1}", client.BaseUrl, e.ToString());
+                if (!suppressNoConnection)
+                    App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+            }
+            catch (ServiceException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                if (!suppressServerErrors){
+                    App.Locator.Workspace.OnServiceError(new ServiceErrorEventArgs(e));
+                }
 			} catch (UnAuthorizedException e) {
 				//Profile.DeleteCredentials ();
 				if (!suppressUnAuthorized)
@@ -375,19 +386,18 @@ namespace PaketGlobal
 
 			public static void HandleStatusCode(IRestResponse response)
 			{
-				if (response.StatusCode == HttpStatusCode.Unauthorized)
-					throw new UnAuthorizedException(response.Content);
-				//if (response.StatusCode == HttpStatusCode.Forbidden)
-					//throw new ServiceException((int)response.StatusCode, response.Content);
-				if (response.StatusCode == HttpStatusCode.NotFound)
-					throw new ServiceException((int)response.StatusCode, response.Content);//, ApiErrorCode.NotFound);
-				if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created) {
-					var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
-					if (error == null)// || error.Code == ApiErrorCode.Default)
-						throw new ServiceException((int)response.StatusCode, response.Content);
-					else
-						throw new ServiceException((int)response.StatusCode, error.Message);//, error.Code);
-				}
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    throw new UnAuthorizedException(response.Content);
+                }
+                else if ((response.StatusCode == HttpStatusCode.NotFound) || (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created))
+                {
+                    var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
+                    if (error == null)
+                        throw new ServiceException((int)response.StatusCode, response.Content);
+                    else
+                        throw new ServiceException((int)response.StatusCode, error.Message);
+                }
 			}
 
 			public T Deserialize<T>(IRestResponse response)

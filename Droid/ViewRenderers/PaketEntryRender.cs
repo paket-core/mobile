@@ -28,6 +28,14 @@ namespace PaketGlobal.Droid
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
+
+            if(e.PropertyName=="PaddingRight")
+            {
+                if(element!=null)
+                {
+                    Control.SetPadding(0, Control.PaddingTop, element.PaddingRight, Control.PaddingBottom);
+                }
+            }
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)

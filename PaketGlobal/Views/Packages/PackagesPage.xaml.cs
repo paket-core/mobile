@@ -155,7 +155,7 @@ namespace PaketGlobal
             }
             else
             {
-                ShowMessage("Error retrieving package details");
+                ShowMessage(AppResources.ErrorGetPackage);
             }
 
 

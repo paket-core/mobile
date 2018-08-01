@@ -105,17 +105,13 @@ namespace PaketGlobal
             App.ShowLoading(true);
 
             var result = await StellarHelper.RefundEscrow(ViewModel.RefundTransaction, ViewModel.MergeTransaction);
+
             if (result)
             {
                 RefundButton.IsVisible = false;
                 RefundLabel.IsVisible = false;
 
-                //  lblStatus.Text = "Closed";
-                ShowMessage("Refunding successfull");
-            }
-            else
-            {
-                ShowMessage("Error during refunding");
+                ShowMessage(AppResources.RefundingOK);
             }
 
             App.ShowLoading(false);
@@ -126,18 +122,15 @@ namespace PaketGlobal
             App.ShowLoading(true);
 
             var result = await StellarHelper.ReclaimEscrow(ViewModel.MergeTransaction);
+
             if (result)
             {
                 ReclaimButton.IsVisible = false;
                 ReclaimLabel.IsVisible = false;
 
-                //  lblStatus.Text = "Closed";
-                ShowMessage("Reclaiming successfull");
+                ShowMessage(AppResources.ReclaimingOK);
             }
-            else
-            {
-                ShowMessage("Error during reclaiming");
-            }
+    
 
             App.ShowLoading(false);
         }
@@ -157,7 +150,7 @@ namespace PaketGlobal
 
                     await App.Locator.Packages.Load();
 
-                    ShowMessage("Package accepted successfully");
+                    ShowMessage(AppResources.PackageAccepted);
 
                     await Navigation.PopToRootAsync();
                 }
@@ -180,9 +173,9 @@ namespace PaketGlobal
 
                     await App.Locator.Packages.Load();
 
-                    ShowMessage("Package accepted successfully");
+                    ShowMessage(AppResources.PackageAccepted);
 
-                   await  Navigation.PopToRootAsync();
+                    await  Navigation.PopToRootAsync();
                 }
                 else
                 {

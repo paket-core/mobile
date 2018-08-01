@@ -9,6 +9,7 @@ using PaketGlobal;
 using PaketGlobal.iOS;
 
 using System.Drawing;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(PaketEntry), typeof(PaketEntryRenderer))]
 namespace PaketGlobal.iOS
@@ -97,6 +98,31 @@ namespace PaketGlobal.iOS
             objLeftView.AddSubview(uiImageView);
 
             return objLeftView;
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == "PaddingRight")
+            {
+                var textField = this.Control;
+                var element = (PaketEntry)this.Element;
+
+                if (element != null && textField != null)
+                {
+                    textField.RightViewMode = UITextFieldViewMode.Always;
+
+                    if (element.PaddingRight <=35)
+                    {
+                        textField.RightView = new UIView();
+                    }
+                    else
+                    {
+                        textField.RightView = new UIView(new CGRect(0, 0, 40, 0));
+                    }
+                }
+            }
         }
     }
 }

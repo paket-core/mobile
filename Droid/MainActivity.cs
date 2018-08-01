@@ -3,14 +3,21 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
-using Acr.UserDialogs;
-using LY.Count.Android.Sdk;
-using GalaSoft.MvvmLight.Ioc;
-using Android.Graphics;
 using Android.Widget;
 using Android.Views;
+using Android.Graphics.Drawables;
+using Android.Graphics;
+
+using Acr.UserDialogs;
+
+using LY.Count.Android.Sdk;
+
+using GalaSoft.MvvmLight.Ioc;
+
 using System;
+
 using RoundedBoxView.Forms.Plugin.Droid;
+
 using Xamarin.Forms.Platform.Android;
 
 namespace PaketGlobal.Droid
@@ -20,6 +27,7 @@ namespace PaketGlobal.Droid
 	{
 		internal static MainActivity Instance { get; private set; }
 
+        private Dialog progressDialog;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -119,6 +127,29 @@ namespace PaketGlobal.Droid
                 });
             }
 		}
+
+        public void ShowProgressDialog()
+        {
+            if(progressDialog==null)
+            {
+                progressDialog = new Dialog(this);
+                progressDialog.SetCancelable(false);
+
+                var dialog = new ProgressBar(this);
+                dialog.Indeterminate = true;
+                dialog.Visibility = ViewStates.Visible;
+
+                progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+                progressDialog.SetContentView(dialog);
+            }
+
+            progressDialog.Show();
+        }
+
+        public void HideProgressDialog()
+        {
+            progressDialog.Dismiss();
+        }
 	}
 
    
