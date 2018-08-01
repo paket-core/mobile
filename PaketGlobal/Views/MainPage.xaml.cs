@@ -9,8 +9,30 @@ namespace PaketGlobal
     {
         public MainPage()
         {
-            InitializeComponent();
+            InitializeComponent(); 
 
+            Unsubscribe();
+            Subscribe();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
+        private void Logout()
+        {
+            Unsubscribe();
+        }
+
+        private void Subscribe()
+        {
             MessagingCenter.Subscribe<string, string>("MyApp", "DidClickPackageNotification", (sender, arg) =>
             {
                 OpenPackage(arg);
@@ -25,28 +47,47 @@ namespace PaketGlobal
             MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
                 Logout();
             });
+
+            MessagingCenter.Subscribe<string, string>("MyApp", "AppLaunchedFromDeepLink", (sender, arg) =>
+            {
+                OpenPackageFromDeepLink(arg);
+            });
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
-
-        private void Logout()
+        private void Unsubscribe()
         {
             MessagingCenter.Unsubscribe<string, string>("MyApp", "DidClickPackageNotification");
             MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
             MessagingCenter.Unsubscribe<string, string>("MyApp", "DidClickWalletNotification");
+            MessagingCenter.Unsubscribe<string, string>("MyApp", "AppLaunchedFromDeepLink");
         }
+
 
         private void OpenWallet()
         {
             
+        }
+
+        private async void OpenPackageFromDeepLink(string packageid)
+        {
+            App.ShowLoading(true);
+
+            var package = await PackageHelper.GetPackageDetails(packageid);
+            if (package != null)
+            {
+                var packagePage = new PackageDetailsPage(package);
+                packagePage.ShouldDismiss = true;
+
+                var mainPage = App.Current.MainPage;
+
+                await mainPage.Navigation.PushModalAsync(packagePage, true);
+            }
+            else
+            {
+                App.Locator.NotificationService.ShowMessage(AppResources.ErrorGetPackage, false);
+            }
+
+            App.ShowLoading(false);
         }
 
         private void OpenPackage(string packageid)
