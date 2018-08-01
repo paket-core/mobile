@@ -75,7 +75,6 @@ namespace PaketGlobal.Droid
                 {
                     string package = "";
                     package = Intent.Data.GetQueryParameter("id");
-                    package = "GD2RD7SRPHD2VIM2ORNYDVI4SQV4GHU4EIKZBLQ5GBKB2QQYSPBLFVIF";
 
                     if (package != null && package != "")
                     {
