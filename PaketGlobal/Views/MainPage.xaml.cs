@@ -80,7 +80,10 @@ namespace PaketGlobal
 
                 var mainPage = App.Current.MainPage;
 
-                await mainPage.Navigation.PushModalAsync(packagePage, true);
+                if(mainPage.Navigation.ModalStack.Count==0)
+                {
+                    await mainPage.Navigation.PushModalAsync(packagePage, true);
+                }
             }
             else
             {

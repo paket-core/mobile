@@ -392,11 +392,17 @@ namespace PaketGlobal
                 }
                 else if ((response.StatusCode == HttpStatusCode.NotFound) || (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.Created))
                 {
-                    var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
-                    if (error == null)
-                        throw new ServiceException((int)response.StatusCode, response.Content);
-                    else
-                        throw new ServiceException((int)response.StatusCode, error.Message);
+                    if(response.Content.Length==0 && response.StatusCode == 0)
+                    {
+                        App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+                    }
+                    else{
+                        var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
+                        if (error == null)
+                            throw new ServiceException((int)response.StatusCode, response.Content);
+                        else
+                            throw new ServiceException((int)response.StatusCode, error.Error.Message);
+                    } 
                 }
 			}
 
@@ -450,6 +456,7 @@ namespace PaketGlobal
 				StatusCode = statusCode;
 			}
 
+
 			public override string ToString()
 			{
 				return string.Format("[ServiceException: StatusCode={0} Message={1}]", StatusCode, Message);
@@ -467,10 +474,12 @@ namespace PaketGlobal
 		}
 
 		[DataContract]
-		public class ErrorReplyWrapper
+		public class Error
 		{
-			[DataMember(Name = "error")]
-			public ErrorReply Error { get; set; }
+            [DataMember(Name = "error_code")]
+            public int ErrorCode { get; set; }
+            [DataMember(Name = "message")]
+            public string Message { get; set; }
 		}
 
 		[DataContract]
@@ -479,7 +488,7 @@ namespace PaketGlobal
 			[DataMember(Name = "status")]
 			public int Status { get; set; }
 			[DataMember(Name = "error")]
-			public string Message { get; set; }
+            public Error Error { get; set; }
 		}
 	}
 }

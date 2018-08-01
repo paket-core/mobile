@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            //entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
+            entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -119,14 +119,26 @@ namespace PaketGlobal
         {
             Unfocus();
 
-          //  await WithProgressButton(restoreButton, async () =>
-           // {
-                var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
+            var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
 
-                if (created)
+            if (created)
+            {
+                var trusted = await StellarHelper.CheckTokenTrusted();
+                if (trusted)
                 {
-                    var trusted = await StellarHelper.CheckTokenTrusted();
-                    if (trusted)
+                    App.Locator.Profile.Activated = true;
+
+                    var navigationPage = new NavigationPage(new MainPage());
+
+                    Application.Current.MainPage = navigationPage;
+
+                    App.ShowLoading(false);
+                }
+                else
+                {
+                    var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
+
+                    if (added)
                     {
                         App.Locator.Profile.Activated = true;
 
@@ -138,32 +150,16 @@ namespace PaketGlobal
                     }
                     else
                     {
-                        var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
-
-                        if (added)
-                        {
-                            App.Locator.Profile.Activated = true;
-
-                            var navigationPage = new NavigationPage(new MainPage());
-
-                            Application.Current.MainPage = navigationPage;
-
-                            App.ShowLoading(false);
-                        }
-                        else
-                        {
-                            ShowMessage("Error adding trust token");
-                            App.ShowLoading(false);
-                        }
+                        ShowMessage("Error adding trust token");
+                        App.ShowLoading(false);
                     }
                 }
-                else
-                {
-                    App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
-                    App.ShowLoading(false);
-                }
-           // });
-
+            }
+            else
+            {
+                App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+                App.ShowLoading(false);
+            }
         }
 
 
