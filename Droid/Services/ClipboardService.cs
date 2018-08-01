@@ -22,7 +22,7 @@ namespace PaketGlobal.Droid
             var clipboardManager = (ClipboardManager)Forms.Context.GetSystemService(Context.ClipboardService);
 
             // Create a new Clip
-            var clip = ClipData.NewPlainText("YOUR_TITLE_HERE", text);
+            var clip = ClipData.NewPlainText("", text);
 
             // Copy the text
             clipboardManager.PrimaryClip = clip;

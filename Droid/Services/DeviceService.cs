@@ -35,7 +35,16 @@ namespace PaketGlobal.Droid
         public int ScreenWidth()
         {
             return (int)(Android.App.Application.Context.Resources.DisplayMetrics.WidthPixels / Android.App.Application.Context.Resources.DisplayMetrics.Density);
+        }
 
+        public void ShowProgress()
+        {
+            MainActivity.Instance.ShowProgressDialog();
+        }
+
+        public void HideProgress()
+        {
+            MainActivity.Instance.HideProgressDialog();
         }
     }
 }

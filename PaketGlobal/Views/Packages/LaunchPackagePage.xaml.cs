@@ -38,6 +38,7 @@ namespace PaketGlobal
             BackButton.TranslationY = -18;
             BackButton.TranslationX = -30;
 #endif
+
         }
 
         private void OnBack(object sender, System.EventArgs e)
@@ -51,12 +52,12 @@ namespace PaketGlobal
             Unfocus();
 
             var dpc = new DatePromptConfig();
-            dpc.OkText = "OK";
-            dpc.CancelText = "Cancel";
+            dpc.OkText = AppResources.OK;
+            dpc.CancelText = AppResources.Cancel;
             dpc.IsCancellable = true;
             dpc.MinimumDate = DateTime.Today.AddDays(1);
             dpc.SelectedDate = ViewModel.DeadlineDT.Date;
-            dpc.Title = "Please select a Deadline Date";
+            dpc.Title = AppResources.PickDeadlineDate;
             dpc.OnAction = dateResult =>
             {
                 if (dateResult.Ok)

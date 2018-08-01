@@ -277,10 +277,44 @@
         <value>Not registered on server</value>
     </data>
 
-        <data name="UserNotTrusted" xml:space="preserve">
+    <data name="UserNotTrusted" xml:space="preserve">
         <value>The account is not trusted</value>
     </data>
 
+    <data name="InvalidPackageId" xml:space="preserve">
+        <value>Invalid package identifier</value>
+    </data>
+    
+    <data name="InvalidBarcode" xml:space="preserve">
+        <value>Invalid barcode</value>
+    </data>
 
+    <data name="Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+
+    <data name="OK" xml:space="preserve">
+        <value>OK</value>
+    </data>
+
+    <data name="RefundingOK" xml:space="preserve">
+        <value>Refunding successfull</value>
+    </data>
+
+    <data name="ReclaimingOK" xml:space="preserve">
+        <value>Reclaiming successfull</value>
+    </data>
+
+    <data name="PackageAccepted" xml:space="preserve">
+        <value>Package accepted successfully</value>
+    </data>
+
+
+    <data name="ErrorGetPackage" xml:space="preserve">
+        <value>Error retrieving package details</value>
+    </data>
+
+
+            
 
 </root>

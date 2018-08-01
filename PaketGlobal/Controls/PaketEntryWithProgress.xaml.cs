@@ -32,6 +32,10 @@ namespace PaketGlobal
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter),
                                                                         typeof(object), typeof(PaketEntryWithProgress));
 
+        public static readonly BindableProperty EntryHeightProperty = BindableProperty.Create(nameof(EntryHeight), typeof(int),
+                                                                typeof(PaketEntryWithProgress), 0,
+                                                                propertyChanged: (bindable, oldVal, newVal) => ((PaketEntryWithProgress)bindable).OnEntryHeightChange((int)newVal));
+        
         public event EventHandler Completed;
         public event EventHandler Unfocus;
 
@@ -57,6 +61,12 @@ namespace PaketGlobal
         {
             get => (bool)GetValue(IsBusyProperty);
             set => SetValue(IsBusyProperty, value);
+        }
+
+        public int EntryHeight
+        {
+            get => (int)GetValue(EntryHeightProperty);
+            set => SetValue(EntryHeightProperty, value);
         }
 
         public ICommand Command
@@ -94,10 +104,24 @@ namespace PaketGlobal
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
         }
 
+        private void OnEntryHeightChange(int value)
+        {
+            if(value>0)
+            {
+                EntryView.HeightRequest = value;
+            }
+        }
+
         private void OnIsBusy(bool value)
         {
             ProgressIndicator.IsRunning = value;
+
             EntryView.IsEnabled = !value;
+
+            if(value)
+            {
+                EntryView.PaddingRight = 110;
+            }
         }
 
         private void FieldCompleted(object sender, System.EventArgs e)
@@ -122,11 +146,7 @@ namespace PaketGlobal
 
         private void FieldTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
-            TopLabel.Text = TopText;
-            TopLabel.IsVisible = (TopLabel.Text.Length > 0);
-            TopLabel.TextColor = Color.FromHex("#A7A7A7");
-
-            StatusImage.IsVisible = false;
+            ToDefaultState();
         }
 
         public void FocusField()
@@ -136,6 +156,8 @@ namespace PaketGlobal
 
         private void ShowErrorWithText(string text)
         {
+            EntryView.PaddingRight = 110;
+
             TopLabel.TextColor = Color.FromHex("#D43F51");
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
@@ -146,12 +168,25 @@ namespace PaketGlobal
 
         private void ShowSuccess()
         {
+            EntryView.PaddingRight = 110;
+
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
 
             StatusImage.Source = "success.png";
             StatusImage.IsVisible = true;
+        }
+
+        public void ToDefaultState()
+        {
+            EntryView.PaddingRight = 35;
+
+            TopLabel.Text = TopText;
+            TopLabel.IsVisible = (TopLabel.Text.Length > 0);
+            TopLabel.TextColor = Color.FromHex("#A7A7A7");
+
+            StatusImage.IsVisible = false;
         }
 
         public async Task<string> CheckValidCallSignOrPubKey()
@@ -165,6 +200,8 @@ namespace PaketGlobal
 
 						return "";
 					} else {
+                        ToDefaultState();
+
 						this.IsBusy = true;
 
 						var result = await App.Locator.FundServiceClient.GetUser(Text, null);
@@ -178,12 +215,15 @@ namespace PaketGlobal
 						} else if (result != null && trusted) {
 							ShowSuccess();
 						}
+                  
 
 						this.IsBusy = false;
 					}
 
 					return Text;
 				} else {
+                    ToDefaultState();
+
 					this.IsBusy = true;
 
 					var result = await App.Locator.FundServiceClient.GetUser(null, Text);

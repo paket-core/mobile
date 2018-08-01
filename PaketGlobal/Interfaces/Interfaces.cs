@@ -52,5 +52,8 @@ namespace PaketGlobal
 
         int ScreenHeight();
         int ScreenWidth();
+
+        void ShowProgress();
+        void HideProgress();
     }
 }

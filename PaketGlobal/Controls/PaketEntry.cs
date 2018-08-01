@@ -32,15 +32,12 @@ namespace PaketGlobal
 
         public static readonly BindableProperty CapSentencesProperty =
             BindableProperty.Create(nameof(CapSentences), typeof(int), typeof(PaketEntry), 0);
+        
+        public static readonly BindableProperty PaddingRightProperty =
+            BindableProperty.Create(nameof(PaddingRight), typeof(int), typeof(PaketEntry), 0);
 
-        public static readonly BindableProperty ErrorMessageProperty =
-            BindableProperty.Create(nameof(ErrorMessage), typeof(string), typeof(PaketEntry), string.Empty);
 
-        public static readonly BindableProperty ShowErrorProperty =
-            BindableProperty.Create(nameof(ShowError), typeof(bool), typeof(PaketEntry), false);
 
-       public static readonly BindableProperty HideErrorProperty =
-            BindableProperty.Create(nameof(HideError), typeof(bool), typeof(PaketEntry), false);
 
         public int CapSentences
         {
@@ -84,22 +81,10 @@ namespace PaketGlobal
             set { SetValue(ImageAlignmentProperty, value); }
         }
 
-        public string ErrorMessage
+        public int PaddingRight
         {
-            get { return (string)GetValue(ErrorMessageProperty); }
-            set { SetValue(ErrorMessageProperty, value); }
-        }
-
-        public bool HideError
-        {
-            get { return (bool)GetValue(HideErrorProperty); }
-            set { SetValue(HideErrorProperty, value); }
-        }
-
-        public bool ShowError
-        {
-            get { return (bool)GetValue(ShowErrorProperty); }
-            set { SetValue(ShowErrorProperty, value); }
+            get { return (int)GetValue(PaddingRightProperty); }
+            set { SetValue(PaddingRightProperty, value); }
         }
     }
 }
