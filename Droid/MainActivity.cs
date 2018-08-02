@@ -91,12 +91,12 @@ namespace PaketGlobal.Droid
             // This event fires when the ServiceConnection lets the client (our App class) know that
             // the Service is connected. We use this event to start updating the UI with location
             // updates from the Service
-            //LocationManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
+            //LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
             //    // notifies us of location changes from the system
             //    LocationManager.Current.LocationService.LocationChanged += HandleLocationChanged;
             //};
 
-            //LocationManager.StartLocationService();
+            //LocationAppManager.StartLocationService();
 
 		}
 
@@ -176,6 +176,9 @@ namespace PaketGlobal.Droid
             {
                 progressDialog = new Dialog(this);
                 progressDialog.SetCancelable(false);
+
+
+               // var ring = ProgressRing();
 
                 var dialog = new ProgressBar(this);
                 dialog.Indeterminate = true;

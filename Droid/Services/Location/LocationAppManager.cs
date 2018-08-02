@@ -8,17 +8,17 @@ using PaketGlobal.Droid;
 
 namespace PaketGlobal.Droid
 {
-    public class LocationManager
+    public class LocationAppManager
     {
         public event EventHandler<ServiceConnectedEventArgs> LocationServiceConnected = delegate { };
 
         protected static LocationServiceConnection locationServiceConnection;
 
-        public static LocationManager Current
+        public static LocationAppManager Current
         {
             get { return current; }
         }
-        private static LocationManager current;
+        private static LocationAppManager current;
 
         public LocationService LocationService
         {
@@ -34,12 +34,12 @@ namespace PaketGlobal.Droid
 
         #region Application context
 
-        static LocationManager()
+        static LocationAppManager()
         {
-            current = new LocationManager();
+            current = new LocationAppManager();
         }
 
-        protected LocationManager()
+        protected LocationAppManager()
         {
             locationServiceConnection = new LocationServiceConnection(null);
 
