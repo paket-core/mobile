@@ -264,6 +264,16 @@ namespace PaketGlobal
 			return await SendRequest<PackageData>(request);
 		}
 
+        public async Task<ChangeLocationData> ChangeLocation(string escrowPubkey, string location)
+        {
+            var request = PrepareRequest(apiVersion + "/changed_location", Method.POST);
+
+            request.AddParameter("escrow_pubkey", escrowPubkey);
+            request.AddParameter("location", location);
+
+            return await SendRequest<ChangeLocationData>(request);
+        }
+
 
 		#endregion Packages
 

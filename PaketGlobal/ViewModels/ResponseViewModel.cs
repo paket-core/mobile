@@ -246,6 +246,12 @@ namespace PaketGlobal
 		
 	}
 
+    [DataContract]
+    public class ChangeLocationData : BaseData
+    {
+
+    }
+
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
