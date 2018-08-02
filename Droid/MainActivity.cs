@@ -217,13 +217,23 @@ namespace PaketGlobal.Droid
 
         public void HideProgressDialog()
         {
-            progressStatus = 101;
+            if(progressDialog!=null)
+            {
+                try
+                {
+                    progressStatus = 101;
 
-            progressDialog.Dismiss();
-            progressThread.Abort();
+                    progressDialog.Dismiss();
+                    progressThread.Abort();
 
-            progressThread = null;
-            progressDialog = null;
+                    progressThread = null;
+                    progressDialog = null;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
         }
 
         #endregion
