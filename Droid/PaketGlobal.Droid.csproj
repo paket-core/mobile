@@ -27,7 +27,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -257,11 +257,11 @@
     <Reference Include="Plugin.DeviceInfo">
       <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.0.0.13\lib\monoandroid71\Plugin.DeviceInfo.dll</HintPath>
     </Reference>
-    <Reference Include="ProgressRing.Forms.Plugin.Android">
-      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.Android.dll</HintPath>
+    <Reference Include="Plugin.Permissions">
+      <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\monoandroid71\Plugin.Permissions.dll</HintPath>
     </Reference>
-    <Reference Include="ProgressRing.Forms.Plugin">
-      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.dll</HintPath>
+    <Reference Include="Plugin.Geolocator">
+      <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\monoandroid71\Plugin.Geolocator.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +302,7 @@
     <Compile Include="Services\Location\LocationServiceConnection.cs" />
     <Compile Include="Services\Location\ServiceConnectedEventArgs.cs" />
     <Compile Include="Services\Location\LocationAppManager.cs" />
+    <Compile Include="Services\Location\LocationSharedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

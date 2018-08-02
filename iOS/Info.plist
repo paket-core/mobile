@@ -87,5 +87,15 @@
 			<string>Editor</string>
 		</dict>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The location is required for tracking packages</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The location is required for tracking packages</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The location is required for tracking packages</string>
 </dict>
 </plist>

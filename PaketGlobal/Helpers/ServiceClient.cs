@@ -205,16 +205,20 @@ namespace PaketGlobal
 
 		#region Packages
 
-		public async Task<AcceptPackageData> AcceptPackage(string escrowPubkey)
+		public async Task<AcceptPackageData> AcceptPackage(string escrowPubkey, string location)
 		{
 			var request = PrepareRequest(apiVersion + "/accept_package", Method.POST);
 
 			request.AddParameter("escrow_pubkey", escrowPubkey);
+            if(location!=null)
+            {
+                request.AddParameter("location", location);
+            }
 
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, SignHandler customSign)
+        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
@@ -238,6 +242,11 @@ namespace PaketGlobal
 			request.AddParameter("courier_pubkey", courierPubkey);
             request.AddParameter("payment_buls", payment);
             request.AddParameter("collateral_buls", collateral);
+
+            if(location!=null)
+            {
+                request.AddParameter("location", location);
+            }
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}

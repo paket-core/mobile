@@ -72,6 +72,11 @@ namespace PaketGlobal
             get { return GetInstance<IDeviceService>(); }
         }
 
+        public ILocationSharedService LocationService
+        {
+            get { return GetInstance<ILocationSharedService>(); }
+        }
+
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>

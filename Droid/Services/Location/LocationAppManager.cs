@@ -10,6 +10,8 @@ namespace PaketGlobal.Droid
 {
     public class LocationAppManager
     {
+        private static bool isBind = false;
+
         public event EventHandler<ServiceConnectedEventArgs> LocationServiceConnected = delegate { };
 
         protected static LocationServiceConnection locationServiceConnection;
@@ -51,6 +53,8 @@ namespace PaketGlobal.Droid
 
         public static void StartLocationService()
         {
+            isBind = false;
+
             new Task(() => {
                 Intent serviceIntent = new Android.Content.Intent(Android.App.Application.Context, typeof(LocationService));
                 Android.App.Application.Context.StartService(serviceIntent);
@@ -62,14 +66,26 @@ namespace PaketGlobal.Droid
 
         public static void StopLocationService()
         {
-            if (locationServiceConnection != null)
+            if(!isBind)
             {
-                Android.App.Application.Context.UnbindService(locationServiceConnection);
-            }
+                try
+                {
+                    if (locationServiceConnection != null)
+                    {
+                        Android.App.Application.Context.UnbindService(locationServiceConnection);
+                    }
 
-            if (Current.LocationService != null)
-            {
-                Current.LocationService.StopSelf();
+                    if (Current.LocationService != null)
+                    {
+                        Current.LocationService.StopSelf();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    isBind = true;
+
+                    Console.WriteLine(ex);
+                }
             }
         }
 

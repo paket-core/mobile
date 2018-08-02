@@ -18,17 +18,17 @@ namespace PaketGlobal
 
         private void SubscribeToNotifications()
         {
-            MessagingCenter.Subscribe<string, string>("MyApp", "OnStartApp", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.START_APP, (sender, arg) =>
             {
                 StartTimer();
             });
 
-            MessagingCenter.Subscribe<string, string>("MyApp", "OnStopApp", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, (sender, arg) =>
             {
                 StopTimer();
             });
 
-            MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) =>
+            MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) =>
             {
                 StopTimer();
             });
@@ -145,15 +145,15 @@ namespace PaketGlobal
             {
                 StopTimer();
 
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
-                MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
+                MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.STOP_APP);
+                MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.START_APP);
+                MessagingCenter.Unsubscribe<Workspace, bool>(this,Constants.LOGOUT);
             }
         }
 
         private void DidClickNotification(string obj)
         {
-            MessagingCenter.Send<string, string>("MyApp", "DidClickWalletNotification", "");
+            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.CLICK_WALLET_NOTIFICATION, "");
         }
 
 	}

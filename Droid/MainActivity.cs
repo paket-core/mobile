@@ -7,6 +7,7 @@ using Android.Widget;
 using Android.Views;
 using Android.Graphics.Drawables;
 using Android.Graphics;
+using Android.Locations;
 
 using Acr.UserDialogs;
 
@@ -19,7 +20,13 @@ using System;
 using RoundedBoxView.Forms.Plugin.Droid;
 
 using Xamarin.Forms.Platform.Android;
-using Android.Locations;
+
+using Plugin.CurrentActivity;
+using System.Threading.Tasks;
+using Android;
+using Android.Support.V4.App;
+using Android.Support.Design.Widget;
+using Plugin.Permissions;
 
 namespace PaketGlobal.Droid
 {
@@ -66,7 +73,8 @@ namespace PaketGlobal.Droid
             LoadApplication(new App());
 
 			UserDialogs.Init(this);
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
+
+            CrossCurrentActivity.Current.Init(this, bundle);
 
             InitializeUIAsync();
 
@@ -79,7 +87,7 @@ namespace PaketGlobal.Droid
 
                     if (package != null && package != "")
                     {
-                        Xamarin.Forms.MessagingCenter.Send<string, string>("MyApp", "AppLaunchedFromDeepLink", package);
+                        Xamarin.Forms.MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.APP_LAUNCHED_FROM_DEEP_LINK, package);
                     }
                 }
                 catch (Exception e)
@@ -87,8 +95,6 @@ namespace PaketGlobal.Droid
                     Console.WriteLine(e);
                 }
             }
-
-            StartLocationUpdate();
 		}
 
 		protected override void OnStart()
@@ -113,10 +119,13 @@ namespace PaketGlobal.Droid
 
 		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
 		{
-			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-			global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);         
 		}
+
 
         private void InitializeUIAsync()         {
             // from https://forums.xamarin.com/discussion/comment/282515#Comment_282515
@@ -155,6 +164,13 @@ namespace PaketGlobal.Droid
             {
                 SimpleIoc.Default.Register<IDeviceService>(() => {
                     return new DeviceService();
+                });
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<ILocationSharedService>())
+            {
+                SimpleIoc.Default.Register<ILocationSharedService>(() => {
+                    return new LocationSharedService();
                 });
             }
 		}
@@ -200,10 +216,16 @@ namespace PaketGlobal.Droid
             LocationAppManager.StartLocationService();
         }
 
+        public void StopLocationUpdate()
+        {
+            LocationAppManager.StopLocationService();
+        }
+
         public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
         {
             
         }
+
 
         #endregion
 	}

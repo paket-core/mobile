@@ -27,17 +27,17 @@ namespace PaketGlobal
 
         private void SubscribeToNotifications()
         {
-            MessagingCenter.Subscribe<string, string>("MyApp", "OnStartApp", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.START_APP, (sender, arg) =>
             {
                 StartTimer();
             });
 
-            MessagingCenter.Subscribe<string, string>("MyApp", "OnStopApp", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, (sender, arg) =>
             {
                 StopTimer();
             });
 
-            MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) =>
+            MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) =>
             {
                 StopTimer();
             });
@@ -101,6 +101,8 @@ namespace PaketGlobal
                     CreateTimer();
                 }
             }
+
+            CheckLocationUpdate();
         }
 
         private async System.Threading.Tasks.Task Refresh()
@@ -124,7 +126,7 @@ namespace PaketGlobal
                             {
                                 if (p1.PaketId == CurrentDisplayPackageId)
                                 {
-                                    MessagingCenter.Send(this, "CurrentDisplayPackageChanged", p1);
+                                    MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
                                 }
 
                                 if (enabled)
@@ -156,6 +158,8 @@ namespace PaketGlobal
             {
                 timer.Start();
             }
+
+            CheckLocationUpdate();
         }
 
         public override void Reset()
@@ -166,15 +170,40 @@ namespace PaketGlobal
             {
                 StopTimer();
 
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStopApp");
-                MessagingCenter.Unsubscribe<string, string>("MyApp", "OnStartApp");
-                MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
+                MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.START_APP);
+                MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.STOP_APP);
+                MessagingCenter.Unsubscribe<Workspace, bool>(this,Constants.LOGOUT);
             }
         }
 
         private void DidClickNotification(string obj)
         {
-            MessagingCenter.Send<string, string>("MyApp", "DidClickPackageNotification", obj);
+            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.CLICK_PACKAGE_NOTIFICATION, obj);
+        }
+
+        private void CheckLocationUpdate ()
+        {
+            bool isFound = false;
+
+            if(PackagesList!=null)
+            {
+                foreach(Package package in PackagesList)
+                {
+                    if(package.MyRole == PaketRole.Courier)
+                    {
+                        App.Locator.LocationService.StartUpdateLocation();
+
+                        isFound = true;
+
+                        break;
+                    }
+                }
+            }
+
+            if(!isFound)
+            {
+                App.Locator.LocationService.StopUpdateLocation();
+            }
         }
 
     }
