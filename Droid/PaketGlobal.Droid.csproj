@@ -547,6 +547,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\success.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\success.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\success.png" />
+    <AndroidResource Include="Resources\layout\progress_spinner.xml" />
+    <AndroidResource Include="Resources\layout\progress_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
