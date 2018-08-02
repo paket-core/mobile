@@ -40,6 +40,9 @@ namespace PaketGlobal
             BackButton.TranslationX = -30;
 #endif
 
+            //TODO: temp
+            BottomBarcodeView.IsVisible = true;
+
             var data = new BarcodePackageData
             {
                 EscrowAddress = package.PaketId
@@ -51,6 +54,14 @@ namespace PaketGlobal
             BarcodeTapCommand = new Command(() =>
             {
                 BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
+
+                if(BarcodeImage.IsVisible)
+                {
+                    BarcodeArrow.Source = "dropdown_arrow_top.png";
+                }
+                else{
+                    BarcodeArrow.Source = "dropdown_arrow.png";
+                }
             });
 
             XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
@@ -65,7 +76,9 @@ namespace PaketGlobal
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
-                AddEvents();
+                //TODO: 
+               // AddEvents();
+                EventsInfoViewFrame.IsVisible = false;
 
                 MessagingCenter.Subscribe<PackagesModel, Package>(this, "CurrentDisplayPackageChanged", (sender, arg) =>
                 {

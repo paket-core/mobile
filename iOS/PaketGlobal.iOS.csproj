@@ -400,6 +400,9 @@
     <BundleResource Include="Resources\success%403x.png" />
     <BundleResource Include="Resources\success%402x.png" />
     <BundleResource Include="Resources\success.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top%402x.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top%403x.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -407,7 +410,6 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AppInfoService.cs" />
     <Compile Include="Services\NotificationService.cs" />
-    <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenders\PaketEntryRender.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="ViewRenders\PaketFrameRender.cs" />

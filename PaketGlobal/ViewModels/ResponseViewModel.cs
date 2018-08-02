@@ -498,17 +498,17 @@ namespace PaketGlobal
 		public string PaketUser { get; set; }
 
 		[DataMember(Name = "timestamp")]
-		public long Timestamp { get; set; }
+        public string Timestamp { get; set; }
 
 		[DataMember(Name = "GPS")]
 		public double[] GPS { get; set; }
 
 		public DateTime TimestampDT {
-			get { return DateTimeHelper.FromUnixTime(Timestamp).ToLocalTime(); }
-		}
+            get{
+                DateTime parsedDate = DateTime.Parse(Timestamp);
 
-		public string TimeString {
-			get { return TimestampDT.ToString(); }
+                return parsedDate;
+            }
 		}
 
 		public string GPSString {
