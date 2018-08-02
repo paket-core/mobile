@@ -133,8 +133,19 @@ namespace PaketGlobal.Droid
             if(result.Packages!=null){
                 if(result.Packages.Count>0)
                 {
-                    var v = (Vibrator)Android.App.Application.Context.GetSystemService(Context.VibratorService);
-                    v.Vibrate(1000);
+                    var packages = result.Packages;
+
+                    foreach(Package package in packages)
+                    {
+                        if(package.MyRole == PaketRole.Launcher)
+                        {
+                            var locationString = location.Latitude.ToString() + "," + location.Longitude.ToString();
+                            var isChanged = await PaketGlobal.App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+
+                            Vibrator vibrator = (Vibrator)this.GetSystemService(Context.VibratorService);
+                            vibrator.Vibrate(1000);
+                        }
+                    }
                 }
             }
         }
