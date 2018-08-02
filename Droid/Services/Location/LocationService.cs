@@ -101,8 +101,7 @@ namespace PaketGlobal.Droid
 
         public void OnLocationChanged(Android.Locations.Location location)
         {
-            var v = (Vibrator)Android.App.Application.Context.GetSystemService(Context.VibratorService);
-            v.Vibrate(1000);
+            OnLocationChangedAsync(location);
 
             lastLatitude = location.Latitude;
             lastLongitude = location.Longitude;
@@ -114,7 +113,7 @@ namespace PaketGlobal.Droid
 
         public void OnProviderDisabled(string provider)
         {
-
+            
         }
 
         public void OnProviderEnabled(string provider)
@@ -126,6 +125,20 @@ namespace PaketGlobal.Droid
         {
 
         }
+
+        public async void OnLocationChangedAsync(Android.Locations.Location location)
+        {
+            var result = await PaketGlobal.App.Locator.ServiceClient.MyPackages();
+
+            if(result.Packages!=null){
+                if(result.Packages.Count>0)
+                {
+                    var v = (Vibrator)Android.App.Application.Context.GetSystemService(Context.VibratorService);
+                    v.Vibrate(1000);
+                }
+            }
+        }
+
 
         #endregion
     }
