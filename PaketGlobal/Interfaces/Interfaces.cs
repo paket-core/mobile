@@ -31,10 +31,6 @@ namespace PaketGlobal
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);
 	}
 
-	public interface IScreenScale
-	{
-		float GetScreenScale();
-	}
 
     public interface IClipboardService
     {

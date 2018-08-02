@@ -88,7 +88,7 @@
                                     </StackLayout>
                                     <StackLayout Spacing="20"
                                                           RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="115"
-             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
+             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-15}">
                                         <StackLayout Spacing="5" >
                                             <StackLayout Spacing="0">
                                                 <Label TextColor="#A7A7A7" Text="{local:Translate Role}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
@@ -151,11 +151,12 @@
                                     <StackLayout Spacing="15">
                                         <Label TextColor="Black" Text="{local:Translate PaymentInfo}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                         <StackLayout Spacing="5" >
-                                            <StackLayout Spacing="0" x:Name="BarcodeView" Orientation="Horizontal"  xe:TouchEffect.Color="Gray">
+                                            <StackLayout Padding="0,0,5,0" Spacing="0" x:Name="BarcodeView" Orientation="Horizontal"  xe:TouchEffect.Color="Gray">
                                                 <Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="{local:Translate PackageBarcodeInfo}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                                <Image Source="dropdown_arrow.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                                <Image x:Name="BarcodeArrow" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                             </StackLayout>
-                                            <zxing:ZXingBarcodeImageView IsVisible="false" x:Name="BarcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="300"/>
+                                            <zxing:ZXingBarcodeImageView IsVisible="true" x:Name="BarcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="300"/>
+                                            <BoxView x:Name="BottomBarcodeView" IsVisible="false" HeightRequest="50"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </StackLayout>

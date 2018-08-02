@@ -19,6 +19,7 @@ using System;
 using RoundedBoxView.Forms.Plugin.Droid;
 
 using Xamarin.Forms.Platform.Android;
+using Android.Locations;
 
 namespace PaketGlobal.Droid
 {
@@ -86,6 +87,17 @@ namespace PaketGlobal.Droid
                     Console.WriteLine(e);
                 }
             }
+
+            // This event fires when the ServiceConnection lets the client (our App class) know that
+            // the Service is connected. We use this event to start updating the UI with location
+            // updates from the Service
+            //LocationManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
+            //    // notifies us of location changes from the system
+            //    LocationManager.Current.LocationService.LocationChanged += HandleLocationChanged;
+            //};
+
+            //LocationManager.StartLocationService();
+
 		}
 
 		protected override void OnStart()
@@ -156,6 +168,8 @@ namespace PaketGlobal.Droid
             }
 		}
 
+        #region ProgressBar
+
         public void ShowProgressDialog()
         {
             if(progressDialog==null)
@@ -178,6 +192,19 @@ namespace PaketGlobal.Droid
         {
             progressDialog.Dismiss();
         }
+
+        #endregion
+
+        #region Android Location Service methods
+
+        ///<summary>
+        /// Updates UI with location data
+        /// </summary>
+        public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        {
+        }
+
+        #endregion
 	}
 
    
