@@ -257,6 +257,12 @@
     <Reference Include="Plugin.DeviceInfo">
       <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.0.0.13\lib\monoandroid71\Plugin.DeviceInfo.dll</HintPath>
     </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin.Android">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -295,7 +301,7 @@
     <Compile Include="Services\Location\LocationServiceBinder.cs" />
     <Compile Include="Services\Location\LocationServiceConnection.cs" />
     <Compile Include="Services\Location\ServiceConnectedEventArgs.cs" />
-    <Compile Include="Services\Location\LocationManager.cs" />
+    <Compile Include="Services\Location\LocationAppManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
