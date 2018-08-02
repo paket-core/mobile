@@ -54,7 +54,7 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceConnectionError(object sender, EventArgs e)
 		{
-			ShowMessage("Connection error has occured.");
+            ShowMessage(AppResources.ConnectionError);
 		}
 
 		protected virtual void WorkspaceNetworkConnected(object sender, EventArgs e)
@@ -64,62 +64,23 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceServiceError(object sender, ServiceClient.ServiceErrorEventArgs e)
 		{
-			ShowMessage(e.ServiceException.Message);//TODO for Debug only
+			ShowMessage(e.ServiceException.Message);
 
 			System.Diagnostics.Debug.WriteLine(e.ServiceException);
 		}
 
-		protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
-		{
-            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
-			Application.Current.MainPage = navPage;
-		}
-
 		protected void ShowError(StellarOperationResult error, bool lengthLong = false)
 		{
-			string message = null;
-
-			switch (error) {
-				case StellarOperationResult.FailSendBuls:
-					message = "Error sending BULs";
-					break;
-				case StellarOperationResult.FailCreateAccount:
-					message = "Error creating an account";
-					break;
-				case StellarOperationResult.FailSubmitCreateAccount:
-					message = "Error submiting the account creation";
-					break;
-				case StellarOperationResult.FailAddTrust:
-					message = "Error adding trust";
-					break;
-				case StellarOperationResult.LowBULsLauncher:
-					message = "Insufficient BULs from the Launcher";
-					break;
-				case StellarOperationResult.LowBULsCourier:
-                    message = "Insufficient BULs from the Courier";
-					break;
-				case StellarOperationResult.FailedLaunchPackage:
-					message = "Error launching the package";
-					break;
-				case StellarOperationResult.FaileSubmitOptions:
-					message = "Error submiting options";
-					break;
-				case StellarOperationResult.IncositentBalance:
-					message = "Inconsistent balance";
-					break;
-				case StellarOperationResult.FailAcceptPackage:
-					message = "Error accepting the package";
-					break;
-				case StellarOperationResult.FailSendCollateral:
-					message = "Error sending collateral";
-					break;
-				default:
-					message = "Some error occured";
-					break;
-			}
+            var message = StellarOperationResultMethods.GetString(error);
 
 			ShowMessage(message);
 		}
+
+        protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
+        {
+            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
+            Application.Current.MainPage = navPage;
+        }
 
 		protected void ShowMessage(string error, bool lengthLong = false)
 		{

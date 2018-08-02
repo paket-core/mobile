@@ -199,5 +199,110 @@ namespace PaketGlobal
             }
         }
 
+        internal static string ConnectionError
+        {
+            get
+            {
+                return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+
+        internal static string FailSendBuls
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSendBuls", resourceCulture);
+            }
+        }
+
+        internal static string FailCreateAccount
+        {
+            get
+            {
+                return ResourceManager.GetString("FailCreateAccount", resourceCulture);
+            }
+        }
+
+        internal static string FailSubmitCreateAccount
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSubmitCreateAccount", resourceCulture);
+            }
+        }
+
+        internal static string FailAddTrust
+        {
+            get
+            {
+                return ResourceManager.GetString("FailAddTrust", resourceCulture);
+            }
+        }
+
+        internal static string LowBULsLauncher
+        {
+            get
+            {
+                return ResourceManager.GetString("LowBULsLauncher", resourceCulture);
+            }
+        }
+
+        internal static string LowBULsCourier
+        {
+            get
+            {
+                return ResourceManager.GetString("LowBULsCourier", resourceCulture);
+            }
+        }
+
+
+        internal static string FailedLaunchPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("FailedLaunchPackage", resourceCulture);
+            }
+        }
+
+        internal static string FaileSubmitOptions
+        {
+            get
+            {
+                return ResourceManager.GetString("FaileSubmitOptions", resourceCulture);
+            }
+        }
+
+        internal static string IncositentBalance
+        {
+            get
+            {
+                return ResourceManager.GetString("IncositentBalance", resourceCulture);
+            }
+        }
+
+        internal static string FailAcceptPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("FailAcceptPackage", resourceCulture);
+            }
+        }
+
+        internal static string FailSendCollateral
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSendCollateral", resourceCulture);
+            }
+        }
+
+        internal static string UnknownError
+        {
+            get
+            {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+
     }
 }
