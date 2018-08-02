@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Plugin.Geolocator.Abstractions;
 
 namespace PaketGlobal
 {
@@ -51,5 +53,12 @@ namespace PaketGlobal
 
         void ShowProgress();
         void HideProgress();
+    }
+
+    public interface ILocationSharedService
+    {
+        void StartUpdateLocation();
+        void StopUpdateLocation();
+        Task<string> GetCurrentLocation();
     }
 }

@@ -26,7 +26,7 @@ namespace PaketGlobal
             return transactions.Records;
         }
 
-        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls)
+        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location)
 		{
             var payment =  StellarConverter.ConvertBULToStroops(paymentBuls);
 
@@ -70,7 +70,7 @@ namespace PaketGlobal
 							var launchResult = await App.Locator.ServiceClient.PrepareEscrow(escrowKP.Address, App.Locator.Profile.Pubkey,
 																							 recipientPubkey, deadlineTimestamp,
 																							 courierPubkey, paymentBuls,
-																							 collateralBuls, (d) => {
+                                                                                             collateralBuls, location, (d) => {
 																								 return App.Locator.Profile.SignData(d, escrowKP);
 																							 });
 							if (launchResult != null) {
@@ -141,7 +141,7 @@ namespace PaketGlobal
 			//Make note of the BUL balances of the launcher by calling /bul_account. It should be the same as before minus the payment
 		}
 
-		public static async Task<StellarOperationResult> AcceptPackageAsCourier(string escrowPubkey, long collateral, string paymentTransaction)
+		public static async Task<StellarOperationResult> AcceptPackageAsCourier(string escrowPubkey, long collateral, string paymentTransaction, string location)
 		{
 			var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 			if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
@@ -153,7 +153,7 @@ namespace PaketGlobal
 				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
 				var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
 				if (paymentResult != null) {
-					var acceptResult = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey);
+                    var acceptResult = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey,location);
 					if (acceptResult != null) {
 						//var newCourierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
 						//if (newCourierBalance.BalanceBUL == courierBalance.BalanceBUL - collateral) {
@@ -173,14 +173,14 @@ namespace PaketGlobal
 			}
 		}
 
-		public static async Task<StellarOperationResult> AcceptPackageAsRecipient(string escrowPubkey, string paymentTransaction)
+		public static async Task<StellarOperationResult> AcceptPackageAsRecipient(string escrowPubkey, string paymentTransaction, string location)
 		{
 			//var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 
 			var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, paymentTransaction);//sign the payment transaction
 			var submitResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
 			if (submitResult != null) {
-				var result = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey);//accept the package
+                var result = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey, location);//accept the package
 				if (result != null) {
 					return StellarOperationResult.Success;
 				} else {

@@ -5,16 +5,15 @@ using Android.Content;
 using Android.OS;
 using Android.Locations;
 
-
 namespace PaketGlobal.Droid
 {
     [Service]
     [IntentFilter(new String[] { "PaketGlobalLocation.Droid" })]
     public class LocationService : Service, ILocationListener
     {
-        public const string SERVICE_STARTED_KEY = "has_service_been_started";
-        public const string ACTION_MAIN_ACTIVITY = "PaketGlobalLocation.action.MAIN_ACTIVITY";
-        public const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
+        private const string SERVICE_STARTED_KEY = "has_service_been_started";
+        private const string ACTION_MAIN_ACTIVITY = "PaketGlobalLocation.action.MAIN_ACTIVITY";
+        private const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
 
         public event EventHandler<LocationChangedEventArgs> LocationChanged = delegate { };
 
@@ -25,7 +24,7 @@ namespace PaketGlobal.Droid
         private double lastLongitude = double.MinValue;
         private DateTime lastUpdated = DateTime.MinValue;
 
-        public override StartCommandResult OnStartCommand(Android.Content.Intent intent, StartCommandFlags flags, int startId)
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
             {
@@ -38,7 +37,7 @@ namespace PaketGlobal.Droid
         }
 
 
-        public override Android.OS.IBinder OnBind(Android.Content.Intent intent)
+        public override IBinder OnBind(Intent intent)
         {
             binder = new LocationServiceBinder(this);
             return binder;
@@ -71,7 +70,7 @@ namespace PaketGlobal.Droid
             }
         }
 
-        void RegisterForegroundService()
+        private void RegisterForegroundService()
         {
             var notificationBuilder = new Notification.Builder(this)
             .SetContentTitle("PaketGlobal")
@@ -81,11 +80,10 @@ namespace PaketGlobal.Droid
 
             var notification = notificationBuilder.Build();
 
-            // Enlist this instance of the service as a foreground service
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
         }
 
-        PendingIntent BuildIntentToShowMainActivity()
+        private PendingIntent BuildIntentToShowMainActivity()
         {
             var notificationIntent = new Intent(this, typeof(MainActivity));
             notificationIntent.SetAction(ACTION_MAIN_ACTIVITY);
@@ -99,7 +97,7 @@ namespace PaketGlobal.Droid
         #region ILocationListener Members
 
 
-        public void OnLocationChanged(Android.Locations.Location location)
+        public void OnLocationChanged(Location location)
         {
             OnLocationChangedAsync(location);
 
@@ -113,7 +111,7 @@ namespace PaketGlobal.Droid
 
         public void OnProviderDisabled(string provider)
         {
-            
+
         }
 
         public void OnProviderEnabled(string provider)
@@ -126,25 +124,23 @@ namespace PaketGlobal.Droid
 
         }
 
-        public async void OnLocationChangedAsync(Android.Locations.Location location)
+        public async void OnLocationChangedAsync(Location location)
         {
-            var result = await PaketGlobal.App.Locator.ServiceClient.MyPackages();
+            var result = await App.Locator.ServiceClient.MyPackages();
 
-            if(result.Packages!=null){
-                if(result.Packages.Count>0)
+            if (result.Packages != null)
+            {
+                var packages = result.Packages;
+
+                foreach (Package package in packages)
                 {
-                    var packages = result.Packages;
-
-                    foreach(Package package in packages)
+                    if (package.MyRole == PaketRole.Courier)
                     {
-                        if(package.MyRole == PaketRole.Launcher)
-                        {
-                            var locationString = location.Latitude.ToString() + "," + location.Longitude.ToString();
-                            var isChanged = await PaketGlobal.App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+                        var locationString = location.Latitude.ToString() + "," + location.Longitude.ToString();
+                        var isChanged = await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
 
-                            Vibrator vibrator = (Vibrator)this.GetSystemService(Context.VibratorService);
-                            vibrator.Vibrate(1000);
-                        }
+                        Vibrator vibrator = (Vibrator)this.GetSystemService(Context.VibratorService);
+                        vibrator.Vibrate(1000);
                     }
                 }
             }
@@ -152,5 +148,6 @@ namespace PaketGlobal.Droid
 
 
         #endregion
-    }
+
+     }
 }

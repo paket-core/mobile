@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Acr.UserDialogs;
+using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 
@@ -156,7 +157,23 @@ namespace PaketGlobal
                     double payment = double.Parse(EntryPayment.Text);
                     double collateral = double.Parse(EntryCollateral.Text);
 
-                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral);
+                    string location = null;
+
+                    var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
+                    if(hasPermission)
+                    {
+                        var locator = CrossGeolocator.Current;
+
+                        var position = await locator.GetPositionAsync();
+
+                        if(position!=null)
+                        {
+                            location = position.Latitude.ToString() + "," + position.Longitude.ToString();   
+                        }
+                    }
+             
+                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location);
 
                     if (result == StellarOperationResult.Success)
                     {

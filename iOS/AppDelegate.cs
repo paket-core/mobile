@@ -28,7 +28,7 @@ namespace PaketGlobal.iOS
 				AppKey = Config.CountlyAppKey,
 				Host = Config.CountlyServerURL,
 				//EnableDebug = true,
-				Features = new NSObject[] { Constants.CLYCrashReporting }
+                Features = new NSObject[] { CountlySDK.Constants.CLYCrashReporting }
 			};
 			Countly.SharedInstance().StartWithConfig(config);
 			Countly.SharedInstance().BeginSession();
@@ -36,7 +36,6 @@ namespace PaketGlobal.iOS
 			LoadApplication(new App());
 
             uiApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
-
 
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
@@ -74,6 +73,13 @@ namespace PaketGlobal.iOS
                     return new DeviceService();
                 });
             }
+
+            if (!SimpleIoc.Default.IsRegistered<ILocationSharedService>())
+            {
+                SimpleIoc.Default.Register<ILocationSharedService>(() => {
+                    return new LocationSharedService();
+                });
+            }
 		}
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
@@ -90,7 +96,7 @@ namespace PaketGlobal.iOS
 
                     if (package != null && package != "")
                     {
-                        Xamarin.Forms.MessagingCenter.Send<string, string>("MyApp", "AppLaunchedFromDeepLink", package);
+                        Xamarin.Forms.MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.APP_LAUNCHED_FROM_DEEP_LINK, package);
                     }
                 }
             }

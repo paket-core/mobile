@@ -56,7 +56,7 @@ namespace PaketGlobal
 		{
 			Profile.DeleteCredentials ();
 
-			MessagingCenter.Send(this, "Logout", true);
+			MessagingCenter.Send(this,Constants.LOGOUT, true);
 		}
 	}
 }
