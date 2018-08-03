@@ -56,10 +56,10 @@ namespace PaketGlobal.Droid
                     locationCriteria.Accuracy = Accuracy.NoRequirement;
                     locationCriteria.PowerRequirement = Power.NoRequirement;
 
-                    // string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
+					string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
 
-                    string locationProvider = LocationManager.NetworkProvider;
-                    locationManager.RequestLocationUpdates(locationProvider, 2000, 100, this);
+                    //string locationProvider = LocationManager.NetworkProvider;
+                    locationManager.RequestLocationUpdates(locationProvider, 300000, 100, this);
                     //locationManager.RequestSingleUpdate(locationCriteria, this, null);
                 }
 
