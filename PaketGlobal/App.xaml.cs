@@ -110,11 +110,11 @@ namespace PaketGlobal
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, "");
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
+		protected override void OnStart()
+		{
+			base.OnStart();
 
-            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
-        }
+			MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
+		}
     }
 }

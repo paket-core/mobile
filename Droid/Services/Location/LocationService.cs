@@ -57,9 +57,9 @@ namespace PaketGlobal.Droid
                     locationCriteria.PowerRequirement = Power.NoRequirement;
 
 					string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-
                     //string locationProvider = LocationManager.NetworkProvider;
-                    locationManager.RequestLocationUpdates(locationProvider, 300000, 100, this);
+
+                    locationManager.RequestLocationUpdates(locationProvider, 2000, 100, this);
                     //locationManager.RequestSingleUpdate(locationCriteria, this, null);
                 }
 
@@ -72,7 +72,7 @@ namespace PaketGlobal.Droid
 
         private void RegisterForegroundService()
         {
-            var notificationBuilder = new Notification.Builder(this)
+			var notificationBuilder = (Build.VERSION.SdkInt >= BuildVersionCodes.O ? new Notification.Builder(this, CreateNotificationChannel()) : new Notification.Builder(this))
             .SetContentTitle("PaketGlobal")
             .SetContentText("Location update started")
             .SetContentIntent(BuildIntentToShowMainActivity())
@@ -82,6 +82,21 @@ namespace PaketGlobal.Droid
 
             StartForeground(SERVICE_RUNNING_NOTIFICATION_ID, notification);
         }
+
+		private string CreateNotificationChannel()
+		{
+			var channelId = "my_service";
+			var channelName = "My Background Service";
+
+			var chan = new NotificationChannel(channelId, channelName, NotificationImportance.None);
+			chan.LightColor = Android.Graphics.Color.Blue;
+			chan.LockscreenVisibility = NotificationVisibility.Private;
+			var service = GetSystemService(Context.NotificationService) as NotificationManager;
+
+			service.CreateNotificationChannel(chan);
+
+			return channelId;
+		}
 
         private PendingIntent BuildIntentToShowMainActivity()
         {
@@ -140,7 +155,7 @@ namespace PaketGlobal.Droid
                     
                     if (myRole == PaketRole.Courier)
                     {
-                        var locationString = location.Latitude.ToString() + "," + location.Longitude.ToString();
+						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         if (locationString.Length > 24)
                         {
                             locationString = locationString.Substring(0, 24);

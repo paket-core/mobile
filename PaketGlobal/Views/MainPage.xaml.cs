@@ -15,10 +15,11 @@ namespace PaketGlobal
             Subscribe();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
+			await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
         }
 
         protected override void OnDisappearing()
