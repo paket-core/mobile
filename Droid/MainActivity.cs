@@ -46,7 +46,7 @@ namespace PaketGlobal.Droid
 	{
 		internal static MainActivity Instance { get; private set; }
 
-        private Dialog progressDialog;
+        private DelayedProgressDialog progressDialog;
 
 		protected override void OnCreate(Bundle bundle)
 		{
@@ -58,6 +58,7 @@ namespace PaketGlobal.Droid
 
 			Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
+
 
             Instance = this;
 
@@ -75,6 +76,7 @@ namespace PaketGlobal.Droid
 			UserDialogs.Init(this);
 
             CrossCurrentActivity.Current.Init(this, bundle);
+            CrossCurrentActivity.Current.Activity = this;
 
             InitializeUIAsync();
 
@@ -119,8 +121,6 @@ namespace PaketGlobal.Droid
 
 		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
 		{
-            global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);         
@@ -179,28 +179,33 @@ namespace PaketGlobal.Droid
 
         public void ShowProgressDialog()
         {
-            if(progressDialog==null)
-            {
-                progressDialog = new Dialog(this);
-                progressDialog.SetCancelable(false);
+            try{
+                if (progressDialog == null)
+                {
+                    progressDialog = new DelayedProgressDialog();
+                    progressDialog.Cancelable = false;
+                }
 
-
-               // var ring = ProgressRing();
-
-                var dialog = new ProgressBar(this);
-                dialog.Indeterminate = true;
-                dialog.Visibility = ViewStates.Visible;
-
-                progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
-                progressDialog.SetContentView(dialog);
+                progressDialog.Show(this.FragmentManager, "tag"); 
             }
-
-            progressDialog.Show();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex); 
+            }
+       
         }
 
         public void HideProgressDialog()
         {
-            progressDialog.Dismiss();
+            try{
+                if (progressDialog != null)
+                {
+                    progressDialog.Dismiss();
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex); 
+            }
         }
 
         #endregion
