@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           // entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
+           // entrySecretKey.Text = "SBSIKBMK62YLRMH5BWERPYGT3YG23FAIRIVFWA3JXARS3K67JYPEB6LE";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -23,7 +23,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarBlack();
 
-            #if __IOS__
+#if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
                 botBg.TranslationY = botBg.TranslationY - 40;
@@ -90,19 +90,17 @@ namespace PaketGlobal
                         }
                         else
                         {
-
                             var page = new RegistrationPage(true);
 
                             await Navigation.PushAsync(page, true);
 
                             App.ShowLoading(false);
-
                         }
                     }
                     catch (Exception ex)
                     {
 
-                         App.ShowLoading(false);
+                        App.ShowLoading(false);
 
                         System.Diagnostics.Debug.WriteLine(ex);
 

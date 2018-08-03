@@ -8,17 +8,23 @@ namespace PaketGlobal.iOS
 {
     public class LocationSharedService : ILocationSharedService
     {
+        public static LocationManager Manager = null;
+
         public void StartUpdateLocation()
         {
+            if(Manager==null)
+            {
+                Manager = new LocationManager();
+                Manager.StartLocationUpdates();
+            }
         }
 
         public void StopUpdateLocation()
         {
-        }
-
-        public async Task<string> GetCurrentLocation()
-        {
-            return null;
+            if(Manager != null)
+            {
+                Manager.StopLocationUpdates();
+            }
         }
     }
 }

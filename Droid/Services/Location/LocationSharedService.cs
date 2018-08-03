@@ -31,11 +31,6 @@ namespace PaketGlobal.Droid
         {
             MainActivity.Instance.StopLocationUpdate();
         }
-
-        public async Task<string> GetCurrentLocation()
-        {
-            return null;
-        }
     }
 
 }

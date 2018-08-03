@@ -59,7 +59,7 @@ namespace PaketGlobal.Droid
                     // string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
 
                     string locationProvider = LocationManager.NetworkProvider;
-                    locationManager.RequestLocationUpdates(locationProvider, 2000, 0, this);
+                    locationManager.RequestLocationUpdates(locationProvider, 2000, 100, this);
                     //locationManager.RequestSingleUpdate(locationCriteria, this, null);
                 }
 
@@ -131,16 +131,21 @@ namespace PaketGlobal.Droid
             if (result.Packages != null)
             {
                 var packages = result.Packages;
+                var myPubkey = App.Locator.Profile.Pubkey;
 
                 foreach (Package package in packages)
                 {
-                    if (package.MyRole == PaketRole.Courier)
+                    var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
+                                                    (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
+                    
+                    if (myRole == PaketRole.Courier)
                     {
                         var locationString = location.Latitude.ToString() + "," + location.Longitude.ToString();
-                        var isChanged = await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
-
-                        Vibrator vibrator = (Vibrator)this.GetSystemService(Context.VibratorService);
-                        vibrator.Vibrate(1000);
+                        if (locationString.Length > 24)
+                        {
+                            locationString = locationString.Substring(0, 24);
+                        }
+                        await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
                     }
                 }
             }

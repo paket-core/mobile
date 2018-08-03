@@ -185,11 +185,16 @@ namespace PaketGlobal
         {
             bool isFound = false;
 
+            var myPubkey = App.Locator.Profile.Pubkey;
+
             if(PackagesList!=null)
             {
                 foreach(Package package in PackagesList)
                 {
-                    if(package.MyRole == PaketRole.Courier)
+                    var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
+                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
+                    
+                    if(myRole == PaketRole.Courier)
                     {
                         App.Locator.LocationService.StartUpdateLocation();
 

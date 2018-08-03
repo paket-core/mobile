@@ -27,7 +27,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>arm64-v8a;armeabi;armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -38,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -303,6 +304,7 @@
     <Compile Include="Services\Location\ServiceConnectedEventArgs.cs" />
     <Compile Include="Services\Location\LocationAppManager.cs" />
     <Compile Include="Services\Location\LocationSharedService.cs" />
+    <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -562,6 +564,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\dropdown_arrow_top.png" />
+    <AndroidResource Include="Resources\layout\progress_dialog.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

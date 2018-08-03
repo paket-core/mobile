@@ -59,6 +59,5 @@ namespace PaketGlobal
     {
         void StartUpdateLocation();
         void StopUpdateLocation();
-        Task<string> GetCurrentLocation();
     }
 }

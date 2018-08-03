@@ -169,8 +169,8 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-              //  CourierPubkey="GBRFMUI55YYMDE5ROZDDRFD4XHWTQOCUAOL7KUG2TTZEKK5WDJB53NMT",
-              //  RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+               // CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+               // RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);
@@ -182,11 +182,26 @@ namespace PaketGlobal
 
         private async void AcceptPackageClicked(object sender, EventArgs e)
         {
-            var packagePage = new AcceptPackagePage();
+            try{
+                var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Camera);
 
-            var mainPage = App.Current.MainPage;
+                if (hasPermission)
+                {
+                    var packagePage = new AcceptPackagePage();
 
-            await mainPage.Navigation.PushAsync(packagePage);
+                    var mainPage = App.Current.MainPage;
+
+                    await mainPage.Navigation.PushAsync(packagePage);
+                }
+                else
+                {
+                    ShowMessage(AppResources.CameraAccessNotGranted);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         #endregion
