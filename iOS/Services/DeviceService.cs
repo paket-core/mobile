@@ -34,7 +34,14 @@ namespace PaketGlobal.iOS
         public int ScreenWidth()
         {
             return (int)(UIScreen.MainScreen.Bounds.Size.Width);
+        }
 
+        public void ShowProgress()
+        {
+        }
+
+        public void HideProgress()
+        {
         }
     }
 }

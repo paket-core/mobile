@@ -8,7 +8,10 @@ namespace PaketGlobal
 {
 	public partial class LaunchPackagePage : BasePage
 	{
-     
+
+        private string recipient = "";
+        private string courier = "";
+
 		private Package ViewModel {
 			get {
 				return BindingContext as Package;
@@ -35,6 +38,7 @@ namespace PaketGlobal
             BackButton.TranslationY = -18;
             BackButton.TranslationX = -30;
 #endif
+
         }
 
         private void OnBack(object sender, System.EventArgs e)
@@ -48,12 +52,12 @@ namespace PaketGlobal
             Unfocus();
 
             var dpc = new DatePromptConfig();
-            dpc.OkText = "OK";
-            dpc.CancelText = "Cancel";
+            dpc.OkText = AppResources.OK;
+            dpc.CancelText = AppResources.Cancel;
             dpc.IsCancellable = true;
             dpc.MinimumDate = DateTime.Today.AddDays(1);
             dpc.SelectedDate = ViewModel.DeadlineDT.Date;
-            dpc.Title = "Please select a Deadline Date";
+            dpc.Title = AppResources.PickDeadlineDate;
             dpc.OnAction = dateResult =>
             {
                 if (dateResult.Ok)
@@ -118,67 +122,41 @@ namespace PaketGlobal
 
         private async void CreateClicked(object sender, System.EventArgs e)
         {
+            if(EntryCourier.IsBusy || EntryRecepient.IsBusy)
+            {
+                return;
+            }
+
             if (IsValid())
             {
+                if(recipient.Length==0 || courier.Length==0)
+                {
+                    if(recipient.Length == 0)
+                    {
+                        EntryRecepient.FocusField();
+                    }
+                    else{
+                        EntryCourier.FocusField(); 
+                    }
+                    return;
+                }
+
                 Unfocus();
 
                 App.ShowLoading(true);
 
-                //await WithProgressButton(LaunchButton, async () =>
-                //{
-                    var vm = ViewModel;
+                var vm = ViewModel;
 
-                    var escrowKP = KeyPair.Random();
-
-                    var recipientPubkey = vm.RecipientPubkey;
-                    var courierPubkey = vm.CourierPubkey;
-
-                    //get recipient pubkey if user entered callsign
-                    if (recipientPubkey.Length != 56)
-                    {
-                        var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);
-                        if (recipientResult == null)
-                        {
-                            ShowMessage("Recipient not found");
-
-                            App.ShowLoading(false);
-
-                            return;
-                        }
-                        else
-                        {
-                            recipientPubkey = recipientResult.UserDetails.Pubkey;
-                        }
-                    }
-
-                    //get courier pubkey if user entered callsign
-                    if (courierPubkey.Length != 56)
-                    {
-                        var courierResult = await App.Locator.FundServiceClient.GetUser(null, courierPubkey);
-                        if (courierResult == null)
-                        {
-                            ShowMessage("Courier not found");
-
-                            App.ShowLoading(false);
-
-                            return;
-                        }
-                        else
-                        {
-                            courierPubkey = courierResult.UserDetails.Pubkey;
-                        }
-                    }
-
-
+                var escrowKP = KeyPair.Random();
+            
                 try{
-
                     App.Locator.Wallet.StopTimer();
                     App.Locator.Packages.StopTimer();
 
                     double payment = double.Parse(EntryPayment.Text);
                     double collateral = double.Parse(EntryCollateral.Text);
 
-                    var result = await StellarHelper.LaunchPackage(escrowKP, recipientPubkey, vm.Deadline, courierPubkey, payment, collateral);
+                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral);
 
                     if (result == StellarOperationResult.Success)
                     {
@@ -201,10 +179,19 @@ namespace PaketGlobal
 
                 App.Locator.Wallet.StartTimer();
                 App.Locator.Packages.StartTimer();
-
-
-             //   });
             }
+        }
+
+        private async void FieldUnfocus(object sender, EventArgs e)
+        {
+            if (sender == EntryRecepient)
+            {
+                recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+            }
+            else if (sender == EntryCourier)
+            {
+                courier = await EntryCourier.CheckValidCallSignOrPubKey();
+            } 
         }
 
         private void FieldCompleted(object sender, EventArgs e)
@@ -213,14 +200,14 @@ namespace PaketGlobal
             {
                 if (!ValidationHelper.ValidateTextField(EntryCourier.Text))
                 {
-                    EntryCourier.Focus();
+                    EntryCourier.FocusField();
                 }
             }
             else if (sender == EntryCourier)
             {
                 if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
                 {
-                    EntryRecepient.Focus();
+                    EntryRecepient.FocusField();
                 }
             }
             else if (sender == EntryPayment)
@@ -243,17 +230,17 @@ namespace PaketGlobal
         {
             if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
             {
-                EntryRecepient.Focus();
+                EntryRecepient.FocusField();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(EntryCourier.Text))
             {
-                EntryCourier.Focus();
+                EntryCourier.FocusField();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
             {
-                ShowMessage("Please select deadline date");
+                ShowMessage(AppResources.SelectDeadlineDate);
                 return false;
             }
             else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))

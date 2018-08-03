@@ -1,4 +1,4 @@
-﻿//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // HACK: not auto-generated
 //
 // in a Shared Project with Xamarin Studio, this file does NOT
@@ -87,7 +87,222 @@ namespace PaketGlobal
             }
         }
 
- 
+        internal static string InvalidPubKey
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPubKey", resourceCulture);
+            }
+        }
+
+        internal static string UserNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+
+        internal static string SelectDeadlineDate
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectDeadlineDate", resourceCulture);
+            }
+        }
+
+        internal static string UserNotRegistered
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotRegistered", resourceCulture);
+            }
+        }
+
+        internal static string UserNotTrusted
+        {
+            get
+            {
+                return ResourceManager.GetString("UserNotTrusted", resourceCulture);
+            }
+        }
+
+        internal static string InvalidBarcode
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidBarcode", resourceCulture);
+            }
+        }
+
+        internal static string InvalidPackageId
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidPackageId", resourceCulture);
+            }
+        }
+
+        internal static string PickDeadlineDate
+        {
+            get
+            {
+                return ResourceManager.GetString("PickDeadlineDate", resourceCulture);
+            }
+        }
+
+        internal static string Cancel
+        {
+            get
+            {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+
+        internal static string OK
+        {
+            get
+            {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+
+        internal static string RefundingOK
+        {
+            get
+            {
+                return ResourceManager.GetString("RefundingOK", resourceCulture);
+            }
+        }
+
+        internal static string ReclaimingOK
+        {
+            get
+            {
+                return ResourceManager.GetString("ReclaimingOK", resourceCulture);
+            }
+        }
+
+        internal static string PackageAccepted
+        {
+            get
+            {
+                return ResourceManager.GetString("PackageAccepted", resourceCulture);
+            }
+        }
+
+        internal static string ErrorGetPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorGetPackage", resourceCulture);
+            }
+        }
+
+        internal static string ConnectionError
+        {
+            get
+            {
+                return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+
+        internal static string FailSendBuls
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSendBuls", resourceCulture);
+            }
+        }
+
+        internal static string FailCreateAccount
+        {
+            get
+            {
+                return ResourceManager.GetString("FailCreateAccount", resourceCulture);
+            }
+        }
+
+        internal static string FailSubmitCreateAccount
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSubmitCreateAccount", resourceCulture);
+            }
+        }
+
+        internal static string FailAddTrust
+        {
+            get
+            {
+                return ResourceManager.GetString("FailAddTrust", resourceCulture);
+            }
+        }
+
+        internal static string LowBULsLauncher
+        {
+            get
+            {
+                return ResourceManager.GetString("LowBULsLauncher", resourceCulture);
+            }
+        }
+
+        internal static string LowBULsCourier
+        {
+            get
+            {
+                return ResourceManager.GetString("LowBULsCourier", resourceCulture);
+            }
+        }
+
+
+        internal static string FailedLaunchPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("FailedLaunchPackage", resourceCulture);
+            }
+        }
+
+        internal static string FaileSubmitOptions
+        {
+            get
+            {
+                return ResourceManager.GetString("FaileSubmitOptions", resourceCulture);
+            }
+        }
+
+        internal static string IncositentBalance
+        {
+            get
+            {
+                return ResourceManager.GetString("IncositentBalance", resourceCulture);
+            }
+        }
+
+        internal static string FailAcceptPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("FailAcceptPackage", resourceCulture);
+            }
+        }
+
+        internal static string FailSendCollateral
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSendCollateral", resourceCulture);
+            }
+        }
+
+        internal static string UnknownError
+        {
+            get
+            {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
 
     }
 }

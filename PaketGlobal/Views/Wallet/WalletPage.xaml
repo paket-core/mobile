@@ -62,7 +62,13 @@
                                  <Label VerticalOptions="Center" Text="{local:Translate SendBul}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" />
                               </StackLayout>
                               <StackLayout x:Name="SendBULEntryViews" IsVisible="false" Spacing="20">
-                                 <local:PaketEntry x:Name="EntryRecepient" IsSpellCheckEnabled="false" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate EnterRecipient}" HeightRequest="40" />
+                                <local:PaketEntryWithProgress x:Name="EntryRecepient"
+                                                                  TopText=""
+                                                                  Text=""
+                                                                  EntryHeight="40"
+                                                                  Placholder="{local:Translate EnterRecipient}"
+                                                                  Completed="FieldCompleted"
+                                                                  Unfocus="FieldUnfocus"/>
                                  <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
                                  <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="{local:Translate Send}" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>

@@ -1,10 +1,14 @@
 ﻿using System;
 
 using Xamarin.Forms;
+
 using Acr.UserDialogs;
 
 using stellar_dotnetcore_sdk;
+
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+
+using Plugin.DeviceInfo;
 
 namespace PaketGlobal
 {
@@ -20,8 +24,6 @@ namespace PaketGlobal
 		public App()
         {
             InitializeComponent();
-
-
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
 
@@ -54,22 +56,43 @@ namespace PaketGlobal
 		/// <param name = "isCancel">If set to <c>true</c> user can cancel the loading event (just uses PopModalAync here)</param>
 		public static void ShowLoading(bool isRunning, bool isCancel = false)
 		{
-			if (isRunning == true) {
-				if (isCancel == true) {
-					UserDialogs.Instance.Loading(" ", new Action(async () => {
-						if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1) {
-							await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
-						} else {
-							System.Diagnostics.Debug.WriteLine("Navigation: Can't pop modal without any modals pushed");
-						}
-						UserDialogs.Instance.Loading().Hide();
-					}));
-				} else {
-					UserDialogs.Instance.Loading(" ");
-				}
-			} else {
-				UserDialogs.Instance.Loading().Hide();
-			}
+            if (CrossDeviceInfo.Current.Model.ToLower().Contains("htc_m10h"))
+            {
+                if(isRunning)
+                {
+                    App.Locator.DeviceService.ShowProgress();  
+                }
+                else{
+                    App.Locator.DeviceService.HideProgress();
+                }
+            }
+            else{
+                if (isRunning == true)
+                {
+                    if (isCancel == true)
+                    {
+                        UserDialogs.Instance.Loading("", new Action(async () => {
+                            if (Xamarin.Forms.Application.Current.MainPage.Navigation.ModalStack.Count > 1)
+                            {
+                                await Xamarin.Forms.Application.Current.MainPage.Navigation.PopModalAsync();
+                            }
+                            else
+                            {
+                                System.Diagnostics.Debug.WriteLine("Navigation: Can't pop modal without any modals pushed");
+                            }
+                            UserDialogs.Instance.Loading().Hide();
+                        }));
+                    }
+                    else
+                    {
+                        UserDialogs.Instance.Loading("");
+                    }
+                }
+                else
+                {
+                    UserDialogs.Instance.Loading().Hide();
+                }
+            }
 		}
 
         protected override void OnResume()

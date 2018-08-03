@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 
 using stellar_dotnetcore_sdk;
+using stellar_dotnetcore_sdk.responses;
 using stellar_dotnetcore_sdk.xdr;
+
 using static PaketGlobal.ServiceClient;
 
 namespace PaketGlobal
@@ -10,6 +12,19 @@ namespace PaketGlobal
 	public class StellarHelper
 	{
 		static string horizon_url = "https://horizon-testnet.stellar.org";
+
+        public static async Task<System.Collections.Generic.List<TransactionResponse>> GetTransactionsListFromAccount (KeyPair keyPair, int limit)
+        {
+            var server = new Server(horizon_url);
+
+            var transactions = await server.Transactions
+                                           .ForAccount(keyPair)
+                                           .Limit(limit)
+                                           .Order(stellar_dotnetcore_sdk.requests.OrderDirection.ASC)
+                                           .Execute();
+
+            return transactions.Records;
+        }
 
         public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls)
 		{
@@ -198,6 +213,7 @@ namespace PaketGlobal
 			try {
 				var server = new Server(horizon_url);
 				var accResponse = await server.Accounts.Account(kp);
+
 				var source = new Account(kp, accResponse.SequenceNumber);
 				var trustor = KeyPair.FromSecretSeed(trustorSeed);
 
@@ -274,5 +290,19 @@ namespace PaketGlobal
 			var result = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 			return result != null;
 		}
+
+        public static async Task<bool> CheckTokenTrustedWithPubKey(string pubKey)
+        {
+            var result = await App.Locator.ServiceClient.Balance(pubKey);
+            return result != null;
+        }
+
+        public static bool IsValidPubKey(string key)
+        {
+            return IsValid(StrKey.VersionByte.ACCOUNT_ID, key);
+        }
+
+        public static bool IsValid(StrKey.VersionByte versionByte, string encoded)         {
+            if (encoded?.Length != 56)             {                 return false;             }              try             {                 var decoded = StrKey.DecodeCheck(versionByte, encoded);                 if (decoded.Length != 32)                 {                     return false;                 }             }             catch             {                 return false;             }             return true;         }
 	}
 }

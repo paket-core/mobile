@@ -28,7 +28,7 @@ namespace PaketGlobal.Droid
         {
             if (mBanner == null)
             {
-                mBanner = new BannerView(GetContext());
+                mBanner = new BannerView(Xamarin.Forms.Forms.Context);
                 mBanner.BannerFinished += HandleBannerFinished;
             }
 
@@ -41,7 +41,7 @@ namespace PaketGlobal.Droid
         {
             if(mBanner==null)
             {
-                mBanner = new BannerView(GetContext());
+                mBanner = new BannerView(Xamarin.Forms.Forms.Context);
                 mBanner.BannerFinished += HandleBannerFinished;
             }
 
@@ -50,11 +50,6 @@ namespace PaketGlobal.Droid
             var list = new List<Package>();
             list.Add(package);
             mBanner.ShowPackage(list);
-        }
-
-        private static Android.Content.Context GetContext()
-        {
-            return Xamarin.Forms.Forms.Context;
         }
 
         protected virtual void HandleBannerFinished(bool canceled, Package package)

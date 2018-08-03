@@ -32,6 +32,11 @@ namespace PaketGlobal
 
         public static readonly BindableProperty CapSentencesProperty =
             BindableProperty.Create(nameof(CapSentences), typeof(int), typeof(PaketEntry), 0);
+        
+        public static readonly BindableProperty PaddingRightProperty =
+            BindableProperty.Create(nameof(PaddingRight), typeof(int), typeof(PaketEntry), 0);
+
+
 
 
         public int CapSentences
@@ -74,6 +79,12 @@ namespace PaketGlobal
         {
             get { return (ImageAlignment)GetValue(ImageAlignmentProperty); }
             set { SetValue(ImageAlignmentProperty, value); }
+        }
+
+        public int PaddingRight
+        {
+            get { return (int)GetValue(PaddingRightProperty); }
+            set { SetValue(PaddingRightProperty, value); }
         }
     }
 }

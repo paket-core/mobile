@@ -16,6 +16,8 @@ namespace PaketGlobal
             }
         }
 
+        private string recipient = "";
+
         private Command PurchaseXLMTapCommand;
         private Command PurchaseBULTapCommand;
         private Command SendBULTapCommand;
@@ -225,6 +227,7 @@ namespace PaketGlobal
         {
             EntryRecepient.Text = "";
             EntryAmount.Text = "";
+            EntryRecepient.ToDefaultState();
 
             SendBULSSuccessView.IsVisible = false;
             SundBULSMainStackView.IsVisible = true;    
@@ -270,36 +273,25 @@ namespace PaketGlobal
 
         private async void SendClicked(object sender, EventArgs e)
 		{
-
-			if (IsValid()) {
+            if(EntryRecepient.IsBusy)
+            {
+                return;
+            }
+            else if(recipient.Length==0)
+            {
+                EntryRecepient.FocusField();
+            }
+			else if (IsValid())
+            {
 				Unfocus();
 
 				App.ShowLoading(true);
 
-                var recipientPubkey = EntryRecepient.Text;
-
-                //get recipient pubkey if user entered callsign
-                if (recipientPubkey.Length != 56)
-                {
-                    var recipientResult = await App.Locator.FundServiceClient.GetUser(null, recipientPubkey);
-                    if (recipientResult == null)
-                    {
-                        ShowMessage("Recipient not found");
-
-                        App.ShowLoading(false);
-
-                        return;
-                    }
-                    else
-                    {
-                        recipientPubkey = recipientResult.UserDetails.Pubkey;
-                    }
-                }
-
+        
                 try{
                     double amount = double.Parse(EntryAmount.Text);
 
-                    var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipientPubkey, amount);
+                    var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
                     if (trans != null)
                     {
                         var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
@@ -403,6 +395,14 @@ namespace PaketGlobal
 			}
 		}
 
+        private async void FieldUnfocus(object sender, EventArgs e)
+        {
+            if (sender == EntryRecepient)
+            {
+                recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+            }
+        }
+
         private void FieldCompleted(object sender, EventArgs e)
         {
             if (sender == EntryRecepient)
@@ -416,7 +416,7 @@ namespace PaketGlobal
             {
                 if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
                 {
-                    EntryRecepient.Focus();
+                    EntryRecepient.FocusField();
                 }
             }
             else if (sender == EntryAmountForBUL)

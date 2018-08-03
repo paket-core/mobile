@@ -34,17 +34,6 @@ namespace PaketGlobal
 				ServiceError (this, e);
 		}
 
-		//public event EventHandler<ValidationException> ValidationError;
-		//protected internal virtual void OnValidationError (ValidationException e)
-		//{
-		//	ValidationError?.Invoke (this, e);
-		//}
-
-		//protected internal virtual void OnValidationError (ValidationError e)
-		//{
-		//	ValidationError?.Invoke (this, new ValidationException (e));
-		//}
-
 		public event EventHandler LoggedOut;
 		protected internal virtual void OnLoggedOut ()
 		{

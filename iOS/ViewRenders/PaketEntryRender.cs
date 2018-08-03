@@ -9,6 +9,7 @@ using PaketGlobal;
 using PaketGlobal.iOS;
 
 using System.Drawing;
+using System.ComponentModel;
 
 [assembly: ExportRenderer(typeof(PaketEntry), typeof(PaketEntryRenderer))]
 namespace PaketGlobal.iOS
@@ -75,7 +76,8 @@ namespace PaketGlobal.iOS
             textField.AutocorrectionType = UITextAutocorrectionType.No;
             textField.AutocapitalizationType = UITextAutocapitalizationType.Sentences;
 
-            if(element.IsEnabled==false) {
+            if(element.IsEnabled==false)
+            {
                 textField.TextColor = Xamarin.Forms.Color.FromHex("#A7A7A7").ToUIColor();
             }
 
@@ -83,6 +85,7 @@ namespace PaketGlobal.iOS
             {
                 textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
             }
+
         }
 
         private UIView GetImageView(string imagePath, int height, int width)
@@ -95,6 +98,31 @@ namespace PaketGlobal.iOS
             objLeftView.AddSubview(uiImageView);
 
             return objLeftView;
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == "PaddingRight")
+            {
+                var textField = this.Control;
+                var element = (PaketEntry)this.Element;
+
+                if (element != null && textField != null)
+                {
+                    textField.RightViewMode = UITextFieldViewMode.Always;
+
+                    if (element.PaddingRight <=35)
+                    {
+                        textField.RightView = new UIView();
+                    }
+                    else
+                    {
+                        textField.RightView = new UIView(new CGRect(0, 0, 40, 0));
+                    }
+                }
+            }
         }
     }
 }

@@ -75,5 +75,27 @@ namespace PaketGlobal.iOS
                 });
             }
 		}
-	}
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            var urlComponents = new NSUrlComponents(url, false);
+
+            var queryItems = urlComponents.QueryItems;
+
+            foreach (NSUrlQueryItem item in queryItems)
+            {
+                if (item.Name == "id")
+                {
+                    var package = item.Value;
+
+                    if (package != null && package != "")
+                    {
+                        Xamarin.Forms.MessagingCenter.Send<string, string>("MyApp", "AppLaunchedFromDeepLink", package);
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
 }
