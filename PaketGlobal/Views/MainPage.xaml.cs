@@ -15,10 +15,11 @@ namespace PaketGlobal
             Subscribe();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
+			await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
         }
 
         protected override void OnDisappearing()
@@ -33,22 +34,22 @@ namespace PaketGlobal
 
         private void Subscribe()
         {
-            MessagingCenter.Subscribe<string, string>("MyApp", "DidClickPackageNotification", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.CLICK_PACKAGE_NOTIFICATION, (sender, arg) =>
             {
                 OpenPackage(arg);
             });
 
 
-            MessagingCenter.Subscribe<string, string>("MyApp", "DidClickWalletNotification", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.CLICK_WALLET_NOTIFICATION, (sender, arg) =>
             {
                 OpenWallet();
             });
 
-            MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
+            MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
                 Logout();
             });
 
-            MessagingCenter.Subscribe<string, string>("MyApp", "AppLaunchedFromDeepLink", (sender, arg) =>
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.APP_LAUNCHED_FROM_DEEP_LINK, (sender, arg) =>
             {
                 OpenPackageFromDeepLink(arg);
             });
@@ -56,10 +57,10 @@ namespace PaketGlobal
 
         private void Unsubscribe()
         {
-            MessagingCenter.Unsubscribe<string, string>("MyApp", "DidClickPackageNotification");
-            MessagingCenter.Unsubscribe<Workspace, bool>(this, "Logout");
-            MessagingCenter.Unsubscribe<string, string>("MyApp", "DidClickWalletNotification");
-            MessagingCenter.Unsubscribe<string, string>("MyApp", "AppLaunchedFromDeepLink");
+            MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.CLICK_PACKAGE_NOTIFICATION);
+            MessagingCenter.Unsubscribe<Workspace, bool>(this,Constants.LOGOUT);
+            MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.CLICK_WALLET_NOTIFICATION);
+            MessagingCenter.Unsubscribe<string, string>(Constants.NOTIFICATION, Constants.APP_LAUNCHED_FROM_DEEP_LINK);
         }
 
 

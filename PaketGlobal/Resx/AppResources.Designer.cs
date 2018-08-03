@@ -304,5 +304,15 @@ namespace PaketGlobal
             }
         }
 
+        internal static string CameraAccessNotGranted
+        {
+            get
+            {
+                return ResourceManager.GetString("CameraAccessNotGranted", resourceCulture);
+            }
+        }
+
+
+
     }
 }

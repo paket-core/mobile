@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Plugin.Geolocator.Abstractions;
 
 namespace PaketGlobal
 {
@@ -31,10 +33,6 @@ namespace PaketGlobal
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);
 	}
 
-	public interface IScreenScale
-	{
-		float GetScreenScale();
-	}
 
     public interface IClipboardService
     {
@@ -55,5 +53,11 @@ namespace PaketGlobal
 
         void ShowProgress();
         void HideProgress();
+    }
+
+    public interface ILocationSharedService
+    {
+        void StartUpdateLocation();
+        void StopUpdateLocation();
     }
 }

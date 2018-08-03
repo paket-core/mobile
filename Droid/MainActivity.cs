@@ -22,6 +22,13 @@ using RoundedBoxView.Forms.Plugin.Droid;
 
 using Xamarin.Forms.Platform.Android;
 
+using Plugin.CurrentActivity;
+using System.Threading.Tasks;
+using Android;
+using Android.Support.V4.App;
+using Android.Support.Design.Widget;
+using Plugin.Permissions;
+
 namespace PaketGlobal.Droid
 {
     [Activity(Label = "PaketGlobal.Droid", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -56,6 +63,7 @@ namespace PaketGlobal.Droid
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
 
+
             Instance = this;
 
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -69,8 +77,10 @@ namespace PaketGlobal.Droid
 
             LoadApplication(new App());
 
-            UserDialogs.Init(this);
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
+			UserDialogs.Init(this);
+
+            CrossCurrentActivity.Current.Init(this, bundle);
+            CrossCurrentActivity.Current.Activity = this;
 
             InitializeUIAsync();
 
@@ -83,7 +93,7 @@ namespace PaketGlobal.Droid
 
                     if (package != null && package != "")
                     {
-                        Xamarin.Forms.MessagingCenter.Send<string, string>("MyApp", "AppLaunchedFromDeepLink", package);
+                        Xamarin.Forms.MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.APP_LAUNCHED_FROM_DEEP_LINK, package);
                     }
                 }
                 catch (Exception e)
@@ -124,12 +134,13 @@ namespace PaketGlobal.Droid
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+		{
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            global::ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);         
+		}
+
 
         private void InitializeUIAsync()         {
             // from https://forums.xamarin.com/discussion/comment/282515#Comment_282515
@@ -173,82 +184,93 @@ namespace PaketGlobal.Droid
                     return new DeviceService();
                 });
             }
-        }
+
+            if (!SimpleIoc.Default.IsRegistered<ILocationSharedService>())
+            {
+                SimpleIoc.Default.Register<ILocationSharedService>(() => {
+                    return new LocationSharedService();
+                });
+            }
+		}
 
         #region ProgressBar
 
         public void ShowProgressDialog()
         {
-            if (progressDialog == null)
-            {
-                progressDialog = new Dialog(this);
-                progressDialog.SetCancelable(false);
+			if (progressDialog == null) {
+				progressDialog = new Dialog(this);
+				progressDialog.SetCancelable(false);
 
-                progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
-                progressDialog.SetContentView(Resource.Layout.progress_layout);
+				progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+				progressDialog.SetContentView(Resource.Layout.progress_layout);
 
-                circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
-                circularbar.Max = 100;
-                circularbar.Progress = 0;
-                circularbar.SecondaryProgress = 100;
+				circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
+				circularbar.Max = 100;
+				circularbar.Progress = 0;
+				circularbar.SecondaryProgress = 100;
 
-                progressStatus = 0;
-                progressStatus1 = 0;
+				progressStatus = 0;
+				progressStatus1 = 0;
 
-                progressThread = new System.Threading.Thread(new ThreadStart(delegate {
-                    while (progressStatus < 100)
-                    {
-                        progressStatus += 1;
-                        progressStatus1 += 1;
-                        circularbar.Progress = progressStatus1;
-                        if (progressStatus == 99)
-                        {
-                            progressStatus = 0;
-                            progressStatus1 = 0;
-                        }
-                        System.Threading.Thread.Sleep(3);
-                    }
-                }));
-                progressThread.Start();
-            }
+				progressThread = new System.Threading.Thread(new ThreadStart(delegate {
+					while (progressStatus < 100) {
+						progressStatus += 1;
+						progressStatus1 += 1;
+						circularbar.Progress = progressStatus1;
+						if (progressStatus == 99) {
+							progressStatus = 0;
+							progressStatus1 = 0;
+						}
+						System.Threading.Thread.Sleep(3);
+					}
+				}));
+				progressThread.Start();
+			}
 
-            progressDialog.Show();
+			progressDialog.Show();
         }
 
-        public void HideProgressDialog()
-        {
-            if(progressDialog!=null)
-            {
-                try
-                {
-                    progressStatus = 101;
+		public void HideProgressDialog()
+		{
+			if (progressDialog != null) {
+				try {
+					progressStatus = 101;
 
-                    progressDialog.Dismiss();
-                    progressThread.Abort();
+					progressDialog.Dismiss();
+					progressThread.Abort();
 
-                    progressThread = null;
-                    progressDialog = null;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-            }
-        }
+					progressThread = null;
+					progressDialog = null;
+				} catch (Exception ex) {
+					Console.WriteLine(ex);
+				}
+			}
+		}
 
         #endregion
 
         #region Android Location Service methods
 
-        ///<summary>
-        /// Updates UI with location data
-        /// </summary>
-        public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        public void StartLocationUpdate()
         {
+            LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
+                LocationAppManager.Current.LocationService.LocationChanged += HandleLocationChanged;
+            };
+
+            LocationAppManager.StartLocationService();
         }
 
+        public void StopLocationUpdate()
+        {
+            LocationAppManager.StopLocationService();
+        }
+
+        public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        {
+            
+        }
+
+
         #endregion
-    }
-
-
+	}
 }

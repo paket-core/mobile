@@ -333,4 +333,8 @@
     <data name="UnknownError" xml:space="preserve">
         <value>Some error occured</value>
     </data>
+    <data name="CameraAccessNotGranted" xml:space="preserve">
+        <value>You must give access to the camera to scan the package</value>
+    </data>
+
 </root>

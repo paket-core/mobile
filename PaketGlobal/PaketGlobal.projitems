@@ -9,14 +9,12 @@
     <Import_RootNamespace>PaketGlobal</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Item.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\BasePage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Profile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Locator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PackagesModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\Interfaces.cs" />
@@ -82,6 +80,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketEntryWithProgress.xaml.cs">
       <DependentUpon>PaketEntryWithProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Profile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Contstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

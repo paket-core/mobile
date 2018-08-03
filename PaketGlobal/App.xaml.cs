@@ -43,7 +43,8 @@ namespace PaketGlobal
 				MainPage = navPage;
 			}
 
-			MessagingCenter.Subscribe<Workspace, bool>(this, "Logout", (sender, arg) => {
+
+			MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
 			});
@@ -99,21 +100,21 @@ namespace PaketGlobal
         {
             base.OnResume();
 
-            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
+            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
         }
 
         protected override void OnSleep()
         {
             base.OnSleep();
 
-            MessagingCenter.Send<string, string>("MyApp", "OnStopApp", "");
+            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, "");
         }
 
-        protected override void OnStart()
-        {
-            base.OnStart();
+		protected override void OnStart()
+		{
+			base.OnStart();
 
-            MessagingCenter.Send<string, string>("MyApp", "OnStartApp", "");
-        }
+			MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
+		}
     }
 }

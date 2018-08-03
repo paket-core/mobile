@@ -99,9 +99,6 @@ namespace PaketGlobal
 		{
 			//Recover private key
 			var kp = KeyPair.FromSecretSeed(seed);
-			//var kp = KeyPair.FromSecretSeed("SDJGBJZMQ7Z4W3KMSMO2HYEV56DJPOZ7XRR7LJ5X2KW6VKBSLELR7MRQ");//Launcher
-			//var kp = KeyPair.FromSecretSeed("SBOLPN4HNTCLA3BMRS6QG62PXZUFOZ5RRMT6LPJHUPGQLBP5PZY4YFIT");//Courier
-			//var kp = KeyPair.FromSecretSeed("SA5OXLJ2JCX4PF3G5WKSG66CXJQXQFCT62NQJ747XET5E2FR6TVIE4ET");//Recepient
 
 			return new KeyData { Mnemonic = mo, KeyPair = kp };
 		}

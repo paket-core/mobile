@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -40,6 +41,9 @@ namespace PaketGlobal
             BackButton.TranslationX = -30;
 #endif
 
+            //TODO: temp
+            BottomBarcodeView.IsVisible = true;
+
             var data = new BarcodePackageData
             {
                 EscrowAddress = package.PaketId
@@ -51,6 +55,14 @@ namespace PaketGlobal
             BarcodeTapCommand = new Command(() =>
             {
                 BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
+
+                if(BarcodeImage.IsVisible)
+                {
+                    BarcodeArrow.Source = "dropdown_arrow_top.png";
+                }
+                else{
+                    BarcodeArrow.Source = "dropdown_arrow.png";
+                }
             });
 
             XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
@@ -65,9 +77,11 @@ namespace PaketGlobal
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
-                AddEvents();
+                //TODO: 
+               // AddEvents();
+                EventsInfoViewFrame.IsVisible = false;
 
-                MessagingCenter.Subscribe<PackagesModel, Package>(this, "CurrentDisplayPackageChanged", (sender, arg) =>
+                MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
                 {
                     var _package = BindingContext as Package;
                     _package.Status = arg.Status;
@@ -92,7 +106,7 @@ namespace PaketGlobal
 
             if (CanAcceptPackage == false)
             {
-                MessagingCenter.Unsubscribe<PackagesModel, Package>(this, "CurrentDisplayPackageChanged");
+                MessagingCenter.Unsubscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED);
             }
         }
 
@@ -144,13 +158,31 @@ namespace PaketGlobal
 
         private async void AcceptClicked(object sender, System.EventArgs e)
         {
+            App.ShowLoading(true);
+
             var myPubkey = App.Locator.Profile.Pubkey;
+         
+            string location = null;
+
+            var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetPositionAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString() + "," + position.Longitude.ToString();
+                }
+            }
+
             if (myPubkey == ViewModel.RecipientPubkey)
             {
                 //I'm a recipient
-                App.ShowLoading(true);
 
-                var result = await StellarHelper.AcceptPackageAsRecipient(BarcodeData.EscrowAddress, ViewModel.PaymentTransaction);
+                var result = await StellarHelper.AcceptPackageAsRecipient(BarcodeData.EscrowAddress, ViewModel.PaymentTransaction,location);
                 if (result == StellarOperationResult.Success)
                 {
                     await System.Threading.Tasks.Task.Delay(2000);
@@ -171,9 +203,8 @@ namespace PaketGlobal
             else
             {
                 //I'm a courier
-                App.ShowLoading(true);
 
-                var result = await StellarHelper.AcceptPackageAsCourier(BarcodeData.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction);
+                var result = await StellarHelper.AcceptPackageAsCourier(BarcodeData.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction, location);
                 if (result == StellarOperationResult.Success)
                 {
                     await System.Threading.Tasks.Task.Delay(2000);

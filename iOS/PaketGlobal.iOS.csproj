@@ -226,6 +226,12 @@
     <Reference Include="Plugin.DeviceInfo">
       <HintPath>..\packages\Xam.Plugin.DeviceInfo.4.0.0.13\lib\xamarinios10\Plugin.DeviceInfo.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Permissions">
+      <HintPath>..\packages\Plugin.Permissions.3.0.0.12\lib\xamarinios10\Plugin.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Geolocator">
+      <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\xamarinios10\Plugin.Geolocator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -404,6 +410,9 @@
     <BundleResource Include="Resources\success%403x.png" />
     <BundleResource Include="Resources\success%402x.png" />
     <BundleResource Include="Resources\success.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top%402x.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top%403x.png" />
+    <BundleResource Include="Resources\dropdown_arrow_top.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -411,7 +420,6 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AppInfoService.cs" />
     <Compile Include="Services\NotificationService.cs" />
-    <Compile Include="Services\ScreenScale.cs" />
     <Compile Include="ViewRenders\PaketEntryRender.cs" />
     <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="ViewRenders\PaketFrameRender.cs" />
@@ -429,6 +437,9 @@
     </Compile>
     <Compile Include="ViewRenders\PullToRefreshLayoutRenderer.cs" />
     <Compile Include="Utils\Localize.cs" />
+    <Compile Include="Services\LocationSharedService.cs" />
+    <Compile Include="Services\LocationManager.cs" />
+    <Compile Include="Services\LocationUpdatedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
