@@ -17,7 +17,10 @@ namespace PaketGlobal.Droid
 
             SetContentView(Resource.Layout.SplashScreen);
 
-            FindViewById<TextView>(Resource.Id.AppVersionLabel).Text = $"Version {PackageManager.GetPackageInfo(PackageName, 0).VersionName}";
+            var gitId = ThisAssembly.Git.Commit;
+
+            FindViewById<TextView>(Resource.Id.AppVersionLabel).Text = $"Version {PackageManager.GetPackageInfo(PackageName, 0).VersionName}" 
+                + "\n" + gitId;
         }
 
 		// Launches the startup task

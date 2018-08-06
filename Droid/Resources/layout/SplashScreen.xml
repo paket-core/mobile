@@ -13,5 +13,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:textSize="14sp"
+        android:gravity="center_horizontal"
         android:textColor="#000000"/>
 </RelativeLayout>
