@@ -8,7 +8,7 @@ namespace PaketGlobal.Droid
 	/// </summary>
 	public class SwipeGestureListener : GestureDetector.SimpleOnGestureListener
 	{
-		const int SWIPE_THRESHOLD = 100;
+		const int SWIPE_THRESHOLD = 80;
 		const int SWIPE_VELOCITY_THRESHOLD = 100;
 
 		public Action SwipeRight { get; set; }

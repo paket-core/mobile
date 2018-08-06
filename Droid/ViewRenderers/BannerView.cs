@@ -174,7 +174,9 @@ namespace PaketGlobal.Droid
                 Console.WriteLine(ex);
             }
 
-            gestureListener.SwipeTop += HandleBannerSwipe;
+			gestureListener.SwipeTop += HandleBannerSwipeTop;
+			gestureListener.SwipeLeft += HandleBannerSwipeLeft;
+			gestureListener.SwipeRight += HandleBannerSwipeRight;
             timer.Elapsed += HandleBannerTimeout;
             this.Click += HandleBannerClick;
 
@@ -197,16 +199,18 @@ namespace PaketGlobal.Droid
         /// <summary>
         /// Hides the banner.
         /// </summary>
-        public void Hide()
+        public void Hide(SwipeDirection direction)
         {
             if (isShowing)
             {
-                gestureListener.SwipeTop -= HandleBannerSwipe;
+				gestureListener.SwipeTop -= HandleBannerSwipeTop;
+				gestureListener.SwipeLeft -= HandleBannerSwipeLeft;
+				gestureListener.SwipeRight -= HandleBannerSwipeRight;
                 timer.Stop();
                 timer.Elapsed -= HandleBannerTimeout;
                 this.Click -= HandleBannerClick;
 
-                var outAnim = AnimationUtils.LoadAnimation(Context, Resource.Animation.slide_out_top);
+				var outAnim = AnimationUtils.LoadAnimation(Context, direction == SwipeDirection.Top ? Resource.Animation.slide_out_top : (direction == SwipeDirection.Left ? Resource.Animation.slide_out_left : Resource.Animation.slide_out_right));
                 outAnim.Duration = 300;
                 outAnim.AnimationEnd += OutAnimationEnd;
                 innerView.StartAnimation(outAnim);
@@ -244,14 +248,29 @@ namespace PaketGlobal.Droid
             OnBannerFinished(false, newPackage);
         }
 
-        void HandleBannerSwipe()
+		void HandleBannerSwipeTop()
+		{
+			HandleBannerSwipe(SwipeDirection.Top);
+		}
+
+		void HandleBannerSwipeLeft()
+		{
+			HandleBannerSwipe(SwipeDirection.Left);
+		}
+
+		void HandleBannerSwipeRight()
+		{
+			HandleBannerSwipe(SwipeDirection.Right);
+		}
+
+		void HandleBannerSwipe(SwipeDirection direction)
         {
-            OnBannerFinished(true, null);
+			OnBannerFinished(true, null, direction);
         }
 
-        void OnBannerFinished(bool canceled, Package package)
+		void OnBannerFinished(bool canceled, Package package, SwipeDirection direction = SwipeDirection.Top)
         {
-            Hide();
+            Hide(direction);
             BannerFinished?.Invoke(canceled, package);
         }
     }

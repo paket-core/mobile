@@ -109,4 +109,11 @@ namespace PaketGlobal
 		BUL = 0,
 		XLM
 	}
+
+	public enum SwipeDirection
+	{
+		Top = 0,
+		Left,
+		Right
+	}
 }
