@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -559,6 +560,8 @@
     <AndroidResource Include="Resources\drawable-xhdpi\success.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\success.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\success.png" />
+    <AndroidResource Include="Resources\layout\progress_spinner.xml" />
+    <AndroidResource Include="Resources\layout\progress_layout.xml" />
     <AndroidResource Include="Resources\drawable\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-hdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\dropdown_arrow_top.png" />

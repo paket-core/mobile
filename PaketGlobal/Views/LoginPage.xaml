@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.LoginPage"
+             xmlns:local="clr-namespace:PaketGlobal" xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms">
+    <local:BasePage.Content>
+        <AbsoluteLayout>
+            <!--<Image
+                Source="back_login_1.jpg" Aspect="AspectFill"
+                AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1.0, 1.0"/>-->
+            <StackLayout x:Name="layoutLogin" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional" AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize"
+                    Orientation="Vertical" Padding="18, 10, 18, 10" Spacing="8">
+<!--                <Entry x:Name="entryPaketUser" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" />-->
+                <Entry x:Name="entryMnemonic" Placeholder="Mnemonic phrase" Keyboard="Text" Completed="LoginUserNameCompleted" />
+                <Label Text = "or" FontSize="16" TextColor="#808080" HorizontalOptions="Center"/>
+                <Entry x:Name="entrySecretKey" Placeholder="Secret Key" Keyboard="Text" Completed="LoginSecretCompleted" />
+                <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
+                    <xlabs:ExtendedButton x:Name="btnLogin" Text="Restore Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="LoginClicked"/>
+                    <xlabs:ExtendedButton x:Name="btnGotoReg" Text="Generate New Key" Clicked="GoToRegistrationClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="layoutRegistration" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize" Padding="18, 10, 18, 10">
+                <Entry x:Name="entryUserName" Placeholder="User Name" Keyboard="Text" Completed="UserNameCompleted"  Text="{Binding UserName, Mode=TwoWay}"/>
+                <Entry x:Name="entryFullName" Placeholder="Full Name" Keyboard="Text" Completed="FullNameCompleted"  Text="{Binding FullName, Mode=TwoWay}"/>
+                <Entry x:Name="entryPhoneNumber" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Entry x:Name="entryUserAddress" Placeholder="Address" Keyboard="Text" Completed="AddressCompleted"  Text="{Binding Address, Mode=TwoWay}"/>
+                <Picker x:Name="pickerCurrency" SelectedItem="{Binding PaymentCurrency}" HorizontalOptions="FillAndExpand" Title="Select payment currency">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type local:PaymentCurrency}">
+                        <local:PaymentCurrency>ETH</local:PaymentCurrency>
+                        <local:PaymentCurrency>BTC</local:PaymentCurrency>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
+                    <xlabs:ExtendedButton x:Name="btnCreateAccount" Text="Generate Key" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CreateAccountClicked"/>
+                    <xlabs:ExtendedButton x:Name="btnAlreadyRegistered" Text="Already Have a Key" Clicked="AlreadyRegisteredClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="layoutProvideInfo" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                    AbsoluteLayout.LayoutBounds="0.5, 0, 1.0, AutoSize" Padding="18, 10, 18, 10">
+                <Entry x:Name="entryUserNameInfo" Placeholder="User Name" Keyboard="Text" Completed="UserNameInfoCompleted"  Text="{Binding UserName, Mode=TwoWay}"/>
+                <Entry x:Name="entryFullNameInfo" Placeholder="Full Name" Keyboard="Text" Completed="FullNameInfoCompleted"  Text="{Binding FullName, Mode=TwoWay}"/>
+                <Entry x:Name="entryPhoneNumberInfo" Placeholder="Phone Number" Keyboard="Telephone" Completed="PhoneNumberInfoCompleted"  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                <Entry x:Name="entryAddressInfo" Placeholder="Address" Keyboard="Text" Completed="AddressInfoCompleted"  Text="{Binding Address, Mode=TwoWay}"/>
+                <StackLayout Orientation="Vertical" Padding="0, 20, 0, 0">
+                    <xlabs:ExtendedButton x:Name="btnContinue" Text="Continue" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="ContinueClicked"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="layoutFundPrompt" IsVisible="false" Orientation="Vertical" AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                         AbsoluteLayout.LayoutBounds="0.5, 0.5, 1.0, AutoSize" Padding="18, 10, 18, 10" Spacing="8">
+                <Label x:Name="labelPrompt" FontSize="14" TextColor="#808080" Text="Please send 0.001 BTC to this address to create your account" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <local:HideClipboardEntry x:Name="entryAddress" Text="7ad7g72f727hf72e7hf72hfh7fh7f487458f48jf48jf4h7f4h7f4"/>
+                <xlabs:ExtendedButton x:Name="btnCheck" Text="Check Activation" TextColor="#ffffff" BackgroundColor="#7acd6a" Clicked="CheckActivationClicked"/>
+                <StackLayout Orientation="Vertical" Padding="0,20,0,5" Spacing="0">
+                    <Label Text = "Use this mnemonic to recover private key on another device" FontSize="14" TextColor="#808080"/>
+                    <local:HideClipboardEntry x:Name="entryMnemonicPrompt" Placeholder="Mnemonic Phrase" />
+                </StackLayout>
+            </StackLayout>
+            <ActivityIndicator x:Name="activityIndicator"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5, 0.95, AutoSize, AutoSize"
+                Color="#FF4081"
+                IsRunning="false"/>
+        </AbsoluteLayout>
+    </local:BasePage.Content>
+</local:BasePage>
