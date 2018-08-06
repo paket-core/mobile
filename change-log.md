@@ -6,9 +6,28 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.1.9
+Milestone version: v.1.2.0
 
 ## Change Log
+
+### Milestone v.1.2.0  
+
+06-08-2018
+
+* Add start of commit hash to version display
+    https://github.com/paket-core/mobile/issues/39
+
+03-08-2018
+
+* Report location
+    https://github.com/paket-core/mobile/issues/37
+* Notifications can't be dismissed
+    https://github.com/paket-core/mobile/issues/28
+
+02-08-2018
+
+* Create paket URIs
+    https://github.com/paket-core/mobile/issues/32
 
 ### Milestone v.1.1.9  
 
