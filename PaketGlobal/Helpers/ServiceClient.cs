@@ -8,11 +8,14 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using RestSharp;
+using System.Linq;
 
 namespace PaketGlobal
 {
 	public class ServiceClient
 	{
+        public static readonly string[] IgnoreErrors = new string[] { "get_user", "bul_account"};
+
 		public readonly string apiVersion;
 
 		public delegate string PubKeyHandler();
@@ -167,6 +170,13 @@ namespace PaketGlobal
                 throw new ServiceException(400, "You can't specify more then 7 fractional digits");
             }
 
+            var myBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+
+            if (myBalance == null || myBalance.BalanceBUL < amount)
+            {
+                throw new ServiceException(400, "Insufficient BULs");
+            }
+
 			request.AddParameter("from_pubkey", fromPubkey);
 			request.AddParameter("to_pubkey", toPubkey);
             request.AddParameter("amount_buls", amount);
@@ -310,7 +320,9 @@ namespace PaketGlobal
             if (includePubkey)
             {
                 pubkey = pubkey ?? TryGetPubKey?.Invoke();
-                if (pubkey != null) request.AddHeader("Pubkey", pubkey);
+                if (pubkey != null){
+                    request.AddHeader("Pubkey", pubkey);
+                }
             }
         }
 
@@ -418,9 +430,19 @@ namespace PaketGlobal
                     else{
                         var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
                         if (error == null)
+                        {
                             throw new ServiceException((int)response.StatusCode, response.Content);
-                        else
-                            throw new ServiceException((int)response.StatusCode, error.Error.Message);
+                        }
+                        else{
+                            var method = response.ResponseUri.Segments.Last();
+                            if(!ServiceClient.IgnoreErrors.Contains<string>(method))
+                            {
+                                throw new ServiceException((int)response.StatusCode, error.Error.Message);
+                            }
+                            else{
+                                throw new ServiceException((int)response.StatusCode, ""); 
+                            }
+                        }
                     } 
                 }
 			}

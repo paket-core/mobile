@@ -27,6 +27,24 @@ namespace PaketGlobal.iOS
             Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
+        {
+            if(text.Length>0)
+            {
+                AppDelegate app = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                //Create Alert
+                var alertController = UIAlertController.Create("Paket Global", text, UIAlertControllerStyle.Alert);
+
+                //Add Action
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+                // Present Alert
+                app.Window.RootViewController.PresentViewController(alertController, true, null); 
+            }
+       
+        }
+
         public void ShowMessage(string text, bool lengthLong = false)
 		{
             // More configurations

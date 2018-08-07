@@ -11,7 +11,10 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           // entrySecretKey.Text = "SBSIKBMK62YLRMH5BWERPYGT3YG23FAIRIVFWA3JXARS3K67JYPEB6LE";
+             //entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
+            // entrySecretKey.Text = "SAJTF76PU4L7EQX4VU5KQ6M3DBJTSDGAJDOQHSNWHHEIKYVTAEHW3K3J";
+
+           // entryMnemonic.Text = "dignity chief orchard that few leopard input better mirror since crystal strike";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -99,14 +102,11 @@ namespace PaketGlobal
                     }
                     catch (Exception ex)
                     {
-
                         App.ShowLoading(false);
-
-                        System.Diagnostics.Debug.WriteLine(ex);
 
                         App.Locator.Profile.KeyPair = null;
 
-                        ShowMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
+                        ShowErrorMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
                     }
                // });
             }
@@ -148,14 +148,42 @@ namespace PaketGlobal
                     }
                     else
                     {
-                        ShowMessage("Error adding trust token");
+                        ShowErrorMessage(AppResources.ErrorAddTrustToken);
                         App.ShowLoading(false);
                     }
                 }
             }
             else
             {
-                App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+                if(App.Locator.AccountService.ActivationAddress.Length==0)
+                {
+                    var userInfo = await App.Locator.FundServiceClient.UserInfos();
+
+                    if(userInfo != null)
+                    {
+                        if (userInfo.UserDetails.PaketUser == null)
+                        {
+                            var paketNameDetails = await App.Locator.FundServiceClient.GetUser(App.Locator.Profile.KeyPair.Address, null);
+                            if (paketNameDetails.UserDetails.PaketUser != null)
+                            {
+                                userInfo.UserDetails.PaketUser = paketNameDetails.UserDetails.PaketUser;
+                            }
+                        }
+
+                        var page = new RegistrationPage(false, userInfo.UserDetails);
+
+                        await Navigation.PushAsync(page, true);
+                    }
+                    else{
+                        var page = new RegistrationPage(false);
+
+                        await Navigation.PushAsync(page, true);  
+                    }                 
+                }
+                else{
+                    App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+                }
+
                 App.ShowLoading(false);
             }
         }

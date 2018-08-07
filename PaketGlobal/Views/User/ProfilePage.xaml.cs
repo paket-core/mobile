@@ -107,7 +107,13 @@ namespace PaketGlobal
 				App.ShowLoading(true);
 
 				var result = await ViewModel.Save();
-				ShowMessage(result ? "Profile info saved" : "Error saving profile info");
+                if(result)
+                {
+                    ShowMessage(AppResources.ProfileSaved);
+                }
+                else{
+                    ShowErrorMessage(AppResources.ProfileNotSaved);
+                }
 
 				App.ShowLoading(false);
 			}

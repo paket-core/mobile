@@ -7,13 +7,15 @@ namespace PaketGlobal
     public partial class RegistrationPage : BasePage
     {
         private Boolean IsAddedInfo = false;
+        private Boolean IsFinishActivation = false;
+        private UserDetails UserData;
 
         public RegisterViewModel ViewModel
         {
             get { return BindingContext as RegisterViewModel; }
         }
 
-        public RegistrationPage(bool isAddedInfo)
+        public RegistrationPage(bool isAddedInfo, UserDetails userData = null)
         {
             InitializeComponent();
 
@@ -21,11 +23,35 @@ namespace PaketGlobal
 
             IsAddedInfo = isAddedInfo;
 
+            if (userData != null)
+            {
+                IsFinishActivation = true;
+                UserData = userData;
+            }
+
             if (IsAddedInfo)
             {
                 generateButton.Text = AppResources.CompleteRegistration;
                 titleLabel.Text = AppResources.AddInfo;
                 pickerCurrency.IsVisible = false;
+            }
+            else if (isAddedInfo == false && IsFinishActivation == true)
+            {
+                generateButton.Text = AppResources.CompleteRegistration;
+                titleLabel.Text = AppResources.AddInfo;
+
+                entryFullName.Text = userData.FullName;
+                entryUserName.Text = userData.PaketUser;
+                entryPhoneNumber.Text = userData.PhoneNumber;
+                entryUserAddress.Text = userData.Address;
+
+                if (userData.PaketUser != null)
+                {
+                    if (userData.PaketUser.Length > 0)
+                    {
+                        entryUserName.IsEnabled = false;
+                    }
+                }
             }
 
             App.Locator.DeviceService.setStausBarBlack();
@@ -53,7 +79,7 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarBlack();
         }
 
-#region Button Actions
+        #region Button Actions
 
         private void OnBack(object sender, EventArgs e)
         {
@@ -70,111 +96,139 @@ namespace PaketGlobal
 
                 App.ShowLoading(true);
 
-              //  await WithProgressButton(generateButton, async () =>
-              //  {
-                    if (IsAddedInfo){
-                        try
-                        {
-                            //Retrievee private key
-                            var kd = App.Locator.Profile.TryGetKeyData();
+                if (IsAddedInfo == false && IsFinishActivation == true)
+                {
+                    var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, ViewModel.Address);
 
-                            var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                          ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
-                            if (result != null)
-                            {
-                                App.Locator.Profile.SetCredentials(ViewModel.UserName,
-                                                                   ViewModel.FullName,
-                                                                   ViewModel.PhoneNumber,
-                                                                   kd.KeyPair.SecretSeed,
-                                                                   kd.MnemonicString);
-                                CheckActivation();
-                            }
-                            else
-                            {
-                                App.ShowLoading(false);
-                                ShowMessage("Error adding info");
-                            }
+                    var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+
+                    if (createResult != null)
+                    {
+                        App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
+
+                        App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+
+                        App.ShowLoading(false);
+                    }
+                    else
+                    {
+                        App.ShowLoading(false);
+
+                        App.Locator.Profile.KeyPair = null;
+                    }
+                }
+                else if (IsAddedInfo)
+                {
+                    try
+                    {
+                        //Retrievee private key
+                        var kd = App.Locator.Profile.TryGetKeyData();
+
+                        var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+                                                                                      ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                        if (result != null)
+                        {
+                            App.Locator.Profile.SetCredentials(ViewModel.UserName,
+                                                               ViewModel.FullName,
+                                                               ViewModel.PhoneNumber,
+                                                               kd.KeyPair.SecretSeed,
+                                                               kd.MnemonicString);
+                            CheckActivation();
                         }
-                        catch (Exception ex)
+                        else
                         {
                             App.ShowLoading(false);
-                            System.Diagnostics.Debug.WriteLine(ex);
-                            ShowMessage(ex.Message);
                         }
                     }
-                    else{
-                        try
+                    catch (Exception ex)
+                    {
+                        App.ShowLoading(false);
+
+                        System.Diagnostics.Debug.WriteLine(ex);
+
+                        ShowErrorMessage(ex.Message);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        var kd = Profile.GenerateKeyPairFromMnemonic();
+                        App.Locator.Profile.KeyPair = kd.KeyPair;
+
+                        var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+                                                                                      ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                        if (result != null)
                         {
-                            var kd = Profile.GenerateKeyPairFromMnemonic();
-                            App.Locator.Profile.KeyPair = kd.KeyPair;
+                            App.Locator.Profile.SetCredentials(ViewModel.UserName,
+                                                               ViewModel.FullName,
+                                                               ViewModel.PhoneNumber,
+                                                               kd.KeyPair.SecretSeed,
+                                                               kd.MnemonicString);
 
-                            var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                          ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
-                            if (result != null)
+
+                            var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+
+                            if (createResult != null)
                             {
-                                App.Locator.Profile.SetCredentials(ViewModel.UserName,
-                                                                   ViewModel.FullName,
-                                                                   ViewModel.PhoneNumber,
-                                                                   kd.KeyPair.SecretSeed,
-                                                                   kd.MnemonicString);
+                                App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
 
+                                App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
 
-                                var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
-                               // var createResult = await App.Locator.FundServiceClient.CreateStellarAccount(ViewModel.PaymentCurrency.Value);
-
-                                if (createResult != null)
-                                {
-                                    App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
-
-                                    App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
-
-                                    App.ShowLoading(false);
-                                }
-                                else
-                                {
-                                    App.ShowLoading(false);
-
-                                    ShowMessage("Error creating Stellar account");
-
-                                    App.Locator.Profile.KeyPair = null;
-                                }
+                                App.ShowLoading(false);
                             }
                             else
                             {
                                 App.ShowLoading(false);
-
-                                ShowMessage("Error registering user");
 
                                 App.Locator.Profile.KeyPair = null;
                             }
                         }
-                        catch (Exception ex)
+                        else
                         {
                             App.ShowLoading(false);
 
-                            System.Diagnostics.Debug.WriteLine(ex);
-
                             App.Locator.Profile.KeyPair = null;
-
-                            ShowMessage(ex.Message);
                         }
                     }
-               // });
+                    catch (Exception ex)
+                    {
+                        App.ShowLoading(false);
+
+                        System.Diagnostics.Debug.WriteLine(ex);
+
+                        App.Locator.Profile.KeyPair = null;
+
+                        ShowErrorMessage(ex.Message);
+                    }
+                }
             }
         }
 
         public async void CheckActivation()
         {
-         //   await WithProgressButton(generateButton, async () => {
-                var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
-                if (created)
+            var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
+            if (created)
+            {
+                var trusted = await StellarHelper.CheckTokenTrusted();
+                if (trusted)
                 {
-                    var trusted = await StellarHelper.CheckTokenTrusted();
-                    if (trusted)
-                    {                       
+                    App.Locator.Profile.Activated = true;
+
+                    var navigationPage = new NavigationPage(new MainPage());
+
+                    Application.Current.MainPage = navigationPage;
+
+                    App.ShowLoading(false);
+                }
+                else
+                {
+                    var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
+                    if (added)
+                    {
                         App.Locator.Profile.Activated = true;
 
-                        var navigationPage = new NavigationPage(new MainPage()); 
+                        var navigationPage = new NavigationPage(new MainPage());
 
                         Application.Current.MainPage = navigationPage;
 
@@ -182,37 +236,26 @@ namespace PaketGlobal
                     }
                     else
                     {
-                        var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
-                        if (added)
-                        {
-                            App.Locator.Profile.Activated = true;
+                        App.ShowLoading(false);
 
-                            var navigationPage = new NavigationPage(new MainPage());
-
-                            Application.Current.MainPage = navigationPage;
-
-                            App.ShowLoading(false);
-                        }
-                        else
-                        {
-                            App.ShowLoading(false);
-                            ShowMessage("Error adding trust token");
-                        }
+                        ShowErrorMessage(AppResources.ErrorAddTrustToken);
                     }
                 }
-                else
-                {
-                    App.ShowLoading(false);
-                    ShowMessage("Stellar account isn't created yet");
-                }
-           // });
+            }
+            else
+            {
+                App.ShowLoading(false);
+
+                ShowErrorMessage(AppResources.StellarAccountNotCreated);
+            }
         }
 
-#endregion
+        #endregion
 
         private void FieldCompleted(object sender, EventArgs e)
         {
-            if(sender == entryUserName){
+            if (sender == entryUserName)
+            {
                 if (!ValidationHelper.ValidateTextField(entryFullName.Text))
                 {
                     entryFullName.Focus();
@@ -234,7 +277,7 @@ namespace PaketGlobal
             }
             else if (sender == entryUserAddress)
             {
-                if(pickerCurrency.SelectedItem==null && IsAddedInfo==false)
+                if (pickerCurrency.SelectedItem == null && IsAddedInfo == false)
                 {
                     pickerCurrency.Focus();
                 }
@@ -263,9 +306,14 @@ namespace PaketGlobal
                 entryUserAddress.Focus();
                 return false;
             }
-            else if (pickerCurrency.SelectedItem==null && IsAddedInfo==false)
+            else if (pickerCurrency.SelectedItem == null && IsAddedInfo == false)
             {
-                ShowMessage("Please select payment currency");
+                EventHandler handleCurrencyHandler = (s, e) => {
+                    pickerCurrency.Focus();
+                };
+
+                ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler);
+
                 return false;
             }
 
@@ -281,5 +329,7 @@ namespace PaketGlobal
             entryPhoneNumber.IsEnabled = enabled;
             pickerCurrency.IsEnabled = enabled;
         }
+
+
     }
 }

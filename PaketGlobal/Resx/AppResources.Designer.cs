@@ -312,7 +312,45 @@ namespace PaketGlobal
             }
         }
 
+        internal static string ErrorAddTrustToken
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorAddTrustToken", resourceCulture);
+            }
+        }
 
+        internal static string StellarAccountNotCreated
+        {
+            get
+            {
+                return ResourceManager.GetString("StellarAccountNotCreated", resourceCulture);
+            }
+        }
+
+        internal static string PleaseSelectPaymentCurrency
+        {
+            get
+            {
+                return ResourceManager.GetString("PleaseSelectPaymentCurrency", resourceCulture);
+            }
+        }
+
+        internal static string ProfileSaved
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileSaved", resourceCulture);
+            }
+        }
+
+        internal static string ProfileNotSaved
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileNotSaved", resourceCulture);
+            }
+        }
 
     }
 }

@@ -566,6 +566,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\layout\progress_dialog.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

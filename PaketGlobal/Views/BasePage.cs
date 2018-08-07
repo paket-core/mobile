@@ -47,14 +47,14 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceAuthenticationError(object sender, ServiceClient.UnAuthorizedException args)
 		{
-			ShowMessage(args.Message);//TODO for Debug only
+            ShowErrorMessage(args.Message);//TODO for Debug only
 
 			System.Diagnostics.Debug.WriteLine(args);//TODO for Debug only
 		}
 
 		protected virtual void WorkspaceConnectionError(object sender, EventArgs e)
 		{
-            ShowMessage(AppResources.ConnectionError);
+            ShowErrorMessage(AppResources.ConnectionError);
 		}
 
 		protected virtual void WorkspaceNetworkConnected(object sender, EventArgs e)
@@ -64,7 +64,7 @@ namespace PaketGlobal
 
 		protected virtual void WorkspaceServiceError(object sender, ServiceClient.ServiceErrorEventArgs e)
 		{
-			ShowMessage(e.ServiceException.Message);
+            ShowErrorMessage(e.ServiceException.Message);
 
 			System.Diagnostics.Debug.WriteLine(e.ServiceException);
 		}
@@ -73,7 +73,7 @@ namespace PaketGlobal
 		{
             var message = StellarOperationResultMethods.GetString(error);
 
-			ShowMessage(message);
+            ShowErrorMessage(message);
 		}
 
         protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
@@ -86,6 +86,11 @@ namespace PaketGlobal
 		{
 			App.Locator.NotificationService.ShowMessage(error, lengthLong);
 		}
+
+        protected void ShowErrorMessage(string error, bool lengthLong = false, EventHandler eventHandler = null)
+        {
+            App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler);
+        }
 
 		#region Virtual methods
 

@@ -54,6 +54,8 @@ namespace PaketGlobal
 
 		public void Logout ()
 		{
+            App.Locator.AccountService.ActivationAddress = "";
+            
 			Profile.DeleteCredentials ();
 
 			MessagingCenter.Send(this,Constants.LOGOUT, true);

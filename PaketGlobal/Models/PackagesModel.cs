@@ -156,7 +156,10 @@ namespace PaketGlobal
 
             if (isneedTimer)
             {
-                timer.Start();
+                if(timer!=null)
+                {
+                    timer.Start();
+                }
             }
 
             CheckLocationUpdate();

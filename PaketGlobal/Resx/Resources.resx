@@ -336,5 +336,21 @@
     <data name="CameraAccessNotGranted" xml:space="preserve">
         <value>You must give access to the camera to scan the package</value>
     </data>
+    <data name="ErrorAddTrustToken" xml:space="preserve">
+        <value>Error adding trust token</value>
+    </data>
+     <data name="StellarAccountNotCreated" xml:space="preserve">
+        <value>Stellar account isn't created yet</value>
+    </data>
+    <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
+        <value>Please select payment currency</value>
+    </data>
 
+        <data name="ProfileSaved" xml:space="preserve">
+        <value>Profile info saved</value>
+    </data>
+
+            <data name="ProfileNotSaved" xml:space="preserve">
+        <value>Error saving profile info</value>
+    </data>
 </root>

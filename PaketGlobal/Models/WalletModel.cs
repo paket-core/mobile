@@ -117,7 +117,7 @@ namespace PaketGlobal
                     Balance = bal; 
                 }
 
-                if(bal.BalanceBUL != Balance.BalanceBUL || bal.BalanceXLM != Balance.BalanceXLM)
+                if(bal.BalanceBUL != Balance.BalanceBUL)
                 {
                     if (enabled)
                     {
@@ -133,7 +133,9 @@ namespace PaketGlobal
 
             if (isneedTimer)
             {
-                timer.Start();
+                if(timer!=null){
+                    timer.Start();
+                }
             }
         }
 

@@ -189,7 +189,7 @@ namespace PaketGlobal
                 }
                 catch (Exception exc)
                 {
-                    ShowMessage(exc.Message);
+                    ShowErrorMessage(exc.Message);
                 }
 
                 App.ShowLoading(false);
@@ -257,7 +257,7 @@ namespace PaketGlobal
             }
             else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
             {
-                ShowMessage(AppResources.SelectDeadlineDate);
+                EventHandler handleHandler = (s, e) => {                     EntryDeadline.Focus();                 };                  ShowErrorMessage(AppResources.SelectDeadlineDate, false, handleHandler); 
                 return false;
             }
             else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
