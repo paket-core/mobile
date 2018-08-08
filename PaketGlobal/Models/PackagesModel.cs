@@ -197,7 +197,7 @@ namespace PaketGlobal
                     var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
                                                      (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
                     
-                    if(myRole == PaketRole.Courier)
+                    if(myRole != PaketRole.Courier)
                     {
                         App.Locator.LocationService.StartUpdateLocation();
 

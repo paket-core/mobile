@@ -61,9 +61,8 @@ namespace PaketGlobal.Droid
                     string locationProvider = LocationManager.NetworkProvider;
 
                     locationManager.RequestLocationUpdates(locationProvider, 2000, MIN_DISTANCE, this);
-                    //locationManager.RequestSingleUpdate(locationCriteria, this, null);
+                    //locationManager.RequestSingleUpdate(locationCriteria, this, null);		
                 }
-
             }
             catch (Exception e)
             {
@@ -75,7 +74,7 @@ namespace PaketGlobal.Droid
         {
 			var notificationBuilder = (Build.VERSION.SdkInt >= BuildVersionCodes.O ? new Notification.Builder(this, CreateNotificationChannel()) : new Notification.Builder(this))
             .SetContentTitle("PaketGlobal")
-            .SetContentText("Location update started")
+                .SetContentText("PaketGlobal is running")
             .SetContentIntent(BuildIntentToShowMainActivity())
             .SetOngoing(true);
 
@@ -184,7 +183,7 @@ namespace PaketGlobal.Droid
 
 
 
-                    if (myRole == PaketRole.Courier)
+                    if (myRole != PaketRole.Courier)
                     {
 						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         if (locationString.Length > 24)

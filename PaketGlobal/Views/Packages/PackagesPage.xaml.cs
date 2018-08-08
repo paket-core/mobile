@@ -67,6 +67,17 @@ namespace PaketGlobal
 #endif
 
             App.Locator.DeviceService.setStausBarLight();
+
+            App.Locator.EventService.StartUseEvent();
+
+            StartAppEvent();
+        }
+
+        public async void StartAppEvent()
+        {
+            var result = await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_START, null);
+
+            Console.WriteLine(result);
         }
 
         protected async override void OnAppearing()
@@ -172,8 +183,8 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-               // CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
-               // RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+              //CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+              //RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);

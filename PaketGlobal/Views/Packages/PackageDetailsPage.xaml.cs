@@ -42,7 +42,7 @@ namespace PaketGlobal
 #endif
 
             //TODO: temp
-            BottomBarcodeView.IsVisible = true;
+            BottomBarcodeView.IsVisible = false;
 
             var data = new BarcodePackageData
             {
@@ -77,9 +77,9 @@ namespace PaketGlobal
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
-                //TODO: 
-               // AddEvents();
-                EventsInfoViewFrame.IsVisible = false;
+                AddEvents();
+
+                EventsInfoViewFrame.IsVisible = true;
 
                 MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
                 {
@@ -271,7 +271,7 @@ namespace PaketGlobal
 
                     var dateLabel = new Label()
                     {
-                        Text = String.Format("{0:MM.dd.yyyy}", ev.TimestampDT),
+                        Text = String.Format("{0:MM.dd.yyyy HH:mm}", ev.TimestampDT),
                         TextColor = Color.FromHex("#A7A7A7"),
                         FontSize = 10
                     };
@@ -285,6 +285,8 @@ namespace PaketGlobal
                         TextColor = Color.FromHex("#555555"),
                         FontSize = 12,
                     };
+                    userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
+                    userLabel.WidthRequest = 140;
                     userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
 
                     stack.Children.Add(userLabel);
@@ -309,18 +311,21 @@ namespace PaketGlobal
                     if (lastStackView == null)
                     {
                         relativeLayout.Children.Add(stack,
-                                            Constraint.RelativeToParent((parent) => { return 0; }));
+                                  Constraint.RelativeToParent((parent) => { return 0; }));
+                        
+                        if(package.Events.Count>1)
+                        {
+                            relativeLayout.Children.Add(line,
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Height + 14; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
+                                    Constraint.Constant(0.5f));
 
-                        relativeLayout.Children.Add(line,
-                                Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
-                                Constraint.RelativeToParent((parent) => { return 85; }),
-                                Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
-                                Constraint.Constant(0.5f));
 
-
-                        relativeLayout.Children.Add(progressImage,
-                                          Constraint.RelativeToParent((parent) => { return 0; }),
-                                          Constraint.RelativeToParent((parent) => { return 78; }));
+                            relativeLayout.Children.Add(progressImage,
+                                              Constraint.RelativeToParent((parent) => { return 0; }),
+                                              Constraint.RelativeToView(stack, (parent, view) => { return view.Y + view.Height + 7; }));
+                        }
                     }
                     else
                     {
@@ -333,7 +338,7 @@ namespace PaketGlobal
                         {
                             relativeLayout.Children.Add(line,
                                     Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
-                                    Constraint.RelativeToParent((parent) => { return 85; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Height + 14; }),
                                     Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
                                     Constraint.Constant(0.5f));
                         }
@@ -345,8 +350,8 @@ namespace PaketGlobal
                                        Constraint.RelativeToView(lastStackView, (parent, view) => {
                                            return view.X + view.Width + 20;
                                        }),
-                                       Constraint.RelativeToParent((parent) => { return 78; }));
-                    }
+                                        Constraint.RelativeToView(stack, (parent, view) => { return view.Y + view.Height + 7; }));
+                            }
 
 
                     lastStackView = stack;

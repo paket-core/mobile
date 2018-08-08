@@ -170,7 +170,13 @@ namespace PaketGlobal
                         if(position!=null)
                         {
                             location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        
+                            if(location.Length>24)
+                            {
+                                location = location.Substring(0, 24);
+                            }
                         }
+
                     }
              
                     var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location);

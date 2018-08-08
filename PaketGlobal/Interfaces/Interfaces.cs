@@ -61,4 +61,10 @@ namespace PaketGlobal
         void StartUpdateLocation();
         void StopUpdateLocation();
     }
+
+    public interface IEventSharedService
+    {
+        void StartUseEvent();
+        void StopUseEvent();
+    }
 }

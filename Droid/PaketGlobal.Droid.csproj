@@ -304,6 +304,8 @@
     <Compile Include="Services\Location\LocationAppManager.cs" />
     <Compile Include="Services\Location\LocationSharedService.cs" />
     <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
+    <Compile Include="Services\Events\EventService.cs" />
+    <Compile Include="Services\Events\EventSharedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -575,6 +577,7 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Utils\" />
     <Folder Include="Services\Location\" />
+    <Folder Include="Services\Events\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

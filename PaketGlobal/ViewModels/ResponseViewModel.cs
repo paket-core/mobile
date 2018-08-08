@@ -252,6 +252,13 @@ namespace PaketGlobal
 
     }
 
+    [DataContract]
+    public class AddEventData : BaseData
+    {
+
+    }
+
+
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
@@ -349,8 +356,8 @@ namespace PaketGlobal
 		[DataMember(Name = "collateral")]
 		public long Collateral { get; set; }
 
-		[DataMember(Name = "send-timestamp")]
-		public long SendTimestamp { get; set; }
+        [DataMember(Name = "launch_date")]
+        public string SendTimestamp { get; set; }
 
 		[DataMember(Name = "events")]
 		public List<PackageEvent> Events { get; set; }
@@ -375,7 +382,9 @@ namespace PaketGlobal
 		}
 
 		public DateTime SendTimeDT {
-			get { return DateTimeHelper.FromUnixTime(SendTimestamp).ToLocalTime(); }
+            get{
+                return DateTime.Parse(SendTimestamp);
+            }
 		}
 
 		public string DeadlineString {
@@ -500,11 +509,19 @@ namespace PaketGlobal
 		[DataMember(Name = "event_type")]
 		public string EventType { get; set; }
 
-		[DataMember(Name = "paket_user")]
-		public string PaketUser { get; set; }
+        public string PaketUser
+        {
+            get{
+                return UserPubKey;
+            }
+        }
 
 		[DataMember(Name = "timestamp")]
         public string Timestamp { get; set; }
+
+        [DataMember(Name = "user_pubkey")]
+        public string UserPubKey { get; set; }
+
 
 		[DataMember(Name = "GPS")]
 		public double[] GPS { get; set; }

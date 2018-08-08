@@ -77,6 +77,14 @@ namespace PaketGlobal
             get { return GetInstance<ILocationSharedService>(); }
         }
 
+        public IEventSharedService EventService
+        {
+            get { return GetInstance<IEventSharedService>(); }
+        }
+
+
+
+
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>

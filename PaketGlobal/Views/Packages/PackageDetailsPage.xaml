@@ -172,7 +172,7 @@
                                     <StackLayout Spacing="15">
                                         <Label TextColor="Black" Text="{local:Translate Events}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                     </StackLayout>
-                                    <Grid HorizontalOptions="FillAndExpand" HeightRequest="110">
+                                    <Grid HorizontalOptions="FillAndExpand" HeightRequest="150">
                                         <ScrollView  Orientation="Horizontal" x:Name="EventsScrollView" VerticalScrollBarVisibility="Never"
                              HorizontalScrollBarVisibility="Never"/>
                                     </Grid>

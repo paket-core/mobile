@@ -11,9 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-             //entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
-             //entrySecretKey.Text = "SBSIKBMK62YLRMH5BWERPYGT3YG23FAIRIVFWA3JXARS3K67JYPEB6LE";
-             // entryMnemonic.Text = "dignity chief orchard that few leopard input better mirror since crystal strike";
+            //entrySecretKey.Text = "SDN6PSEJGHJXYOIW4ZONE64KHOPPDNQ6QNIZDPPMC4B27RWFBNYAABED";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {

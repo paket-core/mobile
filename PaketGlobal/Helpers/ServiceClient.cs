@@ -118,6 +118,20 @@ namespace PaketGlobal
 			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
 		}
 
+        public async Task<AddEventData> AddEvent(string eventType, string location)
+        {
+            var request = PrepareRequest(apiVersion + "/add_event", Method.POST);
+
+            request.AddParameter("event_type", eventType);
+           
+            if (location != null)
+            {
+                request.AddParameter("location", location);
+            }
+
+            return await SendRequest<AddEventData>(request);
+        }
+
 		#endregion User
 
 		#region Wallet

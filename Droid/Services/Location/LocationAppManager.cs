@@ -10,7 +10,7 @@ namespace PaketGlobal.Droid
 {
     public class LocationAppManager
     {
-        private static bool isBind = false;
+        public static bool isServiceStarted = false;
 
         public event EventHandler<ServiceConnectedEventArgs> LocationServiceConnected = delegate { };
 
@@ -53,21 +53,28 @@ namespace PaketGlobal.Droid
 
         public static void StartLocationService()
         {
-            isBind = false;
+            if(isServiceStarted==false)
+            {
+                isServiceStarted = true;
 
-            new Task(() => {
-                Intent serviceIntent = new Android.Content.Intent(Android.App.Application.Context, typeof(LocationService));
-                Android.App.Application.Context.StartService(serviceIntent);
+                new Task(() => {
+                    Intent serviceIntent = new Android.Content.Intent(Android.App.Application.Context, typeof(LocationService));
+                    Android.App.Application.Context.StartService(serviceIntent);
 
-                Intent locationServiceIntent = new Intent(Android.App.Application.Context, typeof(LocationService));
-                Android.App.Application.Context.BindService(locationServiceIntent, locationServiceConnection, Bind.AutoCreate);
-            }).Start();
+                    Intent locationServiceIntent = new Intent(Android.App.Application.Context, typeof(LocationService));
+                    Android.App.Application.Context.BindService(locationServiceIntent, locationServiceConnection, Bind.AutoCreate);
+                }).Start(); 
+            }
+     
         }
 
         public static void StopLocationService()
         {
-            if(!isBind)
+
+            if(isServiceStarted)
             {
+                isServiceStarted = false;
+
                 try
                 {
                     if (locationServiceConnection != null)
@@ -82,8 +89,6 @@ namespace PaketGlobal.Droid
                 }
                 catch (Exception ex)
                 {
-                    isBind = true;
-
                     Console.WriteLine(ex);
                 }
             }

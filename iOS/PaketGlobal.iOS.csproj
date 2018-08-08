@@ -443,6 +443,7 @@
     <Compile Include="Services\LocationSharedService.cs" />
     <Compile Include="Services\LocationManager.cs" />
     <Compile Include="Services\LocationUpdatedEventArgs.cs" />
+    <Compile Include="Services\EventSharedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

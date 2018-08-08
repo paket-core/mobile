@@ -34,11 +34,12 @@ namespace PaketGlobal
 			Locator.FundServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 
-			if (Locator.Profile.Activated) {
+			if (Locator.Profile.Activated) 
+            {
                 var navigationPage = new NavigationPage(new MainPage()); 
-
                 MainPage = navigationPage;
-			} else {
+			} 
+            else {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
 			}
@@ -46,9 +47,11 @@ namespace PaketGlobal
 
 			MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
-				MainPage = navPage;
+                MainPage = navPage;
 			});
 		}
+
+
 
 		/// <summary>
 		/// Shows the loading indicator.

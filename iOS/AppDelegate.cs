@@ -80,6 +80,13 @@ namespace PaketGlobal.iOS
                     return new LocationSharedService();
                 });
             }
+
+            if (!SimpleIoc.Default.IsRegistered<IEventSharedService>())
+            {
+                SimpleIoc.Default.Register<IEventSharedService>(() => {
+                    return new EventSharedService();
+                });
+            }
 		}
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
