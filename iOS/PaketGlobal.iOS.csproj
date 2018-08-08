@@ -441,9 +441,9 @@
     <Compile Include="ViewRenders\PullToRefreshLayoutRenderer.cs" />
     <Compile Include="Utils\Localize.cs" />
     <Compile Include="Services\LocationSharedService.cs" />
-    <Compile Include="Services\LocationManager.cs" />
     <Compile Include="Services\LocationUpdatedEventArgs.cs" />
     <Compile Include="Services\EventSharedService.cs" />
+    <Compile Include="Services\LocationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
