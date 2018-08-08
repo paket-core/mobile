@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -67,17 +67,6 @@ namespace PaketGlobal
 #endif
 
             App.Locator.DeviceService.setStausBarLight();
-
-            App.Locator.EventService.StartUseEvent();
-
-            StartAppEvent();
-        }
-
-        public async void StartAppEvent()
-        {
-            var result = await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_START, null);
-
-            Console.WriteLine(result);
         }
 
         protected async override void OnAppearing()
@@ -91,6 +80,9 @@ namespace PaketGlobal
                 await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
+                await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_START);
+
+                App.Locator.EventService.StartUseEvent();
             }
 
             App.Locator.DeviceService.setStausBarLight();

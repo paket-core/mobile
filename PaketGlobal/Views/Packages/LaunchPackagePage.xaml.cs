@@ -176,7 +176,6 @@ namespace PaketGlobal
                                 location = location.Substring(0, 24);
                             }
                         }
-
                     }
              
                     var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location);

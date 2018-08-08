@@ -4,6 +4,7 @@ using Android.Util;
 using Android.Content;
 using Android.OS;
 using System.Threading;
+using Plugin.Geolocator;
 
 namespace PaketGlobal.Droid
 {
@@ -102,7 +103,7 @@ namespace PaketGlobal.Droid
         {
             if (App.Locator.Profile.Activated)
             {
-                var result = await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_USED, null);
+                var result = await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 Console.WriteLine(result);
             }
         }

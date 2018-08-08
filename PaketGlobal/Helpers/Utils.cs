@@ -11,6 +11,18 @@ namespace PaketGlobal
 {
 	public static class Utils
 	{
+        public static async Task<bool> OnlyCheckPermissions(Permission permission)
+        {
+            var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
+
+            if(permissionStatus != PermissionStatus.Granted)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
 		public static async Task<bool> CheckPermissions(Permission permission)
 		{
 			var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);

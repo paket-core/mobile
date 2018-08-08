@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using RestSharp;
 using System.Linq;
+using Plugin.Geolocator;
 
 namespace PaketGlobal
 {
@@ -118,8 +119,29 @@ namespace PaketGlobal
 			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
 		}
 
-        public async Task<AddEventData> AddEvent(string eventType, string location)
+        public async Task<AddEventData> AddEvent(string eventType)
         {
+            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
+            string location = null;
+
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetPositionAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                    if (location.Length > 24)
+                    {
+                        location = location.Substring(0, 24);
+                    }
+                }
+            }
+
             var request = PrepareRequest(apiVersion + "/add_event", Method.POST);
 
             request.AddParameter("event_type", eventType);
