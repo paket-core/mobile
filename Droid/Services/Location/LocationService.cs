@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Locations;
+using Android.Preferences;
 
 namespace PaketGlobal.Droid
 {
@@ -14,6 +15,9 @@ namespace PaketGlobal.Droid
         private const string SERVICE_STARTED_KEY = "has_service_been_started";
         private const string ACTION_MAIN_ACTIVITY = "PaketGlobalLocation.action.MAIN_ACTIVITY";
         private const int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
+        private const string LOCATION_LAT_KEY = "location_lat";
+        private const string LOCATION_LON_KEY = "location_lon";
+        private const int MIN_DISTANCE = 100;
 
         public event EventHandler<LocationChangedEventArgs> LocationChanged = delegate { };
 
@@ -26,10 +30,7 @@ namespace PaketGlobal.Droid
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
-            {
-                RegisterForegroundService();
-            }
+            RegisterForegroundService();
 
             InitializeBackgroundWork();
 
@@ -56,10 +57,10 @@ namespace PaketGlobal.Droid
                     locationCriteria.Accuracy = Accuracy.NoRequirement;
                     locationCriteria.PowerRequirement = Power.NoRequirement;
 
-					string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
-                    //string locationProvider = LocationManager.NetworkProvider;
+					//string locationProvider = locationManager.GetBestProvider(locationCriteria, true);
+                    string locationProvider = LocationManager.NetworkProvider;
 
-                    locationManager.RequestLocationUpdates(locationProvider, 2000, 100, this);
+                    locationManager.RequestLocationUpdates(locationProvider, 2000, MIN_DISTANCE, this);
                     //locationManager.RequestSingleUpdate(locationCriteria, this, null);
                 }
 
@@ -109,34 +110,62 @@ namespace PaketGlobal.Droid
             return pendingIntent;
         }
 
-        #region ILocationListener Members
+        #region ILocationListener Members   
 
+        private Location GetOldLocation()
+        {
+            string locationProvider = LocationManager.NetworkProvider;
+
+            ISharedPreferences prefs = GetSharedPreferences("PaketGlobalLocation.Droid", FileCreationMode.Private | FileCreationMode.MultiProcess); 
+            float lat = prefs.GetFloat(LOCATION_LAT_KEY, 0);
+            float lng = prefs.GetFloat(LOCATION_LON_KEY, 0);
+
+            var locatation = new Location(locationProvider);
+            locatation.Latitude = lat;
+            locatation.Longitude = lng;
+
+            return locatation;
+        }
 
         public void OnLocationChanged(Location location)
         {
-            OnLocationChangedAsync(location);
+            var oldLocation = this.GetOldLocation();
 
-            lastLatitude = location.Latitude;
-            lastLongitude = location.Longitude;
+            var distance = (location.DistanceTo(oldLocation))/1000;
 
-            lastUpdated = DateTime.Now;
+            if(distance>=MIN_DISTANCE)
+            {
+                ISharedPreferences prefs = GetSharedPreferences("PaketGlobalLocation.Droid", FileCreationMode.Private | FileCreationMode.MultiProcess);
 
-            this.LocationChanged(this, new LocationChangedEventArgs(location));
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.PutFloat(LOCATION_LAT_KEY, (float)location.Latitude);
+                editor.PutFloat(LOCATION_LON_KEY, (float)location.Longitude);
+                editor.Apply();
+
+                OnLocationChangedAsync(location);
+
+                lastLatitude = location.Latitude;
+                lastLongitude = location.Longitude;
+
+                lastUpdated = DateTime.Now;
+
+                //this.LocationChanged(this, new LocationChangedEventArgs(location));
+            }      
         }
 
         public void OnProviderDisabled(string provider)
         {
-
+            Console.WriteLine(provider);
         }
 
         public void OnProviderEnabled(string provider)
         {
-
+            Console.WriteLine(provider);
         }
 
         public void OnStatusChanged(string provider, Availability status, Bundle extras)
         {
-
+            Console.WriteLine(provider);
         }
 
         public async void OnLocationChangedAsync(Location location)
@@ -152,7 +181,9 @@ namespace PaketGlobal.Droid
                 {
                     var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
-                    
+
+
+
                     if (myRole == PaketRole.Courier)
                     {
 						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);

@@ -161,6 +161,7 @@ namespace PaketGlobal
             TopLabel.TextColor = Color.FromHex("#D43F51");
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
+            EntryView.LineColor = Color.FromHex("#D43F51");
 
             StatusImage.Source = "warning.png";
             StatusImage.IsVisible = true;
@@ -173,6 +174,7 @@ namespace PaketGlobal
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
+            EntryView.LineColor = Color.FromHex("#E5E5E5");
 
             StatusImage.Source = "success.png";
             StatusImage.IsVisible = true;
@@ -185,6 +187,7 @@ namespace PaketGlobal
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
+            EntryView.LineColor = Color.FromHex("#E5E5E5");
 
             StatusImage.IsVisible = false;
         }

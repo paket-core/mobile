@@ -12,9 +12,8 @@ namespace PaketGlobal
             InitializeComponent();
 
              //entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
-            // entrySecretKey.Text = "SAJTF76PU4L7EQX4VU5KQ6M3DBJTSDGAJDOQHSNWHHEIKYVTAEHW3K3J";
-
-           // entryMnemonic.Text = "dignity chief orchard that few leopard input better mirror since crystal strike";
+             //entrySecretKey.Text = "SBSIKBMK62YLRMH5BWERPYGT3YG23FAIRIVFWA3JXARS3K67JYPEB6LE";
+             // entryMnemonic.Text = "dignity chief orchard that few leopard input better mirror since crystal strike";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {
@@ -78,6 +77,7 @@ namespace PaketGlobal
                         }
 
                         App.Locator.Profile.KeyPair = kd.KeyPair;
+                        App.Locator.AccountService.ActivationAddress = "";
 
                         var result = await App.Locator.FundServiceClient.GetUser(kd.KeyPair.Address, null);
 

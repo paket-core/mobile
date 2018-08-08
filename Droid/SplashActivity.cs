@@ -11,6 +11,8 @@ namespace PaketGlobal.Droid
     [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, Icon = "@drawable/icon")]
     public class SplashActivity : AppCompatActivity
     {
+        private bool isOpen = false;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -27,8 +29,13 @@ namespace PaketGlobal.Droid
         protected override void OnResume()
         {
             base.OnResume();
-            Task startupWork = new Task(() => { SimulateStartup(); });
-            startupWork.Start();
+
+            if(isOpen==false)
+            {
+                Task startupWork = new Task(() => { SimulateStartup(); });
+                startupWork.Start();
+            }
+          
         }
 
 
@@ -36,7 +43,11 @@ namespace PaketGlobal.Droid
         async void SimulateStartup ()
         {
             await Task.Delay(1000); // Simulate a bit of startup work.
+
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+
+            isOpen = true;
+
         }
     }
 }

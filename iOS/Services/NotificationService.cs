@@ -15,8 +15,8 @@ namespace PaketGlobal.iOS
 	public class NotificationService : INotificationService
 	{
         private string CurrentPackageId;
-
         private Action<string> callback;
+        private bool isDialogShow = false;
 
 		public NotificationService()
 		{
@@ -29,15 +29,17 @@ namespace PaketGlobal.iOS
 
         public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
         {
-            if(text.Length>0)
+            if(text.Length>0 && !isDialogShow)
             {
+                isDialogShow = true;
+
                 AppDelegate app = UIApplication.SharedApplication.Delegate as AppDelegate;
 
                 //Create Alert
                 var alertController = UIAlertController.Create("Paket Global", text, UIAlertControllerStyle.Alert);
 
                 //Add Action
-                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default,(obj) => isDialogShow=false ));
 
                 // Present Alert
                 app.Window.RootViewController.PresentViewController(alertController, true, null); 

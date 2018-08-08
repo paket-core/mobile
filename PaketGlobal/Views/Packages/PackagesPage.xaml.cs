@@ -45,6 +45,8 @@ namespace PaketGlobal
             }
         }
 
+
+
         public PackagesPage()
         {
             InitializeComponent();
@@ -75,6 +77,7 @@ namespace PaketGlobal
 
             if (fl)
             {
+                await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
             }

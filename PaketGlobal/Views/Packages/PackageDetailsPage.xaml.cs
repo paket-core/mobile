@@ -174,7 +174,7 @@ namespace PaketGlobal
 
                 if (position != null)
                 {
-                    location = position.Latitude.ToString() + "," + position.Longitude.ToString();
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
