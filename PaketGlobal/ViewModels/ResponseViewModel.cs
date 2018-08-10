@@ -324,6 +324,24 @@ namespace PaketGlobal
 		[DataMember(Name = "status")]
         private string status { get; set; }
 
+        public string LauncherName { get; set; }
+        public string RecipientName { get; set; }
+        public string CourierName { get; set; }
+
+        public string FullFormattedStatus{
+            get{
+                return ShortEscrow + " " + FormattedStatus;
+            }
+        }
+
+        public string ShortEscrow
+        {
+            get
+            {
+                return PaketId.Substring(0,3);
+            }
+        }
+
         public string Status
         {
             get
@@ -392,12 +410,12 @@ namespace PaketGlobal
                 if(DeadlineDT.Year==1970) {
                     return "";
                 }
-                return DeadlineDT.ToString("MM.dd.yyyy");
+                return DeadlineDT.ToString("dd.MM.yyyy");
             }
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString("MM.dd.yyyy"); }
+			get { return SendTimeDT.ToString("dd.MM.yyyy"); }
 		}
 
         public string StatusIconWithText
@@ -483,6 +501,25 @@ namespace PaketGlobal
                 else{
                     return "Launcher";
                 }
+            }
+        }
+               
+        public string NameFromKey(string key)
+        {
+            if(key == RecipientPubkey)
+            {
+                return (RecipientName != null) ? RecipientName : "";
+            }
+            else if(key == LauncherPubkey)
+            {
+                return (LauncherName != null) ? LauncherName : "";
+            }
+            else if(key == CourierPubkey)
+            {
+                return (CourierName != null) ? CourierName : "";
+            }
+            else{
+                return "";
             }
         }
 

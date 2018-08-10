@@ -9,6 +9,20 @@ namespace PaketGlobal
 		{
 			var packageData = await App.Locator.ServiceClient.Package(paketId);
 			if (packageData != null) {
+                
+                var launcherName = await App.Locator.FundServiceClient.GetUser(packageData.Package.LauncherPubkey,null);
+                var recipientName = await App.Locator.FundServiceClient.GetUser(packageData.Package.RecipientPubkey, null);
+
+                if(launcherName!=null)
+                {
+                    packageData.Package.LauncherName = launcherName.UserDetails.PaketUser;
+                }
+
+                if (recipientName != null)
+                {
+                    packageData.Package.RecipientName = recipientName.UserDetails.PaketUser;
+                }
+
 				var balanceData = await App.Locator.ServiceClient.Balance(paketId);
 
 				packageData.Package.DeliveryStatus = balanceData != null && balanceData.BalanceBUL == 0 ?

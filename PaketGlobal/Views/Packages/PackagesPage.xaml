@@ -65,7 +65,7 @@
                                 </StackLayout>
                                 <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
                                      <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                     <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
+                                     <Label Text="{Binding FullFormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
                                        HorizontalOptions="Center" VerticalOptions="Center"/>
                                 </StackLayout>
                                 <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 

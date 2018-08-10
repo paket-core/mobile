@@ -132,12 +132,13 @@ namespace PaketGlobal.Droid
                 string title = "";
                 string subtitle = "";
 
-                if(newPackage.isNewPackage)
+                if (newPackage.isNewPackage)
                 {
-                    title = "You have a new Package";
+                    title = "You have a new Package " + newPackage.ShortEscrow;
                 }
-                else{
-                    title = "Your Package " + newPackage.FormattedStatus;
+                else
+                {
+                    title = "Your Package " + newPackage.ShortEscrow + " " + newPackage.FormattedStatus;
                 }
 
                 subtitle = "Please check your Packages archive for more details";

@@ -16,7 +16,9 @@ namespace PaketGlobal.iOS
 
         public void StopUseEvent()
         {
-            IsRunning = false;
+            if(IsRunning){
+                IsRunning = false;
+            }
         }
     }
 }

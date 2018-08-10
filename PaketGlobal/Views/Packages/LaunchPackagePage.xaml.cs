@@ -144,7 +144,10 @@ namespace PaketGlobal
 
                 Unfocus();
 
-                App.ShowLoading(true);
+                ProgressBar.Progress = 0;
+                ProgressLabel.Text = AppResources.LaunchPackageStep0;
+                ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+                ProgressView.IsVisible = true;
 
                 var vm = ViewModel;
 
@@ -177,8 +180,8 @@ namespace PaketGlobal
                             }
                         }
                     }
-             
-                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location);
+
+                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {
@@ -197,7 +200,7 @@ namespace PaketGlobal
                     ShowErrorMessage(exc.Message);
                 }
 
-                App.ShowLoading(false);
+                ProgressView.IsVisible = false;
 
                 App.Locator.Wallet.StartTimer();
                 App.Locator.Packages.StartTimer();
@@ -288,5 +291,15 @@ namespace PaketGlobal
             EntryCollateral.IsEnabled = enabled;
             EntryRecepient.IsEnabled = enabled;
         }
+
+        void LaunchPackageEvents(object sender, LaunchPackageEventArgs e)
+        {
+            ProgressBar.AnimationEasing = Easing.SinIn;
+            ProgressBar.AnimationLength = 3000;
+            ProgressBar.AnimatedProgress = e.Progress;
+
+            ProgressLabel.Text = e.Message;
+        }
+
 	}
 }

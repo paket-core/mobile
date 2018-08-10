@@ -263,6 +263,12 @@
     <Reference Include="Plugin.Geolocator">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\monoandroid71\Plugin.Geolocator.dll</HintPath>
     </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin.Android">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -569,6 +575,11 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\layout\progress_dialog.xml" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\atoms_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

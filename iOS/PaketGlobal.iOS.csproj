@@ -232,6 +232,12 @@
     <Reference Include="Plugin.Geolocator">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\xamarinios10\Plugin.Geolocator.dll</HintPath>
     </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin.iOS">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -416,6 +422,9 @@
     <BundleResource Include="Resources\dropdown_arrow_top%402x.png" />
     <BundleResource Include="Resources\dropdown_arrow_top%403x.png" />
     <BundleResource Include="Resources\dropdown_arrow_top.png" />
+    <BundleResource Include="Resources\atoms_icon%403x.png" />
+    <BundleResource Include="Resources\atoms_icon%402x.png" />
+    <BundleResource Include="Resources\atoms_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

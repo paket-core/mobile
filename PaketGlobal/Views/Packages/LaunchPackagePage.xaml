@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="PaketGlobal.LaunchPackagePage"
+    xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
     xmlns:local="clr-namespace:PaketGlobal">
     <xfg:ContentPageGloss.BackgroundGradient>
@@ -95,6 +96,39 @@
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0" HeightRequest="30"></StackLayout>
                         </StackLayout>
                     </ScrollView>
+                </RelativeLayout>
+            </Frame>
+            <Frame x:Name="ProgressView"
+                      HasShadow="false"
+                      CornerRadius="0"
+                      IsVisible = "false"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.YConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                <RelativeLayout>
+                        <control:ProgressRing x:Name="ProgressBar" RingThickness="5" Progress="0.5"
+                                    RingBaseColor="Gray"
+                                    RingProgressColor="White"
+                                                                  RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-30}"
+                                                                  RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-30}"
+                                                                  RelativeLayout.WidthConstraint="60"
+                                                                  RelativeLayout.HeightConstraint="60"
+                        />
+
+                    <Label x:Name="ProgressLabel"
+                            RelativeLayout.XConstraint = "0"
+                            RelativeLayout.HeightConstraint="25"
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                            RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=40}"
+                            FontFamily="{StaticResource NormalFont}" FontSize="14"
+                            TextColor="White"
+                            XAlign="Center"
+                            HorizontalOptions="FillAndExpand"
+                           />
+                                           
                 </RelativeLayout>
             </Frame>
         </RelativeLayout>
