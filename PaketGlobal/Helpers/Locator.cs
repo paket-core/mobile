@@ -30,12 +30,27 @@ namespace PaketGlobal
 		}
 
 		public ServiceClient ServiceClient {
-			get { return GetInstance<ServiceClient>("PackageService"); }
+            get { return GetInstance<ServiceClient>(Config.PackageService); }
 		}
 
 		public ServiceClient FundServiceClient {
-			get { return GetInstance<ServiceClient>("FundService"); }
+            get { return GetInstance<ServiceClient>(Config.FundService); }
 		}
+
+        public ServiceClient BridgeServiceClient
+        {
+            get { return GetInstance<ServiceClient>(Config.BridgeService); }
+        }
+
+        public ServiceClient RouteServiceClient
+        {
+            get { return GetInstance<ServiceClient>(Config.RouteService); }
+        }
+
+        public ServiceClient IdentityServiceClient
+        {
+            get { return GetInstance<ServiceClient>(Config.IdentityService); }
+        }
 
 		public NavigationService NavigationService {
 			get { return (NavigationService)GetInstance<INavigationService>(); }
@@ -104,19 +119,38 @@ namespace PaketGlobal
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
 			}
 
-			if (!SimpleIoc.Default.IsRegistered<ServiceClient>("PackageService")) {
+            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.PackageService)) {
 				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl,
-																				  Config.ServerVersion,
-																				  Config.PrefundTestUrl),
-														  "PackageService");
+																				  Config.ServerVersion),
+                                                          Config.PackageService);
 			}
 
-			if (!SimpleIoc.Default.IsRegistered<ServiceClient>("FundService")) {
+            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.FundService)) {
 				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.FundServerUrl,
-																				  Config.FundServerVersion,
-																				  Config.PrefundTestUrl),
-														  "FundService");
+																				  Config.FundServerVersion),
+                                                          Config.FundService);
 			}
+
+            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.BridgeService))
+            {
+                SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.BridgeServerUrl,
+                                                                                  Config.BridgeServerVersion),
+                                                          Config.BridgeService);
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.RouteService))
+            {
+                SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.RouteServerUrl,
+                                                                                  Config.RouteServerVersion),
+                                                          Config.RouteService);
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.IdentityService))
+            {
+                SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.IdentityServerUrl,
+                                                                                  Config.IdentityServerVersion),
+                                                          Config.IdentityService);
+            }
 
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {
 				var navigationService = new NavigationService();

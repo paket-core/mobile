@@ -23,7 +23,6 @@ namespace PaketGlobal
 		public delegate string SignHandler(string data);
 
 		string restUrl;
-		string customUrl;
 
 		readonly RestClient restClient;
 
@@ -32,12 +31,12 @@ namespace PaketGlobal
 		public PubKeyHandler TryGetPubKey { get; set; }
 		public SignHandler TrySign { get; set; }
 
-		public ServiceClient(string url, string version, string custom = null)
+		public ServiceClient(string url, string version)
 		{
 			restUrl = url;
 			apiVersion = version;
-			customUrl = custom;
-			_serializer = new ServiceStackSerializer();
+
+            _serializer = new ServiceStackSerializer();
 
 			restClient = new RestClient(url);
 			restClient.UserAgent = "PaketGlobal";
@@ -104,20 +103,6 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request);
 		}
 
-		public async Task<PrefundData> FundTestUser(string pubkey)
-		{
-			var client = new RestClient(customUrl);
-			client.UserAgent = "PaketGlobal";
-			client.Timeout = 60 * 1000;
-			client.AddHandler("application/json", _serializer);
-			client.AddHandler("application/hal+json", _serializer);
-
-			var request = PrepareRequest("", Method.POST);
-
-			request.AddParameter("addr", pubkey);
-
-			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
-		}
 
         public async Task<AddEventData> AddEvent(string eventType)
         {

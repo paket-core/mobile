@@ -12,7 +12,7 @@ namespace PaketGlobal
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public ServiceClient ServiceClient {
-			get { return GetInstance<ServiceClient>("PackageService"); }
+            get { return GetInstance<ServiceClient>(Config.PackageService); }
 		}
 
 		public Workspace Workspace {
