@@ -24,6 +24,7 @@ namespace PaketGlobal
 		string OSVersion { get; }
 		string AppVersion { get; }
 		string PackageName { get; }
+        string GitCommit { get; }
 	}
 
 	public interface INotificationService

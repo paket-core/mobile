@@ -143,7 +143,6 @@ namespace PaketGlobal.Droid
 
                 subtitle = "Please check your Packages archive for more details";
 
-
                 DisplayBanner(title, subtitle, newPackage.StatusIcon);
             }
         }

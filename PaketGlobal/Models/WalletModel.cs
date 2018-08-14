@@ -122,7 +122,7 @@ namespace PaketGlobal
                     if (enabled)
                     {
                         Device.BeginInvokeOnMainThread(() => {
-                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page for more details\n",DidClickNotification);
+                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details",DidClickNotification);
 
                         });
                     } 

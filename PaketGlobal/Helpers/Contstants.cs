@@ -12,8 +12,13 @@ namespace PaketGlobal
         public const string CLICK_WALLET_NOTIFICATION = "DidClickWalletNotification";
         public const string NOTIFICATION = "PaketGlobal";
         public const string DISPLAY_PACKAGE_CHANGED = "CurrentDisplayPackageChanged";
+        public const string CHANGE_LANGUAGE = "ChangeLanguage";
 
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "app used";
+
+        public const string APP_URL = "https://github.com/paket-core/mobile";
+        public const string PAKET_URL = "https://paket.global";
+
     }
 }

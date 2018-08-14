@@ -425,6 +425,18 @@
     <BundleResource Include="Resources\atoms_icon%403x.png" />
     <BundleResource Include="Resources\atoms_icon%402x.png" />
     <BundleResource Include="Resources\atoms_icon.png" />
+    <BundleResource Include="Resources\settings_icon%403x.png" />
+    <BundleResource Include="Resources\settings_icon%402x.png" />
+    <BundleResource Include="Resources\settings_icon.png" />
+    <BundleResource Include="Resources\arrow_next%403x.png" />
+    <BundleResource Include="Resources\arrow_next%402x.png" />
+    <BundleResource Include="Resources\arrow_next.png" />
+    <BundleResource Include="Resources\info_icon%403x.png" />
+    <BundleResource Include="Resources\info_icon%402x.png" />
+    <BundleResource Include="Resources\info_icon.png" />
+    <BundleResource Include="Resources\select_icon%403x.png" />
+    <BundleResource Include="Resources\select_icon%402x.png" />
+    <BundleResource Include="Resources\select_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

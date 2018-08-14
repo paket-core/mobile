@@ -23,6 +23,15 @@ namespace PaketGlobal
 
 		public App()
         {
+            // This lookup NOT required for Windows platforms - the Culture will be automatically set
+            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
+            {
+                // determine the correct, supported .NET culture
+                var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+                AppResources.Culture = ci; // set the RESX for resource localization
+                DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
+
             InitializeComponent();
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
@@ -49,6 +58,11 @@ namespace PaketGlobal
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
                 MainPage = navPage;
 			});
+
+            MessagingCenter.Subscribe<Workspace, bool>(this, Constants.CHANGE_LANGUAGE, (sender, arg) => {
+                var navigationPage = new NavigationPage(new MainPage());
+                MainPage = navigationPage;
+            });
 		}
 
 

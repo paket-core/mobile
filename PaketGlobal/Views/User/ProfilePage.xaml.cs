@@ -46,14 +46,6 @@ namespace PaketGlobal
                 MnemonicView.IsVisible = false;
 			}
 
-            if(App.Locator.AccountService.ShowNotifications)
-            {
-                NotificationsButton.Image = "swift_on.png";
-            }
-            else{
-                NotificationsButton.Image = "swift_off.png";
-            }
-
 
             var refreshCommand = new Command(async () =>
             {
@@ -118,22 +110,6 @@ namespace PaketGlobal
 				App.ShowLoading(false);
 			}
 		}
-
-        private void NotificationsClicked(object sender, System.EventArgs e)
-        {
-            bool enabled = !App.Locator.AccountService.ShowNotifications;
-
-            if (enabled)
-            {
-                NotificationsButton.Image = "swift_on.png";
-            }
-            else
-            {
-                NotificationsButton.Image = "swift_off.png";
-            }
-
-            App.Locator.AccountService.ShowNotifications = enabled;
-        }
 
         private void ShowClicked(object sender, System.EventArgs e)
         {

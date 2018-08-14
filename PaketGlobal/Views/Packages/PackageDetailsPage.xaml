@@ -219,7 +219,7 @@
                                                   <StackLayout Spacing="0">
                                                     <Label TextColor="#A7A7A7" Text="Blockchain" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                     <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
-                                                        <Label x:Name="BlockChainLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="Click to open" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        <Label x:Name="BlockChainLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                                         <Button Image="copy_icon.png" Clicked="BlockchainLinkCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
                                                     </StackLayout>
                                                 </StackLayout>
@@ -231,7 +231,7 @@
                                                 <StackLayout Spacing="0">
                                                     <Label TextColor="#A7A7A7" Text="Package" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                     <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
-                                                        <Label x:Name="PackageLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="Click to open"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        <Label x:Name="PackageLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                                         <Button Image="copy_icon.png" Clicked="PackageLinkCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
                                                     </StackLayout>
                                                 </StackLayout>

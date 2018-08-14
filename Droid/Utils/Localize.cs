@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Threading;
 using System.Globalization;
+using Android.Content;
 
 [assembly:Dependency(typeof(PaketGlobal.Droid.Localize))]
 
@@ -13,15 +14,34 @@ namespace PaketGlobal.Droid
 		{
 			Thread.CurrentThread.CurrentCulture = ci;
 			Thread.CurrentThread.CurrentUICulture = ci;
+            CultureInfo.DefaultThreadCurrentCulture = ci;
 
 			Console.WriteLine("CurrentCulture set: " + ci.Name);
+
+            var contextPref = Android.App.Application.Context.GetSharedPreferences("PaketGlobalLocalize", FileCreationMode.Private);
+
+            var contextEdit = contextPref.Edit();
+            contextEdit.PutString("locale", ci.Name);
+
+            contextEdit.Commit();
 		}
 
 		public CultureInfo GetCurrentCultureInfo()
 		{
+            
+            var contextPref = Android.App.Application.Context.GetSharedPreferences("PaketGlobalLocalize", FileCreationMode.Private);
+
+            var locale = contextPref.GetString("locale", "");
+
 			var netLanguage = "en";
-			var androidLocale = Java.Util.Locale.Default;
-			netLanguage = AndroidToDotnetLanguage(androidLocale.ToString().Replace("_", "-"));
+            var androidLocale = Java.Util.Locale.Default;
+
+            if(locale.Length==0)
+            {
+                locale = androidLocale.ToString();
+            }
+
+            netLanguage = AndroidToDotnetLanguage(locale.Replace("_", "-"));
 
 			// this gets called a lot - try/catch can be expensive so consider caching or something
 			System.Globalization.CultureInfo ci = null;

@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64;armeabi</AndroidSupportedAbis>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -312,6 +313,12 @@
     <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
     <Compile Include="Services\Events\EventService.cs" />
     <Compile Include="Services\Events\EventSharedService.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxArrayAdapter.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxFilter.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxRendererDroid.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxVisualElementManager.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxEntryRendererDroid.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\CollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -580,6 +587,26 @@
     <AndroidResource Include="Resources\drawable-xhdpi\atoms_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\atoms_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\select_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -589,6 +616,7 @@
     <Folder Include="Utils\" />
     <Folder Include="Services\Location\" />
     <Folder Include="Services\Events\" />
+    <Folder Include="ViewRenderers\Autocomplete\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

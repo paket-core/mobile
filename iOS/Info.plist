@@ -97,5 +97,12 @@
 	<string>The location is required for tracking packages</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>The location is required for tracking packages</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ru</string>
+		<string>en</string>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>ru</string>
 </dict>
 </plist>

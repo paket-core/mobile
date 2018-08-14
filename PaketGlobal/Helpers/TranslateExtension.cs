@@ -12,7 +12,7 @@ namespace PaketGlobal
     public class TranslateExtension : IMarkupExtension
     {
         readonly CultureInfo ci = null;
-        const string ResourceId = "PaketGlobal.Resources";
+        const string ResourceId = "PaketGlobal.AppResources";
 
         static readonly Lazy<ResourceManager> ResMgr = new Lazy<ResourceManager>(() => new ResourceManager(ResourceId, IntrospectionExtensions.GetTypeInfo(typeof(TranslateExtension)).Assembly));
 

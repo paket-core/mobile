@@ -35,7 +35,7 @@ namespace PaketGlobal
             {
                 if (object.Equals(null, resourceMan))
                 {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("PaketGlobal.Resources", typeof(AppResources).GetTypeInfo().Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("PaketGlobal.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

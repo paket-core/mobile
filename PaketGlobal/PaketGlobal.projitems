@@ -83,6 +83,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Profile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Contstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\XfxComboBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\XfxEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\XamarinFormsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\About\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\About\LanguagePage.xaml.cs">
+      <DependentUpon>LanguagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -130,13 +140,24 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\Resources.resx">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LogicalName>PaketGlobal.Resources.resources</LogicalName>
+      <LogicalName>PaketGlobal.AppResources.resources</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\PaketEntryWithProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\About\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\About\LanguagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.resx">
+      <LogicalName>PaketGlobal.AppResources.ru.resources</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -150,5 +171,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Auth\" />
     <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\About\" />
   </ItemGroup>
 </Project>

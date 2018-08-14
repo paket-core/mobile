@@ -64,5 +64,10 @@ namespace PaketGlobal
 
 			MessagingCenter.Send(this,Constants.LOGOUT, true);
 		}
+
+        public void ChangeLanguage()
+        {
+            MessagingCenter.Send(this, Constants.CHANGE_LANGUAGE, true);   
+        }
 	}
 }

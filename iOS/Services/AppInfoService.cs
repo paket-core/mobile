@@ -17,5 +17,13 @@
 		public string PackageName {
 			get { return Foundation.NSBundle.MainBundle.BundleIdentifier; }
 		}
+
+        public string GitCommit
+        {
+            get
+            {
+                return ThisAssembly.Git.Commit;
+            }
+        }
 	}
 }

@@ -14,18 +14,27 @@ namespace PaketGlobal.iOS
 			Thread.CurrentThread.CurrentCulture = ci;
 			Thread.CurrentThread.CurrentUICulture = ci;
 
+            NSUserDefaults.StandardUserDefaults.SetString(ci.Name, "localize");
+            NSUserDefaults.StandardUserDefaults.Synchronize();
+
 			Console.WriteLine ("CurrentCulture set: " + ci.Name);
 		}
 
 		public CultureInfo GetCurrentCultureInfo ()
 		{
 			var netLanguage = "en";
-			if (NSLocale.PreferredLanguages.Length > 0)
+			
+            if (NSLocale.PreferredLanguages.Length > 0)
 			{
 				var pref = NSLocale.PreferredLanguages [0];
 
 				netLanguage = iOSToDotnetLanguage(pref);
 			}
+
+            if(NSUserDefaults.StandardUserDefaults.StringForKey("localize")!=null)
+            {
+                netLanguage = NSUserDefaults.StandardUserDefaults.StringForKey("localize");
+            }
 
 			// this gets called a lot - try/catch can be expensive so consider caching or something
 			System.Globalization.CultureInfo ci = null;
