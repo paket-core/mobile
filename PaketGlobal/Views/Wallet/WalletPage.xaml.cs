@@ -287,7 +287,6 @@ namespace PaketGlobal
 
 				App.ShowLoading(true);
 
-        
                 try{
                     double amount = double.Parse(EntryAmount.Text);
 
@@ -304,19 +303,15 @@ namespace PaketGlobal
                             SundBULSMainStackView.IsVisible = false;
                             SendBULSSuccessView.IsVisible = true;
                         }
-                        else
-                        {
-                            ShowMessage("Error sending funds");
-                        }
-                    }
-                    else
-                    {
-                        ShowMessage("Error sending funds");
-                    }  
+                    } 
                 }
-                catch (Exception exc)
+                catch (Exception ex)
                 {
-                    ShowMessage(exc.Message);
+                    EventHandler handler = (se, ee) => {
+                        EntryAmount.Focus();
+                    };
+
+                    ShowErrorMessage(ex.Message, false, handler);
                 }
 
 				App.ShowLoading(false);
@@ -346,14 +341,10 @@ namespace PaketGlobal
                         PurchaseBULMainView.IsVisible = false;
                         PurchaseBULSSuccessView.IsVisible = true;
                     }
-                    else
-                    {
-                        ShowMessage("Error purchasing BULs");
-                    }  
+ 
                 }
                 catch(Exception)
                 {
-                    ShowMessage("Error purchasing BULs");
                 }
 
                 App.ShowLoading(false);
@@ -380,15 +371,9 @@ namespace PaketGlobal
                         PurchaseXLMMainView.IsVisible = false;
                         PurchaseXLMSuccessView.IsVisible = true;
                     }
-                    else
-                    {
-                        ShowMessage("Error purchasing XLMs");
-                    }
-
                 }
                 catch(Exception)
                 {
-                    ShowMessage("Error purchasing XLMs");
                 }
 
                 App.ShowLoading(false);
@@ -491,7 +476,8 @@ namespace PaketGlobal
 		{
 			if (spendCurrency == SpendCurrency.BUL) {
 				if (PickerBULCurrency.SelectedItem == null) {
-					ShowMessage("Please select payment currency");
+                    
+                    EventHandler handleCurrencyHandler = (s, e) => {                         PickerBULCurrency.Focus();} ;                      ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler); 
 					return false;
 				}
 				if (!ValidationHelper.ValidateNumber(EntryAmountForBUL.Text)) {
@@ -500,7 +486,13 @@ namespace PaketGlobal
 				}
 			} else {
 				if (PickerXLMCurrency.SelectedItem == null) {
-					ShowMessage("Please select payment currency");
+					
+                    EventHandler handleCurrencyHandler = (s, e) => {
+                        PickerXLMCurrency.Focus();
+                    };
+
+                    ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler);
+
 					return false;
 				}
 				if (!ValidationHelper.ValidateNumber(EntryAmountForXLM.Text)) {

@@ -336,5 +336,112 @@
     <data name="CameraAccessNotGranted" xml:space="preserve">
         <value>You must give access to the camera to scan the package</value>
     </data>
+    <data name="ErrorAddTrustToken" xml:space="preserve">
+        <value>Error adding trust token</value>
+    </data>
+     <data name="StellarAccountNotCreated" xml:space="preserve">
+        <value>Stellar account isn't created yet</value>
+    </data>
+    <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
+        <value>Please select payment currency</value>
+    </data>
 
+        <data name="ProfileSaved" xml:space="preserve">
+        <value>Profile info saved</value>
+    </data>
+
+    <data name="ProfileNotSaved" xml:space="preserve">
+        <value>Error saving profile info</value>
+    </data>
+
+     <data name="YRole" xml:space="preserve">
+        <value>Your Role</value>
+    </data>
+
+    <data name="LaunchPackageStep1" xml:space="preserve">
+        <value>Check launcher balance</value>
+    </data>
+
+    <data name="LaunchPackageStep2" xml:space="preserve">
+        <value>Check courier balance</value>
+    </data>
+
+    <data name="LaunchPackageStep3" xml:space="preserve">
+        <value>Create escrow account</value>
+    </data>
+
+    <data name="LaunchPackageStep4" xml:space="preserve">
+        <value>Sign escrow account transaction</value>
+    </data> 
+    <data name="LaunchPackageStep5" xml:space="preserve">
+        <value>Submit escrow account</value>
+    </data> 
+    <data name="LaunchPackageStep6" xml:space="preserve">
+        <value>Add token trust to escrow account</value>
+    </data> 
+    <data name="LaunchPackageStep7" xml:space="preserve">
+        <value>Prepare escrow</value>
+    </data>
+
+    <data name="LaunchPackageStep8" xml:space="preserve">
+        <value>Sign options transaction</value>
+    </data> 
+    <data name="LaunchPackageStep9" xml:space="preserve">
+        <value>Submit options transaction</value>
+    </data> 
+    <data name="LaunchPackageStep10" xml:space="preserve">
+        <value>Prepare send payment</value>
+    </data> 
+    <data name="LaunchPackageStep11" xml:space="preserve">
+        <value>Sign payment transaction</value>
+    </data> 
+    <data name="LaunchPackageStep12" xml:space="preserve">
+        <value>Submit payment transaction</value>
+    </data>
+
+       <data name="LaunchPackageStep0" xml:space="preserve">
+        <value>Getting a user location</value>
+    </data> 
+    <data name="FractionalDigitsError" xml:space="preserve">
+        <value>You can't specify more then 7 fractional digits</value>
+    </data> 
+     <data name="AppInfo" xml:space="preserve">
+        <value>APPLICATION INFORMATION</value>
+    </data>
+
+     <data name="About" xml:space="preserve">
+        <value>About</value>
+    </data> 
+    <data name="Packages" xml:space="preserve">
+        <value>Packages</value>
+    </data>
+
+    <data name="Version" xml:space="preserve">
+        <value>App Version</value>
+    </data>
+
+    <data name="Git" xml:space="preserve">
+        <value>Git Commit</value>
+    </data>
+
+    <data name="AppURL" xml:space="preserve">
+        <value>App URL</value>
+    </data>
+    
+    <data name="PaketURL" xml:space="preserve">
+        <value>Paket URL</value>
+    </data>
+
+   <data name="ClickToOpen" xml:space="preserve">
+        <value>Click to open</value>
+    </data>
+
+       <data name="Language" xml:space="preserve">
+        <value>Language</value>
+    </data>
+
+    <data name="SelectLanguage" xml:space="preserve">
+        <value>Select Language</value>
+    </data>
+    
 </root>

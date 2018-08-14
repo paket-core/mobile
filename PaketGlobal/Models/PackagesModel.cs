@@ -115,7 +115,6 @@ namespace PaketGlobal
 
                 bool enabled = App.Locator.AccountService.ShowNotifications;
 
-
                 foreach (Package p1 in packages)
                 {
                     foreach (Package p2 in PackagesList)
@@ -156,7 +155,10 @@ namespace PaketGlobal
 
             if (isneedTimer)
             {
-                timer.Start();
+                if(timer!=null)
+                {
+                    timer.Start();
+                }
             }
 
             CheckLocationUpdate();

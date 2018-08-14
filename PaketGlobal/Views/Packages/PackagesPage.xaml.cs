@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Plugin.Geolocator;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -45,6 +45,8 @@ namespace PaketGlobal
             }
         }
 
+
+
         public PackagesPage()
         {
             InitializeComponent();
@@ -75,8 +77,12 @@ namespace PaketGlobal
 
             if (fl)
             {
+                await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
+                await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_START);
+
+                App.Locator.EventService.StartUseEvent();
             }
 
             App.Locator.DeviceService.setStausBarLight();
@@ -155,7 +161,7 @@ namespace PaketGlobal
             }
             else
             {
-                ShowMessage(AppResources.ErrorGetPackage);
+                ShowErrorMessage(AppResources.ErrorGetPackage);
             }
 
 
@@ -169,8 +175,8 @@ namespace PaketGlobal
         {
             var newPackage = new Package()
             {
-               // CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
-               // RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+            //  CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
+            //  RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);

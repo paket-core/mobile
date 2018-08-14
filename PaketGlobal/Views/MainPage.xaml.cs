@@ -18,8 +18,6 @@ namespace PaketGlobal
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-			await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
         }
 
         protected override void OnDisappearing()

@@ -144,7 +144,10 @@ namespace PaketGlobal
 
                 Unfocus();
 
-                App.ShowLoading(true);
+                ProgressBar.Progress = 0;
+                ProgressLabel.Text = AppResources.LaunchPackageStep0;
+                ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+                ProgressView.IsVisible = true;
 
                 var vm = ViewModel;
 
@@ -169,11 +172,16 @@ namespace PaketGlobal
 
                         if(position!=null)
                         {
-                            location = position.Latitude.ToString() + "," + position.Longitude.ToString();   
+                            location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        
+                            if(location.Length>24)
+                            {
+                                location = location.Substring(0, 24);
+                            }
                         }
                     }
-             
-                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location);
+
+                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {
@@ -189,10 +197,10 @@ namespace PaketGlobal
                 }
                 catch (Exception exc)
                 {
-                    ShowMessage(exc.Message);
+                    ShowErrorMessage(exc.Message);
                 }
 
-                App.ShowLoading(false);
+                ProgressView.IsVisible = false;
 
                 App.Locator.Wallet.StartTimer();
                 App.Locator.Packages.StartTimer();
@@ -257,7 +265,7 @@ namespace PaketGlobal
             }
             else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
             {
-                ShowMessage(AppResources.SelectDeadlineDate);
+                EventHandler handleHandler = (s, e) => {                     EntryDeadline.Focus();                 };                  ShowErrorMessage(AppResources.SelectDeadlineDate, false, handleHandler); 
                 return false;
             }
             else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
@@ -283,5 +291,15 @@ namespace PaketGlobal
             EntryCollateral.IsEnabled = enabled;
             EntryRecepient.IsEnabled = enabled;
         }
+
+        void LaunchPackageEvents(object sender, LaunchPackageEventArgs e)
+        {
+            ProgressBar.AnimationEasing = Easing.SinIn;
+            ProgressBar.AnimationLength = 3000;
+            ProgressBar.AnimatedProgress = e.Progress;
+
+            ProgressLabel.Text = e.Message;
+        }
+
 	}
 }

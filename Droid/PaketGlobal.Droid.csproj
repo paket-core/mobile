@@ -28,8 +28,8 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64;armeabi</AndroidSupportedAbis>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -264,6 +264,12 @@
     <Reference Include="Plugin.Geolocator">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\monoandroid71\Plugin.Geolocator.dll</HintPath>
     </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin.Android">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -305,6 +311,14 @@
     <Compile Include="Services\Location\LocationAppManager.cs" />
     <Compile Include="Services\Location\LocationSharedService.cs" />
     <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
+    <Compile Include="Services\Events\EventService.cs" />
+    <Compile Include="Services\Events\EventSharedService.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxArrayAdapter.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxFilter.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxRendererDroid.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxVisualElementManager.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\XfxEntryRendererDroid.cs" />
+    <Compile Include="ViewRenderers\Autocomplete\CollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -567,6 +581,32 @@
     <AndroidResource Include="Resources\drawable-xhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\dropdown_arrow_top.png" />
     <AndroidResource Include="Resources\layout\progress_dialog.xml" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\atoms_icon.png" />
+    <AndroidResource Include="Resources\drawable\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\settings_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\arrow_next.png" />
+    <AndroidResource Include="Resources\drawable\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\info_icon.png" />
+    <AndroidResource Include="Resources\drawable\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\select_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -575,6 +615,8 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Utils\" />
     <Folder Include="Services\Location\" />
+    <Folder Include="Services\Events\" />
+    <Folder Include="ViewRenderers\Autocomplete\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />
@@ -607,4 +649,5 @@
   <Import Project="..\packages\Xamarin.Android.Support.Design.27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.Design.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Design.27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.Design.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.v7.MediaRouter.27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.MediaRouter.targets" Condition="Exists('..\packages\Xamarin.Android.Support.v7.MediaRouter.27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.MediaRouter.targets')" />
   <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\GitInfo.2.0.14\build\GitInfo.targets" Condition="Exists('..\packages\GitInfo.2.0.14\build\GitInfo.targets')" />
 </Project>

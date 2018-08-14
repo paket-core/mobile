@@ -54,9 +54,20 @@ namespace PaketGlobal
 
 		public void Logout ()
 		{
+            App.Locator.EventService.StopUseEvent();
+
+            App.Locator.LocationService.StopUpdateLocation();
+
+            App.Locator.AccountService.ActivationAddress = "";
+            
 			Profile.DeleteCredentials ();
 
 			MessagingCenter.Send(this,Constants.LOGOUT, true);
 		}
+
+        public void ChangeLanguage()
+        {
+            MessagingCenter.Send(this, Constants.CHANGE_LANGUAGE, true);   
+        }
 	}
 }

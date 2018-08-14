@@ -10,8 +10,6 @@ namespace PaketGlobal
     {
         private Package ViewModel { get { return BindingContext as Package; } }
 
-        private Command BarcodeTapCommand;
-
         private bool CanAcceptPackage = false;
         private BarcodePackageData BarcodeData;
         public bool ShouldDismiss = false;
@@ -30,6 +28,7 @@ namespace PaketGlobal
             {
                 TitleLabel.TranslationY = 35;
                 BackButton.TranslationY = 10;
+                ShareButton.TranslationY = 11;
             }
             else
             {
@@ -39,10 +38,12 @@ namespace PaketGlobal
             TitleLabel.TranslationY = 5;
             BackButton.TranslationY = -18;
             BackButton.TranslationX = -30;
+            ShareButton.TranslationY = -18;
+            ShareButton.TranslationX = -35;
 #endif
 
-            //TODO: temp
-            BottomBarcodeView.IsVisible = true;
+
+            BottomBarcodeView.IsVisible = false;
 
             var data = new BarcodePackageData
             {
@@ -52,7 +53,8 @@ namespace PaketGlobal
             BarcodeImage.BarcodeOptions.Height = 300;
             BarcodeImage.BarcodeOptions.Margin = 1;
             BarcodeImage.BarcodeValue = JsonConvert.SerializeObject(data);
-            BarcodeTapCommand = new Command(() =>
+
+            var barcodeTapCommand = new Command(() =>
             {
                 BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
 
@@ -65,7 +67,7 @@ namespace PaketGlobal
                 }
             });
 
-            XamEffects.Commands.SetTap(BarcodeView, BarcodeTapCommand);
+            XamEffects.Commands.SetTap(BarcodeView, barcodeTapCommand);
 
             App.Locator.DeviceService.setStausBarLight();
 
@@ -77,9 +79,9 @@ namespace PaketGlobal
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
-                //TODO: 
-               // AddEvents();
-                EventsInfoViewFrame.IsVisible = false;
+                AddEvents();
+
+                EventsInfoViewFrame.IsVisible = true;
 
                 MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
                 {
@@ -95,9 +97,47 @@ namespace PaketGlobal
                 BindingContext = await PackageHelper.GetPackageDetails(ViewModel.PaketId);
 
                 PullToRefresh.IsRefreshing = false;
+
+                if (ViewModel.LauncherName != null)
+                {
+                    LauncherCallSignView.IsVisible = true;
+                }
+
+                if (ViewModel.RecipientName != null)
+                {
+                    RecipientCallSignView.IsVisible = true;
+                }
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
+
+
+            if(ViewModel.LauncherName != null)
+            {
+                LauncherCallSignView.IsVisible = true;
+            }
+
+            if (ViewModel.RecipientName != null)
+            {
+                RecipientCallSignView.IsVisible = true;
+            }
+
+
+           var blockChainLinkCommand =  new Command(() =>
+            {
+                Device.OpenUri(new Uri(ViewModel.BlockchainUrl));
+            });
+            XamEffects.Commands.SetTap(BlockChainLinkLabel, blockChainLinkCommand);
+
+            var packageLinkCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri(ViewModel.PaketUrl));
+            });
+            XamEffects.Commands.SetTap(PackageLinkLabel, packageLinkCommand);
+
+
+            LinksFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
+            UsersFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
         }
 
         protected override void OnDisappearing()
@@ -120,6 +160,54 @@ namespace PaketGlobal
                 await Navigation.PopToRootAsync();  
             }
         }
+
+        private async void OnShareClicked(object sender, System.EventArgs e)
+        {
+    
+        }
+
+        private void EscrowPubKeyCopyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.PaketId);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyLauncherPubkeyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.LauncherPubkey);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyLauncherNameClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.LauncherName);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyRecipientPubkeyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.RecipientPubkey);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyRecipientNameClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.RecipientName);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void PackageLinkCopyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.PaketUrl);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void BlockchainLinkCopyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.BlockchainUrl);
+            ShowMessage(AppResources.Copied);
+        }
+
 
         private async void RefundClicked(object sender, System.EventArgs e)
         {
@@ -174,7 +262,7 @@ namespace PaketGlobal
 
                 if (position != null)
                 {
-                    location = position.Latitude.ToString() + "," + position.Longitude.ToString();
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
             }
 
@@ -271,7 +359,7 @@ namespace PaketGlobal
 
                     var dateLabel = new Label()
                     {
-                        Text = String.Format("{0:MM.dd.yyyy}", ev.TimestampDT),
+                        Text = String.Format("{0:dd.MM.yyyy HH:mm}", ev.TimestampDT),
                         TextColor = Color.FromHex("#A7A7A7"),
                         FontSize = 10
                     };
@@ -279,14 +367,40 @@ namespace PaketGlobal
 
                     stack.Children.Add(dateLabel);
 
-                    var userLabel = new Label()
+                    var keyLabel = new Label()
                     {
                         Text = ev.PaketUser,
                         TextColor = Color.FromHex("#555555"),
                         FontSize = 12,
                     };
-                    userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
+                    keyLabel.LineBreakMode = LineBreakMode.CharacterWrap;
+                    keyLabel.WidthRequest = 140;
+                    keyLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
+                    var keyTapCommand = new Command(() =>
+                    {
+                        App.Locator.ClipboardService.SendTextToClipboard(keyLabel.Text);
+                        ShowMessage(AppResources.Copied);
+                    });
+                    XamEffects.TouchEffect.SetColor(keyLabel, Color.LightGray);
+                    XamEffects.Commands.SetTap(keyLabel, keyTapCommand);
+                    stack.Children.Add(keyLabel);
 
+                    var userLabel = new Label()
+                    {
+                        Text = package.NameFromKey(ev.UserPubKey),
+                        TextColor = Color.FromHex("#555555"),
+                        FontSize = 12,
+                    };
+                    userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
+                    userLabel.WidthRequest = 140;
+                    userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
+                    var userTapCommand = new Command(() =>
+                    {
+                        App.Locator.ClipboardService.SendTextToClipboard(userLabel.Text);
+                        ShowMessage(AppResources.Copied);
+                    });
+                    XamEffects.TouchEffect.SetColor(userLabel, Color.LightGray);
+                    XamEffects.Commands.SetTap(userLabel, userTapCommand);
                     stack.Children.Add(userLabel);
 
 
@@ -295,8 +409,6 @@ namespace PaketGlobal
                         Source = "point_2.png",
                         HorizontalOptions = LayoutOptions.Start
                     };
-
-
 
                     var line = new BoxView()
                     {
@@ -309,18 +421,20 @@ namespace PaketGlobal
                     if (lastStackView == null)
                     {
                         relativeLayout.Children.Add(stack,
-                                            Constraint.RelativeToParent((parent) => { return 0; }));
+                                  Constraint.RelativeToParent((parent) => { return 0; }));
+                        
+                        if(package.Events.Count>1)
+                        {
+                            relativeLayout.Children.Add(line,
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Height + 14; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
+                                    Constraint.Constant(0.5f));
 
-                        relativeLayout.Children.Add(line,
-                                Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
-                                Constraint.RelativeToParent((parent) => { return 85; }),
-                                Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
-                                Constraint.Constant(0.5f));
-
-
-                        relativeLayout.Children.Add(progressImage,
-                                          Constraint.RelativeToParent((parent) => { return 0; }),
-                                          Constraint.RelativeToParent((parent) => { return 78; }));
+                            relativeLayout.Children.Add(progressImage,
+                                              Constraint.RelativeToParent((parent) => { return 0; }),
+                                              Constraint.RelativeToView(stack, (parent, view) => { return view.Y + view.Height + 7; }));
+                        }
                     }
                     else
                     {
@@ -333,21 +447,17 @@ namespace PaketGlobal
                         {
                             relativeLayout.Children.Add(line,
                                     Constraint.RelativeToView(stack, (parent, view) => { return view.X + 5; }),
-                                    Constraint.RelativeToParent((parent) => { return 85; }),
+                                    Constraint.RelativeToView(stack, (parent, view) => { return view.Height + 14; }),
                                     Constraint.RelativeToView(stack, (parent, view) => { return view.Width + 15; }),
                                     Constraint.Constant(0.5f));
                         }
-
-
-
 
                         relativeLayout.Children.Add(progressImage,
                                        Constraint.RelativeToView(lastStackView, (parent, view) => {
                                            return view.X + view.Width + 20;
                                        }),
-                                       Constraint.RelativeToParent((parent) => { return 78; }));
+                                        Constraint.RelativeToView(stack, (parent, view) => { return view.Y + view.Height + 7; }));
                     }
-
 
                     lastStackView = stack;
                 }

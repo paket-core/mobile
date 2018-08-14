@@ -29,6 +29,8 @@ namespace PaketGlobal.Droid
 
         public void StopUpdateLocation()
         {
+            IsRunning = false;
+
             MainActivity.Instance.StopLocationUpdate();
         }
     }

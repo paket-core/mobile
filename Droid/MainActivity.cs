@@ -52,6 +52,8 @@ namespace PaketGlobal.Droid
         private int progressStatus = 0, progressStatus1 = 100;
         private System.Threading.Thread progressThread;
 
+        private Intent EventServiceIntent;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -101,17 +103,6 @@ namespace PaketGlobal.Droid
                     Console.WriteLine(e);
                 }
             }
-
-            // This event fires when the ServiceConnection lets the client (our App class) know that
-            // the Service is connected. We use this event to start updating the UI with location
-            // updates from the Service
-            //LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
-            //    // notifies us of location changes from the system
-            //    LocationManager.Current.LocationService.LocationChanged += HandleLocationChanged;
-            //};
-
-            //LocationAppManager.StartLocationService();
-
         }
 
         protected override void OnStart()
@@ -126,6 +117,20 @@ namespace PaketGlobal.Droid
             Countly.SharedInstance().OnStop();
 
             base.OnStop();
+        }
+
+        protected override void OnDestroy()
+        {
+            StopEventsService();
+
+            if (LocationAppManager.isServiceStarted)
+            {
+                StopLocationUpdate();
+                StartLocationUpdate();  
+            }
+         
+
+            base.OnDestroy();
         }
 
 
@@ -191,6 +196,13 @@ namespace PaketGlobal.Droid
                     return new LocationSharedService();
                 });
             }
+
+            if (!SimpleIoc.Default.IsRegistered<IEventSharedService>())
+            {
+                SimpleIoc.Default.Register<IEventSharedService>(() => {
+                    return new EventSharedService();
+                });
+            }
 		}
 
         #region ProgressBar
@@ -249,6 +261,29 @@ namespace PaketGlobal.Droid
 
         #endregion
 
+        #region Events
+
+        public void StartEventsService()
+        {
+            if(EventServiceIntent==null)
+            {
+                EventServiceIntent = new Intent(this, typeof(EventService));
+                Android.App.Application.Context.StartService(EventServiceIntent);
+            }
+          
+        }
+
+        public void StopEventsService()
+        {
+            if(EventServiceIntent!=null)
+            {
+                Android.App.Application.Context.StopService(EventServiceIntent);
+                EventServiceIntent = null;
+            }
+        }
+
+        #endregion
+
         #region Android Location Service methods
 
         public void StartLocationUpdate()
@@ -269,7 +304,6 @@ namespace PaketGlobal.Droid
         {
             
         }
-
 
         #endregion
 	}

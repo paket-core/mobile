@@ -1,10 +1,15 @@
 ﻿using UIKit;
 using Foundation;
+using ObjCRuntime;
 
 using CountlySDK;
 using GalaSoft.MvvmLight.Ioc;
 
 using RoundedBoxView.Forms.Plugin.iOSUnified;
+
+using ProgressRingControl.Forms.Plugin.iOS;
+
+using System;
 
 namespace PaketGlobal.iOS
 {
@@ -18,6 +23,7 @@ namespace PaketGlobal.iOS
             XFGloss.iOS.Library.Init();
             XamEffects.iOS.Effects.Init(); 
             RoundedBoxViewRenderer.Init();
+            ProgressRingRenderer.Init();
 
             global::Xamarin.Forms.Forms.Init();
 
@@ -36,6 +42,8 @@ namespace PaketGlobal.iOS
 			LoadApplication(new App());
 
             uiApplication.SetStatusBarStyle(UIStatusBarStyle.BlackOpaque, false);
+
+            uiApplication.SetMinimumBackgroundFetchInterval(3600);
 
 			return base.FinishedLaunching(uiApplication, launchOptions);
 		}
@@ -80,6 +88,13 @@ namespace PaketGlobal.iOS
                     return new LocationSharedService();
                 });
             }
+
+            if (!SimpleIoc.Default.IsRegistered<IEventSharedService>())
+            {
+                SimpleIoc.Default.Register<IEventSharedService>(() => {
+                    return new EventSharedService();
+                });
+            }
 		}
 
         public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
@@ -103,5 +118,20 @@ namespace PaketGlobal.iOS
 
             return true;
         }
+
+        [Export("application:performFetchWithCompletionHandler:")]
+        public override async void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            if (application.ApplicationState != UIApplicationState.Inactive)
+            {
+                if (App.Locator.Profile.Activated)
+                {
+                    await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_USED);
+                }
+            }
+
+            completionHandler(UIBackgroundFetchResult.NoData);
+        }
+
     }
 }

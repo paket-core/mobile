@@ -35,7 +35,7 @@ namespace PaketGlobal
             {
                 if (object.Equals(null, resourceMan))
                 {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("PaketGlobal.Resources", typeof(AppResources).GetTypeInfo().Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("PaketGlobal.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -312,6 +312,157 @@ namespace PaketGlobal
             }
         }
 
+        internal static string ErrorAddTrustToken
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorAddTrustToken", resourceCulture);
+            }
+        }
+
+        internal static string StellarAccountNotCreated
+        {
+            get
+            {
+                return ResourceManager.GetString("StellarAccountNotCreated", resourceCulture);
+            }
+        }
+
+        internal static string PleaseSelectPaymentCurrency
+        {
+            get
+            {
+                return ResourceManager.GetString("PleaseSelectPaymentCurrency", resourceCulture);
+            }
+        }
+
+        internal static string ProfileSaved
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileSaved", resourceCulture);
+            }
+        }
+
+        internal static string ProfileNotSaved
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileNotSaved", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep12
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep12", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep11
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep11", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep10
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep10", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep9
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep9", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep8
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep8", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep7
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep7", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep6
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep6", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep5
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep5", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep4
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep4", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep3
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep3", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep2
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep2", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep1
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep1", resourceCulture);
+            }
+        }
+
+        internal static string FractionalDigitsError
+        {
+            get
+            {
+                return ResourceManager.GetString("FractionalDigitsError", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep0
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep0", resourceCulture);
+            }
+        }
 
 
     }

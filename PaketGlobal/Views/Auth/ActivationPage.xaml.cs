@@ -22,6 +22,9 @@ namespace PaketGlobal
                         sendLabel.Text = AppResources.ActivationEth;
                     }
                 }
+                else{
+                    LoadActivationAdderss();   
+                }
             }
 
             App.Locator.DeviceService.setStausBarBlack();
@@ -52,6 +55,11 @@ namespace PaketGlobal
             base.OnAppearing();
 
             App.Locator.DeviceService.setStausBarBlack();
+        }
+
+        private void LoadActivationAdderss()
+        {
+            
         }
 
 
@@ -96,7 +104,7 @@ namespace PaketGlobal
                         }
                         else
                         {
-                            ShowMessage("Error adding trust token");
+                            ShowErrorMessage(AppResources.ErrorAddTrustToken);
                         }
                     }
                 }

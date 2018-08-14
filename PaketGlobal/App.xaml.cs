@@ -23,6 +23,15 @@ namespace PaketGlobal
 
 		public App()
         {
+            // This lookup NOT required for Windows platforms - the Culture will be automatically set
+            if (Device.RuntimePlatform == Device.iOS || Device.RuntimePlatform == Device.Android)
+            {
+                // determine the correct, supported .NET culture
+                var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+                AppResources.Culture = ci; // set the RESX for resource localization
+                DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
+
             InitializeComponent();
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
@@ -34,11 +43,12 @@ namespace PaketGlobal
 			Locator.FundServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 
-			if (Locator.Profile.Activated) {
+			if (Locator.Profile.Activated) 
+            {
                 var navigationPage = new NavigationPage(new MainPage()); 
-
                 MainPage = navigationPage;
-			} else {
+			} 
+            else {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
 				MainPage = navPage;
 			}
@@ -46,9 +56,16 @@ namespace PaketGlobal
 
 			MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
-				MainPage = navPage;
+                MainPage = navPage;
 			});
+
+            MessagingCenter.Subscribe<Workspace, bool>(this, Constants.CHANGE_LANGUAGE, (sender, arg) => {
+                var navigationPage = new NavigationPage(new MainPage());
+                MainPage = navigationPage;
+            });
 		}
+
+
 
 		/// <summary>
 		/// Shows the loading indicator.

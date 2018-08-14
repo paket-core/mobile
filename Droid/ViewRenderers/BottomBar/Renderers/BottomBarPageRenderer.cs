@@ -142,12 +142,13 @@ namespace PaketGlobal.Droid
 
 					// create bottomBar control
 					_bottomBar = BottomNavigationBar.BottomBar.Attach (_frameLayout, null);
+                    _bottomBar.MaxFixedTabCount = 0;
 
 					_bottomBar.NoTabletGoodness ();
-					if (bottomBarPage.FixedMode)
-					{
+				//	if (bottomBarPage.FixedMode)
+				//	{
 						_bottomBar.UseFixedMode();
-					}
+				//	}
 
 					switch (bottomBarPage.BarTheme)
 					{

@@ -24,10 +24,12 @@ namespace PaketGlobal
 		string OSVersion { get; }
 		string AppVersion { get; }
 		string PackageName { get; }
+        string GitCommit { get; }
 	}
 
 	public interface INotificationService
 	{
+        void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null);
 		void ShowMessage(string text, bool lengthLong = false);
         void ShowPackageNotification(Package package, Action<string> callback);
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);
@@ -59,5 +61,11 @@ namespace PaketGlobal
     {
         void StartUpdateLocation();
         void StopUpdateLocation();
+    }
+
+    public interface IEventSharedService
+    {
+        void StartUseEvent();
+        void StopUseEvent();
     }
 }

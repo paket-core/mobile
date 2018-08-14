@@ -117,12 +117,12 @@ namespace PaketGlobal
                     Balance = bal; 
                 }
 
-                if(bal.BalanceBUL != Balance.BalanceBUL || bal.BalanceXLM != Balance.BalanceXLM)
+                if(bal.BalanceBUL != Balance.BalanceBUL)
                 {
                     if (enabled)
                     {
                         Device.BeginInvokeOnMainThread(() => {
-                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page for more details\n",DidClickNotification);
+                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details",DidClickNotification);
 
                         });
                     } 
@@ -133,7 +133,9 @@ namespace PaketGlobal
 
             if (isneedTimer)
             {
-                timer.Start();
+                if(timer!=null){
+                    timer.Start();
+                }
             }
         }
 

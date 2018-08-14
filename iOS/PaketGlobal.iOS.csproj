@@ -232,6 +232,12 @@
     <Reference Include="Plugin.Geolocator">
       <HintPath>..\packages\Xam.Plugin.Geolocator.4.5.0.6\lib\xamarinios10\Plugin.Geolocator.dll</HintPath>
     </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="ProgressRing.Forms.Plugin.iOS">
+      <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -240,6 +246,9 @@
     <ImageAsset Include="Assets.xcassets\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\paket_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\tab_about.png" />
@@ -413,6 +422,21 @@
     <BundleResource Include="Resources\dropdown_arrow_top%402x.png" />
     <BundleResource Include="Resources\dropdown_arrow_top%403x.png" />
     <BundleResource Include="Resources\dropdown_arrow_top.png" />
+    <BundleResource Include="Resources\atoms_icon%403x.png" />
+    <BundleResource Include="Resources\atoms_icon%402x.png" />
+    <BundleResource Include="Resources\atoms_icon.png" />
+    <BundleResource Include="Resources\settings_icon%403x.png" />
+    <BundleResource Include="Resources\settings_icon%402x.png" />
+    <BundleResource Include="Resources\settings_icon.png" />
+    <BundleResource Include="Resources\arrow_next%403x.png" />
+    <BundleResource Include="Resources\arrow_next%402x.png" />
+    <BundleResource Include="Resources\arrow_next.png" />
+    <BundleResource Include="Resources\info_icon%403x.png" />
+    <BundleResource Include="Resources\info_icon%402x.png" />
+    <BundleResource Include="Resources\info_icon.png" />
+    <BundleResource Include="Resources\select_icon%403x.png" />
+    <BundleResource Include="Resources\select_icon%402x.png" />
+    <BundleResource Include="Resources\select_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -438,8 +462,9 @@
     <Compile Include="ViewRenders\PullToRefreshLayoutRenderer.cs" />
     <Compile Include="Utils\Localize.cs" />
     <Compile Include="Services\LocationSharedService.cs" />
-    <Compile Include="Services\LocationManager.cs" />
     <Compile Include="Services\LocationUpdatedEventArgs.cs" />
+    <Compile Include="Services\EventSharedService.cs" />
+    <Compile Include="Services\LocationManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -463,4 +488,5 @@
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\GitInfo.2.0.14\build\GitInfo.targets" Condition="Exists('..\packages\GitInfo.2.0.14\build\GitInfo.targets')" />
 </Project>

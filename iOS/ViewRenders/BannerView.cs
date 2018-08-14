@@ -86,10 +86,10 @@ namespace PaketGlobal.iOS.ViewRenders
 
             if(package.isNewPackage)
             {
-                TitleLabel.Text = "You have a new Package";   
+                TitleLabel.Text = "You have a new Package " +package.ShortEscrow;   
             }
             else{
-                TitleLabel.Text = "Your Package " + package.FormattedStatus;
+                TitleLabel.Text = "Your Package " + package.ShortEscrow + " " + package.FormattedStatus;
             }
 
 

@@ -9,9 +9,33 @@ using static PaketGlobal.ServiceClient;
 
 namespace PaketGlobal
 {
+    public class LaunchPackageEventArgs : EventArgs
+    {
+        private readonly string message;
+        private readonly double progress;
+
+        public LaunchPackageEventArgs(string message, double progress)
+        {
+            this.message = message;
+            this.progress = progress;
+        }
+
+        public string Message
+        {
+            get { return this.message; }
+        }
+
+        public double Progress
+        {
+            get { return this.progress; }
+        }
+    }
+
 	public class StellarHelper
 	{
 		static string horizon_url = "https://horizon-testnet.stellar.org";
+
+        public delegate void LaunchPackageEventHandler(object sender,LaunchPackageEventArgs args);
 
         public static async Task<System.Collections.Generic.List<TransactionResponse>> GetTransactionsListFromAccount (KeyPair keyPair, int limit)
         {
@@ -26,47 +50,81 @@ namespace PaketGlobal
             return transactions.Records;
         }
 
-        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location)
+        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location, LaunchPackageEventHandler eventHandler)
 		{
+            double steps = 12;
+            double currentStep = 1;
+
             var payment =  StellarConverter.ConvertBULToStroops(paymentBuls);
 
             if (StellarConverter.IsValidBUL(payment)==false)
             {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+                throw new ServiceException(400, AppResources.FractionalDigitsError);
             }
 
             var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
 
             if (StellarConverter.IsValidBUL(collateral)==false)
             {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+                throw new ServiceException(400, AppResources.FractionalDigitsError);
             }
 
-			//Check launcher's balance
+            //Check launcher's balance
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep1,currentStep / steps));
+
+            currentStep++;
+
 			var launcherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
             if (launcherBalance == null || launcherBalance.BalanceBUL < payment) {
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
 			//Check courier's balance
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+
+            currentStep++;
+
 			var courierBalance = await App.Locator.ServiceClient.Balance(courierPubkey);
             if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
 			}
 
 			//Create escrow account
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep3, currentStep / steps));
+
+            currentStep++;
+
 			var accountResult = await App.Locator.ServiceClient.PrepareCrateAccount(App.Locator.Profile.Pubkey, escrowKP.Address, 4);//Change to 20000200
 			if (accountResult != null) {
 				//Sign escrow account transaction
+                eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep4, currentStep / steps));
+
+                currentStep++;
+
 				var signedCreate = await SignTransaction(App.Locator.Profile.KeyPair, accountResult.CreateTransaction);
 				if (signedCreate != null) {
 					//Submit escrow account
+
+                    eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep5, currentStep / steps));
+
+                    currentStep++;
+
 					var submitCreate = await App.Locator.ServiceClient.SubmitTransaction(signedCreate);
 					if (submitCreate != null) {
 						//Add token trust to escrow account
+
+                        eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep6, currentStep / steps));
+
+                        currentStep++;
+
 						var trustResult = await AddTrustToken(escrowKP);
 						if (trustResult) {
 							//Prepare escrow
+
+                            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep7, currentStep / steps));
+
+                            currentStep++;
+
 							var launchResult = await App.Locator.ServiceClient.PrepareEscrow(escrowKP.Address, App.Locator.Profile.Pubkey,
 																							 recipientPubkey, deadlineTimestamp,
 																							 courierPubkey, paymentBuls,
@@ -75,18 +133,39 @@ namespace PaketGlobal
 																							 });
 							if (launchResult != null) {
 								//Sign options transaction
+                                eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep8, currentStep / steps));
+
+                                currentStep++;
+
 								var signedOptions = await SignTransaction(escrowKP, launchResult.SetOptionsTransaction);
 								if (signedOptions != null) {
-									//Submit options transaction
+                                    //Submit options transaction
+
+                                    eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep9, currentStep / steps));
+
+                                    currentStep++;
+
 									var submitOptions = await App.Locator.ServiceClient.SubmitTransaction(signedOptions);
 									if (submitOptions != null) {
 										//Prepare send payment
+                                        eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep10, currentStep / steps));
+
+                                        currentStep++;
+
 										var paymentTrans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowKP.Address, paymentBuls);
 										if (paymentTrans != null) {
 											//Sign payment transaction
+                                            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep11, currentStep / steps));
+
+                                            currentStep++;
+
 											var signed = await SignTransaction(App.Locator.Profile.KeyPair, paymentTrans.Transaction);
 											if (signed != null) {
 												//Submit payment transaction
+                                                eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep12, currentStep / steps));
+
+                                                currentStep++;
+
 												var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
 												if (paymentResult != null) {
 													//var newLauncherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check

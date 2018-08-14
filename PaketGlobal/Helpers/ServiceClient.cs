@@ -8,18 +8,21 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using RestSharp;
+using System.Linq;
+using Plugin.Geolocator;
 
 namespace PaketGlobal
 {
 	public class ServiceClient
 	{
+        public static readonly string[] IgnoreErrors = new string[] { "get_user", "bul_account"};
+
 		public readonly string apiVersion;
 
 		public delegate string PubKeyHandler();
 		public delegate string SignHandler(string data);
 
 		string restUrl;
-		string customUrl;
 
 		readonly RestClient restClient;
 
@@ -28,12 +31,12 @@ namespace PaketGlobal
 		public PubKeyHandler TryGetPubKey { get; set; }
 		public SignHandler TrySign { get; set; }
 
-		public ServiceClient(string url, string version, string custom = null)
+		public ServiceClient(string url, string version)
 		{
 			restUrl = url;
 			apiVersion = version;
-			customUrl = custom;
-			_serializer = new ServiceStackSerializer();
+
+            _serializer = new ServiceStackSerializer();
 
 			restClient = new RestClient(url);
 			restClient.UserAgent = "PaketGlobal";
@@ -100,20 +103,41 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request);
 		}
 
-		public async Task<PrefundData> FundTestUser(string pubkey)
-		{
-			var client = new RestClient(customUrl);
-			client.UserAgent = "PaketGlobal";
-			client.Timeout = 60 * 1000;
-			client.AddHandler("application/json", _serializer);
-			client.AddHandler("application/hal+json", _serializer);
 
-			var request = PrepareRequest("", Method.POST);
+        public async Task<AddEventData> AddEvent(string eventType)
+        {
+            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
 
-			request.AddParameter("addr", pubkey);
+            string location = null;
 
-			return await SendRequest<PrefundData>(request, pubkey, signData: false, customClient: client);
-		}
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetPositionAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                    if (location.Length > 24)
+                    {
+                        location = location.Substring(0, 24);
+                    }
+                }
+            }
+
+            var request = PrepareRequest(apiVersion + "/add_event", Method.POST);
+
+            request.AddParameter("event_type", eventType);
+           
+            if (location != null)
+            {
+                request.AddParameter("location", location);
+            }
+
+            return await SendRequest<AddEventData>(request);
+        }
 
 		#endregion User
 
@@ -165,6 +189,13 @@ namespace PaketGlobal
             if(StellarConverter.IsValidBUL(amount)==false)
             {
                 throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            }
+
+            var myBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+
+            if (myBalance == null || myBalance.BalanceBUL < amount)
+            {
+                throw new ServiceException(400, "Insufficient BULs");
             }
 
 			request.AddParameter("from_pubkey", fromPubkey);
@@ -310,7 +341,9 @@ namespace PaketGlobal
             if (includePubkey)
             {
                 pubkey = pubkey ?? TryGetPubKey?.Invoke();
-                if (pubkey != null) request.AddHeader("Pubkey", pubkey);
+                if (pubkey != null){
+                    request.AddHeader("Pubkey", pubkey);
+                }
             }
         }
 
@@ -418,9 +451,19 @@ namespace PaketGlobal
                     else{
                         var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
                         if (error == null)
+                        {
                             throw new ServiceException((int)response.StatusCode, response.Content);
-                        else
-                            throw new ServiceException((int)response.StatusCode, error.Error.Message);
+                        }
+                        else{
+                            var method = response.ResponseUri.Segments.Last();
+                            if(!ServiceClient.IgnoreErrors.Contains<string>(method))
+                            {
+                                throw new ServiceException((int)response.StatusCode, error.Error.Message);
+                            }
+                            else{
+                                throw new ServiceException((int)response.StatusCode, ""); 
+                            }
+                        }
                     } 
                 }
 			}

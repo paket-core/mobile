@@ -252,6 +252,13 @@ namespace PaketGlobal
 
     }
 
+    [DataContract]
+    public class AddEventData : BaseData
+    {
+
+    }
+
+
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
@@ -317,6 +324,24 @@ namespace PaketGlobal
 		[DataMember(Name = "status")]
         private string status { get; set; }
 
+        public string LauncherName { get; set; }
+        public string RecipientName { get; set; }
+        public string CourierName { get; set; }
+
+        public string FullFormattedStatus{
+            get{
+                return ShortEscrow + " " + FormattedStatus;
+            }
+        }
+
+        public string ShortEscrow
+        {
+            get
+            {
+                return PaketId.Substring(0,3);
+            }
+        }
+
         public string Status
         {
             get
@@ -349,8 +374,8 @@ namespace PaketGlobal
 		[DataMember(Name = "collateral")]
 		public long Collateral { get; set; }
 
-		[DataMember(Name = "send-timestamp")]
-		public long SendTimestamp { get; set; }
+        [DataMember(Name = "launch_date")]
+        public string SendTimestamp { get; set; }
 
 		[DataMember(Name = "events")]
 		public List<PackageEvent> Events { get; set; }
@@ -375,7 +400,9 @@ namespace PaketGlobal
 		}
 
 		public DateTime SendTimeDT {
-			get { return DateTimeHelper.FromUnixTime(SendTimestamp).ToLocalTime(); }
+            get{
+                return DateTime.Parse(SendTimestamp);
+            }
 		}
 
 		public string DeadlineString {
@@ -383,12 +410,12 @@ namespace PaketGlobal
                 if(DeadlineDT.Year==1970) {
                     return "";
                 }
-                return DeadlineDT.ToString("MM.dd.yyyy");
+                return DeadlineDT.ToString("dd.MM.yyyy");
             }
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString("MM.dd.yyyy"); }
+			get { return SendTimeDT.ToString("dd.MM.yyyy"); }
 		}
 
         public string StatusIconWithText
@@ -476,6 +503,25 @@ namespace PaketGlobal
                 }
             }
         }
+               
+        public string NameFromKey(string key)
+        {
+            if(key == RecipientPubkey)
+            {
+                return (RecipientName != null) ? RecipientName : "";
+            }
+            else if(key == LauncherPubkey)
+            {
+                return (LauncherName != null) ? LauncherName : "";
+            }
+            else if(key == CourierPubkey)
+            {
+                return (CourierName != null) ? CourierName : "";
+            }
+            else{
+                return "";
+            }
+        }
 
         public string FormattedCollateral
         {
@@ -500,11 +546,19 @@ namespace PaketGlobal
 		[DataMember(Name = "event_type")]
 		public string EventType { get; set; }
 
-		[DataMember(Name = "paket_user")]
-		public string PaketUser { get; set; }
+        public string PaketUser
+        {
+            get{
+                return UserPubKey;
+            }
+        }
 
 		[DataMember(Name = "timestamp")]
         public string Timestamp { get; set; }
+
+        [DataMember(Name = "user_pubkey")]
+        public string UserPubKey { get; set; }
+
 
 		[DataMember(Name = "GPS")]
 		public double[] GPS { get; set; }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Acr.UserDialogs;
+using Android.App;
 
 namespace PaketGlobal.Droid
 {
@@ -7,11 +9,34 @@ namespace PaketGlobal.Droid
 	{
         private BannerView mBanner;
         private Action<string> callback;
+        private bool isDialogShow = false;
 
 		public NotificationService()
 		{
 
 		}
+
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
+        {
+            if(text.Length>0 && !isDialogShow)
+            {
+                isDialogShow = true;
+
+                Android.App.AlertDialog.Builder dialog = new AlertDialog.Builder(Xamarin.Forms.Forms.Context);
+                AlertDialog alert = dialog.Create();
+                alert.SetTitle("Paket Global");
+                alert.SetMessage(text);
+                alert.SetButton("OK", (c, ev) => {
+                    isDialogShow = false;
+
+                    if (eventHandler != null)
+                    {
+                        eventHandler.Invoke(this, null);
+                    }
+                });
+                alert.Show(); 
+            }
+        }
 
 		public void ShowMessage(string text, bool lengthLong = false)
 		{

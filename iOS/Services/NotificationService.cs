@@ -15,8 +15,8 @@ namespace PaketGlobal.iOS
 	public class NotificationService : INotificationService
 	{
         private string CurrentPackageId;
-
         private Action<string> callback;
+        private bool isDialogShow = false;
 
 		public NotificationService()
 		{
@@ -27,13 +27,38 @@ namespace PaketGlobal.iOS
             Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
+        {
+            if(text.Length>0 && !isDialogShow)
+            {
+                Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+                {
+                    isDialogShow = true;
+
+                    AppDelegate app = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                    //Create Alert
+                    var alertController = UIAlertController.Create("Paket Global", text, UIAlertControllerStyle.Alert);
+
+                    //Add Action
+                    alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false));
+
+                    // Present Alert
+                    app.Window.RootViewController.PresentViewController(alertController, true, null);
+                });
+            }
+       
+        }
+
         public void ShowMessage(string text, bool lengthLong = false)
 		{
-            // More configurations
-            Toast.MakeToast(text)
-                 .SetShowShadow(false) // Default is true
-                 .SetPosition(ToastPosition.Bottom) // Default is Bottom
-                 .Show();
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                Toast.MakeToast(text)
+                     .SetShowShadow(false) // Default is true
+                     .SetPosition(ToastPosition.Bottom) // Default is Bottom
+                     .Show();
+            });
 		}
 
         public void ShowWalletNotification(string title, string subTitle, Action<string> action)
