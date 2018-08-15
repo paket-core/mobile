@@ -92,7 +92,6 @@ namespace PaketGlobal
             DependencyService.Get<ILocalize>().SetLocale(ci);
 
             App.Locator.Workspace.ChangeLanguage();
-
         }
     }
 }

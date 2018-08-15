@@ -607,6 +607,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\select_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\select_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\addressbook_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

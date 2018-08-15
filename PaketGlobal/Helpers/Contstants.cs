@@ -4,6 +4,7 @@ namespace PaketGlobal
 {
     public static class Constants
     {
+        
         public const string LOGOUT = "Logout";
         public const string STOP_APP = "OnStopApp";
         public const string START_APP = "OnStartApp";
@@ -16,6 +17,8 @@ namespace PaketGlobal
 
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "app used";
+
+        public const string ADDRESS_BOOK = "address_book";
 
         public const string APP_URL = "https://github.com/paket-core/mobile";
         public const string PAKET_URL = "https://paket.global";

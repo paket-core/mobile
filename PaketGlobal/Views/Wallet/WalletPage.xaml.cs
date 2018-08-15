@@ -214,6 +214,24 @@ namespace PaketGlobal
             App.ShowLoading(false);
         }
 
+        private async void AddressButtonClicked(object sender, EventArgs e)
+        {
+            this.Unfocus();
+
+            AddressBookPage page = new AddressBookPage(false);
+            page.eventHandler = DidSelectItemHandler;
+
+            var mainPage = App.Current.MainPage;
+
+            await mainPage.Navigation.PushAsync(page);
+        }
+
+        private async void DidSelectItemHandler(object sender, AddressBookPageEventArgs e)
+        {
+            EntryRecepient.Text = e.Item;
+            recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+        }
+
 
         private void ShowXLMActivityClicked(object sender, EventArgs e)
         {

@@ -93,6 +93,10 @@
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.Designer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\AddressBookHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AddressBook\AddressBookPage.xaml.cs">
+      <DependentUpon>AddressBookPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -159,6 +163,10 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.resx">
       <LogicalName>PaketGlobal.AppResources.ru.resources</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\AddressBook\AddressBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -173,5 +181,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\About\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\AddressBook\" />
   </ItemGroup>
 </Project>

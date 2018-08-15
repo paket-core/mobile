@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           // entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
+            //entrySecretKey.Text = "SDHAITHOJU7FCQYRDIBE262WLBFIZD56PGBC6Q2C4XQA2IBJTFENU24C";
 
             if (!String.IsNullOrWhiteSpace(App.Locator.Profile.Pubkey))
             {

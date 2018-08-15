@@ -45,8 +45,9 @@ namespace PaketGlobal
 
 			if (Locator.Profile.Activated) 
             {
-                var navigationPage = new NavigationPage(new MainPage()); 
-                MainPage = navigationPage;
+                var navPage = new NavigationPage(new MainPage()); 
+               // var navPage = Locator.NavigationService.Initialize(new PackagesPage());
+                MainPage = navPage;
 			} 
             else {
                 var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());

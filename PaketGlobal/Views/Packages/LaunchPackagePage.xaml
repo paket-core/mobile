@@ -47,13 +47,15 @@
                                                                   Text="{Binding RecipientPubkey}"
                                                                   Placholder="{local:Translate EnterRecipient}"
                                                                   Completed="FieldCompleted"
-                                                                  Unfocus="FieldUnfocus"/>
+                                                                  Unfocus="FieldUnfocus"
+                                                                  ClickOnAddressButton="AddressButtonClicked"/>
                                     <local:PaketEntryWithProgress x:Name="EntryCourier"
                                                                   TopText="{local:Translate Courier}"
                                                                   Text="{Binding CourierPubkey}"
                                                                   Placholder="{local:Translate EnterCourier}"
                                                                   Completed="FieldCompleted"
-                                                                  Unfocus="FieldUnfocus"/>
+                                                                  Unfocus="FieldUnfocus"
+                                                                  ClickOnAddressButton="AddressButtonClicked"/>
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
@@ -73,7 +75,7 @@
                                     </ScrollView>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Deadline}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="Selected date" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
+                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="{local:Translate SelectedDate}" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
@@ -82,12 +84,12 @@
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
                                                           ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
                                     </StackLayout>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
                                                           ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
                                     </StackLayout>
                                 </StackLayout>

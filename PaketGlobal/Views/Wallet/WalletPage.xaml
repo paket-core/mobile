@@ -68,7 +68,8 @@
                                                                   EntryHeight="40"
                                                                   Placholder="{local:Translate EnterRecipient}"
                                                                   Completed="FieldCompleted"
-                                                                  Unfocus="FieldUnfocus"/>
+                                                                  Unfocus="FieldUnfocus"
+                                                                    ClickOnAddressButton="AddressButtonClicked"/>
                                  <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
                                  <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="{local:Translate Send}" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                               </StackLayout>
@@ -93,7 +94,7 @@
                                     <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
                                        <Image IsVisible="false" VerticalOptions="Start" x:Name="IconBULCurrencyView" Source="btc_icon.png" HorizontalOptions="Start" />
                                        <StackLayout Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerBULCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
+                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerBULCurrency" Title="{local:Translate SelectPaymentCurrency}" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                                              <Picker.ItemsSource>
                                                 <x:Array Type="{x:Type local:PaymentCurrency}">
                                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
@@ -133,7 +134,7 @@
                                     <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
                                        <Image IsVisible="false" VerticalOptions="Start" x:Name="IconXLMCurrencyView" Source="btc_icon.png" HorizontalOptions="Start" />
                                        <StackLayout Spacing="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerXLMCurrency" Title="Select payment currency" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
+                                          <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerXLMCurrency" Title="{local:Translate SelectPaymentCurrency}" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                                              <Picker.ItemsSource>
                                                 <x:Array Type="{x:Type local:PaymentCurrency}">
                                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>

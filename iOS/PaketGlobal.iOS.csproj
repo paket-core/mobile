@@ -437,6 +437,9 @@
     <BundleResource Include="Resources\select_icon%403x.png" />
     <BundleResource Include="Resources\select_icon%402x.png" />
     <BundleResource Include="Resources\select_icon.png" />
+    <BundleResource Include="Resources\addressbook_icon%403x.png" />
+    <BundleResource Include="Resources\addressbook_icon%402x.png" />
+    <BundleResource Include="Resources\addressbook_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

@@ -207,6 +207,40 @@ namespace PaketGlobal
             }
         }
 
+        private void AddressButtonClicked(object sender, EventArgs e)
+        {
+            this.Unfocus();
+
+            AddressBookPage page;
+
+            if(sender==EntryRecepient){
+                page = new AddressBookPage(false);
+            }
+            else{
+                page = new AddressBookPage(true);
+            }
+
+            page.eventHandler = DidSelectItemHandler;
+
+            this.Navigation.PushAsync(page);
+
+        }
+
+        private async void DidSelectItemHandler(object sender, AddressBookPageEventArgs e)
+        {
+            var page = sender as AddressBookPage;
+
+            if(page.IsCourierSelect)
+            {
+                EntryCourier.Text = e.Item;
+                courier = await EntryCourier.CheckValidCallSignOrPubKey();
+            }
+            else{
+                EntryRecepient.Text = e.Item;
+                recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+            }
+        }
+
         private async void FieldUnfocus(object sender, EventArgs e)
         {
             if (sender == EntryRecepient)

@@ -464,6 +464,21 @@ namespace PaketGlobal
             }
         }
 
+        internal static string SelectCourier
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectCourier", resourceCulture);
+            }
+        }
+
+        internal static string SelectRecipient
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectRecipient", resourceCulture);
+            }
+        }
 
     }
 }

@@ -18,4 +18,11 @@
                        RelativeLayout.HeightConstraint="20"
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-10}"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-25}"/>
+    <Button x:Name="SelectButton" Image="addressbook_icon.png" IsVisible="true"
+            Pressed="SelectPressed"
+            BackgroundColor="Transparent"
+                       RelativeLayout.WidthConstraint="28"
+                       RelativeLayout.HeightConstraint="28"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-8}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-33}"/>
 </RelativeLayout>
