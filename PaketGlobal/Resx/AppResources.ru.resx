@@ -447,4 +447,7 @@
     <data name="SelectCourier" xml:space="preserve">
         <value>Выберите курьера</value>
     </data>
+    <data name="CODE" xml:space="preserve">
+        <value>КОД</value>
+    </data>
 </root>

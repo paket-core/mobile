@@ -24,11 +24,11 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="hjD-Nw-N8Z">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paket Global.png" translatesAutoresizingMaskIntoConstraints="NO" id="1iH-zK-Yf7">
-                                <rect key="frame" x="117" y="283" width="141" height="101"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="powered_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="1iH-zK-Yf7">
+                                <rect key="frame" x="38" y="124" width="299" height="419"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="141" id="V4S-QP-C0F"/>
-                                    <constraint firstAttribute="height" constant="101" id="ZhQ-OR-HaY"/>
+                                    <constraint firstAttribute="width" constant="299" id="V4S-QP-C0F"/>
+                                    <constraint firstAttribute="height" constant="419" id="ZhQ-OR-HaY"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -49,7 +49,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Paket Global.png" width="141" height="101"/>
+        <image name="powered_logo.png" width="299" height="419"/>
         <image name="splash.png" width="375" height="812"/>
     </resources>
 </document>

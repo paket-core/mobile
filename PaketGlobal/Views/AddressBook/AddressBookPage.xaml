@@ -57,6 +57,15 @@
                         </ListView>
                 </RelativeLayout>
             </Frame>
+                        <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false" BackgroundColor="Transparent"
+                    Text = "No Users Found"
+                      XAlign="Center" YAlign="Center"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      TextColor="#D3D3D3" FontSize = "20"
+                      RelativeLayout.HeightConstraint="30"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5}"/>
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

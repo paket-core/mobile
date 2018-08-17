@@ -8,7 +8,7 @@
     </item>
     <item>
         <bitmap
- android:src="@drawable/logo"
+ android:src="@drawable/powered_logo"
  android:tileMode="disabled"
  android:gravity="center"/>
     </item>

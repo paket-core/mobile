@@ -612,6 +612,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\addressbook_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\addressbook_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\qr_scan_btn.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

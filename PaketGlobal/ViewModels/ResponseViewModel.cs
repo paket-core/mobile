@@ -328,12 +328,7 @@ namespace PaketGlobal
         public string RecipientName { get; set; }
         public string CourierName { get; set; }
 
-        public string FullFormattedStatus{
-            get{
-                return ShortEscrow + " " + FormattedStatus;
-            }
-        }
-
+ 
         public string ShortEscrow
         {
             get

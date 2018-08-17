@@ -440,6 +440,12 @@
     <BundleResource Include="Resources\addressbook_icon%403x.png" />
     <BundleResource Include="Resources\addressbook_icon%402x.png" />
     <BundleResource Include="Resources\addressbook_icon.png" />
+    <BundleResource Include="Resources\powered_logo%403x.png" />
+    <BundleResource Include="Resources\powered_logo%402x.png" />
+    <BundleResource Include="Resources\powered_logo.png" />
+    <BundleResource Include="Resources\qr_scan_btn%403x.png" />
+    <BundleResource Include="Resources\qr_scan_btn%402x.png" />
+    <BundleResource Include="Resources\qr_scan_btn.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

@@ -6,11 +6,39 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.1
+Milestone version: v.1.2.2
 
 ## Change Log
 
+### Milestone v.1.2.2  
+
+17-08-2018
+
+* QR code icon is not clear
+    https://github.com/paket-core/mobile/issues/30
+* Add the "powered by PAKET" logo
+    https://github.com/paket-core/mobile/issues/50
+
+15-08-2018
+
+* Create address book
+    https://github.com/paket-core/mobile/issues/47
+
+14-08-2018
+
+* Prepare for changing endpoint subdomains
+    https://github.com/paket-core/mobile/issues/49
+* Add about button
+    https://github.com/paket-core/mobile/issues/46
+* Add translation mechanism
+    https://github.com/paket-core/mobile/issues/48
+
 ### Milestone v.1.2.1  
+
+10-08-2018
+
+* Show progress while preparing escrow
+    https://github.com/paket-core/mobile/issues/44
 
 08-08-2018
 

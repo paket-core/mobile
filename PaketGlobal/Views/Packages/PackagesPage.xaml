@@ -22,7 +22,7 @@
             <StackLayout x:Name="RightButtons" Opacity="0" Spacing="15" HorizontalOptions="EndAndExpand" Orientation="Horizontal"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.95}"
                     RelativeLayout.YConstraint="18">
-                <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_code_small.png" HorizontalOptions="Start"/>
+                <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start"/>
                 <Button Clicked="LaunchPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="add_icon_small.png" HorizontalOptions="StartAndExpand"/>
             </StackLayout>
             <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,20,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
@@ -34,7 +34,7 @@
                                VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Spacing="15" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                        <Button Clicked="AcceptPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="qr_code.png" HorizontalOptions="Start" VerticalOptions="Center" />
+                        <Button Clicked="AcceptPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start" VerticalOptions="Center" />
                         <Button Clicked="LaunchPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="add.png" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                      </StackLayout>
                 </StackLayout>
@@ -65,8 +65,12 @@
                                 </StackLayout>
                                 <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
                                      <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                     <Label Text="{Binding FullFormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                                     <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                                </StackLayout>
+                                <StackLayout Spacing="0" RelativeLayout.YConstraint="30"
+                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}">
+                                     <Label XAlign="End" Text="{local:Translate CODE}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                     <Label XAlign="End" Text="{Binding ShortEscrow,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
                                 </StackLayout>
                                 <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
                                              RelativeLayout.XConstraint="37" 

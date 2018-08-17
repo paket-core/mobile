@@ -61,6 +61,11 @@ namespace PaketGlobal
             else{
                 TitleLabel.Text = AppResources.SelectRecipient;
             }
+
+            if(Items.Count==0)
+            {
+                PlacholderLabel.IsVisible = true;
+            }
         }
 
         private void OnBack(object sender, System.EventArgs e)
