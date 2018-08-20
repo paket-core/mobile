@@ -99,7 +99,7 @@
                 </ListView.ItemTemplate>
             </Views:ListView >
             <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false"
-                Text = "No Packages Found"
+                Text = "{local:Translate NoPackagesFound}"
                       XAlign="Center" YAlign="Center"
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"

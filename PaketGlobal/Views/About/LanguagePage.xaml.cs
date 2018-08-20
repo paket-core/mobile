@@ -22,14 +22,14 @@ namespace PaketGlobal
 
             var eng = new Language
             {
-                Name = "English",
+                Name = AppResources.English,
                 Code = "en",
                 Selected = false
             };
 
             var ru = new Language
             {
-                Name = "Russian",
+                Name = AppResources.Russian,
                 Code = "ru",
                 Selected = false
             };

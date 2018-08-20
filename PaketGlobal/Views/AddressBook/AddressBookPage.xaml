@@ -58,7 +58,7 @@
                 </RelativeLayout>
             </Frame>
                         <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false" BackgroundColor="Transparent"
-                    Text = "No Users Found"
+                    Text = "{local:Translate NoUsersFound}"
                       XAlign="Center" YAlign="Center"
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"

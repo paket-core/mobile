@@ -480,5 +480,69 @@ namespace PaketGlobal
             }
         }
 
+        internal static string English
+        {
+            get
+            {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+
+        internal static string Russian
+        {
+            get
+            {
+                return ResourceManager.GetString("Russian", resourceCulture);
+            }
+        }
+
+        internal static string Recipient
+        {
+            get
+            {
+                return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+
+        internal static string Courier
+        {
+            get
+            {
+                return ResourceManager.GetString("Courier", resourceCulture);
+            }
+        }
+
+        internal static string Launcher
+        {
+            get
+            {
+                return ResourceManager.GetString("Launcher", resourceCulture);
+            }
+        }
+
+        internal static string WaitingPickup
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingPickup", resourceCulture);
+            }
+        }
+
+
+        internal static string InTransit
+        {
+            get
+            {
+                return ResourceManager.GetString("InTransit", resourceCulture);
+            }
+        }
+
+        internal static string Delivered
+        {
+            get
+            {
+                return ResourceManager.GetString("Delivered", resourceCulture);
+            }
+        }
     }
 }

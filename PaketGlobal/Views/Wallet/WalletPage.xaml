@@ -24,29 +24,33 @@
                   <Label Text="{local:Translate YourBalance}" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                </StackLayout>
                <BoxView x:Name="BackgroundView" IsEnabled="true" BackgroundColor="#F0F0F0" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-210}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}" />
-               <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" Orientation="Horizontal" Scrolled="WalletsScrolled" IsEnabled="false" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="150" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="160">
-                  <StackLayout BackgroundColor="Transparent" HeightRequest="150" Orientation="Horizontal" Spacing="0">
-                     <BoxView WidthRequest="8" HeightRequest="150" BackgroundColor="Transparent" />
+               <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" Orientation="Horizontal" Scrolled="WalletsScrolled" IsEnabled="false" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="170" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="160">
+                  <StackLayout BackgroundColor="Transparent" HeightRequest="170" Orientation="Horizontal" Spacing="0">
+                     <BoxView WidthRequest="8" HeightRequest="170" BackgroundColor="Transparent" />
                      <local:PaketFrameWithShadow x:Name="BULFrameView" VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
                         <StackLayout BackgroundColor="Transparent" Spacing="10">
                            <Image Source="bul_wallet_icon.png" HorizontalOptions="Start" />
-                           <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black" />
-                           <ActivityIndicator x:Name="ActivityIndicatorBUL" IsVisible="true" IsRunning="true" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
+                           <StackLayout Spacing="0">
+                            <Label Text="{Binding Balance.FormattedBalanceBUL, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black" />
+                            <Label x:Name="BULSinEuroLabel" Text="{Binding Balance.FormattedBalanceBULEURO, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="18" TextColor="Black" />
+                            </StackLayout>
+                           <ActivityIndicator x:Name="ActivityIndicatorBUL" IsVisible="false" IsRunning="false" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
                            <Button IsVisible="false" Clicked="ShowBULActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_bul_button.png" VerticalOptions="Start" HorizontalOptions="Start" />
-                           <BoxView HeightRequest="10"></BoxView>
                            </StackLayout>
                      </local:PaketFrameWithShadow>
-                     <BoxView WidthRequest="20" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent" />
+                     <BoxView WidthRequest="20" VerticalOptions="Center" HeightRequest="170" BackgroundColor="Transparent" />
                      <local:PaketFrameWithShadow x:Name="XLMFrameView" VerticalOptions="StartAndExpand" CornerRadius="15" WidthRequest="280" BackgroundColor="White">
                         <StackLayout BackgroundColor="Transparent" Spacing="10">
                            <Image Source="xlm_wallet_icon.png" HorizontalOptions="Start" />
+                            <StackLayout Spacing="0">
                            <Label Text="{Binding Balance.FormattedBalanceXLM, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="36" TextColor="Black" />
-                           <ActivityIndicator x:Name="ActivityIndicatorXLM" IsVisible="true" IsRunning="true" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
+                            <Label x:Name="XLMinEuroLabel" Text="{Binding Balance.FormattedBalanceXLMEURO, Mode=OneWay}" HorizontalOptions="Start" FontFamily="{StaticResource NormalFont}" FontSize="18" TextColor="Black" />
+                            </StackLayout>
+                            <ActivityIndicator x:Name="ActivityIndicatorXLM" IsVisible="false" IsRunning="false" Color="#606686" HorizontalOptions="Start" VerticalOptions="Start" HeightRequest="20" WidthRequest="20" />
                            <Button IsVisible="false" Clicked="ShowXLMActivityClicked" HeightRequest="10" WidthRequest="88" Image="show_xlm_button.png" VerticalOptions="Start" HorizontalOptions="Start" />
-                           <BoxView HeightRequest="10"></BoxView>
                             </StackLayout>
                      </local:PaketFrameWithShadow>
-                     <BoxView WidthRequest="5" VerticalOptions="Center" HeightRequest="150" BackgroundColor="Transparent" />
+                     <BoxView WidthRequest="5" VerticalOptions="Center" HeightRequest="170" BackgroundColor="Transparent" />
                   </StackLayout>
                </ScrollView>
                <StackLayout Padding="27,0,27,0" VerticalOptions="StartAndExpand" RelativeLayout.XConstraint="0" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="340">

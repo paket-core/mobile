@@ -450,4 +450,29 @@
     <data name="CODE" xml:space="preserve">
         <value>КОД</value>
     </data>
+    <data name="English" xml:space="preserve">
+        <value>Английский</value>
+    </data>
+    <data name="Russian" xml:space="preserve">
+        <value>Русский</value>
+    </data>
+    <data name="NoPackagesFound" xml:space="preserve">
+        <value>У вас нет пакетов</value>
+    </data>
+    <data name="Launcher" xml:space="preserve">
+        <value>Отправитель</value>
+    </data>
+    <data name="WaitingPickup" xml:space="preserve">
+        <value>Ожидает отправки</value>
+    </data>
+    <data name="InTransit" xml:space="preserve">
+        <value>В пути</value>
+    </data>
+    <data name="Delivered" xml:space="preserve">
+        <value>Доставлен</value>
+    </data>
+    <data name="NoUsersFound" xml:space="preserve">
+        <value>Пользователи не найдены</value>
+    </data>
+    
 </root>

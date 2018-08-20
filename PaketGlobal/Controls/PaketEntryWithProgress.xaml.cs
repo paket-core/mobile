@@ -110,6 +110,11 @@ namespace PaketGlobal
             {
                 SelectButton.TranslationY = -7;
             }
+            else{
+                #if __IOS__
+                    SelectButton.TranslationY = -7;
+                #endif
+            }
         }
 
         private void OnEntryHeightChange(int value)

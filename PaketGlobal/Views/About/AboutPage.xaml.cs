@@ -59,6 +59,10 @@ namespace PaketGlobal
                 await mainPage.Navigation.PushAsync(page);
             });
             XamEffects.Commands.SetTap(LanguageView, languageCommand);
+
+            var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+
+            LanguageLabel.Text = ValidationHelper.UppercaseFirst(ci.NativeName);
         }
 
         protected override void OnAppearing()
