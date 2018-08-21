@@ -60,8 +60,15 @@ namespace PaketGlobal
             });
             XamEffects.Commands.SetTap(LanguageView, languageCommand);
 
-            var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
 
+            var joinTelegramCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri(Constants.TELEGRAM_URL));
+            });
+            XamEffects.Commands.SetTap(JoinTelegramView, joinTelegramCommand);
+
+
+            var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
             LanguageLabel.Text = ValidationHelper.UppercaseFirst(ci.NativeName);
         }
 

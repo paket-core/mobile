@@ -446,6 +446,9 @@
     <BundleResource Include="Resources\qr_scan_btn%403x.png" />
     <BundleResource Include="Resources\qr_scan_btn%402x.png" />
     <BundleResource Include="Resources\qr_scan_btn.png" />
+    <BundleResource Include="Resources\social_icon.png" />
+    <BundleResource Include="Resources\social_icon%402x.png" />
+    <BundleResource Include="Resources\social_icon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

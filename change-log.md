@@ -12,6 +12,16 @@ Milestone version: v.1.2.2
 
 ### Milestone v.1.2.2  
 
+21-08-2018
+
+* Add link to our telegram group in about screen
+    https://github.com/paket-core/mobile/issues/53
+
+20-08-2018
+
+* Add prices to wallet
+    https://github.com/paket-core/mobile/issues/52
+
 17-08-2018
 
 * QR code icon is not clear

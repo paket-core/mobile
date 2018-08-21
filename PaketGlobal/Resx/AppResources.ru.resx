@@ -474,5 +474,10 @@
     <data name="NoUsersFound" xml:space="preserve">
         <value>Пользователи не найдены</value>
     </data>
-    
+    <data name="Social" xml:space="preserve">
+        <value>СООБЩЕСТВА</value>
+    </data>
+    <data name="JoinTelegram" xml:space="preserve">
+        <value>Присоединиться в наш Telegram</value>
+    </data>
 </root>

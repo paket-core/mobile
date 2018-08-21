@@ -622,6 +622,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\qr_scan_btn.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\qr_scan_btn.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable\social_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
