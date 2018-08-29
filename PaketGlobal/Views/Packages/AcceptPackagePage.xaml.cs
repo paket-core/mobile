@@ -93,7 +93,7 @@ namespace PaketGlobal
 
 						StopScanning();
 
-						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
+						var package = await App.Locator.RouteServiceClient.Package(data.EscrowAddress);
 						if (package != null && package.Package != null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {

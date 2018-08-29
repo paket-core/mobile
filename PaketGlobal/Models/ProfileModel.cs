@@ -32,12 +32,12 @@ namespace PaketGlobal
 
 		public async Task Load()
 		{
-			var result = await App.Locator.FundServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
+			var result = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
 			if (result != null) {
 				PaketUser = result.UserDetails.PaketUser;
 			}
 
-			var userInfo = await App.Locator.FundServiceClient.UserInfos();
+			var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
 			if (userInfo != null) {
 				FullName = userInfo.UserDetails.FullName;
 				PhoneNumber = userInfo.UserDetails.PhoneNumber;
@@ -47,7 +47,7 @@ namespace PaketGlobal
 
 		public async Task<bool> Save()
 		{
-			var result = await App.Locator.FundServiceClient.UserInfos(FullName, PhoneNumber, Address);
+			var result = await App.Locator.IdentityServiceClient.UserInfos(FullName, PhoneNumber, Address);
 			return result != null;
 		}
 	}

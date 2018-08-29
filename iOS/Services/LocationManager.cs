@@ -131,7 +131,7 @@ namespace PaketGlobal.iOS
 
         public async void OnLocationChangedAsync(CLLocation location)
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
 
             if (result.Packages != null)
             {
@@ -150,7 +150,7 @@ namespace PaketGlobal.iOS
                         {
                             locationString = locationString.Substring(0, 24);
                         }
-                        await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+						await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationString);
                     }
                 }
             }

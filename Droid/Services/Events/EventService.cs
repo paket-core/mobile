@@ -103,7 +103,7 @@ namespace PaketGlobal.Droid
         {
             if (App.Locator.Profile.Activated)
             {
-                var result = await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_USED);
+				var result = await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 Console.WriteLine(result);
             }
         }

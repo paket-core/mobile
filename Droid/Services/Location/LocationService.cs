@@ -169,7 +169,7 @@ namespace PaketGlobal.Droid
 
         public async void OnLocationChangedAsync(Location location)
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
 
             if (result.Packages != null)
             {
@@ -190,7 +190,7 @@ namespace PaketGlobal.Droid
                         {
                             locationString = locationString.Substring(0, 24);
                         }
-                        await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+						await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationString);
                     }
                 }
             }

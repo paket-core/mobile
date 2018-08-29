@@ -290,11 +290,11 @@ namespace PaketGlobal
                 try{
                     double amount = double.Parse(EntryAmount.Text);
 
-                    var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
+					var trans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
                     if (trans != null)
                     {
                         var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-                        var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
+						var result = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 
                         if (result != null)
                         {
@@ -329,7 +329,7 @@ namespace PaketGlobal
 
                     double amount = double.Parse(EntryAmountForBUL.Text);
 
-                    var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
+                    var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
 
                     if (result != null)
                     {
@@ -359,7 +359,7 @@ namespace PaketGlobal
 
                     var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
                     var amount = double.Parse(EntryAmountForXLM.Text);
-                    var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
+                    var result = await App.Locator.IdentityServiceClient.PurchaseXLMs(amount, currency);
 
                     if (result != null)
                     {

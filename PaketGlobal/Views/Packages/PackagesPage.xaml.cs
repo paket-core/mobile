@@ -80,7 +80,7 @@ namespace PaketGlobal
                 await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
-                await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_START);
+				await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
                 App.Locator.EventService.StartUseEvent();
             }

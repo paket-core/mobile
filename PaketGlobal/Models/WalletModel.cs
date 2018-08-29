@@ -90,7 +90,7 @@ namespace PaketGlobal
 		{
             StopTimer();
 
-			var bal = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 			if (bal != null) {
                 
 				Balance = bal;
@@ -106,7 +106,7 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task Refresh()
         {
-            var bal = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
             bool enabled = App.Locator.AccountService.ShowNotifications;
 

@@ -126,7 +126,7 @@ namespace PaketGlobal.iOS
             {
                 if (App.Locator.Profile.Activated)
                 {
-                    await App.Locator.ServiceClient.AddEvent(Constants.EVENT_APP_USED);
+					await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 }
             }
 

@@ -191,7 +191,7 @@ namespace PaketGlobal
                 throw new ServiceException(400, "You can't specify more then 7 fractional digits");
             }
 
-            var myBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+			var myBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
             if (myBalance == null || myBalance.BalanceBUL < amount)
             {
@@ -280,6 +280,41 @@ namespace PaketGlobal
             }
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
+		}
+
+		public async Task<LaunchPackageData> CreatePackage(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, double paymentBuls, double collateralBuls,
+		                                                   string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans, string location, SignHandler customSign)
+		{
+			var request = PrepareRequest(apiVersion + "/create_package", Method.POST);
+
+			var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+
+			if (StellarConverter.IsValidBUL(payment) == false) {
+				throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+			}
+
+			var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+
+			if (StellarConverter.IsValidBUL(collateral) == false) {
+				throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+			}
+
+			request.AddParameter("escrow_pubkey", escrowPubkey);
+			request.AddParameter("launcher_pubkey", launcherPubkey);
+			request.AddParameter("recipient_pubkey", recipientPubkey);
+			request.AddParameter("deadline_timestamp", deadlineTimestamp);
+			request.AddParameter("payment_buls", payment);
+			request.AddParameter("collateral_buls", collateral);
+			request.AddParameter("set_options_transaction", setOptionsTrans);
+			request.AddParameter("refund_transaction", refundTrans);
+			request.AddParameter("merge_transaction", mergeTrans);
+			request.AddParameter("payment_transaction", paymentTrans);
+
+			if (location != null) {
+				request.AddParameter("location", location);
+			}
+
+			return await SendRequest<LaunchPackageData>(request, customSign: customSign);
 		}
 
 		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)

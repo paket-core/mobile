@@ -77,7 +77,7 @@ namespace PaketGlobal
                         App.Locator.Profile.KeyPair = kd.KeyPair;
                         App.Locator.AccountService.ActivationAddress = "";
 
-                        var result = await App.Locator.FundServiceClient.GetUser(kd.KeyPair.Address, null);
+                        var result = await App.Locator.IdentityServiceClient.GetUser(kd.KeyPair.Address, null);
 
                         App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
                                                                result?.UserDetails?.FullName,
@@ -155,13 +155,13 @@ namespace PaketGlobal
             {
                 if(App.Locator.AccountService.ActivationAddress.Length==0)
                 {
-                    var userInfo = await App.Locator.FundServiceClient.UserInfos();
+                    var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
 
                     if(userInfo != null)
                     {
                         if (userInfo.UserDetails.PaketUser == null)
                         {
-                            var paketNameDetails = await App.Locator.FundServiceClient.GetUser(App.Locator.Profile.KeyPair.Address, null);
+                            var paketNameDetails = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.KeyPair.Address, null);
                             if (paketNameDetails.UserDetails.PaketUser != null)
                             {
                                 userInfo.UserDetails.PaketUser = paketNameDetails.UserDetails.PaketUser;

@@ -207,7 +207,7 @@ namespace PaketGlobal
 
 						this.IsBusy = true;
 
-						var result = await App.Locator.FundServiceClient.GetUser(Text, null);
+						var result = await App.Locator.IdentityServiceClient.GetUser(Text, null);
 
 						var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
 
@@ -229,7 +229,7 @@ namespace PaketGlobal
 
 					this.IsBusy = true;
 
-					var result = await App.Locator.FundServiceClient.GetUser(null, Text);
+					var result = await App.Locator.IdentityServiceClient.GetUser(null, Text);
 
 					if (result == null) {
 						ShowErrorWithText(AppResources.UserNotFound);

@@ -89,7 +89,7 @@ namespace PaketGlobal
         {
             StopTimer();
 
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
             if (result != null)
             {
                 PackagesList = result.Packages;
@@ -107,7 +107,7 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task Refresh()
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
 
             if (result.Packages != null)
             {

@@ -98,9 +98,9 @@ namespace PaketGlobal
 
                 if (IsAddedInfo == false && IsFinishActivation == true)
                 {
-                    var updateResult = await App.Locator.FundServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, ViewModel.Address);
+                    var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, ViewModel.Address);
 
-                    var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+                    var createResult = await App.Locator.IdentityServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
 
                     if (createResult != null)
                     {
@@ -124,7 +124,7 @@ namespace PaketGlobal
                         //Retrievee private key
                         var kd = App.Locator.Profile.TryGetKeyData();
 
-                        var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
                                                                                       ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
                         if (result != null)
                         {
@@ -156,7 +156,7 @@ namespace PaketGlobal
                         var kd = Profile.GenerateKeyPairFromMnemonic();
                         App.Locator.Profile.KeyPair = kd.KeyPair;
 
-                        var result = await App.Locator.FundServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
+                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
                                                                                       ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
                         if (result != null)
                         {
@@ -167,7 +167,7 @@ namespace PaketGlobal
                                                                kd.MnemonicString);
 
 
-                            var createResult = await App.Locator.FundServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+                            var createResult = await App.Locator.IdentityServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
 
                             if (createResult != null)
                             {

@@ -43,6 +43,13 @@ namespace PaketGlobal
 			Locator.FundServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 
+			Locator.IdentityServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.IdentityServiceClient.TrySign = Locator.Profile.SignData;
+			Locator.RouteServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.RouteServiceClient.TrySign = Locator.Profile.SignData;
+			Locator.BridgeServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.BridgeServiceClient.TrySign = Locator.Profile.SignData;
+
 			if (Locator.Profile.Activated) 
             {
                 var navigationPage = new NavigationPage(new MainPage()); 
