@@ -38,8 +38,6 @@ namespace PaketGlobal
 
 			Network.UseTestNetwork();//TODO for test porposals
 
-			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
-			Locator.ServiceClient.TrySign = Locator.Profile.SignData;
 			Locator.FundServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
 

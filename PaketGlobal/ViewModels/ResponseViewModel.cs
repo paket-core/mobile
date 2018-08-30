@@ -101,11 +101,15 @@ namespace PaketGlobal
 		public Dictionary<string, string> Extras { get; set; }
 	}
 
-	//Wallet
+    //Wallet
 
-	[DataContract]
-	public class BalanceData : BaseData
-	{
+    [DataContract]
+    public class BalanceData : BaseData
+    {
+        [DataMember(Name = "account")]
+        public Balance Account { get; set; }
+  
+
 		[DataMember(Name = "bul_balance")]
 		public long BalanceBUL { get; set; }
 
