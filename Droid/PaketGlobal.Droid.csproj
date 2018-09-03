@@ -632,6 +632,36 @@
     <AndroidResource Include="Resources\drawable-xhdpi\copy_clipboard_button.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\copy_clipboard_button.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\copy_clipboard_button.png" />
+    <AndroidResource Include="Resources\drawable\activation_bg.png" />
+    <AndroidResource Include="Resources\drawable\shadow_top.png" />
+    <AndroidResource Include="Resources\drawable\check_activation_button.png" />
+    <AndroidResource Include="Resources\drawable\mnemonic_icon.png" />
+    <AndroidResource Include="Resources\drawable\mnemonic_overlay.png" />
+    <AndroidResource Include="Resources\drawable\next_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\activation_bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\shadow_top.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\check_activation_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\mnemonic_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\mnemonic_overlay.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\next_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\activation_bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\shadow_top.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\check_activation_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\mnemonic_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\mnemonic_overlay.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\next_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\activation_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\shadow_top.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\check_activation_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\mnemonic_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\mnemonic_overlay.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\next_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\activation_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\shadow_top.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\check_activation_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_overlay.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\next_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
