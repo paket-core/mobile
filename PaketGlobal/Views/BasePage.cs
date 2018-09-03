@@ -78,7 +78,7 @@ namespace PaketGlobal
 
         protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
         {
-            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
+            var navPage = App.Locator.NavigationService.Initialize(new WellcomePage());
             Application.Current.MainPage = navPage;
         }
 

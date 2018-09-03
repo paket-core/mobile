@@ -54,13 +54,13 @@ namespace PaketGlobal
                 MainPage = navigationPage;
 			} 
             else {
-                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
+                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
 				MainPage = navPage;
 			}
 
 
 			MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
-                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
+                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
                 MainPage = navPage;
 			});
 

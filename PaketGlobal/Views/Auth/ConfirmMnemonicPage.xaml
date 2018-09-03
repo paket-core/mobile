@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.ConfirmMnemonicPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
+    <local:BasePage.Content>
+        <RelativeLayout>
+            <Image Source="mnemonic_overlay.png" Aspect="Fill"
+                   RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <StackLayout x:Name="activateTitleLabel" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.YConstraint="40">
+                <Label Text="{local:Translate AlmostHere}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White"/>
+            </StackLayout>
+            <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_white_icon.png"
+                        Clicked="OnBack"
+                        RelativeLayout.XConstraint = "23"
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
+            <StackLayout VerticalOptions="Start" Spacing="50"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-40}"
+                      RelativeLayout.XConstraint="20"
+                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5,Constant=-140}">
+                <local:PaketFrame CornerRadius="15">
+                    <StackLayout Spacing="20" Padding="0,10,0,0">
+                        <Image BackgroundColor="Transparent" Source="mnemonic_icon.png" VerticalOptions="Center" HeightRequest="28" WidthRequest="28"/>
+                        <Label XAlign="Center" Text="{local:Translate ConfirmMnemonicText1}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                        <Label XAlign="Center" Text="{local:Translate ConfirmMnemonicText2}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
+                        <Button BackgroundColor="Transparent" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="#4D64E8" Text="{local:Translate Done}" WidthRequest="187" HeightRequest="54"
+                          VerticalOptions="Center" Clicked="OnNext"/>
+                    </StackLayout>
+                </local:PaketFrame>
+            </StackLayout>
+        </RelativeLayout>
+    </local:BasePage.Content>
+</local:BasePage>

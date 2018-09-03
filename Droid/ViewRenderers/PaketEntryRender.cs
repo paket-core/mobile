@@ -68,6 +68,11 @@ namespace PaketGlobal.Droid
             {
 				editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextFlagCapWords);
             }
+            else if (element.CapSentences == 2)
+            {
+                editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextVariationEmailAddress);
+            }
+
             editText.CompoundDrawablePadding = 25;
 
 

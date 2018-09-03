@@ -20,11 +20,12 @@ namespace PaketGlobal
 
     //User
 
+
     [DataContract]
-    public class CreateStellarAccountData : BaseData
+    public class VerifyData : BaseData
     {
-        [DataMember(Name = "payment_pubkey")]
-        public string PaymentAddress { get; set; }
+        [DataMember(Name = "status")]
+        public int Status { get; set; }
     }
 
 	[DataContract]
@@ -106,10 +107,6 @@ namespace PaketGlobal
     [DataContract]
     public class BalanceData : BaseData
     {
-        [DataMember(Name = "account")]
-        public Balance Account { get; set; }
-  
-
 		[DataMember(Name = "bul_balance")]
 		public long BalanceBUL { get; set; }
 

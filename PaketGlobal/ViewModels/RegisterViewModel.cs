@@ -8,8 +8,6 @@ namespace PaketGlobal
 		private string phoneNumber;
         private string address;
 
-		private PaymentCurrency? paymentCurrency;
-
 		public string UserName {
 			get { return userName; }
 			set { SetProperty(ref userName, value); }
@@ -25,10 +23,6 @@ namespace PaketGlobal
 			set { SetProperty(ref phoneNumber, value); }
 		}
 
-		public PaymentCurrency? PaymentCurrency {
-			get { return paymentCurrency; }
-			set { SetProperty(ref paymentCurrency, value); }
-		}
 
         public string Address
         {
@@ -43,7 +37,6 @@ namespace PaketGlobal
 			UserName = null;
 			FullName = null;
 			PhoneNumber = null;
-			PaymentCurrency = null;
             Address = null;
 		}
 	}

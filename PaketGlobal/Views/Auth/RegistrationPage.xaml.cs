@@ -19,6 +19,16 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+#if __ANDROID___
+            backButton.TranslationX = -25;
+#else
+            if (App.Locator.DeviceService.IsIphoneX() == true)
+            {
+                backButton.TranslationY = 30;
+                titleLabel.TranslationY = 30;
+            }
+#endif
+
             BindingContext = new RegisterViewModel();
 
             IsAddedInfo = isAddedInfo;
@@ -33,7 +43,6 @@ namespace PaketGlobal
             {
                 generateButton.Text = AppResources.CompleteRegistration;
                 titleLabel.Text = AppResources.AddInfo;
-                pickerCurrency.IsVisible = false;
             }
             else if (isAddedInfo == false && IsFinishActivation == true)
             {
@@ -54,15 +63,21 @@ namespace PaketGlobal
                 }
             }
 
-            App.Locator.DeviceService.setStausBarBlack();
-
-#if __IOS__
-            if (App.Locator.DeviceService.IsIphoneX() == true)
+            var selectCountryCommand  = new Command(() =>
             {
-                botBg.TranslationY = botBg.TranslationY - 40;
-                botStack.TranslationY = botStack.TranslationY - 40;
-            }
-#endif
+  
+            });
+
+            XamEffects.Commands.SetTap(countryCodeLabel, selectCountryCommand);
+
+            var selectTermsCommand = new Command(() =>
+            {
+
+            });
+
+            XamEffects.Commands.SetTap(termsOfServiceLabel, selectTermsCommand);
+
+            App.Locator.DeviceService.setStausBarLight();
         }
 
         public RegistrationPage()
@@ -76,10 +91,8 @@ namespace PaketGlobal
         {
             base.OnAppearing();
 
-            App.Locator.DeviceService.setStausBarBlack();
+            App.Locator.DeviceService.setStausBarLight();
         }
-
-        #region Button Actions
 
         private void OnBack(object sender, EventArgs e)
         {
@@ -100,22 +113,9 @@ namespace PaketGlobal
                 {
                     var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, ViewModel.Address);
 
-                    var createResult = await App.Locator.IdentityServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+                    App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
 
-                    if (createResult != null)
-                    {
-                        App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
-
-                        App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
-
-                        App.ShowLoading(false);
-                    }
-                    else
-                    {
-                        App.ShowLoading(false);
-
-                        App.Locator.Profile.KeyPair = null;
-                    }
+                    App.ShowLoading(false);
                 }
                 else if (IsAddedInfo)
                 {
@@ -133,7 +133,11 @@ namespace PaketGlobal
                                                                ViewModel.PhoneNumber,
                                                                kd.KeyPair.SecretSeed,
                                                                kd.MnemonicString);
-                            CheckActivation();
+                          
+                            var page = new SMSVereficationPage();
+                            await Navigation.PushAsync(page, true);
+
+                            App.ShowLoading(false);
                         }
                         else
                         {
@@ -167,22 +171,10 @@ namespace PaketGlobal
                                                                kd.MnemonicString);
 
 
-                            var createResult = await App.Locator.IdentityServiceClient.PurchaseXLMs(5, ViewModel.PaymentCurrency.Value);
+                            var page = new ViewMnemonicPage();
+                            await Navigation.PushAsync(page, true);
 
-                            if (createResult != null)
-                            {
-                                App.Locator.AccountService.ActivationAddress = createResult.PaymentAddress;
-
-                                App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
-
-                                App.ShowLoading(false);
-                            }
-                            else
-                            {
-                                App.ShowLoading(false);
-
-                                App.Locator.Profile.KeyPair = null;
-                            }
+                            App.ShowLoading(false);
                         }
                         else
                         {
@@ -250,8 +242,6 @@ namespace PaketGlobal
             }
         }
 
-        #endregion
-
         private void FieldCompleted(object sender, EventArgs e)
         {
             if (sender == entryUserName)
@@ -273,13 +263,6 @@ namespace PaketGlobal
                 if (!ValidationHelper.ValidateTextField(entryUserAddress.Text))
                 {
                     entryUserAddress.Focus();
-                }
-            }
-            else if (sender == entryUserAddress)
-            {
-                if (pickerCurrency.SelectedItem == null && IsAddedInfo == false)
-                {
-                    pickerCurrency.Focus();
                 }
             }
         }
@@ -306,30 +289,17 @@ namespace PaketGlobal
                 entryUserAddress.Focus();
                 return false;
             }
-            else if (pickerCurrency.SelectedItem == null && IsAddedInfo == false)
-            {
-                EventHandler handleCurrencyHandler = (s, e) => {
-                    pickerCurrency.Focus();
-                };
-
-                ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler);
-
-                return false;
-            }
 
             return true;
         }
 
         protected override void ToggleLayout(bool enabled)
         {
-            backButton.IsEnabled = enabled;
             entryUserName.IsEnabled = enabled;
             entryFullName.IsEnabled = enabled;
             entryUserAddress.IsEnabled = enabled;
             entryPhoneNumber.IsEnabled = enabled;
-            pickerCurrency.IsEnabled = enabled;
         }
-
 
     }
 }

@@ -50,8 +50,6 @@ namespace PaketGlobal
 
         public async Task<UserData> RegisterUser(string paketUser, string fullName, string phoneNumber,string address, string pubkey)
 		{
-			//pubkey = "debug";//TODO for Debug purposes
-
 			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
 			request.AddParameter("call_sign", paketUser);
@@ -62,16 +60,15 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request, pubkey);
 		}
 
-		public async Task<CreateStellarAccountData> CreateStellarAccount(PaymentCurrency currency)
-		{
-			//pubkey = "debug";//TODO for Debug purposes
+        public async Task<VerifyData> VerifyCode(string code)
+        {
+            var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
 
-			var request = PrepareRequest(apiVersion + "/create_stellar_account", Method.POST);
+            request.AddParameter("verification_code", code);
 
-			request.AddParameter("payment_currency", currency.ToString());
+            return await SendRequest<VerifyData>(request);
+        }
 
-			return await SendRequest<CreateStellarAccountData>(request);
-		}
 
         public async Task<UserData> GetUser(string pubkey, string call_sign)
 		{

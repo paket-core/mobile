@@ -607,6 +607,31 @@
     <AndroidResource Include="Resources\drawable-xhdpi\select_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\select_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\select_icon.png" />
+    <AndroidResource Include="Resources\drawable\sms_verification_bg.png" />
+    <AndroidResource Include="Resources\drawable\register_bg.png" />
+    <AndroidResource Include="Resources\drawable\back_white_icon.png" />
+    <AndroidResource Include="Resources\drawable\wellcome_image.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\sms_verification_bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\register_bg.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\back_white_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\wellcome_image.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\sms_verification_bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\register_bg.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\back_white_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\wellcome_image.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\sms_verification_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\register_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\back_white_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\wellcome_image.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\sms_verification_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\register_bg.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\back_white_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\wellcome_image.png" />
+    <AndroidResource Include="Resources\drawable\copy_clipboard_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\copy_clipboard_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\copy_clipboard_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\copy_clipboard_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\copy_clipboard_button.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

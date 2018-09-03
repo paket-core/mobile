@@ -211,7 +211,7 @@
         <value>MNEMONIC</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Use this mnemonic to recover private key&#xA;on another device</value>
+        <value>Use this mnemonic to recover private key on another device.&#xA;Please save this phrase somewhere safe.</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Create New Private Key</value>
@@ -220,7 +220,7 @@
         <value>Select Payment Currency</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>GENERATE KEY</value>
+        <value>Generate Key</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>Already have a key</value>
@@ -232,7 +232,7 @@
         <value>Or</value>
     </data>
     <data name="RestoreKey" xml:space="preserve">
-        <value>RESTORE KEY</value>
+        <value>Restore Key</value>
     </data>
     <data name="GenerateNewKey" xml:space="preserve">
         <value>Generate New Key</value>
@@ -339,109 +339,146 @@
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Error adding trust token</value>
     </data>
-     <data name="StellarAccountNotCreated" xml:space="preserve">
+    <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Stellar account isn't created yet</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
         <value>Please select payment currency</value>
     </data>
-
-        <data name="ProfileSaved" xml:space="preserve">
+    <data name="ProfileSaved" xml:space="preserve">
         <value>Profile info saved</value>
     </data>
-
     <data name="ProfileNotSaved" xml:space="preserve">
         <value>Error saving profile info</value>
     </data>
-
-     <data name="YRole" xml:space="preserve">
+    <data name="YRole" xml:space="preserve">
         <value>Your Role</value>
     </data>
-
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Check launcher balance</value>
     </data>
-
     <data name="LaunchPackageStep2" xml:space="preserve">
         <value>Check courier balance</value>
     </data>
-
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Create escrow account</value>
     </data>
-
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Sign escrow account transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Submit escrow account</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep6" xml:space="preserve">
         <value>Add token trust to escrow account</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Prepare escrow</value>
     </data>
-
     <data name="LaunchPackageStep8" xml:space="preserve">
         <value>Sign options transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep9" xml:space="preserve">
         <value>Submit options transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep10" xml:space="preserve">
         <value>Prepare send payment</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep11" xml:space="preserve">
         <value>Sign payment transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep12" xml:space="preserve">
         <value>Submit payment transaction</value>
     </data>
-
-       <data name="LaunchPackageStep0" xml:space="preserve">
+    <data name="LaunchPackageStep0" xml:space="preserve">
         <value>Getting a user location</value>
-    </data> 
+    </data>
     <data name="FractionalDigitsError" xml:space="preserve">
         <value>You can't specify more then 7 fractional digits</value>
-    </data> 
-     <data name="AppInfo" xml:space="preserve">
+    </data>
+    <data name="AppInfo" xml:space="preserve">
         <value>APPLICATION INFORMATION</value>
     </data>
-
-     <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
         <value>About</value>
-    </data> 
+    </data>
     <data name="Packages" xml:space="preserve">
         <value>Packages</value>
     </data>
-
     <data name="Version" xml:space="preserve">
         <value>App Version</value>
     </data>
-
     <data name="Git" xml:space="preserve">
         <value>Git Commit</value>
     </data>
-
     <data name="AppURL" xml:space="preserve">
         <value>App URL</value>
     </data>
-    
     <data name="PaketURL" xml:space="preserve">
         <value>Paket URL</value>
     </data>
-
-   <data name="ClickToOpen" xml:space="preserve">
+    <data name="ClickToOpen" xml:space="preserve">
         <value>Click to open</value>
     </data>
-
-       <data name="Language" xml:space="preserve">
+    <data name="Language" xml:space="preserve">
         <value>Language</value>
     </data>
-
     <data name="SelectLanguage" xml:space="preserve">
         <value>Select Language</value>
     </data>
-    
+    <data name="WellcomeText1" xml:space="preserve">
+        <value>We are PAKET</value>
+    </data>
+    <data name="WellcomeText2" xml:space="preserve">
+        <value>The Decentralized Delivery Network</value>
+    </data>
+    <data name="WellcomeText3" xml:space="preserve">
+        <value>We believe in breaking up monopolies&#xA;and giving power to the people</value>
+    </data>
+    <data name="Start" xml:space="preserve">
+        <value>Let's Start</value>
+    </data>
+    <data name="LogIn" xml:space="preserve">
+        <value>Log In</value>
+    </data>
+    <data name="RegistrationText1" xml:space="preserve">
+        <value>PAKET Ltd is committed to protecting&#xA;and respecting your privacy</value>
+    </data>
+    <data name="TermsOfService" xml:space="preserve">
+        <value>Terms of Use and Privacy Policy</value>
+    </data>
+    <data name="PhoneVerefication" xml:space="preserve">
+        <value>Phone Verification</value>
+    </data>
+    <data name="SMSVerificationText1" xml:space="preserve">
+        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;a field below </value>
+    </data>
+    <data name="VerifyPhoneNumber" xml:space="preserve">
+        <value>Verify Phone Number</value>
+    </data>
+    <data name="SMSCode" xml:space="preserve">
+        <value>SMS Code</value>
+    </data>
+    <data name="CreateAccount" xml:space="preserve">
+        <value>Create New Account</value>
+    </data>
+    <data name="HereMnemonic" xml:space="preserve">
+        <value>Here’s mnemonic&#xA;phrase</value>
+    </data>
+    <data name="ConfirmMnemonicText1" xml:space="preserve">
+        <value>Please confirm you saved mnemonic&#xA;phrase</value>
+    </data>
+    <data name="ConfirmMnemonicText2" xml:space="preserve">
+        <value>Please make sure you have save your&#xA;mnemonic phrase. Keep it somewhere&#xA;safe. Thank you</value>
+    </data>
+    <data name="AlmostHere" xml:space="preserve">
+        <value>You are almost there</value>
+    </data>
+    <data name="MnemonicWordConfirm" xml:space="preserve">
+        <value>Please enter 5th word&#xA;from your mnemonic&#xA;phrase</value>
+    </data>
+    <data name="MnemonicWord" xml:space="preserve">
+        <value>5th word</value>
+    </data>
+
 </root>

@@ -211,7 +211,7 @@
         <value>КЛЮЧЕВАЯ ФРАЗА</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Используйте эту фразу что бы восстановить&#xA;приватный ключ на любом другом телефоне</value>
+        <value>Используйте эту фразу для восстановления приватного ключа. Сохраните эту фразу где-нибудь в безопасности.</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Создать новый ключ</value>
@@ -220,7 +220,7 @@
         <value>Выберите валюту</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>ГЕНЕРИРОВАТЬ КЛЮЧ</value>
+        <value>Генерировать ключ</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>У меня уже есть ключ</value>
@@ -232,10 +232,10 @@
         <value>Или</value>
     </data>
     <data name="RestoreKey" xml:space="preserve">
-        <value>ВОССТАНОВИТЬ КЛЮЧ</value>
+        <value>Восстановить ключ</value>
     </data>
     <data name="GenerateNewKey" xml:space="preserve">
-        <value>ГЕНЕРИРОВАТЬ НОВЫЙ КЛЮЧ</value>
+        <value>Генерировать ключ</value>
     </data>
     <data name="SecretKey" xml:space="preserve">
         <value>Secret Key</value>
@@ -339,109 +339,145 @@
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Ошибка при добавлении токенов</value>
     </data>
-     <data name="StellarAccountNotCreated" xml:space="preserve">
+    <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Аккаунт еще не создан</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
         <value>Пожалуйте выберите валюту</value>
     </data>
-
-        <data name="ProfileSaved" xml:space="preserve">
+    <data name="ProfileSaved" xml:space="preserve">
         <value>Профиль успешно сохранен</value>
     </data>
-
     <data name="ProfileNotSaved" xml:space="preserve">
         <value>Ошибка при сохранении профиля</value>
     </data>
-
-     <data name="YRole" xml:space="preserve">
+    <data name="YRole" xml:space="preserve">
         <value>Ваша роль</value>
     </data>
-
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Проверка вашего баланса</value>
     </data>
-
     <data name="LaunchPackageStep2" xml:space="preserve">
         <value>Проверка баланса курьера</value>
     </data>
-
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Создание аккаунта</value>
     </data>
-
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Подпись аккаунта</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Отправка аккаунта</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep6" xml:space="preserve">
         <value>Добавление токена к аккаунту</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Подготовка</value>
     </data>
-
     <data name="LaunchPackageStep8" xml:space="preserve">
         <value>Подпись опций транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep9" xml:space="preserve">
         <value>Отправка опций транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep10" xml:space="preserve">
         <value>Подготовка к отправке платежа</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep11" xml:space="preserve">
         <value>Подпись транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep12" xml:space="preserve">
         <value>Отправка транзакции</value>
     </data>
-
-       <data name="LaunchPackageStep0" xml:space="preserve">
+    <data name="LaunchPackageStep0" xml:space="preserve">
         <value>Получение текущей локации</value>
-    </data> 
+    </data>
     <data name="FractionalDigitsError" xml:space="preserve">
         <value>Вы не можете указать более 7 дробных цифр</value>
-    </data> 
-     <data name="AppInfo" xml:space="preserve">
+    </data>
+    <data name="AppInfo" xml:space="preserve">
         <value>ИНФОРМАЦИЯ О ПРИЛОЖЕНИИ</value>
     </data>
-
-     <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
         <value>Инфо</value>
-    </data> 
+    </data>
     <data name="Packages" xml:space="preserve">
         <value>Пакеты</value>
     </data>
-
     <data name="Version" xml:space="preserve">
         <value>Версия приложения</value>
     </data>
-
     <data name="Git" xml:space="preserve">
         <value>Версия комита</value>
     </data>
-
     <data name="AppURL" xml:space="preserve">
         <value>Сайт приложения</value>
     </data>
-    
     <data name="PaketURL" xml:space="preserve">
         <value>Основной сайт</value>
     </data>
-
-   <data name="ClickToOpen" xml:space="preserve">
+    <data name="ClickToOpen" xml:space="preserve">
         <value>Нажмите чтобы открыть</value>
     </data>
-
-       <data name="Language" xml:space="preserve">
+    <data name="Language" xml:space="preserve">
         <value>Язык</value>
     </data>
-
     <data name="SelectLanguage" xml:space="preserve">
         <value>Выберите язык</value>
     </data>
-    
+    <data name="WellcomeText1" xml:space="preserve">
+        <value>Мы PAKET</value>
+    </data>
+    <data name="WellcomeText2" xml:space="preserve">
+        <value>Сеть децентрализованной доставки</value>
+    </data>
+    <data name="WellcomeText3" xml:space="preserve">
+        <value>Мы верим в развал монополий&#xA;и предоставление власти людям</value>
+    </data>
+    <data name="Start" xml:space="preserve">
+        <value>Начать</value>
+    </data>
+    <data name="LogIn" xml:space="preserve">
+        <value>Войти</value>
+    </data>
+    <data name="RegistrationText1" xml:space="preserve">
+        <value>PAKET Ltd стремится защищать&#xA;и уважать вашу конфиденциальность</value>
+    </data>
+    <data name="TermsOfService" xml:space="preserve">
+        <value>Условия использования и политика конфиденциальности</value>
+    </data>
+    <data name="PhoneVerefication" xml:space="preserve">
+        <value>Проверка телефона</value>
+    </data>
+    <data name="SMSVerificationText1" xml:space="preserve">
+        <value>Чтобы защитить безопасность вашей&#xA;учетной записи, мы отправили вам текстовое сообщение&#xA;с кодом подтверждения.&#xA;Введите его в поле ниже</value>
+    </data>
+    <data name="VerifyPhoneNumber" xml:space="preserve">
+        <value>Отправить</value>
+    </data>
+    <data name="SMSCode" xml:space="preserve">
+        <value>Код из СМС</value>
+    </data>
+    <data name="CreateAccount" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="HereMnemonic" xml:space="preserve">
+        <value>Ваша ключевая&#xA;фраза</value>
+    </data>
+    <data name="ConfirmMnemonicText1" xml:space="preserve">
+        <value>Пожалуйста, подтвердите, что вы сохранили фразу</value>
+    </data>
+    <data name="ConfirmMnemonicText2" xml:space="preserve">
+        <value>Пожалуйста, убедитесь, что вы сохранили свою фразу. Храните ее где-то в безопасности. Спасибо</value>
+    </data>
+    <data name="AlmostHere" xml:space="preserve">
+        <value>Осталось чуть-чуть</value>
+    </data>
+    <data name="MnemonicWordConfirm" xml:space="preserve">
+        <value>Пожалуйста введите 5ое слово&#xA;с вашей фразы</value>
+    </data>
+    <data name="MnemonicWord" xml:space="preserve">
+        <value>5ое слово</value>
+    </data>
 </root>

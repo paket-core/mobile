@@ -9,11 +9,15 @@
     <local:BasePage.Content>
    <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
             <RelativeLayout x:Name="layoutLogin">
-                <StackLayout VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
+                <StackLayout x:Name="TitleView" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.YConstraint="20">
                     <Label Text="{local:Translate RestorePrivateKey}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
                 </StackLayout>
+                <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_arrow.png"
+                        Clicked="OnBack"
+                        RelativeLayout.XConstraint = "23"
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleView, Property=Y, Factor=1, Constant=12}"></Button>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
@@ -23,23 +27,7 @@
                         <Label Text="{local:Translate Or}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
                         <local:PaketEntry x:Name="entrySecretKey" BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate SecretKey}" HeightRequest="40"/>
                     </StackLayout>
-                    <local:PaketButton x:Name="restoreButton" Text="{local:Translate RestoreKey}" Clicked="LoginClicked"/>
-                </StackLayout>
-                 <Image BackgroundColor="Transparent"
-                          Aspect="Fill"
-                          x:Name="botBg"
-                          HorizontalOptions="Fill"
-                          VerticalOptions="Start"
-                          RelativeLayout.HeightConstraint="206"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-206}"
-                        Source="login_bg.png">
-                </Image>
-                <StackLayout x:Name="botStack" VerticalOptions="Start" BackgroundColor="Transparent"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.80}">
-                    <Label Text="{local:Translate GenerateNewKey}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
-                    <Button x:Name="generateButton" BackgroundColor="Transparent" Image="arrow_forward.png" Clicked="OnGenerate"/>
+                    <local:PaketButton x:Name="restoreButton" Text="{local:Translate RestoreKey}" Clicked="LoginClicked" ButtonBackground="#4D64E8"/>
                 </StackLayout>
             </RelativeLayout>
         </ScrollView>
