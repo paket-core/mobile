@@ -44,15 +44,26 @@ namespace PaketGlobal
                 try
                 {
                     var result = await App.Locator.IdentityServiceClient.VerifyCode(entryCode.Text);
-                    if (result != null)
+                    if (result.Status==200)
                     {
-                        App.Locator.Profile.Activated = true;
+                        var trusted = await StellarHelper.CheckTokenTrusted();
+                        if (trusted)
+                        {
+                            OpenMainPage();
+                        }
+                        else{
+                            var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
 
-                        var navigationPage = new NavigationPage(new MainPage());
-
-                        Application.Current.MainPage = navigationPage;
-
-                        App.ShowLoading(false);
+                            if (added)
+                            {
+                                OpenMainPage();
+                            }
+                            else
+                            {
+                                ShowErrorMessage(AppResources.ErrorAddTrustToken);
+                                App.ShowLoading(false);
+                            }
+                        }
                     }
                     else
                     {
@@ -66,6 +77,17 @@ namespace PaketGlobal
                     ShowErrorMessage(ex.Message);
                 }
             }
+        }
+
+        private void OpenMainPage()
+        {
+            App.Locator.Profile.Activated = true;
+
+            var navigationPage = new NavigationPage(new MainPage());
+
+            Application.Current.MainPage = navigationPage;
+
+            App.ShowLoading(false);  
         }
     }
 }
