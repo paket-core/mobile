@@ -105,6 +105,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\ConfirmMnemonicPage.xaml.cs">
       <DependentUpon>ConfirmMnemonicPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ISO3166.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

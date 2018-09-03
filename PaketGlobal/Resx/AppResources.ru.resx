@@ -238,7 +238,7 @@
         <value>Генерировать ключ</value>
     </data>
     <data name="SecretKey" xml:space="preserve">
-        <value>Secret Key</value>
+        <value>Приватный ключ</value>
     </data>
     <data name="Copied" xml:space="preserve">
         <value>Скопировано</value>

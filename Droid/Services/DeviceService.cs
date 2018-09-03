@@ -2,6 +2,7 @@
 
 using Android.Content;
 using Android.Content.Res;
+using Java.Util;
 using Xamarin.Forms;
 
 namespace PaketGlobal.Droid
@@ -45,6 +46,12 @@ namespace PaketGlobal.Droid
         public void HideProgress()
         {
             MainActivity.Instance.HideProgressDialog();
+        }
+
+        public string CountryCode()
+        {
+            var countryCode  = Locale.Default.ISO3Country;
+            return countryCode;
         }
     }
 }

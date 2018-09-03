@@ -72,7 +72,7 @@ namespace PaketGlobal
 
             var selectTermsCommand = new Command(() =>
             {
-
+                Device.OpenUri(new Uri(Constants.PAKET_PRIVACY_URL));
             });
 
             XamEffects.Commands.SetTap(termsOfServiceLabel, selectTermsCommand);
@@ -111,7 +111,7 @@ namespace PaketGlobal
 
                 if (IsAddedInfo == false && IsFinishActivation == true)
                 {
-                    var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.PhoneNumber, ViewModel.Address);
+                    var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address);
 
                     App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
 
@@ -125,12 +125,12 @@ namespace PaketGlobal
                         var kd = App.Locator.Profile.TryGetKeyData();
 
                         var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                      ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                                                                                          ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
                         if (result != null)
                         {
                             App.Locator.Profile.SetCredentials(ViewModel.UserName,
                                                                ViewModel.FullName,
-                                                               ViewModel.PhoneNumber,
+                                                               ViewModel.FullPhoneNumber,
                                                                kd.KeyPair.SecretSeed,
                                                                kd.MnemonicString);
                           
@@ -161,12 +161,12 @@ namespace PaketGlobal
                         App.Locator.Profile.KeyPair = kd.KeyPair;
 
                         var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                      ViewModel.PhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                                                                                          ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
                         if (result != null)
                         {
                             App.Locator.Profile.SetCredentials(ViewModel.UserName,
                                                                ViewModel.FullName,
-                                                               ViewModel.PhoneNumber,
+                                                               ViewModel.FullPhoneNumber,
                                                                kd.KeyPair.SecretSeed,
                                                                kd.MnemonicString);
 
