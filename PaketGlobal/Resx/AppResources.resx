@@ -480,5 +480,7 @@
     <data name="MnemonicWord" xml:space="preserve">
         <value>5th word</value>
     </data>
-
+    <data name="PackageEnterRecipient" xml:space="preserve">
+        <value>Enter recipient name or public key</value>
+    </data>
 </root>

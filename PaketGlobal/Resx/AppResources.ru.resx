@@ -480,4 +480,8 @@
     <data name="MnemonicWord" xml:space="preserve">
         <value>5ое слово</value>
     </data>
+      <data name="PackageEnterRecipient" xml:space="preserve">
+        <value>Введите имя или ключ получателя</value>
+    </data>
+
 </root>

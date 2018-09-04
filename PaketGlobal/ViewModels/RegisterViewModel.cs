@@ -59,6 +59,7 @@ namespace PaketGlobal
 			FullName = null;
 			PhoneNumber = null;
             Address = null;
+            PhoneCode = null;
 		}
 	}
 }

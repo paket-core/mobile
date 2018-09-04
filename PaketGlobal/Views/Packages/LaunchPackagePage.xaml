@@ -45,7 +45,7 @@
                                     <local:PaketEntryWithProgress x:Name="EntryRecepient"
                                                                   TopText="{local:Translate Recipient}"
                                                                   Text="{Binding RecipientPubkey}"
-                                                                  Placholder="{local:Translate EnterRecipient}"
+                                                                  Placholder="{local:Translate PackageEnterRecipient}"
                                                                   Completed="FieldCompleted"
                                                                   Unfocus="FieldUnfocus"/>
                                     <local:PaketEntryWithProgress x:Name="EntryCourier"
