@@ -122,7 +122,7 @@ namespace PaketGlobal
                 {
                     var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address);
 
-                    App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+					App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
 
                     App.ShowLoading(false);
                 }

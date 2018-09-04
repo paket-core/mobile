@@ -102,11 +102,32 @@ namespace PaketGlobal
 		public Dictionary<string, string> Extras { get; set; }
 	}
 
-    //Wallet
+	//Wallet
 
-    [DataContract]
-    public class BalanceData : BaseData
-    {
+	[DataContract]
+	public class BalanceData : BaseData
+	{
+		[DataMember(Name = "account")]
+		public AccountData Account { get; set; }
+
+        public string FormattedBalanceBUL {
+            get {
+                return StellarConverter.ConvertValueToString(Account.BalanceBUL);
+            }
+        }
+
+        public string FormattedBalanceXLM
+        {
+            get
+            {
+                return StellarConverter.ConvertValueToString(Account.BalanceXLM);
+            }
+        }
+	}
+
+	[DataContract]
+	public class AccountData
+	{
 		[DataMember(Name = "bul_balance")]
 		public long BalanceBUL { get; set; }
 
@@ -121,39 +142,6 @@ namespace PaketGlobal
 
 		[DataMember(Name = "thresholds")]
 		public ThresholdData Thresholds { get; set; }
-
-        public string FormattedBalanceBULEURO {
-            get
-            {
-                float price = 0.085f;
-                long balanceInUero = (long)(BalanceBUL * price);
-                return "€" + StellarConverter.ConvertValueToString(balanceInUero);
-            }
-        }
-
-        public string FormattedBalanceXLMEURO
-        {
-            get
-            {
-                float price = 0.035f;
-                long balanceInUero = (long)(BalanceXLM * price);
-                return "€" + StellarConverter.ConvertValueToString(balanceInUero);
-            }
-        }
-
-        public string FormattedBalanceBUL {
-            get {
-                return StellarConverter.ConvertValueToString(BalanceBUL);  
-            }
-        }
-
-        public string FormattedBalanceXLM
-        {
-            get
-            {
-                return StellarConverter.ConvertValueToString(BalanceXLM);  
-            }
-        }
 	}
 
 	[DataContract]
@@ -348,7 +336,12 @@ namespace PaketGlobal
         public string RecipientName { get; set; }
         public string CourierName { get; set; }
 
- 
+        public string FullFormattedStatus{
+            get{
+                return ShortEscrow + " " + FormattedStatus;
+            }
+        }
+
         public string ShortEscrow
         {
             get
@@ -467,15 +460,7 @@ namespace PaketGlobal
         {
             get
             {
-                if (Status == "waiting pickup")
-                {
-                    return AppResources.WaitingPickup;
-                }
-                else if (Status == "delivered")
-                {
-                    return AppResources.Delivered;
-                }
-                return AppResources.InTransit;
+                return Status.ToUpperInvariant();
             }
         }
 
@@ -515,14 +500,14 @@ namespace PaketGlobal
             {
                 if (MyRole == PaketRole.Courier)
                 {
-                    return AppResources.Courier;
+                    return "Courier";
                 }
                 else if (MyRole == PaketRole.Recipient)
                 {
-                    return AppResources.Recipient;
+                    return "Recipient";
                 }
                 else{
-                    return AppResources.Launcher;
+                    return "Launcher";
                 }
             }
         }

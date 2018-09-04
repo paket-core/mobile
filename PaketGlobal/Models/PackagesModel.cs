@@ -109,7 +109,7 @@ namespace PaketGlobal
         {
 			var result = await App.Locator.RouteServiceClient.MyPackages();
 
-            if (result.Packages != null)
+            if (result != null && result.Packages != null)
             {
                 var packages = result.Packages;
 

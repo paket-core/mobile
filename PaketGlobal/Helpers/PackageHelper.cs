@@ -25,7 +25,7 @@ namespace PaketGlobal
 
 				var balanceData = await App.Locator.BridgeServiceClient.Balance(paketId);
 
-				packageData.Package.DeliveryStatus = balanceData != null && balanceData.BalanceBUL == 0 ?
+				packageData.Package.DeliveryStatus = balanceData != null && balanceData.Account.BalanceBUL == 0 ?
 					DeliveryStatus.Delivered :
 					(balanceData == null ? DeliveryStatus.Closed : (DateTime.Now > packageData.Package.DeadlineDT ? DeliveryStatus.DeadlineExpired : DeliveryStatus.InTransit));
 

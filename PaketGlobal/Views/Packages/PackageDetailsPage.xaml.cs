@@ -244,6 +244,26 @@ namespace PaketGlobal
             App.ShowLoading(false);
         }
 
+		private async void ShowQRCodeClicked(object sender, System.EventArgs e)
+		{
+			App.ShowLoading(true);
+
+			var result = await StellarHelper.LaunchPackage(null, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+
+			//TODO Show QR code here
+
+			App.ShowLoading(false);
+		}
+
+		void FinalizePackageEvents(object sender, LaunchPackageEventArgs e)
+		{
+			//ProgressBar.AnimationEasing = Easing.SinIn;
+			//ProgressBar.AnimationLength = 3000;
+			//ProgressBar.AnimatedProgress = e.Progress;
+
+			//ProgressLabel.Text = e.Message;
+		}
+
         private async void AcceptClicked(object sender, System.EventArgs e)
         {
             App.ShowLoading(true);

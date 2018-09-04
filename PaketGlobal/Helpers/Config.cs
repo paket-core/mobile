@@ -10,9 +10,9 @@
 
 		internal const string FundServerUrl = "http://fund.paket.global";
 
-        internal const string BridgeServerUrl = "http://itd.pub:11251";//Local
-        internal const string RouteServerUrl = "http://itd.pub:11250";//Local
-        internal const string IdentityServerUrl = "http://itd.pub:11252";//Local
+		internal const string BridgeServerUrl = "http://itd.pub:11251";//Local
+		internal const string RouteServerUrl = "http://itd.pub:11250";//Local
+		internal const string IdentityServerUrl = "http://itd.pub:11252";//Local
 
 		internal const string PrefundTestUrl = "https://friendbot.stellar.org";
 		
