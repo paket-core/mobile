@@ -6,6 +6,7 @@
     x:Class="PaketGlobal.LaunchPackagePage"
     xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin"
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects"
     xmlns:local="clr-namespace:PaketGlobal">
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
@@ -41,19 +42,42 @@
                         <StackLayout Spacing="30">
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
                                 <Label TextColor="Black" Text="{local:Translate Participants}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                <StackLayout Spacing="10">
+                                <StackLayout Spacing="15">
+
+                                    <StackLayout Spacing="5">
+                                        <StackLayout Spacing="5">
+                                            <Label Text="{local:Translate MyPhone}" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                            <StackLayout Orientation="Horizontal" Spacing="10" Padding="0,0,5,0">
+                                                <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="myCountryCodeLabel" Text="+1" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                                <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
+                                                <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="myEntryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
+                                    </StackLayout>
+                                    
                                     <local:PaketEntryWithProgress x:Name="EntryRecepient"
                                                                   TopText="{local:Translate Recipient}"
                                                                   Text="{Binding RecipientPubkey}"
                                                                   Placholder="{local:Translate PackageEnterRecipient}"
                                                                   Completed="FieldCompleted"
-                                                                  Unfocus="FieldUnfocus"/>
-                                    <local:PaketEntryWithProgress x:Name="EntryCourier"
-                                                                  TopText="{local:Translate Courier}"
-                                                                  Text="{Binding CourierPubkey}"
-                                                                  Placholder="{local:Translate EnterCourier}"
-                                                                  Completed="FieldCompleted"
-                                                                  Unfocus="FieldUnfocus"/>
+                                                                  Unfocus="FieldUnfocus"
+                                                                  ClickOnAddressButton="AddressButtonClicked"/>
+                                    <StackLayout Spacing="5">
+                                        <StackLayout Spacing="5">
+                                            <Label Text="{local:Translate RecipientPhone}" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                            <StackLayout Orientation="Horizontal" Spacing="10" Padding="0,0,5,0">
+                                                <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="recipientCountryCodeLabel" Text="+1" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                                <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
+                                                <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="recipientEntryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
+                                                <Button Clicked="ContactsButtonClicked" Image="book_icon.png" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" WidthRequest="28" HeightRequest="28"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
+                                    </StackLayout>
+
+                                       
+                                    
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
@@ -73,7 +97,7 @@
                                     </ScrollView>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Deadline}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="Selected date" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
+                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="{local:Translate SelectedDate}" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
@@ -82,12 +106,12 @@
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
                                                           ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
                                     </StackLayout>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="Please enter amount" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
                                                           ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
                                     </StackLayout>
                                 </StackLayout>
@@ -109,7 +133,7 @@
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                 <RelativeLayout>
-                        <control:ProgressRing x:Name="ProgressBar" RingThickness="5" Progress="0.5"
+                    <control:ProgressRing x:Name="ProgressBar" RingThickness="5" Progress="0.5"
                                     RingBaseColor="Gray"
                                     RingProgressColor="White"
                                                                   RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-30}"
@@ -117,7 +141,6 @@
                                                                   RelativeLayout.WidthConstraint="60"
                                                                   RelativeLayout.HeightConstraint="60"
                         />
-
                     <Label x:Name="ProgressLabel"
                             RelativeLayout.XConstraint = "0"
                             RelativeLayout.HeightConstraint="25"
@@ -128,7 +151,6 @@
                             XAlign="Center"
                             HorizontalOptions="FillAndExpand"
                            />
-                                           
                 </RelativeLayout>
             </Frame>
         </RelativeLayout>

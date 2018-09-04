@@ -8,7 +8,7 @@
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
    <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
-            <RelativeLayout x:Name="layoutLogin">
+            <RelativeLayout>
                 <StackLayout x:Name="TitleView" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.YConstraint="20">
@@ -20,7 +20,7 @@
                         RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleView, Property=Y, Factor=1, Constant=12}"></Button>
                 <StackLayout VerticalOptions="Center" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.1}"
+                          RelativeLayout.YConstraint="90"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="25">
                         <local:PaketEntry x:Name="entryMnemonic"  BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate MnemonicPhrase}" HeightRequest="40"/>

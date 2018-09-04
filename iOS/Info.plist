@@ -104,5 +104,7 @@
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ru</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We need a contact permission to select a phone number from the address book</string>
 </dict>
 </plist>

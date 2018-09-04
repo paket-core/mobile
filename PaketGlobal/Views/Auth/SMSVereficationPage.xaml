@@ -7,7 +7,7 @@
     xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
-        <RelativeLayout>
+        <RelativeLayout BackgroundColor="White">
             <Image BackgroundColor="Transparent"
                     Aspect="AspectFill"
                     Source="sms_verification_bg.png"
@@ -46,7 +46,7 @@
                                 <Label Text="{local:Translate PhoneVerefication}" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                                 <Label Text="{local:Translate SMSVerificationText1}" XAlign="Center"  FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
                             </StackLayout>
-                            <local:PaketEntry x:Name="entryCode" CapSentences="2" HorizontalTextAlignment="Center" BackgroundV="1" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate SMSCode}" HeightRequest="40"/>
+                            <local:PaketEntry x:Name="entryCode" CapSentences="2" HorizontalTextAlignment="Center" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate SMSCode}" HeightRequest="40"/>
                         </StackLayout>
                         <StackLayout Spacing="10">
                             <local:PaketButton Clicked="OnVerify" Text="{local:Translate VerifyPhoneNumber}" ButtonBackground="#4D64E8"/>

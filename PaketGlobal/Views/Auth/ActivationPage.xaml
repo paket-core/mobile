@@ -7,7 +7,7 @@
     xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
-        <RelativeLayout>
+        <RelativeLayout BackgroundColor="White">
            <Image BackgroundColor="Transparent"
                     Aspect="AspectFill"
                     Source="activation_bg.png"
@@ -49,7 +49,7 @@
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.3}">
                         <Label Text="{local:Translate MnemonicWordConfirm}" x:Name="wordLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
                         <StackLayout Spacing="10" Padding="25,0,25,0" VerticalOptions="Center">
-                            <local:PaketEntry Placeholder="{local:Translate MnemonicWord}" VerticalOptions="Center" HorizontalTextAlignment="Center" x:Name="entryWord" BackgroundV="1" LineColor="#E5E5E5"  Keyboard="Text" 
+                            <local:PaketEntry Placeholder="{local:Translate MnemonicWord}" VerticalOptions="Center" HorizontalTextAlignment="Center" x:Name="entryWord" LineColor="#E5E5E5"  Keyboard="Text" 
                                               HeightRequest="40"
                                               CapSentences="2"
                                               WidthRequest="290"/>

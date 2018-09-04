@@ -238,7 +238,7 @@ namespace PaketGlobal
                 new ISO3166Country("Saint Pierre and Miquelon", "PM", "SPM", 666, new[] { "508" }),
                 new ISO3166Country("Saint Vincent and the Grenadines", "VC", "VCT", 670, new[] { "1 784" }),
                 new ISO3166Country("Samoa", "WS", "WSM", 882, new[] { "685" }),
-                new ISO3166Country("San Marino", "SP", "SMR", 674),
+                new ISO3166Country("San Marino", "SP", "SMR", 674, new[] { "674" }),
                 new ISO3166Country("Sao Tome and Principe", "ST", "STP", 678, new[] { "239" }),
                 new ISO3166Country("Saudi Arabia", "SA", "SAU", 682, new[] { "966" }),
                 new ISO3166Country("Senegal", "SN", "SEN", 686, new[] { "221" }),
@@ -323,5 +323,20 @@ namespace PaketGlobal
         public int NumericCode { get; private set; }
 
         public string[] DialCodes { get; private set; }
+
+        public string CallingCode{
+            get{
+                try{
+                    if (DialCodes.Length > 0)
+                    {
+                        return "+" + DialCodes[0];
+                    }
+                    return "";
+                }
+                catch{
+                    return "";
+                }
+            }
+        }
     }
 }

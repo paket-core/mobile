@@ -122,6 +122,25 @@ namespace PaketGlobal
 		[DataMember(Name = "thresholds")]
 		public ThresholdData Thresholds { get; set; }
 
+        public string FormattedBalanceBULEURO {
+            get
+            {
+                float price = 0.085f;
+                long balanceInUero = (long)(BalanceBUL * price);
+                return "€" + StellarConverter.ConvertValueToString(balanceInUero);
+            }
+        }
+
+        public string FormattedBalanceXLMEURO
+        {
+            get
+            {
+                float price = 0.035f;
+                long balanceInUero = (long)(BalanceXLM * price);
+                return "€" + StellarConverter.ConvertValueToString(balanceInUero);
+            }
+        }
+
         public string FormattedBalanceBUL {
             get {
                 return StellarConverter.ConvertValueToString(BalanceBUL);  
@@ -329,12 +348,7 @@ namespace PaketGlobal
         public string RecipientName { get; set; }
         public string CourierName { get; set; }
 
-        public string FullFormattedStatus{
-            get{
-                return ShortEscrow + " " + FormattedStatus;
-            }
-        }
-
+ 
         public string ShortEscrow
         {
             get
@@ -453,7 +467,15 @@ namespace PaketGlobal
         {
             get
             {
-                return Status.ToUpperInvariant();
+                if (Status == "waiting pickup")
+                {
+                    return AppResources.WaitingPickup;
+                }
+                else if (Status == "delivered")
+                {
+                    return AppResources.Delivered;
+                }
+                return AppResources.InTransit;
             }
         }
 
@@ -493,14 +515,14 @@ namespace PaketGlobal
             {
                 if (MyRole == PaketRole.Courier)
                 {
-                    return "Courier";
+                    return AppResources.Courier;
                 }
                 else if (MyRole == PaketRole.Recipient)
                 {
-                    return "Recipient";
+                    return AppResources.Recipient;
                 }
                 else{
-                    return "Launcher";
+                    return AppResources.Launcher;
                 }
             }
         }

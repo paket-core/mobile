@@ -238,6 +238,9 @@
     <Reference Include="ProgressRing.Forms.Plugin.iOS">
       <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.ContactService">
+      <HintPath>..\packages\Xamarin.Forms.Contacts.1.0.5\lib\Xamarin.iOS10\Plugin.ContactService.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -470,6 +473,21 @@
     <BundleResource Include="Resources\shadow_top%403x.png" />
     <BundleResource Include="Resources\shadow_top%402x.png" />
     <BundleResource Include="Resources\shadow_top.png" />
+    <BundleResource Include="Resources\addressbook_icon%403x.png" />
+    <BundleResource Include="Resources\addressbook_icon%402x.png" />
+    <BundleResource Include="Resources\addressbook_icon.png" />
+    <BundleResource Include="Resources\powered_logo%403x.png" />
+    <BundleResource Include="Resources\powered_logo%402x.png" />
+    <BundleResource Include="Resources\powered_logo.png" />
+    <BundleResource Include="Resources\qr_scan_btn%403x.png" />
+    <BundleResource Include="Resources\qr_scan_btn%402x.png" />
+    <BundleResource Include="Resources\qr_scan_btn.png" />
+    <BundleResource Include="Resources\social_icon.png" />
+    <BundleResource Include="Resources\social_icon%402x.png" />
+    <BundleResource Include="Resources\social_icon%403x.png" />
+    <BundleResource Include="Resources\book_icon%403x.png" />
+    <BundleResource Include="Resources\book_icon%402x.png" />
+    <BundleResource Include="Resources\book_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

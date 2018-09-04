@@ -11,8 +11,8 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-#if __ANDROID___
-            backButton.TranslationX = -25;
+#if __ANDROID__
+            backButton.TranslationX = -30;
 #else
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {

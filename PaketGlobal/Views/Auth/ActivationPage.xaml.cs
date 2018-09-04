@@ -12,6 +12,9 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+#if __ANDROID__
+            backButton.TranslationX = -30;
+#endif
             int randomIndex = new Random().Next(3, 10);
             Word = App.Locator.Profile.Mnemonic.Split(' ')[randomIndex];
 

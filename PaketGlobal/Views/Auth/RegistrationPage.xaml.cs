@@ -19,9 +19,10 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-#if __ANDROID___
-            backButton.TranslationX = -25;
-#else
+
+#if __ANDROID__
+            backButton.TranslationX = -30;
+#elif __IOS___
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
                 backButton.TranslationY = 30;
@@ -65,7 +66,9 @@ namespace PaketGlobal
 
             var selectCountryCommand  = new Command(() =>
             {
-  
+                var picker = new CountryPickerPage();
+                picker.eventHandler = DidSelectCountryHandler;
+                Navigation.PushAsync(picker, true);
             });
 
             XamEffects.Commands.SetTap(countryCodeLabel, selectCountryCommand);
@@ -94,11 +97,17 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarLight();
         }
 
+        private void DidSelectCountryHandler(object sender, CountryPickerPageEventArgs e)
+        {
+            ViewModel.PhoneCode = e.Item.CallingCode;
+            ViewModel.PhoneNumber = "";
+        }
+
         private void OnBack(object sender, EventArgs e)
         {
             Unfocus();
 
-            App.Locator.NavigationService.GoBack();
+            Navigation.PopAsync(true);
         }
 
         private async void CreateAccountClicked(object sender, EventArgs e)

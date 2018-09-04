@@ -14,7 +14,7 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarBlack();
 
 #if __ANDROID__
-            backButton.TranslationX = -25;
+            backButton.TranslationX = -30;
 #endif
             mnemonicLabel.Text = App.Locator.Profile.Mnemonic;
         }
@@ -28,7 +28,7 @@ namespace PaketGlobal
 
         private void OnBack(object sender, EventArgs e)
         {
-            App.Locator.NavigationService.GoBack();
+            Navigation.PopAsync(true);
         }
 
         private void OnCopyMnemonic(object sender, EventArgs e)

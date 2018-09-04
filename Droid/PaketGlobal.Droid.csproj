@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -269,6 +269,9 @@
     </Reference>
     <Reference Include="ProgressRing.Forms.Plugin">
       <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\MonoAndroid10\ProgressRing.Forms.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.ContactService">
+      <HintPath>..\packages\Xamarin.Forms.Contacts.1.0.5\lib\MonoAndroid10\Plugin.ContactService.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -662,6 +665,31 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\mnemonic_overlay.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\next_button.png" />
+    <AndroidResource Include="Resources\drawable\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\addressbook_icon.png" />
+    <AndroidResource Include="Resources\drawable\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\powered_logo.png" />
+    <AndroidResource Include="Resources\drawable\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\qr_scan_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\social_icon.png" />
+    <AndroidResource Include="Resources\drawable\social_icon.png" />
+    <AndroidResource Include="Resources\drawable\book_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\book_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\book_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\book_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\book_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

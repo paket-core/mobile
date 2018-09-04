@@ -15,8 +15,9 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarBlack();
 
-#if __ANDROID___
-            backButton.TranslationX = -25;
+#if __ANDROID__
+            backButton.TranslationX = -30;
+#elif __IOS___
 #endif
         }
 
@@ -31,7 +32,7 @@ namespace PaketGlobal
         {
             Unfocus();
 
-            App.Locator.NavigationService.GoBack();
+            Navigation.PopAsync(true);
         }
 
 

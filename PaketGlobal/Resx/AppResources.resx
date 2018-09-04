@@ -336,6 +336,9 @@
     <data name="CameraAccessNotGranted" xml:space="preserve">
         <value>You must give access to the camera to scan the package</value>
     </data>
+    <data name="ContactsAccessNotGranted" xml:space="preserve">
+        <value>You must grant access to contacts to select the recipient's phone</value>
+    </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Error adding trust token</value>
     </data>
@@ -481,6 +484,72 @@
         <value>5th word</value>
     </data>
     <data name="PackageEnterRecipient" xml:space="preserve">
-        <value>Enter recipient name or public key</value>
+        <value>Enter name or public key</value>
+    </data>
+    <data name="SelectedDate" xml:space="preserve">
+        <value>Selected date</value>
+    </data>
+    <data name="EnterUserName" xml:space="preserve">
+        <value>Enter User Name</value>
+    </data>
+    <data name="EnterFullName" xml:space="preserve">
+        <value>Enter Full Name</value>
+    </data>
+    <data name="EnterPhoneNumber" xml:space="preserve">
+        <value>Enter Phone Number</value>
+    </data>
+    <data name="EnterAddress" xml:space="preserve">
+        <value>Enter Address</value>
+    </data>
+    <data name="SelectRecipient" xml:space="preserve">
+        <value>Select Recipient</value>
+    </data>
+    <data name="SelectCourier" xml:space="preserve">
+        <value>Select Courier</value>
+    </data>
+    <data name="CODE" xml:space="preserve">
+        <value>СODE</value>
+    </data>
+    <data name="English" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="Russian" xml:space="preserve">
+        <value>Russian</value>
+    </data>
+    <data name="NoPackagesFound" xml:space="preserve">
+        <value>No Packages Found</value>
+    </data>
+    <data name="Launcher" xml:space="preserve">
+        <value>Launcher</value>
+    </data>
+    <data name="WaitingPickup" xml:space="preserve">
+        <value>Waiting Pickup</value>
+    </data>
+    <data name="InTransit" xml:space="preserve">
+        <value>In Transit</value>
+    </data>
+    <data name="Delivered" xml:space="preserve">
+        <value>Delivered</value>
+    </data>
+    <data name="NoUsersFound" xml:space="preserve">
+        <value>No Users Found</value>
+    </data>
+    <data name="Social" xml:space="preserve">
+        <value>SOCIAL</value>
+    </data>
+    <data name="JoinTelegram" xml:space="preserve">
+        <value>Join Our Telegram</value>
+    </data>  
+    <data name="RecipientPhone" xml:space="preserve">
+        <value>Recipient phone number</value>
+    </data>
+    <data name="MyPhone" xml:space="preserve">
+        <value>Your phone number</value>
+    </data>
+    <data name="SelectCountry" xml:space="preserve">
+        <value>Select Country</value>
+    </data>
+    <data name="Contacts" xml:space="preserve">
+        <value>Contacts</value>
     </data>
 </root>

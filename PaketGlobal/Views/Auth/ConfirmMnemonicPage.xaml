@@ -24,7 +24,7 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-40}"
                       RelativeLayout.XConstraint="20"
                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5,Constant=-140}">
-                <local:PaketFrame CornerRadius="15">
+                <local:PaketFrame CornerRadius="15" BackgroundColor="White">
                     <StackLayout Spacing="20" Padding="0,10,0,0">
                         <Image BackgroundColor="Transparent" Source="mnemonic_icon.png" VerticalOptions="Center" HeightRequest="28" WidthRequest="28"/>
                         <Label XAlign="Center" Text="{local:Translate ConfirmMnemonicText1}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>

@@ -106,6 +106,16 @@
       <DependentUpon>ConfirmMnemonicPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ISO3166.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\AddressBookHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\AddressBookPage.xaml.cs">
+      <DependentUpon>..\..\AddressBook\AddressBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\CountryPickerPage.xaml.cs">
+      <DependentUpon>CountryPickerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\ContactsBookPage.xaml.cs">
+      <DependentUpon>ContactsBookPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -188,6 +198,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\AddressBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\CountryPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\ContactsBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -202,5 +224,9 @@
     <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\About\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\" />
   </ItemGroup>
 </Project>

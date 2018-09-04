@@ -38,6 +38,7 @@ namespace PaketGlobal
         
         public event EventHandler Completed;
         public event EventHandler Unfocus;
+        public event EventHandler ClickOnAddressButton;
 
         public string Text
         {
@@ -90,10 +91,12 @@ namespace PaketGlobal
         private void OnTextChange(string value)
         {
             EntryView.Text = value;
+            EntryView.PaddingRight = 110;
         }
 
         private void OnPlacholderChange(string value)
         {
+         
             EntryView.Placeholder = value;
         }
 
@@ -102,6 +105,16 @@ namespace PaketGlobal
             TopLabel.Text = value;
 
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
+
+            if (!TopLabel.IsVisible)
+            {
+                SelectButton.TranslationY = -7;
+            }
+            else{
+                #if __IOS__
+                    SelectButton.TranslationY = -7;
+                #endif
+            }
         }
 
         private void OnEntryHeightChange(int value)
@@ -120,8 +133,18 @@ namespace PaketGlobal
 
             if(value)
             {
-                EntryView.PaddingRight = 110;
+                SelectButton.IsVisible = false;
             }
+        }
+
+        void SelectPressed(object sender, System.EventArgs e)
+        {
+            ClickOnAddressButton?.Invoke(this, EventArgs.Empty);
+
+            if (Command == null || !Command.CanExecute(CommandParameter))
+                return;
+
+            Command.Execute(CommandParameter);
         }
 
         private void FieldCompleted(object sender, System.EventArgs e)
@@ -156,11 +179,12 @@ namespace PaketGlobal
 
         private void ShowErrorWithText(string text)
         {
-            EntryView.PaddingRight = 110;
+            SelectButton.IsVisible = false;
 
             TopLabel.TextColor = Color.FromHex("#D43F51");
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
+           
             EntryView.LineColor = Color.FromHex("#D43F51");
 
             StatusImage.Source = "warning.png";
@@ -169,11 +193,12 @@ namespace PaketGlobal
 
         private void ShowSuccess()
         {
-            EntryView.PaddingRight = 110;
+            SelectButton.IsVisible = false;
 
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
+
             EntryView.LineColor = Color.FromHex("#E5E5E5");
 
             StatusImage.Source = "success.png";
@@ -182,11 +207,12 @@ namespace PaketGlobal
 
         public void ToDefaultState()
         {
-            EntryView.PaddingRight = 35;
+            SelectButton.IsVisible = true;
 
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
+
             EntryView.LineColor = Color.FromHex("#E5E5E5");
 
             StatusImage.IsVisible = false;
@@ -202,7 +228,8 @@ namespace PaketGlobal
 						ShowErrorWithText(AppResources.InvalidPubKey);
 
 						return "";
-					} else {
+					} 
+                    else {
                         ToDefaultState();
 
 						this.IsBusy = true;
@@ -211,13 +238,21 @@ namespace PaketGlobal
 
 						var trusted = await StellarHelper.CheckTokenTrustedWithPubKey(Text);
 
-						if (result == null && !trusted) {
+						if (result == null && !trusted) 
+                        {
 							ShowErrorWithText(AppResources.UserNotRegistered);
-						} else if (!trusted) {
+						} 
+                        else if (!trusted) {
 							ShowErrorWithText(AppResources.UserNotTrusted);
-						} else if (result != null && trusted) {
+						} 
+                        else if (result != null && trusted) {
 							ShowSuccess();
+
+                            AddressBookHelper.AddItem(Text);
 						}
+                        else{
+                            AddressBookHelper.AddItem(Text);
+                        }
                   
 
 						this.IsBusy = false;
@@ -242,8 +277,11 @@ namespace PaketGlobal
 
 						if (!trusted) {
 							ShowErrorWithText(AppResources.UserNotTrusted);
-						} else {
+						} 
+                        else {
 							ShowSuccess();
+
+                            AddressBookHelper.AddItem(Text);
 						}
 					}
 

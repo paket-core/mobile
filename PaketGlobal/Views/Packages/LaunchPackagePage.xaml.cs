@@ -11,7 +11,6 @@ namespace PaketGlobal
 	{
 
         private string recipient = "";
-        private string courier = "";
 
 		private Package ViewModel {
 			get {
@@ -40,12 +39,41 @@ namespace PaketGlobal
             BackButton.TranslationX = -30;
 #endif
 
+            var selectMyCountryCommand = new Command(() =>
+            {
+                var picker = new CountryPickerPage();
+                picker.eventHandler = DidSelectMyCountryHandler;
+                Navigation.PushAsync(picker, true);
+            });
+
+            var selectRecipientCountryCommand = new Command(() =>
+            {
+                var picker = new CountryPickerPage();
+                picker.eventHandler = DidSelectRecipientCountryHandler;
+                Navigation.PushAsync(picker, true);
+            });
+
+            XamEffects.Commands.SetTap(myCountryCodeLabel, selectMyCountryCommand);
+            XamEffects.Commands.SetTap(recipientCountryCodeLabel, selectRecipientCountryCommand);
+        }
+
+        private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
+        {
+            recipientCountryCodeLabel.Text = e.Item.CallingCode;
+            recipientEntryPhoneNumber.Text = "";
+        }
+
+        private void DidSelectMyCountryHandler(object sender, CountryPickerPageEventArgs e)
+        {
+            myCountryCodeLabel.Text = e.Item.CallingCode;
+            myEntryPhoneNumber.Text = "";
         }
 
         private void OnBack(object sender, System.EventArgs e)
         {
             Navigation.PopAsync();
         }
+
 
         private void PickerFocused(object sender, Xamarin.Forms.FocusEventArgs e)
         {
@@ -123,21 +151,18 @@ namespace PaketGlobal
 
         private async void CreateClicked(object sender, System.EventArgs e)
         {
-            if(EntryCourier.IsBusy || EntryRecepient.IsBusy)
+            if(EntryRecepient.IsBusy)
             {
                 return;
             }
 
             if (IsValid())
             {
-                if(recipient.Length==0 || courier.Length==0)
+                if(recipient.Length==0)
                 {
                     if(recipient.Length == 0)
                     {
                         EntryRecepient.FocusField();
-                    }
-                    else{
-                        EntryCourier.FocusField(); 
                     }
                     return;
                 }
@@ -181,6 +206,8 @@ namespace PaketGlobal
                         }
                     }
 
+                    var courier = "";
+
                     var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
@@ -207,32 +234,57 @@ namespace PaketGlobal
             }
         }
 
+        private void ContactsButtonClicked(object sender, EventArgs e)
+        {
+            this.Unfocus();
+
+            ContactsBookPage page = new ContactsBookPage();
+
+            this.Navigation.PushAsync(page);
+        }
+
+        private void AddressButtonClicked(object sender, EventArgs e)
+        {
+            this.Unfocus();
+
+            AddressBookPage page;
+
+            if(sender==EntryRecepient){
+                page = new AddressBookPage(false);
+            }
+            else{
+                page = new AddressBookPage(true);
+            }
+
+            page.eventHandler = DidSelectItemHandler;
+
+            this.Navigation.PushAsync(page);
+
+        }
+
+        private async void DidSelectItemHandler(object sender, AddressBookPageEventArgs e)
+        {
+            var page = sender as AddressBookPage;
+
+            EntryRecepient.Text = e.Item;
+            recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+        }
+
         private async void FieldUnfocus(object sender, EventArgs e)
         {
             if (sender == EntryRecepient)
             {
                 recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
             }
-            else if (sender == EntryCourier)
-            {
-                courier = await EntryCourier.CheckValidCallSignOrPubKey();
-            } 
         }
 
         private void FieldCompleted(object sender, EventArgs e)
         {
             if (sender == EntryRecepient)
             {
-                if (!ValidationHelper.ValidateTextField(EntryCourier.Text))
+                if (!ValidationHelper.ValidateTextField(EntryPayment.Text))
                 {
-                    EntryCourier.FocusField();
-                }
-            }
-            else if (sender == EntryCourier)
-            {
-                if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
-                {
-                    EntryRecepient.FocusField();
+                    EntryPayment.Focus();
                 }
             }
             else if (sender == EntryPayment)
@@ -258,11 +310,6 @@ namespace PaketGlobal
                 EntryRecepient.FocusField();
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(EntryCourier.Text))
-            {
-                EntryCourier.FocusField();
-                return false;
-            }
             else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
             {
                 EventHandler handleHandler = (s, e) => {                     EntryDeadline.Focus();                 };                  ShowErrorMessage(AppResources.SelectDeadlineDate, false, handleHandler); 
@@ -285,7 +332,6 @@ namespace PaketGlobal
         protected override void ToggleLayout(bool enabled)
         {
             BackButton.IsEnabled = enabled;
-            EntryCourier.IsEnabled = enabled;
             EntryPayment.IsEnabled = enabled;
             EntryDeadline.IsEnabled = enabled;
             EntryCollateral.IsEnabled = enabled;

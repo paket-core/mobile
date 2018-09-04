@@ -7,7 +7,7 @@
     xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
-        <RelativeLayout>
+        <RelativeLayout BackgroundColor="White">
             <Image BackgroundColor="Transparent"
                     Aspect="AspectFill"
                     Source="register_bg.png"
@@ -42,17 +42,17 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.4}">
                         <StackLayout Spacing="10">
-                            <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted" BackgroundV="1" Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate UserName}" HeightRequest="40"/>
-                            <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate FullName}" HeightRequest="40"/>
+                            <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted"  Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate UserName}" HeightRequest="40"/>
+                            <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate FullName}" HeightRequest="40"/>
                             <StackLayout Spacing="0">
                                 <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="countryCodeLabel" Text="{Binding PhoneCode, Mode=TwoWay}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                    <Label VerticalOptions="Center" YAlign="Center" XAlign="Start" MinimumWidthRequest="30" HeightRequest="40" HorizontalOptions="Start" xe:TouchEffect.Color="Gray" x:Name="countryCodeLabel" Text="{Binding PhoneCode, Mode=TwoWay}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"/>
                                     <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                                     <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="40"/>
                                 </StackLayout>
                                 <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                             </StackLayout>
-                            <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" BackgroundV="1" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate Address}" HeightRequest="40"/>
+                            <local:PaketEntry x:Name="entryUserAddress" Completed="FieldCompleted" Text="{Binding Address, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate Address}" HeightRequest="40"/>
                         </StackLayout>
                         <local:PaketButton Text="{local:Translate GenerateKey}" x:Name="generateButton" Clicked="CreateAccountClicked"/>
                         <StackLayout BackgroundColor="Transparent" Spacing="10" Padding="0,10,0,0">
