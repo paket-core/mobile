@@ -190,7 +190,7 @@ namespace PaketGlobal
 
 			var myBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
-            if (myBalance == null || myBalance.BalanceBUL < amount)
+            if (myBalance == null || myBalance.Account.BalanceBUL < amount)
             {
                 throw new ServiceException(400, "Insufficient BULs");
             }
@@ -246,7 +246,7 @@ namespace PaketGlobal
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location, SignHandler customSign)
+        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
@@ -271,16 +271,11 @@ namespace PaketGlobal
             request.AddParameter("payment_buls", payment);
             request.AddParameter("collateral_buls", collateral);
 
-            if(location!=null)
-            {
-                request.AddParameter("location", location);
-            }
-
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
 
-		public async Task<LaunchPackageData> CreatePackage(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, double paymentBuls, double collateralBuls,
-		                                                   string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans, string location, SignHandler customSign)
+		public async Task<LaunchPackageData> CreatePackage(string escrowPubkey, string recipientPubkey, string launcherPhone, string recipientPhone, long deadlineTimestamp, double paymentBuls, double collateralBuls,
+		                                                   string description, string fromLocation, string toLocation, string eventLocation, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/create_package", Method.POST);
 
@@ -297,19 +292,29 @@ namespace PaketGlobal
 			}
 
 			request.AddParameter("escrow_pubkey", escrowPubkey);
-			request.AddParameter("launcher_pubkey", launcherPubkey);
 			request.AddParameter("recipient_pubkey", recipientPubkey);
+			request.AddParameter("launcher_phone_number", launcherPhone);
+			request.AddParameter("recipient_phone_number", recipientPhone);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("payment_buls", payment);
 			request.AddParameter("collateral_buls", collateral);
+			request.AddParameter("description", description);
+			request.AddParameter("from_location", fromLocation);
+			request.AddParameter("to_location", toLocation);
+			request.AddParameter("event_location", eventLocation);
+
+			return await SendRequest<LaunchPackageData>(request, customSign: customSign);
+		}
+
+		public async Task<LaunchPackageData> FinalizePackage(string escrowPubkey, string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans, SignHandler customSign)
+		{
+			var request = PrepareRequest(apiVersion + "/finalize_package", Method.POST);
+
+			request.AddParameter("escrow_pubkey", escrowPubkey);
 			request.AddParameter("set_options_transaction", setOptionsTrans);
 			request.AddParameter("refund_transaction", refundTrans);
 			request.AddParameter("merge_transaction", mergeTrans);
 			request.AddParameter("payment_transaction", paymentTrans);
-
-			if (location != null) {
-				request.AddParameter("location", location);
-			}
 
 			return await SendRequest<LaunchPackageData>(request, customSign: customSign);
 		}

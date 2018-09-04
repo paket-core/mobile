@@ -181,7 +181,7 @@ namespace PaketGlobal
                         }
                     }
 
-                    var result = await StellarHelper.LaunchPackage(escrowKP, recipient, vm.Deadline, courier, payment, collateral, location, LaunchPackageEvents);
+					var result = await StellarHelper.CreatePackage(escrowKP, recipient, "launcher phone", "recipient phone", "description", vm.Deadline, payment, collateral, location, "from location", "to location", LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {

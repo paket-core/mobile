@@ -102,11 +102,32 @@ namespace PaketGlobal
 		public Dictionary<string, string> Extras { get; set; }
 	}
 
-    //Wallet
+	//Wallet
 
-    [DataContract]
-    public class BalanceData : BaseData
-    {
+	[DataContract]
+	public class BalanceData : BaseData
+	{
+		[DataMember(Name = "account")]
+		public AccountData Account { get; set; }
+
+        public string FormattedBalanceBUL {
+            get {
+                return StellarConverter.ConvertValueToString(Account.BalanceBUL);
+            }
+        }
+
+        public string FormattedBalanceXLM
+        {
+            get
+            {
+                return StellarConverter.ConvertValueToString(Account.BalanceXLM);
+            }
+        }
+	}
+
+	[DataContract]
+	public class AccountData
+	{
 		[DataMember(Name = "bul_balance")]
 		public long BalanceBUL { get; set; }
 
@@ -121,20 +142,6 @@ namespace PaketGlobal
 
 		[DataMember(Name = "thresholds")]
 		public ThresholdData Thresholds { get; set; }
-
-        public string FormattedBalanceBUL {
-            get {
-                return StellarConverter.ConvertValueToString(BalanceBUL);  
-            }
-        }
-
-        public string FormattedBalanceXLM
-        {
-            get
-            {
-                return StellarConverter.ConvertValueToString(BalanceXLM);  
-            }
-        }
 	}
 
 	[DataContract]

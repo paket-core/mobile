@@ -104,40 +104,35 @@ namespace PaketGlobal
 			}
 		}
 
-        private async System.Threading.Tasks.Task Refresh()
-        {
+		private async System.Threading.Tasks.Task Refresh()
+		{
 			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
-            bool enabled = App.Locator.AccountService.ShowNotifications;
+			bool enabled = App.Locator.AccountService.ShowNotifications;
 
-            if (bal != null)
-            {
-                if(Balance==null)
-                {
-                    Balance = bal; 
-                }
+			if (bal != null) {
+				if (Balance == null) {
+					Balance = bal;
+				}
 
-                if(bal.BalanceBUL != Balance.BalanceBUL)
-                {
-                    if (enabled)
-                    {
-                        Device.BeginInvokeOnMainThread(() => {
-                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details",DidClickNotification);
+				if (bal.Account.BalanceBUL != Balance.Account.BalanceBUL) {
+					if (enabled) {
+						Device.BeginInvokeOnMainThread(() => {
+							App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details", DidClickNotification);
 
-                        });
-                    } 
-                }
+						});
+					}
+				}
 
-                Balance = bal;
-            }
+				Balance = bal;
+			}
 
-            if (isneedTimer)
-            {
-                if(timer!=null){
-                    timer.Start();
-                }
-            }
-        }
+			if (isneedTimer) {
+				if (timer != null) {
+					timer.Start();
+				}
+			}
+		}
 
         public override void Reset()
         {
