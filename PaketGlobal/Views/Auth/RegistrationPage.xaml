@@ -46,7 +46,7 @@
                             <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" BackgroundV="1" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate FullName}" HeightRequest="40"/>
                             <StackLayout Spacing="0">
                                 <StackLayout Orientation="Horizontal" Spacing="10">
-                                    <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="countryCodeLabel" Text="+1" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                    <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="countryCodeLabel" Text="{Binding PhoneCode, Mode=TwoWay}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
                                     <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                                     <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="entryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="40"/>
                                 </StackLayout>

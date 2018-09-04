@@ -19,6 +19,6 @@ namespace PaketGlobal
 
         public const string APP_URL = "https://github.com/paket-core/mobile";
         public const string PAKET_URL = "https://paket.global";
-
+        public const string PAKET_PRIVACY_URL = "https://paket.global/privacy-policy";
     }
 }

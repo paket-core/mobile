@@ -1,4 +1,6 @@
 ﻿using System;
+using CoreTelephony;
+using Foundation;
 using UIKit;
 
 namespace PaketGlobal.iOS
@@ -42,6 +44,13 @@ namespace PaketGlobal.iOS
 
         public void HideProgress()
         {
+        }
+
+        public string CountryCode()
+        {
+            var currentLocale = NSLocale.CurrentLocale;
+            var countryCode = currentLocale.CountryCode;
+            return countryCode;
         }
     }
 }
