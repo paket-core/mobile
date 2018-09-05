@@ -122,8 +122,6 @@ namespace PaketGlobal
                     var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address);
 
 					App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
-
-                    App.ShowLoading(false);
                 }
                 else if (IsAddedInfo)
                 {
@@ -144,18 +142,10 @@ namespace PaketGlobal
                           
                             var page = new SMSVereficationPage();
                             await Navigation.PushAsync(page, true);
-
-                            App.ShowLoading(false);
-                        }
-                        else
-                        {
-                            App.ShowLoading(false);
                         }
                     }
                     catch (Exception ex)
                     {
-                        App.ShowLoading(false);
-
                         System.Diagnostics.Debug.WriteLine(ex);
 
                         ShowErrorMessage(ex.Message);
@@ -172,29 +162,27 @@ namespace PaketGlobal
                                                                                           ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
                         if (result != null)
                         {
-                            App.Locator.Profile.SetCredentials(ViewModel.UserName,
-                                                               ViewModel.FullName,
-                                                               ViewModel.FullPhoneNumber,
-                                                               kd.KeyPair.SecretSeed,
-                                                               kd.MnemonicString);
+							var infosResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
 
+							if (infosResult != null) {
 
-                            var page = new ViewMnemonicPage();
-                            await Navigation.PushAsync(page, true);
+								App.Locator.Profile.SetCredentials(ViewModel.UserName,
+																   ViewModel.FullName,
+																   ViewModel.FullPhoneNumber,
+																   kd.KeyPair.SecretSeed,
+																   kd.MnemonicString);
 
-                            App.ShowLoading(false);
+								var page = new ViewMnemonicPage();
+								await Navigation.PushAsync(page, true);
+							}
                         }
                         else
                         {
-                            App.ShowLoading(false);
-
                             App.Locator.Profile.KeyPair = null;
                         }
                     }
                     catch (Exception ex)
                     {
-                        App.ShowLoading(false);
-
                         System.Diagnostics.Debug.WriteLine(ex);
 
                         App.Locator.Profile.KeyPair = null;
@@ -202,6 +190,8 @@ namespace PaketGlobal
                         ShowErrorMessage(ex.Message);
                     }
                 }
+
+				App.ShowLoading(false);
             }
         }
 
