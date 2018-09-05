@@ -241,6 +241,9 @@
     <Reference Include="Plugin.ContactService">
       <HintPath>..\packages\Xamarin.Forms.Contacts.1.0.5\lib\Xamarin.iOS10\Plugin.ContactService.dll</HintPath>
     </Reference>
+    <Reference Include="libphonenumber">
+      <HintPath>..\packages\Google.LibPhoneNumber.1.0.0\lib\libphonenumber.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -488,6 +491,9 @@
     <BundleResource Include="Resources\book_icon%403x.png" />
     <BundleResource Include="Resources\book_icon%402x.png" />
     <BundleResource Include="Resources\book_icon.png" />
+    <BundleResource Include="Resources\empty_photo%403x.png" />
+    <BundleResource Include="Resources\empty_photo%402x.png" />
+    <BundleResource Include="Resources\empty_photo.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

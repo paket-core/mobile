@@ -60,13 +60,25 @@ namespace PaketGlobal
         private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
         {
             recipientCountryCodeLabel.Text = e.Item.CallingCode;
-            recipientEntryPhoneNumber.Text = "";
         }
 
         private void DidSelectMyCountryHandler(object sender, CountryPickerPageEventArgs e)
         {
             myCountryCodeLabel.Text = e.Item.CallingCode;
-            myEntryPhoneNumber.Text = "";
+        }
+
+        private void DidSelectRecipientPhoneHandler(object sender, ContactsBookPageEventArgs e)
+        {
+            var contact = e.Item;
+           
+            if(contact.CountryCode!=null)
+            {
+                recipientCountryCodeLabel.Text = contact.CountryCode;
+                recipientEntryPhoneNumber.Text = contact.NationalPhone;
+            }
+            else{
+                recipientEntryPhoneNumber.Text = contact.SimplePhone;
+            }
         }
 
         private void OnBack(object sender, System.EventArgs e)
@@ -238,7 +250,7 @@ namespace PaketGlobal
             this.Unfocus();
 
             ContactsBookPage page = new ContactsBookPage();
-
+            page.eventHandler = DidSelectRecipientPhoneHandler;
             this.Navigation.PushAsync(page);
         }
 
