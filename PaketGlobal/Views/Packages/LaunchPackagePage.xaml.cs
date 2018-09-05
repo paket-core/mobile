@@ -346,7 +346,7 @@ namespace PaketGlobal
                 EntryRecipientPhoneNumber.Focus();
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(EntryDescription.Text)
+            else if (!ValidationHelper.ValidateTextField(EntryDescription.Text))
             {
                 EntryDescription.Focus();
                 return false;
