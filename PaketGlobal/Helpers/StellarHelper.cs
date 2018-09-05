@@ -50,7 +50,9 @@ namespace PaketGlobal
             return transactions.Records;
         }
 
-		public static async Task<StellarOperationResult> CreatePackage(KeyPair escrowKP, string recipientPubkey, string launcherPhone, string recipientPhone, string description, long deadlineTimestamp, double paymentBuls, double collateralBuls, string eventLocation, string fromLocation, string toLocation, LaunchPackageEventHandler eventHandler)
+		public static async Task<StellarOperationResult> CreatePackage(KeyPair escrowKP, string recipientPubkey, string launcherPhone, string recipientPhone, string description,
+		                                                               string fromAddress, string toAddress, long deadlineTimestamp, double paymentBuls, double collateralBuls,
+		                                                               string eventLocation, string fromLocation, string toLocation, byte[] packagePhoto, LaunchPackageEventHandler eventHandler)
 		{
 			double steps = 3;
 			double currentStep = 1;
@@ -80,8 +82,8 @@ namespace PaketGlobal
 			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
 			currentStep++;
 
-			var createResult = await App.Locator.RouteServiceClient.CreatePackage(escrowKP.Address, recipientPubkey, launcherPhone, recipientPhone, deadlineTimestamp,
-																				  paymentBuls, collateralBuls, description, fromLocation, toLocation, eventLocation, (d) => {
+			var createResult = await App.Locator.RouteServiceClient.CreatePackage(escrowKP.Address, recipientPubkey, launcherPhone, recipientPhone, deadlineTimestamp, paymentBuls, collateralBuls,
+			                                                                      description, fromAddress, toAddress, fromLocation, toLocation, eventLocation, packagePhoto, (d) => {
 																					  return App.Locator.Profile.SignData(d, escrowKP);
 																				  });
 			if (createResult != null) {

@@ -60,7 +60,7 @@ namespace PaketGlobal.Droid
 
                 if(iso!=null)
                 {
-                    return iso;
+					return iso.ToUpper();
                 }
             }
 
