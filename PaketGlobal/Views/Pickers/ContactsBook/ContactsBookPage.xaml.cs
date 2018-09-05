@@ -104,6 +104,7 @@ namespace PaketGlobal
                     fPhone = fPhone.Replace(" ", "");
                     fPhone = fPhone.Replace("(", "");
                     fPhone = fPhone.Replace(")", "");
+                    fPhone = fPhone.Replace("-", "");
                     return fPhone;
                 }
             }

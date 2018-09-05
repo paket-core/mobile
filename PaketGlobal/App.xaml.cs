@@ -48,7 +48,7 @@ namespace PaketGlobal
 			Locator.BridgeServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.BridgeServiceClient.TrySign = Locator.Profile.SignData;
 
-			if (!Locator.Profile.Activated) 
+			if (Locator.Profile.Activated) 
             {
                 var navPage = new NavigationPage(new LaunchPackagePage(new Package())); 
                // var navPage = Locator.NavigationService.Initialize(new PackagesPage());
