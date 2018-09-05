@@ -552,4 +552,13 @@
     <data name="Contacts" xml:space="preserve">
         <value>Contacts</value>
     </data>
+    <data name="DeadlineLower" xml:space="preserve">
+        <value>Deadline</value>
+    </data>
+    <data name="PackageDescText1" xml:space="preserve">
+        <value>Package Description</value>
+    </data>
+    <data name="PackageDescText2" xml:space="preserve">
+        <value>Please provide some general info</value>
+    </data>
 </root>

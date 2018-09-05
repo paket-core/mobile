@@ -552,5 +552,15 @@
     <data name="Contacts" xml:space="preserve">
         <value>Контакты</value>
     </data>
+    <data name="DeadlineLower" xml:space="preserve">
+        <value>Крайний срок</value>
+    </data>
+    <data name="PackageDescText1" xml:space="preserve">
+        <value>Описание посылки</value>
+    </data>
+    <data name="PackageDescText2" xml:space="preserve">
+        <value>Опишите основные параметры</value>
+    </data>
 
+    
 </root>
