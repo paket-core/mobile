@@ -59,12 +59,12 @@ namespace PaketGlobal
 
         private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
         {
-            recipientCountryCodeLabel.Text = e.Item.CallingCode;
+            ViewModel.RecipientPhoneCode = e.Item.CallingCode;
         }
 
         private void DidSelectMyCountryHandler(object sender, CountryPickerPageEventArgs e)
         {
-            myCountryCodeLabel.Text = e.Item.CallingCode;
+            ViewModel.LauncherPhoneCode = e.Item.CallingCode;
         }
 
         private void DidSelectRecipientPhoneHandler(object sender, ContactsBookPageEventArgs e)
@@ -73,11 +73,11 @@ namespace PaketGlobal
            
             if(contact.CountryCode!=null)
             {
-                recipientCountryCodeLabel.Text = contact.CountryCode;
-                recipientEntryPhoneNumber.Text = contact.NationalPhone;
+                ViewModel.RecipientPhoneCode = contact.CountryCode;
+                ViewModel.RecipientPhoneNumber = contact.NationalPhone;
             }
             else{
-                recipientEntryPhoneNumber.Text = contact.SimplePhone;
+                ViewModel.RecipientPhoneNumber = contact.SimplePhone;
             }
         }
 
@@ -218,7 +218,7 @@ namespace PaketGlobal
                         }
                     }
 
-                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, "123124124", "345345345", "Package Description", "From Address", "To Address", vm.Deadline, payment, collateral, location, location, location, null, LaunchPackageEvents);
+                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, "From Address", "To Address", vm.Deadline, payment, collateral, location, location, location, null, LaunchPackageEvents);
 
 
                     if (result == StellarOperationResult.Success)
@@ -336,7 +336,22 @@ namespace PaketGlobal
                 EntryCollateral.Focus();
                 return false;
             }
-    
+            else if (!ValidationHelper.ValidateTextField(ViewModel.LauncherFullPhoneNumber))
+            {
+                EntryLauncherPhoneNumber.Focus();
+                return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.RecipientFullPhoneNumber))
+            {
+                EntryRecipientPhoneNumber.Focus();
+                return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(EntryDescription.Text)
+            {
+                EntryDescription.Focus();
+                return false;
+            }
+
             return true;
         }
 

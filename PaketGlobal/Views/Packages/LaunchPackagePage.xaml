@@ -27,7 +27,7 @@
             <Frame x:Name="PakagesView" BackgroundColor="White" 
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
-                      Padding="20"
+                      Padding="0"
                       CornerRadius="18"
                       HasShadow="false"
                       RelativeLayout.XConstraint = "0"
@@ -40,16 +40,16 @@
                                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
                         <StackLayout Spacing="30">
-                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="20,20,20,0">
                                 <Label TextColor="Black" Text="{local:Translate Participants}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="15">
                                     <StackLayout Spacing="5">
                                         <StackLayout Spacing="5">
                                             <Label Text="{local:Translate MyPhone}" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                             <StackLayout Orientation="Horizontal" Spacing="10" Padding="0,0,5,0">
-                                                <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="myCountryCodeLabel" Text="+1" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                                <Label Text="{Binding LauncherPhoneCode}"  xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="myCountryCodeLabel" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
                                                 <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
-                                                <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="myEntryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
+                                                <local:PaketEntry Text="{Binding LauncherPhoneNumber}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="EntryLauncherPhoneNumber" Completed="FieldCompleted" BackgroundV="4" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
                                             </StackLayout>
                                         </StackLayout>
                                         <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
@@ -65,9 +65,9 @@
                                         <StackLayout Spacing="5">
                                             <Label Text="{local:Translate RecipientPhone}" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                             <StackLayout Orientation="Horizontal" Spacing="10" Padding="0,0,5,0">
-                                                <Label xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="recipientCountryCodeLabel" Text="+1" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
+                                                <Label Text="{Binding RecipientPhoneCode}" xe:TouchEffect.Color="Gray" YAlign="Center" XAlign="Start" VerticalOptions="Center" x:Name="recipientCountryCodeLabel" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#555555"></Label>
                                                 <BoxView WidthRequest="1" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
-                                                <local:PaketEntry VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="recipientEntryPhoneNumber" Completed="FieldCompleted" BackgroundV="4" Text="{Binding PhoneNumber, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
+                                                <local:PaketEntry Text="{Binding RecipientPhoneNumber}" VerticalOptions="Center" HorizontalOptions="FillAndExpand" x:Name="EntryRecipientPhoneNumber" Completed="FieldCompleted" BackgroundV="4" LineColor="#E5E5E5"  Keyboard="Telephone" Placeholder="{local:Translate PhoneNumber}" HeightRequest="{StaticResource EntrySize}"/>
                                                 <Button Clicked="ContactsButtonClicked" Image="book_icon.png" HorizontalOptions="End" VerticalOptions="Start" BackgroundColor="Transparent" WidthRequest="28" HeightRequest="28"/>
                                             </StackLayout>
                                         </StackLayout>
@@ -75,66 +75,85 @@
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-
-
-
-                        <StackLayout BackgroundColor="#FAFAFA" Spacing="25" Padding="0,0,0,0">
-                                <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
-                                    <Label TextColor="Black" Text="{local:Translate Locations}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                    <Image Source="map_cion.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
-                                </StackLayout>
-                                
-                                <StackLayout Spacing="10" HorizontalOptions="FillAndExpand">
-                                    
-                                <Label TextColor="#454545" Text="{local:Translate SelectLocations}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-
-                                <StackLayout Padding="0,0,100,0" Orientation="Horizontal" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
-
-
-                                   <Frame Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                    </Frame>
-                                    <Frame Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                    </Frame>
-
-                                        
-                                </StackLayout>
-
-                                <StackLayout Padding="0,0,100,0" Orientation="Horizontal" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
-                                      <Label Text="Ben Yehuda St 130, Tel Aviv" HorizontalOptions="Start" XAlign="Start" VerticalOptions="Start" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                      <Label Text="Benv" HorizontalOptions="EndAndExpand" XAlign="Start" VerticalOptions="Start" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                </StackLayout>
-
-                                </StackLayout>
-                                   
-                                
-       <!--                         <StackLayout Spacing="15">
-                                    <Label TextColor="#A7A7A7" Text="{local:Translate PickDeadlineDate}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" Orientation="Horizontal" HeightRequest="40" BackgroundColor="White">
-                                        <StackLayout VerticalOptions="Center" Orientation="Horizontal" Spacing="20" HeightRequest="40" BackgroundColor="White">
-                                            <Button Text="{local:Translate Day1}" x:Name="DayButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="{local:Translate Week1}" x:Name="OneWeekButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="{local:Translate Week2}" x:Name="TwoWeekButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                            <Button Text="{local:Translate SpecificDate}" x:Name="CustomDateButton" Clicked="DateButtonClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                                        </StackLayout>
-                                    </ScrollView>
-                                    <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="{local:Translate DeadlineLower}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryDeadline" Text="{Binding DeadlineString, Mode=TwoWay}" Focused="PickerFocused" Placeholder="{local:Translate SelectedDate}" LineColor="#E5E5E5" ImageWidth="18" ImageHeight="18" Image="icon_calendar.png" HeightRequest="{StaticResource EntrySize}"/>
+                            <local:PaketFrame BackgroundColor="#FAFAFA"
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand"
+                      Padding="0,20,0,20"
+                      CornerRadius="15"
+                      HasShadow="false">
+                                <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="20,0,20,0">
+                                    <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
+                                        <Label TextColor="Black" Text="{local:Translate Locations}" VerticalOptions="Center" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        <Image Source="map_cion.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="26" WidthRequest="26"/>
                                     </StackLayout>
-                                </StackLayout>-->
-                            </StackLayout>
-
-                            
-                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                                    <StackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+                                        <Label TextColor="#454545" Text="{local:Translate SelectLocations}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                                        <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
+                                            <RelativeLayout>
+                                                <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="0" Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                    <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                </Frame>
+                                                <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                    <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                </Frame>
+                                                <Label x:Name="FromLocationLabel" Text="{local:Translate SelectLocation}"
+                                           RelativeLayout.HeightConstraint="35"
+                                           RelativeLayout.YConstraint="30"
+                                           RelativeLayout.XConstraint="0"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
+                                           xe:TouchEffect.Color="Gray" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
+                                                <Label x:Name="ToLocationLabel" Text="{local:Translate SelectLocation}"
+                                           RelativeLayout.HeightConstraint="35"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
+                                           RelativeLayout.YConstraint="30"
+                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
+                                           xe:TouchEffect.Color="Gray" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
+                                                <Frame x:Name="FromLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
+                                        RelativeLayout.HeightConstraint="80"
+                                        RelativeLayout.WidthConstraint="80"
+                                        RelativeLayout.YConstraint="75"
+                                        RelativeLayout.XConstraint="0"        
+                                        HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
+                                                    <Image Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                </Frame>
+                                                <Label Text="{local:Translate Distance}"
+                                           RelativeLayout.HeightConstraint="30"
+                                           RelativeLayout.YConstraint="95"
+                                           RelativeLayout.XConstraint="85"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-210}"
+                                           TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
+                                              RelativeLayout.XConstraint="79"
+                                              RelativeLayout.YConstraint="115"
+                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-210}"
+                                              />
+                                                <Label Text="0km"
+                                           RelativeLayout.HeightConstraint="30"
+                                           RelativeLayout.YConstraint="120"
+                                           RelativeLayout.XConstraint="85"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-210}"
+                                           TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                <Frame x:Name="ToLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
+                                        RelativeLayout.HeightConstraint="80"
+                                        RelativeLayout.WidthConstraint="80"
+                                        RelativeLayout.YConstraint="75"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6}"
+                                        HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
+                                                    <Image Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                </Frame>
+                                            </RelativeLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </StackLayout>
+                            </local:PaketFrame>
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="20,0,20,0">
                                 <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
                                     <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                     <Image Source="information_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
                                 </StackLayout>
                                 <StackLayout Spacing="0">
-                                        <Label TextColor="#A7A7A7" Text="{local:Translate PackageDescText1}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryDescription" Completed="FieldCompleted" Keyboard="Text" Placeholder="{local:Translate PackageDescText2}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
+                                    <Label TextColor="#A7A7A7" Text="{local:Translate PackageDescText1}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                    <local:PaketEntry x:Name="EntryDescription" Completed="FieldCompleted" Keyboard="Text" Placeholder="{local:Translate PackageDescText2}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
                                 </StackLayout>
                                 <StackLayout Spacing="15">
                                     <Label TextColor="#A7A7A7" Text="{local:Translate PickDeadlineDate}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
@@ -152,7 +171,7 @@
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-                            <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0">
+                            <StackLayout BackgroundColor="White" Spacing="25" Padding="20,0,20,0">
                                 <Label TextColor="Black" Text="{local:Translate Funds}" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
@@ -167,7 +186,9 @@
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-                            <local:PaketButton Text="{local:Translate Launch}" x:Name="LaunchButton" Clicked="CreateClicked"/>
+                            <StackLayout BackgroundColor="White" Spacing="0" Padding="20,0,20,0">
+                                <local:PaketButton Text="{local:Translate Launch}" x:Name="LaunchButton" Clicked="CreateClicked"/>
+                            </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0" HeightRequest="30"></StackLayout>
                         </StackLayout>
                     </ScrollView>

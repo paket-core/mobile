@@ -703,6 +703,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\map_cion.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\map_cion.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\map_cion.png" />
+    <AndroidResource Include="Resources\drawable\map_black_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\map_black_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\map_black_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\map_black_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\map_black_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

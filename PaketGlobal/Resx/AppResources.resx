@@ -573,4 +573,10 @@
     <data name="FromLocation" xml:space="preserve">
         <value>TO</value>
     </data>
+    <data name="SelectLocation" xml:space="preserve">
+        <value>Please select&#xA;location</value>
+    </data>
+    <data name="Distance" xml:space="preserve">
+        <value>DISTANCE</value>
+    </data>
 </root>

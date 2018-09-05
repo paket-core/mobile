@@ -205,6 +205,8 @@ namespace PaketGlobal
 
                 if (hasPermission)
                 {
+                    App.ShowLoading(true);
+
                     var contacts = await CrossContactService.Current.GetContactListAsync();
 
                     foreach(Plugin.ContactService.Shared.Contact contact in contacts)
@@ -220,6 +222,8 @@ namespace PaketGlobal
                     }
 
                     ItemsListView.ItemsSource = Items;
+
+                    App.ShowLoading(false);
                 }
                 else
                 {

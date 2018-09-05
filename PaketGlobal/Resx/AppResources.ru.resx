@@ -573,6 +573,12 @@
     <data name="FromLocation" xml:space="preserve">
         <value>ОТКУДА</value>
     </data>
-
+    <data name="SelectLocation" xml:space="preserve">
+        <value>Выберите&#xA;адрес</value>
+    </data>
+    <data name="Distance" xml:space="preserve">
+        <value>ДИСТАНЦИЯ</value>
+    </data>
     
+
 </root>

@@ -497,6 +497,9 @@
     <BundleResource Include="Resources\map_cion%403x.png" />
     <BundleResource Include="Resources\map_cion%402x.png" />
     <BundleResource Include="Resources\map_cion.png" />
+    <BundleResource Include="Resources\map_black_icon%403x.png" />
+    <BundleResource Include="Resources\map_black_icon%402x.png" />
+    <BundleResource Include="Resources\map_black_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

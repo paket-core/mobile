@@ -116,6 +116,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\ContactsBookPage.xaml.cs">
       <DependentUpon>ContactsBookPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\LocationPickerPage.xaml.cs">
+      <DependentUpon>LocationPickerPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -210,6 +213,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\LocationPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -228,5 +235,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\" />
   </ItemGroup>
 </Project>

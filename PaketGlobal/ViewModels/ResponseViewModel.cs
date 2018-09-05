@@ -310,6 +310,11 @@ namespace PaketGlobal
 	[DataContract]
     public class Package : BaseViewModel
 	{
+        private string recipientPhoneCode;
+        private string recipientPhoneNumber;
+        private string launcherPhoneNumber;
+        private string launcherPhoneCode;
+ 
         public bool isNewPackage { get; set; }
 
 		[DataMember(Name = "escrow_pubkey")]
@@ -396,6 +401,7 @@ namespace PaketGlobal
 
         [DataMember(Name = "merge_transaction")]
         public string MergeTransaction { get; set; }
+
 
 		public DeliveryStatus DeliveryStatus { get; set; }
 
@@ -544,6 +550,69 @@ namespace PaketGlobal
             get
             {
                 return StellarConverter.ConvertValueToString(Payment);  
+            }
+        }
+
+
+        public string LauncherPhoneNumber
+        {
+            get { return launcherPhoneNumber; }
+            set { SetProperty(ref launcherPhoneNumber, value); }
+        }
+
+        public string LauncherPhoneCode
+        {
+            get
+            {
+                if (launcherPhoneCode == null)
+                {
+                    launcherPhoneCode = ISO3166.GetCurrentCallingCode();
+                }
+                return launcherPhoneCode;
+            }
+            set { SetProperty(ref launcherPhoneCode, value); }
+        }
+
+        public string LauncherFullPhoneNumber
+        {
+            get
+            {
+                if (launcherPhoneNumber == null || launcherPhoneCode == null)
+                {
+                    return "";
+                }
+                return launcherPhoneCode + launcherPhoneNumber;
+            }
+        }
+
+        public string RecipientPhoneNumber
+        {
+            get { return recipientPhoneNumber; }
+            set { SetProperty(ref recipientPhoneNumber, value); }
+        }
+
+        public string RecipientPhoneCode
+        {
+            get
+            {
+                if (recipientPhoneCode == null)
+                {
+                    recipientPhoneCode = ISO3166.GetCurrentCallingCode();
+                }
+                return recipientPhoneCode;
+            }
+            set { SetProperty(ref recipientPhoneCode, value); }
+        }
+
+        public string RecipientFullPhoneNumber
+        {
+            get
+            {
+                if (recipientPhoneNumber == null || recipientPhoneCode == null)
+                {
+                    return "";
+                }
+                return recipientPhoneCode + recipientPhoneNumber;
             }
         }
 	}

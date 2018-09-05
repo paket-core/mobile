@@ -100,7 +100,6 @@ namespace PaketGlobal
         private void DidSelectCountryHandler(object sender, CountryPickerPageEventArgs e)
         {
             ViewModel.PhoneCode = e.Item.CallingCode;
-            ViewModel.PhoneNumber = "";
         }
 
         private void OnBack(object sender, EventArgs e)
