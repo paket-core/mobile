@@ -29,10 +29,6 @@ namespace PaketGlobal
 			get { return GetInstance<Workspace>(); }
 		}
 
-		public ServiceClient FundServiceClient {
-            get { return GetInstance<ServiceClient>(Config.FundService); }
-		}
-
         public ServiceClient BridgeServiceClient
         {
             get { return GetInstance<ServiceClient>(Config.BridgeService); }
@@ -113,12 +109,6 @@ namespace PaketGlobal
 
 			if (!SimpleIoc.Default.IsRegistered<Workspace>()) {
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
-			}
-
-            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.FundService)) {
-				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.FundServerUrl,
-																				  Config.FundServerVersion),
-                                                          Config.FundService);
 			}
 
             if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.BridgeService))

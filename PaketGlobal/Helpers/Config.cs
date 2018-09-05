@@ -2,8 +2,6 @@
 {
 	public class Config
 	{
-        internal const string FundService = "FundService";
-
         internal const string BridgeService = "BridgeService";
         internal const string RouteService = "RouteService";
         internal const string IdentityService = "IdentityService";

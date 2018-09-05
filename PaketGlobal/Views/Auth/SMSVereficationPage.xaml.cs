@@ -22,6 +22,17 @@ namespace PaketGlobal
 #endif
         }
 
+		protected async override void OnAppearing()
+		{
+			var fl = firstLoad;
+
+			base.OnAppearing();
+
+			if (fl) {
+				await App.Locator.IdentityServiceClient.SendVerification();
+			}
+		}
+
         private void OnBack(object sender, EventArgs e)
         {
             Unfocus();

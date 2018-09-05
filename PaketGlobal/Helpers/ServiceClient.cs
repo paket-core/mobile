@@ -60,6 +60,13 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request, pubkey);
 		}
 
+		public async Task<VerifyData> SendVerification()
+		{
+			var request = PrepareRequest(apiVersion + "/send_verification_code", Method.POST);
+
+			return await SendRequest<VerifyData>(request);
+		}
+
         public async Task<VerifyData> VerifyCode(string code)
         {
             var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
@@ -275,7 +282,7 @@ namespace PaketGlobal
 		}
 
 		public async Task<LaunchPackageData> CreatePackage(string escrowPubkey, string recipientPubkey, string launcherPhone, string recipientPhone, long deadlineTimestamp, double paymentBuls, double collateralBuls,
-		                                                   string description, string fromLocation, string toLocation, string eventLocation, SignHandler customSign)
+		                                                   string description, string toAddress, string fromAddress, string fromLocation, string toLocation, string eventLocation, byte[] packagePhoto, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/create_package", Method.POST);
 
@@ -299,9 +306,12 @@ namespace PaketGlobal
 			request.AddParameter("payment_buls", payment);
 			request.AddParameter("collateral_buls", collateral);
 			request.AddParameter("description", description);
+			request.AddParameter("to_address", toAddress);
+			request.AddParameter("from_address", fromAddress);
 			request.AddParameter("from_location", fromLocation);
 			request.AddParameter("to_location", toLocation);
 			request.AddParameter("event_location", eventLocation);
+			if (packagePhoto != null) request.AddFile("photo", packagePhoto, "photo.jpg");
 
 			return await SendRequest<LaunchPackageData>(request, customSign: customSign);
 		}
