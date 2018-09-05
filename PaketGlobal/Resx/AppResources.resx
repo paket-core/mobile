@@ -561,4 +561,16 @@
     <data name="PackageDescText2" xml:space="preserve">
         <value>Please provide some general info</value>
     </data>
+    <data name="Locations" xml:space="preserve">
+        <value>LOCATIONS</value>
+    </data>
+    <data name="SelectLocations" xml:space="preserve">
+        <value>Please select package destination</value>
+    </data>
+    <data name="ToLocation" xml:space="preserve">
+        <value>FROM</value>
+    </data>
+    <data name="FromLocation" xml:space="preserve">
+        <value>TO</value>
+    </data>
 </root>

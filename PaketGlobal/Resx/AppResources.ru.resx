@@ -561,6 +561,18 @@
     <data name="PackageDescText2" xml:space="preserve">
         <value>Опишите основные параметры</value>
     </data>
+    <data name="Locations" xml:space="preserve">
+        <value>АДРЕСА</value>
+    </data>
+    <data name="SelectLocations" xml:space="preserve">
+        <value>Пожалуйста выберите адреса</value>
+    </data>
+    <data name="ToLocation" xml:space="preserve">
+        <value>КУДА</value>
+    </data>
+    <data name="FromLocation" xml:space="preserve">
+        <value>ОТКУДА</value>
+    </data>
 
     
 </root>

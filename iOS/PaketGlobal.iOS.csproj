@@ -494,6 +494,9 @@
     <BundleResource Include="Resources\empty_photo%403x.png" />
     <BundleResource Include="Resources\empty_photo%402x.png" />
     <BundleResource Include="Resources\empty_photo.png" />
+    <BundleResource Include="Resources\map_cion%403x.png" />
+    <BundleResource Include="Resources\map_cion%402x.png" />
+    <BundleResource Include="Resources\map_cion.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

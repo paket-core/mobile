@@ -698,6 +698,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\empty_photo.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\empty_photo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\empty_photo.png" />
+    <AndroidResource Include="Resources\drawable\map_cion.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\map_cion.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\map_cion.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\map_cion.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\map_cion.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
