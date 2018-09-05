@@ -50,13 +50,12 @@ namespace PaketGlobal
 
 			if (Locator.Profile.Activated) 
             {
-                var navPage = new NavigationPage(new MainPage()); 
-               // var navPage = Locator.NavigationService.Initialize(new PackagesPage());
-                MainPage = navPage;
+                var navigationPage = new NavigationPage(new MainPage()); 
+                MainPage = navigationPage;
 			} 
             else {
-                var navigationPage = new NavigationPage(new WellcomePage()); 
-                MainPage = navigationPage;
+				var navPage = Locator.NavigationService.Initialize(new WellcomePage());
+				MainPage = navPage;
 			}
 
 
