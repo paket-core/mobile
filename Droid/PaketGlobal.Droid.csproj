@@ -273,6 +273,9 @@
     <Reference Include="Plugin.ContactService">
       <HintPath>..\packages\Xamarin.Forms.Contacts.1.0.5\lib\MonoAndroid10\Plugin.ContactService.dll</HintPath>
     </Reference>
+    <Reference Include="libphonenumber">
+      <HintPath>..\packages\Google.LibPhoneNumber.1.0.0\lib\libphonenumber.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -690,6 +693,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\book_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\book_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\book_icon.png" />
+    <AndroidResource Include="Resources\drawable\empty_photo.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\empty_photo.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\empty_photo.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\empty_photo.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\empty_photo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

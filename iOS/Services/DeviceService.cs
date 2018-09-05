@@ -48,8 +48,33 @@ namespace PaketGlobal.iOS
 
         public string CountryCode()
         {
+            var network_Info = new CTTelephonyNetworkInfo();
+            var carrier = network_Info.SubscriberCellularProvider;
+
+            if(carrier!=null)
+            {
+                try
+                {
+                    if (carrier.MobileCountryCode != null)
+                    {
+                        return carrier.MobileCountryCode;
+                    }
+                }
+                catch
+                {
+                    return LocaleCountryCode();
+                }  
+            }
+        
+
+            return LocaleCountryCode();
+        }
+
+        private string LocaleCountryCode()
+        {
             var currentLocale = NSLocale.CurrentLocale;
             var countryCode = currentLocale.CountryCode;
+
             return countryCode;
         }
     }
