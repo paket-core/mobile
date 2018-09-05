@@ -53,8 +53,23 @@ namespace PaketGlobal
                 Navigation.PushAsync(picker, true);
             });
 
-            XamEffects.Commands.SetTap(myCountryCodeLabel, selectMyCountryCommand);
-            XamEffects.Commands.SetTap(recipientCountryCodeLabel, selectRecipientCountryCommand);
+            var selectFromLocation = new Command(() =>
+            {
+         
+            });
+
+            var selectToLocation = new Command(() =>
+            {
+
+            });
+
+            XamEffects.Commands.SetTap(LauncherCountryCodeLabel, selectMyCountryCommand);
+            XamEffects.Commands.SetTap(RecipientCountryCodeLabel, selectRecipientCountryCommand);
+            XamEffects.Commands.SetTap(FromLocationLabel, selectFromLocation);
+            XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
+            XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
+            XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
+        }
         }
 
         private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
