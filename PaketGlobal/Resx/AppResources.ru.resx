@@ -568,10 +568,10 @@
         <value>Пожалуйста выберите адреса</value>
     </data>
     <data name="ToLocation" xml:space="preserve">
-        <value>КУДА</value>
+        <value>ОТКУДА</value>
     </data>
     <data name="FromLocation" xml:space="preserve">
-        <value>ОТКУДА</value>
+        <value>КУДА</value>
     </data>
     <data name="SelectLocation" xml:space="preserve">
         <value>Выберите&#xA;адрес</value>
@@ -600,4 +600,8 @@
     <data name="LocationsNotSet" xml:space="preserve">
         <value>Пожалуйста, выберите пункты назначения посылки</value>
     </data>
+    <data name="Select" xml:space="preserve">
+        <value>Выбрать</value>
+    </data>
+
 </root>

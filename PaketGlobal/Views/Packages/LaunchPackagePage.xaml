@@ -112,6 +112,7 @@
                                         RelativeLayout.HeightConstraint="80"
                                         RelativeLayout.WidthConstraint="80"
                                         Padding = "0"
+                                        OutlineColor="#a9e2e3"
                                         RelativeLayout.YConstraint="75"
                                         RelativeLayout.XConstraint="0"        
                                         HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
@@ -136,6 +137,7 @@
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
                                                 <Frame x:Name="ToLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
                                         Padding = "0"
+                                        OutlineColor="#a9e2e3"
                                         RelativeLayout.HeightConstraint="80"
                                         RelativeLayout.WidthConstraint="80"
                                         RelativeLayout.YConstraint="75"

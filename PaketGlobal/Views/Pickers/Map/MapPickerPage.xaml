@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="PaketGlobal.MapPickerPage"
+    xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:local="clr-namespace:PaketGlobal">
+    <xfg:ContentPageGloss.BackgroundGradient>
+        <xfg:Gradient Rotation="300">
+            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+        </xfg:Gradient>
+    </xfg:ContentPageGloss.BackgroundGradient>
+    <local:BasePage.Content>
+        <RelativeLayout>
+            <Label x:Name="TitleLabel" Text="{local:Translate Map}" TextColor="White" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="0"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+            <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnBack"
+                   RelativeLayout.XConstraint = "23"
+                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"/>
+
+       
+            <Frame BackgroundColor="White" 
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      Padding="0"
+                      CornerRadius="18"
+                      HasShadow="false"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=0}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
+                <RelativeLayout>
+             
+                    <maps:Map x:Name="MapView"
+                      HorizontalOptions="FillAndExpand"
+                      RelativeLayout.XConstraint = "0"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=-5}"/>
+
+                       <Label x:Name="AddressLabel" Text="" TextColor="Black" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="25"
+                   RelativeLayout.YConstraint="30"
+                   RelativeLayout.XConstraint="30"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
+
+                    <Image Source="red_pin" HeightRequest="28" WidthRequest="28"
+                            RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-114}"
+                            RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-14}"
+                           />
+                    
+                    <local:PaketButton 
+                        RelativeLayout.WidthConstraint="180"
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-170}"
+                        RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-90}"
+                        Text="{local:Translate Select}" x:Name="SelectButton" Clicked="OnSelect"/>
+
+
+                </RelativeLayout>
+            </Frame>
+        </RelativeLayout>
+    </local:BasePage.Content>
+</local:BasePage>
