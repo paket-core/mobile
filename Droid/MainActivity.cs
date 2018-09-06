@@ -28,6 +28,7 @@ using Android;
 using Android.Support.V4.App;
 using Android.Support.Design.Widget;
 using Plugin.Permissions;
+using Xamarin.Forms.GoogleMaps.Android;
 
 namespace PaketGlobal.Droid
 {
@@ -57,11 +58,12 @@ namespace PaketGlobal.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             Xamarin.FormsMaps.Init(this, bundle);
+			Xamarin.FormsGoogleMaps.Init(this, bundle, null); 
 
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);

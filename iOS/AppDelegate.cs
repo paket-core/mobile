@@ -25,6 +25,7 @@ namespace PaketGlobal.iOS
             RoundedBoxViewRenderer.Init();
             ProgressRingRenderer.Init();
             Xamarin.FormsMaps.Init();
+            Xamarin.FormsGoogleMaps.Init("your_google_maps_ios_api_key");
 
             global::Xamarin.Forms.Forms.Init();
 

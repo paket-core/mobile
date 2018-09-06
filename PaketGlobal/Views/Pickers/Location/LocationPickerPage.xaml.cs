@@ -165,7 +165,10 @@ namespace PaketGlobal
 
                 App.ShowLoading(false);
             }
- 
+            else{
+                var page = new MapPickerPage();
+                await Navigation.PushAsync(page, true);
+            }
         }
     }
 }

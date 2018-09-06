@@ -600,5 +600,7 @@
     <data name="LocationsNotSet" xml:space="preserve">
         <value>Please select package destinations</value>
     </data>
-
+    <data name="Select" xml:space="preserve">
+        <value>Select</value>
+    </data>
 </root>

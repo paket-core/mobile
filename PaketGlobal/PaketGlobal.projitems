@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\GooglePlacesHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\MapHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\MapPickerPage.xaml.cs">
+      <DependentUpon>MapPickerPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -219,6 +222,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\MapPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -238,5 +245,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\" />
   </ItemGroup>
 </Project>
