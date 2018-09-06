@@ -8,6 +8,9 @@ namespace PaketGlobal
 {
     public partial class MapPickerPage : BasePage
     {
+        public delegate void LocationPickerPageEventHandler(object sender, LocationPickerPageEventArgs args);
+        public LocationPickerPageEventHandler eventHandler;
+
         public MapPickerPage()
         {
             InitializeComponent();
@@ -93,7 +96,23 @@ namespace PaketGlobal
 
         private void OnSelect(object sender, System.EventArgs e)
         {
-            //Navigation.PopAsync();
+            if(AddressLabel.Text==null)
+            {
+                return;
+            }
+            else if(AddressLabel.Text.Length==0)
+            {
+                return;
+            }
+
+            var place = new GooglePlace();
+            place.Address = AddressLabel.Text;
+            place.Latitude = MapView.CameraPosition.Target.Latitude;
+            place.Longitude = MapView.CameraPosition.Target.Longitude;
+
+            Navigation.PopAsync(false);
+
+            eventHandler(this, new LocationPickerPageEventArgs(place));
         }
 
 

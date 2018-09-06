@@ -40,6 +40,10 @@ namespace PaketGlobal
             Longitude = (double)jsonObject["result"]["geometry"]["location"]["lng"];
             Raw = jsonObject.ToString();
         }
+
+        public GooglePlace()
+        {
+        }
     }
 
     public class StructuredFormatting

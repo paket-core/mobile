@@ -167,8 +167,16 @@ namespace PaketGlobal
             }
             else{
                 var page = new MapPickerPage();
+                page.eventHandler = DidSelectLocationHandler;
                 await Navigation.PushAsync(page, true);
             }
+        }
+
+        private void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
+        {
+            eventHandler(this, new LocationPickerPageEventArgs(e.Item));
+
+            Navigation.PopAsync();
         }
     }
 }
