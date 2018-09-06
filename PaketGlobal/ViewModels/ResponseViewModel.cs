@@ -313,6 +313,11 @@ namespace PaketGlobal
         private string recipientPhoneNumber;
         private string launcherPhoneNumber;
         private string launcherPhoneCode;
+		private string fromLocationGPS { get; set; }
+		private string toLocationGPS { get; set; }
+		private string fromLocationAddress { get; set; }
+		private string toLocationAddress { get; set; }
+		private string status { get; set; }
 
         public bool isNewPackage { get; set; }
 
@@ -333,18 +338,6 @@ namespace PaketGlobal
 		[DataMember(Name = "courier_pubkey")]
 		public string CourierPubkey { get; set; }
 
-		[DataMember(Name = "status")]
-        private string status { get; set; }
-
-        [DataMember(Name = "from_location")]
-        private string fromLocationGPS { get; set; }
-        [DataMember(Name = "to_location")]
-        private string toLocationGPS { get; set; }
-        [DataMember(Name = "from_address")]
-        private string fromLocationAddress { get; set; }
-        [DataMember(Name = "to_address")]
-        private string toLocationAddress { get; set; }
-
         public string Distance
         {
             get
@@ -356,11 +349,11 @@ namespace PaketGlobal
 
                 var helper = new MapHelper();
 
-                double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0]);
-                double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1]);
+				double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+				double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0]);
-                double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1]);
+				double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+				double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
                 double distance = helper.distance(from_lat, from_lng, to_lat, to_lng);
 
@@ -368,6 +361,7 @@ namespace PaketGlobal
             }
         }
 
+		[DataMember(Name = "from_location")]
         public string FromLocationGPS
         {
             get
@@ -382,6 +376,7 @@ namespace PaketGlobal
             }
         }
 
+		[DataMember(Name = "to_location")]
         public string ToLocationGPS
         {
             get
@@ -396,6 +391,7 @@ namespace PaketGlobal
             }
         }
 
+		[DataMember(Name = "from_address")]
         public string FromLocationAddress
         {
             get
@@ -414,7 +410,7 @@ namespace PaketGlobal
             }
         }
 
-
+		[DataMember(Name = "to_address")]
         public string ToLocationAddress 
         { 
             get{
@@ -449,6 +445,7 @@ namespace PaketGlobal
             }
         }
 
+		[DataMember(Name = "status")]
         public string Status
         {
             get
