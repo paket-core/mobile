@@ -56,17 +56,14 @@ namespace PaketGlobal
             }
         }
 
-        public void StopTimer()
-        {
-            if(timer!=null)
-            {
-                isneedTimer = false;
-                timer.Close();
-                timer.Stop();
-                timer.Enabled = false;
-                timer = null;
-            }
-        }
+		public void StopTimer()
+		{
+			if (timer != null) {
+				isneedTimer = false;
+				timer.Dispose();
+				timer = null;
+			}
+		}
 
         private void CreateTimer()
         {
@@ -107,61 +104,53 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task Refresh()
         {
-			var result = await App.Locator.RouteServiceClient.MyPackages();
+			if (App.Locator.Profile.Activated) {
+				var result = await App.Locator.RouteServiceClient.MyPackages();
 
-            if (result != null && result.Packages != null)
-            {
-                var packages = result.Packages;
+				if (result != null && result.Packages != null) {
+					var packages = result.Packages;
 
-                bool enabled = App.Locator.AccountService.ShowNotifications;
+					bool enabled = App.Locator.AccountService.ShowNotifications;
 
-                foreach (Package p1 in packages)
-                {
-                    foreach (Package p2 in PackagesList)
-                    {
-                        if (p1.PaketId == p2.PaketId)
-                        {
-                            if (p1.Status != p2.Status)
-                            {
-                                if (p1.PaketId == CurrentDisplayPackageId)
-                                {
-                                    MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
-                                }
+					foreach (Package p1 in packages) {
+						foreach (Package p2 in PackagesList) {
+							if (p1.PaketId == p2.PaketId) {
+								if (p1.Status != p2.Status) {
+									if (p1.PaketId == CurrentDisplayPackageId) {
+										MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
+									}
 
-                                if (enabled)
-                                {
-                                    Device.BeginInvokeOnMainThread(() => {
-                                        App.Locator.NotificationService.ShowPackageNotification(p1,DidClickNotification);
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
+									if (enabled) {
+										Device.BeginInvokeOnMainThread(() => {
+											App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+										});
+									}
+								}
+							}
+						}
+					}
 
-                if (PackagesList.Count < packages.Count && enabled)
-                {
-                    //get new package
-                    var package = packages[packages.Count-1];
-                    package.isNewPackage = true;
+					if (PackagesList.Count < packages.Count && enabled) {
+						//get new package
+						var package = packages[packages.Count - 1];
+						package.isNewPackage = true;
 
-                    Device.BeginInvokeOnMainThread(() => {
-                        App.Locator.NotificationService.ShowPackageNotification(package,DidClickNotification);
-                    });
-                }
+						Device.BeginInvokeOnMainThread(() => {
+							App.Locator.NotificationService.ShowPackageNotification(package, DidClickNotification);
+						});
+					}
 
-                PackagesList = packages;
-            }
+					PackagesList = packages;
+				}
 
-            if (isneedTimer)
-            {
-                if(timer!=null)
-                {
-                    timer.Start();
-                }
-            }
+				if (isneedTimer) {
+					if (timer != null) {
+						timer.Start();
+					}
+				}
 
-            CheckLocationUpdate();
+				CheckLocationUpdate();
+			}
         }
 
         public override void Reset()

@@ -294,7 +294,15 @@ namespace PaketGlobal
                         }
                     }
 
-                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, null, LaunchPackageEvents);
+#if __ANDROID__
+					var myBitmapImage = Android.Graphics.BitmapFactory.DecodeResource(PaketGlobal.Droid.MainActivity.Instance.Resources, PaketGlobal.Droid.Resource.Drawable.empty_photo);
+					var ms = new MemoryStream();
+					// Converting Bitmap image to byte[] array
+					myBitmapImage.Compress(Android.Graphics.Bitmap.CompressFormat.Png, 0, ms);
+					var imageByteArray = ms.ToArray();
+#endif
+
+					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, imageByteArray, LaunchPackageEvents);
 
 
                     if (result == StellarOperationResult.Success)

@@ -57,6 +57,9 @@ namespace PaketGlobal
 			double steps = 3;
 			double currentStep = 1;
 
+			fromAddress = "From address";//TODO Remove
+			toAddress = "To Address";//TODO Remove
+
 			var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
 
 			if (StellarConverter.IsValidBUL(payment) == false) {
