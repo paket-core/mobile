@@ -38,6 +38,10 @@ namespace PaketGlobal
             {
                 IsFinishActivation = true;
                 UserData = userData;
+				ViewModel.UserName = userData.PaketUser;
+				ViewModel.FullName = userData.FullName;
+				ViewModel.Address = userData.Address;
+				entryUserName.Enabled = false;
             }
 
             if (IsAddedInfo)
@@ -119,9 +123,21 @@ namespace PaketGlobal
 
                 if (IsAddedInfo == false && IsFinishActivation == true)
                 {
-                    var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address);
+					//Retrievee private key
+					var kd = App.Locator.Profile.TryGetKeyData();
 
-					App.Locator.NavigationService.NavigateTo(Locator.ActivationPage);
+					var updateResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address);
+
+					if (updateResult != null) {
+						App.Locator.Profile.SetCredentials(ViewModel.UserName,
+														   ViewModel.FullName,
+														   ViewModel.FullPhoneNumber,
+														   kd.KeyPair.SecretSeed,
+														   kd.MnemonicString);
+
+						var page = new SMSVereficationPage();
+						await Navigation.PushAsync(page, true);
+					}
                 }
                 else if (IsAddedInfo)
                 {
@@ -130,18 +146,25 @@ namespace PaketGlobal
                         //Retrievee private key
                         var kd = App.Locator.Profile.TryGetKeyData();
 
-                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                          ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, kd.KeyPair.Address);
                         if (result != null)
                         {
-                            App.Locator.Profile.SetCredentials(ViewModel.UserName,
-                                                               ViewModel.FullName,
-                                                               ViewModel.FullPhoneNumber,
-                                                               kd.KeyPair.SecretSeed,
-                                                               kd.MnemonicString);
-                          
-                            var page = new SMSVereficationPage();
-                            await Navigation.PushAsync(page, true);
+							IsFinishActivation = true;
+
+							App.Locator.Profile.SetCredentials(ViewModel.UserName, null, null, kd.KeyPair.SecretSeed, kd.MnemonicString);
+
+							var infosResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+
+							if (infosResult != null) {
+								App.Locator.Profile.SetCredentials(ViewModel.UserName,
+																   ViewModel.FullName,
+																   ViewModel.FullPhoneNumber,
+																   kd.KeyPair.SecretSeed,
+																   kd.MnemonicString);
+
+								var page = new SMSVereficationPage();
+								await Navigation.PushAsync(page, true);
+							}
                         }
                     }
                     catch (Exception ex)
@@ -158,14 +181,14 @@ namespace PaketGlobal
                         var kd = Profile.GenerateKeyPairFromMnemonic();
                         App.Locator.Profile.KeyPair = kd.KeyPair;
 
-                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, ViewModel.FullName,
-                                                                                          ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
+                        var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, kd.KeyPair.Address);
                         if (result != null)
                         {
+							App.Locator.Profile.SetCredentials(ViewModel.UserName, null, null, kd.KeyPair.SecretSeed, kd.MnemonicString);
+
 							var infosResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
 
 							if (infosResult != null) {
-
 								App.Locator.Profile.SetCredentials(ViewModel.UserName,
 																   ViewModel.FullName,
 																   ViewModel.FullPhoneNumber,
