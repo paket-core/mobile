@@ -579,4 +579,26 @@
     <data name="Distance" xml:space="preserve">
         <value>DISTANCE</value>
     </data>
+    <data name="SelectLocationSmall" xml:space="preserve">
+        <value>Select Location</value>
+    </data>
+    <data name="LocationPickerTypeFrom" xml:space="preserve">
+        <value>Please enter pick up address</value>
+    </data>
+    <data name="LocationPickerTypeTo" xml:space="preserve">
+        <value>Please enter destination address</value>
+    </data>
+    <data name="SelectOnMap" xml:space="preserve">
+        <value>Choose an address on the map</value>
+    </data>
+    <data name="Map" xml:space="preserve">
+        <value>Map</value>
+    </data>
+    <data name="CantGetGooglePlace" xml:space="preserve">
+        <value>Failed to get the details. Try later.</value>
+    </data>
+    <data name="LocationsNotSet" xml:space="preserve">
+        <value>Please select package destinations</value>
+    </data>
+
 </root>

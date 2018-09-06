@@ -24,6 +24,7 @@ namespace PaketGlobal.iOS
             XamEffects.iOS.Effects.Init(); 
             RoundedBoxViewRenderer.Init();
             ProgressRingRenderer.Init();
+            Xamarin.FormsMaps.Init();
 
             global::Xamarin.Forms.Forms.Init();
 

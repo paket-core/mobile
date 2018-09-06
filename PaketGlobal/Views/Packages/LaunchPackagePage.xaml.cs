@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Acr.UserDialogs;
 using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
@@ -55,21 +56,81 @@ namespace PaketGlobal
 
             var selectFromLocation = new Command(() =>
             {
-         
+                var picker = new LocationPickerPage(LocationPickerType.From);
+                picker.eventHandler = DidSelectLocationHandler;
+                Navigation.PushAsync(picker, true);
             });
 
             var selectToLocation = new Command(() =>
             {
-
+                var picker = new LocationPickerPage(LocationPickerType.To);
+                picker.eventHandler = DidSelectLocationHandler;
+                Navigation.PushAsync(picker, true);
             });
 
             XamEffects.Commands.SetTap(LauncherCountryCodeLabel, selectMyCountryCommand);
             XamEffects.Commands.SetTap(RecipientCountryCodeLabel, selectRecipientCountryCommand);
             XamEffects.Commands.SetTap(FromLocationLabel, selectFromLocation);
             XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
+            XamEffects.Commands.SetTap(FromLocationImage, selectFromLocation);
             XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
+            XamEffects.Commands.SetTap(ToLocationImage, selectToLocation);
+
         }
+
+        private async void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
+        {
+            var mapHelper = new MapHelper();
+
+            var page = sender as LocationPickerPage;
+
+            var place = e.Item;
+
+            var size = 240;
+
+#if __ANDROID__
+            size = 280;
+#endif
+
+            var mapImage = await mapHelper.GetStaticMap(place.Latitude, place.Longitude, 14, size, size);
+
+            MemoryStream stream = null;
+
+            if(mapImage!=null)
+            {
+                stream = new MemoryStream(mapImage);
+            }
+
+            string location = place.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + place.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string address = place.Address;
+
+            if(page.PickerType == LocationPickerType.From)
+            {
+                if(stream != null){
+                    FromLocationImage.Source = ImageSource.FromStream(() => stream);
+                }
+                else{
+                    FromLocationImage.Source = "map_black_icon.png"; 
+                }
+
+                ViewModel.FromLocationGPS = location;
+                ViewModel.FromLocationAddress = address;
+            }
+            else if (page.PickerType == LocationPickerType.To)
+            {
+                if (stream != null)
+                {
+                    ToLocationImage.Source = ImageSource.FromStream(() => stream);
+                }
+                else
+                {
+                    ToLocationImage.Source = "map_black_icon.png";
+                }
+
+                ViewModel.ToLocationGPS = location;
+                ViewModel.ToLocationAddress = address;
+            }
         }
 
         private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
@@ -233,7 +294,7 @@ namespace PaketGlobal
                         }
                     }
 
-                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, "From Address", "To Address", vm.Deadline, payment, collateral, location, location, location, null, LaunchPackageEvents);
+                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, null, LaunchPackageEvents);
 
 
                     if (result == StellarOperationResult.Success)
@@ -336,6 +397,40 @@ namespace PaketGlobal
                 EntryRecepient.FocusField();
                 return false;
             }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.LauncherFullPhoneNumber))
+            {
+                EntryLauncherPhoneNumber.Focus();
+                return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.RecipientFullPhoneNumber))
+            {
+                EntryRecipientPhoneNumber.Focus();
+                return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.FromLocationGPS))
+            {
+                EventHandler handleHandler = (s, e) => {
+                    var picker = new LocationPickerPage(LocationPickerType.From);
+                    picker.eventHandler = DidSelectLocationHandler;
+                    Navigation.PushAsync(picker, true);
+                };
+
+                ShowErrorMessage(AppResources.LocationsNotSet, false, handleHandler);
+
+                return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.ToLocationGPS))
+            {
+                EventHandler handleHandler = (s, e) => {
+                    var picker = new LocationPickerPage(LocationPickerType.To);
+                    picker.eventHandler = DidSelectLocationHandler;
+                    Navigation.PushAsync(picker, true);
+                };
+
+                ShowErrorMessage(AppResources.LocationsNotSet, false, handleHandler);
+
+                return false;
+            }
             else if (!ValidationHelper.ValidateTextField(EntryDeadline.Text))
             {
                 EventHandler handleHandler = (s, e) => {                     EntryDeadline.Focus();                 };                  ShowErrorMessage(AppResources.SelectDeadlineDate, false, handleHandler); 
@@ -351,21 +446,12 @@ namespace PaketGlobal
                 EntryCollateral.Focus();
                 return false;
             }
-            else if (!ValidationHelper.ValidateTextField(ViewModel.LauncherFullPhoneNumber))
-            {
-                EntryLauncherPhoneNumber.Focus();
-                return false;
-            }
-            else if (!ValidationHelper.ValidateTextField(ViewModel.RecipientFullPhoneNumber))
-            {
-                EntryRecipientPhoneNumber.Focus();
-                return false;
-            }
             else if (!ValidationHelper.ValidateTextField(EntryDescription.Text))
             {
                 EntryDescription.Focus();
                 return false;
             }
+      
 
             return true;
         }

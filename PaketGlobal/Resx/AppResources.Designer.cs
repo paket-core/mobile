@@ -553,5 +553,62 @@ namespace PaketGlobal
             }
         }
 
+        internal static string LocationPickerTypeTo
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationPickerTypeTo", resourceCulture);
+            }
+        }
+
+        internal static string LocationPickerTypeFrom
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationPickerTypeFrom", resourceCulture);
+            }
+        }
+
+        internal static string SelectOnMap
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectOnMap", resourceCulture);
+            }
+        }
+
+        internal static string Map
+        {
+            get
+            {
+                return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+
+        internal static string CantGetGooglePlace
+        {
+            get
+            {
+                return ResourceManager.GetString("CantGetGooglePlace", resourceCulture);
+            }
+        }
+
+        internal static string SelectLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectLocation", resourceCulture);
+            }
+        }
+
+        internal static string LocationsNotSet
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationsNotSet", resourceCulture);
+            }
+        }
+
+
     }
 }

@@ -24,8 +24,7 @@ namespace PaketGlobal
     [DataContract]
     public class VerifyData : BaseData
     {
-        [DataMember(Name = "status")]
-        public int Status { get; set; }
+       
     }
 
 	[DataContract]
@@ -314,7 +313,7 @@ namespace PaketGlobal
         private string recipientPhoneNumber;
         private string launcherPhoneNumber;
         private string launcherPhoneCode;
- 
+
         public bool isNewPackage { get; set; }
 
 		[DataMember(Name = "escrow_pubkey")]
@@ -336,6 +335,101 @@ namespace PaketGlobal
 
 		[DataMember(Name = "status")]
         private string status { get; set; }
+
+        [DataMember(Name = "from_location")]
+        private string fromLocationGPS { get; set; }
+        [DataMember(Name = "to_location")]
+        private string toLocationGPS { get; set; }
+        [DataMember(Name = "from_address")]
+        private string fromLocationAddress { get; set; }
+        [DataMember(Name = "to_address")]
+        private string toLocationAddress { get; set; }
+
+        public string Distance
+        {
+            get
+            {
+                if (fromLocationGPS == null || toLocationGPS==null)
+                {
+                    return "0 KM";
+                }
+
+                var helper = new MapHelper();
+
+                double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0]);
+                double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1]);
+
+                double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0]);
+                double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1]);
+
+                double distance = helper.distance(from_lat, from_lng, to_lat, to_lng);
+
+                return String.Format("{0:0.00} KM", distance);
+            }
+        }
+
+        public string FromLocationGPS
+        {
+            get
+            {
+                return fromLocationGPS;
+            }
+            set
+            {
+                fromLocationGPS = value;
+                OnPropertyChanged("FromLocationGPS");
+                OnPropertyChanged("Distance");
+            }
+        }
+
+        public string ToLocationGPS
+        {
+            get
+            {
+                return toLocationGPS;
+            }
+            set
+            {
+                toLocationGPS = value;
+                OnPropertyChanged("ToLocationGPS");
+                OnPropertyChanged("Distance");
+            }
+        }
+
+        public string FromLocationAddress
+        {
+            get
+            {
+                if (fromLocationGPS == null)
+                {
+                    return AppResources.SelectLocation;
+                }
+
+                return fromLocationAddress;
+            }
+            set
+            {
+                fromLocationAddress = value;
+                OnPropertyChanged("FromLocationAddress");
+            }
+        }
+
+
+        public string ToLocationAddress 
+        { 
+            get{
+                if (toLocationGPS == null)
+                {
+                    return AppResources.SelectLocation;
+                }
+
+                return toLocationAddress;
+            } 
+            set{
+                toLocationAddress = value;
+                OnPropertyChanged("ToLocationAddress");
+            } 
+        }
 
         public string LauncherName { get; set; }
         public string RecipientName { get; set; }
@@ -615,6 +709,8 @@ namespace PaketGlobal
                 return recipientPhoneCode + recipientPhoneNumber;
             }
         }
+
+
 	}
 
 	[DataContract]

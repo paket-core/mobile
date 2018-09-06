@@ -119,6 +119,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\LocationPickerPage.xaml.cs">
       <DependentUpon>LocationPickerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\GooglePlacesHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MapHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

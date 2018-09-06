@@ -61,10 +61,10 @@ namespace PaketGlobal.Droid
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            Xamarin.FormsMaps.Init(this, bundle);
 
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
-
 
             Instance = this;
 

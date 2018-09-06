@@ -96,13 +96,13 @@
                                                 <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
                                                     <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
                                                 </Frame>
-                                                <Label x:Name="FromLocationLabel" Text="{local:Translate SelectLocation}"
+                                                <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="0"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            xe:TouchEffect.Color="Gray" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                                <Label x:Name="ToLocationLabel" Text="{local:Translate SelectLocation}"
+                                                <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            RelativeLayout.YConstraint="30"
@@ -111,10 +111,11 @@
                                                 <Frame x:Name="FromLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
                                         RelativeLayout.HeightConstraint="80"
                                         RelativeLayout.WidthConstraint="80"
+                                        Padding = "0"
                                         RelativeLayout.YConstraint="75"
                                         RelativeLayout.XConstraint="0"        
                                         HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
-                                                    <Image Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                    <Image x:Name="FromLocationImage" Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                                                 </Frame>
                                                 <Label Text="{local:Translate Distance}"
                                            RelativeLayout.HeightConstraint="30"
@@ -127,19 +128,20 @@
                                               RelativeLayout.YConstraint="115"
                                               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
                                               />
-                                                <Label Text="0km"
+                                                <Label Text="{Binding Distance}"
                                            RelativeLayout.HeightConstraint="30"
                                            RelativeLayout.YConstraint="120"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
                                                 <Frame x:Name="ToLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
+                                        Padding = "0"
                                         RelativeLayout.HeightConstraint="80"
                                         RelativeLayout.WidthConstraint="80"
                                         RelativeLayout.YConstraint="75"
                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
                                         HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
-                                                    <Image Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                    <Image x:Name="ToLocationImage" Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                                                 </Frame>
                                             </RelativeLayout>
                                         </Frame>

@@ -579,6 +579,25 @@
     <data name="Distance" xml:space="preserve">
         <value>ДИСТАНЦИЯ</value>
     </data>
-    
-
+    <data name="SelectLocationSmall" xml:space="preserve">
+        <value>Выберите адрес</value>
+    </data>
+    <data name="LocationPickerTypeFrom" xml:space="preserve">
+        <value>Введите адрес откуда забрать</value>
+    </data>
+    <data name="LocationPickerTypeTo" xml:space="preserve">
+        <value>Введите адрес куда доставить</value>
+    </data>
+    <data name="SelectOnMap" xml:space="preserve">
+        <value>Выбрать адрес на карте</value>
+    </data>
+    <data name="Map" xml:space="preserve">
+        <value>Карта</value>
+    </data>
+    <data name="CantGetGooglePlace" xml:space="preserve">
+        <value>Не удалось получить детали. Попробуй позже.</value>
+    </data>
+    <data name="LocationsNotSet" xml:space="preserve">
+        <value>Пожалуйста, выберите пункты назначения посылки</value>
+    </data>
 </root>
