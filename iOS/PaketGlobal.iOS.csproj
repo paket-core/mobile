@@ -516,6 +516,9 @@
     <BundleResource Include="Resources\map_black_icon%403x.png" />
     <BundleResource Include="Resources\map_black_icon%402x.png" />
     <BundleResource Include="Resources\map_black_icon.png" />
+    <BundleResource Include="Resources\red_pin%403x.png" />
+    <BundleResource Include="Resources\red_pin%402x.png" />
+    <BundleResource Include="Resources\red_pin.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

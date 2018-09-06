@@ -32,20 +32,21 @@ namespace PaketGlobal
 
             MapView.CameraIdled += (sender, e) =>
             {
+                LoadAddress(MapView.CameraPosition.Target.Latitude,MapView.CameraPosition.Target.Longitude);
             };
 
-            MapView.MapLongClicked += async (sender, e) =>
-            {
-                MapView.Pins.Clear();
+           // MapView.MapLongClicked += async (sender, e) =>
+           // {
+                //MapView.Pins.Clear();
 
-                var pin = new Pin() { Label = "", Position = new Position(e.Point.Latitude, e.Point.Longitude) };
-                MapView.Pins.Add(pin);
+                //var pin = new Pin() { Label = "", Position = new Position(e.Point.Latitude, e.Point.Longitude) };
+                //MapView.Pins.Add(pin);
 
-                await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
-                    pin.Position, MapView.CameraPosition.Zoom), TimeSpan.FromSeconds(1));
+                //await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
+                //    pin.Position, MapView.CameraPosition.Zoom), TimeSpan.FromSeconds(1));
 
-                LoadAddress(e.Point.Latitude,e.Point.Longitude);
-            };
+                //LoadAddress(e.Point.Latitude,e.Point.Longitude);
+            //};
         }
 
         protected override void OnDisappearing()
@@ -73,10 +74,10 @@ namespace PaketGlobal
                     var position = await locator.GetPositionAsync(new TimeSpan(10000));
 
                     var pin = new Pin() { Label = "", Position = new Position(position.Latitude, position.Longitude) };
-                    MapView.Pins.Add(pin);
+                   // MapView.Pins.Add(pin);
 
                     await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
-                        pin.Position, 16d), TimeSpan.FromSeconds(1));
+                        pin.Position, 20d), TimeSpan.FromSeconds(1));
 
                     LoadAddress(position.Latitude, position.Longitude);
 

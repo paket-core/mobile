@@ -733,6 +733,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\map_black_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\map_black_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\map_black_icon.png" />
+    <AndroidResource Include="Resources\drawable\red_pin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\red_pin.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\red_pin.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\red_pin.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\red_pin.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
