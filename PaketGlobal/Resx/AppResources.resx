@@ -49,7 +49,7 @@
         <value>Display Secret Seed</value>
     </data>
     <data name="SecretSeedProfileInfo" xml:space="preserve">
-        <value>Here’s your secred seed, used to interact&#xA;with Stellar</value>
+        <value>Here’s your secret seed, used to interact&#xA;securely with our system</value>
     </data>
     <data name="UpdateProfile" xml:space="preserve">
         <value>UPDATE PROFILE</value>
@@ -58,13 +58,13 @@
         <value>Mnemonic Phrase</value>
     </data>
     <data name="MnemonicProfileInfo" xml:space="preserve">
-        <value>Here’s your mnemonic phrase, used to interact&#xA;with Stellar</value>
+        <value>Here’s your mnemonic phrase, used to interact&#xA;securely with our system</value>
     </data>
     <data name="Wallet" xml:space="preserve">
         <value>Wallet</value>
     </data>
     <data name="YourBalance" xml:space="preserve">
-        <value>Your Balance</value>
+        <value>Balance</value>
     </data>
     <data name="Transactions" xml:space="preserve">
         <value>Transactions</value>
@@ -103,7 +103,7 @@
         <value>Transaction Completed</value>
     </data>
     <data name="TransactionProcessed" xml:space="preserve">
-        <value>Your transaction has been successfully processed. Thank you</value>
+        <value>Your transaction has been successfully processed</value>
     </data>
     <data name="Done" xml:space="preserve">
         <value>Done</value>
@@ -118,7 +118,7 @@
         <value>My Packages</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Heare you can create and track&#x0a;all your packages</value>
+        <value>Create and track&#x0a;your packages</value>
     </data>
     <data name="Sent" xml:space="preserve">
         <value>SENT</value>
@@ -133,10 +133,10 @@
         <value>Role</value>
     </data>
     <data name="PackageDelivered" xml:space="preserve">
-        <value>Package is delivered.&#x0a;You can reclaim unspent funds from the escrow.</value>
+        <value>Package is delivered&#x0a;You can reclaim unspent funds from the escrow</value>
     </data>
     <data name="PackageExpired" xml:space="preserve">
-        <value>Deadline Expired.&#x0a;You can refund from the escrow.</value>
+        <value>Deadline Expired&#x0a;You can reclaim your payment and collateral</value>
     </data>
     <data name="AcceptPackage" xml:space="preserve">
         <value>Accept Package</value>
@@ -154,7 +154,7 @@
         <value>PAYMENT INFO</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Use this barcode to pass the paket to a&#x0a;courier or accept it by the recepient</value>
+        <value>Use this barcode to pass the package&#x0a;(this should be different according to role)</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>EVENTS</value>
@@ -175,7 +175,7 @@
         <value>INFORMATION</value>
     </data>
     <data name="PickDeadlineDate" xml:space="preserve">
-        <value>Please pick deadline date</value>
+        <value>Delivery Deadline</value>
     </data>
     <data name="Day1" xml:space="preserve">
         <value>1 Day</value>
@@ -211,7 +211,7 @@
         <value>MNEMONIC</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Use this mnemonic to recover private key&#xA;on another device</value>
+        <value>Use this mnemonic to recover your account</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Create New Private Key</value>
@@ -244,7 +244,7 @@
         <value>Copied to clipboard</value>
     </data>
     <data name="ActivationEth" xml:space="preserve">
-        <value>Please send 0.001 ETH to this address to create your account</value>
+        <value>Send 0.001 ETH to this address to create your account</value>
     </data>
     <data name="CompleteRegistration" xml:space="preserve">
         <value>Complete Registration</value>
@@ -253,7 +253,7 @@
         <value>Add Info</value>
     </data>
     <data name="BullBalance" xml:space="preserve">
-        <value>BULL Balance</value>
+        <value>BUL Balance</value>
     </data>
     <data name="InvalidPubKey" xml:space="preserve">
         <value>Invalid public key</value>
@@ -262,7 +262,7 @@
         <value>User not found</value>
     </data>
     <data name="SelectDeadlineDate" xml:space="preserve">
-        <value>Please select deadline date</value>
+        <value>Please select delivery deadline</value>
     </data>
     <data name="UserNotRegistered" xml:space="preserve">
         <value>Not registered on server</value>
@@ -283,25 +283,25 @@
         <value>OK</value>
     </data>
     <data name="RefundingOK" xml:space="preserve">
-        <value>Refunding successfull</value>
+        <value>Refunding successful</value>
     </data>
     <data name="ReclaimingOK" xml:space="preserve">
-        <value>Reclaiming successfull</value>
+        <value>Reclaiming successful</value>
     </data>
     <data name="PackageAccepted" xml:space="preserve">
         <value>Package accepted successfully</value>
     </data>
     <data name="ErrorGetPackage" xml:space="preserve">
-        <value>Error retrieving package details</value>
+        <value>Unable to retrieve package details</value>
     </data>
     <data name="ConnectionError" xml:space="preserve">
-        <value>Connection error has occured</value>
+        <value>Connection error</value>
     </data>
     <data name="FailSendBuls" xml:space="preserve">
-        <value>Error sending BULs</value>
+        <value>Error sending BUL</value>
     </data>
     <data name="FailCreateAccount" xml:space="preserve">
-        <value>Error creating an account</value>
+        <value>Error creating account</value>
     </data>
     <data name="FailSubmitCreateAccount" xml:space="preserve">
         <value>Error submiting the account creation</value>
@@ -310,22 +310,22 @@
         <value>Error adding trust</value>
     </data>
     <data name="LowBULsLauncher" xml:space="preserve">
-        <value>Insufficient BULs from the Launcher</value>
+        <value>Launcher has insufficient BUL balance</value>
     </data>
     <data name="LowBULsCourier" xml:space="preserve">
-        <value>Insufficient BULs from the Courier</value>
+        <value>Courier has insufficient BUL balance</value>
     </data>
     <data name="FailedLaunchPackage" xml:space="preserve">
         <value>Error launching the package</value>
     </data>
     <data name="FaileSubmitOptions" xml:space="preserve">
-        <value>Error submiting options</value>
+        <value>Error setting options</value>
     </data>
     <data name="IncositentBalance" xml:space="preserve">
         <value>Inconsistent balance</value>
     </data>
     <data name="FailAcceptPackage" xml:space="preserve">
-        <value>Error accepting the package</value>
+        <value>Error accepting package</value>
     </data>
     <data name="FailSendCollateral" xml:space="preserve">
         <value>Error sending collateral</value>
@@ -334,16 +334,16 @@
         <value>Some error occured</value>
     </data>
     <data name="CameraAccessNotGranted" xml:space="preserve">
-        <value>You must give access to the camera to scan the package</value>
+        <value>Allow camera access to scan the package</value>
     </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
-        <value>Error adding trust token</value>
+        <value>Error adding trust</value>
     </data>
     <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Stellar account isn't created yet</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
-        <value>Please select payment currency</value>
+        <value>Select payment currency</value>
     </data>
     <data name="ProfileSaved" xml:space="preserve">
         <value>Profile info saved</value>
@@ -364,13 +364,13 @@
         <value>Create escrow account</value>
     </data>
     <data name="LaunchPackageStep4" xml:space="preserve">
-        <value>Sign escrow account transaction</value>
+        <value>Sign escrow transaction</value>
     </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
-        <value>Submit escrow account</value>
+        <value>Submit escrow transaction</value>
     </data>
     <data name="LaunchPackageStep6" xml:space="preserve">
-        <value>Add token trust to escrow account</value>
+        <value>Add token trust to escrow</value>
     </data>
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Prepare escrow</value>
@@ -391,10 +391,10 @@
         <value>Submit payment transaction</value>
     </data>
     <data name="LaunchPackageStep0" xml:space="preserve">
-        <value>Getting a user location</value>
+        <value>Getting user's location</value>
     </data>
     <data name="FractionalDigitsError" xml:space="preserve">
-        <value>You can't specify more then 7 fractional digits</value>
+        <value>Can't specify more then 7 fractional digits</value>
     </data>
     <data name="AppInfo" xml:space="preserve">
         <value>APPLICATION INFORMATION</value>
