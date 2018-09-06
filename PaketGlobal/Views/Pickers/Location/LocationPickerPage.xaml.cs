@@ -83,7 +83,7 @@ namespace PaketGlobal
                     {
                         var locator = CrossGeolocator.Current;
 
-                        var position = await locator.GetPositionAsync(new TimeSpan(10000));
+                        var position = await locator.GetLastKnownLocationAsync();
 
                         if (position != null)
                         {
