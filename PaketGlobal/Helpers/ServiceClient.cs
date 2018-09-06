@@ -53,9 +53,9 @@ namespace PaketGlobal
 			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
 			request.AddParameter("call_sign", paketUser);
-			request.AddParameter("full_name", fullName);
-			request.AddParameter("phone_number", phoneNumber);
-            request.AddParameter("address", address);
+			//request.AddParameter("full_name", fullName);
+			//request.AddParameter("phone_number", phoneNumber);
+            //request.AddParameter("address", address);
 
 			return await SendRequest<UserData>(request, pubkey);
 		}
@@ -96,7 +96,7 @@ namespace PaketGlobal
 			return await UserInfos(null, null, null);
 		}
 
-		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address)
+		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address, string pubkey = null)
 		{
 			var request = PrepareRequest(apiVersion + "/user_infos", Method.POST);
 
@@ -104,7 +104,7 @@ namespace PaketGlobal
 			if (phoneNumber != null) request.AddParameter("phone_number", phoneNumber);
 			if (address != null) request.AddParameter("address", address);
 
-			return await SendRequest<UserData>(request);
+			return await SendRequest<UserData>(request, pubkey);
 		}
 
 
@@ -306,8 +306,8 @@ namespace PaketGlobal
 			request.AddParameter("payment_buls", payment);
 			request.AddParameter("collateral_buls", collateral);
 			request.AddParameter("description", description);
-			request.AddParameter("to_address", toAddress);
-			request.AddParameter("from_address", fromAddress);
+			//request.AddParameter("to_address", toAddress);
+			//request.AddParameter("from_address", fromAddress);
 			request.AddParameter("from_location", fromLocation);
 			request.AddParameter("to_location", toLocation);
 			request.AddParameter("event_location", eventLocation);
