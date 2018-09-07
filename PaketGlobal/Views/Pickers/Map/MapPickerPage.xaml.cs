@@ -71,8 +71,6 @@ namespace PaketGlobal
 
                 if (hasPermission)
                 {
-                   // App.ShowLoading(true);
-
                     var locator = CrossGeolocator.Current;
                     var position = await locator.GetPositionAsync(new TimeSpan(10000));
 
@@ -83,8 +81,6 @@ namespace PaketGlobal
                         pin.Position, 20d), TimeSpan.FromSeconds(1));
 
                     LoadAddress(position.Latitude, position.Longitude);
-
-                   // App.ShowLoading(false);
                 }
             }
         }

@@ -79,45 +79,60 @@ namespace PaketGlobal
 
         }
 
-        private async void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
+        private void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
         {
-            var mapHelper = new MapHelper();
-
             var page = sender as LocationPickerPage;
 
             var place = e.Item;
-
-            var size = 240;
-
-#if __ANDROID__
-            size = 280;
-#endif
-
-            var mapImage = await mapHelper.GetStaticMap(place.Latitude, place.Longitude, 14, size, size);
-
-            MemoryStream stream = null;
-
-            if(mapImage!=null)
-            {
-                stream = new MemoryStream(mapImage);
-            }
 
             string location = place.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + place.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
             string address = place.Address;
 
             if(page.PickerType == LocationPickerType.From)
             {
-                if(stream != null){
-                    FromLocationImage.Source = ImageSource.FromStream(() => stream);
-                }
-                else{
-                    FromLocationImage.Source = "map_black_icon.png"; 
-                }
-
                 ViewModel.FromLocationGPS = location;
                 ViewModel.FromLocationAddress = address;
             }
             else if (page.PickerType == LocationPickerType.To)
+            {
+                ViewModel.ToLocationGPS = location;
+                ViewModel.ToLocationAddress = address;
+            }
+
+            SetLocationImage(page.PickerType,place.Latitude,place.Longitude);
+        }
+
+        private async void SetLocationImage(LocationPickerType pickerType, double lat, double lng)
+        {
+            var size = 240;
+
+#if __ANDROID__
+            size = 280;
+#endif
+
+            var mapHelper = new MapHelper();
+
+            var mapImage = await mapHelper.GetStaticMap(lat, lng, 14, size, size);
+
+            MemoryStream stream = null;
+
+            if (mapImage != null)
+            {
+                stream = new MemoryStream(mapImage);
+            }
+
+            if (pickerType == LocationPickerType.From)
+            {
+                if (stream != null)
+                {
+                    FromLocationImage.Source = ImageSource.FromStream(() => stream);
+                }
+                else
+                {
+                    FromLocationImage.Source = "map_black_icon.png";
+                }
+            }
+            else if (pickerType == LocationPickerType.To)
             {
                 if (stream != null)
                 {
@@ -127,10 +142,7 @@ namespace PaketGlobal
                 {
                     ToLocationImage.Source = "map_black_icon.png";
                 }
-
-                ViewModel.ToLocationGPS = location;
-                ViewModel.ToLocationAddress = address;
-            }
+            } 
         }
 
         private void DidSelectRecipientCountryHandler(object sender, CountryPickerPageEventArgs e)
