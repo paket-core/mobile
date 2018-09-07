@@ -603,5 +603,13 @@
     <data name="Select" xml:space="preserve">
         <value>Выбрать</value>
     </data>
-
+    <data name="TakePhoto" xml:space="preserve">
+        <value>take_photo_ru.png</value>
+    </data>
+    <data name="ReTakePhoto" xml:space="preserve">
+        <value>retake_photo_ru.png</value>
+    </data>
+    <data name="SelectPackagePhoto" xml:space="preserve">
+        <value>Пожалуйста сделать фото посылки</value>
+    </data>
 </root>

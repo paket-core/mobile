@@ -155,6 +155,11 @@
                                     <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                     <Image Source="information_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
                                 </StackLayout>
+                                <StackLayout Spacing="10">
+                                    <Image Aspect="Fill" IsVisible="false" x:Name="PhotoImage" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" WidthRequest="290" HeightRequest="190"/>
+                                    <Button HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" Image="{local:Translate TakePhoto}"
+                                            WidthRequest="291" HeightRequest="42" Clicked="OnTakePhoto" x:Name="PhotoButton"/>
+                                </StackLayout>
                                 <StackLayout Spacing="0">
                                     <Label TextColor="#A7A7A7" Text="{local:Translate PackageDescText1}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                     <local:PaketEntry x:Name="EntryDescription" Completed="FieldCompleted" Keyboard="Text" Placeholder="{local:Translate PackageDescText2}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"/>
@@ -191,7 +196,7 @@
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="0" Padding="20,0,20,0">
-                                <local:PaketButton Text="{local:Translate Launch}" x:Name="LaunchButton" Clicked="CreateClicked"/>
+                                <local:PaketButton VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="290" Text="{local:Translate Launch}" x:Name="LaunchButton" Clicked="CreateClicked"/>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="0,0,0,0" HeightRequest="30"></StackLayout>
                         </StackLayout>

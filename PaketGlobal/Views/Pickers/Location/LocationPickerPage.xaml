@@ -61,7 +61,7 @@
                                 <local:CellWithoutSelection>
                                     <StackLayout>
                                         <StackLayout Orientation="Horizontal" Spacing="15" Padding="15,10,15,0">
-                                         <Image Source="map_cion.png" HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent"
+                                         <Image Source="{Binding Structured.Icon}" HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent"
                                           HorizontalOptions="Start" VerticalOptions="Center"/> 
                                         <StackLayout Orientation="Vertical"  Spacing="0" VerticalOptions="Center">
                                             <Label TextColor="Black" Text="{Binding Structured.MainText}" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14" />

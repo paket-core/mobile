@@ -48,11 +48,26 @@ namespace PaketGlobal
 
     public class StructuredFormatting
     {
+        private string icon;
+
         [JsonProperty("main_text")]
         public string MainText { get; set; }
 
         [JsonProperty("secondary_text")]
         public string SecondText { get; set; }
+
+        public string Icon { 
+            get{
+                if(icon==null)
+                {
+                    return "map_cion.png";
+                }
+                return icon;
+            } 
+            set{
+                icon = value;  
+            } 
+        }
     }
 
     public class AutoCompletePrediction

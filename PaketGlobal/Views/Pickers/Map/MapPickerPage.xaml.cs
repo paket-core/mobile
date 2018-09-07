@@ -31,11 +31,15 @@ namespace PaketGlobal
             BackButton.TranslationX = -30;
 #endif
 
+            SelectButton.Opacity = 0;
             MapView.UiSettings.ZoomControlsEnabled = false;
 
             MapView.CameraIdled += (sender, e) =>
             {
-                LoadAddress(MapView.CameraPosition.Target.Latitude,MapView.CameraPosition.Target.Longitude);
+                if(SelectButton.Opacity > 0)
+                {
+                    LoadAddress(MapView.CameraPosition.Target.Latitude, MapView.CameraPosition.Target.Longitude); 
+                }
             };
 
            // MapView.MapLongClicked += async (sender, e) =>
@@ -67,21 +71,20 @@ namespace PaketGlobal
 
             if (fl)
             {
-                var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+                var position = await App.Locator.LocationHelper.GetLocation(true);
 
-                if (hasPermission)
+                if(position!=null && MapView!=null)
                 {
-                    var locator = CrossGeolocator.Current;
-                    var position = await locator.GetPositionAsync(new TimeSpan(10000));
-
                     var pin = new Pin() { Label = "", Position = new Position(position.Latitude, position.Longitude) };
-                   // MapView.Pins.Add(pin);
+
+                    SelectButton.Opacity = 1;
 
                     await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
                         pin.Position, 20d), TimeSpan.FromSeconds(1));
 
-                    LoadAddress(position.Latitude, position.Longitude);
+                    LoadAddress(position.Latitude, position.Longitude);            
                 }
+        
             }
         }
 

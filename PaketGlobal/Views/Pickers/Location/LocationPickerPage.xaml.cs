@@ -77,19 +77,7 @@ namespace PaketGlobal
             {
                 if (Location == null)
                 {
-                    var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
-
-                    if (hasPermission)
-                    {
-                        var locator = CrossGeolocator.Current;
-
-                        var position = await locator.GetLastKnownLocationAsync();
-
-                        if (position != null)
-                        {
-                            Location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                        }
-                    }
+                    Location = await App.Locator.LocationHelper.GetStringLocation(true);
                 }
             }
         }
@@ -121,6 +109,7 @@ namespace PaketGlobal
             mapItem.Structured = new StructuredFormatting();
             mapItem.Structured.MainText = AppResources.Map;
             mapItem.Structured.SecondText = AppResources.SelectOnMap;
+            mapItem.Structured.Icon = "red_pin.png";
 
             if(result.AutoCompletePlaces==null)
             {
@@ -143,7 +132,6 @@ namespace PaketGlobal
 
             Unfocus();
 
-
             var prediction = (AutoCompletePrediction)e.SelectedItem;
 
             if(prediction.Place_ID != null)
@@ -160,12 +148,16 @@ namespace PaketGlobal
                 }
                 else
                 {
+                    ItemsListView.SelectedItem = null;
+
                     ShowErrorMessage(AppResources.CantGetGooglePlace);
                 }
 
                 App.ShowLoading(false);
             }
             else{
+                ItemsListView.SelectedItem = null;
+
                 var page = new MapPickerPage();
                 page.eventHandler = DidSelectLocationHandler;
                 await Navigation.PushAsync(page, true);

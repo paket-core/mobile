@@ -56,6 +56,10 @@ namespace PaketGlobal
 			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
+        public LocationHelper LocationHelper
+        {
+            get { return GetInstance<LocationHelper>(); }
+        }
 
 		public IAccountService AccountService {
 			get { return GetInstance<IAccountService>(); }
@@ -130,6 +134,11 @@ namespace PaketGlobal
                 SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.IdentityServerUrl,
                                                                                   Config.IdentityServerVersion),
                                                           Config.IdentityService);
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<LocationHelper>())
+            {
+                SimpleIoc.Default.Register<LocationHelper>();
             }
 
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {

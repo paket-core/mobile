@@ -49,9 +49,9 @@
                    RelativeLayout.XConstraint="30"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
 
-                    <Image Source="red_pin" HeightRequest="28" WidthRequest="28"
+                    <Image Source="select_pin.png" HeightRequest="42" WidthRequest="42"
                             RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-114}"
-                            RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-14}"
+                            RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-21}"
                            />
                     
                     <local:PaketButton 

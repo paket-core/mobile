@@ -609,6 +609,30 @@ namespace PaketGlobal
             }
         }
 
+        internal static string ReTakePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("ReTakePhoto", resourceCulture);
+            }
+        }
+
+        internal static string TakePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("TakePhoto", resourceCulture);
+            }
+        }
+
+        internal static string SelectPackagePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectPackagePhoto", resourceCulture);
+            }
+        }
+
 
     }
 }

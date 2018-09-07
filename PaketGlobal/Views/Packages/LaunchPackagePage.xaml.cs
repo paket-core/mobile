@@ -5,6 +5,8 @@ using Acr.UserDialogs;
 using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
+using libphonenumber;
+
 
 namespace PaketGlobal
 {
@@ -12,6 +14,7 @@ namespace PaketGlobal
 	{
 
         private string recipient = "";
+        private Stream PhotoSource = null;
 
 		private Package ViewModel {
 			get {
@@ -24,6 +27,22 @@ namespace PaketGlobal
 			InitializeComponent();
 
             BindingContext = package;
+
+            //set launcher phone
+            var profile = App.Locator.Profile;
+            var number = profile.PhoneNumber;
+
+            PhoneNumberUtil phoneUtil = PhoneNumberUtil.Instance;
+            try
+            {
+                PhoneNumber numberProto = phoneUtil.Parse(number, "");
+                package.LauncherPhoneCode = "+" + Convert.ToString(numberProto.CountryCode);
+                package.LauncherPhoneNumber = number.Replace(package.LauncherPhoneCode, "");
+            }
+            catch (NumberParseException)
+            {
+                package.LauncherPhoneNumber = number;
+            }
 
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
@@ -249,6 +268,34 @@ namespace PaketGlobal
             btn.TextColor = Color.White;
         }
 
+        private async void OnTakePhoto(object sender, System.EventArgs e)
+        {
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+
+            if (photo != null)
+            {
+                PhotoButton.Image = AppResources.ReTakePhoto;
+
+                PhotoSource = photo.GetStream();
+
+                PhotoImage.Source = ImageSource.FromStream(() => { 
+                    return PhotoSource; 
+                });
+
+                PhotoImage.IsVisible = true;
+            }
+        }
+
+        private byte[] GetImageBytes(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
+
+        }
+
         private async void CreateClicked(object sender, System.EventArgs e)
         {
             if(EntryRecepient.IsBusy)
@@ -306,16 +353,9 @@ namespace PaketGlobal
                         }
                     }
 
-#if __ANDROID__
-					var myBitmapImage = Android.Graphics.BitmapFactory.DecodeResource(PaketGlobal.Droid.MainActivity.Instance.Resources, PaketGlobal.Droid.Resource.Drawable.empty_photo);
-					var ms = new MemoryStream();
-					// Converting Bitmap image to byte[] array
-					myBitmapImage.Compress(Android.Graphics.Bitmap.CompressFormat.Png, 0, ms);
-					var imageByteArray = ms.ToArray();
-#endif
+                    var imageByteArray = this.GetImageBytes(PhotoSource);
 
-					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, imageByteArray, LaunchPackageEvents);
-
+                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, imageByteArray, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {
@@ -448,6 +488,16 @@ namespace PaketGlobal
                 };
 
                 ShowErrorMessage(AppResources.LocationsNotSet, false, handleHandler);
+
+                return false;
+            }
+            else if (PhotoSource==null)
+            {
+                EventHandler handleHandler = (s, e) => {
+                    OnTakePhoto(PhotoButton, null);
+                };
+
+                ShowErrorMessage(AppResources.SelectPackagePhoto, false, handleHandler);
 
                 return false;
             }

@@ -260,6 +260,9 @@
     <Reference Include="Xamarin.Forms.GoogleMaps.iOS">
       <HintPath>..\packages\Xamarin.Forms.GoogleMaps.3.0.1\lib\Xamarin.iOS10\Xamarin.Forms.GoogleMaps.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\xamarinios10\Plugin.Media.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -519,6 +522,21 @@
     <BundleResource Include="Resources\red_pin%403x.png" />
     <BundleResource Include="Resources\red_pin%402x.png" />
     <BundleResource Include="Resources\red_pin.png" />
+    <BundleResource Include="Services\select_pin.png" />
+    <BundleResource Include="Services\select_pin%402x.png" />
+    <BundleResource Include="Services\select_pin%403x.png" />
+    <BundleResource Include="Resources\select_pin.png" />
+    <BundleResource Include="Resources\select_pin%402x.png" />
+    <BundleResource Include="Resources\select_pin%403x.png" />
+    <BundleResource Include="Resources\retake_photo_ru%403x.png" />
+    <BundleResource Include="Resources\retake_photo_ru%402x.png" />
+    <BundleResource Include="Resources\retake_photo_ru.png" />
+    <BundleResource Include="Resources\retake_photo_eng%403x.png" />
+    <BundleResource Include="Resources\retake_photo_eng%402x.png" />
+    <BundleResource Include="Resources\retake_photo_eng.png" />
+    <BundleResource Include="Resources\take_photo_ru%403x.png" />
+    <BundleResource Include="Resources\take_photo_ru%402x.png" />
+    <BundleResource Include="Resources\take_photo_ru.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

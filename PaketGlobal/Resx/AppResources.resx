@@ -603,4 +603,14 @@
     <data name="Select" xml:space="preserve">
         <value>Select</value>
     </data>
+    <data name="TakePhoto" xml:space="preserve">
+        <value>take_photo_eng.png</value>
+    </data>
+    <data name="ReTakePhoto" xml:space="preserve">
+        <value>retake_photo_eng.png</value>
+    </data>
+    <data name="SelectPackagePhoto" xml:space="preserve">
+        <value>Please take package photo</value>
+    </data>
+
 </root>

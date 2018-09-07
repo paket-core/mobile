@@ -41,7 +41,6 @@ namespace PaketGlobal
 				ViewModel.UserName = userData.PaketUser;
 				ViewModel.FullName = userData.FullName;
 				ViewModel.Address = userData.Address;
-				entryUserName.Enabled = false;
             }
 
             if (IsAddedInfo)

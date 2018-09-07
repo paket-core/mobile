@@ -317,6 +317,9 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>bin\Debug\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\monoandroid71\Plugin.Media.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -754,6 +757,32 @@
     <AndroidResource Include="Resources\drawable-xhdpi\red_pin.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\red_pin.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\red_pin.png" />
+    <AndroidResource Include="Resources\drawable\select_pin.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\select_pin.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\select_pin.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\select_pin.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\select_pin.png" />
+    <AndroidResource Include="Resources\drawable\take_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable\take_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable\retake_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable\retake_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\retake_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\retake_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\take_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\take_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\retake_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\retake_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\take_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\take_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\retake_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\retake_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\take_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\take_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\retake_photo_eng.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\retake_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\take_photo_ru.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\take_photo_eng.png" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -764,6 +793,7 @@
     <Folder Include="Services\Location\" />
     <Folder Include="Services\Events\" />
     <Folder Include="ViewRenderers\Autocomplete\" />
+    <Folder Include="Resources\xml\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />
