@@ -69,7 +69,7 @@ namespace PaketGlobal
                                                            kd.KeyPair.SecretSeed,
                                                            kd.MnemonicString);
 
-                    if (result != null)
+					if (result != null && !String.IsNullOrWhiteSpace(result.UserDetails.PhoneNumber))
                     {
                         CheckActivation();
                     }
