@@ -67,12 +67,7 @@ namespace PaketGlobal
 
 						var infosResult = await App.Locator.IdentityServiceClient.UserInfos();
 						if (infosResult != null && !String.IsNullOrWhiteSpace(infosResult.UserDetails.PhoneNumber)) {
-							//CheckActivation();
-							var page = new SMSVereficationPage();
-
-							await Navigation.PushAsync(page, true);
-
-							App.ShowLoading(false);
+							CheckActivation();
 						} else {
 							var page = new RegistrationPage(true, result.UserDetails);
 
