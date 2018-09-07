@@ -120,7 +120,7 @@ namespace PaketGlobal
 
                 App.ShowLoading(true);
 
-                if (IsAddedInfo == false && IsFinishActivation == true)
+                if (IsFinishActivation == true)
                 {
 					//Retrievee private key
 					var kd = App.Locator.Profile.TryGetKeyData();
@@ -131,11 +131,17 @@ namespace PaketGlobal
 						App.Locator.Profile.SetCredentials(ViewModel.UserName,
 														   ViewModel.FullName,
 														   ViewModel.FullPhoneNumber,
+						                                   ViewModel.Address,
 														   kd.KeyPair.SecretSeed,
 														   kd.MnemonicString);
 
-						var page = new SMSVereficationPage();
-						await Navigation.PushAsync(page, true);
+						if (App.Locator.Profile.MnemonicGenerated) {
+							var page = new ViewMnemonicPage();
+							await Navigation.PushAsync(page, true);
+						} else {
+							var page = new SMSVereficationPage();
+							await Navigation.PushAsync(page, true);
+						}
 					}
                 }
                 else if (IsAddedInfo)
@@ -150,7 +156,7 @@ namespace PaketGlobal
                         {
 							IsFinishActivation = true;
 
-							App.Locator.Profile.SetCredentials(ViewModel.UserName, null, null, kd.KeyPair.SecretSeed, kd.MnemonicString);
+							App.Locator.Profile.SetCredentials(ViewModel.UserName, kd.KeyPair.SecretSeed, kd.MnemonicString);
 
 							var infosResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
 
@@ -158,11 +164,17 @@ namespace PaketGlobal
 								App.Locator.Profile.SetCredentials(ViewModel.UserName,
 																   ViewModel.FullName,
 																   ViewModel.FullPhoneNumber,
+								                                   ViewModel.Address,
 																   kd.KeyPair.SecretSeed,
 																   kd.MnemonicString);
 
-								var page = new SMSVereficationPage();
-								await Navigation.PushAsync(page, true);
+								if (App.Locator.Profile.MnemonicGenerated) {
+									var page = new ViewMnemonicPage();
+									await Navigation.PushAsync(page, true);
+								} else {
+									var page = new SMSVereficationPage();
+									await Navigation.PushAsync(page, true);
+								}
 							}
                         }
                     }
@@ -183,7 +195,9 @@ namespace PaketGlobal
                         var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, kd.KeyPair.Address);
                         if (result != null)
                         {
-							App.Locator.Profile.SetCredentials(ViewModel.UserName, null, null, kd.KeyPair.SecretSeed, kd.MnemonicString);
+							IsFinishActivation = true;
+							App.Locator.Profile.SetCredentials(ViewModel.UserName, kd.KeyPair.SecretSeed, kd.MnemonicString);
+							App.Locator.Profile.MnemonicGenerated = true;
 
 							var infosResult = await App.Locator.IdentityServiceClient.UserInfos(ViewModel.FullName, ViewModel.FullPhoneNumber, ViewModel.Address, kd.KeyPair.Address);
 
@@ -191,6 +205,7 @@ namespace PaketGlobal
 								App.Locator.Profile.SetCredentials(ViewModel.UserName,
 																   ViewModel.FullName,
 																   ViewModel.FullPhoneNumber,
+								                                   ViewModel.Address,
 																   kd.KeyPair.SecretSeed,
 																   kd.MnemonicString);
 

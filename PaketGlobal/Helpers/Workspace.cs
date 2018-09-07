@@ -57,8 +57,6 @@ namespace PaketGlobal
             App.Locator.EventService.StopUseEvent();
 
             App.Locator.LocationService.StopUpdateLocation();
-
-            App.Locator.AccountService.ActivationAddress = "";
             
 			Profile.DeleteCredentials ();
 

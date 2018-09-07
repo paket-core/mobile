@@ -46,6 +46,8 @@ namespace PaketGlobal
             if(entryWord.Text==Word){
                 Unfocus();
 
+				App.Locator.Profile.MnemonicGenerated = false;
+
                 var page = new SMSVereficationPage();
                 Navigation.PushAsync(page, true);
             }

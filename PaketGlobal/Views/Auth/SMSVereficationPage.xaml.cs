@@ -33,11 +33,11 @@ namespace PaketGlobal
 			}
 		}
 
-        private void OnBack(object sender, EventArgs e)
+        private async void OnBack(object sender, EventArgs e)
         {
             Unfocus();
 
-            Navigation.PopToRootAsync(true);
+            await Navigation.PopToRootAsync(true);
         }
 
         private async void OnVerify(object sender, EventArgs e)

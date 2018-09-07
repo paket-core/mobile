@@ -14,7 +14,7 @@ namespace PaketGlobal
 	{
 
         private string recipient = "";
-        private Stream PhotoSource = null;
+        private byte[] PhotoSource = null;
 
 		private Package ViewModel {
 			get {
@@ -276,10 +276,10 @@ namespace PaketGlobal
             {
                 PhotoButton.Image = AppResources.ReTakePhoto;
 
-                PhotoSource = photo.GetStream();
+				PhotoSource = GetImageBytes(photo.GetStream());
 
-                PhotoImage.Source = ImageSource.FromStream(() => { 
-                    return PhotoSource; 
+                PhotoImage.Source = ImageSource.FromStream(() => {
+					return photo.GetStream();
                 });
 
                 PhotoImage.IsVisible = true;
@@ -353,9 +353,7 @@ namespace PaketGlobal
                         }
                     }
 
-                    var imageByteArray = this.GetImageBytes(PhotoSource);
-
-                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, imageByteArray, LaunchPackageEvents);
+					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {
