@@ -59,28 +59,31 @@ namespace PaketGlobal
                     }
 
                     App.Locator.Profile.KeyPair = kd.KeyPair;
-                    App.Locator.AccountService.ActivationAddress = "";
 
                     var result = await App.Locator.IdentityServiceClient.GetUser(kd.KeyPair.Address, null);
 
-                    App.Locator.Profile.SetCredentials(result?.UserDetails?.PaketUser,
-                                                           result?.UserDetails?.FullName,
-                                                           result?.UserDetails?.PhoneNumber,
-                                                           kd.KeyPair.SecretSeed,
-                                                           kd.MnemonicString);
+					if (result != null) {
+						App.Locator.Profile.SetCredentials(result.UserDetails.PaketUser, kd.KeyPair.SecretSeed, kd.MnemonicString);
 
-					if (result != null && !String.IsNullOrWhiteSpace(result.UserDetails.PhoneNumber))
-                    {
-                        CheckActivation();
-                    }
-                    else
-                    {
-                        var page = new RegistrationPage(true);
+						var infosResult = await App.Locator.IdentityServiceClient.UserInfos();
+						if (infosResult != null && !String.IsNullOrWhiteSpace(infosResult.UserDetails.PhoneNumber)) {
+							CheckActivation();
+						} else {
+							var page = new RegistrationPage(true, result.UserDetails);
 
-                        await Navigation.PushAsync(page, true);
+							await Navigation.PushAsync(page, true);
 
-                        App.ShowLoading(false);
-                    }
+							App.ShowLoading(false);
+						}
+					} else {
+						App.Locator.Profile.SetCredentials(kd.KeyPair.SecretSeed, kd.MnemonicString);
+
+						var page = new RegistrationPage(true);
+
+						await Navigation.PushAsync(page, true);
+
+						App.ShowLoading(false);
+					}
                 }
                 catch (Exception ex)
                 {

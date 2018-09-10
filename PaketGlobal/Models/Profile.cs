@@ -25,6 +25,10 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.PhoneNumber; }
 		}
 
+		public string Address {
+			get { return App.Locator.AccountService.ActivationAddress; }
+		}
+
 		public string Seed {
 			get { return App.Locator.AccountService.Seed; }
 		}
@@ -38,6 +42,11 @@ namespace PaketGlobal
 			set { App.Locator.AccountService.Activated = value; }
 		}
 
+		public bool MnemonicGenerated {
+			get { return App.Locator.AccountService.MnemonicGenerated; }
+			set { App.Locator.AccountService.MnemonicGenerated = value; }
+		}
+
 		public KeyPair KeyPair { get; set; }
 
 		public string Pubkey {
@@ -49,9 +58,19 @@ namespace PaketGlobal
 			TryRestoreKeyPair();
 		}
 
-		public void SetCredentials (string userName, string fullName, string phoneNumber, string seed, string mnemonic)
+		public void SetCredentials(string seed, string mnemonic)
 		{
-			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, seed, mnemonic);
+			SetCredentials(null, null, null, null, seed, mnemonic);
+		}
+
+		public void SetCredentials(string userName, string seed, string mnemonic)
+		{
+			SetCredentials(userName, null, null, null, seed, mnemonic);
+		}
+
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string address, string seed, string mnemonic)
+		{
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, address, seed, mnemonic);
 		}
 
 		public void DeleteCredentials ()

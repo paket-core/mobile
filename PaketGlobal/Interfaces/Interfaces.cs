@@ -13,7 +13,8 @@ namespace PaketGlobal
 		string Mnemonic { get; }
 		string Transactions { get; set; }
 		bool Activated { get; set; }
-		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
+		bool MnemonicGenerated { get; set; }
+		void SetCredentials(string userName, string fullName, string phoneNumber, string address, string seed, string mnemonic);
 		void DeleteCredentials();
         bool ShowNotifications { get; set; }
         string ActivationAddress { get; set; }
