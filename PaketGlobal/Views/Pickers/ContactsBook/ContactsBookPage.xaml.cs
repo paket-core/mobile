@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Plugin.ContactService;
 using libphonenumber;
+using System.Linq;
 
 namespace PaketGlobal
 {
@@ -161,6 +162,7 @@ namespace PaketGlobal
     public partial class ContactsBookPage : BasePage
     {
         private List<BookContact> Items = new List<BookContact>();
+        private List<BookContact> SearchItems = new List<BookContact>();
 
         public delegate void ContactsBookPageEventHandler(object sender, ContactsBookPageEventArgs args);
         public ContactsBookPageEventHandler eventHandler;
@@ -190,6 +192,8 @@ namespace PaketGlobal
             var fl = firstLoad;
 
             base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarLight();
 
             if (fl)
             {
@@ -221,6 +225,9 @@ namespace PaketGlobal
                         }
                     }
 
+                    var asc = Items.OrderBy(item => item.Name);
+                    Items = asc.ToList();
+
                     ItemsListView.ItemsSource = Items;
 
                     App.ShowLoading(false);
@@ -235,6 +242,17 @@ namespace PaketGlobal
                 Console.WriteLine(ex);
             }
            
+        }
+
+        private void TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(e.NewTextValue))
+            {
+                ItemsListView.ItemsSource = Items;
+            }
+            else{
+                ItemsListView.ItemsSource = Items.Where(x => x.Name.StartsWith(e.NewTextValue));  
+            }
         }
 
         private void OnBack(object sender, System.EventArgs e)

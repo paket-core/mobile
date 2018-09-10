@@ -537,6 +537,12 @@
     <BundleResource Include="Resources\take_photo_ru%403x.png" />
     <BundleResource Include="Resources\take_photo_ru%402x.png" />
     <BundleResource Include="Resources\take_photo_ru.png" />
+    <BundleResource Include="Resources\take_photo_eng%403x.png" />
+    <BundleResource Include="Resources\take_photo_eng%402x.png" />
+    <BundleResource Include="Resources\take_photo_eng.png" />
+    <BundleResource Include="Resources\search_field_icon%403x.png" />
+    <BundleResource Include="Resources\search_field_icon%402x.png" />
+    <BundleResource Include="Resources\search_field_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

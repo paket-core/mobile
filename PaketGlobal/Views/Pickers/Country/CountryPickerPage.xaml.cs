@@ -50,6 +50,13 @@ namespace PaketGlobal
             ItemsListView.ItemsSource = Items;
         }
 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarLight();
+        }
+
         private void OnBack(object sender, System.EventArgs e)
         {
             Navigation.PopAsync();

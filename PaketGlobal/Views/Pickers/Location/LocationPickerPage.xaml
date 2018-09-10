@@ -35,15 +35,21 @@
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
                 <RelativeLayout>
 
-                    <StackLayout Padding="15,10,15,0"
+                    <StackLayout Padding="20,10,20,0"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "0">
                         <local:PaketEntry x:Name="SearchField"
                       HeightRequest="44"
                       FontFamily="{StaticResource NormalFont}" FontSize="14"
                       TextColor="Black"
-                      TextChanged="TextChanged"/>
+                      TextChanged="TextChanged" ImageWidth="20" ImageHeight="20" Image="search_field_icon.png"/>
                     </StackLayout>
+
+                   <ActivityIndicator x:Name="ProgressIndicator" IsRunning="false"
+                       RelativeLayout.WidthConstraint="20"
+                       RelativeLayout.HeightConstraint="20"
+                       RelativeLayout.YConstraint="20"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"/>
 
 
                     <ListView x:Name="ItemsListView" 
@@ -59,8 +65,8 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <local:CellWithoutSelection>
-                                    <StackLayout>
-                                        <StackLayout Orientation="Horizontal" Spacing="15" Padding="15,10,15,0">
+                                    <StackLayout Padding="20,0,20,0">
+                                        <StackLayout Orientation="Horizontal" Spacing="15" Padding="0,10,0,0">
                                          <Image Source="{Binding Structured.Icon}" HeightRequest="25" WidthRequest="25" BackgroundColor="Transparent"
                                           HorizontalOptions="Start" VerticalOptions="Center"/> 
                                         <StackLayout Orientation="Vertical"  Spacing="0" VerticalOptions="Center">

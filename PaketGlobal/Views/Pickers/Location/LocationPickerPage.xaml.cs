@@ -73,6 +73,8 @@ namespace PaketGlobal
 
             base.OnAppearing();
 
+            App.Locator.DeviceService.setStausBarLight();
+
             if (fl)
             {
                 if (Location == null)
@@ -91,6 +93,8 @@ namespace PaketGlobal
         {
             if (!string.IsNullOrEmpty(e.NewTextValue) && e.NewTextValue.Length >= minimumSearchText)
             {
+                ProgressIndicator.IsRunning = true;
+
                 var predictions = await GooglePlaces.GetPlaces(e.NewTextValue,Location);
                 if (predictions != null)
                     PlacesRetrieved(predictions);
@@ -101,6 +105,8 @@ namespace PaketGlobal
             {
                 PlacesRetrieved(new AutoCompleteResult());
             }
+
+            ProgressIndicator.IsRunning = false;
         }
 
         private void PlacesRetrieved(AutoCompleteResult result)
