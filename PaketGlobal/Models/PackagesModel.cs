@@ -111,7 +111,7 @@ namespace PaketGlobal
 
         public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)
         {
-            var location = ""; //await App.Locator.LocationHelper.GetStringLocation(true);
+            var location = await App.Locator.LocationHelper.GetStringLocation(true);
             var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
             if (result != null)
             {

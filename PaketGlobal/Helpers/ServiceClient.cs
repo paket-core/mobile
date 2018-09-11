@@ -360,8 +360,6 @@ namespace PaketGlobal
 
         public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
         {
-            location = "47.8363985775351,35.1494";
-
             if (location.Length > 24)
             {
                 location = location.Substring(0, 24);
