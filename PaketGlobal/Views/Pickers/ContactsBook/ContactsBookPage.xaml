@@ -25,7 +25,7 @@
             <Frame BackgroundColor="White" 
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
-                      Padding="20"
+                      Padding="0"
                       CornerRadius="18"
                       HasShadow="false"
                       RelativeLayout.XConstraint = "0"
@@ -33,6 +33,16 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
                 <RelativeLayout>
+                    <StackLayout Padding="20,10,20,0"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "0">
+                        <local:PaketEntry x:Name="SearchField" Placeholder="{local:Translate SearchPlacholder}"
+                      HeightRequest="44"
+                      FontFamily="{StaticResource NormalFont}" FontSize="14"
+                      TextColor="Black"
+                      TextChanged="TextChanged" ImageWidth="20" ImageHeight="20" Image="search_field_icon.png"/>
+                    </StackLayout>
+                    
                     <ListView x:Name="ItemsListView" 
                       ItemsSource="{Binding Items}"
                       ItemSelected="ItemSelected"
@@ -43,11 +53,11 @@
                       RelativeLayout.XConstraint = "0"
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=-30}">
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=55}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <local:CellWithoutSelection>
-                                    <StackLayout Padding="0,20,0,0">
+                                    <StackLayout Padding="20,20,20,0">
                                         <StackLayout Orientation="Horizontal" Spacing="15">
                                             <Frame VerticalOptions="Center" HasShadow="false" CornerRadius="16" Margin="0" Padding="0" IsClippedToBounds="true">
                                                 <Image Source="{Binding PhotoSource}" Aspect="AspectFill" BackgroundColor="Transparent" VerticalOptions="Center" WidthRequest="32" HeightRequest="32"/>

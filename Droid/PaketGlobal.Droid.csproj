@@ -781,6 +781,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\take_photo_ru.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\take_photo_eng.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\drawable\search_field_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\search_field_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\search_field_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\search_field_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\search_field_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

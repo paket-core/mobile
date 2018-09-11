@@ -612,5 +612,9 @@
     <data name="SelectPackagePhoto" xml:space="preserve">
         <value>Please take package photo</value>
     </data>
+    <data name="SearchPlacholder" xml:space="preserve">
+        <value>Search...</value>
+    </data>
 
+    
 </root>

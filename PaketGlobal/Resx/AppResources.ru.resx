@@ -115,10 +115,10 @@
         <value>Скопировать</value>
     </data>
     <data name="MyPackages" xml:space="preserve">
-        <value>Мои пакеты</value>
+        <value>Мои посылки</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Здесь вы можете создавать и отслеживать&#x0a;все ваши пакеты</value>
+        <value>Здесь вы можете создавать и отслеживать&#x0a;все ваши посылки</value>
     </data>
     <data name="Sent" xml:space="preserve">
         <value>ОТПРАВЛЕНО</value>
@@ -133,13 +133,13 @@
         <value>Роль</value>
     </data>
     <data name="PackageDelivered" xml:space="preserve">
-        <value>Пакет доставлен.&#x0a;Вы можете вернуть неизрасходованные средства.</value>
+        <value>Посылка доставлена.&#x0a;Вы можете вернуть неизрасходованные средства.</value>
     </data>
     <data name="PackageExpired" xml:space="preserve">
         <value>Срок истек.&#x0a;Вы можете вернуть средства.</value>
     </data>
     <data name="AcceptPackage" xml:space="preserve">
-        <value>Принять пакет</value>
+        <value>Принять посылку</value>
     </data>
     <data name="Funds" xml:space="preserve">
         <value>КАПИТАЛ</value>
@@ -154,13 +154,13 @@
         <value>ПЛАТЕЖНАЯ ИНФОРМАЦИЯ</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Используйте этот код чтобы передать пакет&#x0a;курьеру или принять пакет, как получатель</value>
+        <value>Используйте этот код чтобы передать посылку&#x0a;курьеру или принять посылку, как получатель</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>СОБЫТИЯ</value>
     </data>
     <data name="CreatePackage" xml:space="preserve">
-        <value>Создать пакет</value>
+        <value>Создать посылку</value>
     </data>
     <data name="Participants" xml:space="preserve">
         <value>УЧАСТНИКИ</value>
@@ -193,7 +193,7 @@
         <value>Создать</value>
     </data>
     <data name="ScanInfo" xml:space="preserve">
-        <value>Сканирование штри-кода содержащего&#x0a;информацию о пакете</value>
+        <value>Сканирование штри-кода содержащего&#x0a;информацию о посылке</value>
     </data>
     <data name="AutoScan" xml:space="preserve">
         <value>Сканирование произойдет автоматически</value>
@@ -271,7 +271,7 @@
         <value>Учетная запись не проверена</value>
     </data>
     <data name="InvalidPackageId" xml:space="preserve">
-        <value>Неверный идентефикатор пакета</value>
+        <value>Неверный идентефикатор посылки</value>
     </data>
     <data name="InvalidBarcode" xml:space="preserve">
         <value>Неверный код</value>
@@ -289,10 +289,10 @@
         <value>Усепшное восстановление</value>
     </data>
     <data name="PackageAccepted" xml:space="preserve">
-        <value>Пакет успешно принят</value>
+        <value>Посылка успешно принята</value>
     </data>
     <data name="ErrorGetPackage" xml:space="preserve">
-        <value>Ошибка при получении сведений о пакете</value>
+        <value>Ошибка при получении сведений о посылки</value>
     </data>
     <data name="ConnectionError" xml:space="preserve">
         <value>Ошибка подключения к интернету</value>
@@ -316,7 +316,7 @@
         <value>У курьера недостаточно средств</value>
     </data>
     <data name="FailedLaunchPackage" xml:space="preserve">
-        <value>Ошибка при запуске пакета</value>
+        <value>Ошибка при запуске посылки</value>
     </data>
     <data name="FaileSubmitOptions" xml:space="preserve">
         <value>Ошибка при отправке опций</value>
@@ -325,7 +325,7 @@
         <value>Несоответствующий баланс</value>
     </data>
     <data name="FailAcceptPackage" xml:space="preserve">
-        <value>Ошибка при принятии пакета</value>
+        <value>Ошибка при принятии посылки</value>
     </data>
     <data name="FailSendCollateral" xml:space="preserve">
         <value>Ошибка отправки залога</value>
@@ -334,7 +334,7 @@
         <value>Неизвестная ошибка</value>
     </data>
     <data name="CameraAccessNotGranted" xml:space="preserve">
-        <value>Пожалуйста предоставьте доступ к камере для сканирование пакетов</value>
+        <value>Пожалуйста предоставьте доступ к камере для сканирование посылок</value>
     </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Ошибка при добавлении токенов</value>
@@ -403,7 +403,7 @@
         <value>Инфо</value>
     </data>
     <data name="Packages" xml:space="preserve">
-        <value>Пакеты</value>
+        <value>Посылки</value>
     </data>
     <data name="Version" xml:space="preserve">
         <value>Версия приложения</value>
@@ -514,7 +514,7 @@
         <value>Русский</value>
     </data>
     <data name="NoPackagesFound" xml:space="preserve">
-        <value>У вас нет пакетов</value>
+        <value>У вас нет посылок</value>
     </data>
     <data name="Launcher" xml:space="preserve">
         <value>Отправитель</value>
@@ -611,5 +611,8 @@
     </data>
     <data name="SelectPackagePhoto" xml:space="preserve">
         <value>Пожалуйста сделать фото посылки</value>
+    </data>
+    <data name="SearchPlacholder" xml:space="preserve">
+        <value>Поиск...</value>
     </data>
 </root>

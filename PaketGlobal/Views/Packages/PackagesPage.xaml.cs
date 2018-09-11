@@ -75,6 +75,8 @@ namespace PaketGlobal
 
             base.OnAppearing();
 
+            App.Locator.DeviceService.setStausBarLight();
+
             if (fl)
             {
                 await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);

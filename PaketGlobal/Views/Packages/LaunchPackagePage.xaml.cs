@@ -95,7 +95,13 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationImage, selectToLocation);
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.Locator.DeviceService.setStausBarLight();
         }
 
         private void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
@@ -270,7 +276,12 @@ namespace PaketGlobal
 
         private async void OnTakePhoto(object sender, System.EventArgs e)
         {
-            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            await Plugin.Media.CrossMedia.Current.Initialize();
+
+            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large,
+            });
 
             if (photo != null)
             {

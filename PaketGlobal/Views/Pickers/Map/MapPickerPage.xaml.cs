@@ -33,6 +33,7 @@ namespace PaketGlobal
 
             SelectButton.Opacity = 0;
             MapView.UiSettings.ZoomControlsEnabled = false;
+            MapView.MyLocationEnabled = true;
 
             MapView.CameraIdled += (sender, e) =>
             {
@@ -42,18 +43,10 @@ namespace PaketGlobal
                 }
             };
 
-           // MapView.MapLongClicked += async (sender, e) =>
-           // {
-                //MapView.Pins.Clear();
-
-                //var pin = new Pin() { Label = "", Position = new Position(e.Point.Latitude, e.Point.Longitude) };
-                //MapView.Pins.Add(pin);
-
-                //await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
-                //    pin.Position, MapView.CameraPosition.Zoom), TimeSpan.FromSeconds(1));
-
-                //LoadAddress(e.Point.Latitude,e.Point.Longitude);
-            //};
+            if(!App.Locator.LocationHelper.lat.Equals(0.0))
+            {
+                MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng), 20d);
+            }
         }
 
         protected override void OnDisappearing()
@@ -61,30 +54,36 @@ namespace PaketGlobal
             base.OnDisappearing();
 
             MapView = null;
+        
         }
-
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             var fl = firstLoad;
 
             base.OnAppearing();
 
+            App.Locator.DeviceService.setStausBarLight();
+
             if (fl)
             {
-                var position = await App.Locator.LocationHelper.GetLocation(true);
+                LoadInitialPosition();
+            }
+        }
 
-                if(position!=null && MapView!=null)
-                {
-                    var pin = new Pin() { Label = "", Position = new Position(position.Latitude, position.Longitude) };
+        private async void LoadInitialPosition()
+        {
+            var position = await App.Locator.LocationHelper.GetLocation(true);
 
-                    SelectButton.Opacity = 1;
+            if (position != null && MapView != null)
+            {
+                var pin = new Pin() { Label = "", Position = new Position(position.Latitude, position.Longitude) };
 
-                    await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
-                        pin.Position, 20d), TimeSpan.FromSeconds(1));
+                SelectButton.Opacity = 1;
 
-                    LoadAddress(position.Latitude, position.Longitude);            
-                }
-        
+                await MapView.AnimateCamera(CameraUpdateFactory.NewPositionZoom(
+                   pin.Position, 20d), TimeSpan.FromSeconds(0.01));
+
+                LoadAddress(position.Latitude, position.Longitude);
             }
         }
 

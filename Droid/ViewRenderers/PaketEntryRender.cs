@@ -88,10 +88,10 @@ namespace PaketGlobal.Droid
             {
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutTransparent);
 
-                if(element.BackgroundV==4)
-                {
-                    Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, 0);
-                }
+            //    if(element.BackgroundV==4)
+            //    {
+            //        Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, 0);
+            //    }
             }
             else if (element.BackgroundV == 1)
             {

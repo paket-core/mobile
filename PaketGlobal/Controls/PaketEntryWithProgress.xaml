@@ -21,8 +21,8 @@
     <Button x:Name="SelectButton" Image="book_icon.png" IsVisible="true"
             Pressed="SelectPressed"
             BackgroundColor="Transparent"
-                       RelativeLayout.WidthConstraint="28"
-                       RelativeLayout.HeightConstraint="28"
+                       RelativeLayout.WidthConstraint="24"
+                       RelativeLayout.HeightConstraint="24"
                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-8}"
-                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-33}"/>
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-28}"/>
 </RelativeLayout>
