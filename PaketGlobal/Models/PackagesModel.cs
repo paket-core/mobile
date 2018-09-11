@@ -8,6 +8,7 @@ namespace PaketGlobal
 {
     public class PackagesModel : BaseViewModel
     {
+        private int oldRadius = 0;
         private System.Timers.Timer timer;
         private bool isneedTimer = false;
         public string CurrentDisplayPackageId = "";
@@ -111,6 +112,16 @@ namespace PaketGlobal
 
         public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)
         {
+            if (oldRadius != radius && radius != 0)
+            {
+                oldRadius = radius;
+
+            }
+            if (radius == 0)
+            {
+                radius = oldRadius;
+            }
+
             var location = await App.Locator.LocationHelper.GetStringLocation(true);
             var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
             if (result != null)

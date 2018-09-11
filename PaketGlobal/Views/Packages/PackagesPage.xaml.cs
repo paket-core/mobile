@@ -135,7 +135,7 @@ namespace PaketGlobal
                 await App.Locator.ProfileModel.Load();
                 await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
-                App.Locator.EventService.StartUseEvent();
+                App.Locator.EventService.StartUseEvent();            
             }
 
             App.Locator.DeviceService.setStausBarLight();
@@ -143,6 +143,11 @@ namespace PaketGlobal
             if (ViewModel.PackagesList.Count>0)
             {
                 PlacholderLabel.IsVisible = false;
+            }
+
+            if (Mode == PackagesMode.Available)
+            {
+                LoadAvailablePackages();
             }
 
             ViewModel.CurrentDisplayPackageId = "";

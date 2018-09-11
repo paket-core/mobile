@@ -394,19 +394,6 @@ namespace PaketGlobal
 
                 await App.Locator.Packages.Load();
 
-                var list = App.Locator.Packages.AvailablePackagesList;
-
-                foreach(AvaiablePackage p in list)
-                {
-                    if (p.PaketId==ViewModel.PaketId)
-                    {
-                        list.Remove(p);
-                        break;
-                    }
-                }
-
-                App.Locator.Packages.AvailablePackagesList = list;
-
                 ShowMessage(AppResources.PackageAssigned);
 
                 await Navigation.PopToRootAsync();
