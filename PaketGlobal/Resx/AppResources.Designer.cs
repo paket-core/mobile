@@ -657,6 +657,13 @@ namespace PaketGlobal
             }
         }
 
+        internal static string WaitingLauncherMakeDeposit
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingLauncherMakeDeposit", resourceCulture);
+            }
+        }
 
     }
 }

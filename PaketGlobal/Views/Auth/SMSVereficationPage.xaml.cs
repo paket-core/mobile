@@ -37,8 +37,7 @@ namespace PaketGlobal
         {
             Unfocus();
 
-            var navPage = App.Locator.NavigationService.Initialize(new WellcomePage());
-            App.Current.MainPage = navPage;
+            App.Locator.Workspace.Logout();
         }
 
         private async void OnVerify(object sender, EventArgs e)
@@ -56,7 +55,7 @@ namespace PaketGlobal
                 try
                 {
                     var result = await App.Locator.IdentityServiceClient.VerifyCode(entryCode.Text);
-                    if (result.Status==200)
+                    if (result != null)
                     {
                         var trusted = await StellarHelper.CheckTokenTrusted();
                         if (trusted)

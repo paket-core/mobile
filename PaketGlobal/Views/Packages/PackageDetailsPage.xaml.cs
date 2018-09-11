@@ -100,11 +100,11 @@ namespace PaketGlobal
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
-                CheckVisiblePayments();
-
                 AddEvents();
 
                 EventsInfoViewFrame.IsVisible = true;
+
+                CheckVisiblePayments();
 
                 MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
                 {
@@ -167,12 +167,25 @@ namespace PaketGlobal
 
         private void CheckVisiblePayments()
         {
-            if(ViewModel.MyRole==PaketRole.Launcher)
+            if (ViewModel.MyRole == PaketRole.Courier)
+            {
+                if (ViewModel.CourierPubkey != null && ViewModel.PaymentTransaction==null)
+                {
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingLauncherMakeDeposit;
+
+                    DepositButton.IsVisible = false;
+
+                    BarcodeArrow.IsVisible = false;
+                    BarcodeImage.IsVisible = false;
+                }
+            }
+            else if(ViewModel.MyRole==PaketRole.Launcher)
             {
 
                 if(ViewModel.CourierPubkey==null)
                 {
-                    //change waiting text to waiting courier
                     WaitingStackView.IsVisible = true;
                     WaitingAssignLabel.IsVisible = true;
                     WaitingAssignLabel.Text = AppResources.WaitingAssignCourierToPackage;
@@ -182,7 +195,6 @@ namespace PaketGlobal
                     DepositButton.ButtonBackground = "#A7A7A7";             
                 }
                 else{
-                    //change waiting text to make deposit
                     WaitingStackView.IsVisible = true;
                     WaitingAssignLabel.IsVisible = true;
                     WaitingAssignLabel.Text = AppResources.WaitingMakeDepositPackage;
@@ -379,7 +391,19 @@ namespace PaketGlobal
                 await System.Threading.Tasks.Task.Delay(2000);
 
                 await App.Locator.Packages.Load();
-                await App.Locator.Packages.LoadAvailable(200,null);
+
+                var list = App.Locator.Packages.AvailablePackagesList;
+
+                foreach(AvaiablePackage p in list)
+                {
+                    if (p.PaketId==ViewModel.PaketId)
+                    {
+                        list.Remove(p);
+                        break;
+                    }
+                }
+
+                App.Locator.Packages.AvailablePackagesList = list;
 
                 ShowMessage(AppResources.PackageAssigned);
 

@@ -128,6 +128,25 @@ namespace PaketGlobal
                 return StellarConverter.ConvertValueToString(Account.BalanceXLM);
             }
         }
+
+        //Binding: 'FormattedBalanceBULEURO' property not found on 'PaketGlobal.BalanceData', target property: 'Xamarin.Forms.Label.Text'
+        //Binding: 'FormattedBalanceXLMEURO'
+
+        public string FormattedBalanceXLMEURO
+        {
+            get
+            {
+                return "€" + StellarConverter.ConvertValueToString(Account.BalanceXLM/1200);
+            }
+        }
+
+        public string FormattedBalanceBULEURO
+        {
+            get
+            {
+                return "€" + StellarConverter.ConvertValueToString(Account.BalanceBUL/30);
+            }
+        }
 	}
 
 	[DataContract]
@@ -388,8 +407,25 @@ namespace PaketGlobal
 		[DataMember(Name = "recipient_pubkey")]
 		public string RecipientPubkey { get; set; }
 
-		[DataMember(Name = "courier_pubkey")]
-		public string CourierPubkey { get; set; }
+		///[DataMember(Name = "courier_pubkey")]
+        public string CourierPubkey
+        {
+            get{
+                if(Events != null)
+                {
+                    foreach (PackageEvent ev in Events)
+                    {
+                        if (ev.EventType == "assign package")
+                        {
+                            return ev.UserPubKey;
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+        }
 
         public string DistanceToPickup
         {

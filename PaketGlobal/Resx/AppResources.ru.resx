@@ -645,4 +645,7 @@
     <data name="WaitingMakeDepositPackage" xml:space="preserve">
         <value>Пожалуйста, сделайте депозит.&#xA;Затем вы можете показать курьеру QR-код</value>
     </data> 
+    <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
+        <value>Пожалуйста подождите пока отправиттель внесет депозит</value>
+    </data> 
 </root>
