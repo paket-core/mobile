@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -154,7 +154,7 @@
         <value>PAYMENT INFO</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Use this barcode to pass the package to a courier&#x0a;or accept it by the recepient</value>
+        <value>Use this barcode to pass the package&#x0a;(this should be different according to role)</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>EVENTS</value>
@@ -211,7 +211,11 @@
         <value>MNEMONIC</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Use this mnemonic to recover your account.&#xA;Please save this phrase somewhere safe.</value>
+<<<<<<< HEAD
+        <value>Use this mnemonic to recover private key on another device.&#xA;Please save this phrase somewhere safe.</value>
+=======
+        <value>Use this mnemonic to recover your account</value>
+>>>>>>> milestone-1.2.2
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Create New Private Key</value>
@@ -361,7 +365,7 @@
         <value>Check launcher balance</value>
     </data>
     <data name="LaunchPackageStep2" xml:space="preserve">
-        <value>Create Package</value>
+        <value>Check courier balance</value>
     </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Create escrow account</value>
@@ -603,48 +607,4 @@
     <data name="Select" xml:space="preserve">
         <value>Select</value>
     </data>
-    <data name="TakePhoto" xml:space="preserve">
-        <value>take_photo_eng.png</value>
-    </data>
-    <data name="ReTakePhoto" xml:space="preserve">
-        <value>retake_photo_eng.png</value>
-    </data>
-    <data name="SelectPackagePhoto" xml:space="preserve">
-        <value>Please take package photo</value>
-    </data>
-    <data name="SearchPlacholder" xml:space="preserve">
-        <value>Search...</value>
-    </data>
-    <data name="AllPackages" xml:space="preserve">
-        <value>All Packages</value>
-    </data>
-    <data name="AvailablePackages" xml:space="preserve">
-        <value>Available</value>
-    </data>
-    <data name="Filter" xml:space="preserve">
-        <value>Filter</value>
-    </data>
-     <data name="Reset" xml:space="preserve">
-        <value>Reset</value>
-    </data>   
-   <data name="PackageCanAssign" xml:space="preserve">
-        <value>You can take this package for delivery</value>
-    </data> 
-      <data name="Take" xml:space="preserve">
-        <value>Take</value>
-    </data> 
-          <data name="PackageAssigned" xml:space="preserve">
-        <value>The package was successfully assigned</value>
-    </data> 
-  <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to show him the QR code</value>
-   </data> 
-    <data name="Deposit" xml:space="preserve">
-        <value>Deposit Payment</value>
-    </data> 
-    <data name="WaitingMakeDepositPackage" xml:space="preserve">
-        <value>Please make a deposit.&#xA;Then you can show the courier a QR code.</value>
-    </data> 
-
-    
 </root>

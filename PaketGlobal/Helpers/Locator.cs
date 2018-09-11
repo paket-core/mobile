@@ -48,6 +48,11 @@ namespace PaketGlobal
 			get { return (NavigationService)GetInstance<INavigationService>(); }
 		}
 
+        public ProfileModel ProfileModel
+        {
+            get { return SimpleIoc.Default.GetInstance<ProfileModel>(); }
+        }
+
 		public PackagesModel Packages {
 			get { return SimpleIoc.Default.GetInstance<PackagesModel>(); }
 		}
@@ -102,6 +107,11 @@ namespace PaketGlobal
 		public Locator()
 		{
 			// Models
+
+            if (!SimpleIoc.Default.IsRegistered<ProfileModel>())
+            {
+                SimpleIoc.Default.Register<ProfileModel>();
+            }
 
 			if (!SimpleIoc.Default.IsRegistered<PackagesModel>()) {
 				SimpleIoc.Default.Register<PackagesModel>();

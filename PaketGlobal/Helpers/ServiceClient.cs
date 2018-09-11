@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using RestSharp;
 using System.Linq;
 using Plugin.Geolocator;
+using System.Threading;
 
 namespace PaketGlobal
 {
@@ -237,6 +238,24 @@ namespace PaketGlobal
 
 		#region Packages
 
+        public async Task<AcceptPackageData> AssignPackage(string escrowPubkey, string location)
+        {
+            if (location.Length > 24)
+            {
+                location = location.Substring(0, 24);
+            }
+
+            var request = PrepareRequest(apiVersion + "/assign_package", Method.POST);
+
+            request.AddParameter("escrow_pubkey", escrowPubkey);
+            if (location != null)
+            {
+                request.AddParameter("location", location);
+            }
+
+            return await SendRequest<AcceptPackageData>(request);
+        }
+
 		public async Task<AcceptPackageData> AcceptPackage(string escrowPubkey, string location)
 		{
 			var request = PrepareRequest(apiVersion + "/accept_package", Method.POST);
@@ -339,6 +358,23 @@ namespace PaketGlobal
 			return await SendRequest<PackagesData>(request);
 		}
 
+        public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
+        {
+            location = "47.8363985775351,35.1494";
+
+            if (location.Length > 24)
+            {
+                location = location.Substring(0, 24);
+            }
+
+            var request = PrepareRequest(apiVersion + "/available_packages", Method.POST);
+
+            request.AddParameter("location", location);
+            request.AddParameter("radius_num", radius);
+
+            return await SendRequest<AvailablePackagesData>(request,null,true,null,null,null,null,false,false,false,false,cancellationTokenSource);
+        }
+
 		public async Task<PackageData> Package(string escrowPubkey)
 		{
 			var request = PrepareRequest(apiVersion + "/package", Method.POST);
@@ -400,11 +436,12 @@ namespace PaketGlobal
 			return request;
 		}
 
-		private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
+        private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false, CancellationTokenSource cancellationTokenSource = null)
 		{
 			var client = customClient ?? restClient;
 
-			if (signData) SignRequest(request, pubkey, client, customSign: customSign);
+			if (signData) 
+                SignRequest(request, pubkey, client, customSign: customSign);
 
             try
             {
@@ -417,12 +454,27 @@ namespace PaketGlobal
                         obj.CopyTo(responseStream);
                         obj.Close();
                     };
-                    response = await client.ExecuteTaskAsync<T>(request);
+
+                    if(cancellationTokenSource != null)
+                    {
+                        response = await client.ExecuteTaskAsync<T>(request, cancellationTokenSource.Token);  
+                    }
+                    else{
+                        response = await client.ExecuteTaskAsync<T>(request);  
+                    }
+
                     responseStream.Dispose();
                 }
                 else
                 {
-                    response = await client.ExecuteTaskAsync<T>(request);
+                    if (cancellationTokenSource != null)
+                    {
+                        response = await client.ExecuteTaskAsync<T>(request,cancellationTokenSource.Token);
+                    }
+                    else{
+                        response = await client.ExecuteTaskAsync<T>(request);
+                    }
+
                     if (rb != null)
                     {
                         rb.Data = response.RawBytes;

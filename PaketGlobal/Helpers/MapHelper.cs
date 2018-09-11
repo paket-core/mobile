@@ -27,6 +27,19 @@ namespace PaketGlobal
 
         public async Task<byte[]> GetStaticMap(double latitude, double longitude, double zoom, int width, int height, float bearing = 0.0f, float pitch = 0.0f, bool classicMap = false, bool retina = false)
         {
+            string res = this.GetStaticMapUri(latitude, longitude, zoom, width, height, bearing, pitch, classicMap, retina);
+
+            var request = PrepareRequest(res, Method.GET);
+
+            RawBytes rb = new RawBytes();
+
+            var result = await SendRequest<byte[]>(request, rb);
+
+            return rb.Data;
+        }
+
+        public string GetStaticMapUri(double latitude, double longitude, double zoom, int width, int height, float bearing = 0.0f, float pitch = 0.0f, bool classicMap = false, bool retina = false)
+        {
             var latStr = latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
             var longStr = longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
             var zoomStr = zoom.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -42,15 +55,9 @@ namespace PaketGlobal
                 res = String.Format("/styles/v1/mapbox/streets-v8/static/{0},{1},{2},{3},{4}/{5}x{6}{7}", longStr, latStr, zoomStr, bearing, pitch, width, height, retina ? "@2x" : "");
             }
 
-            var request = PrepareRequest(res, Method.GET);
+            res = "https://api.mapbox.com" + res + "?access_token=" + accessToken;
 
-            request.AddParameter("access_token", accessToken);
-
-            RawBytes rb = new RawBytes();
-
-            var result = await SendRequest<byte[]>(request, rb);
-
-            return rb.Data;
+            return res;
         }
 
         private RestRequest PrepareRequest(string uri, Method method)

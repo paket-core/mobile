@@ -33,11 +33,12 @@ namespace PaketGlobal
 			}
 		}
 
-        private async void OnBack(object sender, EventArgs e)
+        private void OnBack(object sender, EventArgs e)
         {
             Unfocus();
 
-            await Navigation.PopToRootAsync(true);
+            var navPage = App.Locator.NavigationService.Initialize(new WellcomePage());
+            App.Current.MainPage = navPage;
         }
 
         private async void OnVerify(object sender, EventArgs e)

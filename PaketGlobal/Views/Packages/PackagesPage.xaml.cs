@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.Geolocator;
@@ -7,6 +8,35 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
+    public enum PackagesMode
+    {
+        All,
+        Available
+    }
+
+    public class PackagesTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate AllPackages { get; set; }
+
+        public DataTemplate AvailablePackages { get; set; }
+
+        public DataTemplate FilterPackages { get; set; }
+
+        public DataTemplate NotFoundPackage { get; set; }
+
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+            if (item is NotFoundPackage)
+                return NotFoundPackage;
+            else if (item is FilterPackages)
+                return FilterPackages;
+            else if (item is AvaiablePackage)
+                return AvailablePackages;
+
+            return AllPackages;
+        }
+    }
+
     public partial class PackagesPage : BasePage
     {
         private PackagesModel ViewModel
@@ -23,7 +53,14 @@ namespace PaketGlobal
             {
                 return new Command(async () =>
                 {
-                    await LoadPackages();
+                    if(Mode==PackagesMode.All)
+                    {
+                        await LoadPackages();
+                    }
+                    else{
+                        await LoadAvailablePackages();
+                    }
+
                     PakagesView.IsRefreshing = false;
                 });
             }
@@ -45,13 +82,17 @@ namespace PaketGlobal
             }
         }
 
-
+        private PackagesMode Mode = PackagesMode.All;
+        private FilterPackages FilterPackage = new FilterPackages();
+        private CancellationTokenSource cancellationTokenSource;  
 
         public PackagesPage()
         {
             InitializeComponent();
 
             BindingContext = App.Locator.Packages;
+
+            FilterPackage.Radius = 20;
 
             PakagesView.RefreshCommand = RefreshListCommand;
 
@@ -64,7 +105,16 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -30;
             TitleLabel.TranslationY = 0;
+#else
+            if(App.Locator.DeviceService.ScreenWidth()==320)
+            {
+                PakagesView.TranslationY = 20;
+            }
+            else{
+                PakagesView.TranslationY = 3;
+            }
 #endif
+            AvailableButton.TextColor = Color.LightGray;
 
             App.Locator.DeviceService.setStausBarLight();
         }
@@ -82,7 +132,8 @@ namespace PaketGlobal
                 await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
-				await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
+                await App.Locator.ProfileModel.Load();
+                await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
                 App.Locator.EventService.StartUseEvent();
             }
@@ -138,17 +189,51 @@ namespace PaketGlobal
             PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
         }
 
+        private async Task LoadAvailablePackages()
+        {
+            if (cancellationTokenSource != null)  {  
+                cancellationTokenSource.Cancel();  
+            }  
+
+            cancellationTokenSource = new CancellationTokenSource();  
+
+            PlacholderLabel.IsVisible = false;
+
+            if(!ViewModel.AvailablePackagesList.Contains(FilterPackage) && ViewModel.AvailablePackagesList.Count!=0)
+            {
+                ViewModel.AvailablePackagesList.Insert(0, FilterPackage);
+            }
+
+            await ViewModel.LoadAvailable(Convert.ToInt32(FilterPackage.Radius),cancellationTokenSource);
+
+            if (Mode == PackagesMode.Available)
+            {
+                var list = ViewModel.AvailablePackagesList;
+                list.Insert(0, FilterPackage);
+
+                if(list.Count==1)
+                {
+                    list.Add(new NotFoundPackage());
+                }
+            }
+        }
+
 
         private async void PackageItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null) 
                 return;
 
-            App.ShowLoading(true);
+            PakagesView.SelectedItem = null;
 
             var pkgData = (Package)PakagesView.SelectedItem;
 
-            PakagesView.SelectedItem = null;
+            if(pkgData.PaketId==null)
+            {
+                return;
+            }
+
+            App.ShowLoading(true);
 
             var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
             if (package != null)
@@ -171,14 +256,101 @@ namespace PaketGlobal
 
         }
 
-        #region Buttons Actions
+        private async void OnResetFilterClicked(object sender, EventArgs e)
+        {
+            FilterPackage.Radius = 20;
+
+            await LoadAvailablePackages();
+        }
+
+        private void OnSliderValueChanged(object sender, ValueChangedEventArgs args)
+        {
+            //FilterPackage.Radius = args.NewValue;
+           // await LoadAvailablePackages(); 
+        }
+
+        private async void OnSliderTouchUp(object sender, System.EventArgs e)
+        {
+            await LoadAvailablePackages(); 
+        }
+
+        private async void AvaliableClicked(object sender, EventArgs e)
+        {
+            if(Mode==PackagesMode.Available)
+            {
+                return;
+            }
+
+            PakagesView.IsPullToRefreshEnabled = false;
+
+            Mode = PackagesMode.Available;
+
+            AvailableButton.TextColor = Color.White;
+            AllButton.TextColor = Color.LightGray;
+
+            AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
+            AllLine.BackgroundColor = Color.Transparent;
+
+            PakagesView.RowHeight = 170;
+            PakagesView.SetBinding(ListView.ItemsSourceProperty, "AvailablePackagesList");
+
+            if(ViewModel.AvailablePackagesList == null || ViewModel.AvailablePackagesList.Count == 0)
+            {
+                ActivityIndicator.IsRunning = true;
+                ActivityIndicator.IsVisible = true; 
+            }
+
+            await LoadAvailablePackages();
+
+            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+        }
+
+        private async void AllClicked(object sender, EventArgs e)
+        {
+            if (Mode == PackagesMode.All)
+            {
+                return;
+            }
+
+            PakagesView.IsPullToRefreshEnabled = true;
+
+            Mode = PackagesMode.All;
+
+            AvailableButton.TextColor = Color.LightGray;
+            AllButton.TextColor = Color.White;
+
+            AllLine.BackgroundColor = Color.FromHex("#53C5C7");
+            AvailableLine.BackgroundColor = Color.Transparent;
+
+            PakagesView.RowHeight = 150;
+            PakagesView.SetBinding(ListView.ItemsSourceProperty, "PackagesList");
+
+            if (ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0)
+            {
+                ActivityIndicator.IsRunning = true;
+                ActivityIndicator.IsVisible = true;
+            }
+
+            await ViewModel.Load();
+
+            if (Mode == PackagesMode.All)
+            {
+                PakagesView.ItemsSource = ViewModel.PackagesList;;
+            }
+
+            PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+
+            ActivityIndicator.IsRunning = false;
+            ActivityIndicator.IsVisible = false;
+        }
 
         private async void LaunchPackageClicked(object sender, EventArgs e)
         {
             var newPackage = new Package()
             {
             //  CourierPubkey="GAIDWM24Q6KKCH5PG7Z24B6ODUMCO4NH2APL4ASLMV75INOTQRNMG2CK",
-            //  RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
+              RecipientPubkey="GBP7DJE4MHR5UY22NYHIMQDAUOMCY5YMRMQUPX5TFIEM74O4B4EHJKMB"
             };
 
             var packagePage = new LaunchPackagePage(newPackage);
@@ -212,6 +384,5 @@ namespace PaketGlobal
             }
         }
 
-        #endregion
     }
 }

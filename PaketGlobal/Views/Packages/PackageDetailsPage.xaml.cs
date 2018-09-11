@@ -11,7 +11,10 @@ namespace PaketGlobal
         private Package ViewModel { get { return BindingContext as Package; } }
 
         private bool CanAcceptPackage = false;
+        private bool CanAssignPackage = false;
+
         private BarcodePackageData BarcodeData;
+
         public bool ShouldDismiss = false;
 
         public PackageDetailsPage(Package package, bool canAcceptPackage = false, BarcodePackageData barcodePackageData = null)
@@ -22,6 +25,11 @@ namespace PaketGlobal
 
             CanAcceptPackage = canAcceptPackage;
             BarcodeData = barcodePackageData;
+
+            if(package.CourierPubkey==null && package.MyRole==PaketRole.Courier && CanAcceptPackage==false)
+            {
+                CanAssignPackage = true;
+            }
 
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
@@ -43,8 +51,6 @@ namespace PaketGlobal
 #endif
 
 
-            BottomBarcodeView.IsVisible = false;
-
             var data = new BarcodePackageData
             {
                 EscrowAddress = package.PaketId
@@ -56,29 +62,46 @@ namespace PaketGlobal
 
             var barcodeTapCommand = new Command(() =>
             {
-                BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
-
-                if(BarcodeImage.IsVisible)
+                if(!WaitingStackView.IsVisible)
                 {
-                    BarcodeArrow.Source = "dropdown_arrow_top.png";
+                    BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
+
+                    if (BarcodeImage.IsVisible)
+                    {
+                        BarcodeArrow.Source = "dropdown_arrow_top.png";
+                    }
+                    else
+                    {
+                        BarcodeArrow.Source = "dropdown_arrow.png";
+                    }
                 }
-                else{
-                    BarcodeArrow.Source = "dropdown_arrow.png";
-                }
+          
             });
 
             XamEffects.Commands.SetTap(BarcodeView, barcodeTapCommand);
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if(CanAcceptPackage)
+            if(CanAssignPackage)
             {
+                EmptyBox.IsVisible = true;
+                AssignLabel.IsVisible = true;
+                AssignButton.IsVisible = true;
+                PaymentInfoViewFrame.IsVisible = false;
+                EventsInfoViewFrame.IsVisible = false;
+                FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+            }
+            else if(CanAcceptPackage)
+            {
+                EmptyBox.IsVisible = true;
                 AcceptButton.IsVisible = true;
                 PaymentInfoViewFrame.IsVisible = false;
                 EventsInfoViewFrame.IsVisible = false;
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
             }
             else{
+                CheckVisiblePayments();
+
                 AddEvents();
 
                 EventsInfoViewFrame.IsVisible = true;
@@ -107,6 +130,8 @@ namespace PaketGlobal
                 {
                     RecipientCallSignView.IsVisible = true;
                 }
+
+                CheckVisiblePayments();
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
@@ -140,6 +165,47 @@ namespace PaketGlobal
             UsersFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
         }
 
+        private void CheckVisiblePayments()
+        {
+            if(ViewModel.MyRole==PaketRole.Launcher)
+            {
+
+                if(ViewModel.CourierPubkey==null)
+                {
+                    //change waiting text to waiting courier
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingAssignCourierToPackage;
+                    DepositButton.IsVisible = true;
+
+                    DepositButton.IsEnabled = false;
+                    DepositButton.ButtonBackground = "#A7A7A7";             
+                }
+                else{
+                    //change waiting text to make deposit
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingMakeDepositPackage;
+                    DepositButton.IsVisible = true;
+
+                    DepositButton.IsEnabled = true;
+                    DepositButton.ButtonBackground = "#4D64E8";            
+                }
+
+                if(ViewModel.PaymentTransaction==null)
+                {
+                    BarcodeArrow.IsVisible = false;
+                    BarcodeImage.IsVisible = false;
+                }
+                else{
+                    WaitingStackView.IsVisible = false;
+
+                    BarcodeArrow.IsVisible = true;
+                    BarcodeArrow.IsVisible = true;
+                }
+            }
+        }
+
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -160,6 +226,7 @@ namespace PaketGlobal
                 await Navigation.PopToRootAsync();  
             }
         }
+
 
         private async void OnShareClicked(object sender, System.EventArgs e)
         {
@@ -244,25 +311,87 @@ namespace PaketGlobal
             App.ShowLoading(false);
         }
 
-		private async void ShowQRCodeClicked(object sender, System.EventArgs e)
-		{
-			App.ShowLoading(true);
+        private async void DepositClicked(object sender, System.EventArgs e)
+        {
+            Unfocus();
 
-			var result = await StellarHelper.LaunchPackage(null, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+            ProgressBar.Progress = 0;
+            ProgressLabel.Text = "";
+            ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+            ProgressView.IsVisible = true;
 
-			//TODO Show QR code here
+            try
+            {
+                var result = await StellarHelper.LaunchPackage(null, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
-			App.ShowLoading(false);
-		}
+                if (result != StellarOperationResult.Success)
+                {
+                    ShowError(result);
+                }
+                else{
+                    BindingContext = await PackageHelper.GetPackageDetails(ViewModel.PaketId);
+                    CheckVisiblePayments();
+                }
+            }
+            catch (Exception exc)
+            {
+                ShowErrorMessage(exc.Message);
+            }
+
+            ProgressView.IsVisible = false;
+        }
+
 
 		void FinalizePackageEvents(object sender, LaunchPackageEventArgs e)
 		{
-			//ProgressBar.AnimationEasing = Easing.SinIn;
-			//ProgressBar.AnimationLength = 3000;
-			//ProgressBar.AnimatedProgress = e.Progress;
-
-			//ProgressLabel.Text = e.Message;
+			ProgressBar.AnimationEasing = Easing.SinIn;
+			ProgressBar.AnimationLength = 3000;
+			ProgressBar.AnimatedProgress = e.Progress;
+			ProgressLabel.Text = e.Message;
 		}
+
+        private async void AssignClicked(object sender, System.EventArgs e)
+        {
+            App.ShowLoading(true);
+
+            var myPubkey = App.Locator.Profile.Pubkey;
+
+            string location = null;
+
+            var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetPositionAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+            }
+
+            //I'm a courier
+            var result = await StellarHelper.AssignPackage(ViewModel.PaketId, ViewModel.Collateral, location);
+            if (result == StellarOperationResult.Success)
+            {
+                await System.Threading.Tasks.Task.Delay(2000);
+
+                await App.Locator.Packages.Load();
+                await App.Locator.Packages.LoadAvailable(200,null);
+
+                ShowMessage(AppResources.PackageAssigned);
+
+                await Navigation.PopToRootAsync();
+            }
+            else
+            {
+                ShowError(result);
+            }
+
+            App.ShowLoading(false); 
+        }
 
         private async void AcceptClicked(object sender, System.EventArgs e)
         {
@@ -311,7 +440,6 @@ namespace PaketGlobal
             else
             {
                 //I'm a courier
-
                 var result = await StellarHelper.AcceptPackageAsCourier(BarcodeData.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction, location);
                 if (result == StellarOperationResult.Success)
                 {

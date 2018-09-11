@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            //entrySecretKey.Text = "SDAORBDDZ2ZZQZKZWY73YF3RZU6ZS4DGHOL5VUGOM56GWXUV5GZKVBGF";
+            entrySecretKey.Text = "SDAORBDDZ2ZZQZKZWY73YF3RZU6ZS4DGHOL5VUGOM56GWXUV5GZKVBGF";
 
             App.Locator.DeviceService.setStausBarBlack();
 
@@ -108,6 +108,15 @@ namespace PaketGlobal
                 if (trusted)
                 {
                     App.Locator.Profile.Activated = true;
+
+                    //var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
+                    //if (userInfo != null)
+                    //{
+                    //    App.Locator.Profile.SetCredentials(App.Locator.Profile.UserName,
+                    //                                       userInfo.UserDetails.FullName, userInfo.UserDetails.PhoneNumber, userInfo.UserDetails.Address,
+                    //                                       App.Locator.Profile.KeyPair.SecretSeed, App.Locator.Profile.Mnemonic);
+                        
+                    //}
 
                     var navigationPage = new NavigationPage(new MainPage());
 

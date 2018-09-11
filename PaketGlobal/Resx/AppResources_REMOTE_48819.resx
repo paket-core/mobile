@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -154,7 +154,7 @@
         <value>PAYMENT INFO</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Use this barcode to pass the package to a courier&#x0a;or accept it by the recepient</value>
+        <value>Use this barcode to pass the package&#x0a;(this should be different according to role)</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>EVENTS</value>
@@ -211,7 +211,7 @@
         <value>MNEMONIC</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Use this mnemonic to recover your account.&#xA;Please save this phrase somewhere safe.</value>
+        <value>Use this mnemonic to recover your account</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Create New Private Key</value>
@@ -220,7 +220,7 @@
         <value>Select Payment Currency</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>Generate Key</value>
+        <value>GENERATE KEY</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>Already have a key</value>
@@ -232,7 +232,7 @@
         <value>Or</value>
     </data>
     <data name="RestoreKey" xml:space="preserve">
-        <value>Restore Key</value>
+        <value>RESTORE KEY</value>
     </data>
     <data name="GenerateNewKey" xml:space="preserve">
         <value>Generate New Key</value>
@@ -336,9 +336,6 @@
     <data name="CameraAccessNotGranted" xml:space="preserve">
         <value>Allow camera access to scan the package</value>
     </data>
-    <data name="ContactsAccessNotGranted" xml:space="preserve">
-        <value>You must grant access to contacts to select the recipient's phone</value>
-    </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Error adding trust</value>
     </data>
@@ -361,7 +358,7 @@
         <value>Check launcher balance</value>
     </data>
     <data name="LaunchPackageStep2" xml:space="preserve">
-        <value>Create Package</value>
+        <value>Check courier balance</value>
     </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Create escrow account</value>
@@ -429,63 +426,6 @@
     <data name="SelectLanguage" xml:space="preserve">
         <value>Select Language</value>
     </data>
-    <data name="WellcomeText1" xml:space="preserve">
-        <value>We are PAKET</value>
-    </data>
-    <data name="WellcomeText2" xml:space="preserve">
-        <value>The Decentralized Delivery Network</value>
-    </data>
-    <data name="WellcomeText3" xml:space="preserve">
-        <value>We believe in breaking up monopolies&#xA;and giving power to the people</value>
-    </data>
-    <data name="Start" xml:space="preserve">
-        <value>Let's Start</value>
-    </data>
-    <data name="LogIn" xml:space="preserve">
-        <value>Log In</value>
-    </data>
-    <data name="RegistrationText1" xml:space="preserve">
-        <value>PAKET Ltd is committed to protecting&#xA;and respecting your privacy</value>
-    </data>
-    <data name="TermsOfService" xml:space="preserve">
-        <value>Terms of Use and Privacy Policy</value>
-    </data>
-    <data name="PhoneVerefication" xml:space="preserve">
-        <value>Phone Verification</value>
-    </data>
-    <data name="SMSVerificationText1" xml:space="preserve">
-        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;a field below </value>
-    </data>
-    <data name="VerifyPhoneNumber" xml:space="preserve">
-        <value>Verify Phone Number</value>
-    </data>
-    <data name="SMSCode" xml:space="preserve">
-        <value>SMS Code</value>
-    </data>
-    <data name="CreateAccount" xml:space="preserve">
-        <value>Create New Account</value>
-    </data>
-    <data name="HereMnemonic" xml:space="preserve">
-        <value>Here’s mnemonic&#xA;phrase</value>
-    </data>
-    <data name="ConfirmMnemonicText1" xml:space="preserve">
-        <value>Please confirm you saved mnemonic&#xA;phrase</value>
-    </data>
-    <data name="ConfirmMnemonicText2" xml:space="preserve">
-        <value>Please make sure you have save your&#xA;mnemonic phrase. Keep it somewhere&#xA;safe. Thank you</value>
-    </data>
-    <data name="AlmostHere" xml:space="preserve">
-        <value>You are almost there</value>
-    </data>
-    <data name="MnemonicWordConfirm" xml:space="preserve">
-        <value>Please enter 5th word&#xA;from your mnemonic&#xA;phrase</value>
-    </data>
-    <data name="MnemonicWord" xml:space="preserve">
-        <value>5th word</value>
-    </data>
-    <data name="PackageEnterRecipient" xml:space="preserve">
-        <value>Enter name or public key</value>
-    </data>
     <data name="SelectedDate" xml:space="preserve">
         <value>Selected date</value>
     </data>
@@ -539,112 +479,6 @@
     </data>
     <data name="JoinTelegram" xml:space="preserve">
         <value>Join Our Telegram</value>
-    </data>  
-    <data name="RecipientPhone" xml:space="preserve">
-        <value>Recipient phone number</value>
     </data>
-    <data name="MyPhone" xml:space="preserve">
-        <value>Your phone number</value>
-    </data>
-    <data name="SelectCountry" xml:space="preserve">
-        <value>Select Country</value>
-    </data>
-    <data name="Contacts" xml:space="preserve">
-        <value>Contacts</value>
-    </data>
-    <data name="DeadlineLower" xml:space="preserve">
-        <value>Deadline</value>
-    </data>
-    <data name="PackageDescText1" xml:space="preserve">
-        <value>Package Description</value>
-    </data>
-    <data name="PackageDescText2" xml:space="preserve">
-        <value>Please provide some general info</value>
-    </data>
-    <data name="Locations" xml:space="preserve">
-        <value>LOCATIONS</value>
-    </data>
-    <data name="SelectLocations" xml:space="preserve">
-        <value>Please select package destination</value>
-    </data>
-    <data name="ToLocation" xml:space="preserve">
-        <value>FROM</value>
-    </data>
-    <data name="FromLocation" xml:space="preserve">
-        <value>TO</value>
-    </data>
-    <data name="SelectLocation" xml:space="preserve">
-        <value>Please select&#xA;location</value>
-    </data>
-    <data name="Distance" xml:space="preserve">
-        <value>DISTANCE</value>
-    </data>
-    <data name="SelectLocationSmall" xml:space="preserve">
-        <value>Select Location</value>
-    </data>
-    <data name="LocationPickerTypeFrom" xml:space="preserve">
-        <value>Please enter pick up address</value>
-    </data>
-    <data name="LocationPickerTypeTo" xml:space="preserve">
-        <value>Please enter destination address</value>
-    </data>
-    <data name="SelectOnMap" xml:space="preserve">
-        <value>Choose an address on the map</value>
-    </data>
-    <data name="Map" xml:space="preserve">
-        <value>Map</value>
-    </data>
-    <data name="CantGetGooglePlace" xml:space="preserve">
-        <value>Failed to get the details. Try later.</value>
-    </data>
-    <data name="LocationsNotSet" xml:space="preserve">
-        <value>Please select package destinations</value>
-    </data>
-    <data name="Select" xml:space="preserve">
-        <value>Select</value>
-    </data>
-    <data name="TakePhoto" xml:space="preserve">
-        <value>take_photo_eng.png</value>
-    </data>
-    <data name="ReTakePhoto" xml:space="preserve">
-        <value>retake_photo_eng.png</value>
-    </data>
-    <data name="SelectPackagePhoto" xml:space="preserve">
-        <value>Please take package photo</value>
-    </data>
-    <data name="SearchPlacholder" xml:space="preserve">
-        <value>Search...</value>
-    </data>
-    <data name="AllPackages" xml:space="preserve">
-        <value>All Packages</value>
-    </data>
-    <data name="AvailablePackages" xml:space="preserve">
-        <value>Available</value>
-    </data>
-    <data name="Filter" xml:space="preserve">
-        <value>Filter</value>
-    </data>
-     <data name="Reset" xml:space="preserve">
-        <value>Reset</value>
-    </data>   
-   <data name="PackageCanAssign" xml:space="preserve">
-        <value>You can take this package for delivery</value>
-    </data> 
-      <data name="Take" xml:space="preserve">
-        <value>Take</value>
-    </data> 
-          <data name="PackageAssigned" xml:space="preserve">
-        <value>The package was successfully assigned</value>
-    </data> 
-  <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to show him the QR code</value>
-   </data> 
-    <data name="Deposit" xml:space="preserve">
-        <value>Deposit Payment</value>
-    </data> 
-    <data name="WaitingMakeDepositPackage" xml:space="preserve">
-        <value>Please make a deposit.&#xA;Then you can show the courier a QR code.</value>
-    </data> 
-
     
 </root>

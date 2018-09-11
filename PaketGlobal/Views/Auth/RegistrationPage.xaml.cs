@@ -22,6 +22,7 @@ namespace PaketGlobal
 
 #if __ANDROID__
             backButton.TranslationX = -30;
+            entryPhoneNumber.TranslationY = 3;
 #else
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {

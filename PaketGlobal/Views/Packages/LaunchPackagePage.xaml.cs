@@ -29,9 +29,9 @@ namespace PaketGlobal
             BindingContext = package;
 
             //set launcher phone
-            var profile = App.Locator.Profile;
+            var profile = App.Locator.ProfileModel;
             var number = profile.PhoneNumber;
-
+      
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.Instance;
             try
             {
@@ -57,6 +57,8 @@ namespace PaketGlobal
             TitleLabel.TranslationY = 5;
             BackButton.TranslationY = -18;
             BackButton.TranslationX = -30;
+            EntryLauncherPhoneNumber.TranslationY = 3;
+            EntryRecipientPhoneNumber.TranslationY = 3;
 #endif
 
             var selectMyCountryCommand = new Command(() =>

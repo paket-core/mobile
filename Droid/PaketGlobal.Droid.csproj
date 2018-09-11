@@ -29,7 +29,9 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidSupportedAbis>armeabi-v7a</AndroidSupportedAbis>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -367,6 +369,8 @@
     <Compile Include="ViewRenderers\Autocomplete\XfxVisualElementManager.cs" />
     <Compile Include="ViewRenderers\Autocomplete\XfxEntryRendererDroid.cs" />
     <Compile Include="ViewRenderers\Autocomplete\CollectionExtensions.cs" />
+    <Compile Include="ViewRenderers\CircleImageRender.cs" />
+    <Compile Include="ViewRenderers\PaketSliderRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -786,6 +790,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\search_field_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\search_field_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\search_field_icon.png" />
+    <AndroidResource Include="Resources\drawable\slider_thumb.png" />
+    <AndroidResource Include="Resources\drawable\filter_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\slider_thumb.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\filter_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\slider_thumb.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\filter_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\slider_thumb.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\filter_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\slider_thumb.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\filter_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

@@ -546,6 +546,12 @@
     <BundleResource Include="Resources\search_field_icon%403x.png" />
     <BundleResource Include="Resources\search_field_icon%402x.png" />
     <BundleResource Include="Resources\search_field_icon.png" />
+    <BundleResource Include="Resources\filter_icon%403x.png" />
+    <BundleResource Include="Resources\filter_icon%402x.png" />
+    <BundleResource Include="Resources\filter_icon.png" />
+    <BundleResource Include="Resources\slider_thumb%403x.png" />
+    <BundleResource Include="Resources\slider_thumb%402x.png" />
+    <BundleResource Include="Resources\slider_thumb.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -574,6 +580,8 @@
     <Compile Include="Services\LocationUpdatedEventArgs.cs" />
     <Compile Include="Services\EventSharedService.cs" />
     <Compile Include="Services\LocationManager.cs" />
+    <Compile Include="ViewRenders\CircleImageRender.cs" />
+    <Compile Include="ViewRenders\PaketSliderRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

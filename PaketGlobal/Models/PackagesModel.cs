@@ -13,11 +13,18 @@ namespace PaketGlobal
         public string CurrentDisplayPackageId = "";
 
         private List<Package> packagesList = new List<Package>();
+        private List<AvaiablePackage> availablePackagesList = new List<AvaiablePackage>();
 
         public List<Package> PackagesList
         {
             get { return packagesList; }
             set { SetProperty(ref packagesList, value); }
+        }
+
+        public List<AvaiablePackage> AvailablePackagesList
+        {
+            get { return availablePackagesList; }
+            set { SetProperty(ref availablePackagesList, value); }
         }
 
         public PackagesModel()
@@ -100,6 +107,16 @@ namespace PaketGlobal
             }
 
             CheckLocationUpdate();
+        }
+
+        public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)
+        {
+            var location = ""; //await App.Locator.LocationHelper.GetStringLocation(true);
+            var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
+            if (result != null)
+            {
+                AvailablePackagesList = result.Packages;
+            }
         }
 
         private async System.Threading.Tasks.Task Refresh()

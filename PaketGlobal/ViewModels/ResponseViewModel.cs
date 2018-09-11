@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Web.NBitcoin;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -299,12 +305,59 @@ namespace PaketGlobal
 		public List<Package> Packages { get; set; }
 	}
 
+    [DataContract]
+    public class AvailablePackagesData : BaseData
+    {
+        [DataMember(Name = "packages")]
+        public List<AvaiablePackage> Packages { get; set; }
+    }
+
 	[DataContract]
 	public class PackageData : BaseData
 	{
 		[DataMember(Name = "package")]
 		public Package Package	 { get; set; }
 	}
+
+    public class AvaiablePackage : Package
+    {
+    }
+
+    public class NotFoundPackage : FilterPackages
+    {
+    }
+
+    public class FilterPackages : AvaiablePackage
+    {
+        private double radius { get; set; }
+        private string radiusString { get; set; }
+
+        public string RadiusString
+        {
+            get
+            {
+                return Convert.ToInt32(Radius).ToString() + " km";
+            }
+            set
+            {
+                radiusString = value;
+            }
+        }
+
+        public double Radius
+        {
+            get
+            {
+                return radius;
+            }
+            set
+            {
+                radius = value;
+                OnPropertyChanged("Radius");
+                OnPropertyChanged("RadiusString");
+            }
+        }
+    }
 
 	[DataContract]
     public class Package : BaseViewModel
@@ -337,6 +390,25 @@ namespace PaketGlobal
 
 		[DataMember(Name = "courier_pubkey")]
 		public string CourierPubkey { get; set; }
+
+        public string DistanceToPickup
+        {
+            get{
+                if (!App.Locator.LocationHelper.lat.Equals(0.0))
+                {
+                    var helper = new MapHelper();
+
+                    double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                    double distance = helper.distance(from_lat, from_lng, App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng);
+
+                    return String.Format("{0:0.00} KM", distance);
+                }
+
+                return "0 KM"; 
+            }
+        }
 
         public string Distance
         {
@@ -391,6 +463,35 @@ namespace PaketGlobal
             }
         }
 
+        public string ToImage
+        {
+            get
+            {
+                var helper = new MapHelper();
+
+                double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                var s = helper.GetStaticMapUri(to_lat, to_lng, 14, 280, 280);
+
+                return s;
+            }
+        }
+
+        public string FromImage{
+            get{
+                var helper = new MapHelper();
+
+                double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                var s =  helper.GetStaticMapUri(from_lat, from_lng, 14, 280, 280);
+
+                return s;
+            }
+        }
+
+
 		[DataMember(Name = "from_address")]
         public string FromLocationAddress
         {
@@ -401,7 +502,8 @@ namespace PaketGlobal
                     return AppResources.SelectLocation;
                 }
 
-                return fromLocationAddress;
+                return HttpUtility.UrlDecode(fromLocationAddress);
+                //return fromLocationAddress;
             }
             set
             {
@@ -419,7 +521,7 @@ namespace PaketGlobal
                     return AppResources.SelectLocation;
                 }
 
-                return toLocationAddress;
+                return HttpUtility.UrlDecode(toLocationAddress);
             } 
             set{
                 toLocationAddress = value;

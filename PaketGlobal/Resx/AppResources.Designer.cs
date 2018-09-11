@@ -633,6 +633,30 @@ namespace PaketGlobal
             }
         }
 
+        internal static string PackageAssigned
+        {
+            get
+            {
+                return ResourceManager.GetString("PackageAssigned", resourceCulture);
+            }
+        }
+
+        internal static string WaitingAssignCourierToPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingAssignCourierToPackage", resourceCulture);
+            }
+        }
+
+        internal static string WaitingMakeDepositPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingMakeDepositPackage", resourceCulture);
+            }
+        }
+
 
     }
 }

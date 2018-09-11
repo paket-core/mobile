@@ -358,7 +358,7 @@
         <value>Проверка вашего баланса</value>
     </data>
     <data name="LaunchPackageStep2" xml:space="preserve">
-        <value>Проверка баланса курьера</value>
+        <value>Создание посылки</value>
     </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Создание аккаунта</value>
@@ -615,4 +615,34 @@
     <data name="SearchPlacholder" xml:space="preserve">
         <value>Поиск...</value>
     </data>
+    <data name="AllPackages" xml:space="preserve">
+        <value>Все посылки</value>
+    </data>
+    <data name="AvailablePackages" xml:space="preserve">
+        <value>Доступные</value>
+    </data>
+    <data name="Filter" xml:space="preserve">
+        <value>Фильтр</value>
+    </data>
+     <data name="Reset" xml:space="preserve">
+        <value>Сбросить</value>
+    </data>  
+       <data name="PackageCanAssign" xml:space="preserve">
+        <value>Вы можете взять эту посылку для доставки</value>
+    </data> 
+      <data name="Take" xml:space="preserve">
+        <value>Взять</value>
+    </data> 
+  <data name="PackageAssigned" xml:space="preserve">
+        <value>Посылка была успешно назначена</value>
+    </data> 
+      <data name="WaitingAssignCourierToPackage" xml:space="preserve">
+        <value>Подождите пока курьер возьмет ваш заказ.&#xA;Тогда вы сможете показать ему QR-КОД</value>
+   </data> 
+    <data name="Deposit" xml:space="preserve">
+        <value>Депозитный платеж</value>
+    </data> 
+    <data name="WaitingMakeDepositPackage" xml:space="preserve">
+        <value>Пожалуйста, сделайте депозит.&#xA;Затем вы можете показать курьеру QR-код</value>
+    </data> 
 </root>

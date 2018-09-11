@@ -44,6 +44,9 @@ namespace PaketGlobal
             {
                 IsAnimationEnabled = false;
             }
+#else
+            BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100;
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100; 
 #endif
 
             AddCommands();

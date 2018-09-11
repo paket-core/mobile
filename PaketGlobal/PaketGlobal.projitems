@@ -125,6 +125,8 @@
       <DependentUpon>MapPickerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CircleImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketSlider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

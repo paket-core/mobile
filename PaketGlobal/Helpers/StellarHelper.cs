@@ -54,6 +54,16 @@ namespace PaketGlobal
 		                                                               string fromAddress, string toAddress, long deadlineTimestamp, double paymentBuls, double collateralBuls,
 		                                                               string eventLocation, string fromLocation, string toLocation, byte[] packagePhoto, LaunchPackageEventHandler eventHandler)
 		{
+            if (toLocation.Length > 24)
+            {
+                toLocation = toLocation.Substring(0, 24);
+            }
+
+            if (fromLocation.Length > 24)
+            {
+                fromLocation = fromLocation.Substring(0, 24);
+            }
+
 			double steps = 3;
 			double currentStep = 1;
 
@@ -99,14 +109,14 @@ namespace PaketGlobal
             double steps = 12;
             double currentStep = 1;
 
-            var payment =  StellarConverter.ConvertBULToStroops(paymentBuls);
+            var payment = paymentBuls; //StellarConverter.ConvertBULToStroops(paymentBuls);
 
             if (StellarConverter.IsValidBUL(payment)==false)
             {
                 throw new ServiceException(400, AppResources.FractionalDigitsError);
             }
 
-            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+            var collateral = collateralBuls; //StellarConverter.ConvertBULToStroops(collateralBuls);
 
             if (StellarConverter.IsValidBUL(collateral)==false)
             {
@@ -268,6 +278,23 @@ namespace PaketGlobal
 
 			//Make note of the BUL balances of the launcher by calling /bul_account. It should be the same as before minus the payment
 		}
+
+        public static async Task<StellarOperationResult> AssignPackage(string escrowPubkey, long collateral, string location)
+        {
+            var courierBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+            if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral)
+            {
+                return StellarOperationResult.LowBULsCourier;
+            }
+
+            var trans = await App.Locator.RouteServiceClient.AssignPackage(escrowPubkey, location);
+            if(trans != null)
+            {
+                return StellarOperationResult.Success;
+            }
+
+            return StellarOperationResult.FailAcceptPackage;
+        }
 
 		public static async Task<StellarOperationResult> AcceptPackageAsCourier(string escrowPubkey, long collateral, string paymentTransaction, string location)
 		{
