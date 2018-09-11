@@ -138,8 +138,11 @@ namespace PaketGlobal
 		public bool AddTransaction(string paketId, string paymentTranscation)
 		{
 			var transData = new LaunchPackageData {
-				PaymentTransaction = paymentTranscation
+				
 			};
+            transData.LaunchPackageDetails = new LaunchPackageDetails();
+            transData.LaunchPackageDetails.PaymentTransaction = paymentTranscation;
+                            
 			return AddTransaction(paketId, transData);
 		}
 

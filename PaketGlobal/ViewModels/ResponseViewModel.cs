@@ -291,23 +291,30 @@ namespace PaketGlobal
     }
 
 
+    [DataContract]
+    public class LaunchPackageDetails : BaseData
+    {
+        [DataMember(Name = "escrow_address")]
+        public string EscrowAddress { get; set; }
+
+        [DataMember(Name = "set_options_transaction")]
+        public string SetOptionsTransaction { get; set; }
+
+        [DataMember(Name = "payment_transaction")]
+        public string PaymentTransaction { get; set; }
+
+        [DataMember(Name = "refund_transaction")]
+        public string RefundTransaction { get; set; }
+
+        [DataMember(Name = "merge_transaction")]
+        public string MergeTransaction { get; set; }
+    }
+
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-		[DataMember(Name = "paket_id")]//"escrow_address")]
-		public string EscrowAddress { get; set; }
-
-		[DataMember(Name = "set_options_transaction")]
-		public string SetOptionsTransaction { get; set; }
-
-		[DataMember(Name = "payment_transaction")]
-		public string PaymentTransaction { get; set; }
-
-		[DataMember(Name = "refund_transaction")]
-		public string RefundTransaction { get; set; }
-
-		[DataMember(Name = "merge_transaction")]
-		public string MergeTransaction { get; set; }
+        [DataMember(Name = "package_details")]
+        public LaunchPackageDetails LaunchPackageDetails { get; set; }
 	}
 
 	[DataContract]

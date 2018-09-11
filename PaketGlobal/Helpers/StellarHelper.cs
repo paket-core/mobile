@@ -104,7 +104,7 @@ namespace PaketGlobal
 			return StellarOperationResult.FailedLaunchPackage;
 		}
 
-        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
+        public static async Task<StellarOperationResult> LaunchPackage (string paketID, KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
 		{
             double steps = 12;
             double currentStep = 1;
@@ -148,6 +148,9 @@ namespace PaketGlobal
 
             currentStep++;
 
+            string location = await App.Locator.LocationHelper.GetStringLocation(true);
+
+
 			var accountResult = await App.Locator.BridgeServiceClient.PrepareCrateAccount(App.Locator.Profile.Pubkey, escrowKP.Address, 4);//Change to 20000200
 			if (accountResult != null) {
 				//Sign escrow account transaction
@@ -185,17 +188,15 @@ namespace PaketGlobal
 																									   return App.Locator.Profile.SignData(d, escrowKP);
 																								   });
 							if (launchResult != null) {
-								var createResult = await App.Locator.RouteServiceClient.FinalizePackage(escrowKP.Address, launchResult.SetOptionsTransaction, launchResult.RefundTransaction,
-																										launchResult.MergeTransaction, launchResult.PaymentTransaction, (d) => {
-																											return App.Locator.Profile.SignData(d, escrowKP);
-																										});
+                                var createResult = await App.Locator.RouteServiceClient.FinalizePackage(location, paketID, launchResult.LaunchPackageDetails.SetOptionsTransaction, launchResult.LaunchPackageDetails.RefundTransaction,
+                                                                                                        launchResult.LaunchPackageDetails.MergeTransaction, launchResult.LaunchPackageDetails.PaymentTransaction);
 								if (createResult != null) {
 									//Sign options transaction
 									eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep8, currentStep / steps));
 
 									currentStep++;
 
-									var signedOptions = await SignTransaction(escrowKP, launchResult.SetOptionsTransaction);
+                                    var signedOptions = await SignTransaction(escrowKP, launchResult.LaunchPackageDetails.SetOptionsTransaction);
 									if (signedOptions != null) {
 										//Submit options transaction
 

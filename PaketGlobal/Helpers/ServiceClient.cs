@@ -14,6 +14,18 @@ using System.Threading;
 
 namespace PaketGlobal
 {
+    public class Kwargs
+    {
+        public Kwargs()
+        {
+            
+        }
+        public string  set_options_transaction = "";
+        public string  refund_transaction = "";
+        public string  merge_transaction = "";
+        public string  payment_transaction = "";
+    }
+
 	public class ServiceClient
 	{
         public static readonly string[] IgnoreErrors = new string[] { "get_user", "bul_account"};
@@ -332,17 +344,33 @@ namespace PaketGlobal
 			return await SendRequest<PackageData>(request, customSign: customSign);
 		}
 
-		public async Task<LaunchPackageData> FinalizePackage(string escrowPubkey, string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans, SignHandler customSign)
+		public async Task<BaseData> FinalizePackage(string location, string escrowPubkey, string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans)
 		{
-			var request = PrepareRequest(apiVersion + "/finalize_package", Method.POST);
+			var request = PrepareRequest(apiVersion + "/assign_xdrs", Method.POST);
+
+            if (location.Length > 24)
+            {
+                location = location.Substring(0, 24);
+            }
+
+            var kwargs = new Kwargs();
+            kwargs.merge_transaction = mergeTrans;
+            kwargs.set_options_transaction = setOptionsTrans;
+            kwargs.refund_transaction = refundTrans;
+            kwargs.payment_transaction = paymentTrans;
+
+            var json = JsonConvert.SerializeObject(kwargs);
 
 			request.AddParameter("escrow_pubkey", escrowPubkey);
-			request.AddParameter("set_options_transaction", setOptionsTrans);
-			request.AddParameter("refund_transaction", refundTrans);
-			request.AddParameter("merge_transaction", mergeTrans);
-			request.AddParameter("payment_transaction", paymentTrans);
+            request.AddParameter("kwargs", json);
 
-			return await SendRequest<LaunchPackageData>(request, customSign: customSign);
+            if(location != null)
+            {
+                request.AddParameter("location", location);
+
+            }
+
+            return await SendRequest<BaseData>(request);
 		}
 
 		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)

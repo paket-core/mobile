@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
+using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -212,7 +213,7 @@ namespace PaketGlobal
                 else{
                     WaitingStackView.IsVisible = false;
 
-                    BarcodeArrow.IsVisible = true;
+                    BarcodeImage.IsVisible = true;
                     BarcodeArrow.IsVisible = true;
                 }
             }
@@ -334,7 +335,8 @@ namespace PaketGlobal
 
             try
             {
-                var result = await StellarHelper.LaunchPackage(null, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+                var escrowKP = KeyPair.Random();
+                var result = await StellarHelper.LaunchPackage(ViewModel.PaketId,escrowKP, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
                 if (result != StellarOperationResult.Success)
                 {
