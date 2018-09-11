@@ -302,9 +302,9 @@ namespace PaketGlobal
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("payment_buls", payment);
 			request.AddParameter("collateral_buls", collateral);
-			request.AddParameter("description", System.Web.NBitcoin.HttpUtility.UrlEncode(description));
-			request.AddParameter("to_address", System.Web.NBitcoin.HttpUtility.UrlEncode(toAddress));
-			request.AddParameter("from_address", System.Web.NBitcoin.HttpUtility.UrlEncode(fromAddress));
+			request.AddParameter("description", description);
+			request.AddParameter("to_address", toAddress);
+			request.AddParameter("from_address", fromAddress);
 			request.AddParameter("from_location", fromLocation);
 			request.AddParameter("to_location", toLocation);
 			request.AddParameter("event_location", eventLocation);

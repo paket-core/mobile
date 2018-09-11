@@ -104,7 +104,7 @@ namespace PaketGlobal
 
             var place = e.Item;
 
-            string location = place.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + place.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string location = place.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + place.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
             string address = place.Address;
 
             if(page.PickerType == LocationPickerType.From)
@@ -336,22 +336,15 @@ namespace PaketGlobal
 
                     var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
 
-                    if(hasPermission)
-                    {
-                        var locator = CrossGeolocator.Current;
+					if (hasPermission) {
+						var locator = CrossGeolocator.Current;
 
-                        var position = await locator.GetPositionAsync();
+						var position = await locator.GetPositionAsync();
 
-                        if(position!=null)
-                        {
-                            location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                        
-                            if(location.Length>24)
-                            {
-                                location = location.Substring(0, 24);
-                            }
-                        }
-                    }
+						if (position != null) {
+							location = position.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
+						}
+					}
 
 					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 

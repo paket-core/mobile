@@ -193,7 +193,7 @@ namespace PaketGlobal
                         App.Locator.Profile.KeyPair = kd.KeyPair;
 
                         var result = await App.Locator.IdentityServiceClient.RegisterUser(ViewModel.UserName, kd.KeyPair.Address);
-                        if (result != null)
+						if (result != null)
                         {
 							IsFinishActivation = true;
 							App.Locator.Profile.SetCredentials(ViewModel.UserName, kd.KeyPair.SecretSeed, kd.MnemonicString);
