@@ -194,11 +194,16 @@ namespace PaketGlobal
 		}
 
 
-        public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, double amountBuls)
+        public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, double amountBuls, bool disableConvertor = false)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_send_buls", Method.POST);
 
-            var amount =  StellarConverter.ConvertBULToStroops(amountBuls);
+            var amount = amountBuls;
+
+            if(!disableConvertor)
+            {
+                amount = StellarConverter.ConvertBULToStroops(amountBuls);
+            }
 
             if(StellarConverter.IsValidBUL(amount)==false)
             {

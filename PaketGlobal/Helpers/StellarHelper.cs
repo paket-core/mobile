@@ -211,7 +211,9 @@ namespace PaketGlobal
 
 											currentStep++;
 
-											var paymentTrans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowKP.Address, paymentBuls);
+                                           // var paymentStroops = StellarConverter.ConvertBULToStroops(payment);
+
+                                            var paymentTrans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowKP.Address, paymentBuls, true);
 											if (paymentTrans != null) {
 												//Sign payment transaction
 												eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep11, currentStep / steps));
