@@ -512,13 +512,13 @@ namespace PaketGlobal
                         Padding = 3,
                         HasShadow = false,
                         BackgroundColor = Color.FromHex("#A5A5A5"),
-                        CornerRadius = 5,
+                        CornerRadius = 10,
                         HeightRequest = 16
                     };
 
                     var eventTypeLabel = new Label()
                     {
-                        Text = ev.EventType.ToUpper(),
+                        Text = " " + ev.EventType.ToUpper() + "   ",
                         HorizontalTextAlignment = TextAlignment.Center,
                         VerticalTextAlignment = TextAlignment.Center,
                         TextColor = Color.White,
@@ -559,23 +559,23 @@ namespace PaketGlobal
                     XamEffects.Commands.SetTap(keyLabel, keyTapCommand);
                     stack.Children.Add(keyLabel);
 
-                    var userLabel = new Label()
-                    {
-                        Text = package.NameFromKey(ev.UserPubKey),
-                        TextColor = Color.FromHex("#555555"),
-                        FontSize = 12,
-                    };
-                    userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
-                    userLabel.WidthRequest = 140;
-                    userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
-                    var userTapCommand = new Command(() =>
-                    {
-                        App.Locator.ClipboardService.SendTextToClipboard(userLabel.Text);
-                        ShowMessage(AppResources.Copied);
-                    });
-                    XamEffects.TouchEffect.SetColor(userLabel, Color.LightGray);
-                    XamEffects.Commands.SetTap(userLabel, userTapCommand);
-                    stack.Children.Add(userLabel);
+                    //var userLabel = new Label()
+                    //{
+                    //    Text = package.NameFromKey(ev.UserPubKey),
+                    //    TextColor = Color.FromHex("#555555"),
+                    //    FontSize = 12,
+                    //};
+                    //userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
+                    //userLabel.WidthRequest = 140;
+                    //userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
+                    //var userTapCommand = new Command(() =>
+                    //{
+                    //    App.Locator.ClipboardService.SendTextToClipboard(userLabel.Text);
+                    //    ShowMessage(AppResources.Copied);
+                    //});
+                    //XamEffects.TouchEffect.SetColor(userLabel, Color.LightGray);
+                    //XamEffects.Commands.SetTap(userLabel, userTapCommand);
+                    //stack.Children.Add(userLabel);
 
 
                     var progressImage = new Image()

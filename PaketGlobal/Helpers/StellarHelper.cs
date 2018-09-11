@@ -109,14 +109,14 @@ namespace PaketGlobal
             double steps = 12;
             double currentStep = 1;
 
-            var payment = paymentBuls; //StellarConverter.ConvertBULToStroops(paymentBuls);
+            var payment = paymentBuls; 
 
             if (StellarConverter.IsValidBUL(payment)==false)
             {
                 throw new ServiceException(400, AppResources.FractionalDigitsError);
             }
 
-            var collateral = collateralBuls; //StellarConverter.ConvertBULToStroops(collateralBuls);
+            var collateral = collateralBuls; 
 
             if (StellarConverter.IsValidBUL(collateral)==false)
             {
