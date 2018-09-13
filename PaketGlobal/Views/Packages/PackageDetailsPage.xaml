@@ -248,6 +248,16 @@
                                                     </StackLayout>
                                                     <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                                 </StackLayout>
+                                                <StackLayout Spacing="3"  x:Name="LauncherPhoneView" IsVisible="true">
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="Launcher Phone"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label HorizontalOptions="Start" Text="{Binding LauncherContact, Mode=OneWay}" x:Name="LauncherContactLabel" VerticalOptions="Center" XAlign="Start" TextColor="#555555" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                            <Button Image="copy_icon.png" x:Name="LauncherPhoneButton" Clicked="CopyLauncherContactClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
                                                 <StackLayout Spacing="3">
                                                     <StackLayout Spacing="0">
                                                         <Label TextColor="#A7A7A7" Text="Recipient Pubkey"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
@@ -264,6 +274,16 @@
                                                         <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
                                                             <Label HorizontalOptions="Start" Text="{Binding RecipientName, Mode=OneWay}" x:Name="RecipientNameLabel" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                                             <Button Image="copy_icon.png" Clicked="CopyRecipientNameClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                                <StackLayout Spacing="3"  x:Name="RecipientPhoneView" IsVisible="true">
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="Recipient Phone"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label HorizontalOptions="Start" Text="{Binding RecipientContact, Mode=OneWay}" x:Name="RecipientContactLabel" VerticalOptions="Center" XAlign="Start" TextColor="#555555" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                            <Button Image="copy_icon.png" x:Name="RecipientPhoneButton" Clicked="CopyRecipientContactClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
@@ -410,6 +430,7 @@
                            />
                 </RelativeLayout>
             </Frame>
+
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

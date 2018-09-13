@@ -357,6 +357,20 @@ namespace PaketGlobal
     {
         private double radius { get; set; }
         private string radiusString { get; set; }
+        private bool isAvailableRunning = false;
+        private bool isAvailableCompleted = false;
+
+        public bool IsAvailableRunning
+        {
+            get { return isAvailableRunning; }
+            set { SetProperty(ref isAvailableRunning, value); }
+        }
+
+        public bool IsAvailableCompleted
+        {
+            get { return isAvailableCompleted; }
+            set { SetProperty(ref isAvailableCompleted, value); }
+        }
 
         public string RadiusString
         {
@@ -399,6 +413,7 @@ namespace PaketGlobal
 		private string status { get; set; }
 
         public bool isNewPackage { get; set; }
+        public bool isAssigned { get; set; }
 
 		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
@@ -413,6 +428,12 @@ namespace PaketGlobal
 
 		[DataMember(Name = "recipient_pubkey")]
 		public string RecipientPubkey { get; set; }
+
+        [DataMember(Name = "recipient_contact")]
+        public string RecipientContact { get; set; }
+
+        [DataMember(Name = "launcher_contact")]
+        public string LauncherContact { get; set; }
 
 		///[DataMember(Name = "courier_pubkey")]
         public string CourierPubkey

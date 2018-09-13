@@ -91,6 +91,12 @@ namespace PaketGlobal
                 PaymentInfoViewFrame.IsVisible = false;
                 EventsInfoViewFrame.IsVisible = false;
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+
+                LauncherPhoneButton.IsVisible = false;
+                RecipientPhoneButton.IsVisible = false;
+
+                LauncherContactLabel.Text = AppResources.CourierNotContactVisible;
+                RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
             }
             else if(CanAcceptPackage)
             {
@@ -99,6 +105,8 @@ namespace PaketGlobal
                 PaymentInfoViewFrame.IsVisible = false;
                 EventsInfoViewFrame.IsVisible = false;
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+
+                CheckVisiblePayments();
             }
             else{
                 AddEvents();
@@ -180,6 +188,35 @@ namespace PaketGlobal
 
                     BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
+                }
+
+                if(ViewModel.CourierPubkey==null)
+                {
+                    LauncherPhoneButton.IsVisible = false;
+                    RecipientPhoneButton.IsVisible = false;
+
+                    LauncherContactLabel.Text = AppResources.CourierNotContactVisible;
+                    RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
+                }
+                else if (ViewModel.Status == "waiting pickup")
+                {
+                    LauncherPhoneButton.IsVisible = true;
+                    LauncherContactLabel.Text = ViewModel.LauncherContact;
+
+                    RecipientPhoneButton.IsVisible = false;
+                    RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
+
+                    EmptyBox.IsVisible = true;
+                    PaymentInfoViewFrame.IsVisible = false;
+                    EventsInfoViewFrame.IsVisible = false;
+                    FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+                }
+                else{
+                    LauncherPhoneButton.IsVisible = true;
+                    LauncherContactLabel.Text = ViewModel.LauncherContact;
+
+                    RecipientPhoneButton.IsVisible = true;
+                    RecipientContactLabel.Text = ViewModel.RecipientContact;
                 }
             }
             else if(ViewModel.MyRole==PaketRole.Launcher)
@@ -288,6 +325,18 @@ namespace PaketGlobal
             ShowMessage(AppResources.Copied);
         }
 
+        private void CopyRecipientContactClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.RecipientContact);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyLauncherContactClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.LauncherContact);
+            ShowMessage(AppResources.Copied);
+        }
+
 
         private async void RefundClicked(object sender, System.EventArgs e)
         {
@@ -335,8 +384,7 @@ namespace PaketGlobal
 
             try
             {
-                var escrowKP = KeyPair.Random();
-                var result = await StellarHelper.LaunchPackage(ViewModel.PaketId,escrowKP, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+                var result = await StellarHelper.LaunchPackage(ViewModel.PaketId, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
                 if (result != StellarOperationResult.Success)
                 {
@@ -366,7 +414,14 @@ namespace PaketGlobal
 
         private async void AssignClicked(object sender, System.EventArgs e)
         {
-            App.ShowLoading(true);
+            Unfocus();
+
+            App.Locator.Packages.StopTimer();
+
+            ProgressBar.Progress = 0;
+            ProgressLabel.Text = AppResources.LaunchPackageStep0;
+            ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+            ProgressView.IsVisible = true;
 
             var myPubkey = App.Locator.Profile.Pubkey;
 
@@ -387,12 +442,14 @@ namespace PaketGlobal
             }
 
             //I'm a courier
-            var result = await StellarHelper.AssignPackage(ViewModel.PaketId, ViewModel.Collateral, location);
+            var result = await StellarHelper.AssignPackage(ViewModel.PaketId, ViewModel.Collateral, location,FinalizePackageEvents);
             if (result == StellarOperationResult.Success)
             {
                 await System.Threading.Tasks.Task.Delay(2000);
 
                 await App.Locator.Packages.Load();
+
+                MessagingCenter.Send(this, Constants.PACKAGE_ASSIGN, ViewModel.PaketId);
 
                 ShowMessage(AppResources.PackageAssigned);
 
@@ -403,7 +460,9 @@ namespace PaketGlobal
                 ShowError(result);
             }
 
-            App.ShowLoading(false); 
+            ProgressView.IsVisible = false;
+
+            App.Locator.Packages.StartTimer();
         }
 
         private async void AcceptClicked(object sender, System.EventArgs e)

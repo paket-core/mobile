@@ -337,7 +337,7 @@ namespace PaketGlobal
                 var vm = ViewModel;
 
                 var escrowKP = KeyPair.Random();
-            
+
                 try{
                     App.Locator.Wallet.StopTimer();
                     App.Locator.Packages.StopTimer();

@@ -6,9 +6,28 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.2
+Milestone version: v.1.2.3
 
 ## Change Log
+
+### Milestone v.1.2.3
+
+11-09-2018
+
+* Add available packages in screen 
+    https://github.com/paket-core/mobile/issues/58
+
+08-09-2018
+
+* Launch pakage changes 
+    https://github.com/paket-core/mobile/issues/57
+* Package launch flow changes 
+    https://github.com/paket-core/mobile/issues/59
+
+07-09-2018
+
+* Welcome screen. Registretion and Login changes 
+    https://github.com/paket-core/mobile/issues/56
 
 ### Milestone v.1.2.2  
 

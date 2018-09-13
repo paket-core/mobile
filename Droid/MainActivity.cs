@@ -111,6 +111,8 @@ namespace PaketGlobal.Droid
         {
             base.OnStart();
 
+            LocationAppManager.IsNeedRequestPackages = false;
+
             Countly.SharedInstance().OnStart(this);
         }
 
@@ -118,12 +120,16 @@ namespace PaketGlobal.Droid
         {
             Countly.SharedInstance().OnStop();
 
+            LocationAppManager.IsNeedRequestPackages = true;
+
             base.OnStop();
         }
 
         protected override void OnDestroy()
         {
             StopEventsService();
+
+            LocationAppManager.IsNeedRequestPackages = true;
 
             if (LocationAppManager.isServiceStarted)
             {

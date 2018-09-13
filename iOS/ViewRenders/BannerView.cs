@@ -88,6 +88,10 @@ namespace PaketGlobal.iOS.ViewRenders
             {
                 TitleLabel.Text = "You have a new Package " +package.ShortEscrow;   
             }
+            else if (package.isAssigned)
+            {
+                TitleLabel.Text = "Your Package " + package.ShortEscrow + " assigned";
+            }
             else{
                 TitleLabel.Text = "Your Package " + package.ShortEscrow + " " + package.FormattedStatus;
             }

@@ -117,6 +117,26 @@ namespace PaketGlobal
             AvailableButton.TextColor = Color.LightGray;
 
             App.Locator.DeviceService.setStausBarLight();
+
+            MessagingCenter.Subscribe<PackageDetailsPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
+            {
+                var paketId = arg;
+
+                foreach (var package in ViewModel.AvailablePackagesList)
+                {
+                    if (package.PaketId==paketId)
+                    {
+                        ViewModel.AvailablePackagesList.Remove(package);
+                        break;
+                    }
+                }
+
+                if(ViewModel.AvailablePackagesList.Count==1)
+                {
+                    ViewModel.AvailablePackagesList.Add(new NotFoundPackage());
+                }
+
+            });
         }
 
         protected async override void OnAppearing()
@@ -145,10 +165,6 @@ namespace PaketGlobal
                 PlacholderLabel.IsVisible = false;
             }
 
-            if (Mode == PackagesMode.Available)
-            {
-                LoadAvailablePackages();
-            }
 
             ViewModel.CurrentDisplayPackageId = "";
         }
@@ -196,6 +212,9 @@ namespace PaketGlobal
 
         private async Task LoadAvailablePackages()
         {
+            FilterPackage.IsAvailableRunning = true;
+            FilterPackage.IsAvailableCompleted = false;
+
             if (cancellationTokenSource != null)  {  
                 cancellationTokenSource.Cancel();  
             }  
@@ -221,6 +240,12 @@ namespace PaketGlobal
                     list.Add(new NotFoundPackage());
                 }
             }
+
+            if(!cancellationTokenSource.IsCancellationRequested)
+            {
+                FilterPackage.IsAvailableRunning = false;
+                FilterPackage.IsAvailableCompleted = true;  
+            }        
         }
 
 
@@ -241,6 +266,7 @@ namespace PaketGlobal
             App.ShowLoading(true);
 
             var package = await PackageHelper.GetPackageDetails(pkgData.PaketId);
+           
             if (package != null)
             {
                 ViewModel.CurrentDisplayPackageId = pkgData.PaketId;
@@ -256,9 +282,7 @@ namespace PaketGlobal
                 ShowErrorMessage(AppResources.ErrorGetPackage);
             }
 
-
             App.ShowLoading(false);
-
         }
 
         private async void OnResetFilterClicked(object sender, EventArgs e)

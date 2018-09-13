@@ -77,7 +77,7 @@ namespace PaketGlobal
                 {
                     PhoneNumber numberProto = phoneUtil.Parse(InternationalPhone, "");
                     var fPhone = numberProto.Format(PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
-                    return fPhone;
+                    return "+" + fPhone;
                 }
                 catch (NumberParseException)
                 {
@@ -100,7 +100,7 @@ namespace PaketGlobal
                 {
                     PhoneNumber numberProto = phoneUtil.Parse(tphone,"");
                     var fPhone = numberProto.Format(PhoneNumberUtil.PhoneNumberFormat.E164);
-                    return fPhone;
+                    return fPhone.Trim();
                 }
                 catch (NumberParseException)
                 {
@@ -109,7 +109,7 @@ namespace PaketGlobal
                     fPhone = fPhone.Replace("(", "");
                     fPhone = fPhone.Replace(")", "");
                     fPhone = fPhone.Replace("-", "");
-                    return fPhone;
+                    return fPhone.Trim();
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace PaketGlobal
                 fPhone = fPhone.Replace("(", "");
                 fPhone = fPhone.Replace(")", "");
                 fPhone = fPhone.Replace("-", "");
-                return fPhone;
+                return fPhone.Trim();
             }
         }
     }

@@ -5,6 +5,8 @@ using Android.Content;
 using Android.OS;
 using Android.Locations;
 using Android.Preferences;
+using System.Collections.Generic;
+using Android.Support.V4.App;
 
 namespace PaketGlobal.Droid
 {
@@ -28,11 +30,41 @@ namespace PaketGlobal.Droid
         private double lastLongitude = double.MinValue;
         private DateTime lastUpdated = DateTime.MinValue;
 
-        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+
+        //for package updates
+        private Handler handler;
+        private Action runnable;
+        private int DELAY_BETWEEN_UPDATES = 6000; //request every minute
+        private List<Package> PackagesList = new List<Package>();
+        private bool isFirstRequest = true;
+
+        public override void OnCreate()
         {
+            base.OnCreate();
+
+            handler = new Handler();
+
+            runnable = new Action(() =>
+            {
+                CheckPackages();
+
+                handler.PostDelayed(runnable, DELAY_BETWEEN_UPDATES);
+            });
+
+            CreateLocalNotificationChannel();
+        }
+
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+        {   
             RegisterForegroundService();
 
             InitializeBackgroundWork();
+
+            handler.PostDelayed(runnable, DELAY_BETWEEN_UPDATES);
+
+            CheckPackages();
+
+
 
             return StartCommandResult.Sticky;
         }
@@ -108,6 +140,104 @@ namespace PaketGlobal.Droid
             var pendingIntent = PendingIntent.GetActivity(this, 0, notificationIntent, PendingIntentFlags.UpdateCurrent);
             return pendingIntent;
         }
+
+        #region Packages
+
+        private void PublishLocalNotification(string title, string text)
+        {
+            // Instantiate the builder and set notification elements:
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "90")
+                .SetContentTitle(title)
+                .SetContentText(text)
+                .SetSmallIcon(Resource.Drawable.ic_notification);
+
+
+            // Build the notification:
+            Notification notification = builder.Build();
+            notification.Defaults |= NotificationDefaults.Vibrate;
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+
+            // Publish the notification:
+            const int notificationId = 0;
+            notificationManager.Notify(notificationId, notification);
+        }
+
+        private void CreateLocalNotificationChannel()
+        {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+            {
+                // Notification channels are new in API 26 (and not a part of the
+                // support library). There is no need to create a notification
+                // channel on older versions of Android.
+                return;
+            }
+
+            var channelName = "Packages";
+            var channelDescription = "Packages";
+            var channel = new NotificationChannel("90", channelName, NotificationImportance.Default)
+            {
+                Description = channelDescription
+            };
+
+            var notificationManager = (NotificationManager)GetSystemService(NotificationService);
+            notificationManager.CreateNotificationChannel(channel);
+        }
+
+        private async void CheckPackages()
+        {
+            if (App.Locator.Profile.Activated && LocationAppManager.IsNeedRequestPackages)
+            {
+                var result = await App.Locator.RouteServiceClient.MyPackages();
+
+                if (result != null && result.Packages != null)
+                {
+                    var packages = result.Packages;
+
+                    bool enabled = App.Locator.AccountService.ShowNotifications;
+
+                    if (enabled)
+                    {
+                        foreach (Package p1 in packages)
+                        {
+                            foreach (Package p2 in PackagesList)
+                            {
+                                if (p1.PaketId == p2.PaketId)
+                                {
+                                    if ((p1.Status != p2.Status) || (p2.CourierPubkey == null && p1.CourierPubkey != null))
+                                    {
+                                        var name = "Package " + p1.ShortEscrow;
+
+                                        if((p1.Status != p2.Status))
+                                        {
+                                            var text = "Your package " + p1.FormattedStatus;
+                                            PublishLocalNotification(name, text);
+                                        }
+                                        else{
+                                            PublishLocalNotification(name, "Package assigned");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+          
+
+                    if ((PackagesList.Count < packages.Count && enabled) && isFirstRequest==false)
+                    {
+                        PublishLocalNotification("Package", "You have new package");
+                    }
+
+                    isFirstRequest = false;
+
+                    PackagesList = packages;
+                }
+            }
+        }
+
+        #endregion
 
         #region ILocationListener Members   
 

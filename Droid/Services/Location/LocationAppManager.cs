@@ -10,6 +10,7 @@ namespace PaketGlobal.Droid
 {
     public class LocationAppManager
     {
+        public static bool IsNeedRequestPackages = false;
         public static bool isServiceStarted = false;
 
         public event EventHandler<ServiceConnectedEventArgs> LocationServiceConnected = delegate { };

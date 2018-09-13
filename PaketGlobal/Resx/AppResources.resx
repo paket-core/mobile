@@ -360,6 +360,15 @@
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Check launcher balance</value>
     </data>
+    <data name="LaunchPackageStep13" xml:space="preserve">
+        <value>Check courier balance</value>
+    </data>
+    <data name="LaunchPackageStep14" xml:space="preserve">
+        <value>Assign package</value>
+    </data>
+    <data name="LaunchPackageStep15" xml:space="preserve">
+        <value>Check courier balance</value>
+    </data>
     <data name="LaunchPackageStep2" xml:space="preserve">
         <value>Create Package</value>
     </data>
@@ -647,6 +656,9 @@
     </data> 
         <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
         <value>Please wait when the launcher will make deposit.&#xA;Then you can accept the package.</value>
+    </data> 
+    <data name="CourierNotContactVisible" xml:space="preserve">
+        <value>You do not have permission to view the phone number yet</value>
     </data> 
 
 

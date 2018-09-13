@@ -18,6 +18,8 @@ namespace PaketGlobal
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "app used";
 
+        public const string PACKAGE_ASSIGN = "PackageAssign";
+
         public const string ADDRESS_BOOK = "address_book";
 
         public const string APP_URL = "https://github.com/paket-core/mobile";

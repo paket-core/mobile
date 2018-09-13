@@ -360,8 +360,17 @@
     <data name="LaunchPackageStep2" xml:space="preserve">
         <value>Создание посылки</value>
     </data>
+    <data name="LaunchPackageStep13" xml:space="preserve">
+        <value>Проверка вашего баланса</value>
+    </data>
+    <data name="LaunchPackageStep14" xml:space="preserve">
+        <value>Назначение посылки</value>
+    </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Создание аккаунта</value>
+    </data>
+    <data name="LaunchPackageStep15" xml:space="preserve">
+        <value>Проверка баланса курьера</value>
     </data>
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Подпись аккаунта</value>
@@ -648,4 +657,7 @@
     <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
         <value>Пожалуйста подождите пока отправиттель внесет депозит</value>
     </data> 
+    <data name="CourierNotContactVisible" xml:space="preserve">
+        <value>У вас еще нет прав для просмотра номера телефона</value>
+    </data>
 </root>

@@ -143,12 +143,18 @@ namespace PaketGlobal
 					foreach (Package p1 in packages) {
 						foreach (Package p2 in PackagesList) {
 							if (p1.PaketId == p2.PaketId) {
-								if (p1.Status != p2.Status) {
+                                if ((p1.Status != p2.Status) || (p2.CourierPubkey == null && p1.CourierPubkey != null)) {
 									if (p1.PaketId == CurrentDisplayPackageId) {
 										MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
 									}
 
 									if (enabled) {
+
+                                        if((p2.CourierPubkey == null && p1.CourierPubkey != null))
+                                        {
+                                            p1.isAssigned = true;
+                                        }
+
 										Device.BeginInvokeOnMainThread(() => {
 											App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
 										});
@@ -202,32 +208,34 @@ namespace PaketGlobal
 
         private void CheckLocationUpdate ()
         {
-            bool isFound = false;
+            App.Locator.LocationService.StartUpdateLocation();
 
-            var myPubkey = App.Locator.Profile.Pubkey;
+            //bool isFound = false;
 
-            if(PackagesList!=null)
-            {
-                foreach(Package package in PackagesList)
-                {
-                    var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
-                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
+            //var myPubkey = App.Locator.Profile.Pubkey;
+
+            //if(PackagesList!=null)
+            //{
+            //    foreach(Package package in PackagesList)
+            //    {
+            //        var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
+            //                                         (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
                     
-                    if(myRole == PaketRole.Courier)
-                    {
-                        App.Locator.LocationService.StartUpdateLocation();
+            //        if(myRole == PaketRole.Courier)
+            //        {
+            //            App.Locator.LocationService.StartUpdateLocation();
 
-                        isFound = true;
+            //            isFound = true;
 
-                        break;
-                    }
-                }
-            }
+            //            break;
+            //        }
+            //    }
+            //}
 
-            if(!isFound)
-            {
-                App.Locator.LocationService.StopUpdateLocation();
-            }
+            //if(!isFound)
+            //{
+            //    App.Locator.LocationService.StopUpdateLocation();
+            //}
         }
 
     }

@@ -54,7 +54,13 @@
                                WidthRequest="100"
                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-130}" 
                                XAlign="End"
+                               IsVisible="{Binding IsAvailableCompleted, Mode=TwoWay}"
                                Text="{Binding RadiusString}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                        <ActivityIndicator RelativeLayout.YConstraint="90"
+                               HeightRequest="30"
+                               WidthRequest="30"
+                               IsRunning="{Binding IsAvailableRunning, Mode=TwoWay}"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
                     </RelativeLayout>
                 </local:CellWithoutSelection>
             </DataTemplate>

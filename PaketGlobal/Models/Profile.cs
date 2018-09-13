@@ -6,6 +6,7 @@ using NBitcoin;
 using NBitcoin.DataEncoders;
 using Newtonsoft.Json;
 using stellar_dotnetcore_sdk;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -134,6 +135,26 @@ namespace PaketGlobal
 			var result = Encoders.Base64.EncodeData(signed);
 			return result;
 		}
+
+        public void AddPackageKeyPair(string paketId, string seed)
+        {
+            Application.Current.Properties[paketId] = seed;
+            Application.Current.SavePropertiesAsync();
+        }
+
+        public string PackageKeyPair(string pakedId)
+        {
+            if (Application.Current.Properties.ContainsKey(pakedId))
+            {
+                object fromStorage;
+
+                Application.Current.Properties.TryGetValue(pakedId, out fromStorage);
+
+                return (fromStorage as string);
+            }
+
+            return null;
+        }
 
 		public bool AddTransaction(string paketId, string paymentTranscation)
 		{

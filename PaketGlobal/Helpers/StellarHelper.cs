@@ -88,7 +88,6 @@ namespace PaketGlobal
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
-			//Check courier's balance
 			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
 			currentStep++;
 
@@ -97,6 +96,10 @@ namespace PaketGlobal
 																					  return App.Locator.Profile.SignData(d, escrowKP);
 																				  });
 			if (createResult != null) {
+                var packedId = createResult.Package.PaketId;
+
+                App.Locator.Profile.AddPackageKeyPair(packedId, escrowKP.SecretSeed);
+
 				return StellarOperationResult.Success;
 			}
 
@@ -104,8 +107,19 @@ namespace PaketGlobal
 			return StellarOperationResult.FailedLaunchPackage;
 		}
 
-        public static async Task<StellarOperationResult> LaunchPackage (string paketID, KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
+        public static async Task<StellarOperationResult> LaunchPackage (string paketID, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
 		{
+            KeyPair escrowKP = null;
+
+            var seed = App.Locator.Profile.PackageKeyPair(paketID);
+            if( seed != null)
+            {
+                escrowKP = KeyPair.FromSecretSeed(seed);
+            }
+            else{
+                escrowKP = KeyPair.Random();
+            }
+
             double steps = 12;
             double currentStep = 1;
 
@@ -134,7 +148,7 @@ namespace PaketGlobal
 			}
 
 			//Check courier's balance
-            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep15, currentStep / steps));
 
             currentStep++;
 
@@ -282,13 +296,24 @@ namespace PaketGlobal
 			//Make note of the BUL balances of the launcher by calling /bul_account. It should be the same as before minus the payment
 		}
 
-        public static async Task<StellarOperationResult> AssignPackage(string escrowPubkey, long collateral, string location)
+        public static async Task<StellarOperationResult> AssignPackage(string escrowPubkey, long collateral, string location, LaunchPackageEventHandler eventHandler)
         {
+            double steps = 3;
+            double currentStep = 1;
+
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep13, currentStep / steps));
+
+            currentStep++;
+
             var courierBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
             if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral)
             {
                 return StellarOperationResult.LowBULsCourier;
             }
+
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep14, currentStep / steps));
+
+            currentStep++;
 
             var trans = await App.Locator.RouteServiceClient.AssignPackage(escrowPubkey, location);
             if(trans != null)

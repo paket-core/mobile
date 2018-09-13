@@ -94,7 +94,7 @@ namespace PaketGlobal
 						StopScanning();
 
 						var package = await App.Locator.RouteServiceClient.Package(data.EscrowAddress);
-						if (package != null && package.Package != null) {
+                        if (package != null && package.Package != null && package.Package.PaymentTransaction!=null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {
                                 //you are a recepient //Title = "Accept as a Recipient";

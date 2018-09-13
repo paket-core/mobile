@@ -665,5 +665,37 @@ namespace PaketGlobal
             }
         }
 
+        internal static string LaunchPackageStep13
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep13", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep14
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep14", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep15
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep15", resourceCulture);
+            }
+        }
+
+        internal static string CourierNotContactVisible
+        {
+            get
+            {
+                return ResourceManager.GetString("CourierNotContactVisible", resourceCulture);
+            }
+        }
+
     }
 }

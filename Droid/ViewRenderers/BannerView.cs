@@ -136,6 +136,10 @@ namespace PaketGlobal.Droid
                 {
                     title = "You have a new Package " + newPackage.ShortEscrow;
                 }
+                else if(newPackage.isAssigned)
+                {
+                    title = "Your Package " + newPackage.ShortEscrow + " assigned";
+                }
                 else
                 {
                     title = "Your Package " + newPackage.ShortEscrow + " " + newPackage.FormattedStatus;
