@@ -14,11 +14,11 @@ namespace PaketGlobal.iOS
             get
             {
                 return isNeedAlertDialogToClose;
-            };
+            }
             set
             {
                 isNeedAlertDialogToClose = value;
-            };
+            }
         }
 
         public bool IsIphoneX() {
