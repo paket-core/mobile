@@ -6,9 +6,25 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.3
+Milestone version: v.1.2.4
 
 ## Change Log
+
+### Milestone v.1.2.4
+
+13-09-2018
+
+* Improve Package Details enhancement
+    https://github.com/paket-core/mobile/issues/66
+* Accept package changes
+    https://github.com/paket-core/mobile/issues/60
+* Package deadline and states change
+    https://github.com/paket-core/mobile/issues/61
+* Keyboard for SMS verification code should be numeric enhancement
+    https://github.com/paket-core/mobile/issues/68
+* App closes on back button bug
+    https://github.com/paket-core/mobile/issues/65
+
 
 ### Milestone v.1.2.3
 
