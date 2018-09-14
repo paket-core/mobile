@@ -147,7 +147,7 @@ namespace PaketGlobal.Droid
                 builder.SetTitle("PaketGlobal");
                 builder.SetMessage("Do you really want to exit?");
                 builder.SetPositiveButton("Yes", (senderAlert, args) => {
-                    base.OnBackPressed();
+                    this.FinishAffinity();
                 });
                 builder.SetNegativeButton("Cancel", (senderAlert, args) => {
                 });

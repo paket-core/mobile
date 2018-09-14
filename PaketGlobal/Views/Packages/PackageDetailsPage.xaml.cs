@@ -186,7 +186,7 @@ namespace PaketGlobal
                 {
                     if (result.PackagePhoto != null)
                     {
-                        var photo = result.PackagePhoto[0];
+                        var photo = result.PackagePhoto;
 
                         if (photo.Photo != null)
                         {

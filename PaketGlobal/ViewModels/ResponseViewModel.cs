@@ -44,7 +44,7 @@ namespace PaketGlobal
     public class PackagePhotoData: BaseData
     {
         [DataMember(Name = "package_photo")]
-        public List<PackagePhoto> PackagePhoto { get; set; }
+        public PackagePhoto PackagePhoto { get; set; }
     }
 
 	[DataContract]
