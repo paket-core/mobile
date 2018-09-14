@@ -23,7 +23,7 @@ namespace PaketGlobal.Droid
 
         private Handler handler;
         private Action runnable;
-        private int DELAY_BETWEEN_UPDATES = 600000; //10000; //request every 10 secs
+        private int DELAY_BETWEEN_UPDATES = 10000; //request every 10 secs
         private List<Package> PackagesList = new List<Package>();
         private bool isFirstRequest = true;
 
