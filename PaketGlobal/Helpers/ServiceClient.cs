@@ -86,6 +86,14 @@ namespace PaketGlobal
             return await SendRequest<VerifyData>(request);
         }
 
+        public async Task<PackagePhotoData> GetPackagePhoto(string puckageId)
+        {
+            var request = PrepareRequest(apiVersion + "/package_photo", Method.POST);
+
+            request.AddParameter("escrow_pubkey", puckageId);
+
+            return await SendRequest<PackagePhotoData>(request, signData: false);
+        }
 
         public async Task<UserData> GetUser(string pubkey, string call_sign)
 		{
@@ -512,7 +520,11 @@ namespace PaketGlobal
                     }
                 }
 
-                System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                if(response.ContentLength < 300)
+                {
+                    System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                }
+
                 ServiceStackSerializer.HandleStatusCode(response);
                 return response.Data;
             }

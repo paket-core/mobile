@@ -73,6 +73,31 @@ namespace PaketGlobal
 			}
 		}
 
+        public bool IsPackageExpiredNeedShow(Package package)
+        {
+            var keyExpired = package.PaketId + "_expired";
+
+            if(package.IsExpired)
+            {
+                if(package.DeadlineDT.AddHours(1) > DateTime.Now.ToLocalTime())
+                {
+                    if (Application.Current.Properties.ContainsKey(keyExpired))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties[keyExpired] = package.PaketId;
+                        Application.Current.SavePropertiesAsync();
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         private void CreateTimer()
         {
             if(timer==null)
@@ -106,6 +131,25 @@ namespace PaketGlobal
                     CreateTimer();
                 }
             }
+
+            bool enabled = App.Locator.AccountService.ShowNotifications;
+
+            foreach (Package p1 in PackagesList)
+            {
+                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
+
+                if (isExpiredNeedShow)
+                {
+                    if (enabled)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                            App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+                        });
+                    }
+                }
+            }
+
+            App.Locator.AccountService.SavePackages(PackagesList);
 
             CheckLocationUpdate();
         }
@@ -143,8 +187,12 @@ namespace PaketGlobal
 					foreach (Package p1 in packages) {
 						foreach (Package p2 in PackagesList) {
 							if (p1.PaketId == p2.PaketId) {
-                                if ((p1.Status != p2.Status) || (p2.CourierPubkey == null && p1.CourierPubkey != null)) {
-									if (p1.PaketId == CurrentDisplayPackageId) {
+
+                                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
+
+                                if ((p1.Status != p2.Status) || (p2.CourierPubkey == null && p1.CourierPubkey != null) || isExpiredNeedShow) {
+									
+                                    if (p1.PaketId == CurrentDisplayPackageId) {
 										MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
 									}
 
@@ -154,6 +202,7 @@ namespace PaketGlobal
                                         {
                                             p1.isAssigned = true;
                                         }
+                        
 
 										Device.BeginInvokeOnMainThread(() => {
 											App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
@@ -183,6 +232,8 @@ namespace PaketGlobal
 					}
 				}
 
+                App.Locator.AccountService.SavePackages(PackagesList);
+
 				CheckLocationUpdate();
 			}
         }
@@ -208,34 +259,32 @@ namespace PaketGlobal
 
         private void CheckLocationUpdate ()
         {
-            App.Locator.LocationService.StartUpdateLocation();
+            bool isFound = false;
 
-            //bool isFound = false;
+            var myPubkey = App.Locator.Profile.Pubkey;
 
-            //var myPubkey = App.Locator.Profile.Pubkey;
-
-            //if(PackagesList!=null)
-            //{
-            //    foreach(Package package in PackagesList)
-            //    {
-            //        var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
-            //                                         (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
+            if(PackagesList!=null)
+            {
+                foreach(Package package in PackagesList)
+                {
+                    var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
+                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
                     
-            //        if(myRole == PaketRole.Courier)
-            //        {
-            //            App.Locator.LocationService.StartUpdateLocation();
+                    if(myRole == PaketRole.Courier)
+                    {
+                        App.Locator.LocationService.StartUpdateLocation();
 
-            //            isFound = true;
+                        isFound = true;
 
-            //            break;
-            //        }
-            //    }
-            //}
+                        break;
+                    }
+                }
+            }
 
-            //if(!isFound)
-            //{
-            //    App.Locator.LocationService.StopUpdateLocation();
-            //}
+            if(!isFound)
+            {
+                App.Locator.LocationService.StopUpdateLocation();
+            }
         }
 
     }

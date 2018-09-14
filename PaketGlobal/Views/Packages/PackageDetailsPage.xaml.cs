@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
@@ -172,6 +173,34 @@ namespace PaketGlobal
 
             LinksFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
             UsersFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
+
+            LoadPhoto();
+        }
+
+        private async void LoadPhoto()
+        {
+            try{
+                var result = await App.Locator.RouteServiceClient.GetPackagePhoto(ViewModel.PaketId);
+
+                if (result != null)
+                {
+                    if (result.PackagePhoto != null)
+                    {
+                        var photo = result.PackagePhoto[0];
+
+                        if (photo.Photo != null)
+                        {
+                            PhotoImage.Source = ImageSource.FromStream(
+                                () => new MemoryStream(Convert.FromBase64String(photo.Photo)));
+                            PhotoImage.IsVisible = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void CheckVisiblePayments()
@@ -238,8 +267,16 @@ namespace PaketGlobal
                     WaitingAssignLabel.Text = AppResources.WaitingMakeDepositPackage;
                     DepositButton.IsVisible = true;
 
-                    DepositButton.IsEnabled = true;
-                    DepositButton.ButtonBackground = "#4D64E8";            
+                    if (!ViewModel.IsExpiredInList)
+                    {
+                        DepositButton.IsEnabled = false;
+                        DepositButton.ButtonBackground = "#A7A7A7";   
+                        WaitingAssignLabel.Text = AppResources.WaitingExpiredDepositPackage;
+                    }
+                    else{
+                        DepositButton.IsEnabled = true;
+                        DepositButton.ButtonBackground = "#4D64E8";
+                    }
                 }
 
                 if(ViewModel.PaymentTransaction==null)

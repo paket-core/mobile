@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Xamarin.Auth;
@@ -237,5 +238,10 @@ namespace PaketGlobal.Droid
 				AccountStore.Create(MainActivity.Instance).Delete(account, App.AppName);
 			}
 		}
+
+        public void SavePackages(List<Package> packages)
+        {
+            
+        }
 	}
 }

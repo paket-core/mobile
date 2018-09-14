@@ -140,6 +140,10 @@ namespace PaketGlobal.Droid
                 {
                     title = "Your Package " + newPackage.ShortEscrow + " assigned";
                 }
+                else if (newPackage.IsExpired)
+                {
+                    title = "Your Package " + newPackage.ShortEscrow + " expired";
+                }
                 else
                 {
                     title = "Your Package " + newPackage.ShortEscrow + " " + newPackage.FormattedStatus;

@@ -7,6 +7,20 @@ namespace PaketGlobal.iOS
 {
     public class DeviceService : IDeviceService
     {
+        private bool isNeedAlertDialogToClose = false;
+
+        public bool IsNeedAlertDialogToClose
+        {
+            get
+            {
+                return isNeedAlertDialogToClose;
+            };
+            set
+            {
+                isNeedAlertDialogToClose = value;
+            };
+        }
+
         public bool IsIphoneX() {
             return UIScreen.MainScreen.Bounds.Size.Height == 812;
         }

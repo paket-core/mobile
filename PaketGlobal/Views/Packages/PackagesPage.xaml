@@ -74,9 +74,12 @@
                             <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
                                  CornerRadius="15"/>
                         </StackLayout>
-                        <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
+                        <StackLayout Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
                             <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                            <StackLayout Spacing="0" VerticalOptions="Center">
+                                  <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="{Binding DeadlineStringColor}"/>
+                                  <Label IsVisible="{Binding IsExpiredInList}" Text="{local:Translate ReclaimInList}" FontFamily="{StaticResource NormalFont}" FontSize="9" TextColor="Gray"/>
+                            </StackLayout>
                         </StackLayout>
                         <StackLayout Spacing="0" RelativeLayout.YConstraint="30"
                                              RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-65}">
@@ -101,7 +104,7 @@
                             </StackLayout>
                             <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
                                 <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
-                                <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
+                                <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="{Binding DeadlineStringColor}" XAlign="End"/>
                             </StackLayout>
                         </StackLayout>
                     </RelativeLayout>

@@ -77,6 +77,15 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarLight();
 
             base.OnAppearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
         }
 
         private void NotificationsClicked(object sender, System.EventArgs e)

@@ -65,7 +65,7 @@
                                 <StackLayout x:Name="InfoVew" BackgroundColor="Transparent">
                                     <RelativeLayout>
                                         <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="17" RelativeLayout.YConstraint="15">
-                                            <Image Source="{Binding Status, Converter={StaticResource packageIconStatusConverter}, Mode=OneWay}" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                            <Image Source="{Binding StatusIconWithText}" HorizontalOptions="Start" VerticalOptions="Start"/>
                                         </StackLayout>
                                         <local:PaketProgress Progress="{Binding Status, Converter={StaticResource packageProgressStatusConverter}, Mode=OneWay}"
                                              RelativeLayout.XConstraint="20" 
@@ -74,7 +74,7 @@
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.87}"/>
                                         <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="15" RelativeLayout.YConstraint="49"/>
-                                        <Image Source="{Binding Status, Converter={StaticResource packageProgressIconConverter}, Mode=OneWay}" HorizontalOptions="Start"
+                                        <Image Source="{Binding ProgressIcon}" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.91}"
                                        RelativeLayout.YConstraint="49"/>
                                         <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
@@ -123,6 +123,10 @@
                                             IsVisible="{Binding DeliveryStatusPrivate,
                                             Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
                                             Mode=OneWay}"/>
+                                            <BoxView IsVisible="{Binding DeliveryStatusPrivate,
+                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
+                                            Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                            <BoxView IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
                                             <Label TextColor="#5F5F5F" x:Name="AssignLabel" Text="{local:Translate PackageCanAssign}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
                                             IsVisible="false"/>
                                             <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="{local:Translate AcceptPackage}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
@@ -133,41 +137,38 @@
                                         </StackLayout>
                                     </RelativeLayout>
                                 </StackLayout>
-
-                   <Frame BackgroundColor="#FAFAFA"
+                                <Frame BackgroundColor="#FAFAFA"
                       VerticalOptions="Start"
                       HorizontalOptions="FillAndExpand"
                       Padding="0,20,0,20"
                       CornerRadius="15"
                       HasShadow="false">
-                                <StackLayout BackgroundColor="Transparent" Spacing="15" Padding="20,0,20,0">
-                                    <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
-                                        <Label TextColor="Black" Text="{local:Translate Locations}" VerticalOptions="Center" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                    </StackLayout>
-                                    <StackLayout Spacing="10" HorizontalOptions="FillAndExpand">
-                                        <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
-                                            <RelativeLayout>
-                                                <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="0" Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                                    <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                </Frame>
-                                                <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                                    <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                </Frame>
-                                                <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
+                                    <StackLayout BackgroundColor="Transparent" Spacing="15" Padding="20,0,20,0">
+                                        <StackLayout Orientation="Horizontal" Padding="0,0,5,0">
+                                            <Label TextColor="Black" Text="{local:Translate Locations}" VerticalOptions="Center" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                        </StackLayout>
+                                        <StackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+                                            <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
+                                                <RelativeLayout>
+                                                    <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="0" Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                    </Frame>
+                                                    <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                    </Frame>
+                                                    <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="0"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            xe:TouchEffect.Color="Gray" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                                <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
+                                                    <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6,Constant=-10}"
                                            xe:TouchEffect.Color="Gray" XAlign="End" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-
-
-                                                      <local:CircleImage  
+                                                    <local:CircleImage  
                             Source="{Binding FromImage,Mode=OneWay}"
                             BorderThickness="3"
                             RelativeLayout.HeightConstraint="80"
@@ -178,27 +179,24 @@
                             RelativeLayout.YConstraint="75"
                             RelativeLayout.XConstraint="0"        
                             BorderColor="#a9e2e3"></local:CircleImage>
-                                                    
-                                                <Label Text="{local:Translate Distance}"
+                                                    <Label Text="{local:Translate Distance}"
                                            RelativeLayout.HeightConstraint="30"
                                            RelativeLayout.YConstraint="95"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
+                                                    <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
                                               RelativeLayout.XConstraint="79"
                                               RelativeLayout.YConstraint="115"
                                               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
                                               />
-                                                <Label Text="{Binding Distance}"
+                                                    <Label Text="{Binding Distance}"
                                            RelativeLayout.HeightConstraint="30"
                                            RelativeLayout.YConstraint="120"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                            
-
-                                                                              <local:CircleImage  
+                                                    <local:CircleImage  
                             Source="{Binding ToImage,Mode=OneWay}"
                             BorderThickness="3"
                             RelativeLayout.HeightConstraint="80"
@@ -209,13 +207,36 @@
                             RelativeLayout.YConstraint="75"
                                         RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
                             BorderColor="#a9e2e3"></local:CircleImage>
-                                                    
-                                            </RelativeLayout>
-                                        </Frame>
+                                                </RelativeLayout>
+                                            </Frame>
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </Frame>
-                                
+                                </Frame>
+                                <local:PaketFrame BackgroundColor="White" x:Name="InfoView" 
+                      VerticalOptions="Start"
+                      HorizontalOptions="FillAndExpand"
+                      Padding="0"
+                      CornerRadius="0"
+                      HasShadow="false"
+                      TopCorners="15">
+                                    <StackLayout Padding="20,20,15,25" BackgroundColor="Transparent" Spacing="15">
+                                        <StackLayout Spacing="15">
+                                            <Label TextColor="Black" Text="{local:Translate Information}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <StackLayout Spacing="10" Padding="0,0,0,0">
+                                                <Image Aspect="AspectFill" IsVisible="true" x:Name="PhotoImage" BackgroundColor="#FAFAFA" HeightRequest="190"/>
+                                                <StackLayout Spacing="3">
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="{local:Translate Description}"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" Text="{Binding Description, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </local:PaketFrame>
                                 <local:PaketFrame BackgroundColor="White" x:Name="UsersFrameView" 
                       VerticalOptions="Start"
                       HorizontalOptions="FillAndExpand"
@@ -225,7 +246,7 @@
                       TopCorners="15">
                                     <StackLayout Padding="20,20,15,25" BackgroundColor="Transparent" Spacing="15">
                                         <StackLayout Spacing="15">
-                                            <Label TextColor="Black" Text="USERS" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <Label TextColor="Black" Text="{local:Translate USERS}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                             <!--    <StackLayout Padding="0,0,5,0" Spacing="0" Orientation="Horizontal"  xe:TouchEffect.Color="Gray"><Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="Users participating in the package" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/><Image Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/></StackLayout>-->
                                             <StackLayout Spacing="10" Padding="0,0,0,0">
                                                 <StackLayout Spacing="3">
@@ -399,7 +420,7 @@
                     </local:PullToRefreshLayout>
                 </RelativeLayout>
             </Frame>
-        <Frame x:Name="ProgressView"
+            <Frame x:Name="ProgressView"
                       HasShadow="false"
                       CornerRadius="0"
                       IsVisible = "false"
@@ -430,7 +451,6 @@
                            />
                 </RelativeLayout>
             </Frame>
-
         </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

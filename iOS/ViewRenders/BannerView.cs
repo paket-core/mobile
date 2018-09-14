@@ -92,6 +92,10 @@ namespace PaketGlobal.iOS.ViewRenders
             {
                 TitleLabel.Text = "Your Package " + package.ShortEscrow + " assigned";
             }
+            else if (package.IsExpired)
+            {
+                TitleLabel.Text = "Your Package " + package.ShortEscrow + " expired";
+            }
             else{
                 TitleLabel.Text = "Your Package " + package.ShortEscrow + " " + package.FormattedStatus;
             }

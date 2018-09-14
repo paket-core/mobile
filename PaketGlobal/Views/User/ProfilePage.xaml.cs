@@ -63,6 +63,8 @@ namespace PaketGlobal
 		{
             App.Locator.DeviceService.setStausBarLight();
 
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
+
             var fl = firstLoad;
 
             base.OnAppearing();
@@ -77,6 +79,13 @@ namespace PaketGlobal
                 await LoadProfile();
             }
 		}
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
+        }
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{

@@ -52,6 +52,30 @@ namespace PaketGlobal
             AddCommands();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
+        }
+
+
+        protected async override void OnAppearing()
+        {
+            App.Locator.DeviceService.setStausBarLight();
+
+            var fl = firstLoad;
+
+            base.OnAppearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
+
+            if (fl)
+            {
+                await LoadWallet();
+            }
+        }
+
         private void AddCommands()
         {
             PurchaseXLMTapCommand = new Command(() =>
@@ -175,19 +199,7 @@ namespace PaketGlobal
         }
 
 
-		protected async override void OnAppearing()
-		{
-            App.Locator.DeviceService.setStausBarLight();
-
-            var fl = firstLoad;
-
-            base.OnAppearing();
-
-            if (fl)
-            {
-                await LoadWallet();
-            }
-		}
+		
 
 		private async System.Threading.Tasks.Task LoadWallet()
 		{

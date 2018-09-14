@@ -138,8 +138,14 @@
     <data name="PackageExpired" xml:space="preserve">
         <value>Deadline Expired&#x0a;You can reclaim your payment and collateral</value>
     </data>
+    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
+        <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
+    </data>
     <data name="AcceptPackage" xml:space="preserve">
         <value>Accept Package</value>
+    </data>
+    <data name="ReclaimInList" xml:space="preserve">
+        <value>You can reclaim your payment and collateral</value>
     </data>
     <data name="Funds" xml:space="preserve">
         <value>FUNDS</value>
@@ -659,6 +665,15 @@
     </data> 
     <data name="CourierNotContactVisible" xml:space="preserve">
         <value>You do not have permission to view the phone number yet</value>
+    </data> 
+    <data name="USERS" xml:space="preserve">
+        <value>USERS</value>
+    </data> 
+        <data name="Description" xml:space="preserve">
+        <value>Description</value>
+    </data> 
+            <data name="Expired" xml:space="preserve">
+        <value>Expired</value>
     </data> 
 
 

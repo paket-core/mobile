@@ -371,6 +371,7 @@
     <Compile Include="ViewRenderers\Autocomplete\CollectionExtensions.cs" />
     <Compile Include="ViewRenderers\CircleImageRender.cs" />
     <Compile Include="ViewRenderers\PaketSliderRender.cs" />
+    <Compile Include="Services\PackageService\PackageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -805,6 +806,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_notification.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_notification.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_notification.png" />
+    <AndroidResource Include="Resources\drawable\expired_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\expired_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\expired_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\expired_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\expired_icon.png" />
+    <AndroidResource Include="Resources\drawable\expired_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\expired_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\expired_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\expired_status_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\expired_status_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -816,6 +827,7 @@
     <Folder Include="Services\Events\" />
     <Folder Include="ViewRenderers\Autocomplete\" />
     <Folder Include="Resources\xml\" />
+    <Folder Include="Services\PackageService\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

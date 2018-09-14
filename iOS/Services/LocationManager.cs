@@ -53,10 +53,6 @@ namespace PaketGlobal.iOS
                             this.LocationUpdated(this, new LocationUpdatedEventArgs(e.Locations[e.Locations.Length - 1]));
                         };
 
-                        //LocMgr.RegionLeft += (o, e) =>
-                        //{
-                        //    this.ExitRegion(e.Region);
-                        //};
                     }
                     else
                     {
