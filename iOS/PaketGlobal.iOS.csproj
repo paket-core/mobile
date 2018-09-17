@@ -266,6 +266,21 @@
     <Reference Include="Google.Maps">
       <HintPath>..\packages\Xamarin.Google.iOS.Maps.2.5.0\lib\Xamarin.iOS10\Google.Maps.dll</HintPath>
     </Reference>
+    <Reference Include="Ricardo.MBProgressHUD.iOS">
+      <HintPath>..\packages\Ricardo.MBProgressHUD.iOS.1.1.0\lib\Xamarin.iOS10\Ricardo.MBProgressHUD.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Ricardo.SDWebImage.iOS">
+      <HintPath>..\packages\Ricardo.SDWebImage.iOS.4.2.2.1\lib\Xamarin.iOS10\Ricardo.SDWebImage.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Ricardo.MWPhotoBrowser.iOS">
+      <HintPath>..\packages\Ricardo.MWPhotoBrowser.iOS.2.1.4.1\lib\Xamarin.iOS10\Ricardo.MWPhotoBrowser.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\Xamarin.iOS10\Stormlion.PhotoBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser.iOS">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\Xamarin.iOS10\Stormlion.PhotoBrowser.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

@@ -6,9 +6,18 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.4
+Milestone version: v.1.2.5
 
 ## Change Log
+
+### Milestone v.1.2.5
+
+17-09-2018
+
+* Photo Full Screen Mode
+    https://github.com/paket-core/mobile/issues/71
+* QR-code Full Screen Mode
+    https://github.com/paket-core/mobile/issues/70
 
 ### Milestone v.1.2.4
 

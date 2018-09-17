@@ -127,6 +127,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CircleImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketSlider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml.cs">
+      <DependentUpon>PhotoFullScreenPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -226,6 +229,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\MapPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

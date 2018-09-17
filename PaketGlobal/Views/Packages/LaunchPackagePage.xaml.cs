@@ -89,6 +89,12 @@ namespace PaketGlobal
                 Navigation.PushAsync(picker, true);
             });
 
+            var openFullScreeenPhotoCommand = new Command(() =>
+            {
+                OpenPhotoFullScreen();
+            });
+            XamEffects.Commands.SetTap(PhotoImage, openFullScreeenPhotoCommand);
+
             XamEffects.Commands.SetTap(LauncherCountryCodeLabel, selectMyCountryCommand);
             XamEffects.Commands.SetTap(RecipientCountryCodeLabel, selectRecipientCountryCommand);
             XamEffects.Commands.SetTap(FromLocationLabel, selectFromLocation);
@@ -411,6 +417,20 @@ namespace PaketGlobal
 
             this.Navigation.PushAsync(page);
 
+        }
+
+        private void OpenPhotoFullScreen()
+        {
+            string photoBase64 = Convert.ToBase64String(PhotoSource);
+            var photoPage = new PhotoFullScreenPage(photoBase64, null);
+            photoPage.BackgroundColor = Color.Black;
+
+            var navigation = new NavigationPage(photoPage);
+            navigation.BackgroundColor = Color.Black;
+            navigation.BarTextColor = Color.White;
+            navigation.BarBackgroundColor = Color.Black;
+
+            Navigation.PushModalAsync(navigation);
         }
 
         private async void DidSelectItemHandler(object sender, AddressBookPageEventArgs e)

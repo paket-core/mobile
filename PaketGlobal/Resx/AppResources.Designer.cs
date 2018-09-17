@@ -713,6 +713,13 @@ namespace PaketGlobal
             }
         }
 
+        internal static string Done
+        {
+            get
+            {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
 
     }
 }
