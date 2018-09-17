@@ -223,7 +223,7 @@
                                         <StackLayout Spacing="15">
                                             <Label TextColor="Black" Text="{local:Translate Information}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                             <StackLayout Spacing="10" Padding="0,0,0,0">
-                                                <Image Aspect="AspectFill" IsVisible="true" x:Name="PhotoImage" BackgroundColor="#FAFAFA" HeightRequest="190"/>
+                                                <Image xe:TouchEffect.Color="Gray" Aspect="AspectFill" IsVisible="true" x:Name="PhotoImage" BackgroundColor="#FAFAFA" HeightRequest="190"/>
                                                 <StackLayout Spacing="3">
                                                     <StackLayout Spacing="0">
                                                         <Label TextColor="#A7A7A7" Text="{local:Translate Description}"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>

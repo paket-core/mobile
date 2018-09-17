@@ -28,6 +28,7 @@ namespace PaketGlobal.iOS
             ProgressRingRenderer.Init();
             Xamarin.FormsMaps.Init();
             Xamarin.FormsGoogleMaps.Init("AIzaSyDnC69vNlEd0nv9-nnI5NDFY2zj6WChPOw");
+            Stormlion.PhotoBrowser.iOS.Platform.Init();
 
             global::Xamarin.Forms.Forms.Init();
 

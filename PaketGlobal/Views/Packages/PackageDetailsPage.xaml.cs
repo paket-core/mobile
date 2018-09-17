@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
+using Stormlion.PhotoBrowser;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -16,6 +17,7 @@ namespace PaketGlobal
         private bool CanAssignPackage = false;
 
         private BarcodePackageData BarcodeData;
+        private string photoBase64 = null;
 
         public bool ShouldDismiss = false;
 
@@ -171,6 +173,18 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PackageLinkLabel, packageLinkCommand);
 
 
+            var openPhotoCommand = new Command(() =>
+            {
+                OpenPhotoFullScreen();
+            });
+            XamEffects.Commands.SetTap(PhotoImage, openPhotoCommand);
+
+            var openBarcodeCommand = new Command(() =>
+            {
+                OpenQRFullScreen();
+            });
+            XamEffects.Commands.SetTap(BarcodeImage, openBarcodeCommand);
+
             LinksFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
             UsersFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
 
@@ -190,8 +204,11 @@ namespace PaketGlobal
 
                         if (photo.Photo != null)
                         {
+                            photoBase64 = photo.Photo;
+
                             PhotoImage.Source = ImageSource.FromStream(
-                                () => new MemoryStream(Convert.FromBase64String(photo.Photo)));
+                                () => new MemoryStream(Convert.FromBase64String(photoBase64)));
+                            
                             PhotoImage.IsVisible = true;
                         }
                     }
@@ -441,7 +458,7 @@ namespace PaketGlobal
         }
 
 
-		void FinalizePackageEvents(object sender, LaunchPackageEventArgs e)
+		private void FinalizePackageEvents(object sender, LaunchPackageEventArgs e)
 		{
 			ProgressBar.AnimationEasing = Easing.SinIn;
 			ProgressBar.AnimationLength = 3000;
@@ -567,6 +584,32 @@ namespace PaketGlobal
 
                 App.ShowLoading(false);
             }
+        }
+
+        private void OpenPhotoFullScreen()
+        {
+            var photoPage = new PhotoFullScreenPage(photoBase64,null);
+            photoPage.BackgroundColor = Color.Black;
+
+            var navigation = new NavigationPage(photoPage);
+            navigation.BackgroundColor = Color.Black;
+            navigation.BarTextColor = Color.White;
+            navigation.BarBackgroundColor = Color.Black;
+
+            Navigation.PushModalAsync(navigation);
+        }
+
+        private void OpenQRFullScreen()
+        {
+            var photoPage = new PhotoFullScreenPage(null,BarcodeImage.BarcodeValue);
+            photoPage.BackgroundColor = Color.Black;
+
+            var navigation = new NavigationPage(photoPage);
+            navigation.BackgroundColor = Color.Black;
+            navigation.BarTextColor = Color.White;
+            navigation.BarBackgroundColor = Color.Black;
+
+            Navigation.PushModalAsync(navigation);
         }
 
 

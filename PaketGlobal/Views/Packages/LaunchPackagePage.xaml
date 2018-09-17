@@ -156,7 +156,7 @@
                                     <Image Source="information_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26"/>
                                 </StackLayout>
                                 <StackLayout Spacing="10">
-                                    <Image Aspect="AspectFill" IsVisible="false" x:Name="PhotoImage" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" WidthRequest="290" HeightRequest="190"/>
+                                    <Image Aspect="AspectFill" xe:TouchEffect.Color="Gray" IsVisible="false" x:Name="PhotoImage" HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" WidthRequest="290" HeightRequest="190"/>
                                     <Button HorizontalOptions="Center" VerticalOptions="Start" BackgroundColor="Transparent" Image="{local:Translate TakePhoto}"
                                             WidthRequest="291" HeightRequest="42" Clicked="OnTakePhoto" x:Name="PhotoButton"/>
                                 </StackLayout>

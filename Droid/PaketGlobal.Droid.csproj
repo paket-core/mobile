@@ -318,6 +318,39 @@
     <Reference Include="Plugin.Media">
       <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\monoandroid71\Plugin.Media.dll</HintPath>
     </Reference>
+    <Reference Include="Bolts.AppLinks">
+      <HintPath>..\packages\Bolts.1.4.0.1\lib\MonoAndroid403\Bolts.AppLinks.dll</HintPath>
+    </Reference>
+    <Reference Include="Bolts.Tasks">
+      <HintPath>..\packages\Bolts.1.4.0.1\lib\MonoAndroid403\Bolts.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Naxam.FrescoCore.Droid">
+      <HintPath>..\packages\Naxam.FrescoCore.Droid.1.5.0\lib\MonoAndroid10\Naxam.FrescoCore.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Naxam.FrescoDrawee.Droid">
+      <HintPath>..\packages\Naxam.FrescoDrawee.Droid.1.5.0\lib\MonoAndroid10\Naxam.FrescoDrawee.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Naxam.FrescoImagePipelineBase.Droid">
+      <HintPath>..\packages\Naxam.FrescoImagePipelineBase.Droid.1.5.0\lib\MonoAndroid10\Naxam.FrescoImagePipelineBase.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Naxam.FrescoImagePipeline.Droid">
+      <HintPath>..\packages\Naxam.FrescoImagePipeline.Droid.1.5.0\lib\MonoAndroid10\Naxam.FrescoImagePipeline.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Naxam.Fresco.Droid">
+      <HintPath>..\packages\Naxam.Fresco.Droid.1.5.0\lib\MonoAndroid10\Naxam.Fresco.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.FrescoImageViewer">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\MonoAndroid\Stormlion.FrescoImageViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser.Android">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\MonoAndroid\Stormlion.PhotoBrowser.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\MonoAndroid\Stormlion.PhotoBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoDraweeView">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\MonoAndroid\Stormlion.PhotoDraweeView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />

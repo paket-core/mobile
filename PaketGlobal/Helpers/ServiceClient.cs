@@ -90,7 +90,7 @@ namespace PaketGlobal
         {
             var request = PrepareRequest(apiVersion + "/package_photo", Method.POST);
 
-			request.AddParameter("escrow_pubkey", "GASHSNWU4EG5X6LSP32SG27D7C3OBFTBKYAVQ5N2SQOEQ53CKQNJOOII");
+            request.AddParameter("escrow_pubkey", puckageId);
 
             return await SendRequest<PackagePhotoData>(request, signData: false);
         }
