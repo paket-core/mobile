@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-
+using Newtonsoft.Json;
 using Xamarin.Auth;
 
 namespace PaketGlobal.iOS
@@ -188,5 +189,16 @@ namespace PaketGlobal.iOS
 				AccountStore.Create().Delete(account, App.AppName);
 			}
 		}
+
+        public void SavePackages(List<Package> packages)
+        {
+            if(packages!=null)
+            {
+                var json = JsonConvert.SerializeObject(packages);
+                NSUserDefaults.StandardUserDefaults.SetString(json, "packages");
+                NSUserDefaults.StandardUserDefaults.Synchronize(); 
+            }
+ 
+        }
 	}
 }

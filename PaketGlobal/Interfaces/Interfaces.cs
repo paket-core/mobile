@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Plugin.Geolocator.Abstractions;
 
@@ -18,6 +19,7 @@ namespace PaketGlobal
 		void DeleteCredentials();
         bool ShowNotifications { get; set; }
         string ActivationAddress { get; set; }
+        void SavePackages(List<Package> packages);
 	}
 
 	public interface IAppInfoService
@@ -58,6 +60,8 @@ namespace PaketGlobal
 
         void ShowProgress();
         void HideProgress();
+
+        bool IsNeedAlertDialogToClose { get; set; }
     }
 
     public interface ILocationSharedService

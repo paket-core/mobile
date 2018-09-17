@@ -552,6 +552,12 @@
     <BundleResource Include="Resources\slider_thumb%403x.png" />
     <BundleResource Include="Resources\slider_thumb%402x.png" />
     <BundleResource Include="Resources\slider_thumb.png" />
+    <BundleResource Include="Resources\expired_icon%403x.png" />
+    <BundleResource Include="Resources\expired_icon%402x.png" />
+    <BundleResource Include="Resources\expired_icon.png" />
+    <BundleResource Include="Resources\expired_status_icon%403x.png" />
+    <BundleResource Include="Resources\expired_status_icon%402x.png" />
+    <BundleResource Include="Resources\expired_status_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

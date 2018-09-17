@@ -33,6 +33,20 @@ namespace PaketGlobal
        
     }
 
+    [DataContract]
+    public class PackagePhoto : BaseData
+    {
+        [DataMember(Name = "photo")]
+        public string Photo { get; set; }
+    }
+
+    [DataContract]
+    public class PackagePhotoData: BaseData
+    {
+        [DataMember(Name = "package_photo")]
+        public PackagePhoto PackagePhoto { get; set; }
+    }
+
 	[DataContract]
 	public class UserData : BaseData
 	{
@@ -435,6 +449,34 @@ namespace PaketGlobal
         [DataMember(Name = "launcher_contact")]
         public string LauncherContact { get; set; }
 
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        public bool IsExpiredInList
+        {
+            get{
+                if (IsExpired && MyRole==PaketRole.Launcher && PaymentTransaction != null)
+                {
+                    return true;
+                }
+                    
+                return false;
+            }
+        }
+
+        public bool IsExpired
+        {
+            get
+            {
+                if(DateTime.Now > DeadlineDT && Status != "delivered")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
 		///[DataMember(Name = "courier_pubkey")]
         public string CourierPubkey
         {
@@ -625,6 +667,8 @@ namespace PaketGlobal
                 {
                     status = value;
                     OnPropertyChanged("Status");
+                    OnPropertyChanged("StatusIconWithText");
+                    OnPropertyChanged("ProgressIcon");
                 }
             }
         }
@@ -667,7 +711,7 @@ namespace PaketGlobal
 		}
 
 		public DateTime DeadlineDT {
-			get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
+            get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
 		}
 
 		public DateTime SendTimeDT {
@@ -675,6 +719,19 @@ namespace PaketGlobal
                 return DateTime.Parse(SendTimestamp);
             }
 		}
+
+        public Color DeadlineStringColor
+        {
+            get{
+                if(IsExpired)
+                {
+                    return Color.FromHex("#D43F51");
+                }
+
+                return Color.FromHex("#000000");
+
+            }
+        }
 
 		public string DeadlineString {
 			get { 
@@ -693,7 +750,11 @@ namespace PaketGlobal
         {
             get
             {
-                if (Status == "waiting pickup")
+                if (IsExpired)
+                {
+                    return "expired_status_icon.png";
+                }
+                else if (Status == "waiting pickup")
                 {
                     return "waiting_status_icon.png";
                 }
@@ -708,7 +769,11 @@ namespace PaketGlobal
         public string StatusIcon
         {
             get { 
-                if (Status=="waiting pickup") {
+                if(IsExpired)
+                {
+                    return "expired_icon.png";  
+                }
+                else if (Status=="waiting pickup") {
                     return "waiting_pickup.png";  
                 }
                 else if (Status == "delivered")
@@ -723,6 +788,10 @@ namespace PaketGlobal
         {
             get
             {
+                if(IsExpired)
+                {
+                    return AppResources.Expired.ToUpperInvariant();
+                }
                 return Status.ToUpperInvariant();
             }
         }

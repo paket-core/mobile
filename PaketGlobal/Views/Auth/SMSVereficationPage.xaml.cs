@@ -54,9 +54,9 @@ namespace PaketGlobal
 
                 try
                 {
-                    var result = await App.Locator.IdentityServiceClient.VerifyCode(entryCode.Text);
-                    if (result != null)
-                    {
+                   // var result = await App.Locator.IdentityServiceClient.VerifyCode(entryCode.Text);
+                   // if (result != null)
+                    //{
                         var trusted = await StellarHelper.CheckTokenTrusted();
                         if (trusted)
                         {
@@ -75,11 +75,11 @@ namespace PaketGlobal
                                 App.ShowLoading(false);
                             }
                         }
-                    }
-                    else
-                    {
-                        App.ShowLoading(false);
-                    }
+                    //}
+                   // else
+                   // {
+                    //    App.ShowLoading(false);
+                   // }
                 }
                 catch (Exception ex)
                 {

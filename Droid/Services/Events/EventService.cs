@@ -12,6 +12,8 @@ namespace PaketGlobal.Droid
     [Service]
     public class EventService : Service
     {
+        public static bool IsNeedSendEvents = false;
+
         private int DELAY_BETWEEN_LOG_MESSAGES = 3600000;
         private int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
         private const string SERVICE_STARTED_KEY = "enets_has_service_been_started";
@@ -101,7 +103,7 @@ namespace PaketGlobal.Droid
 
         private async void SendUsedEvent()
         {
-            if (App.Locator.Profile.Activated)
+            if (App.Locator.Profile.Activated && EventService.IsNeedSendEvents)
             {
 				var result = await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 Console.WriteLine(result);

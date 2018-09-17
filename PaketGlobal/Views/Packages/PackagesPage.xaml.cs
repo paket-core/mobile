@@ -120,28 +120,15 @@ namespace PaketGlobal
 
             MessagingCenter.Subscribe<PackageDetailsPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
             {
-                var paketId = arg;
-
-                foreach (var package in ViewModel.AvailablePackagesList)
-                {
-                    if (package.PaketId==paketId)
-                    {
-                        ViewModel.AvailablePackagesList.Remove(package);
-                        break;
-                    }
-                }
-
-                if(ViewModel.AvailablePackagesList.Count==1)
-                {
-                    ViewModel.AvailablePackagesList.Add(new NotFoundPackage());
-                }
-
+                AllClicked(AllButton, EventArgs.Empty);
             });
         }
 
         protected async override void OnAppearing()
         {
             var fl = firstLoad;
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
 
             base.OnAppearing();
 
@@ -167,6 +154,13 @@ namespace PaketGlobal
 
 
             ViewModel.CurrentDisplayPackageId = "";
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
         }
 
 

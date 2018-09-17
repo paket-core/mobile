@@ -697,5 +697,22 @@ namespace PaketGlobal
             }
         }
 
+        internal static string Expired
+        {
+            get
+            {
+                return ResourceManager.GetString("Expired", resourceCulture);
+            }
+        }
+
+        internal static string WaitingExpiredDepositPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingExpiredDepositPackage", resourceCulture);
+            }
+        }
+
+
     }
 }
