@@ -49,7 +49,7 @@
                        RelativeLayout.WidthConstraint="20"
                        RelativeLayout.HeightConstraint="20"
                        RelativeLayout.YConstraint="20"
-                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"/>
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"/>
 
 
                     <ListView x:Name="ItemsListView" 
