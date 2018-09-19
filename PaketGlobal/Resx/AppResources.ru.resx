@@ -675,4 +675,13 @@
                <data name="Expired" xml:space="preserve">
         <value>Срок доставки истек</value>
     </data> 
+
+        <data name="WaitingCourierAssign" xml:space="preserve">
+        <value>У вас еще нет прав для просмотра QR-кода</value>
+    </data>
+
+       <data name="WaitingCourierAccept" xml:space="preserve">
+        <value>Вы должны принять посылку, чтобы увидеть QR-код</value>
+    </data>
+    
 </root>

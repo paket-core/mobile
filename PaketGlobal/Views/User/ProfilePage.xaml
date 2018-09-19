@@ -45,7 +45,7 @@
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate PhoneNumber}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="PhoneEntry" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="{local:Translate EnterPhoneNumber}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="PhoneEntry" IsEnabled="false" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="{local:Translate EnterPhoneNumber}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate Address}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />

@@ -100,10 +100,10 @@
                                        <StackLayout Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                                           <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerBULCurrency" Title="{local:Translate SelectPaymentCurrency}" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                                              <Picker.ItemsSource>
-                                                <x:Array Type="{x:Type local:PaymentCurrency}">
+                                     <!--           <x:Array Type="{x:Type local:PaymentCurrency}">
                                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
                                                    <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                                </x:Array>
+                                                </x:Array>-->
                                              </Picker.ItemsSource>
                                           </local:PaketPicker>
                                        </StackLayout>
@@ -140,10 +140,10 @@
                                        <StackLayout Spacing="0" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
                                           <local:PaketPicker BackgroundV="3" Unfocused="PickerUnfocused" x:Name="PickerXLMCurrency" Title="{local:Translate SelectPaymentCurrency}" LineColor="#fffff" ImageWidth="9" ImageHeight="5" Image="dropdown_arrow.png" HeightRequest="40">
                                              <Picker.ItemsSource>
-                                                <x:Array Type="{x:Type local:PaymentCurrency}">
+                                    <!--            <x:Array Type="{x:Type local:PaymentCurrency}">
                                                    <local:PaymentCurrency>ETH</local:PaymentCurrency>
                                                    <local:PaymentCurrency>BTC</local:PaymentCurrency>
-                                                </x:Array>
+                                                </x:Array>-->
                                              </Picker.ItemsSource>
                                           </local:PaketPicker>
                                        </StackLayout>

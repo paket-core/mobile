@@ -675,6 +675,15 @@
             <data name="Expired" xml:space="preserve">
         <value>Expired</value>
     </data> 
+    <data name="WaitingCourierAssign" xml:space="preserve">
+        <value>You do not have permission to view the barcode yet</value>
+    </data>
+
+    <data name="WaitingCourierAccept" xml:space="preserve">
+        <value>You must accept the package to see the barcode</value>
+    </data>
 
 
+
+    
 </root>

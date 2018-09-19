@@ -7,6 +7,16 @@ namespace PaketGlobal
     {
         public static double ThenMlns = 10000000.0f;
 
+        public static string ConvertEuroValueToString(double result)
+        {
+            var culture = CultureInfo.CreateSpecificCulture("en-US");
+            culture.NumberFormat.CurrencyDecimalSeparator = ".";
+            culture.NumberFormat.CurrencyGroupSeparator = ",";
+            culture.NumberFormat.CurrencySymbol = "";
+
+            return result.ToString("C2", culture);
+        }
+
         public static string ConvertValueToString(long value)
         {
             var culture = CultureInfo.CreateSpecificCulture("en-US");

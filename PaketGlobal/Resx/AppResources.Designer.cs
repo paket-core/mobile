@@ -721,5 +721,22 @@ namespace PaketGlobal
             }
         }
 
+        internal static string WaitingCourierAssign
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingCourierAssign", resourceCulture);
+            }
+        }
+
+        internal static string WaitingCourierAccept
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingCourierAccept", resourceCulture);
+            }
+        }
+
+
     }
 }

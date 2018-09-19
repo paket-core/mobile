@@ -22,6 +22,9 @@ namespace PaketGlobal
 
         public const string ADDRESS_BOOK = "address_book";
 
+        public const string BULL_RATIO = "BULL_RATIO_VALUE";
+        public const string XLM_RATIO = "XLM_RATIO_VALUE";
+
         public const string APP_URL = "https://github.com/paket-core/mobile";
         public const string PAKET_URL = "https://paket.global";
         public const string PAKET_PRIVACY_URL = "https://paket.global/privacy-policy";

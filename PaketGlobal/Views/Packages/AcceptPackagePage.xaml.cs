@@ -107,7 +107,7 @@ namespace PaketGlobal
 
 							BindingContext = package.Package;
 
-                            var packagePage = new PackageDetailsPage(package.Package, true, data);
+                            var packagePage = new NewPackageDetailPage(package.Package, true, data);
                             await Navigation.PushAsync(packagePage);
 						} 
                         else {
