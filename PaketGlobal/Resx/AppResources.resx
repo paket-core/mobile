@@ -43,10 +43,10 @@
         <value>KEYS</value>
     </data>
     <data name="DisplayKeys" xml:space="preserve">
-        <value>Display Secret Data</value>
+        <value>Display Sensitive Data</value>
     </data>
     <data name="SecretSeed" xml:space="preserve">
-        <value>Display Secret Seed</value>
+        <value>Secret Seed</value>
     </data>
     <data name="SecretSeedProfileInfo" xml:space="preserve">
         <value>Here’s your secret seed, used to interact&#xA;securely with our system</value>
@@ -115,7 +115,7 @@
         <value>Done &amp; Copy Address</value>
     </data>
     <data name="MyPackages" xml:space="preserve">
-        <value>My Packages</value>
+        <value>Packages</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
         <value>Create and track&#x0a;your packages</value>
@@ -631,7 +631,7 @@
         <value>Search...</value>
     </data>
     <data name="AllPackages" xml:space="preserve">
-        <value>All Packages</value>
+        <value>Mine</value>
     </data>
     <data name="AvailablePackages" xml:space="preserve">
         <value>Available</value>
