@@ -60,6 +60,13 @@ namespace PaketGlobal.iOS
         {
         }
 
+        public string CountryName()
+        {
+            var locale = NSLocale.CurrentLocale;
+            var country =  locale.GetCountryCodeDisplayName(locale.CountryCode);
+            return country;
+        }
+
         public string CountryCode()
         {
             var network_Info = new CTTelephonyNetworkInfo();

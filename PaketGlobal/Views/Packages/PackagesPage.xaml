@@ -32,16 +32,16 @@
             <DataTemplate x:Key="FilterPackages">
                 <local:CellWithoutSelection>
                     <RelativeLayout>
-                        <StackLayout Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="40">
+                        <StackLayout IsVisible="false" Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="40">
                             <Image Source="filter_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             <Label Text="{local:Translate Filter}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
                         </StackLayout>
-                        <Button RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-140}"
+                        <Button IsVisible="false" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-140}"
                                 RelativeLayout.YConstraint="30"
                                 Text="{local:Translate Reset}" 
                                 BackgroundColor="#F0F0F0"
                                 Clicked="OnResetFilterClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
-                        <local:PaketSlider RelativeLayout.YConstraint="120"
+                        <local:PaketSlider RelativeLayout.YConstraint="50"
                                 TouchUp="OnSliderTouchUp"
                                 MinimumTrackColor="#53C5C7"
                                 MaximumTrackColor="Gray"
@@ -50,13 +50,13 @@
                                 RelativeLayout.XConstraint="30"
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"
                                 Maximum="200" Minimum="1"  Value="{Binding Radius, Mode=TwoWay}" ValueChanged="OnSliderValueChanged" />
-                        <Label RelativeLayout.YConstraint="95"
+                        <Label RelativeLayout.YConstraint="25"
                                WidthRequest="100"
                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-130}" 
                                XAlign="End"
                                IsVisible="{Binding IsAvailableCompleted, Mode=TwoWay}"
                                Text="{Binding RadiusString}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        <ActivityIndicator RelativeLayout.YConstraint="90"
+                        <ActivityIndicator RelativeLayout.YConstraint="20"
                                HeightRequest="30"
                                WidthRequest="30"
                                IsRunning="{Binding IsAvailableRunning, Mode=TwoWay}"

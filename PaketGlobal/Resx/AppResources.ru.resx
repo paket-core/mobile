@@ -115,10 +115,10 @@
         <value>Скопировать</value>
     </data>
     <data name="MyPackages" xml:space="preserve">
-        <value>Мои посылки</value>
+        <value>Посылки</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Здесь вы можете создавать и отслеживать&#x0a;все ваши посылки</value>
+        <value>Создавайте и отслеживайте&#x0a;ваши посылки</value>
     </data>
     <data name="Sent" xml:space="preserve">
         <value>ОТПРАВЛЕНО</value>
@@ -141,9 +141,9 @@
     <data name="WaitingExpiredDepositPackage" xml:space="preserve">
         <value>Срок истек&#x0a;Вы не можете оплатить и запустить посылку.</value>
     </data>
-    <data name="ReclaimInList" xml:space="preserve">
-        <value>Вы можете вернуть средства.</value>
-    </data>
+    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
+         <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
+     </data>
     <data name="AcceptPackage" xml:space="preserve">
         <value>Принять посылку</value>
     </data>
@@ -513,6 +513,9 @@
     <data name="EnterAddress" xml:space="preserve">
         <value>Введите адрес</value>
     </data>
+    <data name="EnterCountry" xml:space="preserve">
+        <value>Введите страну</value>
+    </data>
     <data name="SelectRecipient" xml:space="preserve">
         <value>Выберите получателя</value>
     </data>
@@ -631,7 +634,7 @@
         <value>Поиск...</value>
     </data>
     <data name="AllPackages" xml:space="preserve">
-        <value>Все посылки</value>
+        <value>Мои</value>
     </data>
     <data name="AvailablePackages" xml:space="preserve">
         <value>Доступные</value>
@@ -686,5 +689,11 @@
     </data>
     <data name="IncorrectMnemonic" xml:space="preserve">
         <value>Неверное слово</value>
+    </data>
+    <data name="Country" xml:space="preserve">
+        <value>Страна</value>
+    </data>
+    <data name="UnsuportedUSACountry" xml:space="preserve">
+        <value>Приложение не доступно в США</value>
     </data>
 </root>

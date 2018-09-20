@@ -44,6 +44,9 @@ namespace PaketGlobal
 				ViewModel.FullName = userData.FullName;
 				ViewModel.Address = userData.Address;
             }
+            else{
+                ViewModel.Address = App.Locator.DeviceService.CountryName();
+            }
 
             if (IsAddedInfo)
             {
@@ -86,6 +89,13 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(termsOfServiceLabel, selectTermsCommand);
 
             App.Locator.DeviceService.setStausBarLight();
+
+            if(ViewModel.Address.ToLower()=="united states" ||  ViewModel.Address.ToLower() == "usa")
+            {
+                errorLabel.IsVisible = true;
+                generateButton.IsEnabled = false;
+                generateButton.ButtonBackground = "#A7A7A7";
+            }
         }
 
         public RegistrationPage()
@@ -338,5 +348,19 @@ namespace PaketGlobal
             entryPhoneNumber.IsEnabled = enabled;
         }
 
+        void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (ViewModel.Address.ToLower() == "united states" || ViewModel.Address.ToLower() == "usa")
+            {
+                errorLabel.IsVisible = true;
+                generateButton.IsEnabled = false;
+                generateButton.ButtonBackground = "#A7A7A7";
+            }
+            else{
+                errorLabel.IsVisible = false;
+                generateButton.IsEnabled = true;
+                generateButton.ButtonBackground = "#53C5C7";
+            }
+        }
     }
 }

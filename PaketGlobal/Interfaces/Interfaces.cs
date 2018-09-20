@@ -57,6 +57,7 @@ namespace PaketGlobal
         int ScreenWidth();
 
         string CountryCode();
+        string CountryName();
 
         void ShowProgress();
         void HideProgress();

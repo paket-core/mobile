@@ -118,7 +118,7 @@
         <value>Packages</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Create and track your packages</value>
+        <value>Create and track&#x0a;your packages</value>
     </data>
     <data name="Sent" xml:space="preserve">
         <value>SENT</value>
@@ -220,7 +220,7 @@
         <value>Select Payment Currency</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>GENERATE KEY</value>
+        <value>Continue</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>Already have a key</value>
@@ -463,10 +463,10 @@
         <value>Create New Account</value>
     </data>
     <data name="HereMnemonic" xml:space="preserve">
-        <value>Here’s mnemonic&#xA;phrase</value>
+        <value>Your mnemonic&#xA;phrase</value>
     </data>
     <data name="ConfirmMnemonicText1" xml:space="preserve">
-        <value>Please confirm you saved mnemonic&#xA;phrase</value>
+        <value>Please confirm mnemonic phrase</value>
     </data>
     <data name="ConfirmMnemonicText2" xml:space="preserve">
         <value>Please make sure you have save your&#xA;mnemonic phrase. Keep it somewhere&#xA;safe. Thank you</value>
@@ -497,6 +497,9 @@
     </data>
     <data name="EnterAddress" xml:space="preserve">
         <value>Enter Address</value>
+    </data>
+    <data name="EnterCountry" xml:space="preserve">
+        <value>Enter Country</value>
     </data>
     <data name="SelectRecipient" xml:space="preserve">
         <value>Select Recipient</value>
@@ -552,6 +555,12 @@
     <data name="DeadlineLower" xml:space="preserve">
         <value>Deadline</value>
     </data>
+    <data name="ReclaimInList" xml:space="preserve">
+        <value>You can reclaim your payment and collateral</value>
+    </data>
+    <data name="ContactsAccessNotGranted" xml:space="preserve">
+         <value>You must grant access to contacts to select the recipient's phone</value>
+     </data>
     <data name="PackageDescText1" xml:space="preserve">
         <value>Package Description</value>
     </data>
@@ -669,4 +678,12 @@
     <data name="IncorrectMnemonic" xml:space="preserve">
         <value>Wrong word from mnemonic</value>
     </data>
+    <data name="Country" xml:space="preserve">
+        <value>Country</value>
+    </data>
+    <data name="UnsuportedUSACountry" xml:space="preserve">
+        <value>This application is unavailable in the United States</value>
+    </data>
+
+
 </root>

@@ -49,7 +49,7 @@
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate Address}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterAddress}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterCountry}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                         </StackLayout>
                      </StackLayout>

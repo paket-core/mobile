@@ -79,6 +79,11 @@ namespace PaketGlobal.Droid
             return LocaleCountryCode();
         }
 
+        public string CountryName()
+        {
+            return Locale.Default.DisplayCountry;
+        }
+
         private string LocaleCountryCode()
         {
             var countryCode = Locale.Default.ISO3Country;
