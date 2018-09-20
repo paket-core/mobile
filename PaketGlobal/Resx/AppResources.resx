@@ -226,7 +226,7 @@
         <value>Select Payment Currency</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>Generate Key</value>
+        <value>Continue</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>Already have a key</value>
@@ -481,10 +481,10 @@
         <value>Create New Account</value>
     </data>
     <data name="HereMnemonic" xml:space="preserve">
-        <value>Here’s mnemonic&#xA;phrase</value>
+        <value>Your mnemonic&#xA;phrase</value>
     </data>
     <data name="ConfirmMnemonicText1" xml:space="preserve">
-        <value>Please confirm you saved mnemonic&#xA;phrase</value>
+        <value>Please confirm mnemonic&#xA;phrase</value>
     </data>
     <data name="ConfirmMnemonicText2" xml:space="preserve">
         <value>Please make sure you have save your&#xA;mnemonic phrase. Keep it somewhere&#xA;safe. Thank you</value>
