@@ -72,7 +72,7 @@ namespace PaketGlobal
 
 		public async Task<VerifyData> SendVerification()
 		{
-			var request = PrepareRequest(apiVersion + "/request_verification_code", Method.POST);
+			var request = PrepareRequest(apiVersion + "/request_verification_token", Method.POST);
 
 			return await SendRequest<VerifyData>(request);
 		}
@@ -84,6 +84,15 @@ namespace PaketGlobal
             request.AddParameter("verification_code", code);
 
             return await SendRequest<VerifyData>(request);
+        }
+
+        public async Task<RatioData> GetWalletRatio(string currency)
+        {
+            var request = PrepareRequest(apiVersion + "/ratio", Method.POST);
+
+            request.AddParameter("currency", currency);
+
+            return await SendRequest<RatioData>(request);
         }
 
         public async Task<PackagePhotoData> GetPackagePhoto(string puckageId)

@@ -11,9 +11,27 @@ namespace PaketGlobal
 		private BalanceData balance;
 		private PriceData price;
 
+        public double XLM_Ratio = 0;
+        public double BUL_Ratio = 0;
+
         public WalletModel()
         {
             SubscribeToNotifications();
+
+            if(App.Current.Properties.ContainsKey(Constants.BULL_RATIO))
+            {
+                object fromStorageBul;
+                object fromStorageXlm;
+
+                Application.Current.Properties.TryGetValue(Constants.BULL_RATIO, out fromStorageBul);
+                Application.Current.Properties.TryGetValue(Constants.XLM_RATIO, out fromStorageXlm);
+
+                int bul = Convert.ToInt32(fromStorageBul as string);
+                int xlm = Convert.ToInt32(fromStorageXlm as string);
+
+                XLM_Ratio = (double)xlm / 100.0;
+                BUL_Ratio = (double)bul / 100.0;
+            }
         }
 
         private void SubscribeToNotifications()
@@ -90,6 +108,8 @@ namespace PaketGlobal
 		{
             StopTimer();
 
+            LoadRatio();
+
 			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 			if (bal != null) {
                 
@@ -153,5 +173,22 @@ namespace PaketGlobal
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.CLICK_WALLET_NOTIFICATION, "");
         }
 
+
+        private async void LoadRatio()
+        {
+            var xlm = await App.Locator.IdentityServiceClient.GetWalletRatio("XLM");
+            var bul = await App.Locator.IdentityServiceClient.GetWalletRatio("BUL");
+
+            if(xlm != null && bul != null)
+            {
+
+                Application.Current.Properties[Constants.BULL_RATIO] = Convert.ToString(xlm.Ratio);
+                Application.Current.Properties[Constants.XLM_RATIO] = Convert.ToString(xlm.Ratio);
+                await Application.Current.SavePropertiesAsync();
+
+                XLM_Ratio = (double)xlm.Ratio / 100.0;
+                BUL_Ratio = (double)bul.Ratio / 100.0;
+            }
+        }
 	}
 }

@@ -46,8 +46,19 @@ namespace PaketGlobal
             }
 #else
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100;
-            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100; 
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100;
 #endif
+
+            //crash in xaml for ios
+            var list = new List<PaymentCurrency>();
+            list.Add(PaymentCurrency.BTC);
+            list.Add(PaymentCurrency.ETH);
+
+            PickerBULCurrency.ItemsSource = list;
+            PickerXLMCurrency.ItemsSource = list;
+            //crash in xaml for ios
+
+
 
             AddCommands();
         }

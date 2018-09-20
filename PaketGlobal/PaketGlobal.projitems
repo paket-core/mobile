@@ -130,6 +130,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml.cs">
       <DependentUpon>PhotoFullScreenPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SwipeListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\NewPackageDetailPage.xaml.cs">
+      <DependentUpon>NewPackageDetailPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -233,6 +237,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\NewPackageDetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

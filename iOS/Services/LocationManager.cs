@@ -139,7 +139,7 @@ namespace PaketGlobal.iOS
                     var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
 
-                    if (myRole == PaketRole.Courier)
+                    if (myRole == PaketRole.Courier && package.PaymentTransaction != null && package.Status.ToLower() == "in transit")
                     {
                         var locationString = location.Coordinate.Latitude.ToString() + "," + location.Coordinate.Longitude.ToString();
                         if(locationString.Length>24)

@@ -47,11 +47,11 @@ namespace PaketGlobal
 
 			if (Locator.Profile.Activated) 
             {
-				var navigationPage = new NavigationPage(new MainPage());
+                var navigationPage = new NavigationPage(new MainPage());
                 MainPage = navigationPage;
 			} 
             else {
-				var navPage = Locator.NavigationService.Initialize(new WellcomePage());
+                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
 				MainPage = navPage;
 			}
 

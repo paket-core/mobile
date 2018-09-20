@@ -67,7 +67,8 @@ namespace PaketGlobal.Droid
             Xamarin.FormsMaps.Init(this, bundle);
 			Xamarin.FormsGoogleMaps.Init(this, bundle, null); 
             Stormlion.PhotoBrowser.Droid.Platform.Init(this);
-
+            Vapolia.Droid.Lib.Effects.PlatformGestureEffect.Init();
+                                 
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
 

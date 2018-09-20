@@ -52,7 +52,8 @@
                             <local:PaketEntry Placeholder="{local:Translate MnemonicWord}" VerticalOptions="Center" HorizontalTextAlignment="Center" x:Name="entryWord" LineColor="#E5E5E5"  Keyboard="Text" 
                                               HeightRequest="40"
                                               CapSentences="2"
-                                              WidthRequest="290"/>
+                                              WidthRequest="290" TextChanged="Handle_TextChanged"/>
+                            <Label IsVisible="false" Text="{local:Translate IncorrectMnemonic}" x:Name="errorLabel" XAlign="Center"  FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#D43F51"/>
                         </StackLayout>
                         <Button BackgroundColor="Transparent" Image="check_activation_button.png" WidthRequest="290" HeightRequest="50"
                           VerticalOptions="Center" Clicked="OnCheck"/>

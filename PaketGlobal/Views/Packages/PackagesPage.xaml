@@ -143,8 +143,8 @@
                         <Label YAlign="Center" HeightRequest="60" RelativeLayout.HeightConstraint="60" RelativeLayout.YConstraint="75" RelativeLayout.XConstraint="100"
                                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-220}"
                                    XAlign="Start" Text="{Binding FromLocationAddress,Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="12" TextColor="#787878"/>
-                        <StackLayout Spacing="0" RelativeLayout.YConstraint="90"
-                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-90}">
+                        <StackLayout Spacing="0" RelativeLayout.YConstraint="90" HorizontalOptions="EndAndExpand"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.92}">
                             <Label XAlign="End" Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
                             <Label XAlign="End" Text="{Binding DeadlineString,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
                         </StackLayout>

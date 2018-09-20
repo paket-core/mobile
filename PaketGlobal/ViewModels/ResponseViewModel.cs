@@ -27,6 +27,14 @@ namespace PaketGlobal
     //User
 
 
+
+    [DataContract]
+    public class RatioData : BaseData
+    {
+        [DataMember(Name = "ratio")]
+        public int Ratio { get; set; }
+    }
+
     [DataContract]
     public class VerifyData : BaseData
     {
@@ -150,7 +158,10 @@ namespace PaketGlobal
         {
             get
             {
-                return "€" + StellarConverter.ConvertValueToString(Account.BalanceXLM/1200);
+                double result = Account.BalanceXLM / 10000000.0f;
+                result = result * App.Locator.Wallet.XLM_Ratio;
+
+                return "€" + StellarConverter.ConvertEuroValueToString(result);
             }
         }
 
@@ -158,7 +169,10 @@ namespace PaketGlobal
         {
             get
             {
-                return "€" + StellarConverter.ConvertValueToString(Account.BalanceBUL/30);
+                double result = Account.BalanceBUL / 10000000.0f;
+                result = result * App.Locator.Wallet.XLM_Ratio;
+
+                return "€" + StellarConverter.ConvertEuroValueToString(result);
             }
         }
 	}
@@ -457,7 +471,10 @@ namespace PaketGlobal
             get{
                 if (IsExpired && MyRole==PaketRole.Launcher && PaymentTransaction != null)
                 {
-                    return true;
+                    if(LauncherPubkey==App.Locator.Profile.Pubkey)
+                    {
+                        return true; 
+                    }
                 }
                     
                 return false;
@@ -468,7 +485,7 @@ namespace PaketGlobal
         {
             get
             {
-                if(DateTime.Now > DeadlineDT && Status != "delivered")
+                if((DateTime.Now.ToLocalTime() > DeadlineDT)  && Status != "delivered")
                 {
                     return true;
                 }

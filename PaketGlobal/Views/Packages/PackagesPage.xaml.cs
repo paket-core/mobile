@@ -118,10 +118,11 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            MessagingCenter.Subscribe<PackageDetailsPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
+            MessagingCenter.Subscribe<NewPackageDetailPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
             {
                 AllClicked(AllButton, EventArgs.Empty);
             });
+
         }
 
         protected async override void OnAppearing()
@@ -265,7 +266,7 @@ namespace PaketGlobal
             {
                 ViewModel.CurrentDisplayPackageId = pkgData.PaketId;
 
-                var packagePage = new PackageDetailsPage(package);
+                var packagePage = new NewPackageDetailPage(package);
 
                 var mainPage = App.Current.MainPage;
 

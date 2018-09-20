@@ -71,6 +71,7 @@
 		<string>Poppins-Medium.ttf</string>
 		<string>Poppins-Bold.ttf</string>
 		<string>Poppins-Regular.ttf</string>
+		<string>SpaceMono-Bold.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos</string>
@@ -111,5 +112,7 @@
 	<string>This app needs access to photos</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery</string>
+	<key>NSLocationUsageDescription</key>
+	<string>The location is required for tracking packages</string>
 </dict>
 </plist>

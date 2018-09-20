@@ -192,7 +192,7 @@ namespace PaketGlobal.Droid
 
 
 
-                    if (myRole == PaketRole.Courier)
+                    if (myRole == PaketRole.Courier && package.PaymentTransaction!=null && package.Status.ToLower() == "in transit")
                     {
 						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         if (locationString.Length > 24)
