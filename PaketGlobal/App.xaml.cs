@@ -51,7 +51,7 @@ namespace PaketGlobal
                 MainPage = navigationPage;
 			} 
             else {
-				var navPage = Locator.NavigationService.Initialize(new WellcomePage());
+                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
 				MainPage = navPage;
 			}
 

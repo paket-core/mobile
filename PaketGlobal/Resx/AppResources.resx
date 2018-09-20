@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
@@ -118,7 +118,7 @@
         <value>Packages</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Create and track&#x0a;your packages</value>
+        <value>Create and track your packages</value>
     </data>
     <data name="Sent" xml:space="preserve">
         <value>SENT</value>
@@ -138,14 +138,8 @@
     <data name="PackageExpired" xml:space="preserve">
         <value>Deadline Expired&#x0a;You can reclaim your payment and collateral</value>
     </data>
-    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
-        <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
-    </data>
     <data name="AcceptPackage" xml:space="preserve">
         <value>Accept Package</value>
-    </data>
-    <data name="ReclaimInList" xml:space="preserve">
-        <value>You can reclaim your payment and collateral</value>
     </data>
     <data name="Funds" xml:space="preserve">
         <value>FUNDS</value>
@@ -160,7 +154,7 @@
         <value>PAYMENT INFO</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Use this barcode to pass the package to a courier&#x0a;or accept it by the recepient</value>
+        <value>Use this barcode to pass the package&#x0a;(this should be different according to role)</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>EVENTS</value>
@@ -217,7 +211,7 @@
         <value>MNEMONIC</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Use this mnemonic to recover your account.&#xA;Please save this phrase somewhere safe.</value>
+        <value>Use this mnemonic to recover your account</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Create New Private Key</value>
@@ -238,7 +232,7 @@
         <value>Or</value>
     </data>
     <data name="RestoreKey" xml:space="preserve">
-        <value>Restore Key</value>
+        <value>RESTORE KEY</value>
     </data>
     <data name="GenerateNewKey" xml:space="preserve">
         <value>Generate New Key</value>
@@ -342,108 +336,114 @@
     <data name="CameraAccessNotGranted" xml:space="preserve">
         <value>Allow camera access to scan the package</value>
     </data>
-    <data name="ContactsAccessNotGranted" xml:space="preserve">
-        <value>You must grant access to contacts to select the recipient's phone</value>
-    </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Error adding trust</value>
     </data>
-    <data name="StellarAccountNotCreated" xml:space="preserve">
+     <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Stellar account isn't created yet</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
         <value>Select payment currency</value>
     </data>
-    <data name="ProfileSaved" xml:space="preserve">
+
+        <data name="ProfileSaved" xml:space="preserve">
         <value>Profile info saved</value>
     </data>
+
     <data name="ProfileNotSaved" xml:space="preserve">
         <value>Error saving profile info</value>
     </data>
-    <data name="YRole" xml:space="preserve">
+
+     <data name="YRole" xml:space="preserve">
         <value>Your Role</value>
     </data>
+
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Check launcher balance</value>
     </data>
-    <data name="LaunchPackageStep13" xml:space="preserve">
-        <value>Check courier balance</value>
-    </data>
-    <data name="LaunchPackageStep14" xml:space="preserve">
-        <value>Assign package</value>
-    </data>
-    <data name="LaunchPackageStep15" xml:space="preserve">
-        <value>Check courier balance</value>
-    </data>
+
     <data name="LaunchPackageStep2" xml:space="preserve">
-        <value>Create Package</value>
+        <value>Check courier balance</value>
     </data>
+
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Create escrow account</value>
     </data>
+
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Sign escrow transaction</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Submit escrow transaction</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep6" xml:space="preserve">
         <value>Add token trust to escrow</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Prepare escrow</value>
     </data>
+
     <data name="LaunchPackageStep8" xml:space="preserve">
         <value>Sign options transaction</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep9" xml:space="preserve">
         <value>Submit options transaction</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep10" xml:space="preserve">
         <value>Prepare send payment</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep11" xml:space="preserve">
         <value>Sign payment transaction</value>
-    </data>
+    </data> 
     <data name="LaunchPackageStep12" xml:space="preserve">
         <value>Submit payment transaction</value>
     </data>
-    <data name="LaunchPackageStep0" xml:space="preserve">
+
+       <data name="LaunchPackageStep0" xml:space="preserve">
         <value>Getting user's location</value>
-    </data>
+    </data> 
     <data name="FractionalDigitsError" xml:space="preserve">
         <value>Can't specify more then 7 fractional digits</value>
-    </data>
-    <data name="AppInfo" xml:space="preserve">
+    </data> 
+     <data name="AppInfo" xml:space="preserve">
         <value>APPLICATION INFORMATION</value>
     </data>
-    <data name="About" xml:space="preserve">
+
+     <data name="About" xml:space="preserve">
         <value>About</value>
-    </data>
+    </data> 
     <data name="Packages" xml:space="preserve">
         <value>Packages</value>
     </data>
+
     <data name="Version" xml:space="preserve">
         <value>App Version</value>
     </data>
+
     <data name="Git" xml:space="preserve">
         <value>Git Commit</value>
     </data>
+
     <data name="AppURL" xml:space="preserve">
         <value>App URL</value>
     </data>
+    
     <data name="PaketURL" xml:space="preserve">
         <value>Paket URL</value>
     </data>
-    <data name="ClickToOpen" xml:space="preserve">
+
+   <data name="ClickToOpen" xml:space="preserve">
         <value>Click to open</value>
     </data>
-    <data name="Language" xml:space="preserve">
+
+       <data name="Language" xml:space="preserve">
         <value>Language</value>
     </data>
+
     <data name="SelectLanguage" xml:space="preserve">
         <value>Select Language</value>
     </data>
+
     <data name="WellcomeText1" xml:space="preserve">
         <value>We are PAKET</value>
     </data>
@@ -682,6 +682,14 @@
     <data name="WaitingCourierAccept" xml:space="preserve">
         <value>You must accept the package to see the barcode</value>
     </data>
+        <data name="CopyMnemonicInfo" xml:space="preserve">
+        <value>It is recommended to avoid storing&#xA;the mnemonic in digital form</value>
+    </data>
+            <data name="IncorrectMnemonic" xml:space="preserve">
+        <value>Wrong word from mnemonic</value>
+    </data>
+
+
 
 
 

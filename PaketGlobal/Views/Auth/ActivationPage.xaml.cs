@@ -38,11 +38,13 @@ namespace PaketGlobal
         {
             Unfocus();
 
-            Navigation.PopToRootAsync(true);
+            Navigation.PopAsync(true);
         }
 
         private void OnCheck(object sender, EventArgs e)
         {
+            errorLabel.IsVisible = false;
+
             if(entryWord.Text==Word){
                 Unfocus();
 
@@ -52,9 +54,17 @@ namespace PaketGlobal
                 Navigation.PushAsync(page, true);
             }
             else{
+                ShowMessage(AppResources.IncorrectMnemonic);
+
+                errorLabel.IsVisible = true;
+
                 entryWord.Focus();
             }
         }
 
+        void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            errorLabel.IsVisible = false;
+        }
     }
 }

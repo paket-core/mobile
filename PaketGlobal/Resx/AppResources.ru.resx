@@ -683,5 +683,10 @@
        <data name="WaitingCourierAccept" xml:space="preserve">
         <value>Вы должны принять посылку, чтобы увидеть QR-код</value>
     </data>
-    
+    <data name="CopyMnemonicInfo" xml:space="preserve">
+        <value>Рекомендуется избегать хранения ключевой фразы&#xA;в цифровой форме</value>
+    </data>
+                <data name="IncorrectMnemonic" xml:space="preserve">
+        <value>Неверное слово</value>
+    </data>
 </root>

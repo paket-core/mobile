@@ -12,6 +12,13 @@ Milestone version: v.1.2.5
 
 ### Milestone v.1.2.5
 
+19-09-2018
+
+* Improve Package Details
+    https://github.com/paket-core/mobile/issues/73
+* Displaying balance on euro
+    https://github.com/paket-core/mobile/issues/72
+
 17-09-2018
 
 * Photo Full Screen Mode

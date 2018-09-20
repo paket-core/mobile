@@ -736,7 +736,13 @@ namespace PaketGlobal
                 return ResourceManager.GetString("WaitingCourierAccept", resourceCulture);
             }
         }
-
+        internal static string IncorrectMnemonic
+        {
+            get
+            {
+                return ResourceManager.GetString("IncorrectMnemonic", resourceCulture);
+            }
+        }
 
     }
 }

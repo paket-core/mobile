@@ -580,6 +580,7 @@
     <BundleResource Include="Resources\expired_status_icon%402x.png" />
     <BundleResource Include="Resources\expired_status_icon.png" />
     <BundleResource Include="Resources\placeholder.png" />
+    <BundleResource Include="Resources\SpaceMono-Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
