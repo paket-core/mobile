@@ -682,6 +682,13 @@
     <data name="WaitingCourierAccept" xml:space="preserve">
         <value>You must accept the package to see the barcode</value>
     </data>
+        <data name="CopyMnemonicInfo" xml:space="preserve">
+        <value>It is recommended to avoid storing&#xA;the mnemonic in digital form</value>
+    </data>
+            <data name="IncorrectMnemonic" xml:space="preserve">
+        <value>Wrong word from mnemonic</value>
+    </data>
+
 
 
 

@@ -26,6 +26,10 @@
             </OnPlatform>
             
             <!-- FONTS -->
+            <OnPlatform x:TypeArguments="x:String" x:Key="MonoFont">
+                <On Platform="Android" Value="SpaceMono-Bold.ttf#SpaceMono" />
+                <On Platform="iOS" Value="SpaceMono-Bold" />
+            </OnPlatform>
             <OnPlatform x:TypeArguments="x:String" x:Key="SemiBoldFont">
                 <On Platform="Android" Value="Poppins-SemiBold.ttf#Poppins" />
                 <On Platform="iOS" Value="Poppins-SemiBold" />

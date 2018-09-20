@@ -873,6 +873,7 @@
     <AndroidAsset Include="Assets\Poppins-Medium.ttf" />
     <AndroidAsset Include="Assets\Poppins-Regular.ttf" />
     <AndroidAsset Include="Assets\Poppins-SemiBold.ttf" />
+    <AndroidAsset Include="Assets\SpaceMono-Bold.ttf" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Globalization;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -30,6 +30,7 @@ namespace PaketGlobal
                 titleLabel.TranslationY = 30;
             }
 #endif
+
 
             BindingContext = new RegisterViewModel();
 

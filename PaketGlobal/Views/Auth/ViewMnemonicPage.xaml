@@ -7,7 +7,10 @@
     xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
-        <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
+        <RelativeLayout>
+        <ScrollView BackgroundColor="#F0F0F0" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
             <RelativeLayout>
                 <StackLayout x:Name="activateTitleLabel" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -23,19 +26,72 @@
                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-50}"
                 RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=100}"
                 Text="{local:Translate HereMnemonic}" VerticalOptions="Center" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
-                <StackLayout VerticalOptions="Start" Spacing="50"
+                <StackLayout VerticalOptions="Start" Spacing="50" Padding="0,0,0,50"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-40}"
                       RelativeLayout.XConstraint="20"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=mnemonicTitleLabel, Property=Y, Factor=1,Constant=100}">
-                    <local:PaketFrame CornerRadius="15">
+                    <local:PaketFrame CornerRadius="15" WidthRequest="300" HorizontalOptions="Center">
                         <StackLayout Spacing="20" Padding="0,10,0,0">
                             <Label XAlign="Center" Text="{local:Translate ActivationMnemonicInfo}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
-                            <StackLayout Spacing="10" Padding="0,20,0,5">
-                                <Label x:Name="mnemonicLabel" VerticalOptions="Center" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="14" TextColor="#555555"/>
-                                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                            <StackLayout Spacing="10" Padding="0,20,0,5" Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="1." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_1" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="2." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_2" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="3." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_3" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="4." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_4" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="5." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_5" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="6." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_6" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                </StackLayout>
+                                 <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="7." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_7" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="8." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_8" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="9." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_9" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="10." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_10" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="11." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_11" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <Label Text="12." VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                        <Label x:Name="mnemonicLabel_12" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MonoFont}" FontSize="17" TextColor="Black"/>
+                                    </StackLayout> 
+                                </StackLayout>
                             </StackLayout>
+                            <StackLayout Spacing="0">
                             <Button BackgroundColor="Transparent" Image="copy_clipboard_button.png" WidthRequest="187" HeightRequest="54"
                           VerticalOptions="Center" Clicked="OnCopyMnemonic"/>
+                            <Label XAlign="Center" Text="{local:Translate CopyMnemonicInfo}" FontFamily="{StaticResource NormalFont}" FontSize="11" TextColor="#5F5F5F"/>
+                            </StackLayout>
                         </StackLayout>
                     </local:PaketFrame>
                     <Button BackgroundColor="Transparent" Image="next_button.png" WidthRequest="290" HeightRequest="50"
@@ -43,5 +99,6 @@
                 </StackLayout>
             </RelativeLayout>
         </ScrollView>
+    </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>
