@@ -68,6 +68,11 @@ namespace PaketGlobal.Droid
             {
 				editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextFlagCapWords);
             }
+            else if (element.CapSentences == 2)
+            {
+                editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextVariationEmailAddress);
+            }
+
             editText.CompoundDrawablePadding = 25;
 
 
@@ -79,9 +84,14 @@ namespace PaketGlobal.Droid
             {
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayout);
             }
-            else if (element.BackgroundV == 3)
+            else if (element.BackgroundV == 3 || element.BackgroundV == 4)
             {
                 Control.Background = ContextCompat.GetDrawable(Context, Resource.Layout.EntryLayoutTransparent);
+
+            //    if(element.BackgroundV==4)
+            //    {
+            //        Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, 0);
+            //    }
             }
             else if (element.BackgroundV == 1)
             {

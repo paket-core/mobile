@@ -6,128 +6,55 @@ namespace PaketGlobal
 {
     public partial class ActivationPage : BasePage
     {
+        private string Word = "";
+
         public ActivationPage()
         {
             InitializeComponent();
 
-            mnemonicLabel.Text = App.Locator.Profile.Mnemonic;
-            addressLabel.Text = App.Locator.AccountService.ActivationAddress;
-
-            if (addressLabel.Text != null)
-            {
-                if (addressLabel.Text.Length > 2)
-                {
-                    if (addressLabel.Text.Substring(0, 2) == "0x")
-                    {
-                        sendLabel.Text = AppResources.ActivationEth;
-                    }
-                }
-                else{
-                    LoadActivationAdderss();   
-                }
-            }
-
-            App.Locator.DeviceService.setStausBarBlack();
-
 #if __ANDROID__
-            backButton.TranslationX = -25;
-#else
-            if (App.Locator.DeviceService.IsIphoneX() == true)
-            {
-                mnemonicBg.TranslationY = mnemonicBg.TranslationY - 35;
-                mnemonicStack.TranslationY = mnemonicStack.TranslationY - 10;
-            }
-            else{
-                if (App.Locator.DeviceService.IsIphonePlus() == true)
-                {
-                    mnemonicStack.TranslationY = mnemonicStack.TranslationY+5;
-                }
-                else{
-                    mnemonicStack.TranslationY = mnemonicStack.TranslationY - 10;
-                }
-                mnemonicBg.TranslationY = mnemonicBg.TranslationY - 10;
-            }
+            backButton.TranslationX = -30;
 #endif
+            int randomIndex = new Random().Next(3, 10);
+            Word = App.Locator.Profile.Mnemonic.Split(' ')[randomIndex];
+
+            int wordIndex = randomIndex + 1;
+
+            entryWord.Placeholder = entryWord.Placeholder.Replace("5", wordIndex.ToString());
+            wordLabel.Text = wordLabel.Text.Replace("5", wordIndex.ToString());
+
+            App.Locator.DeviceService.setStausBarLight();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            App.Locator.DeviceService.setStausBarBlack();
+            App.Locator.DeviceService.setStausBarLight();
         }
 
-        private void LoadActivationAdderss()
-        {
-            
-        }
-
-
-        #region Button Actions
 
         private void OnBack(object sender, EventArgs e)
         {
             Unfocus();
 
-            App.Locator.NavigationService.GoBack();
+            Navigation.PopToRootAsync(true);
         }
 
-        private async void CheckActivation(object sender, EventArgs e)
+        private void OnCheck(object sender, EventArgs e)
         {
-            Unfocus();
+            if(entryWord.Text==Word){
+                Unfocus();
 
-            await WithProgressButton(checkButton, async () =>
-            {
-                var created = await StellarHelper.CheckAccountCreated(App.Locator.Profile.KeyPair);
-                if (created)
-                {
-                    var trusted = await StellarHelper.CheckTokenTrusted();
+				App.Locator.Profile.MnemonicGenerated = false;
 
-                    if (trusted)
-                    {
-                        App.Locator.Profile.Activated = true;
-
-                        var navigationPage = new NavigationPage(new MainPage()); 
-
-                        Application.Current.MainPage = navigationPage;
-                    }
-                    else
-                    {
-                        var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
-                        if (added)
-                        {
-                            App.Locator.Profile.Activated = true;
-
-                            var navigationPage = new NavigationPage(new MainPage()); 
-
-                            Application.Current.MainPage = navigationPage;
-                        }
-                        else
-                        {
-                            ShowErrorMessage(AppResources.ErrorAddTrustToken);
-                        }
-                    }
-                }
-            });
+                var page = new SMSVereficationPage();
+                Navigation.PushAsync(page, true);
+            }
+            else{
+                entryWord.Focus();
+            }
         }
 
-        void OnCopyMnemonic(object sender, EventArgs e)
-        {
-            App.Locator.ClipboardService.SendTextToClipboard(mnemonicLabel.Text);
-            ShowMessage(AppResources.Copied);
-        }
-
-        void OnCopyAddress(object sender, EventArgs e)
-        {
-            App.Locator.ClipboardService.SendTextToClipboard(addressLabel.Text);
-            ShowMessage(AppResources.Copied);
-        }
-
-        #endregion
-
-        protected override void ToggleLayout(bool enabled)
-        {
-            backButton.IsEnabled = enabled;
-        }
     }
 }

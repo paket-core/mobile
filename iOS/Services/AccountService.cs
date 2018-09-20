@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-
+using Newtonsoft.Json;
 using Xamarin.Auth;
 
 namespace PaketGlobal.iOS
@@ -138,18 +139,46 @@ namespace PaketGlobal.iOS
 			}
 		}
 
-		public void SetCredentials(string userName, string fullName, string phoneNumber, string seed, string mnemonic)
+		public bool MnemonicGenerated {
+			get {
+				var account = AccountStore.Create().FindAccountsForService(App.AppName).FirstOrDefault();
+				return account != null && account.Properties.ContainsKey("MnemonicGenerated") ? bool.Parse(account.Properties["MnemonicGenerated"]) : false;
+			}
+			set {
+				var store = AccountStore.Create();
+				var account = store.FindAccountsForService(App.AppName).FirstOrDefault();
+				if (account != null) {
+					var b = value ? bool.TrueString : bool.FalseString;
+					if (account.Properties.ContainsKey("MnemonicGenerated")) {
+						account.Properties["MnemonicGenerated"] = b;
+					} else {
+						account.Properties.Add("MnemonicGenerated", b);
+					}
+					store.Save(account, App.AppName);
+				}
+			}
+		}
+
+		public void SetCredentials(string userName, string fullName, string phoneNumber, string address, string seed, string mnemonic)
 		{
 			if (!String.IsNullOrWhiteSpace(seed) || !String.IsNullOrWhiteSpace(mnemonic)) {
+				var mnemonicGenerated = MnemonicGenerated;
+
 				var account = new Account {
 					Username = "PaketUser"
 				};
 				if (userName != null) account.Properties.Add("PaketUser", userName);
 				if (fullName != null) account.Properties.Add("FullName", fullName);
 				if (phoneNumber != null) account.Properties.Add("PhoneNumber", phoneNumber);
+				if (address != null) account.Properties.Add("ActivationAddress", address);
 				if (seed != null) account.Properties.Add("Seed", seed);
 				if (mnemonic != null) account.Properties.Add("Mnemonic", mnemonic);
+
+				account.Properties.Add("ShowNotifications", "true");
+
 				AccountStore.Create().Save(account, App.AppName);
+
+				MnemonicGenerated = mnemonicGenerated;
 			}
 		}
 
@@ -160,5 +189,16 @@ namespace PaketGlobal.iOS
 				AccountStore.Create().Delete(account, App.AppName);
 			}
 		}
+
+        public void SavePackages(List<Package> packages)
+        {
+            if(packages!=null)
+            {
+                var json = JsonConvert.SerializeObject(packages);
+                NSUserDefaults.StandardUserDefaults.SetString(json, "packages");
+                NSUserDefaults.StandardUserDefaults.Synchronize(); 
+            }
+ 
+        }
 	}
 }

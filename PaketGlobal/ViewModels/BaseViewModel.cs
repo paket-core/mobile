@@ -11,10 +11,6 @@ namespace PaketGlobal
 		public event PropertyChangingEventHandler PropertyChanging;
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public ServiceClient ServiceClient {
-            get { return GetInstance<ServiceClient>(Config.PackageService); }
-		}
-
 		public Workspace Workspace {
 			get { return GetInstance<Workspace>(); }
 		}

@@ -10,9 +10,22 @@ using System.Collections.Generic;
 using RestSharp;
 using System.Linq;
 using Plugin.Geolocator;
+using System.Threading;
 
 namespace PaketGlobal
 {
+    public class Kwargs
+    {
+        public Kwargs()
+        {
+            
+        }
+        public string  set_options_transaction = "";
+        public string  refund_transaction = "";
+        public string  merge_transaction = "";
+        public string  payment_transaction = "";
+    }
+
 	public class ServiceClient
 	{
         public static readonly string[] IgnoreErrors = new string[] { "get_user", "bul_account"};
@@ -48,30 +61,48 @@ namespace PaketGlobal
 
 		#region User
 
-        public async Task<UserData> RegisterUser(string paketUser, string fullName, string phoneNumber,string address, string pubkey)
+        public async Task<UserData> RegisterUser(string paketUser, string pubkey)
 		{
-			//pubkey = "debug";//TODO for Debug purposes
-
 			var request = PrepareRequest(apiVersion + "/create_user", Method.POST);
 
 			request.AddParameter("call_sign", paketUser);
-			request.AddParameter("full_name", fullName);
-			request.AddParameter("phone_number", phoneNumber);
-            request.AddParameter("address", address);
 
 			return await SendRequest<UserData>(request, pubkey);
 		}
 
-		public async Task<CreateStellarAccountData> CreateStellarAccount(PaymentCurrency currency)
+		public async Task<VerifyData> SendVerification()
 		{
-			//pubkey = "debug";//TODO for Debug purposes
+			var request = PrepareRequest(apiVersion + "/request_verification_token", Method.POST);
 
-			var request = PrepareRequest(apiVersion + "/create_stellar_account", Method.POST);
-
-			request.AddParameter("payment_currency", currency.ToString());
-
-			return await SendRequest<CreateStellarAccountData>(request);
+			return await SendRequest<VerifyData>(request);
 		}
+
+        public async Task<VerifyData> VerifyCode(string code)
+        {
+            var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
+
+            request.AddParameter("verification_code", code);
+
+            return await SendRequest<VerifyData>(request);
+        }
+
+        public async Task<RatioData> GetWalletRatio(string currency)
+        {
+            var request = PrepareRequest(apiVersion + "/ratio", Method.POST);
+
+            request.AddParameter("currency", currency);
+
+            return await SendRequest<RatioData>(request);
+        }
+
+        public async Task<PackagePhotoData> GetPackagePhoto(string puckageId)
+        {
+            var request = PrepareRequest(apiVersion + "/package_photo", Method.POST);
+
+            request.AddParameter("escrow_pubkey", puckageId);
+
+            return await SendRequest<PackagePhotoData>(request, signData: false);
+        }
 
         public async Task<UserData> GetUser(string pubkey, string call_sign)
 		{
@@ -92,7 +123,7 @@ namespace PaketGlobal
 			return await UserInfos(null, null, null);
 		}
 
-		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address)
+		public async Task<UserData> UserInfos(string fullName, string phoneNumber, string address, string pubkey = null)
 		{
 			var request = PrepareRequest(apiVersion + "/user_infos", Method.POST);
 
@@ -100,7 +131,7 @@ namespace PaketGlobal
 			if (phoneNumber != null) request.AddParameter("phone_number", phoneNumber);
 			if (address != null) request.AddParameter("address", address);
 
-			return await SendRequest<UserData>(request);
+			return await SendRequest<UserData>(request, pubkey);
 		}
 
 
@@ -180,20 +211,25 @@ namespace PaketGlobal
 		}
 
 
-        public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, double amountBuls)
+        public async Task<SendBulsData> PrepareSendBuls(string fromPubkey, string toPubkey, double amountBuls, bool disableConvertor = false)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_send_buls", Method.POST);
 
-            var amount =  StellarConverter.ConvertBULToStroops(amountBuls);
+            var amount = amountBuls;
+
+            if(!disableConvertor)
+            {
+                amount = StellarConverter.ConvertBULToStroops(amountBuls);
+            }
 
             if(StellarConverter.IsValidBUL(amount)==false)
             {
                 throw new ServiceException(400, "You can't specify more then 7 fractional digits");
             }
 
-            var myBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+			var myBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
-            if (myBalance == null || myBalance.BalanceBUL < amount)
+            if (myBalance == null || myBalance.Account.BalanceBUL < amount)
             {
                 throw new ServiceException(400, "Insufficient BULs");
             }
@@ -236,6 +272,24 @@ namespace PaketGlobal
 
 		#region Packages
 
+        public async Task<AcceptPackageData> AssignPackage(string escrowPubkey, string location)
+        {
+            if (location.Length > 24)
+            {
+                location = location.Substring(0, 24);
+            }
+
+            var request = PrepareRequest(apiVersion + "/assign_package", Method.POST);
+
+            request.AddParameter("escrow_pubkey", escrowPubkey);
+            if (location != null)
+            {
+                request.AddParameter("location", location);
+            }
+
+            return await SendRequest<AcceptPackageData>(request);
+        }
+
 		public async Task<AcceptPackageData> AcceptPackage(string escrowPubkey, string location)
 		{
 			var request = PrepareRequest(apiVersion + "/accept_package", Method.POST);
@@ -249,7 +303,7 @@ namespace PaketGlobal
 			return await SendRequest<AcceptPackageData>(request);
 		}
 
-        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location, SignHandler customSign)
+        public async Task<LaunchPackageData> PrepareEscrow(string escrowPubkey, string launcherPubkey, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
@@ -274,12 +328,71 @@ namespace PaketGlobal
             request.AddParameter("payment_buls", payment);
             request.AddParameter("collateral_buls", collateral);
 
-            if(location!=null)
+			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
+		}
+
+		public async Task<PackageData> CreatePackage(string escrowPubkey, string recipientPubkey, string launcherPhone, string recipientPhone, long deadlineTimestamp, double paymentBuls, double collateralBuls,
+		                                                   string description, string toAddress, string fromAddress, string fromLocation, string toLocation, string eventLocation, byte[] packagePhoto, SignHandler customSign)
+		{
+			var request = PrepareRequest(apiVersion + "/create_package", Method.POST);
+
+			var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+
+			if (StellarConverter.IsValidBUL(payment) == false) {
+				throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+			}
+
+			var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+
+			if (StellarConverter.IsValidBUL(collateral) == false) {
+				throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+			}
+
+			request.AddParameter("escrow_pubkey", escrowPubkey);
+			request.AddParameter("recipient_pubkey", recipientPubkey);
+			request.AddParameter("launcher_phone_number", launcherPhone);
+			request.AddParameter("recipient_phone_number", recipientPhone);
+			request.AddParameter("deadline_timestamp", deadlineTimestamp);
+			request.AddParameter("payment_buls", payment);
+			request.AddParameter("collateral_buls", collateral);
+			request.AddParameter("description", description);
+			request.AddParameter("to_address", toAddress);
+			request.AddParameter("from_address", fromAddress);
+			request.AddParameter("from_location", fromLocation);
+			request.AddParameter("to_location", toLocation);
+			request.AddParameter("event_location", eventLocation);
+			if (packagePhoto != null) request.AddFile("photo", packagePhoto, "photo.jpg");
+
+			return await SendRequest<PackageData>(request, customSign: customSign);
+		}
+
+		public async Task<BaseData> FinalizePackage(string location, string escrowPubkey, string setOptionsTrans, string refundTrans, string mergeTrans, string paymentTrans)
+		{
+			var request = PrepareRequest(apiVersion + "/assign_xdrs", Method.POST);
+
+            if (location.Length > 24)
             {
-                request.AddParameter("location", location);
+                location = location.Substring(0, 24);
             }
 
-			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
+            var kwargs = new Kwargs();
+            kwargs.merge_transaction = mergeTrans;
+            kwargs.set_options_transaction = setOptionsTrans;
+            kwargs.refund_transaction = refundTrans;
+            kwargs.payment_transaction = paymentTrans;
+
+            var json = JsonConvert.SerializeObject(kwargs);
+
+			request.AddParameter("escrow_pubkey", escrowPubkey);
+            request.AddParameter("kwargs", json);
+
+            if(location != null)
+            {
+                request.AddParameter("location", location);
+
+            }
+
+            return await SendRequest<BaseData>(request);
 		}
 
 		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
@@ -294,6 +407,21 @@ namespace PaketGlobal
 
 			return await SendRequest<PackagesData>(request);
 		}
+
+        public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
+        {
+            if (location.Length > 24)
+            {
+                location = location.Substring(0, 24);
+            }
+
+            var request = PrepareRequest(apiVersion + "/available_packages", Method.POST);
+
+            request.AddParameter("location", location);
+            request.AddParameter("radius_num", radius);
+
+            return await SendRequest<AvailablePackagesData>(request,null,true,null,null,null,null,false,false,false,false,cancellationTokenSource);
+        }
 
 		public async Task<PackageData> Package(string escrowPubkey)
 		{
@@ -356,11 +484,12 @@ namespace PaketGlobal
 			return request;
 		}
 
-		private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false)
+        private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false, CancellationTokenSource cancellationTokenSource = null)
 		{
 			var client = customClient ?? restClient;
 
-			if (signData) SignRequest(request, pubkey, client, customSign: customSign);
+			if (signData) 
+                SignRequest(request, pubkey, client, customSign: customSign);
 
             try
             {
@@ -373,19 +502,38 @@ namespace PaketGlobal
                         obj.CopyTo(responseStream);
                         obj.Close();
                     };
-                    response = await client.ExecuteTaskAsync<T>(request);
+
+                    if(cancellationTokenSource != null)
+                    {
+                        response = await client.ExecuteTaskAsync<T>(request, cancellationTokenSource.Token);  
+                    }
+                    else{
+                        response = await client.ExecuteTaskAsync<T>(request);  
+                    }
+
                     responseStream.Dispose();
                 }
                 else
                 {
-                    response = await client.ExecuteTaskAsync<T>(request);
+                    if (cancellationTokenSource != null)
+                    {
+                        response = await client.ExecuteTaskAsync<T>(request,cancellationTokenSource.Token);
+                    }
+                    else{
+                        response = await client.ExecuteTaskAsync<T>(request);
+                    }
+
                     if (rb != null)
                     {
                         rb.Data = response.RawBytes;
                     }
                 }
 
-                System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                if(response.ContentLength < 300)
+                {
+                    System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                }
+
                 ServiceStackSerializer.HandleStatusCode(response);
                 return response.Data;
             }

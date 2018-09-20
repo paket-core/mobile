@@ -93,8 +93,8 @@ namespace PaketGlobal
 
 						StopScanning();
 
-						var package = await App.Locator.ServiceClient.Package(data.EscrowAddress);
-						if (package != null && package.Package != null) {
+						var package = await App.Locator.RouteServiceClient.Package(data.EscrowAddress);
+                        if (package != null && package.Package != null && package.Package.PaymentTransaction!=null) {
 							var myPubkey = App.Locator.Profile.Pubkey;
 							if (myPubkey == package.Package.RecipientPubkey) {
                                 //you are a recepient //Title = "Accept as a Recipient";
@@ -107,7 +107,7 @@ namespace PaketGlobal
 
 							BindingContext = package.Package;
 
-                            var packagePage = new PackageDetailsPage(package.Package, true, data);
+                            var packagePage = new NewPackageDetailPage(package.Package, true, data);
                             await Navigation.PushAsync(packagePage);
 						} 
                         else {

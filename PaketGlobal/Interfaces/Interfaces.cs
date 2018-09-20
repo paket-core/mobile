@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Plugin.Geolocator.Abstractions;
 
@@ -13,10 +14,12 @@ namespace PaketGlobal
 		string Mnemonic { get; }
 		string Transactions { get; set; }
 		bool Activated { get; set; }
-		void SetCredentials(string userName, string fullName, string phoneNumber, string pubkey, string mnemonic);
+		bool MnemonicGenerated { get; set; }
+		void SetCredentials(string userName, string fullName, string phoneNumber, string address, string seed, string mnemonic);
 		void DeleteCredentials();
         bool ShowNotifications { get; set; }
         string ActivationAddress { get; set; }
+        void SavePackages(List<Package> packages);
 	}
 
 	public interface IAppInfoService
@@ -53,8 +56,12 @@ namespace PaketGlobal
         int ScreenHeight();
         int ScreenWidth();
 
+        string CountryCode();
+
         void ShowProgress();
         void HideProgress();
+
+        bool IsNeedAlertDialogToClose { get; set; }
     }
 
     public interface ILocationSharedService

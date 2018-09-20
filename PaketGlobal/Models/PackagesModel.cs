@@ -8,16 +8,24 @@ namespace PaketGlobal
 {
     public class PackagesModel : BaseViewModel
     {
+        private int oldRadius = 0;
         private System.Timers.Timer timer;
         private bool isneedTimer = false;
         public string CurrentDisplayPackageId = "";
 
         private List<Package> packagesList = new List<Package>();
+        private List<AvaiablePackage> availablePackagesList = new List<AvaiablePackage>();
 
         public List<Package> PackagesList
         {
             get { return packagesList; }
             set { SetProperty(ref packagesList, value); }
+        }
+
+        public List<AvaiablePackage> AvailablePackagesList
+        {
+            get { return availablePackagesList; }
+            set { SetProperty(ref availablePackagesList, value); }
         }
 
         public PackagesModel()
@@ -56,16 +64,38 @@ namespace PaketGlobal
             }
         }
 
-        public void StopTimer()
+		public void StopTimer()
+		{
+			if (timer != null) {
+				isneedTimer = false;
+				timer.Dispose();
+				timer = null;
+			}
+		}
+
+        public bool IsPackageExpiredNeedShow(Package package)
         {
-            if(timer!=null)
+            var keyExpired = package.PaketId + "_expired";
+
+            if(package.IsExpired)
             {
-                isneedTimer = false;
-                timer.Close();
-                timer.Stop();
-                timer.Enabled = false;
-                timer = null;
+                if(package.DeadlineDT.AddHours(1) > DateTime.Now.ToLocalTime())
+                {
+                    if (Application.Current.Properties.ContainsKey(keyExpired))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties[keyExpired] = package.PaketId;
+                        Application.Current.SavePropertiesAsync();
+
+                        return true;
+                    }
+                }
             }
+
+            return false;
         }
 
         private void CreateTimer()
@@ -89,7 +119,7 @@ namespace PaketGlobal
         {
             StopTimer();
 
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
             if (result != null)
             {
                 PackagesList = result.Packages;
@@ -102,66 +132,110 @@ namespace PaketGlobal
                 }
             }
 
+            bool enabled = App.Locator.AccountService.ShowNotifications;
+
+            foreach (Package p1 in PackagesList)
+            {
+                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
+
+                if (isExpiredNeedShow)
+                {
+                    if (enabled)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                            App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+                        });
+                    }
+                }
+            }
+
+            App.Locator.AccountService.SavePackages(PackagesList);
+
             CheckLocationUpdate();
+        }
+
+        public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)
+        {
+            if (oldRadius != radius && radius != 0)
+            {
+                oldRadius = radius;
+
+            }
+            if (radius == 0)
+            {
+                radius = oldRadius;
+            }
+
+            var location = await App.Locator.LocationHelper.GetStringLocation(true);
+            var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
+            if (result != null)
+            {
+                AvailablePackagesList = result.Packages;
+            }
         }
 
         private async System.Threading.Tasks.Task Refresh()
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			if (App.Locator.Profile.Activated) {
+				var result = await App.Locator.RouteServiceClient.MyPackages();
 
-            if (result.Packages != null)
-            {
-                var packages = result.Packages;
+				if (result != null && result.Packages != null) {
+					var packages = result.Packages;
 
-                bool enabled = App.Locator.AccountService.ShowNotifications;
+					bool enabled = App.Locator.AccountService.ShowNotifications;
 
-                foreach (Package p1 in packages)
-                {
-                    foreach (Package p2 in PackagesList)
-                    {
-                        if (p1.PaketId == p2.PaketId)
-                        {
-                            if (p1.Status != p2.Status)
-                            {
-                                if (p1.PaketId == CurrentDisplayPackageId)
-                                {
-                                    MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
-                                }
+					foreach (Package p1 in packages) {
+						foreach (Package p2 in PackagesList) {
+							if (p1.PaketId == p2.PaketId) {
 
-                                if (enabled)
-                                {
-                                    Device.BeginInvokeOnMainThread(() => {
-                                        App.Locator.NotificationService.ShowPackageNotification(p1,DidClickNotification);
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
+                                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
 
-                if (PackagesList.Count < packages.Count && enabled)
-                {
-                    //get new package
-                    var package = packages[packages.Count-1];
-                    package.isNewPackage = true;
+                                if ((p1.Status != p2.Status) || (p2.CourierPubkey == null && p1.CourierPubkey != null) || isExpiredNeedShow) {
+									
+                                    if (p1.PaketId == CurrentDisplayPackageId) {
+										MessagingCenter.Send(this, Constants.DISPLAY_PACKAGE_CHANGED, p1);
+									}
 
-                    Device.BeginInvokeOnMainThread(() => {
-                        App.Locator.NotificationService.ShowPackageNotification(package,DidClickNotification);
-                    });
-                }
+									if (enabled) {
 
-                PackagesList = packages;
-            }
+                                        if((p2.CourierPubkey == null && p1.CourierPubkey != null))
+                                        {
+                                            p1.isAssigned = true;
+                                        }
+                        
 
-            if (isneedTimer)
-            {
-                if(timer!=null)
-                {
-                    timer.Start();
-                }
-            }
+										Device.BeginInvokeOnMainThread(() => {
+											App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+										});
+									}
+								}
+							}
+						}
+					}
 
-            CheckLocationUpdate();
+					if (PackagesList.Count < packages.Count && enabled) {
+						//get new package
+						var package = packages[packages.Count - 1];
+						package.isNewPackage = true;
+
+						Device.BeginInvokeOnMainThread(() => {
+							App.Locator.NotificationService.ShowPackageNotification(package, DidClickNotification);
+						});
+					}
+
+					PackagesList = packages;
+				}
+
+				if (isneedTimer) {
+					if (timer != null) {
+						timer.Start();
+					}
+				}
+
+                App.Locator.AccountService.SavePackages(PackagesList);
+
+				CheckLocationUpdate();
+			}
         }
 
         public override void Reset()

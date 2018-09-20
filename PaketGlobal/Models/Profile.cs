@@ -6,6 +6,7 @@ using NBitcoin;
 using NBitcoin.DataEncoders;
 using Newtonsoft.Json;
 using stellar_dotnetcore_sdk;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -25,6 +26,10 @@ namespace PaketGlobal
 			get { return App.Locator.AccountService.PhoneNumber; }
 		}
 
+		public string Address {
+			get { return App.Locator.AccountService.ActivationAddress; }
+		}
+
 		public string Seed {
 			get { return App.Locator.AccountService.Seed; }
 		}
@@ -38,6 +43,11 @@ namespace PaketGlobal
 			set { App.Locator.AccountService.Activated = value; }
 		}
 
+		public bool MnemonicGenerated {
+			get { return App.Locator.AccountService.MnemonicGenerated; }
+			set { App.Locator.AccountService.MnemonicGenerated = value; }
+		}
+
 		public KeyPair KeyPair { get; set; }
 
 		public string Pubkey {
@@ -49,9 +59,19 @@ namespace PaketGlobal
 			TryRestoreKeyPair();
 		}
 
-		public void SetCredentials (string userName, string fullName, string phoneNumber, string seed, string mnemonic)
+		public void SetCredentials(string seed, string mnemonic)
 		{
-			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, seed, mnemonic);
+			SetCredentials(null, null, null, null, seed, mnemonic);
+		}
+
+		public void SetCredentials(string userName, string seed, string mnemonic)
+		{
+			SetCredentials(userName, null, null, null, seed, mnemonic);
+		}
+
+		public void SetCredentials (string userName, string fullName, string phoneNumber, string address, string seed, string mnemonic)
+		{
+			App.Locator.AccountService.SetCredentials(userName, fullName, phoneNumber, address, seed, mnemonic);
 		}
 
 		public void DeleteCredentials ()
@@ -116,11 +136,34 @@ namespace PaketGlobal
 			return result;
 		}
 
+        public void AddPackageKeyPair(string paketId, string seed)
+        {
+            Application.Current.Properties[paketId] = seed;
+            Application.Current.SavePropertiesAsync();
+        }
+
+        public string PackageKeyPair(string pakedId)
+        {
+            if (Application.Current.Properties.ContainsKey(pakedId))
+            {
+                object fromStorage;
+
+                Application.Current.Properties.TryGetValue(pakedId, out fromStorage);
+
+                return (fromStorage as string);
+            }
+
+            return null;
+        }
+
 		public bool AddTransaction(string paketId, string paymentTranscation)
 		{
 			var transData = new LaunchPackageData {
-				PaymentTransaction = paymentTranscation
+				
 			};
+            transData.LaunchPackageDetails = new LaunchPackageDetails();
+            transData.LaunchPackageDetails.PaymentTransaction = paymentTranscation;
+                            
 			return AddTransaction(paketId, transData);
 		}
 

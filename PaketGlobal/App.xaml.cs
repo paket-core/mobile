@@ -38,24 +38,26 @@ namespace PaketGlobal
 
 			Network.UseTestNetwork();//TODO for test porposals
 
-			Locator.ServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
-			Locator.ServiceClient.TrySign = Locator.Profile.SignData;
-			Locator.FundServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
-			Locator.FundServiceClient.TrySign = Locator.Profile.SignData;
+			Locator.IdentityServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.IdentityServiceClient.TrySign = Locator.Profile.SignData;
+			Locator.RouteServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.RouteServiceClient.TrySign = Locator.Profile.SignData;
+			Locator.BridgeServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
+			Locator.BridgeServiceClient.TrySign = Locator.Profile.SignData;
 
 			if (Locator.Profile.Activated) 
             {
-                var navigationPage = new NavigationPage(new MainPage()); 
+                var navigationPage = new NavigationPage(new MainPage());
                 MainPage = navigationPage;
 			} 
             else {
-                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
+				var navPage = Locator.NavigationService.Initialize(new WellcomePage());
 				MainPage = navPage;
 			}
 
 
 			MessagingCenter.Subscribe<Workspace, bool>(this,Constants.LOGOUT, (sender, arg) => {
-                var navPage = Locator.NavigationService.Initialize(new RestoreKeyPage());
+                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
                 MainPage = navPage;
 			});
 

@@ -29,14 +29,6 @@ namespace PaketGlobal
 			get { return GetInstance<Workspace>(); }
 		}
 
-		public ServiceClient ServiceClient {
-            get { return GetInstance<ServiceClient>(Config.PackageService); }
-		}
-
-		public ServiceClient FundServiceClient {
-            get { return GetInstance<ServiceClient>(Config.FundService); }
-		}
-
         public ServiceClient BridgeServiceClient
         {
             get { return GetInstance<ServiceClient>(Config.BridgeService); }
@@ -56,6 +48,11 @@ namespace PaketGlobal
 			get { return (NavigationService)GetInstance<INavigationService>(); }
 		}
 
+        public ProfileModel ProfileModel
+        {
+            get { return SimpleIoc.Default.GetInstance<ProfileModel>(); }
+        }
+
 		public PackagesModel Packages {
 			get { return SimpleIoc.Default.GetInstance<PackagesModel>(); }
 		}
@@ -64,6 +61,10 @@ namespace PaketGlobal
 			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
+        public LocationHelper LocationHelper
+        {
+            get { return GetInstance<LocationHelper>(); }
+        }
 
 		public IAccountService AccountService {
 			get { return GetInstance<IAccountService>(); }
@@ -107,6 +108,11 @@ namespace PaketGlobal
 		{
 			// Models
 
+            if (!SimpleIoc.Default.IsRegistered<ProfileModel>())
+            {
+                SimpleIoc.Default.Register<ProfileModel>();
+            }
+
 			if (!SimpleIoc.Default.IsRegistered<PackagesModel>()) {
 				SimpleIoc.Default.Register<PackagesModel>();
 			}
@@ -117,18 +123,6 @@ namespace PaketGlobal
 
 			if (!SimpleIoc.Default.IsRegistered<Workspace>()) {
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
-			}
-
-            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.PackageService)) {
-				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.ServerUrl,
-																				  Config.ServerVersion),
-                                                          Config.PackageService);
-			}
-
-            if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.FundService)) {
-				SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.FundServerUrl,
-																				  Config.FundServerVersion),
-                                                          Config.FundService);
 			}
 
             if (!SimpleIoc.Default.IsRegistered<ServiceClient>(Config.BridgeService))
@@ -150,6 +144,11 @@ namespace PaketGlobal
                 SimpleIoc.Default.Register<ServiceClient>(() => new ServiceClient(Config.IdentityServerUrl,
                                                                                   Config.IdentityServerVersion),
                                                           Config.IdentityService);
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<LocationHelper>())
+            {
+                SimpleIoc.Default.Register<LocationHelper>();
             }
 
 			if (!SimpleIoc.Default.IsRegistered<INavigationService>()) {

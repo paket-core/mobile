@@ -53,10 +53,6 @@ namespace PaketGlobal.iOS
                             this.LocationUpdated(this, new LocationUpdatedEventArgs(e.Locations[e.Locations.Length - 1]));
                         };
 
-                        //LocMgr.RegionLeft += (o, e) =>
-                        //{
-                        //    this.ExitRegion(e.Region);
-                        //};
                     }
                     else
                     {
@@ -131,7 +127,7 @@ namespace PaketGlobal.iOS
 
         public async void OnLocationChangedAsync(CLLocation location)
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
 
             if (result.Packages != null)
             {
@@ -143,14 +139,14 @@ namespace PaketGlobal.iOS
                     var myRole = myPubkey == package.LauncherPubkey ? PaketRole.Launcher :
                                                     (myPubkey == package.RecipientPubkey ? PaketRole.Recipient : PaketRole.Courier);
 
-                    if (myRole == PaketRole.Courier)
+                    if (myRole == PaketRole.Courier && package.PaymentTransaction != null && package.Status.ToLower() == "in transit")
                     {
                         var locationString = location.Coordinate.Latitude.ToString() + "," + location.Coordinate.Longitude.ToString();
                         if(locationString.Length>24)
                         {
                             locationString = locationString.Substring(0, 24);
                         }
-                        await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+						await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationString);
                     }
                 }
             }

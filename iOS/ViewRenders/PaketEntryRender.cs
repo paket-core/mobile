@@ -35,7 +35,10 @@ namespace PaketGlobal.iOS
                         BackgroundColor = element.LineColor.ToUIColor()
                     };
 
-                    textField.AddSubview(BottomBorder);
+                    if (element.BackgroundV != 4)
+                    {
+                        textField.AddSubview(BottomBorder); 
+                    }
                 }
             }
 
@@ -84,6 +87,10 @@ namespace PaketGlobal.iOS
             if(element.CapSentences==1)
             {
                 textField.AutocapitalizationType = UITextAutocapitalizationType.Words;
+            }
+            else if (element.CapSentences == 2)
+            {
+                textField.AutocapitalizationType = UITextAutocapitalizationType.None;
             }
 
         }

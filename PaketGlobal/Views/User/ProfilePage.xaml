@@ -37,19 +37,19 @@
                         <StackLayout Spacing="20">
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate UserName}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="EntryUserName" IsEnabled="false" Text="{Binding PaketUser, Mode=TwoWay}" Placeholder="Enter User Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="EntryUserName" IsEnabled="false" Text="{Binding PaketUser, Mode=TwoWay}" Placeholder="{local:Translate EnterUserName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate FullName}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry Keyboard="Text" CapSentences="1" x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="Enter Full Name" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry Keyboard="Text" CapSentences="1" x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="{local:Translate EnterFullName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate PhoneNumber}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="PhoneEntry" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="Enter Phone Number" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="PhoneEntry" IsEnabled="false" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="{local:Translate EnterPhoneNumber}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate Address}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="Enter Address" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterAddress}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                         </StackLayout>
                      </StackLayout>

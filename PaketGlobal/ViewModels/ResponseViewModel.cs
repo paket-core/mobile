@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Web.NBitcoin;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -20,11 +26,33 @@ namespace PaketGlobal
 
     //User
 
+
+
     [DataContract]
-    public class CreateStellarAccountData : BaseData
+    public class RatioData : BaseData
     {
-        [DataMember(Name = "payment_pubkey")]
-        public string PaymentAddress { get; set; }
+        [DataMember(Name = "ratio")]
+        public int Ratio { get; set; }
+    }
+
+    [DataContract]
+    public class VerifyData : BaseData
+    {
+       
+    }
+
+    [DataContract]
+    public class PackagePhoto : BaseData
+    {
+        [DataMember(Name = "photo")]
+        public string Photo { get; set; }
+    }
+
+    [DataContract]
+    public class PackagePhotoData: BaseData
+    {
+        [DataMember(Name = "package_photo")]
+        public PackagePhoto PackagePhoto { get; set; }
     }
 
 	[DataContract]
@@ -106,6 +134,52 @@ namespace PaketGlobal
 	[DataContract]
 	public class BalanceData : BaseData
 	{
+		[DataMember(Name = "account")]
+		public AccountData Account { get; set; }
+
+        public string FormattedBalanceBUL {
+            get {
+                return StellarConverter.ConvertValueToString(Account.BalanceBUL);
+            }
+        }
+
+        public string FormattedBalanceXLM
+        {
+            get
+            {
+                return StellarConverter.ConvertValueToString(Account.BalanceXLM);
+            }
+        }
+
+        //Binding: 'FormattedBalanceBULEURO' property not found on 'PaketGlobal.BalanceData', target property: 'Xamarin.Forms.Label.Text'
+        //Binding: 'FormattedBalanceXLMEURO'
+
+        public string FormattedBalanceXLMEURO
+        {
+            get
+            {
+                double result = Account.BalanceXLM / 10000000.0f;
+                result = result * App.Locator.Wallet.XLM_Ratio;
+
+                return "€" + StellarConverter.ConvertEuroValueToString(result);
+            }
+        }
+
+        public string FormattedBalanceBULEURO
+        {
+            get
+            {
+                double result = Account.BalanceBUL / 10000000.0f;
+                result = result * App.Locator.Wallet.XLM_Ratio;
+
+                return "€" + StellarConverter.ConvertEuroValueToString(result);
+            }
+        }
+	}
+
+	[DataContract]
+	public class AccountData
+	{
 		[DataMember(Name = "bul_balance")]
 		public long BalanceBUL { get; set; }
 
@@ -120,20 +194,6 @@ namespace PaketGlobal
 
 		[DataMember(Name = "thresholds")]
 		public ThresholdData Thresholds { get; set; }
-
-        public string FormattedBalanceBUL {
-            get {
-                return StellarConverter.ConvertValueToString(BalanceBUL);  
-            }
-        }
-
-        public string FormattedBalanceXLM
-        {
-            get
-            {
-                return StellarConverter.ConvertValueToString(BalanceXLM);  
-            }
-        }
 	}
 
 	[DataContract]
@@ -259,23 +319,30 @@ namespace PaketGlobal
     }
 
 
+    [DataContract]
+    public class LaunchPackageDetails : BaseData
+    {
+        [DataMember(Name = "escrow_address")]
+        public string EscrowAddress { get; set; }
+
+        [DataMember(Name = "set_options_transaction")]
+        public string SetOptionsTransaction { get; set; }
+
+        [DataMember(Name = "payment_transaction")]
+        public string PaymentTransaction { get; set; }
+
+        [DataMember(Name = "refund_transaction")]
+        public string RefundTransaction { get; set; }
+
+        [DataMember(Name = "merge_transaction")]
+        public string MergeTransaction { get; set; }
+    }
+
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-		[DataMember(Name = "paket_id")]//"escrow_address")]
-		public string EscrowAddress { get; set; }
-
-		[DataMember(Name = "set_options_transaction")]
-		public string SetOptionsTransaction { get; set; }
-
-		[DataMember(Name = "payment_transaction")]
-		public string PaymentTransaction { get; set; }
-
-		[DataMember(Name = "refund_transaction")]
-		public string RefundTransaction { get; set; }
-
-		[DataMember(Name = "merge_transaction")]
-		public string MergeTransaction { get; set; }
+        [DataMember(Name = "package_details")]
+        public LaunchPackageDetails LaunchPackageDetails { get; set; }
 	}
 
 	[DataContract]
@@ -292,6 +359,13 @@ namespace PaketGlobal
 		public List<Package> Packages { get; set; }
 	}
 
+    [DataContract]
+    public class AvailablePackagesData : BaseData
+    {
+        [DataMember(Name = "packages")]
+        public List<AvaiablePackage> Packages { get; set; }
+    }
+
 	[DataContract]
 	public class PackageData : BaseData
 	{
@@ -299,10 +373,75 @@ namespace PaketGlobal
 		public Package Package	 { get; set; }
 	}
 
+    public class AvaiablePackage : Package
+    {
+    }
+
+    public class NotFoundPackage : FilterPackages
+    {
+    }
+
+    public class FilterPackages : AvaiablePackage
+    {
+        private double radius { get; set; }
+        private string radiusString { get; set; }
+        private bool isAvailableRunning = false;
+        private bool isAvailableCompleted = false;
+
+        public bool IsAvailableRunning
+        {
+            get { return isAvailableRunning; }
+            set { SetProperty(ref isAvailableRunning, value); }
+        }
+
+        public bool IsAvailableCompleted
+        {
+            get { return isAvailableCompleted; }
+            set { SetProperty(ref isAvailableCompleted, value); }
+        }
+
+        public string RadiusString
+        {
+            get
+            {
+                return Convert.ToInt32(Radius).ToString() + " km";
+            }
+            set
+            {
+                radiusString = value;
+            }
+        }
+
+        public double Radius
+        {
+            get
+            {
+                return radius;
+            }
+            set
+            {
+                radius = value;
+                OnPropertyChanged("Radius");
+                OnPropertyChanged("RadiusString");
+            }
+        }
+    }
+
 	[DataContract]
     public class Package : BaseViewModel
 	{
+        private string recipientPhoneCode;
+        private string recipientPhoneNumber;
+        private string launcherPhoneNumber;
+        private string launcherPhoneCode;
+		private string fromLocationGPS { get; set; }
+		private string toLocationGPS { get; set; }
+		private string fromLocationAddress { get; set; }
+		private string toLocationAddress { get; set; }
+		private string status { get; set; }
+
         public bool isNewPackage { get; set; }
+        public bool isAssigned { get; set; }
 
 		[DataMember(Name = "escrow_pubkey")]
 		public string PaketId { get; set; }
@@ -318,11 +457,200 @@ namespace PaketGlobal
 		[DataMember(Name = "recipient_pubkey")]
 		public string RecipientPubkey { get; set; }
 
-		[DataMember(Name = "courier_pubkey")]
-		public string CourierPubkey { get; set; }
+        [DataMember(Name = "recipient_contact")]
+        public string RecipientContact { get; set; }
 
-		[DataMember(Name = "status")]
-        private string status { get; set; }
+        [DataMember(Name = "launcher_contact")]
+        public string LauncherContact { get; set; }
+
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        public bool IsExpiredInList
+        {
+            get{
+                if (IsExpired && MyRole==PaketRole.Launcher && PaymentTransaction != null)
+                {
+                    if(LauncherPubkey==App.Locator.Profile.Pubkey)
+                    {
+                        return true; 
+                    }
+                }
+                    
+                return false;
+            }
+        }
+
+        public bool IsExpired
+        {
+            get
+            {
+                if((DateTime.Now.ToLocalTime() > DeadlineDT)  && Status != "delivered")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+		///[DataMember(Name = "courier_pubkey")]
+        public string CourierPubkey
+        {
+            get{
+                if(Events != null)
+                {
+                    foreach (PackageEvent ev in Events)
+                    {
+                        if (ev.EventType == "assign package")
+                        {
+                            return ev.UserPubKey;
+                        }
+                    }
+                }
+
+                return null;
+            }
+
+        }
+
+        public string DistanceToPickup
+        {
+            get{
+                if (!App.Locator.LocationHelper.lat.Equals(0.0))
+                {
+                    var helper = new MapHelper();
+
+                    double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                    double distance = helper.distance(from_lat, from_lng, App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng);
+
+                    return String.Format("{0:0.00} KM", distance);
+                }
+
+                return "0 KM"; 
+            }
+        }
+
+        public string Distance
+        {
+            get
+            {
+                if (fromLocationGPS == null || toLocationGPS==null)
+                {
+                    return "0 KM";
+                }
+
+                var helper = new MapHelper();
+
+				double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+				double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+				double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+				double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                double distance = helper.distance(from_lat, from_lng, to_lat, to_lng);
+
+                return String.Format("{0:0.00} KM", distance);
+            }
+        }
+
+		[DataMember(Name = "from_location")]
+        public string FromLocationGPS
+        {
+            get
+            {
+                return fromLocationGPS;
+            }
+            set
+            {
+                fromLocationGPS = value;
+                OnPropertyChanged("FromLocationGPS");
+                OnPropertyChanged("Distance");
+            }
+        }
+
+		[DataMember(Name = "to_location")]
+        public string ToLocationGPS
+        {
+            get
+            {
+                return toLocationGPS;
+            }
+            set
+            {
+                toLocationGPS = value;
+                OnPropertyChanged("ToLocationGPS");
+                OnPropertyChanged("Distance");
+            }
+        }
+
+        public string ToImage
+        {
+            get
+            {
+                var helper = new MapHelper();
+
+                double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                var s = helper.GetStaticMapUri(to_lat, to_lng, 14, 280, 280);
+
+                return s;
+            }
+        }
+
+        public string FromImage{
+            get{
+                var helper = new MapHelper();
+
+                double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+
+                var s =  helper.GetStaticMapUri(from_lat, from_lng, 14, 280, 280);
+
+                return s;
+            }
+        }
+
+
+		[DataMember(Name = "from_address")]
+        public string FromLocationAddress
+        {
+            get
+            {
+                if (fromLocationGPS == null)
+                {
+                    return AppResources.SelectLocation;
+                }
+
+                return HttpUtility.UrlDecode(fromLocationAddress);
+                //return fromLocationAddress;
+            }
+            set
+            {
+                fromLocationAddress = value;
+                OnPropertyChanged("FromLocationAddress");
+            }
+        }
+
+		[DataMember(Name = "to_address")]
+        public string ToLocationAddress 
+        { 
+            get{
+                if (toLocationGPS == null)
+                {
+                    return AppResources.SelectLocation;
+                }
+
+                return HttpUtility.UrlDecode(toLocationAddress);
+            } 
+            set{
+                toLocationAddress = value;
+                OnPropertyChanged("ToLocationAddress");
+            } 
+        }
 
         public string LauncherName { get; set; }
         public string RecipientName { get; set; }
@@ -342,6 +670,7 @@ namespace PaketGlobal
             }
         }
 
+		[DataMember(Name = "status")]
         public string Status
         {
             get
@@ -355,6 +684,8 @@ namespace PaketGlobal
                 {
                     status = value;
                     OnPropertyChanged("Status");
+                    OnPropertyChanged("StatusIconWithText");
+                    OnPropertyChanged("ProgressIcon");
                 }
             }
         }
@@ -389,6 +720,7 @@ namespace PaketGlobal
         [DataMember(Name = "merge_transaction")]
         public string MergeTransaction { get; set; }
 
+
 		public DeliveryStatus DeliveryStatus { get; set; }
 
 		public DeliveryStatus DeliveryStatusPrivate {
@@ -396,7 +728,7 @@ namespace PaketGlobal
 		}
 
 		public DateTime DeadlineDT {
-			get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
+            get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
 		}
 
 		public DateTime SendTimeDT {
@@ -404,6 +736,19 @@ namespace PaketGlobal
                 return DateTime.Parse(SendTimestamp);
             }
 		}
+
+        public Color DeadlineStringColor
+        {
+            get{
+                if(IsExpired)
+                {
+                    return Color.FromHex("#D43F51");
+                }
+
+                return Color.FromHex("#000000");
+
+            }
+        }
 
 		public string DeadlineString {
 			get { 
@@ -422,7 +767,11 @@ namespace PaketGlobal
         {
             get
             {
-                if (Status == "waiting pickup")
+                if (IsExpired)
+                {
+                    return "expired_status_icon.png";
+                }
+                else if (Status == "waiting pickup")
                 {
                     return "waiting_status_icon.png";
                 }
@@ -437,7 +786,11 @@ namespace PaketGlobal
         public string StatusIcon
         {
             get { 
-                if (Status=="waiting pickup") {
+                if(IsExpired)
+                {
+                    return "expired_icon.png";  
+                }
+                else if (Status=="waiting pickup") {
                     return "waiting_pickup.png";  
                 }
                 else if (Status == "delivered")
@@ -452,6 +805,10 @@ namespace PaketGlobal
         {
             get
             {
+                if(IsExpired)
+                {
+                    return AppResources.Expired.ToUpperInvariant();
+                }
                 return Status.ToUpperInvariant();
             }
         }
@@ -538,6 +895,71 @@ namespace PaketGlobal
                 return StellarConverter.ConvertValueToString(Payment);  
             }
         }
+
+
+        public string LauncherPhoneNumber
+        {
+            get { return launcherPhoneNumber; }
+            set { SetProperty(ref launcherPhoneNumber, value); }
+        }
+
+        public string LauncherPhoneCode
+        {
+            get
+            {
+                if (launcherPhoneCode == null)
+                {
+                    launcherPhoneCode = ISO3166.GetCurrentCallingCode();
+                }
+                return launcherPhoneCode;
+            }
+            set { SetProperty(ref launcherPhoneCode, value); }
+        }
+
+        public string LauncherFullPhoneNumber
+        {
+            get
+            {
+                if (launcherPhoneNumber == null || launcherPhoneCode == null)
+                {
+                    return "";
+                }
+                return launcherPhoneCode + launcherPhoneNumber;
+            }
+        }
+
+        public string RecipientPhoneNumber
+        {
+            get { return recipientPhoneNumber; }
+            set { SetProperty(ref recipientPhoneNumber, value); }
+        }
+
+        public string RecipientPhoneCode
+        {
+            get
+            {
+                if (recipientPhoneCode == null)
+                {
+                    recipientPhoneCode = ISO3166.GetCurrentCallingCode();
+                }
+                return recipientPhoneCode;
+            }
+            set { SetProperty(ref recipientPhoneCode, value); }
+        }
+
+        public string RecipientFullPhoneNumber
+        {
+            get
+            {
+                if (recipientPhoneNumber == null || recipientPhoneCode == null)
+                {
+                    return "";
+                }
+                return recipientPhoneCode + recipientPhoneNumber;
+            }
+        }
+
+
 	}
 
 	[DataContract]

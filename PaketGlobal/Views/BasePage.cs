@@ -78,18 +78,22 @@ namespace PaketGlobal
 
         protected virtual void WorkspaceLoggedOut(object sender, EventArgs e)
         {
-            var navPage = App.Locator.NavigationService.Initialize(new RestoreKeyPage());
+            var navPage = App.Locator.NavigationService.Initialize(new WellcomePage());
             Application.Current.MainPage = navPage;
         }
 
 		protected void ShowMessage(string error, bool lengthLong = false)
 		{
-			App.Locator.NotificationService.ShowMessage(error, lengthLong);
+			Device.BeginInvokeOnMainThread(() => {
+				App.Locator.NotificationService.ShowMessage(error, lengthLong);
+			});
 		}
 
         protected void ShowErrorMessage(string error, bool lengthLong = false, EventHandler eventHandler = null)
         {
-            App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler);
+			Device.BeginInvokeOnMainThread(() => {
+				App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler);
+			});
         }
 
 		#region Virtual methods

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.props')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.props')" />
+  <Import Project="..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
@@ -175,18 +176,6 @@
     <Reference Include="Xamarin.Auth">
       <HintPath>..\packages\Xamarin.Auth.1.6.0.2\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\packages\Xamarin.Forms.3.1.0.583944\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\packages\Xamarin.Forms.3.1.0.583944\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform.iOS">
-      <HintPath>..\packages\Xamarin.Forms.3.1.0.583944\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\packages\Xamarin.Forms.3.1.0.583944\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="ZXing.Net.Mobile.Core">
       <HintPath>..\packages\ZXing.Net.Mobile.2.4.1\lib\Xamarin.iOS10\ZXing.Net.Mobile.Core.dll</HintPath>
     </Reference>
@@ -237,6 +226,66 @@
     </Reference>
     <Reference Include="ProgressRing.Forms.Plugin.iOS">
       <HintPath>..\packages\Xam.Plugins.Forms.ProgressRing.0.1.2\lib\Xamarin.iOS10\ProgressRing.Forms.Plugin.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.ContactService">
+      <HintPath>..\packages\Xamarin.Forms.Contacts.1.0.5\lib\Xamarin.iOS10\Plugin.ContactService.dll</HintPath>
+    </Reference>
+    <Reference Include="libphonenumber">
+      <HintPath>..\packages\Google.LibPhoneNumber.1.0.0\lib\libphonenumber.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Platform.iOS">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>..\packages\Xamarin.Forms.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Maps">
+      <HintPath>..\packages\Xamarin.Forms.Maps.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Maps.iOS">
+      <HintPath>..\packages\Xamarin.Forms.Maps.3.1.0.697729\lib\Xamarin.iOS10\Xamarin.Forms.Maps.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Maps">
+      <HintPath>..\packages\Xamarin.Google.iOS.Maps.2.5.0\lib\Xamarin.iOS10\Google.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.GoogleMaps">
+      <HintPath>..\packages\Xamarin.Forms.GoogleMaps.3.0.1\lib\Xamarin.iOS10\Xamarin.Forms.GoogleMaps.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.GoogleMaps.iOS">
+      <HintPath>..\packages\Xamarin.Forms.GoogleMaps.3.0.1\lib\Xamarin.iOS10\Xamarin.Forms.GoogleMaps.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Media">
+      <HintPath>..\packages\Xam.Plugin.Media.4.0.1.5\lib\xamarinios10\Plugin.Media.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Maps">
+      <HintPath>..\packages\Xamarin.Google.iOS.Maps.2.5.0\lib\Xamarin.iOS10\Google.Maps.dll</HintPath>
+    </Reference>
+    <Reference Include="Ricardo.MBProgressHUD.iOS">
+      <HintPath>..\packages\Ricardo.MBProgressHUD.iOS.1.1.0\lib\Xamarin.iOS10\Ricardo.MBProgressHUD.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Ricardo.SDWebImage.iOS">
+      <HintPath>..\packages\Ricardo.SDWebImage.iOS.4.2.2.1\lib\Xamarin.iOS10\Ricardo.SDWebImage.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Ricardo.MWPhotoBrowser.iOS">
+      <HintPath>..\packages\Ricardo.MWPhotoBrowser.iOS.2.1.4.1\lib\Xamarin.iOS10\Ricardo.MWPhotoBrowser.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\Xamarin.iOS10\Stormlion.PhotoBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Stormlion.PhotoBrowser.iOS">
+      <HintPath>..\packages\PhotoBrowser.Forms.0.1.3\lib\Xamarin.iOS10\Stormlion.PhotoBrowser.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="XamarinFormsGesture">
+      <HintPath>..\packages\Vapolia.XamarinFormsGesture.3.0.0\lib\Xamarin.iOS1.0\XamarinFormsGesture.dll</HintPath>
+    </Reference>
+    <Reference Include="XamarinFormsGesture.Ios">
+      <HintPath>..\packages\Vapolia.XamarinFormsGesture.3.0.0\lib\Xamarin.iOS1.0\XamarinFormsGesture.Ios.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -437,6 +486,100 @@
     <BundleResource Include="Resources\select_icon%403x.png" />
     <BundleResource Include="Resources\select_icon%402x.png" />
     <BundleResource Include="Resources\select_icon.png" />
+    <BundleResource Include="Resources\wellcome_image%403x.png" />
+    <BundleResource Include="Resources\wellcome_image%402x.png" />
+    <BundleResource Include="Resources\wellcome_image.png" />
+    <BundleResource Include="Resources\register_bg%403x.png" />
+    <BundleResource Include="Resources\register_bg%402x.png" />
+    <BundleResource Include="Resources\register_bg.png" />
+    <BundleResource Include="Resources\back_white_icon%403x.png" />
+    <BundleResource Include="Resources\back_white_icon%402x.png" />
+    <BundleResource Include="Resources\back_white_icon.png" />
+    <BundleResource Include="Resources\sms_verification_bg%403x.png" />
+    <BundleResource Include="Resources\sms_verification_bg%402x.png" />
+    <BundleResource Include="Resources\sms_verification_bg.png" />
+    <BundleResource Include="Resources\copy_clipboard_button%403x.png" />
+    <BundleResource Include="Resources\copy_clipboard_button%402x.png" />
+    <BundleResource Include="Resources\copy_clipboard_button.png" />
+    <BundleResource Include="Resources\next_button%403x.png" />
+    <BundleResource Include="Resources\next_button%402x.png" />
+    <BundleResource Include="Resources\next_button.png" />
+    <BundleResource Include="Resources\mnemonic_icon%403x.png" />
+    <BundleResource Include="Resources\mnemonic_icon%402x.png" />
+    <BundleResource Include="Resources\mnemonic_icon.png" />
+    <BundleResource Include="Resources\mnemonic_overlay%403x.png" />
+    <BundleResource Include="Resources\mnemonic_overlay%402x.png" />
+    <BundleResource Include="Resources\mnemonic_overlay.png" />
+    <BundleResource Include="Resources\activation_bg%403x.png" />
+    <BundleResource Include="Resources\activation_bg%402x.png" />
+    <BundleResource Include="Resources\activation_bg.png" />
+    <BundleResource Include="Resources\check_activation_button%403x.png" />
+    <BundleResource Include="Resources\check_activation_button%402x.png" />
+    <BundleResource Include="Resources\check_activation_button.png" />
+    <BundleResource Include="Resources\shadow_top%403x.png" />
+    <BundleResource Include="Resources\shadow_top%402x.png" />
+    <BundleResource Include="Resources\shadow_top.png" />
+    <BundleResource Include="Resources\addressbook_icon%403x.png" />
+    <BundleResource Include="Resources\addressbook_icon%402x.png" />
+    <BundleResource Include="Resources\addressbook_icon.png" />
+    <BundleResource Include="Resources\powered_logo%403x.png" />
+    <BundleResource Include="Resources\powered_logo%402x.png" />
+    <BundleResource Include="Resources\powered_logo.png" />
+    <BundleResource Include="Resources\qr_scan_btn%403x.png" />
+    <BundleResource Include="Resources\qr_scan_btn%402x.png" />
+    <BundleResource Include="Resources\qr_scan_btn.png" />
+    <BundleResource Include="Resources\social_icon.png" />
+    <BundleResource Include="Resources\social_icon%402x.png" />
+    <BundleResource Include="Resources\social_icon%403x.png" />
+    <BundleResource Include="Resources\book_icon%403x.png" />
+    <BundleResource Include="Resources\book_icon%402x.png" />
+    <BundleResource Include="Resources\book_icon.png" />
+    <BundleResource Include="Resources\empty_photo%403x.png" />
+    <BundleResource Include="Resources\empty_photo%402x.png" />
+    <BundleResource Include="Resources\empty_photo.png" />
+    <BundleResource Include="Resources\map_cion%403x.png" />
+    <BundleResource Include="Resources\map_cion%402x.png" />
+    <BundleResource Include="Resources\map_cion.png" />
+    <BundleResource Include="Resources\map_black_icon%403x.png" />
+    <BundleResource Include="Resources\map_black_icon%402x.png" />
+    <BundleResource Include="Resources\map_black_icon.png" />
+    <BundleResource Include="Resources\red_pin%403x.png" />
+    <BundleResource Include="Resources\red_pin%402x.png" />
+    <BundleResource Include="Resources\red_pin.png" />
+    <BundleResource Include="Services\select_pin.png" />
+    <BundleResource Include="Services\select_pin%402x.png" />
+    <BundleResource Include="Services\select_pin%403x.png" />
+    <BundleResource Include="Resources\select_pin.png" />
+    <BundleResource Include="Resources\select_pin%402x.png" />
+    <BundleResource Include="Resources\select_pin%403x.png" />
+    <BundleResource Include="Resources\retake_photo_ru%403x.png" />
+    <BundleResource Include="Resources\retake_photo_ru%402x.png" />
+    <BundleResource Include="Resources\retake_photo_ru.png" />
+    <BundleResource Include="Resources\retake_photo_eng%403x.png" />
+    <BundleResource Include="Resources\retake_photo_eng%402x.png" />
+    <BundleResource Include="Resources\retake_photo_eng.png" />
+    <BundleResource Include="Resources\take_photo_ru%403x.png" />
+    <BundleResource Include="Resources\take_photo_ru%402x.png" />
+    <BundleResource Include="Resources\take_photo_ru.png" />
+    <BundleResource Include="Resources\take_photo_eng%403x.png" />
+    <BundleResource Include="Resources\take_photo_eng%402x.png" />
+    <BundleResource Include="Resources\take_photo_eng.png" />
+    <BundleResource Include="Resources\search_field_icon%403x.png" />
+    <BundleResource Include="Resources\search_field_icon%402x.png" />
+    <BundleResource Include="Resources\search_field_icon.png" />
+    <BundleResource Include="Resources\filter_icon%403x.png" />
+    <BundleResource Include="Resources\filter_icon%402x.png" />
+    <BundleResource Include="Resources\filter_icon.png" />
+    <BundleResource Include="Resources\slider_thumb%403x.png" />
+    <BundleResource Include="Resources\slider_thumb%402x.png" />
+    <BundleResource Include="Resources\slider_thumb.png" />
+    <BundleResource Include="Resources\expired_icon%403x.png" />
+    <BundleResource Include="Resources\expired_icon%402x.png" />
+    <BundleResource Include="Resources\expired_icon.png" />
+    <BundleResource Include="Resources\expired_status_icon%403x.png" />
+    <BundleResource Include="Resources\expired_status_icon%402x.png" />
+    <BundleResource Include="Resources\expired_status_icon.png" />
+    <BundleResource Include="Resources\placeholder.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -465,6 +608,8 @@
     <Compile Include="Services\LocationUpdatedEventArgs.cs" />
     <Compile Include="Services\EventSharedService.cs" />
     <Compile Include="Services\LocationManager.cs" />
+    <Compile Include="ViewRenders\CircleImageRender.cs" />
+    <Compile Include="ViewRenders\PaketSliderRender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -487,6 +632,8 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.583944\build\netstandard2.0\Xamarin.Forms.targets')" />
   <Import Project="..\packages\GitInfo.2.0.14\build\GitInfo.targets" Condition="Exists('..\packages\GitInfo.2.0.14\build\GitInfo.targets')" />
+  <Import Project="..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.1.0.697729\build\netstandard2.0\Xamarin.Forms.targets')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.7\build\Xamarin.Build.Download.targets')" />
+  <Import Project="..\packages\Xamarin.Google.iOS.Maps.2.5.0\build\Xamarin.Google.iOS.Maps.targets" Condition="Exists('..\packages\Xamarin.Google.iOS.Maps.2.5.0\build\Xamarin.Google.iOS.Maps.targets')" />
 </Project>

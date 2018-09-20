@@ -44,9 +44,47 @@ namespace PaketGlobal
             {
                 IsAnimationEnabled = false;
             }
+#else
+            BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100;
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 100;
 #endif
 
+            //crash in xaml for ios
+            var list = new List<PaymentCurrency>();
+            list.Add(PaymentCurrency.BTC);
+            list.Add(PaymentCurrency.ETH);
+
+            PickerBULCurrency.ItemsSource = list;
+            PickerXLMCurrency.ItemsSource = list;
+            //crash in xaml for ios
+
+
+
             AddCommands();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
+        }
+
+
+        protected async override void OnAppearing()
+        {
+            App.Locator.DeviceService.setStausBarLight();
+
+            var fl = firstLoad;
+
+            base.OnAppearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
+
+            if (fl)
+            {
+                await LoadWallet();
+            }
         }
 
         private void AddCommands()
@@ -172,19 +210,7 @@ namespace PaketGlobal
         }
 
 
-		protected async override void OnAppearing()
-		{
-            App.Locator.DeviceService.setStausBarLight();
-
-            var fl = firstLoad;
-
-            base.OnAppearing();
-
-            if (fl)
-            {
-                await LoadWallet();
-            }
-		}
+		
 
 		private async System.Threading.Tasks.Task LoadWallet()
 		{
@@ -212,6 +238,24 @@ namespace PaketGlobal
             await ViewModel.Load();
 
             App.ShowLoading(false);
+        }
+
+        private async void AddressButtonClicked(object sender, EventArgs e)
+        {
+            this.Unfocus();
+
+            AddressBookPage page = new AddressBookPage(false);
+            page.eventHandler = DidSelectItemHandler;
+
+            var mainPage = App.Current.MainPage;
+
+            await mainPage.Navigation.PushAsync(page);
+        }
+
+        private async void DidSelectItemHandler(object sender, AddressBookPageEventArgs e)
+        {
+            EntryRecepient.Text = e.Item;
+            recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
         }
 
 
@@ -290,11 +334,11 @@ namespace PaketGlobal
                 try{
                     double amount = double.Parse(EntryAmount.Text);
 
-                    var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
+					var trans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
                     if (trans != null)
                     {
                         var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-                        var result = await App.Locator.ServiceClient.SubmitTransaction(signed);
+						var result = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 
                         if (result != null)
                         {
@@ -329,7 +373,7 @@ namespace PaketGlobal
 
                     double amount = double.Parse(EntryAmountForBUL.Text);
 
-                    var result = await App.Locator.FundServiceClient.PurchaseBULs(amount, currency);
+                    var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
 
                     if (result != null)
                     {
@@ -359,7 +403,7 @@ namespace PaketGlobal
 
                     var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
                     var amount = double.Parse(EntryAmountForXLM.Text);
-                    var result = await App.Locator.FundServiceClient.PurchaseXLMs(amount, currency);
+                    var result = await App.Locator.IdentityServiceClient.PurchaseXLMs(amount, currency);
 
                     if (result != null)
                     {

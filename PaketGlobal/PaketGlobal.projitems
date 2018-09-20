@@ -93,6 +93,47 @@
       <DependentUpon>LanguagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.Designer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\WellcomePage.xaml.cs">
+      <DependentUpon>WellcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\SMSVereficationPage.xaml.cs">
+      <DependentUpon>SMSVereficationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\ViewMnemonicPage.xaml.cs">
+      <DependentUpon>ViewMnemonicPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\ConfirmMnemonicPage.xaml.cs">
+      <DependentUpon>ConfirmMnemonicPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ISO3166.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\AddressBookHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\AddressBookPage.xaml.cs">
+      <DependentUpon>..\..\AddressBook\AddressBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\CountryPickerPage.xaml.cs">
+      <DependentUpon>CountryPickerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\ContactsBookPage.xaml.cs">
+      <DependentUpon>ContactsBookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\LocationPickerPage.xaml.cs">
+      <DependentUpon>LocationPickerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\GooglePlacesHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\MapHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\MapPickerPage.xaml.cs">
+      <DependentUpon>MapPickerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CircleImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PaketSlider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml.cs">
+      <DependentUpon>PhotoFullScreenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SwipeListener.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\NewPackageDetailPage.xaml.cs">
+      <DependentUpon>NewPackageDetailPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -159,6 +200,50 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resx\AppResources.ru.resx">
       <LogicalName>PaketGlobal.AppResources.ru.resources</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\WellcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\SMSVereficationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\ViewMnemonicPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\ConfirmMnemonicPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\AddressBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\CountryPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\ContactsBookPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\LocationPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\MapPickerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PhotoFullScreenPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\NewPackageDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
@@ -173,5 +258,11 @@
     <Folder Include="$(MSBuildThisFileDirectory)Resx\" />
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\" />
     <Folder Include="$(MSBuildThisFileDirectory)Views\About\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\AddressBook\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Country\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\ContactsBook\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Location\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Views\Pickers\Map\" />
   </ItemGroup>
 </Project>

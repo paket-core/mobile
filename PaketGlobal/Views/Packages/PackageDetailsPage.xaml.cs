@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
+using stellar_dotnetcore_sdk;
+using Stormlion.PhotoBrowser;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -11,7 +14,11 @@ namespace PaketGlobal
         private Package ViewModel { get { return BindingContext as Package; } }
 
         private bool CanAcceptPackage = false;
+        private bool CanAssignPackage = false;
+
         private BarcodePackageData BarcodeData;
+        private string photoBase64 = null;
+
         public bool ShouldDismiss = false;
 
         public PackageDetailsPage(Package package, bool canAcceptPackage = false, BarcodePackageData barcodePackageData = null)
@@ -22,6 +29,11 @@ namespace PaketGlobal
 
             CanAcceptPackage = canAcceptPackage;
             BarcodeData = barcodePackageData;
+
+            if(package.CourierPubkey==null && package.MyRole==PaketRole.Courier && CanAcceptPackage==false)
+            {
+                CanAssignPackage = true;
+            }
 
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
@@ -43,8 +55,6 @@ namespace PaketGlobal
 #endif
 
 
-            BottomBarcodeView.IsVisible = false;
-
             var data = new BarcodePackageData
             {
                 EscrowAddress = package.PaketId
@@ -56,32 +66,57 @@ namespace PaketGlobal
 
             var barcodeTapCommand = new Command(() =>
             {
-                BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
-
-                if(BarcodeImage.IsVisible)
+                if(!WaitingStackView.IsVisible)
                 {
-                    BarcodeArrow.Source = "dropdown_arrow_top.png";
+                    BarcodeImage.IsVisible = !BarcodeImage.IsVisible;
+
+                    if (BarcodeImage.IsVisible)
+                    {
+                        BarcodeArrow.Source = "dropdown_arrow_top.png";
+                    }
+                    else
+                    {
+                        BarcodeArrow.Source = "dropdown_arrow.png";
+                    }
                 }
-                else{
-                    BarcodeArrow.Source = "dropdown_arrow.png";
-                }
+          
             });
 
             XamEffects.Commands.SetTap(BarcodeView, barcodeTapCommand);
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if(CanAcceptPackage)
+            if(CanAssignPackage)
             {
+                EmptyBox.IsVisible = true;
+                AssignLabel.IsVisible = true;
+                AssignButton.IsVisible = true;
+                PaymentInfoViewFrame.IsVisible = false;
+                EventsInfoViewFrame.IsVisible = false;
+                FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+
+                LauncherPhoneButton.IsVisible = false;
+                RecipientPhoneButton.IsVisible = false;
+
+                LauncherContactLabel.Text = AppResources.CourierNotContactVisible;
+                RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
+            }
+            else if(CanAcceptPackage)
+            {
+                EmptyBox.IsVisible = true;
                 AcceptButton.IsVisible = true;
                 PaymentInfoViewFrame.IsVisible = false;
                 EventsInfoViewFrame.IsVisible = false;
                 FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+
+                CheckVisiblePayments();
             }
             else{
                 AddEvents();
 
                 EventsInfoViewFrame.IsVisible = true;
+
+                CheckVisiblePayments();
 
                 MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
                 {
@@ -107,6 +142,8 @@ namespace PaketGlobal
                 {
                     RecipientCallSignView.IsVisible = true;
                 }
+
+                CheckVisiblePayments();
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
@@ -136,8 +173,141 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PackageLinkLabel, packageLinkCommand);
 
 
+            var openPhotoCommand = new Command(() =>
+            {
+                OpenPhotoFullScreen();
+            });
+            XamEffects.Commands.SetTap(PhotoImage, openPhotoCommand);
+
+            var openBarcodeCommand = new Command(() =>
+            {
+                OpenQRFullScreen();
+            });
+            XamEffects.Commands.SetTap(BarcodeImage, openBarcodeCommand);
+
             LinksFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
             UsersFrameView.WidthRequest = App.Locator.DeviceService.ScreenWidth();
+
+            LoadPhoto();
+        }
+
+        private async void LoadPhoto()
+        {
+            try{
+                var result = await App.Locator.RouteServiceClient.GetPackagePhoto(ViewModel.PaketId);
+
+                if (result != null)
+                {
+                    if (result.PackagePhoto != null)
+                    {
+                        var photo = result.PackagePhoto;
+
+                        if (photo.Photo != null)
+                        {
+                            photoBase64 = photo.Photo;
+
+                            PhotoImage.Source = ImageSource.FromStream(
+                                () => new MemoryStream(Convert.FromBase64String(photoBase64)));
+                            
+                            PhotoImage.IsVisible = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void CheckVisiblePayments()
+        {
+            if (ViewModel.MyRole == PaketRole.Courier)
+            {
+                if (ViewModel.CourierPubkey != null && ViewModel.PaymentTransaction==null)
+                {
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingLauncherMakeDeposit;
+
+                    DepositButton.IsVisible = false;
+
+                    BarcodeArrow.IsVisible = false;
+                    BarcodeImage.IsVisible = false;
+                }
+
+                if(ViewModel.CourierPubkey==null)
+                {
+                    LauncherPhoneButton.IsVisible = false;
+                    RecipientPhoneButton.IsVisible = false;
+
+                    LauncherContactLabel.Text = AppResources.CourierNotContactVisible;
+                    RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
+                }
+                else if (ViewModel.Status == "waiting pickup")
+                {
+                    LauncherPhoneButton.IsVisible = true;
+                    LauncherContactLabel.Text = ViewModel.LauncherContact;
+
+                    RecipientPhoneButton.IsVisible = false;
+                    RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
+
+                    EmptyBox.IsVisible = true;
+                    PaymentInfoViewFrame.IsVisible = false;
+                    EventsInfoViewFrame.IsVisible = false;
+                    FundInfoViewFrame.VerticalOptions = LayoutOptions.FillAndExpand;
+                }
+                else{
+                    LauncherPhoneButton.IsVisible = true;
+                    LauncherContactLabel.Text = ViewModel.LauncherContact;
+
+                    RecipientPhoneButton.IsVisible = true;
+                    RecipientContactLabel.Text = ViewModel.RecipientContact;
+                }
+            }
+            else if(ViewModel.MyRole==PaketRole.Launcher)
+            {
+
+                if(ViewModel.CourierPubkey==null)
+                {
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingAssignCourierToPackage;
+                    DepositButton.IsVisible = true;
+
+                    DepositButton.IsEnabled = false;
+                    DepositButton.ButtonBackground = "#A7A7A7";             
+                }
+                else{
+                    WaitingStackView.IsVisible = true;
+                    WaitingAssignLabel.IsVisible = true;
+                    WaitingAssignLabel.Text = AppResources.WaitingMakeDepositPackage;
+                    DepositButton.IsVisible = true;
+
+                    if (!ViewModel.IsExpiredInList)
+                    {
+                        DepositButton.IsEnabled = false;
+                        DepositButton.ButtonBackground = "#A7A7A7";   
+                        WaitingAssignLabel.Text = AppResources.WaitingExpiredDepositPackage;
+                    }
+                    else{
+                        DepositButton.IsEnabled = true;
+                        DepositButton.ButtonBackground = "#4D64E8";
+                    }
+                }
+
+                if(ViewModel.PaymentTransaction==null)
+                {
+                    BarcodeArrow.IsVisible = false;
+                    BarcodeImage.IsVisible = false;
+                }
+                else{
+                    WaitingStackView.IsVisible = false;
+
+                    BarcodeImage.IsVisible = true;
+                    BarcodeArrow.IsVisible = true;
+                }
+            }
         }
 
         protected override void OnDisappearing()
@@ -160,6 +330,7 @@ namespace PaketGlobal
                 await Navigation.PopToRootAsync();  
             }
         }
+
 
         private async void OnShareClicked(object sender, System.EventArgs e)
         {
@@ -208,6 +379,18 @@ namespace PaketGlobal
             ShowMessage(AppResources.Copied);
         }
 
+        private void CopyRecipientContactClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.RecipientContact);
+            ShowMessage(AppResources.Copied);
+        }
+
+        private void CopyLauncherContactClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(ViewModel.LauncherContact);
+            ShowMessage(AppResources.Copied);
+        }
+
 
         private async void RefundClicked(object sender, System.EventArgs e)
         {
@@ -242,6 +425,98 @@ namespace PaketGlobal
     
 
             App.ShowLoading(false);
+        }
+
+        private async void DepositClicked(object sender, System.EventArgs e)
+        {
+            Unfocus();
+
+            ProgressBar.Progress = 0;
+            ProgressLabel.Text = "";
+            ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+            ProgressView.IsVisible = true;
+
+            try
+            {
+                var result = await StellarHelper.LaunchPackage(ViewModel.PaketId, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+
+                if (result != StellarOperationResult.Success)
+                {
+                    ShowError(result);
+                }
+                else{
+                    BindingContext = await PackageHelper.GetPackageDetails(ViewModel.PaketId);
+                    CheckVisiblePayments();
+                }
+            }
+            catch (Exception exc)
+            {
+                ShowErrorMessage(exc.Message);
+            }
+
+            ProgressView.IsVisible = false;
+        }
+
+
+		private void FinalizePackageEvents(object sender, LaunchPackageEventArgs e)
+		{
+			ProgressBar.AnimationEasing = Easing.SinIn;
+			ProgressBar.AnimationLength = 3000;
+			ProgressBar.AnimatedProgress = e.Progress;
+			ProgressLabel.Text = e.Message;
+		}
+
+        private async void AssignClicked(object sender, System.EventArgs e)
+        {
+            Unfocus();
+
+            App.Locator.Packages.StopTimer();
+
+            ProgressBar.Progress = 0;
+            ProgressLabel.Text = AppResources.LaunchPackageStep0;
+            ProgressView.BackgroundColor = new Color(0, 0, 0, 0.7);
+            ProgressView.IsVisible = true;
+
+            var myPubkey = App.Locator.Profile.Pubkey;
+
+            string location = null;
+
+            var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetPositionAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+            }
+
+            //I'm a courier
+            var result = await StellarHelper.AssignPackage(ViewModel.PaketId, ViewModel.Collateral, location,FinalizePackageEvents);
+            if (result == StellarOperationResult.Success)
+            {
+                await System.Threading.Tasks.Task.Delay(2000);
+
+                await App.Locator.Packages.Load();
+
+                MessagingCenter.Send(this, Constants.PACKAGE_ASSIGN, ViewModel.PaketId);
+
+                ShowMessage(AppResources.PackageAssigned);
+
+                await Navigation.PopToRootAsync();
+            }
+            else
+            {
+                ShowError(result);
+            }
+
+            ProgressView.IsVisible = false;
+
+            App.Locator.Packages.StartTimer();
         }
 
         private async void AcceptClicked(object sender, System.EventArgs e)
@@ -291,7 +566,6 @@ namespace PaketGlobal
             else
             {
                 //I'm a courier
-
                 var result = await StellarHelper.AcceptPackageAsCourier(BarcodeData.EscrowAddress, ViewModel.Collateral, ViewModel.PaymentTransaction, location);
                 if (result == StellarOperationResult.Success)
                 {
@@ -310,6 +584,32 @@ namespace PaketGlobal
 
                 App.ShowLoading(false);
             }
+        }
+
+        private void OpenPhotoFullScreen()
+        {
+            var photoPage = new PhotoFullScreenPage(photoBase64,null);
+            photoPage.BackgroundColor = Color.Black;
+
+            var navigation = new NavigationPage(photoPage);
+            navigation.BackgroundColor = Color.Black;
+            navigation.BarTextColor = Color.White;
+            navigation.BarBackgroundColor = Color.Black;
+
+            Navigation.PushModalAsync(navigation);
+        }
+
+        private void OpenQRFullScreen()
+        {
+            var photoPage = new PhotoFullScreenPage(null,BarcodeImage.BarcodeValue);
+            photoPage.BackgroundColor = Color.Black;
+
+            var navigation = new NavigationPage(photoPage);
+            navigation.BackgroundColor = Color.Black;
+            navigation.BarTextColor = Color.White;
+            navigation.BarBackgroundColor = Color.Black;
+
+            Navigation.PushModalAsync(navigation);
         }
 
 
@@ -338,13 +638,13 @@ namespace PaketGlobal
                         Padding = 3,
                         HasShadow = false,
                         BackgroundColor = Color.FromHex("#A5A5A5"),
-                        CornerRadius = 5,
+                        CornerRadius = 10,
                         HeightRequest = 16
                     };
 
                     var eventTypeLabel = new Label()
                     {
-                        Text = ev.EventType.ToUpper(),
+                        Text = " " + ev.EventType.ToUpper() + "   ",
                         HorizontalTextAlignment = TextAlignment.Center,
                         VerticalTextAlignment = TextAlignment.Center,
                         TextColor = Color.White,
@@ -385,23 +685,23 @@ namespace PaketGlobal
                     XamEffects.Commands.SetTap(keyLabel, keyTapCommand);
                     stack.Children.Add(keyLabel);
 
-                    var userLabel = new Label()
-                    {
-                        Text = package.NameFromKey(ev.UserPubKey),
-                        TextColor = Color.FromHex("#555555"),
-                        FontSize = 12,
-                    };
-                    userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
-                    userLabel.WidthRequest = 140;
-                    userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
-                    var userTapCommand = new Command(() =>
-                    {
-                        App.Locator.ClipboardService.SendTextToClipboard(userLabel.Text);
-                        ShowMessage(AppResources.Copied);
-                    });
-                    XamEffects.TouchEffect.SetColor(userLabel, Color.LightGray);
-                    XamEffects.Commands.SetTap(userLabel, userTapCommand);
-                    stack.Children.Add(userLabel);
+                    //var userLabel = new Label()
+                    //{
+                    //    Text = package.NameFromKey(ev.UserPubKey),
+                    //    TextColor = Color.FromHex("#555555"),
+                    //    FontSize = 12,
+                    //};
+                    //userLabel.LineBreakMode = LineBreakMode.CharacterWrap;
+                    //userLabel.WidthRequest = 140;
+                    //userLabel.SetDynamicResource(Label.FontFamilyProperty, "MediumFont");
+                    //var userTapCommand = new Command(() =>
+                    //{
+                    //    App.Locator.ClipboardService.SendTextToClipboard(userLabel.Text);
+                    //    ShowMessage(AppResources.Copied);
+                    //});
+                    //XamEffects.TouchEffect.SetColor(userLabel, Color.LightGray);
+                    //XamEffects.Commands.SetTap(userLabel, userTapCommand);
+                    //stack.Children.Add(userLabel);
 
 
                     var progressImage = new Image()

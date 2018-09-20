@@ -12,6 +12,152 @@
             <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
+    <local:BasePage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="NotFoundPackage">
+                <local:CellWithoutSelection IsEnabled="false">
+                    <RelativeLayout>
+                        <Label 
+                      Text = "{local:Translate NoPackagesFound}"
+                      XAlign="Center" YAlign="Center"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand"
+                      TextColor="#D3D3D3" FontSize = "20"
+                      RelativeLayout.HeightConstraint="30"
+                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                      RelativeLayout.YConstraint = "100"/>
+                    </RelativeLayout>
+                </local:CellWithoutSelection>
+            </DataTemplate>
+            <DataTemplate x:Key="FilterPackages">
+                <local:CellWithoutSelection>
+                    <RelativeLayout>
+                        <StackLayout Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="40">
+                            <Image Source="filter_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="{local:Translate Filter}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                        </StackLayout>
+                        <Button RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-140}"
+                                RelativeLayout.YConstraint="30"
+                                Text="{local:Translate Reset}" 
+                                BackgroundColor="#F0F0F0"
+                                Clicked="OnResetFilterClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
+                        <local:PaketSlider RelativeLayout.YConstraint="120"
+                                TouchUp="OnSliderTouchUp"
+                                MinimumTrackColor="#53C5C7"
+                                MaximumTrackColor="Gray"
+                                ThumbColor="#53C5C7"
+                                HeightRequest="40"
+                                RelativeLayout.XConstraint="30"
+                                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"
+                                Maximum="200" Minimum="1"  Value="{Binding Radius, Mode=TwoWay}" ValueChanged="OnSliderValueChanged" />
+                        <Label RelativeLayout.YConstraint="95"
+                               WidthRequest="100"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-130}" 
+                               XAlign="End"
+                               IsVisible="{Binding IsAvailableCompleted, Mode=TwoWay}"
+                               Text="{Binding RadiusString}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                        <ActivityIndicator RelativeLayout.YConstraint="90"
+                               HeightRequest="30"
+                               WidthRequest="30"
+                               IsRunning="{Binding IsAvailableRunning, Mode=TwoWay}"
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
+                    </RelativeLayout>
+                </local:CellWithoutSelection>
+            </DataTemplate>
+            <DataTemplate x:Key="AllPackages">
+                <local:CellWithoutSelection>
+                    <RelativeLayout>
+                        <StackLayout Orientation="Vertical" 
+                                 Padding="10,10,10,10"  BackgroundColor="Transparent"
+                                 HeightRequest="130"
+                                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                            <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
+                                 CornerRadius="15"/>
+                        </StackLayout>
+                        <StackLayout Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
+                            <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <StackLayout Spacing="0" VerticalOptions="Center">
+                                  <Label Text="{Binding FormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="{Binding DeadlineStringColor}"/>
+                                  <Label IsVisible="{Binding IsExpiredInList}" Text="{local:Translate ReclaimInList}" FontFamily="{StaticResource NormalFont}" FontSize="9" TextColor="Gray"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <StackLayout Spacing="0" RelativeLayout.YConstraint="30"
+                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-65}">
+                            <Label XAlign="End" Text="{local:Translate CODE}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                            <Label XAlign="End" Text="{Binding ShortEscrow,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                        </StackLayout>
+                        <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
+                                             RelativeLayout.XConstraint="37" 
+                                             RelativeLayout.YConstraint="77"
+                                             RelativeLayout.HeightConstraint="1"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
+                        <Image Source="point_0.png" HorizontalOptions="Start"
+                                       RelativeLayout.XConstraint="33" RelativeLayout.YConstraint="71"/>
+                        <Image Source="{Binding ProgressIcon, Mode=OneWay}" HorizontalOptions="Start"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.88}"
+                                       RelativeLayout.YConstraint="71"/>
+                        <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.82}">
+                            <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
+                                <Label Text="{local:Translate Sent}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                            </StackLayout>
+                            <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
+                                <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
+                                <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="{Binding DeadlineStringColor}" XAlign="End"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </RelativeLayout>
+                </local:CellWithoutSelection>
+            </DataTemplate>
+            <DataTemplate x:Key="AvailablePackages">
+                <local:CellWithoutSelection>
+                    <RelativeLayout>
+                        <StackLayout Orientation="Vertical" 
+                                 Padding="10,10,10,10"  BackgroundColor="Transparent"
+                                 HeightRequest="150"
+                                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                            <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="150"
+                                 CornerRadius="15"/>
+                        </StackLayout>
+                        <StackLayout Spacing="5" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
+                            <Image Source="red_pin.png" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="{Binding DistanceToPickup, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
+                        </StackLayout>
+                        <StackLayout Spacing="0" RelativeLayout.YConstraint="30"
+                                             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}">
+                            <Label XAlign="End" Text="{local:Translate CODE}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                            <Label XAlign="End" Text="{Binding ShortEscrow,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                        </StackLayout>
+                        <local:CircleImage  
+                            Source="{Binding FromImage,Mode=OneWay}"
+                            BorderThickness="3"
+                            RelativeLayout.HeightConstraint="60"
+                            RelativeLayout.WidthConstraint="60"
+                            HeightRequest="60"
+                            WidthRequest="60"
+                            FillColor="#D8D8D8"
+                            RelativeLayout.YConstraint="75"
+                            RelativeLayout.XConstraint="30"        
+                            BorderColor="#a9e2e3"></local:CircleImage>
+                        <Label YAlign="Center" HeightRequest="60" RelativeLayout.HeightConstraint="60" RelativeLayout.YConstraint="75" RelativeLayout.XConstraint="100"
+                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-220}"
+                                   XAlign="Start" Text="{Binding FromLocationAddress,Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="12" TextColor="#787878"/>
+                        <StackLayout Spacing="0" RelativeLayout.YConstraint="90" HorizontalOptions="EndAndExpand"
+                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.92}">
+                            <Label XAlign="End" Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                            <Label XAlign="End" Text="{Binding DeadlineString,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                        </StackLayout>
+                    </RelativeLayout>
+                </local:CellWithoutSelection>
+            </DataTemplate>
+            <local:PackagesTemplateSelector x:Key="PackagesTemplateSelector"
+                             AllPackages="{StaticResource AllPackages}"
+                             AvailablePackages="{StaticResource AvailablePackages}"
+                             FilterPackages="{StaticResource FilterPackages}"
+                             NotFoundPackage="{StaticResource NotFoundPackage}"/>
+        </ResourceDictionary>
+    </local:BasePage.Resources>
     <local:BasePage.Content>
         <RelativeLayout>
             <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate MyPackages}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
@@ -22,26 +168,39 @@
             <StackLayout x:Name="RightButtons" Opacity="0" Spacing="15" HorizontalOptions="EndAndExpand" Orientation="Horizontal"
                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.95}"
                     RelativeLayout.YConstraint="18">
-                <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_code_small.png" HorizontalOptions="Start"/>
+                <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start"/>
                 <Button Clicked="LaunchPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="add_icon_small.png" HorizontalOptions="StartAndExpand"/>
             </StackLayout>
-            <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,20,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
+            <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="0,40,0,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                 <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
-                    <StackLayout Spacing="0" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
+                    <StackLayout Padding="25,0,0,0" Spacing="0" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
                         <Label x:Name="MyPackagesTitleLabel" Text="{local:Translate MyPackages}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
                     </StackLayout>
-                    <StackLayout Spacing="15" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                        <Button Clicked="AcceptPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="qr_code.png" HorizontalOptions="Start" VerticalOptions="Center" />
+                    <StackLayout Padding="25,0,25,0" Spacing="15" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                        <Button Clicked="AcceptPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start" VerticalOptions="Center" />
                         <Button Clicked="LaunchPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="add.png" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                     </StackLayout>
+                    </StackLayout>
                 </StackLayout>
-                <Label x:Name="MyPackagesSubTitleLabel" Text="{local:Translate MyPackagesInfo}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#CDCDCD"/>
-                <Image Source="search_icon.png" HorizontalOptions="Start"/>
+                <StackLayout Padding="25,0,25,0">
+                    <Label x:Name="MyPackagesSubTitleLabel" Text="{local:Translate MyPackagesInfo}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#CDCDCD"/>
+                </StackLayout>
+                <StackLayout  Orientation="Horizontal" BackgroundColor="Transparent">
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                        <Button Clicked="AllClicked" HorizontalOptions="FillAndExpand" x:Name="AllButton" Text="{local:Translate AllPackages}" BackgroundColor="Transparent" TextColor="White" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"/>
+                        <BoxView x:Name="AllLine" HeightRequest="3" BackgroundColor="#53C5C7" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                        <Button Clicked="AvaliableClicked" HorizontalOptions="FillAndExpand" x:Name="AvailableButton" Text="{local:Translate AvailablePackages}" BackgroundColor="Transparent" TextColor="White" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" />
+                        <BoxView x:Name="AvailableLine" HeightRequest="3" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand"/>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
-            <Views:ListView x:Name="PakagesView" BackgroundColor="#F0F0F0" 
+            <Views:ListView x:Name="PakagesView"
+                      ItemTemplate="{StaticResource PackagesTemplateSelector}"
+                      BackgroundColor="#F0F0F0" 
                       ItemsSource="{Binding PackagesList}" 
                       ItemSelected="PackageItemSelected"
                       IsPullToRefreshEnabled="true"
@@ -49,53 +208,11 @@
                       SeparatorVisibility="None" RowHeight="150" VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-210}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-223}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:CellWithoutSelection>
-                            <RelativeLayout>
-                                <StackLayout Orientation="Vertical" 
-                                 Padding="10,10,10,10"  BackgroundColor="Transparent"
-                                 HeightRequest="130"
-                                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                                    <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="130"
-                                 CornerRadius="15"/>
-                                </StackLayout>
-                                <StackLayout Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30">
-                                     <Image Source="{Binding StatusIcon, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                     <Label Text="{Binding FullFormattedStatus, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" TextColor="Black"
-                                       HorizontalOptions="Center" VerticalOptions="Center"/>
-                                </StackLayout>
-                                <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
-                                             RelativeLayout.XConstraint="37" 
-                                             RelativeLayout.YConstraint="77"
-                                             RelativeLayout.HeightConstraint="1"
-                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
-                                <Image Source="point_0.png" HorizontalOptions="Start"
-                                       RelativeLayout.XConstraint="33" RelativeLayout.YConstraint="71"/>
-                                <Image Source="{Binding ProgressIcon, Mode=OneWay}" HorizontalOptions="Start"
-                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.88}"
-                                       RelativeLayout.YConstraint="71"/>
-                                <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
-                                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.82}">
-                                    <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">
-                                        <Label Text="{local:Translate Sent}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
-                                        <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
-                                    </StackLayout>
-                                    <StackLayout Spacing="0" HorizontalOptions="EndAndExpand">
-                                        <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
-                                        <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
-                                    </StackLayout>
-                                </StackLayout>
-                            </RelativeLayout>
-                        </local:CellWithoutSelection>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </Views:ListView >
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=213}"></Views:ListView >
             <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false"
-                Text = "No Packages Found"
+                Text = "{local:Translate NoPackagesFound}"
                       XAlign="Center" YAlign="Center"
                       VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"

@@ -50,19 +50,87 @@ namespace PaketGlobal
             return transactions.Records;
         }
 
-        public static async Task<StellarOperationResult> LaunchPackage (KeyPair escrowKP, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, string location, LaunchPackageEventHandler eventHandler)
+		public static async Task<StellarOperationResult> CreatePackage(KeyPair escrowKP, string recipientPubkey, string launcherPhone, string recipientPhone, string description,
+		                                                               string fromAddress, string toAddress, long deadlineTimestamp, double paymentBuls, double collateralBuls,
+		                                                               string eventLocation, string fromLocation, string toLocation, byte[] packagePhoto, LaunchPackageEventHandler eventHandler)
 		{
+            if (toLocation.Length > 24)
+            {
+                toLocation = toLocation.Substring(0, 24);
+            }
+
+            if (fromLocation.Length > 24)
+            {
+                fromLocation = fromLocation.Substring(0, 24);
+            }
+
+			double steps = 3;
+			double currentStep = 1;
+
+			var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+
+			if (StellarConverter.IsValidBUL(payment) == false) {
+				throw new ServiceException(400, AppResources.FractionalDigitsError);
+			}
+
+			var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+
+			if (StellarConverter.IsValidBUL(collateral) == false) {
+				throw new ServiceException(400, AppResources.FractionalDigitsError);
+			}
+
+			//Check launcher's balance
+			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep1, currentStep / steps));
+			currentStep++;
+
+			var launcherBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+			if (launcherBalance == null || launcherBalance.Account.BalanceBUL < payment) {
+				return StellarOperationResult.LowBULsLauncher;
+			}
+
+			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+			currentStep++;
+
+			var createResult = await App.Locator.RouteServiceClient.CreatePackage(escrowKP.Address, recipientPubkey, launcherPhone, recipientPhone, deadlineTimestamp, paymentBuls, collateralBuls,
+			                                                                      description, fromAddress, toAddress, fromLocation, toLocation, eventLocation, packagePhoto, (d) => {
+																					  return App.Locator.Profile.SignData(d, escrowKP);
+																				  });
+			if (createResult != null) {
+                var packedId = createResult.Package.PaketId;
+
+                App.Locator.Profile.AddPackageKeyPair(packedId, escrowKP.SecretSeed);
+
+				return StellarOperationResult.Success;
+			}
+
+
+			return StellarOperationResult.FailedLaunchPackage;
+		}
+
+        public static async Task<StellarOperationResult> LaunchPackage (string paketID, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
+		{
+            KeyPair escrowKP = null;
+
+            var seed = App.Locator.Profile.PackageKeyPair(paketID);
+            if( seed != null)
+            {
+                escrowKP = KeyPair.FromSecretSeed(seed);
+            }
+            else{
+                escrowKP = KeyPair.Random();
+            }
+
             double steps = 12;
             double currentStep = 1;
 
-            var payment =  StellarConverter.ConvertBULToStroops(paymentBuls);
+            var payment = paymentBuls; 
 
             if (StellarConverter.IsValidBUL(payment)==false)
             {
                 throw new ServiceException(400, AppResources.FractionalDigitsError);
             }
 
-            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+            var collateral = collateralBuls; 
 
             if (StellarConverter.IsValidBUL(collateral)==false)
             {
@@ -74,18 +142,18 @@ namespace PaketGlobal
 
             currentStep++;
 
-			var launcherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
-            if (launcherBalance == null || launcherBalance.BalanceBUL < payment) {
+			var launcherBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+			if (launcherBalance == null || launcherBalance.Account.BalanceBUL < payment) {
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
 			//Check courier's balance
-            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep15, currentStep / steps));
 
             currentStep++;
 
-			var courierBalance = await App.Locator.ServiceClient.Balance(courierPubkey);
-            if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
+			var courierBalance = await App.Locator.BridgeServiceClient.Balance(courierPubkey);
+			if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
 			}
 
@@ -94,7 +162,10 @@ namespace PaketGlobal
 
             currentStep++;
 
-			var accountResult = await App.Locator.ServiceClient.PrepareCrateAccount(App.Locator.Profile.Pubkey, escrowKP.Address, 4);//Change to 20000200
+            string location = await App.Locator.LocationHelper.GetStringLocation(true);
+
+
+			var accountResult = await App.Locator.BridgeServiceClient.PrepareCrateAccount(App.Locator.Profile.Pubkey, escrowKP.Address, 4);//Change to 20000200
 			if (accountResult != null) {
 				//Sign escrow account transaction
                 eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep4, currentStep / steps));
@@ -109,7 +180,7 @@ namespace PaketGlobal
 
                     currentStep++;
 
-					var submitCreate = await App.Locator.ServiceClient.SubmitTransaction(signedCreate);
+					var submitCreate = await App.Locator.BridgeServiceClient.SubmitTransaction(signedCreate);
 					if (submitCreate != null) {
 						//Add token trust to escrow account
 
@@ -125,56 +196,63 @@ namespace PaketGlobal
 
                             currentStep++;
 
-							var launchResult = await App.Locator.ServiceClient.PrepareEscrow(escrowKP.Address, App.Locator.Profile.Pubkey,
-																							 recipientPubkey, deadlineTimestamp,
-																							 courierPubkey, paymentBuls,
-                                                                                             collateralBuls, location, (d) => {
-																								 return App.Locator.Profile.SignData(d, escrowKP);
-																							 });
+							var launchResult = await App.Locator.BridgeServiceClient.PrepareEscrow(escrowKP.Address, App.Locator.Profile.Pubkey,
+							                                                                       recipientPubkey, deadlineTimestamp, courierPubkey,
+																								   paymentBuls, collateralBuls, (d) => {
+																									   return App.Locator.Profile.SignData(d, escrowKP);
+																								   });
 							if (launchResult != null) {
-								//Sign options transaction
-                                eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep8, currentStep / steps));
+                                var createResult = await App.Locator.RouteServiceClient.FinalizePackage(location, paketID, launchResult.LaunchPackageDetails.SetOptionsTransaction, launchResult.LaunchPackageDetails.RefundTransaction,
+                                                                                                        launchResult.LaunchPackageDetails.MergeTransaction, launchResult.LaunchPackageDetails.PaymentTransaction);
+								if (createResult != null) {
+									//Sign options transaction
+									eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep8, currentStep / steps));
 
-                                currentStep++;
+									currentStep++;
 
-								var signedOptions = await SignTransaction(escrowKP, launchResult.SetOptionsTransaction);
-								if (signedOptions != null) {
-                                    //Submit options transaction
+                                    var signedOptions = await SignTransaction(escrowKP, launchResult.LaunchPackageDetails.SetOptionsTransaction);
+									if (signedOptions != null) {
+										//Submit options transaction
 
-                                    eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep9, currentStep / steps));
+										eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep9, currentStep / steps));
 
-                                    currentStep++;
+										currentStep++;
 
-									var submitOptions = await App.Locator.ServiceClient.SubmitTransaction(signedOptions);
-									if (submitOptions != null) {
-										//Prepare send payment
-                                        eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep10, currentStep / steps));
+										var submitOptions = await App.Locator.BridgeServiceClient.SubmitTransaction(signedOptions);
+										if (submitOptions != null) {
+											//Prepare send payment
+											eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep10, currentStep / steps));
 
-                                        currentStep++;
+											currentStep++;
 
-										var paymentTrans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowKP.Address, paymentBuls);
-										if (paymentTrans != null) {
-											//Sign payment transaction
-                                            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep11, currentStep / steps));
+                                           // var paymentStroops = StellarConverter.ConvertBULToStroops(payment);
 
-                                            currentStep++;
+                                            var paymentTrans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowKP.Address, paymentBuls, true);
+											if (paymentTrans != null) {
+												//Sign payment transaction
+												eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep11, currentStep / steps));
 
-											var signed = await SignTransaction(App.Locator.Profile.KeyPair, paymentTrans.Transaction);
-											if (signed != null) {
-												//Submit payment transaction
-                                                eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep12, currentStep / steps));
+												currentStep++;
 
-                                                currentStep++;
+												var signed = await SignTransaction(App.Locator.Profile.KeyPair, paymentTrans.Transaction);
+												if (signed != null) {
+													//Submit payment transaction
+													eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep12, currentStep / steps));
 
-												var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
-												if (paymentResult != null) {
-													//var newLauncherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
-													//if (newLauncherBalance.BalanceBUL == launcherBalance.BalanceBUL - paymentBuls) {
+													currentStep++;
+
+													var paymentResult = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
+													if (paymentResult != null) {
+														//var newLauncherBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
+														//if (newLauncherBalance.BalanceBUL == launcherBalance.BalanceBUL - paymentBuls) {
 														App.Locator.Profile.AddTransaction(escrowKP.Address, launchResult);//save payment transaction data
 														return StellarOperationResult.Success;
-													//}
+														//}
 
-													//return StellarOperationResult.IncositentBalance;
+														//return StellarOperationResult.IncositentBalance;
+													}
+
+													return StellarOperationResult.FailSendBuls;
 												}
 
 												return StellarOperationResult.FailSendBuls;
@@ -183,13 +261,11 @@ namespace PaketGlobal
 											return StellarOperationResult.FailSendBuls;
 										}
 
-										return StellarOperationResult.FailSendBuls;
+										return StellarOperationResult.FaileSubmitOptions;
 									}
 
 									return StellarOperationResult.FaileSubmitOptions;
 								}
-
-								return StellarOperationResult.FaileSubmitOptions;
 							}
 
 							return StellarOperationResult.FailedLaunchPackage;
@@ -220,19 +296,47 @@ namespace PaketGlobal
 			//Make note of the BUL balances of the launcher by calling /bul_account. It should be the same as before minus the payment
 		}
 
+        public static async Task<StellarOperationResult> AssignPackage(string escrowPubkey, long collateral, string location, LaunchPackageEventHandler eventHandler)
+        {
+            double steps = 3;
+            double currentStep = 1;
+
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep13, currentStep / steps));
+
+            currentStep++;
+
+            var courierBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+            if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral)
+            {
+                return StellarOperationResult.LowBULsCourier;
+            }
+
+            eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep14, currentStep / steps));
+
+            currentStep++;
+
+            var trans = await App.Locator.RouteServiceClient.AssignPackage(escrowPubkey, location);
+            if(trans != null)
+            {
+                return StellarOperationResult.Success;
+            }
+
+            return StellarOperationResult.FailAcceptPackage;
+        }
+
 		public static async Task<StellarOperationResult> AcceptPackageAsCourier(string escrowPubkey, long collateral, string paymentTransaction, string location)
 		{
-			var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
-			if (courierBalance == null || courierBalance.BalanceBUL < collateral) {
+			var courierBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+			if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
 			}
 
-            var trans = await App.Locator.ServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, (collateral/10000000.0f));
+			var trans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, escrowPubkey, (collateral/10000000.0f));
 			if (trans != null) {
 				var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-				var paymentResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+				var paymentResult = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 				if (paymentResult != null) {
-                    var acceptResult = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey,location);
+					var acceptResult = await App.Locator.RouteServiceClient.AcceptPackage(escrowPubkey,location);
 					if (acceptResult != null) {
 						//var newCourierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);//TODO remove balance check
 						//if (newCourierBalance.BalanceBUL == courierBalance.BalanceBUL - collateral) {
@@ -257,9 +361,9 @@ namespace PaketGlobal
 			//var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 
 			var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, paymentTransaction);//sign the payment transaction
-			var submitResult = await App.Locator.ServiceClient.SubmitTransaction(signed);
+			var submitResult = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 			if (submitResult != null) {
-                var result = await App.Locator.ServiceClient.AcceptPackage(escrowPubkey, location);//accept the package
+				var result = await App.Locator.RouteServiceClient.AcceptPackage(escrowPubkey, location);//accept the package
 				if (result != null) {
 					return StellarOperationResult.Success;
 				} else {
@@ -272,7 +376,7 @@ namespace PaketGlobal
 
 		public static async Task<bool> RefundEscrow(string refundTranscation, string mergeTransaction)
 		{
-			var refundResult = await App.Locator.ServiceClient.SubmitTransaction(refundTranscation);
+			var refundResult = await App.Locator.BridgeServiceClient.SubmitTransaction(refundTranscation);
 			if (refundResult != null) {
 				var mergeResult = await ReclaimEscrow(mergeTransaction);
 				return mergeResult;
@@ -283,7 +387,7 @@ namespace PaketGlobal
 
 		public static async Task<bool> ReclaimEscrow(string mergeTransaction)
 		{
-			var result = await App.Locator.ServiceClient.SubmitTransaction(mergeTransaction);
+			var result = await App.Locator.BridgeServiceClient.SubmitTransaction(mergeTransaction);
 			return result != null;
 		}
 
@@ -366,13 +470,13 @@ namespace PaketGlobal
 
 		public static async Task<bool> CheckTokenTrusted()
 		{
-			var result = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+			var result = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 			return result != null;
 		}
 
         public static async Task<bool> CheckTokenTrustedWithPubKey(string pubKey)
         {
-            var result = await App.Locator.ServiceClient.Balance(pubKey);
+			var result = await App.Locator.BridgeServiceClient.Balance(pubKey);
             return result != null;
         }
 

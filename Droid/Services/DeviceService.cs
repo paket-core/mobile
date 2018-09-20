@@ -2,12 +2,27 @@
 
 using Android.Content;
 using Android.Content.Res;
+using Android.Telephony;
+using Java.Util;
 using Xamarin.Forms;
+using Application = Android.App.Application;
 
 namespace PaketGlobal.Droid
 {
     public class DeviceService : IDeviceService
     {
+        private bool isNeedAlertDialogToClose = false;
+
+        public bool IsNeedAlertDialogToClose { 
+            get{
+                return isNeedAlertDialogToClose;
+            }
+            set
+            {
+                isNeedAlertDialogToClose = value;
+            } 
+        }
+
         public bool IsIphoneX()
         {
             return false;
@@ -45,6 +60,29 @@ namespace PaketGlobal.Droid
         public void HideProgress()
         {
             MainActivity.Instance.HideProgressDialog();
+        }
+
+        public string CountryCode()
+        {
+            var manager = (TelephonyManager)Application.Context.GetSystemService(Context.TelephonyService);
+
+            if(manager!=null)
+            {
+                var iso = manager.SimCountryIso;
+
+                if(iso!=null)
+                {
+					return iso.ToUpper();
+                }
+            }
+
+            return LocaleCountryCode();
+        }
+
+        private string LocaleCountryCode()
+        {
+            var countryCode = Locale.Default.ISO3Country;
+            return countryCode;
         }
     }
 }

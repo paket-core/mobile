@@ -73,7 +73,7 @@
 		<string>Poppins-Regular.ttf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera needed for scanning QR-codes</string>
+	<string>This app needs access to the camera to take photos</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -90,6 +90,7 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
+		<string>newsstand-content</string>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>The location is required for tracking packages</string>
@@ -104,5 +105,13 @@
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ru</string>
+	<key>NSContactsUsageDescription</key>
+	<string>We need a contact permission to select a phone number from the address book</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photos</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to the photo gallery</string>
+	<key>NSLocationUsageDescription</key>
+	<string>The location is required for tracking packages</string>
 </dict>
 </plist>

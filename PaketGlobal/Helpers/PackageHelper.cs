@@ -7,11 +7,11 @@ namespace PaketGlobal
 	{
 		public static async Task<Package> GetPackageDetails(string paketId)
 		{
-			var packageData = await App.Locator.ServiceClient.Package(paketId);
+			var packageData = await App.Locator.RouteServiceClient.Package(paketId);
 			if (packageData != null) {
                 
-                var launcherName = await App.Locator.FundServiceClient.GetUser(packageData.Package.LauncherPubkey,null);
-                var recipientName = await App.Locator.FundServiceClient.GetUser(packageData.Package.RecipientPubkey, null);
+                var launcherName = await App.Locator.IdentityServiceClient.GetUser(packageData.Package.LauncherPubkey,null);
+                var recipientName = await App.Locator.IdentityServiceClient.GetUser(packageData.Package.RecipientPubkey, null);
 
                 if(launcherName!=null)
                 {
@@ -23,9 +23,9 @@ namespace PaketGlobal
                     packageData.Package.RecipientName = recipientName.UserDetails.PaketUser;
                 }
 
-				var balanceData = await App.Locator.ServiceClient.Balance(paketId);
+				var balanceData = await App.Locator.BridgeServiceClient.Balance(paketId);
 
-				packageData.Package.DeliveryStatus = balanceData != null && balanceData.BalanceBUL == 0 ?
+				packageData.Package.DeliveryStatus = balanceData != null && balanceData.Account.BalanceBUL == 0 ?
 					DeliveryStatus.Delivered :
 					(balanceData == null ? DeliveryStatus.Closed : (DateTime.Now > packageData.Package.DeadlineDT ? DeliveryStatus.DeadlineExpired : DeliveryStatus.InTransit));
 

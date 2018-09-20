@@ -46,19 +46,19 @@
         <value>Показать ключ</value>
     </data>
     <data name="SecretSeed" xml:space="preserve">
-        <value>Показать ключ</value>
+        <value>Секретный ключ</value>
     </data>
     <data name="SecretSeedProfileInfo" xml:space="preserve">
-        <value>Here’s your secred seed, used to interact&#xA;with Stellar</value>
+        <value>Это ваш секретный ключ, используемый для&#xA;взаимодействия с Stellar</value>
     </data>
     <data name="UpdateProfile" xml:space="preserve">
         <value>СОХРАНИТЬ</value>
     </data>
     <data name="MnemonicPhrase" xml:space="preserve">
-        <value>Ключевая фраза</value>
+        <value>Секретная фраза</value>
     </data>
     <data name="MnemonicProfileInfo" xml:space="preserve">
-        <value>Here’s your mnemonic phrase, used to interact&#xA;with Stellar</value>
+        <value>Это ваша секретная фраза, используемая для&#xA;взаимодействия с Stellar</value>
     </data>
     <data name="Wallet" xml:space="preserve">
         <value>Кошелек</value>
@@ -115,13 +115,13 @@
         <value>Скопировать</value>
     </data>
     <data name="MyPackages" xml:space="preserve">
-        <value>Мои пакеты</value>
+        <value>Мои посылки</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
-        <value>Здесь вы можете создавать и отслеживать&#x0a;все ваши пакеты</value>
+        <value>Здесь вы можете создавать и отслеживать&#x0a;все ваши посылки</value>
     </data>
     <data name="Sent" xml:space="preserve">
-        <value>ОТПРАВИТЬ</value>
+        <value>ОТПРАВЛЕНО</value>
     </data>
     <data name="Deadline" xml:space="preserve">
         <value>КРАЙНИЙ СРОК</value>
@@ -133,19 +133,25 @@
         <value>Роль</value>
     </data>
     <data name="PackageDelivered" xml:space="preserve">
-        <value>Пакет доставлен.&#x0a;Вы можете вернуть неизрасходованные средства.</value>
+        <value>Посылка доставлена.&#x0a;Вы можете вернуть неизрасходованные средства.</value>
     </data>
     <data name="PackageExpired" xml:space="preserve">
         <value>Срок истек.&#x0a;Вы можете вернуть средства.</value>
     </data>
+    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
+        <value>Срок истек&#x0a;Вы не можете оплатить и запустить посылку.</value>
+    </data>
+    <data name="ReclaimInList" xml:space="preserve">
+        <value>Вы можете вернуть средства.</value>
+    </data>
     <data name="AcceptPackage" xml:space="preserve">
-        <value>Принять</value>
+        <value>Принять посылку</value>
     </data>
     <data name="Funds" xml:space="preserve">
         <value>КАПИТАЛ</value>
     </data>
     <data name="Payment" xml:space="preserve">
-        <value>Основной</value>
+        <value>Вознаграждение</value>
     </data>
     <data name="Collateral" xml:space="preserve">
         <value>Залог</value>
@@ -154,13 +160,13 @@
         <value>ПЛАТЕЖНАЯ ИНФОРМАЦИЯ</value>
     </data>
     <data name="PackageBarcodeInfo" xml:space="preserve">
-        <value>Используйте этот код чтобы передать пакетa&#x0a;курьеру или принять пакет, как получатель</value>
+        <value>Используйте этот код чтобы передать посылку&#x0a;курьеру или принять посылку, как получатель</value>
     </data>
     <data name="Events" xml:space="preserve">
         <value>СОБЫТИЯ</value>
     </data>
     <data name="CreatePackage" xml:space="preserve">
-        <value>Создать пакет</value>
+        <value>Создать посылку</value>
     </data>
     <data name="Participants" xml:space="preserve">
         <value>УЧАСТНИКИ</value>
@@ -193,7 +199,7 @@
         <value>Создать</value>
     </data>
     <data name="ScanInfo" xml:space="preserve">
-        <value>Scan the barcode containing&#x0a;package information</value>
+        <value>Сканирование штри-кода содержащего&#x0a;информацию о посылке</value>
     </data>
     <data name="AutoScan" xml:space="preserve">
         <value>Сканирование произойдет автоматически</value>
@@ -202,7 +208,7 @@
         <value>Активировать аккаунт</value>
     </data>
     <data name="ActivateSend" xml:space="preserve">
-        <value>Please send 0.001 BTC to this address to create your account</value>
+        <value>Пожалуйста, перешлите 0.001 BTC на этот адрес, чтобы создать свою учетную запись</value>
     </data>
     <data name="CheckActivation" xml:space="preserve">
         <value>ПРОВЕРИТЬ АКТИВАЦИЮ</value>
@@ -211,7 +217,7 @@
         <value>КЛЮЧЕВАЯ ФРАЗА</value>
     </data>
     <data name="ActivationMnemonicInfo" xml:space="preserve">
-        <value>Используйте эту фразу что бы восстановить&#xA;приватный ключ на любом другом телефоне</value>
+        <value>Используйте эту фразу для восстановления приватного ключа. Сохраните эту фразу где-нибудь в безопасности.</value>
     </data>
     <data name="CreateNewKey" xml:space="preserve">
         <value>Создать новый ключ</value>
@@ -220,34 +226,34 @@
         <value>Выберите валюту</value>
     </data>
     <data name="GenerateKey" xml:space="preserve">
-        <value>ГЕНЕРИРОВАТЬ КЛЮЧ</value>
+        <value>Генерировать ключ</value>
     </data>
     <data name="IHaveKey" xml:space="preserve">
         <value>У меня уже есть ключ</value>
     </data>
     <data name="RestorePrivateKey" xml:space="preserve">
-        <value>Восстановить ключ</value>
+        <value>Восстановить приватный ключ</value>
     </data>
     <data name="Or" xml:space="preserve">
         <value>Или</value>
     </data>
     <data name="RestoreKey" xml:space="preserve">
-        <value>ВОССТАНОВИТЬ КЛЮЧ</value>
+        <value>Восстановить ключ</value>
     </data>
     <data name="GenerateNewKey" xml:space="preserve">
-        <value>ГЕНЕРИРОВАТЬ НОВЫЙ КЛЮЧ</value>
+        <value>Генерировать ключ</value>
     </data>
     <data name="SecretKey" xml:space="preserve">
-        <value>Secret Key</value>
+        <value>Приватный ключ</value>
     </data>
     <data name="Copied" xml:space="preserve">
         <value>Скопировано</value>
     </data>
     <data name="ActivationEth" xml:space="preserve">
-        <value>Please send 0.001 ETH to this address to create your account</value>
+        <value>Пожалуйста, перешлите 0.001 ETH на этот адрес, чтобы создать свою учетную запись</value>
     </data>
     <data name="CompleteRegistration" xml:space="preserve">
-        <value>Complete Registration</value>
+        <value>Завершить регистрацию</value>
     </data>
     <data name="AddInfo" xml:space="preserve">
         <value>Добавить информацию</value>
@@ -271,7 +277,7 @@
         <value>Учетная запись не проверена</value>
     </data>
     <data name="InvalidPackageId" xml:space="preserve">
-        <value>Неверный идентефикатор пакета</value>
+        <value>Неверный идентефикатор посылки</value>
     </data>
     <data name="InvalidBarcode" xml:space="preserve">
         <value>Неверный код</value>
@@ -289,159 +295,393 @@
         <value>Усепшное восстановление</value>
     </data>
     <data name="PackageAccepted" xml:space="preserve">
-        <value>Пакет успешно принят</value>
+        <value>Посылка успешно принята</value>
     </data>
     <data name="ErrorGetPackage" xml:space="preserve">
-        <value>Ошибка при получении сведений о пакете</value>
+        <value>Ошибка при получении сведений о посылки</value>
     </data>
     <data name="ConnectionError" xml:space="preserve">
         <value>Ошибка подключения к интернету</value>
     </data>
     <data name="FailSendBuls" xml:space="preserve">
-        <value>Error sending BULs</value>
+        <value>Ошибка при отправке средств</value>
     </data>
     <data name="FailCreateAccount" xml:space="preserve">
-        <value>Error creating an account</value>
+        <value>Ошибка при создании акккаунта</value>
     </data>
     <data name="FailSubmitCreateAccount" xml:space="preserve">
-        <value>Error submiting the account creation</value>
+        <value>Ошибка при создании акккаунта</value>
     </data>
     <data name="FailAddTrust" xml:space="preserve">
-        <value>Error adding trust</value>
+        <value>Ошибка при добавлении подтверждения</value>
     </data>
     <data name="LowBULsLauncher" xml:space="preserve">
-        <value>Insufficient BULs from the Launcher</value>
+        <value>У вас недостаточно средств</value>
     </data>
     <data name="LowBULsCourier" xml:space="preserve">
-        <value>Insufficient BULs from the Courier</value>
+        <value>У курьера недостаточно средств</value>
     </data>
     <data name="FailedLaunchPackage" xml:space="preserve">
-        <value>Error launching the package</value>
+        <value>Ошибка при запуске посылки</value>
     </data>
     <data name="FaileSubmitOptions" xml:space="preserve">
-        <value>Error submiting options</value>
+        <value>Ошибка при отправке опций</value>
     </data>
     <data name="IncositentBalance" xml:space="preserve">
-        <value>Inconsistent balance</value>
+        <value>Несоответствующий баланс</value>
     </data>
     <data name="FailAcceptPackage" xml:space="preserve">
-        <value>Error accepting the package</value>
+        <value>Ошибка при принятии посылки</value>
     </data>
     <data name="FailSendCollateral" xml:space="preserve">
-        <value>Error sending collateral</value>
+        <value>Ошибка отправки залога</value>
     </data>
     <data name="UnknownError" xml:space="preserve">
         <value>Неизвестная ошибка</value>
     </data>
     <data name="CameraAccessNotGranted" xml:space="preserve">
-        <value>Пожалуйста предоставьте доступ к камере для сканирование пакетов</value>
+        <value>Пожалуйста предоставьте доступ к камере для сканирование посылок</value>
     </data>
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Ошибка при добавлении токенов</value>
     </data>
-     <data name="StellarAccountNotCreated" xml:space="preserve">
+    <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Аккаунт еще не создан</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
         <value>Пожалуйте выберите валюту</value>
     </data>
-
-        <data name="ProfileSaved" xml:space="preserve">
+    <data name="ProfileSaved" xml:space="preserve">
         <value>Профиль успешно сохранен</value>
     </data>
-
     <data name="ProfileNotSaved" xml:space="preserve">
         <value>Ошибка при сохранении профиля</value>
     </data>
-
-     <data name="YRole" xml:space="preserve">
+    <data name="YRole" xml:space="preserve">
         <value>Ваша роль</value>
     </data>
-
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Проверка вашего баланса</value>
     </data>
-
     <data name="LaunchPackageStep2" xml:space="preserve">
-        <value>Проверка баланса курьера</value>
+        <value>Создание посылки</value>
     </data>
-
+    <data name="LaunchPackageStep13" xml:space="preserve">
+        <value>Проверка вашего баланса</value>
+    </data>
+    <data name="LaunchPackageStep14" xml:space="preserve">
+        <value>Назначение посылки</value>
+    </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Создание аккаунта</value>
     </data>
-
+    <data name="LaunchPackageStep15" xml:space="preserve">
+        <value>Проверка баланса курьера</value>
+    </data>
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Подпись аккаунта</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Отправка аккаунта</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep6" xml:space="preserve">
         <value>Добавление токена к аккаунту</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Подготовка</value>
     </data>
-
     <data name="LaunchPackageStep8" xml:space="preserve">
         <value>Подпись опций транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep9" xml:space="preserve">
         <value>Отправка опций транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep10" xml:space="preserve">
         <value>Подготовка к отправке платежа</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep11" xml:space="preserve">
         <value>Подпись транзакции</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep12" xml:space="preserve">
         <value>Отправка транзакции</value>
     </data>
-
-       <data name="LaunchPackageStep0" xml:space="preserve">
+    <data name="LaunchPackageStep0" xml:space="preserve">
         <value>Получение текущей локации</value>
-    </data> 
+    </data>
     <data name="FractionalDigitsError" xml:space="preserve">
         <value>Вы не можете указать более 7 дробных цифр</value>
-    </data> 
-     <data name="AppInfo" xml:space="preserve">
+    </data>
+    <data name="AppInfo" xml:space="preserve">
         <value>ИНФОРМАЦИЯ О ПРИЛОЖЕНИИ</value>
     </data>
-
-     <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
         <value>Инфо</value>
-    </data> 
-    <data name="Packages" xml:space="preserve">
-        <value>Пакеты</value>
     </data>
-
+    <data name="Packages" xml:space="preserve">
+        <value>Посылки</value>
+    </data>
     <data name="Version" xml:space="preserve">
         <value>Версия приложения</value>
     </data>
-
     <data name="Git" xml:space="preserve">
         <value>Версия комита</value>
     </data>
-
     <data name="AppURL" xml:space="preserve">
         <value>Сайт приложения</value>
     </data>
-    
     <data name="PaketURL" xml:space="preserve">
         <value>Основной сайт</value>
     </data>
-
-   <data name="ClickToOpen" xml:space="preserve">
+    <data name="ClickToOpen" xml:space="preserve">
         <value>Нажмите чтобы открыть</value>
     </data>
-
-       <data name="Language" xml:space="preserve">
+    <data name="Language" xml:space="preserve">
         <value>Язык</value>
     </data>
-
     <data name="SelectLanguage" xml:space="preserve">
         <value>Выберите язык</value>
+    </data>
+    <data name="WellcomeText1" xml:space="preserve">
+        <value>Мы PAKET</value>
+    </data>
+    <data name="WellcomeText2" xml:space="preserve">
+        <value>Сеть децентрализованной доставки</value>
+    </data>
+    <data name="WellcomeText3" xml:space="preserve">
+        <value>Мы верим в развал монополий&#xA;и предоставление власти людям</value>
+    </data>
+    <data name="Start" xml:space="preserve">
+        <value>Начать</value>
+    </data>
+    <data name="LogIn" xml:space="preserve">
+        <value>Войти</value>
+    </data>
+    <data name="RegistrationText1" xml:space="preserve">
+        <value>PAKET Ltd стремится защищать&#xA;и уважать вашу конфиденциальность</value>
+    </data>
+    <data name="TermsOfService" xml:space="preserve">
+        <value>Условия использования и политика конфиденциальности</value>
+    </data>
+    <data name="PhoneVerefication" xml:space="preserve">
+        <value>Проверка телефона</value>
+    </data>
+    <data name="SMSVerificationText1" xml:space="preserve">
+        <value>Чтобы защитить безопасность вашей&#xA;учетной записи, мы отправили вам текстовое сообщение&#xA;с кодом подтверждения.&#xA;Введите его в поле ниже</value>
+    </data>
+    <data name="VerifyPhoneNumber" xml:space="preserve">
+        <value>Отправить</value>
+    </data>
+    <data name="SMSCode" xml:space="preserve">
+        <value>Код из СМС</value>
+    </data>
+    <data name="CreateAccount" xml:space="preserve">
+        <value>Регистрация</value>
+    </data>
+    <data name="HereMnemonic" xml:space="preserve">
+        <value>Ваша ключевая&#xA;фраза</value>
+    </data>
+    <data name="ConfirmMnemonicText1" xml:space="preserve">
+        <value>Пожалуйста, подтвердите, что вы сохранили фразу</value>
+    </data>
+    <data name="ConfirmMnemonicText2" xml:space="preserve">
+        <value>Пожалуйста, убедитесь, что вы сохранили свою фразу. Храните ее где-то в безопасности. Спасибо</value>
+    </data>
+    <data name="AlmostHere" xml:space="preserve">
+        <value>Осталось чуть-чуть</value>
+    </data>
+    <data name="MnemonicWordConfirm" xml:space="preserve">
+        <value>Пожалуйста введите 5ое слово&#xA;с вашей фразы</value>
+    </data>
+    <data name="MnemonicWord" xml:space="preserve">
+        <value>5ое слово</value>
+    </data>
+      <data name="PackageEnterRecipient" xml:space="preserve">
+        <value>Введите имя или ключ</value>
+    </data>
+    <data name="SelectedDate" xml:space="preserve">
+        <value>Выбранная дата</value>
+    </data>
+    <data name="EnterUserName" xml:space="preserve">
+        <value>Введите ник</value>
+    </data>
+    <data name="EnterFullName" xml:space="preserve">
+        <value>Введите имя</value>
+    </data>
+    <data name="EnterPhoneNumber" xml:space="preserve">
+        <value>Введите номер телефона</value>
+    </data>
+    <data name="EnterAddress" xml:space="preserve">
+        <value>Введите адрес</value>
+    </data>
+    <data name="SelectRecipient" xml:space="preserve">
+        <value>Выберите получателя</value>
+    </data>
+    <data name="SelectCourier" xml:space="preserve">
+        <value>Выберите курьера</value>
+    </data>
+    <data name="CODE" xml:space="preserve">
+        <value>КОД</value>
+    </data>
+    <data name="English" xml:space="preserve">
+        <value>Английский</value>
+    </data>
+    <data name="Russian" xml:space="preserve">
+        <value>Русский</value>
+    </data>
+    <data name="NoPackagesFound" xml:space="preserve">
+        <value>У вас нет посылок</value>
+    </data>
+    <data name="Launcher" xml:space="preserve">
+        <value>Отправитель</value>
+    </data>
+    <data name="WaitingPickup" xml:space="preserve">
+        <value>Ожидает отправки</value>
+    </data>
+    <data name="InTransit" xml:space="preserve">
+        <value>В пути</value>
+    </data>
+    <data name="Delivered" xml:space="preserve">
+        <value>Доставлен</value>
+    </data>
+    <data name="NoUsersFound" xml:space="preserve">
+        <value>Пользователи не найдены</value>
+    </data>
+    <data name="Social" xml:space="preserve">
+        <value>СООБЩЕСТВА</value>
+    </data>
+    <data name="JoinTelegram" xml:space="preserve">
+        <value>Присоединиться в наш Telegram</value>
+    </data>
+    <data name="RecipientPhone" xml:space="preserve">
+        <value>Номер телефона получателя</value>
+    </data>
+    <data name="MyPhone" xml:space="preserve">
+        <value>Ваш номер телефона</value>
+    </data>
+    <data name="SelectCountry" xml:space="preserve">
+        <value>Страна</value>
+    </data>
+    <data name="ContactsAccessNotGranted" xml:space="preserve">
+        <value>Вы должны предоставить доступ к контактам, чтобы выбрать телефон получателя</value>
+    </data>
+    <data name="Contacts" xml:space="preserve">
+        <value>Контакты</value>
+    </data>
+    <data name="DeadlineLower" xml:space="preserve">
+        <value>Крайний срок</value>
+    </data>
+    <data name="PackageDescText1" xml:space="preserve">
+        <value>Описание посылки</value>
+    </data>
+    <data name="PackageDescText2" xml:space="preserve">
+        <value>Опишите основные параметры</value>
+    </data>
+    <data name="Locations" xml:space="preserve">
+        <value>АДРЕСА</value>
+    </data>
+    <data name="SelectLocations" xml:space="preserve">
+        <value>Пожалуйста выберите адреса</value>
+    </data>
+    <data name="ToLocation" xml:space="preserve">
+        <value>ОТКУДА</value>
+    </data>
+    <data name="FromLocation" xml:space="preserve">
+        <value>КУДА</value>
+    </data>
+    <data name="SelectLocation" xml:space="preserve">
+        <value>Выберите&#xA;адрес</value>
+    </data>
+    <data name="Distance" xml:space="preserve">
+        <value>ДИСТАНЦИЯ</value>
+    </data>
+    <data name="SelectLocationSmall" xml:space="preserve">
+        <value>Выберите адрес</value>
+    </data>
+    <data name="LocationPickerTypeFrom" xml:space="preserve">
+        <value>Введите адрес откуда забрать</value>
+    </data>
+    <data name="LocationPickerTypeTo" xml:space="preserve">
+        <value>Введите адрес куда доставить</value>
+    </data>
+    <data name="SelectOnMap" xml:space="preserve">
+        <value>Выбрать адрес на карте</value>
+    </data>
+    <data name="Map" xml:space="preserve">
+        <value>Карта</value>
+    </data>
+    <data name="CantGetGooglePlace" xml:space="preserve">
+        <value>Не удалось получить детали. Попробуй позже.</value>
+    </data>
+    <data name="LocationsNotSet" xml:space="preserve">
+        <value>Пожалуйста, выберите пункты назначения посылки</value>
+    </data>
+    <data name="Select" xml:space="preserve">
+        <value>Выбрать</value>
+    </data>
+    <data name="TakePhoto" xml:space="preserve">
+        <value>take_photo_ru.png</value>
+    </data>
+    <data name="ReTakePhoto" xml:space="preserve">
+        <value>retake_photo_ru.png</value>
+    </data>
+    <data name="SelectPackagePhoto" xml:space="preserve">
+        <value>Пожалуйста сделать фото посылки</value>
+    </data>
+    <data name="SearchPlacholder" xml:space="preserve">
+        <value>Поиск...</value>
+    </data>
+    <data name="AllPackages" xml:space="preserve">
+        <value>Все посылки</value>
+    </data>
+    <data name="AvailablePackages" xml:space="preserve">
+        <value>Доступные</value>
+    </data>
+    <data name="Filter" xml:space="preserve">
+        <value>Фильтр</value>
+    </data>
+     <data name="Reset" xml:space="preserve">
+        <value>Сбросить</value>
+    </data>  
+       <data name="PackageCanAssign" xml:space="preserve">
+        <value>Вы можете взять эту посылку для доставки</value>
+    </data> 
+      <data name="Take" xml:space="preserve">
+        <value>Взять</value>
+    </data> 
+  <data name="PackageAssigned" xml:space="preserve">
+        <value>Посылка была успешно назначена</value>
+    </data> 
+      <data name="WaitingAssignCourierToPackage" xml:space="preserve">
+        <value>Подождите пока курьер возьмет ваш заказ.&#xA;Тогда вы сможете показать ему QR-КОД</value>
+   </data> 
+    <data name="Deposit" xml:space="preserve">
+        <value>Депозитный платеж</value>
+    </data> 
+    <data name="WaitingMakeDepositPackage" xml:space="preserve">
+        <value>Пожалуйста, сделайте депозит.&#xA;Затем вы можете показать курьеру QR-код</value>
+    </data> 
+    <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
+        <value>Пожалуйста подождите пока отправиттель внесет депозит</value>
+    </data> 
+    <data name="CourierNotContactVisible" xml:space="preserve">
+        <value>У вас еще нет прав для просмотра номера телефона</value>
+    </data>
+    <data name="USERS" xml:space="preserve">
+        <value>ПОЛЬЗОВАТЕЛИ</value>
+    </data> 
+            <data name="Description" xml:space="preserve">
+        <value>Описание</value>
+    </data> 
+               <data name="Expired" xml:space="preserve">
+        <value>Срок доставки истек</value>
+    </data> 
+
+        <data name="WaitingCourierAssign" xml:space="preserve">
+        <value>У вас еще нет прав для просмотра QR-кода</value>
+    </data>
+
+       <data name="WaitingCourierAccept" xml:space="preserve">
+        <value>Вы должны принять посылку, чтобы увидеть QR-код</value>
     </data>
     
 </root>

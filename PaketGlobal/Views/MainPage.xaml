@@ -11,17 +11,17 @@
             <local:PackagesPage Title="{local:Translate Packages}" Icon="packages_icon.png" />
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage Title="{local:Translate Wallet}" Icon="wallet_icon.png" >
+   <NavigationPage Title="{local:Translate Wallet}" Icon="wallet_icon.png" >
         <x:Arguments>
             <local:WalletPage Title="{local:Translate Wallet}" Icon="wallet_icon.png" />
         </x:Arguments>
     </NavigationPage>
-    <NavigationPage Title="{local:Translate Profile}" Icon="profile_icon.png" >
+   <NavigationPage Title="{local:Translate Profile}" Icon="profile_icon.png" >
         <x:Arguments>
             <local:ProfilePage Title="{local:Translate Profile}" Icon="profile_icon.png" />
         </x:Arguments>
     </NavigationPage>
-   <NavigationPage Title="{local:Translate About}" Icon="atoms_icon.png" >
+ <NavigationPage Title="{local:Translate About}" Icon="atoms_icon.png" >
         <x:Arguments>
             <local:AboutPage Title="{local:Translate About}" Icon="atoms_icon.png" />
         </x:Arguments>

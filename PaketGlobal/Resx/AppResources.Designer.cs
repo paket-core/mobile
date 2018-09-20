@@ -464,6 +464,279 @@ namespace PaketGlobal
             }
         }
 
+        internal static string SelectCourier
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectCourier", resourceCulture);
+            }
+        }
+
+        internal static string SelectRecipient
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectRecipient", resourceCulture);
+            }
+        }
+
+        internal static string English
+        {
+            get
+            {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+
+        internal static string Russian
+        {
+            get
+            {
+                return ResourceManager.GetString("Russian", resourceCulture);
+            }
+        }
+
+        internal static string Recipient
+        {
+            get
+            {
+                return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+
+        internal static string Courier
+        {
+            get
+            {
+                return ResourceManager.GetString("Courier", resourceCulture);
+            }
+        }
+
+        internal static string Launcher
+        {
+            get
+            {
+                return ResourceManager.GetString("Launcher", resourceCulture);
+            }
+        }
+
+        internal static string WaitingPickup
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingPickup", resourceCulture);
+            }
+        }
+
+
+        internal static string InTransit
+        {
+            get
+            {
+                return ResourceManager.GetString("InTransit", resourceCulture);
+            }
+        }
+
+        internal static string Delivered
+        {
+            get
+            {
+                return ResourceManager.GetString("Delivered", resourceCulture);
+            }
+        }
+
+        internal static string ContactsAccessNotGranted
+        {
+            get
+            {
+                return ResourceManager.GetString("ContactsAccessNotGranted", resourceCulture);
+            }
+        }
+
+        internal static string LocationPickerTypeTo
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationPickerTypeTo", resourceCulture);
+            }
+        }
+
+        internal static string LocationPickerTypeFrom
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationPickerTypeFrom", resourceCulture);
+            }
+        }
+
+        internal static string SelectOnMap
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectOnMap", resourceCulture);
+            }
+        }
+
+        internal static string Map
+        {
+            get
+            {
+                return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+
+        internal static string CantGetGooglePlace
+        {
+            get
+            {
+                return ResourceManager.GetString("CantGetGooglePlace", resourceCulture);
+            }
+        }
+
+        internal static string SelectLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectLocation", resourceCulture);
+            }
+        }
+
+        internal static string LocationsNotSet
+        {
+            get
+            {
+                return ResourceManager.GetString("LocationsNotSet", resourceCulture);
+            }
+        }
+
+        internal static string ReTakePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("ReTakePhoto", resourceCulture);
+            }
+        }
+
+        internal static string TakePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("TakePhoto", resourceCulture);
+            }
+        }
+
+        internal static string SelectPackagePhoto
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectPackagePhoto", resourceCulture);
+            }
+        }
+
+        internal static string PackageAssigned
+        {
+            get
+            {
+                return ResourceManager.GetString("PackageAssigned", resourceCulture);
+            }
+        }
+
+        internal static string WaitingAssignCourierToPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingAssignCourierToPackage", resourceCulture);
+            }
+        }
+
+        internal static string WaitingMakeDepositPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingMakeDepositPackage", resourceCulture);
+            }
+        }
+
+        internal static string WaitingLauncherMakeDeposit
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingLauncherMakeDeposit", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep13
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep13", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep14
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep14", resourceCulture);
+            }
+        }
+
+        internal static string LaunchPackageStep15
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchPackageStep15", resourceCulture);
+            }
+        }
+
+        internal static string CourierNotContactVisible
+        {
+            get
+            {
+                return ResourceManager.GetString("CourierNotContactVisible", resourceCulture);
+            }
+        }
+
+        internal static string Expired
+        {
+            get
+            {
+                return ResourceManager.GetString("Expired", resourceCulture);
+            }
+        }
+
+        internal static string WaitingExpiredDepositPackage
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingExpiredDepositPackage", resourceCulture);
+            }
+        }
+
+        internal static string Done
+        {
+            get
+            {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+
+        internal static string WaitingCourierAssign
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingCourierAssign", resourceCulture);
+            }
+        }
+
+        internal static string WaitingCourierAccept
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingCourierAccept", resourceCulture);
+            }
+        }
+
 
     }
 }

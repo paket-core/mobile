@@ -5,6 +5,8 @@ using Android.Content;
 using Android.OS;
 using Android.Locations;
 using Android.Preferences;
+using System.Collections.Generic;
+using Android.Support.V4.App;
 
 namespace PaketGlobal.Droid
 {
@@ -28,8 +30,14 @@ namespace PaketGlobal.Droid
         private double lastLongitude = double.MinValue;
         private DateTime lastUpdated = DateTime.MinValue;
 
-        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+
+        public override void OnCreate()
         {
+            base.OnCreate();
+        }
+
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+        {   
             RegisterForegroundService();
 
             InitializeBackgroundWork();
@@ -109,6 +117,7 @@ namespace PaketGlobal.Droid
             return pendingIntent;
         }
 
+
         #region ILocationListener Members   
 
         private Location GetOldLocation()
@@ -169,7 +178,7 @@ namespace PaketGlobal.Droid
 
         public async void OnLocationChangedAsync(Location location)
         {
-            var result = await App.Locator.ServiceClient.MyPackages();
+			var result = await App.Locator.RouteServiceClient.MyPackages();
 
             if (result.Packages != null)
             {
@@ -183,14 +192,14 @@ namespace PaketGlobal.Droid
 
 
 
-                    if (myRole == PaketRole.Courier)
+                    if (myRole == PaketRole.Courier && package.PaymentTransaction!=null && package.Status.ToLower() == "in transit")
                     {
 						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
                         if (locationString.Length > 24)
                         {
                             locationString = locationString.Substring(0, 24);
                         }
-                        await App.Locator.ServiceClient.ChangeLocation(package.PaketId, locationString);
+						await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationString);
                     }
                 }
             }

@@ -47,9 +47,11 @@ namespace PaketGlobal.Droid
 		IPageController _pageController;
 	    IDictionary<Page, BottomBarBadge> _badges;
 
+
 		public BottomBarPageRenderer()
 		{
 			AutoPackage = false;
+
 		}
 
 		#region IOnTabClickListener
@@ -123,13 +125,13 @@ namespace PaketGlobal.Droid
 			_pageController.SendDisappearing ();
 		}
 
-
 		protected override void OnElementChanged (ElementChangedEventArgs<BottomBarPage> e)
 		{
 			base.OnElementChanged (e);
 
 			if (e.NewElement != null) {
 
+          
 				BottomBarPage bottomBarPage = e.NewElement;
 
 				if (_bottomBar == null) {
@@ -176,6 +178,7 @@ namespace PaketGlobal.Droid
 				}
 			}
 		}
+
 
 		protected override void OnElementPropertyChanged (object sender, PropertyChangedEventArgs e)
 		{

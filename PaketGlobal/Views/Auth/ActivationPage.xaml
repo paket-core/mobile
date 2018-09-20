@@ -7,58 +7,58 @@
     xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
     <local:BasePage.Content>
-   <ScrollView BackgroundColor="#F0F0F0" VerticalOptions="Fill">
-            <RelativeLayout x:Name="layoutFundPrompt">
-                <StackLayout x:Name="activateTitleLabel" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
-                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+        <RelativeLayout BackgroundColor="White">
+           <Image BackgroundColor="Transparent"
+                    Aspect="AspectFill"
+                    Source="activation_bg.png"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.YConstraint="0"
+                    RelativeLayout.XConstraint="0"
+                    RelativeLayout.HeightConstraint="186"/>
+            <Image BackgroundColor="Transparent"
+                    Aspect="AspectFill"
+                    Source="shadow_top.png"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.YConstraint="0"
+                    RelativeLayout.XConstraint="0"
+                    RelativeLayout.HeightConstraint="186"/>
+            <ScrollView  
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                BackgroundColor="Transparent" VerticalOptions="Fill">
+                <RelativeLayout>
+                    <StackLayout x:Name="TitleView" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                     RelativeLayout.YConstraint="20">
-                    <Label Text="{local:Translate ActivateAccount}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="Black"/>
-                </StackLayout>
-                <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_arrow.png"
+                        <Label Text="{local:Translate ActivateAccount}" x:Name="titleLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White"/>
+                    </StackLayout>
+                    <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_white_icon.png"
                         Clicked="OnBack"
                         RelativeLayout.XConstraint = "23"
-                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
-                <StackLayout x:Name="BTCStackLayout" BackgroundColor="Transparent" Spacing="30" Padding="24,0"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=activateTitleLabel, Property=Y, Factor=1, Constant=100}">
-                    <StackLayout Spacing="40">
-                        <Label x:Name="sendLabel" Text="{local:Translate ActivateSend}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
-                        <StackLayout Spacing="10">
-                        <StackLayout Orientation="Horizontal" Spacing="5"  x:Name="btcStackView">
-                            <Label x:Name="addressLabel" Text="17AQ4avXZBiCmW5Tu4QyP1SfxG31dbrR62" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="13" TextColor="#555555"
-                                    VerticalOptions="Center" LineBreakMode="MiddleTruncation"/>
-                            <Button Image="copy_icon.png" BackgroundColor="Transparent" Clicked="OnCopyAddress" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
-                        </StackLayout>
-                            <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                        </StackLayout>
-                        <local:PaketButton x:Name="checkButton" Text="{local:Translate CheckActivation}" Clicked="CheckActivation" ButtonBackground="#4D64E8"/>
-                    </StackLayout>
-                </StackLayout>
-                <Image BackgroundColor="Transparent"
-                          x:Name="mnemonicBg"
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleView, Property=Y, Factor=1, Constant=12}"/>
+                    <Image BackgroundColor="Transparent"
                           Aspect="Fill"
                           HorizontalOptions="Fill"
                           VerticalOptions="Start"
                           RelativeLayout.HeightConstraint="206"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-206}"
-                        Source="mnemonic_bg.png">
-                </Image>
-                <StackLayout x:Name="mnemonicStack" BackgroundColor="Transparent" Spacing="20" Padding="24,0"
-                          VerticalOptions="Start"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.2}"
+                          Source="mnemonic_bg.png"/>
+                    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="White" Spacing="30" Padding="24,0"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.75}">
-                    <Label XAlign="Center" Text="{local:Translate MnemonicUpperCase}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                    <Label XAlign="Start" Text="{local:Translate ActivationMnemonicInfo}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
-                    <StackLayout Spacing="10">
-                        <StackLayout Orientation="Horizontal" Spacing="15" >
-                             <Label x:Name="mnemonicLabel" Text="witch collapse practice feed shame open despair creek road again ice least" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="13" TextColor="#555555"/>
-                             <Button Image="copy_icon.png" BackgroundColor="Transparent" Clicked="OnCopyMnemonic" VerticalOptions="Center" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.3}">
+                        <Label Text="{local:Translate MnemonicWordConfirm}" x:Name="wordLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
+                        <StackLayout Spacing="10" Padding="25,0,25,0" VerticalOptions="Center">
+                            <local:PaketEntry Placeholder="{local:Translate MnemonicWord}" VerticalOptions="Center" HorizontalTextAlignment="Center" x:Name="entryWord" LineColor="#E5E5E5"  Keyboard="Text" 
+                                              HeightRequest="40"
+                                              CapSentences="2"
+                                              WidthRequest="290"/>
                         </StackLayout>
-                        <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                        <Button BackgroundColor="Transparent" Image="check_activation_button.png" WidthRequest="290" HeightRequest="50"
+                          VerticalOptions="Center" Clicked="OnCheck"/>
                     </StackLayout>
-                </StackLayout>
-            </RelativeLayout>
-        </ScrollView>
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
     </local:BasePage.Content>
 </local:BasePage>

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace PaketGlobal
 {
-	public partial class ProfilePage : BasePage
+    public partial class ProfilePage : BasePage,ISwipeCallBack
 	{
 		private ProfileModel ViewModel {
 			get {
@@ -57,11 +57,53 @@ namespace PaketGlobal
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
+
+
+            SwipeListener swipeListener = new SwipeListener(this.Content, this);
+
+
 		}
+
+        public void onBottomSwipe(View view)
+        {
+            if (view == ProfileView)
+            {
+            }
+        }
+
+        public void onLeftSwipe(View view)
+        {
+            if (view == ProfileView)
+            {
+            }
+        }
+
+        public void onNothingSwiped(View view)
+        {
+            if (view == ProfileView)
+            {
+            }
+        }
+
+        public void onRightSwipe(View view)
+        {
+            if (view == ProfileView)
+            {
+            }
+        }
+
+        public void onTopSwipe(View view)
+        {
+            if (view == ProfileView)
+            {
+            }
+        }
 
 		protected async override void OnAppearing()
 		{
             App.Locator.DeviceService.setStausBarLight();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
 
             var fl = firstLoad;
 
@@ -77,6 +119,13 @@ namespace PaketGlobal
                 await LoadProfile();
             }
 		}
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
+        }
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{

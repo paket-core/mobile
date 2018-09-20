@@ -28,6 +28,7 @@ using Android;
 using Android.Support.V4.App;
 using Android.Support.Design.Widget;
 using Plugin.Permissions;
+using Xamarin.Forms.GoogleMaps.Android;
 
 namespace PaketGlobal.Droid
 {
@@ -53,18 +54,23 @@ namespace PaketGlobal.Droid
         private System.Threading.Thread progressThread;
 
         private Intent EventServiceIntent;
+        private Intent PackageServiceIntent;
+
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-
+            Xamarin.FormsMaps.Init(this, bundle);
+			Xamarin.FormsGoogleMaps.Init(this, bundle, null); 
+            Stormlion.PhotoBrowser.Droid.Platform.Init(this);
+            Vapolia.Droid.Lib.Effects.PlatformGestureEffect.Init();
+                                 
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
-
 
             Instance = this;
 
@@ -103,11 +109,16 @@ namespace PaketGlobal.Droid
                     Console.WriteLine(e);
                 }
             }
+
+            StartPackageService();
         }
 
         protected override void OnStart()
         {
             base.OnStart();
+
+            PackageService.IsNeedRequestPackages = false;
+            EventService.IsNeedSendEvents = true;
 
             Countly.SharedInstance().OnStart(this);
         }
@@ -116,23 +127,55 @@ namespace PaketGlobal.Droid
         {
             Countly.SharedInstance().OnStop();
 
+            PackageService.IsNeedRequestPackages = true;
+            EventService.IsNeedSendEvents = true;
+
             base.OnStop();
         }
 
         protected override void OnDestroy()
         {
-            StopEventsService();
-
-            if (LocationAppManager.isServiceStarted)
-            {
-                StopLocationUpdate();
-                StartLocationUpdate();  
-            }
-         
+            PackageService.IsNeedRequestPackages = true;
+            EventService.IsNeedSendEvents = false;
 
             base.OnDestroy();
         }
 
+        public override void OnBackPressed()
+        {
+            if(App.Locator.DeviceService.IsNeedAlertDialogToClose)
+            {
+                var builder = new AlertDialog.Builder(this);
+                builder.SetTitle("PaketGlobal");
+                builder.SetMessage("Do you really want to exit?");
+                builder.SetPositiveButton("Yes", (senderAlert, args) => {
+                    this.FinishAffinity();
+                });
+                builder.SetNegativeButton("Cancel", (senderAlert, args) => {
+                });
+
+                // Keep what runs on the UI thread to a minimum
+                this.RunOnUiThread(() =>
+                {
+                    try
+                    {
+                        Dialog dialog = builder.Create();
+                        dialog.Show();
+                    }
+                    catch (WindowManagerBadTokenException)
+                    {
+
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                });
+            }
+            else{
+                base.OnBackPressed();
+            }
+        }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -258,6 +301,29 @@ namespace PaketGlobal.Droid
 				}
 			}
 		}
+
+        #endregion
+
+        #region Packages
+
+        public void StartPackageService()
+        {
+            if (PackageServiceIntent == null)
+            {
+                PackageServiceIntent = new Intent(this, typeof(PackageService));
+                Android.App.Application.Context.StartService(PackageServiceIntent);
+            }
+
+        }
+
+        public void StopPackageService()
+        {
+            if (PackageServiceIntent != null)
+            {
+                Android.App.Application.Context.StopService(PackageServiceIntent);
+                PackageServiceIntent = null;
+            }
+        }
 
         #endregion
 

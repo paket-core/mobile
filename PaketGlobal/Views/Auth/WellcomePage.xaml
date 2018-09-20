@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WellcomePage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
+    <local:BasePage.Content>
+    <RelativeLayout>
+            <Image BackgroundColor="Transparent"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Aspect="AspectFit"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.11}"
+                          RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=40}"  
+                          Source="wellcome_image.png">
+            </Image>
+            <StackLayout BackgroundColor="Transparent"
+                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-20}"
+                  RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=10}" 
+                  RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
+                 <Label Text="{local:Translate WellcomeText1}" FontFamily="{StaticResource SemiBoldFont}" FontSize="36" TextColor="Black" XAlign="Center"/>
+                 <Label Text="{local:Translate WellcomeText2}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" XAlign="Center"/>
+                 <Label Text="{local:Translate WellcomeText3}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F" XAlign="Center"/>
+                 <StackLayout Padding="0,40,0,0" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                    <Button Text="{local:Translate Start}" Clicked="OnRegistrationClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#4D64E8" WidthRequest="140" Style="{StaticResource DateButton}"/>
+                    <Button Text="{local:Translate LogIn}" Clicked="OnLogInClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#A7A7A7" WidthRequest="140" Style="{StaticResource DateButton}"/>
+                </StackLayout>
+            </StackLayout>
+    </RelativeLayout>
+    </local:BasePage.Content>
+</local:BasePage>

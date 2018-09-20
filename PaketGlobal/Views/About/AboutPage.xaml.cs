@@ -59,6 +59,17 @@ namespace PaketGlobal
                 await mainPage.Navigation.PushAsync(page);
             });
             XamEffects.Commands.SetTap(LanguageView, languageCommand);
+
+
+            var joinTelegramCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri(Constants.TELEGRAM_URL));
+            });
+            XamEffects.Commands.SetTap(JoinTelegramView, joinTelegramCommand);
+
+
+            var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+            LanguageLabel.Text = ValidationHelper.UppercaseFirst(ci.NativeName);
         }
 
         protected override void OnAppearing()
@@ -66,6 +77,15 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarLight();
 
             base.OnAppearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToClose = false;
         }
 
         private void NotificationsClicked(object sender, System.EventArgs e)

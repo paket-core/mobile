@@ -2,28 +2,31 @@
 {
 	public class Config
 	{
-        internal const string PackageService = "PackageService"; //TODO: should be split: bridge, route, identity
-        internal const string FundService = "FundService";
-
         internal const string BridgeService = "BridgeService";
         internal const string RouteService = "RouteService";
         internal const string IdentityService = "IdentityService";
 
-		internal const string ServerUrl = "http://api.paket.global";
 		internal const string FundServerUrl = "http://fund.paket.global";
-        internal const string BridgeServerUrl = "";
-        internal const string RouteServerUrl = "";
-        internal const string IdentityServerUrl = "";
+
+		internal const string BridgeServerUrl = "http://itd.pub:11251";//Global
+		internal const string RouteServerUrl = "http://itd.pub:11250";//Global
+		internal const string IdentityServerUrl = "http://itd.pub:11252";//Global
+		//internal const string BridgeServerUrl = "http://itd.pub:11251";//Local
+		//internal const string RouteServerUrl = "http://192.168.5.154:8000";//Local
+		//internal const string IdentityServerUrl = "http://itd.pub:11252";//Local
 
 		internal const string PrefundTestUrl = "https://friendbot.stellar.org";
 		
-        internal const string ServerVersion = "v3";
 		internal const string FundServerVersion = "v2";
-        internal const string BridgeServerVersion = "v2";
-        internal const string RouteServerVersion = "v2";
+
+        internal const string BridgeServerVersion = "v3";
+        internal const string RouteServerVersion = "v3";
         internal const string IdentityServerVersion = "v2";
 
         internal const string CountlyServerURL = "http://c.paket.global";
 		internal const string CountlyAppKey = "21cba638718aa2289f59862a87919d9cb159ba99";
+
+        internal const string GooglePlacesKEY = "AIzaSyDBRCrs7vfP_9gSaieSNs2wMqSZYFRuiz8";
+
 	}
 }

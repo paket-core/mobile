@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.SMSVereficationPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
+    <local:BasePage.Content>
+        <RelativeLayout BackgroundColor="White">
+            <Image BackgroundColor="Transparent"
+                    Aspect="AspectFill"
+                    Source="sms_verification_bg.png"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.YConstraint="0"
+                    RelativeLayout.XConstraint="0"
+                    RelativeLayout.HeightConstraint="434"></Image>
+            <ScrollView  
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                BackgroundColor="Transparent" VerticalOptions="Fill">
+                <RelativeLayout>
+                    <StackLayout x:Name="TitleView" VerticalOptions="Start" BackgroundColor="Transparent" Padding="24,24,24,24"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    RelativeLayout.YConstraint="20">
+                        <Label Text="{local:Translate PhoneVerefication}" x:Name="titleLabel" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White"/>
+                    </StackLayout>
+                    <Button x:Name="backButton" BackgroundColor="Transparent" Image="back_white_icon.png"
+                        Clicked="OnBack"
+                            IsVisible="false"
+                        RelativeLayout.XConstraint = "23"
+                        RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleView, Property=Y, Factor=1, Constant=12}"></Button>
+                    <Image BackgroundColor="Transparent"
+                          Aspect="Fill"
+                          HorizontalOptions="Fill"
+                          VerticalOptions="Start"
+                          RelativeLayout.HeightConstraint="206"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.3}"
+                          Source="mnemonic_bg.png"/>
+                    <StackLayout VerticalOptions="FillAndExpand" BackgroundColor="White" Spacing="30" Padding="24,0"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.4}">
+                        <StackLayout Spacing="30">
+                            <StackLayout Spacing="10">
+                                <Label Text="{local:Translate PhoneVerefication}" XAlign="Center"  FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="Black"/>
+                                <Label Text="{local:Translate SMSVerificationText1}" XAlign="Center"  FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
+                            </StackLayout>
+                            <local:PaketEntry x:Name="entryCode" Keyboard="Numeric" HorizontalTextAlignment="Center" LineColor="#E5E5E5" Placeholder="{local:Translate SMSCode}" HeightRequest="40"/>
+                        </StackLayout>
+                        <StackLayout Spacing="10">
+                            <local:PaketButton Clicked="OnVerify" Text="{local:Translate VerifyPhoneNumber}" ButtonBackground="#4D64E8"/>
+                            <Button Text="{local:Translate Cancel}" BackgroundColor="#FFFFFF" TextColor="#16305C" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" Clicked="OnBack"/>
+                        </StackLayout>
+                    </StackLayout>
+                </RelativeLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </local:BasePage.Content>
+</local:BasePage>

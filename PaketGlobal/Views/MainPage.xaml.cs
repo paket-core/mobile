@@ -15,7 +15,7 @@ namespace PaketGlobal
             Subscribe();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
         }
@@ -74,7 +74,7 @@ namespace PaketGlobal
             var package = await PackageHelper.GetPackageDetails(packageid);
             if (package != null)
             {
-                var packagePage = new PackageDetailsPage(package);
+                var packagePage = new NewPackageDetailPage(package);
                 packagePage.ShouldDismiss = true;
 
                 var mainPage = App.Current.MainPage;
