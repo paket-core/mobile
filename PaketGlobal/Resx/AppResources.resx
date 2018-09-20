@@ -43,10 +43,10 @@
         <value>KEYS</value>
     </data>
     <data name="DisplayKeys" xml:space="preserve">
-        <value>Display Secret Data</value>
+        <value>Display Sensitive Data</value>
     </data>
     <data name="SecretSeed" xml:space="preserve">
-        <value>Display Secret Seed</value>
+        <value>Secret Seed</value>
     </data>
     <data name="SecretSeedProfileInfo" xml:space="preserve">
         <value>Here’s your secret seed, used to interact&#xA;securely with our system</value>
@@ -115,7 +115,7 @@
         <value>Done &amp; Copy Address</value>
     </data>
     <data name="MyPackages" xml:space="preserve">
-        <value>My Packages</value>
+        <value>Packages</value>
     </data>
     <data name="MyPackagesInfo" xml:space="preserve">
         <value>Create and track your packages</value>
@@ -339,111 +339,93 @@
     <data name="ErrorAddTrustToken" xml:space="preserve">
         <value>Error adding trust</value>
     </data>
-     <data name="StellarAccountNotCreated" xml:space="preserve">
+    <data name="StellarAccountNotCreated" xml:space="preserve">
         <value>Stellar account isn't created yet</value>
     </data>
     <data name="PleaseSelectPaymentCurrency" xml:space="preserve">
         <value>Select payment currency</value>
     </data>
-
-        <data name="ProfileSaved" xml:space="preserve">
+    <data name="ProfileSaved" xml:space="preserve">
         <value>Profile info saved</value>
     </data>
-
     <data name="ProfileNotSaved" xml:space="preserve">
         <value>Error saving profile info</value>
     </data>
-
-     <data name="YRole" xml:space="preserve">
+    <data name="YRole" xml:space="preserve">
         <value>Your Role</value>
     </data>
-
     <data name="LaunchPackageStep1" xml:space="preserve">
         <value>Check launcher balance</value>
     </data>
-
     <data name="LaunchPackageStep2" xml:space="preserve">
         <value>Check courier balance</value>
     </data>
-
     <data name="LaunchPackageStep3" xml:space="preserve">
         <value>Create escrow account</value>
     </data>
-
     <data name="LaunchPackageStep4" xml:space="preserve">
         <value>Sign escrow transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Submit escrow transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep6" xml:space="preserve">
         <value>Add token trust to escrow</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep7" xml:space="preserve">
         <value>Prepare escrow</value>
     </data>
-
     <data name="LaunchPackageStep8" xml:space="preserve">
         <value>Sign options transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep9" xml:space="preserve">
         <value>Submit options transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep10" xml:space="preserve">
         <value>Prepare send payment</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep11" xml:space="preserve">
         <value>Sign payment transaction</value>
-    </data> 
+    </data>
     <data name="LaunchPackageStep12" xml:space="preserve">
         <value>Submit payment transaction</value>
     </data>
-
-       <data name="LaunchPackageStep0" xml:space="preserve">
+    <data name="LaunchPackageStep0" xml:space="preserve">
         <value>Getting user's location</value>
-    </data> 
+    </data>
     <data name="FractionalDigitsError" xml:space="preserve">
         <value>Can't specify more then 7 fractional digits</value>
-    </data> 
-     <data name="AppInfo" xml:space="preserve">
+    </data>
+    <data name="AppInfo" xml:space="preserve">
         <value>APPLICATION INFORMATION</value>
     </data>
-
-     <data name="About" xml:space="preserve">
+    <data name="About" xml:space="preserve">
         <value>About</value>
-    </data> 
+    </data>
     <data name="Packages" xml:space="preserve">
         <value>Packages</value>
     </data>
-
     <data name="Version" xml:space="preserve">
         <value>App Version</value>
     </data>
-
     <data name="Git" xml:space="preserve">
         <value>Git Commit</value>
     </data>
-
     <data name="AppURL" xml:space="preserve">
         <value>App URL</value>
     </data>
-    
     <data name="PaketURL" xml:space="preserve">
         <value>Paket URL</value>
     </data>
-
-   <data name="ClickToOpen" xml:space="preserve">
+    <data name="ClickToOpen" xml:space="preserve">
         <value>Click to open</value>
     </data>
-
-       <data name="Language" xml:space="preserve">
+    <data name="Language" xml:space="preserve">
         <value>Language</value>
     </data>
-
     <data name="SelectLanguage" xml:space="preserve">
         <value>Select Language</value>
     </data>
-
     <data name="WellcomeText1" xml:space="preserve">
         <value>We are PAKET</value>
     </data>
@@ -554,7 +536,7 @@
     </data>
     <data name="JoinTelegram" xml:space="preserve">
         <value>Join Our Telegram</value>
-    </data>  
+    </data>
     <data name="RecipientPhone" xml:space="preserve">
         <value>Recipient phone number</value>
     </data>
@@ -631,7 +613,7 @@
         <value>Search...</value>
     </data>
     <data name="AllPackages" xml:space="preserve">
-        <value>All Packages</value>
+        <value>Mine</value>
     </data>
     <data name="AvailablePackages" xml:space="preserve">
         <value>Available</value>
@@ -639,59 +621,52 @@
     <data name="Filter" xml:space="preserve">
         <value>Filter</value>
     </data>
-     <data name="Reset" xml:space="preserve">
+    <data name="Reset" xml:space="preserve">
         <value>Reset</value>
-    </data>   
-   <data name="PackageCanAssign" xml:space="preserve">
+    </data>
+    <data name="PackageCanAssign" xml:space="preserve">
         <value>You can take this package for delivery</value>
-    </data> 
-      <data name="Take" xml:space="preserve">
+    </data>
+    <data name="Take" xml:space="preserve">
         <value>Take</value>
-    </data> 
-          <data name="PackageAssigned" xml:space="preserve">
+    </data>
+    <data name="PackageAssigned" xml:space="preserve">
         <value>The package was successfully assigned</value>
-    </data> 
-  <data name="WaitingAssignCourierToPackage" xml:space="preserve">
+    </data>
+    <data name="WaitingAssignCourierToPackage" xml:space="preserve">
         <value>Please wait some courier to assign your package.&#xA;Then you would be able to show him the QR code.</value>
-   </data> 
+    </data>
     <data name="Deposit" xml:space="preserve">
         <value>Deposit Payment</value>
-    </data> 
+    </data>
     <data name="WaitingMakeDepositPackage" xml:space="preserve">
         <value>Please make a deposit.&#xA;Then you can show the courier a QR code.</value>
-    </data> 
-        <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
+    </data>
+    <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
         <value>Please wait when the launcher will make deposit.&#xA;Then you can accept the package.</value>
-    </data> 
+    </data>
     <data name="CourierNotContactVisible" xml:space="preserve">
         <value>You do not have permission to view the phone number yet</value>
-    </data> 
+    </data>
     <data name="USERS" xml:space="preserve">
         <value>USERS</value>
-    </data> 
-        <data name="Description" xml:space="preserve">
+    </data>
+    <data name="Description" xml:space="preserve">
         <value>Description</value>
-    </data> 
-            <data name="Expired" xml:space="preserve">
+    </data>
+    <data name="Expired" xml:space="preserve">
         <value>Expired</value>
-    </data> 
+    </data>
     <data name="WaitingCourierAssign" xml:space="preserve">
         <value>You do not have permission to view the barcode yet</value>
     </data>
-
     <data name="WaitingCourierAccept" xml:space="preserve">
         <value>You must accept the package to see the barcode</value>
     </data>
-        <data name="CopyMnemonicInfo" xml:space="preserve">
+    <data name="CopyMnemonicInfo" xml:space="preserve">
         <value>It is recommended to avoid storing&#xA;the mnemonic in digital form</value>
     </data>
-            <data name="IncorrectMnemonic" xml:space="preserve">
+    <data name="IncorrectMnemonic" xml:space="preserve">
         <value>Wrong word from mnemonic</value>
     </data>
-
-
-
-
-
-    
 </root>
