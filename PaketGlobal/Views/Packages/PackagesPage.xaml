@@ -61,6 +61,7 @@
                                WidthRequest="30"
                                IsRunning="{Binding IsAvailableRunning, Mode=TwoWay}"
                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
+                        <BoxView BackgroundColor="Transparent" WidthRequest="300" HeightRequest="50" RelativeLayout.YConstraint="60"/>
                     </RelativeLayout>
                 </local:CellWithoutSelection>
             </DataTemplate>
@@ -114,7 +115,7 @@
                 <local:CellWithoutSelection>
                     <RelativeLayout>
                         <StackLayout Orientation="Vertical" 
-                                 Padding="10,10,10,10"  BackgroundColor="Transparent"
+                                 Padding="10,0,10,10"  BackgroundColor="Transparent"
                                  HeightRequest="150"
                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                             <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="150"

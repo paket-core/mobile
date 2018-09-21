@@ -1,9 +1,10 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Android.Content;
 using Android.Content.Res;
 using Android.Telephony;
 using Java.Util;
+using LY.Count.Android.Sdk;
 using Xamarin.Forms;
 using Application = Android.App.Application;
 
@@ -88,6 +89,15 @@ namespace PaketGlobal.Droid
         {
             var countryCode = Locale.Default.ISO3Country;
             return countryCode;
+        }
+
+        public void SendErrorEvent(string errorMessage, string method)
+        {
+            Dictionary<String, String> segmentation = new Dictionary<String, String>();
+            segmentation.Add("error", errorMessage);
+            segmentation.Add("method", method);
+
+            Countly.SharedInstance().RecordEvent("Show_Generic_Error", segmentation, 1);
         }
     }
 }

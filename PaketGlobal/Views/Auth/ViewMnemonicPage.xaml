@@ -30,7 +30,7 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-40}"
                       RelativeLayout.XConstraint="20"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=mnemonicTitleLabel, Property=Y, Factor=1,Constant=100}">
-                    <local:PaketFrame CornerRadius="15" WidthRequest="300" HorizontalOptions="Center">
+                    <local:PaketFrame BackgroundColor="White" CornerRadius="15" WidthRequest="300" HorizontalOptions="Center">
                         <StackLayout Spacing="20" Padding="0,10,0,0">
                             <Label XAlign="Center" Text="{local:Translate ActivationMnemonicInfo}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F"/>
                             <StackLayout Spacing="10" Padding="0,20,0,5" Orientation="Horizontal">

@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreTelephony;
+using CountlySDK;
 using Foundation;
 using UIKit;
 
@@ -97,6 +98,12 @@ namespace PaketGlobal.iOS
             var countryCode = currentLocale.CountryCode;
 
             return countryCode;
+        }
+
+        public void SendErrorEvent(string errorMessage, string method)
+        {
+            var dict = new NSDictionary("error", errorMessage, "method",method);
+            Countly.SharedInstance().RecordEvent("Show_Generic_Error", dict);
         }
     }
 }

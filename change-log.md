@@ -12,6 +12,30 @@ Milestone version: v.1.2.5
 
 ### Milestone v.1.2.5
 
+21-09-2018
+
+* Show pubkey in profile page
+    https://github.com/paket-core/mobile/issues/76
+* Fix secred data display
+    https://github.com/paket-core/mobile/issues/85
+* Internal server error when attempting to register a user with non-unique call-sign
+    https://github.com/paket-core/mobile/issues/81
+* Leaner filter widget on available packages screen
+    https://github.com/paket-core/mobile/issues/84
+
+20-09-2018
+
+* Better mnemonic display
+    https://github.com/paket-core/mobile/issues/77
+* Remove confirmation dialog on mnemonic phrase
+    https://github.com/paket-core/mobile/issues/78
+* Show an error when mnemonic test fails
+    https://github.com/paket-core/mobile/issues/79
+* Bad back-arrow behaviour on mnemonic test
+    https://github.com/paket-core/mobile/issues/80
+* Change address field to country in registration form
+    https://github.com/paket-core/mobile/issues/75
+
 19-09-2018
 
 * Improve Package Details

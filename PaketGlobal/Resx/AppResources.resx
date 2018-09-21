@@ -684,6 +684,8 @@
     <data name="UnsuportedUSACountry" xml:space="preserve">
         <value>This application is unavailable in the United States</value>
     </data>
-
+    <data name="AccountAddress" xml:space="preserve">
+        <value>Account address</value>
+    </data>
 
 </root>

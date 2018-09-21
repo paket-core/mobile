@@ -79,9 +79,9 @@ namespace PaketGlobal
 
         public async Task<VerifyData> VerifyCode(string code)
         {
-            var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
+            var request = PrepareRequest(apiVersion + "/verify_token", Method.POST);
 
-            request.AddParameter("verification_code", code);
+            request.AddParameter("verification_token", code);
 
             return await SendRequest<VerifyData>(request);
         }
@@ -598,6 +598,17 @@ namespace PaketGlobal
                     }
                     else{
                         var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
+
+                        if(error != null)
+                        {
+                            if(error.Error.Message.ToLower()=="internal server error" || response.StatusCode==HttpStatusCode.InternalServerError)
+                            {
+                                var method = response.ResponseUri.Segments.Last();
+
+                                App.Locator.DeviceService.SendErrorEvent(response.Content,method);
+                            }
+                        }
+
                         if (error == null)
                         {
                             throw new ServiceException((int)response.StatusCode, response.Content);

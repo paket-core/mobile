@@ -45,6 +45,22 @@ namespace PaketGlobal
             if (String.IsNullOrWhiteSpace(mnemonic)) {
                 MnemonicView.IsVisible = false;
 			}
+            else{
+                var array = mnemonic.Split(' ');
+
+                mnemonicLabel_1.Text = array[0];
+                mnemonicLabel_2.Text = array[1];
+                mnemonicLabel_3.Text = array[2];
+                mnemonicLabel_4.Text = array[3];
+                mnemonicLabel_5.Text = array[4];
+                mnemonicLabel_6.Text = array[5];
+                mnemonicLabel_7.Text = array[6];
+                mnemonicLabel_8.Text = array[7];
+                mnemonicLabel_9.Text = array[8];
+                mnemonicLabel_10.Text = array[9];
+                mnemonicLabel_11.Text = array[10];
+                mnemonicLabel_12.Text = array[11];
+            }
 
 
             var refreshCommand = new Command(async () =>
@@ -61,6 +77,7 @@ namespace PaketGlobal
 
             SwipeListener swipeListener = new SwipeListener(this.Content, this);
 
+            PubkeyLabel.Text = App.Locator.Profile.Pubkey;
 
 		}
 
@@ -166,16 +183,34 @@ namespace PaketGlobal
 
             if(IsShowSecret)
             {
+                var mnemonic = App.Locator.Profile.Mnemonic;
+                if (!String.IsNullOrWhiteSpace(mnemonic))
+                {
+                    MnemonicStack.IsVisible = false;
+                    MnemonicFrame.IsVisible = true;
+                }
+
                 SecretLabel.Text = App.Locator.Profile.Seed;
-                MnemonicLabel.Text = App.Locator.Profile.Mnemonic;
                 KeysButton.Image = "swift_on.png";
             }
             else{
                 SecretLabel.Text = "•••••••••";
-                MnemonicLabel.Text = "•••••••••";
                 KeysButton.Image = "swift_off.png";
+
+                var mnemonic = App.Locator.Profile.Mnemonic;
+                if (!String.IsNullOrWhiteSpace(mnemonic))
+                {
+                    MnemonicStack.IsVisible = true;
+                    MnemonicFrame.IsVisible = false;
+                }
             }
 
+        }
+
+        private void PubkeyCopyClicked(object sender, System.EventArgs e)
+        {
+            App.Locator.ClipboardService.SendTextToClipboard(App.Locator.Profile.Pubkey);
+            ShowMessage(AppResources.Copied);
         }
 
         private void SecretCopyClicked(object sender, System.EventArgs e)

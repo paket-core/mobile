@@ -315,7 +315,9 @@ namespace PaketGlobal
             AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
             AllLine.BackgroundColor = Color.Transparent;
 
-            PakagesView.RowHeight = 170;
+            PakagesView.RowHeight = -1;
+            PakagesView.HasUnevenRows = true;
+
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "AvailablePackagesList");
 
             if(ViewModel.AvailablePackagesList == null || ViewModel.AvailablePackagesList.Count == 0)

@@ -696,4 +696,7 @@
     <data name="UnsuportedUSACountry" xml:space="preserve">
         <value>Приложение не доступно в США</value>
     </data>
+    <data name="AccountAddress" xml:space="preserve">
+        <value>Адрес аккаунта</value>
+    </data>
 </root>

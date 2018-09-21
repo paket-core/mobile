@@ -63,6 +63,8 @@ namespace PaketGlobal
         void HideProgress();
 
         bool IsNeedAlertDialogToClose { get; set; }
+
+        void SendErrorEvent(string errorMessage, string method);
     }
 
     public interface ILocationSharedService
