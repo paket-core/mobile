@@ -12,6 +12,15 @@ Milestone version: v.1.2.5
 
 ### Milestone v.1.2.5
 
+24-09-2018
+
+* Show message on empty packages screen
+    https://github.com/paket-core/mobile/issues/82
+* Fix header colors
+    https://github.com/paket-core/mobile/issues/83
+* Replace launch and scan package buttons
+    https://github.com/paket-core/mobile/issues/74
+
 21-09-2018
 
 * Show pubkey in profile page

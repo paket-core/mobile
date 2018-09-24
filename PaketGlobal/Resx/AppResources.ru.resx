@@ -699,4 +699,13 @@
     <data name="AccountAddress" xml:space="preserve">
         <value>Адрес аккаунта</value>
     </data>
+    <data name="SendPackage" xml:space="preserve">
+        <value>Отправить</value>
+    </data>
+    <data name="GetPackage" xml:space="preserve">
+        <value>Принять</value>
+    </data>
+    <data name="NoPackagesFoundSubtitle" xml:space="preserve">
+        <value>Создайте или приймите новую посылку</value>
+    </data>
 </root>

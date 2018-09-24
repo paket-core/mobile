@@ -6,28 +6,13 @@ using Xamarin.Forms;
 namespace PaketGlobal
 {
 
-    public class CountryPickerPageEventArgs : EventArgs
-    {
-        private readonly ISO3166Country item;
-
-        public CountryPickerPageEventArgs(ISO3166Country item)
-        {
-            this.item = item;
-        }
-
-        public ISO3166Country Item
-        {
-            get { return this.item; }
-        }
-    }
-
-    public partial class CountryPickerPage : BasePage
+    public partial class AddressPickerPage : BasePage
     {
         private List<ISO3166Country> Items;
         public delegate void CountryPickerEventHandler(object sender, CountryPickerPageEventArgs args);
         public CountryPickerEventHandler eventHandler;
 
-        public CountryPickerPage()
+        public AddressPickerPage()
         {
             InitializeComponent();
 

@@ -687,5 +687,15 @@
     <data name="AccountAddress" xml:space="preserve">
         <value>Account address</value>
     </data>
+    <data name="SendPackage" xml:space="preserve">
+        <value>Send Package</value>
+    </data>
+    <data name="GetPackage" xml:space="preserve">
+        <value>Recieve Package</value>
+    </data>
+        <data name="NoPackagesFoundSubtitle" xml:space="preserve">
+        <value>Please create new or receive&#xA;package now</value>
+    </data>
+
 
 </root>

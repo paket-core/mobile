@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     xmlns:local="clr-namespace:PaketGlobal"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -12,8 +12,8 @@
                 BackgroundColor="White">
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
-            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
-            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+            <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>

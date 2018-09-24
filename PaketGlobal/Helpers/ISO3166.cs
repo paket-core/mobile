@@ -21,6 +21,13 @@ namespace PaketGlobal
             return GetCollection().FirstOrDefault(p => p.Alpha2 == alpha2);
         }
 
+        public static string GetCurrentCountryName()
+        {
+            var name = App.Locator.DeviceService.CountryCode();
+            var country = ISO3166.FromAlpha2(name);
+            return country.Name;
+        }
+
         public static string GetCurrentCallingCode()
         {
             var name = App.Locator.DeviceService.CountryCode();

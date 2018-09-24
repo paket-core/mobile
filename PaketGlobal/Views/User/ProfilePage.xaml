@@ -11,8 +11,8 @@
                 BackgroundColor="White">
    <xfg:ContentPageGloss.BackgroundGradient>
       <xfg:Gradient Rotation="300">
-         <xfg:GradientStep StepColor="#ef6fb5" StepPercentage="0" />
-         <xfg:GradientStep StepColor="#db2a4a" StepPercentage="1" />
+         <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
+         <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
       </xfg:Gradient>
    </xfg:ContentPageGloss.BackgroundGradient>
    <local:BasePage.Content>
@@ -57,7 +57,7 @@
                            </StackLayout>
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate Address}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="AddressEntry" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterCountry}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry x:Name="AddressEntry" Focused="Handle_Focused" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterCountry}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                         </StackLayout>
                      </StackLayout>

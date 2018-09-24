@@ -243,5 +243,19 @@ namespace PaketGlobal
             return true;
 		}
 
+        void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+            AddressEntry.Unfocus();
+
+            var picker = new AddressPickerPage();
+            picker.eventHandler = DidSelectAddressHandler;
+            Navigation.PushAsync(picker, true);
+        }
+
+        private void DidSelectAddressHandler(object sender, CountryPickerPageEventArgs e)
+        {
+            ViewModel.Address = e.Item.Name;
+        }
+
 	}
 }
