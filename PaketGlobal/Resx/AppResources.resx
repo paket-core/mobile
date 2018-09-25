@@ -31,7 +31,7 @@
         <value>Address</value>
     </data>
     <data name="GeneralSettings" xml:space="preserve">
-        <value>GENERAL SETTINGS</value>
+        <value>PERSONAL INFORMATION</value>
     </data>
     <data name="AdvancedSettings" xml:space="preserve">
         <value>ADVANCED SETTINGS</value>
@@ -172,7 +172,7 @@
         <value>Courier</value>
     </data>
     <data name="Information" xml:space="preserve">
-        <value>INFORMATION</value>
+        <value>PACKAGE INFORMATION</value>
     </data>
     <data name="PickDeadlineDate" xml:space="preserve">
         <value>Delivery Deadline</value>
@@ -451,7 +451,7 @@
         <value>Phone Verification</value>
     </data>
     <data name="SMSVerificationText1" xml:space="preserve">
-        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;a field below </value>
+        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;the field below </value>
     </data>
     <data name="VerifyPhoneNumber" xml:space="preserve">
         <value>Verify Phone Number</value>
