@@ -103,6 +103,7 @@ namespace PaketGlobal
             }
 
 #if __ANDROID__
+            HeaderView.Spacing = 42;
             HeaderView.TranslationY = -30;
             TitleLabel.TranslationY = 0;
 #else
@@ -148,12 +149,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if (ViewModel.PackagesList.Count>0)
-            {
-                PlacholderLabel.IsVisible = false;
-            }
-
-
+   
             ViewModel.CurrentDisplayPackageId = "";
         }
 
@@ -196,13 +192,15 @@ namespace PaketGlobal
 
         private async Task LoadPackages()
         {
-            PlacholderLabel.IsVisible = false;
-
             await ViewModel.Load();
 
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;
-            PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+
+            if (ViewModel.PackagesList.Count == 0)
+            {
+                ViewModel.PackagesList.Add(new NotFoundPackage());
+            }
         }
 
         private async Task LoadAvailablePackages()
@@ -215,8 +213,6 @@ namespace PaketGlobal
             }  
 
             cancellationTokenSource = new CancellationTokenSource();  
-
-            PlacholderLabel.IsVisible = false;
 
             if(!ViewModel.AvailablePackagesList.Contains(FilterPackage) && ViewModel.AvailablePackagesList.Count!=0)
             {
@@ -305,8 +301,6 @@ namespace PaketGlobal
                 return;
             }
 
-            PakagesView.IsPullToRefreshEnabled = false;
-
             Mode = PackagesMode.Available;
 
             AvailableButton.TextColor = Color.White;
@@ -314,9 +308,6 @@ namespace PaketGlobal
 
             AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
             AllLine.BackgroundColor = Color.Transparent;
-
-            PakagesView.RowHeight = -1;
-            PakagesView.HasUnevenRows = true;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "AvailablePackagesList");
 
@@ -339,8 +330,6 @@ namespace PaketGlobal
                 return;
             }
 
-            PakagesView.IsPullToRefreshEnabled = true;
-
             Mode = PackagesMode.All;
 
             AvailableButton.TextColor = Color.LightGray;
@@ -349,7 +338,6 @@ namespace PaketGlobal
             AllLine.BackgroundColor = Color.FromHex("#53C5C7");
             AvailableLine.BackgroundColor = Color.Transparent;
 
-            PakagesView.RowHeight = 150;
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "PackagesList");
 
             if (ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0)
@@ -365,7 +353,10 @@ namespace PaketGlobal
                 PakagesView.ItemsSource = ViewModel.PackagesList;;
             }
 
-            PlacholderLabel.IsVisible = ViewModel.PackagesList == null || ViewModel.PackagesList.Count == 0;
+            if (ViewModel.PackagesList.Count == 0)
+            {
+                ViewModel.PackagesList.Add(new NotFoundPackage());
+            }
 
             ActivityIndicator.IsRunning = false;
             ActivityIndicator.IsVisible = false;

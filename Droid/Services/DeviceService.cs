@@ -69,11 +69,15 @@ namespace PaketGlobal.Droid
 
             if(manager!=null)
             {
+                
                 var iso = manager.SimCountryIso;
 
                 if(iso!=null)
                 {
-					return iso.ToUpper();
+                    if(iso.Length>0)
+                    {
+                        return iso.ToUpper();
+                    }
                 }
             }
 
@@ -82,6 +86,8 @@ namespace PaketGlobal.Droid
 
         public string CountryName()
         {
+            var code = this.CountryCode();
+
             return Locale.Default.DisplayCountry;
         }
 

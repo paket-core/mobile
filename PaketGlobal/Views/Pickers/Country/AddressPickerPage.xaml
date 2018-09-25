@@ -3,7 +3,7 @@
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="PaketGlobal.LanguagePage"
+    x:Class="PaketGlobal.AddressPickerPage"
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
     xmlns:local="clr-namespace:PaketGlobal">
     <xfg:ContentPageGloss.BackgroundGradient>
@@ -14,7 +14,7 @@
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
         <RelativeLayout>
-            <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate SelectLanguage}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+            <Label x:Name="TitleLabel" Text="{local:Translate SelectCountry}" TextColor="White" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
@@ -33,29 +33,28 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
                 <RelativeLayout>
-                           <ListView x:Name="LanguageListView" 
+                    <ListView x:Name="ItemsListView" 
                        RowHeight="55"
                       ItemSelected="ItemSelected"
                       SeparatorVisibility="None"  VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
+                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=5}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <local:CellWithoutSelection>
-                               <StackLayout>
-                                 <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
-                                    <Label TextColor="#555555" Text="{Binding Name, Mode=OneWay}" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14" />
-                                    <Image Source="select_icon.png" IsVisible="{Binding Selected, Mode=OneWay}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" />
+                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=-5}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <local:CellWithoutSelection>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                                            <Label TextColor="#555555" Text="{Binding Name}" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14" />
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                     </StackLayout>
-                                 <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                              </StackLayout>
                                 </local:CellWithoutSelection>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </RelativeLayout>
             </Frame>
         </RelativeLayout>

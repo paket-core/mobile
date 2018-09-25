@@ -8,39 +8,25 @@
     xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss">
     <xfg:ContentPageGloss.BackgroundGradient>
         <xfg:Gradient Rotation="300">
-            <xfg:GradientStep StepColor="#858fb4" StepPercentage="0" />
-            <xfg:GradientStep StepColor="#2f3248" StepPercentage="1" />
+            <xfg:GradientStep StepColor="#4D64E8" StepPercentage="0" />
+            <xfg:GradientStep StepColor="#6786EF" StepPercentage="1" />
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="NotFoundPackage">
-                <local:CellWithoutSelection IsEnabled="false">
-                    <RelativeLayout>
-                        <Label 
-                      Text = "{local:Translate NoPackagesFound}"
-                      XAlign="Center" YAlign="Center"
-                      VerticalOptions="FillAndExpand"
-                      HorizontalOptions="FillAndExpand"
-                      TextColor="#D3D3D3" FontSize = "20"
-                      RelativeLayout.HeightConstraint="30"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "100"/>
-                    </RelativeLayout>
+                <local:CellWithoutSelection IsEnabled="true" Height="250">
+                    <StackLayout Spacing="15" Padding="0,20,0,0" HeightRequest="250">
+                        <Image Source="not_found_icon" HeightRequest="56" WidthRequest="56" VerticalOptions="Center"/>
+                        <Label Text = "{local:Translate NoPackagesFound}" XAlign="Center" YAlign="Center" TextColor="#000000" FontFamily="{StaticResource SemiBoldFont}" FontSize="24"/>
+                        <Label Text = "{local:Translate NoPackagesFoundSubtitle}" XAlign="Center" YAlign="Center" TextColor="#5F5F5F" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                        <local:PaketButton HorizontalOptions="Center" Text="{local:Translate SendPackage}" Clicked="LaunchPackageClicked"  WidthRequest="240"  HeightRequest="50" ButtonBackground="#4D64E8"  />
+                    </StackLayout>
                 </local:CellWithoutSelection>
             </DataTemplate>
             <DataTemplate x:Key="FilterPackages">
                 <local:CellWithoutSelection>
                     <RelativeLayout>
-                        <StackLayout IsVisible="false" Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="40">
-                            <Image Source="filter_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            <Label Text="{local:Translate Filter}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        </StackLayout>
-                        <Button IsVisible="false" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-140}"
-                                RelativeLayout.YConstraint="30"
-                                Text="{local:Translate Reset}" 
-                                BackgroundColor="#F0F0F0"
-                                Clicked="OnResetFilterClicked" WidthRequest="120" Style="{StaticResource DateButton}"/>
                         <local:PaketSlider RelativeLayout.YConstraint="50"
                                 TouchUp="OnSliderTouchUp"
                                 MinimumTrackColor="#53C5C7"
@@ -54,13 +40,12 @@
                                WidthRequest="100"
                                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-130}" 
                                XAlign="End"
-                               IsVisible="{Binding IsAvailableCompleted, Mode=TwoWay}"
                                Text="{Binding RadiusString}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
                         <ActivityIndicator RelativeLayout.YConstraint="20"
                                HeightRequest="30"
                                WidthRequest="30"
                                IsRunning="{Binding IsAvailableRunning, Mode=TwoWay}"
-                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}"/>
+                               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-115}"/>
                         <BoxView BackgroundColor="Transparent" WidthRequest="300" HeightRequest="50" RelativeLayout.YConstraint="60"/>
                     </RelativeLayout>
                 </local:CellWithoutSelection>
@@ -172,21 +157,19 @@
                 <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start"/>
                 <Button Clicked="LaunchPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="add_icon_small.png" HorizontalOptions="StartAndExpand"/>
             </StackLayout>
-            <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="0,40,0,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
+            <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="0,55,0,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                 <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
-                    <StackLayout Padding="25,0,0,0" Spacing="0" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
+                    <StackLayout Padding="25,0,0,0" Spacing="10" BackgroundColor="Transparent" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="Start">
                         <Label x:Name="MyPackagesTitleLabel" Text="{local:Translate MyPackages}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
                                HorizontalOptions="StartAndExpand"
                                VerticalOptions="Center"/>
+                        <Label x:Name="MyPackagesSubTitleLabel" Text="{local:Translate MyPackagesInfo}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#CDCDCD"/>
                     </StackLayout>
-                    <StackLayout Padding="25,0,25,0" Spacing="15" BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
-                        <Button Clicked="AcceptPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start" VerticalOptions="Center" />
-                        <Button Clicked="LaunchPackageClicked" WidthRequest="50" BackgroundColor="Transparent" Image="add.png" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
+                    <StackLayout Padding="25,0,25,0" Spacing="15" BackgroundColor="Transparent" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="EndAndExpand">
+                        <Button Style="{StaticResource DateButton}" Text="{local:Translate SendPackage}" BorderColor="Transparent" TextColor="Black" Clicked="LaunchPackageClicked"  WidthRequest="126"  HeightRequest="40" BackgroundColor="#FFFFFF"  />
+                        <Button Style="{StaticResource DateButton}" Text="{local:Translate GetPackage}" BorderColor="Transparent" TextColor="White" Clicked="AcceptPackageClicked"  WidthRequest="126"  HeightRequest="40" BackgroundColor="#000000"  />
                     </StackLayout>
-                </StackLayout>
-                <StackLayout Padding="25,0,25,0">
-                    <Label x:Name="MyPackagesSubTitleLabel" Text="{local:Translate MyPackagesInfo}" FontFamily="{StaticResource MediumFont}" FontSize="14" TextColor="#CDCDCD"/>
                 </StackLayout>
                 <StackLayout  Orientation="Horizontal" BackgroundColor="Transparent">
                     <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
@@ -206,21 +189,12 @@
                       ItemSelected="PackageItemSelected"
                       IsPullToRefreshEnabled="true"
                       Scrolled="OnListViewScrolled"
-                      SeparatorVisibility="None" RowHeight="150" VerticalOptions="FillAndExpand"
+                      SeparatorVisibility="None" RowHeight="-1" HasUnevenRows="true" VerticalOptions="FillAndExpand"
                       HorizontalOptions="FillAndExpand"
                       RelativeLayout.XConstraint = "0"
                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-223}"
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=213}"></Views:ListView >
-            <Label x:Name="PlacholderLabel" IsVisible="false" IsEnabled="false"
-                Text = "{local:Translate NoPackagesFound}"
-                      XAlign="Center" YAlign="Center"
-                      VerticalOptions="FillAndExpand"
-                      HorizontalOptions="FillAndExpand"
-                      TextColor="#D3D3D3" FontSize = "20"
-                      RelativeLayout.HeightConstraint="30"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=400}"/>
             <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
                       VerticalOptions="CenterAndExpand"
                       Color="#606686"

@@ -148,7 +148,8 @@ namespace PaketGlobal.iOS
                     await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 }
             }
-            else if (application.ApplicationState != UIApplicationState.Active)
+
+            if (application.ApplicationState != UIApplicationState.Active)
             {
                 if (App.Locator.Profile.Activated)
                 {

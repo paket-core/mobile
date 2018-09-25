@@ -45,7 +45,7 @@ namespace PaketGlobal
 				ViewModel.Address = userData.Address;
             }
             else{
-                ViewModel.Address = App.Locator.DeviceService.CountryName();
+                ViewModel.Address = ISO3166.GetCurrentCountryName();
             }
 
             if (IsAddedInfo)
@@ -90,7 +90,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if(ViewModel.Address.ToLower()=="united states" ||  ViewModel.Address.ToLower() == "usa")
+            if(ViewModel.Address.ToLower()=="united states of america" ||  ViewModel.Address.ToLower() == "usa")
             {
                 errorLabel.IsVisible = true;
                 generateButton.IsEnabled = false;
@@ -116,6 +116,24 @@ namespace PaketGlobal
         {
             ViewModel.PhoneCode = e.Item.CallingCode;
         }
+
+        private void DidSelectAddressHandler(object sender, CountryPickerPageEventArgs e)
+        {
+            ViewModel.Address = e.Item.Name;
+
+            if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            {
+                errorLabel.IsVisible = true;
+                generateButton.IsEnabled = false;
+                generateButton.ButtonBackground = "#A7A7A7";
+            }
+            else{
+                errorLabel.IsVisible = false;
+                generateButton.IsEnabled = true;
+                generateButton.ButtonBackground = "#53C5C7";
+            }
+        }
+
 
         private void OnBack(object sender, EventArgs e)
         {
@@ -361,6 +379,15 @@ namespace PaketGlobal
                 generateButton.IsEnabled = true;
                 generateButton.ButtonBackground = "#53C5C7";
             }
+        }
+
+        void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
+        {
+            entryUserAddress.Unfocus();
+
+            var picker = new AddressPickerPage();
+            picker.eventHandler = DidSelectAddressHandler;
+            Navigation.PushAsync(picker, true);
         }
     }
 }

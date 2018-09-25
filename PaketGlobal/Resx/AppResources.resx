@@ -637,7 +637,7 @@
         <value>You can take this package for delivery</value>
     </data>
     <data name="Take" xml:space="preserve">
-        <value>Take</value>
+        <value>Reserve</value>
     </data>
     <data name="PackageAssigned" xml:space="preserve">
         <value>The package was successfully assigned</value>
@@ -687,5 +687,15 @@
     <data name="AccountAddress" xml:space="preserve">
         <value>Account address</value>
     </data>
+    <data name="SendPackage" xml:space="preserve">
+        <value>Send Package</value>
+    </data>
+    <data name="GetPackage" xml:space="preserve">
+        <value>Recieve Package</value>
+    </data>
+        <data name="NoPackagesFoundSubtitle" xml:space="preserve">
+        <value>Please create new or receive&#xA;package now</value>
+    </data>
+
 
 </root>
