@@ -451,7 +451,7 @@
         <value>Phone Verification</value>
     </data>
     <data name="SMSVerificationText1" xml:space="preserve">
-        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;a field below </value>
+        <value>In order to protect the security of your&#xA;account, we sent you a text message with&#xA;a verification code. Please enter it in&#xA;the field below </value>
     </data>
     <data name="VerifyPhoneNumber" xml:space="preserve">
         <value>Verify Phone Number</value>
