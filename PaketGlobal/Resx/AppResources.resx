@@ -31,7 +31,7 @@
         <value>Address</value>
     </data>
     <data name="GeneralSettings" xml:space="preserve">
-        <value>GENERAL SETTINGS</value>
+        <value>PERSONAL INFORMATION</value>
     </data>
     <data name="AdvancedSettings" xml:space="preserve">
         <value>ADVANCED SETTINGS</value>
@@ -172,7 +172,7 @@
         <value>Courier</value>
     </data>
     <data name="Information" xml:space="preserve">
-        <value>INFORMATION</value>
+        <value>PACKAGE INFORMATION</value>
     </data>
     <data name="PickDeadlineDate" xml:space="preserve">
         <value>Delivery Deadline</value>
