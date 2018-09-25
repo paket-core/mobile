@@ -637,7 +637,7 @@
         <value>You can take this package for delivery</value>
     </data>
     <data name="Take" xml:space="preserve">
-        <value>Take</value>
+        <value>Reserve</value>
     </data>
     <data name="PackageAssigned" xml:space="preserve">
         <value>The package was successfully assigned</value>
