@@ -172,7 +172,7 @@
         <value>Courier</value>
     </data>
     <data name="Information" xml:space="preserve">
-        <value>INFORMATION</value>
+        <value>PACKAGE INFORMATION</value>
     </data>
     <data name="PickDeadlineDate" xml:space="preserve">
         <value>Delivery Deadline</value>
