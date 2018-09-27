@@ -708,4 +708,7 @@
     <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Создайте или приймите новую посылку</value>
     </data>
+    <data name="MaxDistance" xml:space="preserve">
+        <value>Максимальное расстояние</value>
+    </data>
 </root>

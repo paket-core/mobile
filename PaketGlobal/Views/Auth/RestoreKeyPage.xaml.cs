@@ -11,7 +11,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            entrySecretKey.Text = "SBC6WGOCLBLQB63HVZM5VWAOTBM5A2Y6MQGNHUFQPUZMQZLQEWVLB4XM";
+            //entrySecretKey.Text = "SAXMAP6XADQN2PLCA3QATBML3I4OJIJJPRX5DG4SMMSBORVM4TMIDXJG";
 
             App.Locator.DeviceService.setStausBarBlack();
 

@@ -11,6 +11,8 @@ namespace PaketGlobal
         public delegate void LocationPickerPageEventHandler(object sender, LocationPickerPageEventArgs args);
         public LocationPickerPageEventHandler eventHandler;
 
+        private AddressData addressData;
+
         public MapPickerPage()
         {
             InitializeComponent();
@@ -107,6 +109,7 @@ namespace PaketGlobal
             place.Address = AddressLabel.Text;
             place.Latitude = MapView.CameraPosition.Target.Latitude;
             place.Longitude = MapView.CameraPosition.Target.Longitude;
+            place.Country = addressData.Country;
 
             Navigation.PopAsync(false);
 
@@ -133,14 +136,24 @@ namespace PaketGlobal
                         var address = addresses[0];
                         string formatedAddress = "";
 
+                        addressData = new AddressData();
+
                         if (address.SubThoroughfare != null)
                         {
                             formatedAddress = address.Thoroughfare + " " + address.SubThoroughfare + ", " + address.Locality;
+
+                            addressData.Address = address.Thoroughfare + " " + address.SubThoroughfare;
                         }
                         else
                         {
                             formatedAddress = address.Thoroughfare + ", " + address.Locality;
+
+                            addressData.Address = address.Thoroughfare;
                         }
+
+                        addressData.Country = address.CountryCode;
+
+
                         AddressLabel.Text = formatedAddress;
                     }
                 }

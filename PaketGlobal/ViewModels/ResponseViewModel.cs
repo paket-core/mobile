@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.NBitcoin;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -24,8 +25,16 @@ namespace PaketGlobal
         public int Status { get; set; }
     }
 
-    //User
+    //address
+    [DataContract]
+    public class AddressData
+    {
+        [DataMember(Name = "country")]
+        public string Country { get; set; }
 
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
+    }
 
 
     [DataContract]
@@ -387,6 +396,7 @@ namespace PaketGlobal
         private string radiusString { get; set; }
         private bool isAvailableRunning = false;
         private bool isAvailableCompleted = false;
+   
 
         public bool IsAvailableRunning
         {
@@ -405,6 +415,7 @@ namespace PaketGlobal
             get
             {
                 return Convert.ToInt32(Radius).ToString() + " km";
+
             }
             set
             {
@@ -439,6 +450,21 @@ namespace PaketGlobal
 		private string fromLocationAddress { get; set; }
 		private string toLocationAddress { get; set; }
 		private string status { get; set; }
+
+        private string fromCountry = "";
+        private string toCountry = "";
+
+        public string FromCountry
+        {
+            get { return fromCountry; }
+            set { SetProperty(ref fromCountry, value); }
+        }
+
+        public string ToCountry
+        {
+            get { return toCountry; }
+            set { SetProperty(ref toCountry, value); }
+        }
 
         public bool isNewPackage { get; set; }
         public bool isAssigned { get; set; }
@@ -625,6 +651,18 @@ namespace PaketGlobal
                     return AppResources.SelectLocation;
                 }
 
+                try{
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(fromLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Address;
+                    }
+                }
+                catch{
+                    return HttpUtility.UrlDecode(fromLocationAddress);
+                }
+               
                 return HttpUtility.UrlDecode(fromLocationAddress);
                 //return fromLocationAddress;
             }
@@ -642,6 +680,20 @@ namespace PaketGlobal
                 if (toLocationGPS == null)
                 {
                     return AppResources.SelectLocation;
+                }
+
+                try
+                {
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(toLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Address;
+                    }
+                }
+                catch
+                {
+                    return HttpUtility.UrlDecode(toLocationAddress);
                 }
 
                 return HttpUtility.UrlDecode(toLocationAddress);
@@ -666,7 +718,22 @@ namespace PaketGlobal
         {
             get
             {
-                return PaketId.Substring(0,3);
+                try
+                {
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(fromLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Country + "-" + PaketId.Substring(PaketId.Length - 3, 3);
+
+                    }
+                }
+                catch
+                {
+                    return PaketId.Substring(PaketId.Length - 3, 3);
+                }
+
+                return PaketId.Substring(PaketId.Length - 3, 3);
             }
         }
 
@@ -959,6 +1026,32 @@ namespace PaketGlobal
             }
         }
 
+        public string FromLocationAddressJSON
+        {
+            get{
+                var data = new AddressData();
+                data.Country = fromCountry;
+                data.Address = fromLocationAddress;
+
+                var json = JsonConvert.SerializeObject(data);
+
+                return json;
+            }
+        }
+
+        public string ToLocationAddressJSON
+        {
+            get
+            {
+                var data = new AddressData();
+                data.Country = toCountry;
+                data.Address = toLocationAddress;
+
+                var json = JsonConvert.SerializeObject(data);
+
+                return json;
+            }
+        }
 
 	}
 

@@ -42,7 +42,7 @@
                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                           RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.4}">
                         <StackLayout Spacing="10">
-                            <local:PaketEntry x:Name="entryUserName" Completed="FieldCompleted"  Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate UserName}" HeightRequest="40"/>
+                            <local:PaketEntry x:Name="entryUserName" CapSentences="2" Completed="FieldCompleted"  Text="{Binding UserName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate UserName}" HeightRequest="40"/>
                             <local:PaketEntry x:Name="entryFullName" CapSentences="1" Completed="FieldCompleted" Text="{Binding FullName, Mode=TwoWay}" LineColor="#E5E5E5"  Keyboard="Text" Placeholder="{local:Translate FullName}" HeightRequest="40"/>
                             <StackLayout Spacing="0">
                                 <StackLayout Orientation="Horizontal" Spacing="10">

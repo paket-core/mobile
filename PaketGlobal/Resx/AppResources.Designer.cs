@@ -744,5 +744,12 @@ namespace PaketGlobal
             }
         }
 
+        internal static string MaxDistance
+        {
+            get
+            {
+                return ResourceManager.GetString("MaxDistance", resourceCulture);
+            }
+        }
     }
 }

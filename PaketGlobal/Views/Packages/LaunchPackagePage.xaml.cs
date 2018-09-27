@@ -125,11 +125,13 @@ namespace PaketGlobal
             {
                 ViewModel.FromLocationGPS = location;
                 ViewModel.FromLocationAddress = address;
+                ViewModel.FromCountry = place.Country;
             }
             else if (page.PickerType == LocationPickerType.To)
             {
                 ViewModel.ToLocationGPS = location;
                 ViewModel.ToLocationAddress = address;
+                ViewModel.ToCountry = place.Country;
             }
 
             SetLocationImage(page.PickerType,place.Latitude,place.Longitude);
@@ -365,7 +367,7 @@ namespace PaketGlobal
 						}
 					}
 
-					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
+					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddressJSON, ViewModel.ToLocationAddressJSON, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {

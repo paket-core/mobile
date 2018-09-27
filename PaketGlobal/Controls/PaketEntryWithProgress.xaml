@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:PaketGlobal">
     <StackLayout x:Name="StackView" Spacing="0" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
         <Label x:Name="TopLabel" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-        <local:PaketEntry x:Name="EntryView" TextChanged="FieldTextChanged" Unfocused="FieldUnfocused" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" HeightRequest="{StaticResource EntrySize}"/>
+        <local:PaketEntry x:Name="EntryView" CapSentences="2" TextChanged="FieldTextChanged" Unfocused="FieldUnfocused" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" HeightRequest="{StaticResource EntrySize}"/>
     </StackLayout>
     <ActivityIndicator x:Name="ProgressIndicator" IsRunning="false"
                        RelativeLayout.WidthConstraint="20"

@@ -696,6 +696,9 @@
         <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Please create new or receive&#xA;package now</value>
     </data>
+    <data name="MaxDistance" xml:space="preserve">
+        <value>Maximum distance</value>
+    </data>
 
 
 </root>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace PaketGlobal
 {
@@ -10,6 +11,8 @@ namespace PaketGlobal
         public MainPage()
         {
             InitializeComponent(); 
+
+            this.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(true);
 
             Unsubscribe();
             Subscribe();

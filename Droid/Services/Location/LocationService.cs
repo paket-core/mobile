@@ -20,6 +20,7 @@ namespace PaketGlobal.Droid
         private const string LOCATION_LAT_KEY = "location_lat";
         private const string LOCATION_LON_KEY = "location_lon";
         private const int MIN_DISTANCE = 100;
+        private const string ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE";
 
         public event EventHandler<LocationChangedEventArgs> LocationChanged = delegate { };
 
@@ -38,6 +39,17 @@ namespace PaketGlobal.Droid
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {   
+            if (intent.Action != null)
+            {
+                if (intent.Action.Equals(ACTION_STOP_SERVICE))
+                {
+                    StopForeground(true);
+                    StopSelf();
+                }
+
+                return StartCommandResult.Sticky;
+            }
+
             RegisterForegroundService();
 
             InitializeBackgroundWork();
@@ -80,11 +92,13 @@ namespace PaketGlobal.Droid
 
         private void RegisterForegroundService()
         {
-			var notificationBuilder = (Build.VERSION.SdkInt >= BuildVersionCodes.O ? new Notification.Builder(this, CreateNotificationChannel()) : new Notification.Builder(this))
-            .SetContentTitle("PaketGlobal")
-                .SetContentText("PaketGlobal is running")
-            .SetContentIntent(BuildIntentToShowMainActivity())
-            .SetOngoing(true);
+            var notificationBuilder = (Build.VERSION.SdkInt >= BuildVersionCodes.O ? new Notification.Builder(this, CreateNotificationChannel()) : new Notification.Builder(this))
+                .SetContentTitle("DeliverIt")
+                .SetContentText("DeliverIt background service is running")
+                .SetSmallIcon(Resource.Drawable.ic_notification)
+                .SetContentIntent(BuildIntentToShowMainActivity())
+                .AddAction(BuildStopServiceAction())
+                .SetOngoing(true);
 
             var notification = notificationBuilder.Build();
 
@@ -105,6 +119,19 @@ namespace PaketGlobal.Droid
 
 			return channelId;
 		}
+
+        Notification.Action BuildStopServiceAction()
+        {
+            var stopServiceIntent = new Intent(this, GetType());
+            stopServiceIntent.SetAction(ACTION_STOP_SERVICE);
+            var stopServicePendingIntent = PendingIntent.GetService(this, 0, stopServiceIntent, 0);
+
+            var builder = new Notification.Action.Builder(Android.Resource.Drawable.IcMediaPause,
+                                                          GetText(Resource.String.stop_service),
+                                                          stopServicePendingIntent);
+            return builder.Build();
+
+        }
 
         private PendingIntent BuildIntentToShowMainActivity()
         {

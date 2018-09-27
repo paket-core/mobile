@@ -223,7 +223,10 @@ namespace PaketGlobal
 						});
 					}
 
-					PackagesList = packages;
+                    if(packages.Count>0)
+                    {
+                        PackagesList = packages;
+                    }
 				}
 
 				if (isneedTimer) {

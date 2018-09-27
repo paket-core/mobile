@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -54,7 +54,7 @@
                                         </StackLayout>
                                         <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                                     </StackLayout>
-                                    <local:PaketEntryWithProgress x:Name="EntryRecepient"
+                                    <local:PaketEntryWithProgress x:Name="EntryRecepient" 
                                                                   TopText="{local:Translate Recipient}"
                                                                   Text="{Binding RecipientPubkey}"
                                                                   Placholder="{local:Translate PackageEnterRecipient}"
