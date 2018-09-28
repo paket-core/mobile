@@ -9,9 +9,17 @@ using stellar_dotnetcore_sdk;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 using Plugin.DeviceInfo;
+using Newtonsoft.Json;
+using Firebase.Xamarin.Database;
 
 namespace PaketGlobal
 {
+    class FierbaseResponse{
+        public string bridge = "";
+        public string route = "";
+        public string fund = "";
+    }
+
 	public partial class App : Xamarin.Forms.Application
     {
 		private static Locator _locator;

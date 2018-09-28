@@ -751,5 +751,23 @@ namespace PaketGlobal
                 return ResourceManager.GetString("MaxDistance", resourceCulture);
             }
         }
+
+        internal static string InvalidUrl
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+
+        internal static string SettingsChanged
+        {
+            get
+            {
+                return ResourceManager.GetString("SettingsChanged", resourceCulture);
+            }
+        }
+
+
     }
 }

@@ -1,5 +1,9 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System;
+using System.Threading.Tasks;
+using Firebase.Xamarin.Database;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -99,15 +103,52 @@ namespace PaketGlobal
         }
 
 
+        async Task DownloadConfig()
+        {
+            var firebase = new FirebaseClient(Config.GoogleFirebase);
 
+            var items = await firebase
+                .Child("urls")
+                .OnceAsync<FierbaseResponse>();
+
+            if(items != null)
+            {
+                foreach (var item in items)
+                {
+                    if(item.Object.bridge != null && item.Object.route != null && item.Object.fund != null)
+                    {
+                        Config.BridgeServerUrl = item.Object.bridge;
+                        Config.RouteServerUrl = item.Object.route;
+                        Config.IdentityServerUrl = item.Object.fund;
+                    }
+                }
+            }
+        }
 
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>
 		public Locator()
 		{
-			// Models
 
+            //Task.Run(async () => { await DownloadConfig(); }).Wait();
+
+             if (Application.Current.Properties.ContainsKey(Config.BridgeService))
+            {
+                object bridgeService;
+                object fundService;
+                object routeService;
+
+                Application.Current.Properties.TryGetValue(Config.BridgeService, out bridgeService);
+                Application.Current.Properties.TryGetValue(Config.IdentityService, out fundService);
+                Application.Current.Properties.TryGetValue(Config.RouteService, out routeService);
+
+                Config.BridgeServerUrl = (bridgeService as string);
+                Config.IdentityServerUrl = (fundService as string);
+                Config.RouteServerUrl = (routeService as string);
+            }
+
+            // Models
             if (!SimpleIoc.Default.IsRegistered<ProfileModel>())
             {
                 SimpleIoc.Default.Register<ProfileModel>();

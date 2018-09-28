@@ -14,6 +14,11 @@ using System.Threading;
 
 namespace PaketGlobal
 {
+    public class Escrow_Xdrs
+    {
+        public Kwargs escrow_xdrs;
+    }
+
     public class Kwargs
     {
         public Kwargs()
@@ -72,16 +77,16 @@ namespace PaketGlobal
 
 		public async Task<VerifyData> SendVerification()
 		{
-			var request = PrepareRequest(apiVersion + "/request_verification_token", Method.POST);
+			var request = PrepareRequest(apiVersion + "/request_verification_code", Method.POST);
 
 			return await SendRequest<VerifyData>(request);
 		}
 
         public async Task<VerifyData> VerifyCode(string code)
         {
-            var request = PrepareRequest(apiVersion + "/verify_token", Method.POST);
+            var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
 
-            request.AddParameter("verification_token", code);
+            request.AddParameter("verification_code", code);
 
             return await SendRequest<VerifyData>(request);
         }
@@ -307,26 +312,26 @@ namespace PaketGlobal
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
-            var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+            //var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
 
-            if (StellarConverter.IsValidBUL(payment)==false)
-            {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
-            }
+            //if (StellarConverter.IsValidBUL(payment)==false)
+            //{
+            //    throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            //}
 
-            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+            //var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
 
-            if (StellarConverter.IsValidBUL(collateral)==false)
-            {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
-            }
+            //if (StellarConverter.IsValidBUL(collateral)==false)
+            //{
+            //    throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            //}
 
 			request.AddParameter("launcher_pubkey", launcherPubkey);
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("courier_pubkey", courierPubkey);
-            request.AddParameter("payment_buls", payment);
-            request.AddParameter("collateral_buls", collateral);
+            request.AddParameter("payment_buls", paymentBuls);
+            request.AddParameter("collateral_buls", collateralBuls);
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
@@ -375,13 +380,17 @@ namespace PaketGlobal
                 location = location.Substring(0, 24);
             }
 
+
             var kwargs = new Kwargs();
             kwargs.merge_transaction = mergeTrans;
             kwargs.set_options_transaction = setOptionsTrans;
             kwargs.refund_transaction = refundTrans;
             kwargs.payment_transaction = paymentTrans;
 
-            var json = JsonConvert.SerializeObject(kwargs);
+            var escrow_xdrs = new Escrow_Xdrs();
+            escrow_xdrs.escrow_xdrs = kwargs;
+
+            var json = JsonConvert.SerializeObject(escrow_xdrs);
 
 			request.AddParameter("escrow_pubkey", escrowPubkey);
             request.AddParameter("kwargs", json);

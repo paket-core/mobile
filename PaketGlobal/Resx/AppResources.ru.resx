@@ -711,4 +711,17 @@
     <data name="MaxDistance" xml:space="preserve">
         <value>Максимальное расстояние</value>
     </data>
+    <data name="MoreSettings" xml:space="preserve">
+        <value>Больше настроек</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="InvalidUrl" xml:space="preserve">
+        <value>Неверная ссылка</value>
+    </data>
+    <data name="SettingsChanged" xml:space="preserve">
+        <value>Настройки успешно изменены. Пожалуйста перезапустите приложение.</value>
+    </data>
+
 </root>

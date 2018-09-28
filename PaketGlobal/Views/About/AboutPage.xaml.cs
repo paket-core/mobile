@@ -103,5 +103,14 @@ namespace PaketGlobal
 
             App.Locator.AccountService.ShowNotifications = enabled;
         }
+
+        private void SettingsClicked(object sender, System.EventArgs e)
+        {
+            var page = new SettingsPage();
+
+            var mainPage = App.Current.MainPage;
+
+            mainPage.Navigation.PushAsync(page);
+        }
     }
 }

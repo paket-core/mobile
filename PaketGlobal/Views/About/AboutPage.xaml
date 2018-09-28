@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     xmlns:local="clr-namespace:PaketGlobal"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -91,6 +91,9 @@
                                             <Label TextColor="#A7A7A7" Text="{local:Translate PaketURL}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
                                             <Label TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                                        </StackLayout>
+                                         <StackLayout Spacing="0">
+                                            <local:PaketButton WidthRequest="280" VerticalOptions="Center" HorizontalOptions="Center" Text="{local:Translate MoreSettings}" Clicked="SettingsClicked" ButtonBackground="#4D64E8" />
                                             <BoxView HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Fill" />
                                         </StackLayout>
                                     </StackLayout>

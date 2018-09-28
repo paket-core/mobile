@@ -778,14 +778,44 @@ namespace PaketGlobal
 		[DataMember(Name = "events")]
 		public List<PackageEvent> Events { get; set; }
 
-		[DataMember(Name = "payment_transaction")]
-		public string PaymentTransaction { get; set; }
 
-        [DataMember(Name = "refund_transaction")]
-        public string RefundTransaction { get; set; }
+        [DataMember(Name = "escrow_xdrs")]
+        public Kwargs Escrow_Xdrs { get; set; }
 
-        [DataMember(Name = "merge_transaction")]
-        public string MergeTransaction { get; set; }
+        public string PaymentTransaction { 
+            get
+            {
+                if(Escrow_Xdrs==null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.payment_transaction;        
+            }
+        }
+
+        public string RefundTransaction
+        {
+            get
+            {
+                if (Escrow_Xdrs == null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.refund_transaction;
+            }
+        }
+
+        public string MergeTransaction
+        {
+            get
+            {
+                if (Escrow_Xdrs == null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.merge_transaction;
+            }
+        }
 
 
 		public DeliveryStatus DeliveryStatus { get; set; }

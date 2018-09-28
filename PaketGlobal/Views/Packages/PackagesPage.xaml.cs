@@ -348,11 +348,6 @@ namespace PaketGlobal
 
             await ViewModel.Load();
 
-            if (Mode == PackagesMode.All)
-            {
-                PakagesView.ItemsSource = ViewModel.PackagesList;;
-            }
-
             if (ViewModel.PackagesList.Count == 0)
             {
                 ViewModel.PackagesList.Add(new NotFoundPackage());

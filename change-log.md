@@ -6,9 +6,29 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.5
+Milestone version: v.1.2.6
 
 ## Change Log
+
+### Milestone v.1.2.6
+
+28-09-2018
+
+* Settings file
+    https://github.com/paket-core/mobile/issues/95
+
+27-09-2018
+
+* Leaner filter widget on available packages screen
+    https://github.com/paket-core/mobile/issues/84
+* User name (call-sign) input field should start keyboard with small letter
+    https://github.com/paket-core/mobile/issues/94
+* Login button looks disabled
+    https://github.com/paket-core/mobile/issues/93
+* Error in displaying unique phone number error
+    https://github.com/paket-core/mobile/issues/67
+* Running notification behaviour
+    https://github.com/paket-core/mobile/issues/92
 
 ### Milestone v.1.2.5
 

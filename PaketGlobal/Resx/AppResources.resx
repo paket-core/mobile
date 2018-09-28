@@ -699,6 +699,17 @@
     <data name="MaxDistance" xml:space="preserve">
         <value>Maximum distance</value>
     </data>
-
-
+        <data name="MoreSettings" xml:space="preserve">
+        <value>More Settings</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="InvalidUrl" xml:space="preserve">
+        <value>Invalid Url</value>
+    </data>
+    <data name = "SettingsChanged" xml:space="preserve">
+        <value>Settings have been successfully changed. Please restart the application.</value>
+    </data>
+    
 </root>
