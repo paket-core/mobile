@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Timers;
 using Xamarin.Forms;
@@ -122,7 +123,9 @@ namespace PaketGlobal
 			var result = await App.Locator.RouteServiceClient.MyPackages();
             if (result != null)
             {
-                PackagesList = result.Packages;
+                var sorted = result.Packages.OrderByDescending(h => h.StatusSortValue);
+
+                PackagesList = sorted.ToList();
 
                 if (timer == null)
                 {
@@ -225,7 +228,9 @@ namespace PaketGlobal
 
                     if(packages.Count>0)
                     {
-                        PackagesList = packages;
+                        var sorted = packages.OrderByDescending(h => h.StatusSortValue);
+
+                        PackagesList = sorted.ToList();
                     }
 				}
 

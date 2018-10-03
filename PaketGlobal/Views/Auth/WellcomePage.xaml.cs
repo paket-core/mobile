@@ -12,41 +12,44 @@ namespace PaketGlobal
             InitializeComponent();
         }
 
-		protected async override void OnAppearing()
-		{
-			var fl = firstLoad;
+        protected async override void OnAppearing()
+        {
+            var fl = firstLoad;
 
-			base.OnAppearing();
+            base.OnAppearing();
 
-			if (fl) {
-				if (!String.IsNullOrEmpty(App.Locator.Profile.UserName)) {
-					if (!String.IsNullOrEmpty(App.Locator.Profile.PhoneNumber)) {
-						if (App.Locator.Profile.MnemonicGenerated) {
-							var page = new ViewMnemonicPage();
-							await Navigation.PushAsync(page, true);
-						} else {
-							var page = new SMSVereficationPage();
-							await Navigation.PushAsync(page, true);
-						}
+            App.Locator.Packages.AvailablePackagesList = new List<AvaiablePackage>();
+            App.Locator.Packages.PackagesList = new List<Package>();
 
-						App.ShowLoading(false);
-					} else {
-						var userDetails = new UserDetails {
-							PaketUser = App.Locator.Profile.UserName,
-							FullName = App.Locator.Profile.FullName,
-							Address = App.Locator.Profile.Address
-						};
-						var page = new RegistrationPage(true, userDetails);
+            if (fl) {
+                if (!String.IsNullOrEmpty(App.Locator.Profile.UserName)) {
+                    if (!String.IsNullOrEmpty(App.Locator.Profile.PhoneNumber)) {
+                        if (App.Locator.Profile.MnemonicGenerated) {
+                            var page = new ViewMnemonicPage();
+                            await Navigation.PushAsync(page, true);
+                        } else {
+                            var page = new SMSVereficationPage();
+                            await Navigation.PushAsync(page, true);
+                        }
 
-						await Navigation.PushAsync(page, true);
-					}
-				}
-			} else {
-				App.Locator.Profile.DeleteCredentials();
-			}
+                        App.ShowLoading(false);
+                    } else {
+                        var userDetails = new UserDetails {
+                            PaketUser = App.Locator.Profile.UserName,
+                            FullName = App.Locator.Profile.FullName,
+                            Address = App.Locator.Profile.Address
+                        };
+                        var page = new RegistrationPage(true, userDetails);
 
-			App.Locator.DeviceService.setStausBarBlack();
-		}
+                        await Navigation.PushAsync(page, true);
+                    }
+                }
+            } else {
+                App.Locator.Profile.DeleteCredentials();
+            }
+
+            App.Locator.DeviceService.setStausBarBlack();
+        }
 
         private void OnRegistrationClicked(object sender, System.EventArgs e)
         {

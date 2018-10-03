@@ -768,6 +768,14 @@ namespace PaketGlobal
             }
         }
 
+        internal static string CreatePackage
+        {
+            get
+            {
+                return ResourceManager.GetString("CreatePackage", resourceCulture);
+            }
+        }
+
 
     }
 }

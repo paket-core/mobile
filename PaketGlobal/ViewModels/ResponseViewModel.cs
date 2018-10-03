@@ -331,7 +331,7 @@ namespace PaketGlobal
     [DataContract]
     public class LaunchPackageDetails : BaseData
     {
-        [DataMember(Name = "escrow_address")]
+        [DataMember(Name = "escrow_pubkey")]
         public string EscrowAddress { get; set; }
 
         [DataMember(Name = "set_options_transaction")]
@@ -350,7 +350,7 @@ namespace PaketGlobal
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-        [DataMember(Name = "package_details")]
+        [DataMember(Name = "escrow_details")]
         public LaunchPackageDetails LaunchPackageDetails { get; set; }
 	}
 
@@ -528,7 +528,7 @@ namespace PaketGlobal
                 {
                     foreach (PackageEvent ev in Events)
                     {
-                        if (ev.EventType == "assign package")
+                        if (ev.EventType == "courier confirmed")
                         {
                             return ev.UserPubKey;
                         }
@@ -737,7 +737,28 @@ namespace PaketGlobal
             }
         }
 
-		[DataMember(Name = "status")]
+        public int StatusSortValue
+        {
+            get {
+                if(IsExpiredInList)
+                {
+                    return 1;
+                }
+                else if (Status == "waiting pickup")
+                {
+                    return 4;
+                }
+                else if (Status == "delivered")
+                {
+                    return 2;
+                }
+                else{
+                    return 3;
+                }
+            }
+        }
+
+        [DataMember(Name = "status")]
         public string Status
         {
             get

@@ -22,6 +22,14 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+            LocationArrow.Source = "right_arrow.png";
+            InfoArrow.Source = "right_arrow.png";
+            FundsArrow.Source = "right_arrow.png";
+            PaymentArrow.Source = "dropdown_arrow.png";
+            UsersArrow.Source = "right_arrow.png";
+            EventsArrow.Source = "right_arrow.png";
+
+
             BarcodeData = barcodePackageData;
 
             CanAcceptPackage = canAcceptPackage;
@@ -120,6 +128,16 @@ namespace PaketGlobal
                 }
 
                 LocationDetailsStackView.IsVisible = isVisible;
+
+                if(isVisible)
+                {
+                    LocationArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    LocationArrow.Source = "right_arrow.png";
+                }
+
             });
             XamEffects.Commands.SetTap(LocationTopStackView, locationTapCommand);
 
@@ -139,6 +157,15 @@ namespace PaketGlobal
                 }
 
                 InfoDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    InfoArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    InfoArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(InfoTopStackView, infoTapCommand);
 
@@ -199,6 +226,15 @@ namespace PaketGlobal
                 }
 
                 FundsDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    FundsArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    FundsArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(FundsTopStackView, fundsTapCommand);
 
@@ -218,6 +254,15 @@ namespace PaketGlobal
                 }
 
                 PaymentDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    PaymentArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    PaymentArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(PaymentTopStackView, paymentTapCommand);
 
@@ -237,6 +282,15 @@ namespace PaketGlobal
                 }
 
                 UsersDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    UsersArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    UsersArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(UsersTopStackView, usersTapCommand);
 
@@ -256,6 +310,15 @@ namespace PaketGlobal
                 }
 
                 EventsDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    EventsArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    EventsArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(EventsTopStackView, eventsTapCommand);
         }
@@ -322,7 +385,6 @@ namespace PaketGlobal
 
                     DepositButton.IsVisible = false;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
                 }
 
@@ -334,7 +396,6 @@ namespace PaketGlobal
 
                     DepositButton.IsVisible = false;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
 
                     LauncherPhoneButton.IsVisible = false;
@@ -351,7 +412,6 @@ namespace PaketGlobal
                     RecipientPhoneButton.IsVisible = false;
                     RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
 
                     WaitingStackView.IsVisible = true;
@@ -366,6 +426,16 @@ namespace PaketGlobal
                     RecipientPhoneButton.IsVisible = true;
                     RecipientContactLabel.Text = ViewModel.RecipientContact;
                 }
+            }
+            else if (ViewModel.MyRole == PaketRole.Recipient)
+            {
+                PaymentFrame.IsVisible = false;
+
+                UsersFrame.BackgroundColor = Color.FromHex("#F5F5F5");
+                UsersSubFrame.BackgroundColor = Color.White;
+
+                EventsFrameView.BackgroundColor = Color.White;
+                EventsSubFrameView.BackgroundColor = Color.FromHex("#F5F5F5");
             }
             else if (ViewModel.MyRole == PaketRole.Launcher)
             {
@@ -402,7 +472,6 @@ namespace PaketGlobal
 
                 if (ViewModel.PaymentTransaction == null)
                 {
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
                 }
                 else
@@ -410,7 +479,6 @@ namespace PaketGlobal
                     WaitingStackView.IsVisible = false;
 
                     BarcodeImage.IsVisible = true;
-                    BarcodeArrow.IsVisible = true;
                 }
             }
         }

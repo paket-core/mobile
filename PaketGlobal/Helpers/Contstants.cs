@@ -14,6 +14,7 @@ namespace PaketGlobal
         public const string NOTIFICATION = "PaketGlobal";
         public const string DISPLAY_PACKAGE_CHANGED = "CurrentDisplayPackageChanged";
         public const string CHANGE_LANGUAGE = "ChangeLanguage";
+        public const string OPEN_MINE_PACKAGES = "OPEN_MINE_PACKAGES";
 
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "app used";

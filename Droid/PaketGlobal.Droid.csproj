@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>PaketGlobal.Droid</RootNamespace>
     <AssemblyName>PaketGlobal.Droid</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -111,12 +111,6 @@
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="CountlySdk18">
       <HintPath>..\packages\CountlySDK.Xamarin.Android.1.1.0\lib\MonoAndroid10\CountlySdk18.dll</HintPath>
-    </Reference>
-    <Reference Include="XamEffects">
-      <HintPath>..\packages\XamEffects.1.5.0\lib\MonoAndroid\XamEffects.dll</HintPath>
-    </Reference>
-    <Reference Include="XamEffects.Droid">
-      <HintPath>..\packages\XamEffects.1.5.0\lib\MonoAndroid\XamEffects.Droid.dll</HintPath>
     </Reference>
     <Reference Include="CommonServiceLocator">
       <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\netstandard2.0\CommonServiceLocator.dll</HintPath>
@@ -378,6 +372,12 @@
     </Reference>
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="XamEffects">
+      <HintPath>..\packages\XamEffects.1.5.1\lib\MonoAndroid\XamEffects.dll</HintPath>
+    </Reference>
+    <Reference Include="XamEffects.Droid">
+      <HintPath>..\packages\XamEffects.1.5.1\lib\MonoAndroid\XamEffects.Droid.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -882,6 +882,15 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\not_found_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\not_found_icon.png" />
     <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\euro_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

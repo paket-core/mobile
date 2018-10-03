@@ -605,6 +605,12 @@
     <BundleResource Include="Resources\not_found_icon%403x.png" />
     <BundleResource Include="Resources\not_found_icon%402x.png" />
     <BundleResource Include="Resources\not_found_icon.png" />
+    <BundleResource Include="Resources\right_arrow%403x.png" />
+    <BundleResource Include="Resources\right_arrow%402x.png" />
+    <BundleResource Include="Resources\right_arrow.png" />
+    <BundleResource Include="Resources\euro_icon%403x.png" />
+    <BundleResource Include="Resources\euro_icon%402x.png" />
+    <BundleResource Include="Resources\euro_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

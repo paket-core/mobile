@@ -284,7 +284,7 @@ namespace PaketGlobal
                 location = location.Substring(0, 24);
             }
 
-            var request = PrepareRequest(apiVersion + "/assign_package", Method.POST);
+            var request = PrepareRequest(apiVersion + "/confirm_couriering", Method.POST);
 
             request.AddParameter("escrow_pubkey", escrowPubkey);
             if (location != null)
@@ -538,7 +538,7 @@ namespace PaketGlobal
                     }
                 }
 
-                if(response.ContentLength < 300)
+                if(!response.ResponseUri.ToString().Contains("package_photo"))
                 {
                     System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
                 }

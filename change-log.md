@@ -12,6 +12,23 @@ Milestone version: v.1.2.6
 
 ### Milestone v.1.2.6
 
+03-10-2018
+
+* To and From get confused 
+    https://github.com/paket-core/mobile/issues/100
+* Sort lists of packages by status, so expired packages are at the bottom
+    https://github.com/paket-core/mobile/issues/105
+* Add unfold indication on package details accordion
+    https://github.com/paket-core/mobile/issues/104
+* Clicking new package notification should take the user to "mine" package 
+    https://github.com/paket-core/mobile/issues/99
+* Add EUR symbol to the left of all EUR input fields
+    https://github.com/paket-core/mobile/issues/103
+* QR code should only be visible to the person currently holding the package
+    https://github.com/paket-core/mobile/issues/102
+* Save draft of forms in case of error 
+    https://github.com/paket-core/mobile/issues/97
+    
 28-09-2018
 
 * Settings file

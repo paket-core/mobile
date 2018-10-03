@@ -25,9 +25,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml.cs">
       <DependentUpon>PackagesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\PackageDetailsPage.xaml.cs">
-      <DependentUpon>PackageDetailsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Packages\LaunchPackagePage.xaml.cs">
       <DependentUpon>LaunchPackagePage.xaml</DependentUpon>
     </Compile>
@@ -144,10 +141,6 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PackagesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Packages\PackageDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -88,7 +88,7 @@ namespace PaketGlobal
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
-			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+			eventHandler("", new LaunchPackageEventArgs(AppResources.CreatePackage, currentStep / steps));
 			currentStep++;
 
 			var createResult = await App.Locator.RouteServiceClient.CreatePackage(escrowKP.Address, recipientPubkey, launcherPhone, recipientPhone, deadlineTimestamp, paymentBuls, collateralBuls,

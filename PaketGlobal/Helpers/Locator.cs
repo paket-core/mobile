@@ -196,7 +196,6 @@ namespace PaketGlobal
 				var navigationService = new NavigationService();
 				navigationService.Configure(Locator.MainPage, typeof(MainPage));
 				navigationService.Configure(Locator.PackagesPage, typeof(PackagesPage));
-				navigationService.Configure(Locator.PackageDetailsPage, typeof(PackageDetailsPage));
 				navigationService.Configure(Locator.LaunchPackagePage, typeof(LaunchPackagePage));
 				navigationService.Configure(Locator.AcceptPackagePage, typeof(AcceptPackagePage));
 				navigationService.Configure(Locator.ProfilePage, typeof(ProfilePage));

@@ -146,10 +146,19 @@ namespace PaketGlobal.Droid
 
         private void PublishLocalNotification(string title, string text)
         {
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.PutExtra("title", title); // Passed parameters to MainActivity.cs
+            intent.PutExtra("text", text);
+            intent.AddFlags(ActivityFlags.ClearTop);
+
+            var pendingIntent = PendingIntent.GetActivity(this, 1, intent, PendingIntentFlags.Immutable);
+
             // Instantiate the builder and set notification elements:
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "90")
                 .SetContentTitle(title)
                 .SetContentText(text)
+                .SetAutoCancel(true)
+                .SetContentIntent(pendingIntent)
                 .SetSmallIcon(Resource.Drawable.ic_notification);
 
 
@@ -157,6 +166,7 @@ namespace PaketGlobal.Droid
             Notification notification = builder.Build();
             notification.Defaults |= NotificationDefaults.Vibrate;
             notification.Defaults |= NotificationDefaults.Sound;
+            
 
             // Get the notification manager:
             NotificationManager notificationManager =

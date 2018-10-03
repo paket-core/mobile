@@ -124,6 +124,11 @@ namespace PaketGlobal
                 AllClicked(AllButton, EventArgs.Empty);
             });
 
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.OPEN_MINE_PACKAGES, (sender, arg) =>
+            {
+                AllClicked(AllButton, EventArgs.Empty);
+            });
+
         }
 
         protected async override void OnAppearing()

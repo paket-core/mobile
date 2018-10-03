@@ -67,7 +67,11 @@ namespace PaketGlobal
 
         private void OpenWallet()
         {
-            
+            this.Navigation.PopToRootAsync(false);
+
+            var childrens = this.Children;
+
+            this.CurrentPage = childrens[1];
         }
 
         private async void OpenPackageFromDeepLink(string packageid)
@@ -97,6 +101,14 @@ namespace PaketGlobal
 
         private void OpenPackage(string packageid)
         {
+            this.Navigation.PopToRootAsync(false);
+
+            var childrens = this.Children;
+
+            this.CurrentPage = childrens[0];
+
+            MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.OPEN_MINE_PACKAGES, packageid);
+
             //if (App.Locator.Packages.CurrentDisplayPackageId != packageid)
             //{
             //    var currentNavigationPage = (NavigationPage)this.CurrentPage;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -149,7 +149,8 @@
                                          <StackLayout x:Name="LocationMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
                                         <StackLayout x:Name="LocationTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate Locations}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                           </StackLayout>
+                                            <Image x:Name="LocationArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
                                         <StackLayout Padding="20,0,20,0" Opacity="0" x:Name="LocationDetailsStackView" IsVisible="false" Spacing="10" HorizontalOptions="FillAndExpand">
                                             <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
                                                 <RelativeLayout>
@@ -229,6 +230,7 @@
 
                                             <StackLayout x:Name="InfoTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <Image x:Name="InfoArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                             </StackLayout>
 
                                         <StackLayout x:Name="InfoDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
@@ -281,6 +283,7 @@
 
                                             <StackLayout x:Name="FundsTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate Funds}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <Image x:Name="FundsArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                             </StackLayout>
 
 
@@ -313,7 +316,7 @@
                              </Frame>
 
 
-                            <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
+                            <Frame  x:Name="PaymentFrame" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
 
                               <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
 
@@ -321,12 +324,13 @@
 
                                 <StackLayout x:Name="PaymentTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate PaymentInfo}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                </StackLayout>
+                                                                           <Image x:Name="PaymentArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+
+                                            </StackLayout>
 
                                          <StackLayout Spacing="5" x:Name="PaymentDetailsStackView" Padding="20,0,20,0">
                                                 <StackLayout Padding="0,0,5,0" Spacing="0" x:Name="BarcodeView" Orientation="Horizontal">
                                                     <Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="{local:Translate PackageBarcodeInfo}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                                    <Image x:Name="BarcodeArrow" IsVisible="false" Opacity="0" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                                 </StackLayout>
                                                 <StackLayout x:Name="WaitingStackView" IsVisible="false" Padding="0,10,0,10" Spacing="20">
                                                     <Label TextColor="#16305C" IsVisible="false" x:Name="WaitingAssignLabel" HorizontalOptions="StartAndExpand" Text="{local:Translate WaitingAssignCourierToPackage}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
@@ -344,14 +348,16 @@
 
 
 
-                              <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
+                              <Frame x:Name="UsersFrame" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
 
-                            <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
+                            <local:PaketFrame x:Name="UsersSubFrame" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
 
                                              <StackLayout x:Name="UsersMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
 
                                             <StackLayout x:Name="UsersTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate USERS}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <Image x:Name="UsersArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+
                                             </StackLayout>
 
 
@@ -427,13 +433,15 @@
 
 
                             <Frame x:Name="EventsFrameView" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
-                                <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
+                                <local:PaketFrame x:Name="EventsSubFrameView" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
 
 
         <StackLayout x:Name="EventsMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
 
                                             <StackLayout x:Name="EventsTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                             <Label TextColor="Black" Text="{local:Translate Events}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                            <Image x:Name="EventsArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+
                                             </StackLayout>
 
                                     <StackLayout Spacing="5" x:Name="EventsDetailsStackView" Padding="0,0,0,0" IsVisible="false" Opacity="0">
