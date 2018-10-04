@@ -319,7 +319,8 @@ namespace PaketGlobal
 
         private async void CreateClicked(object sender, System.EventArgs e)
         {
-            if(EntryRecepient.IsBusy)
+        
+            if (EntryRecepient.IsBusy)
             {
                 return;
             }
@@ -383,7 +384,21 @@ namespace PaketGlobal
                 }
                 catch (Exception exc)
                 {
-                    ShowErrorMessage(exc.Message);
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    if (exc.Message == AppResources.InsufficientBULs)
+                    {
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                    }
+                    else
+                    {
+                        ShowErrorMessage(exc.Message);
+                    }
                 }
 
                 ProgressView.IsVisible = false;
@@ -391,6 +406,13 @@ namespace PaketGlobal
                 App.Locator.Wallet.StartTimer();
                 App.Locator.Packages.StartTimer();
             }
+        }
+
+        private void ShowPurchaseBuls()
+        {
+            WalletPage page = new WalletPage();
+            page.ShowPurchaseBuls = true;
+            this.Navigation.PushAsync(page);
         }
 
         private void ContactsButtonClicked(object sender, EventArgs e)

@@ -329,6 +329,13 @@ namespace PaketGlobal
 
 
     [DataContract]
+    public class TrustData : BaseData
+    {
+        [DataMember(Name = "transaction")]
+        public string Transaction { get; set; }
+    }
+
+    [DataContract]
     public class LaunchPackageDetails : BaseData
     {
         [DataMember(Name = "escrow_pubkey")]

@@ -723,5 +723,13 @@
     <data name="SettingsChanged" xml:space="preserve">
         <value>Настройки успешно изменены. Пожалуйста перезапустите приложение.</value>
     </data>
-
+    <data name="InsufficientBULs" xml:space="preserve">
+        <value>Недостаточно средств</value>
+    </data>
+    <data name="PurchaseBULs" xml:space="preserve">
+        <value>>Недостаточно средств.&#xA;Вы можете купить BULs</value>
+    </data>
+    <data name="Purchase" xml:space="preserve">
+        <value>Купить</value>
+    </data>
 </root>

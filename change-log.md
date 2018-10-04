@@ -12,6 +12,11 @@ Milestone version: v.1.2.6
 
 ### Milestone v.1.2.6
 
+04-10-2018
+
+* Insufficient funds error should include a button to purchase funds
+    https://github.com/paket-core/mobile/issues/96
+    
 03-10-2018
 
 * To and From get confused 

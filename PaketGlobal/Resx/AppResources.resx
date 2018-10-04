@@ -711,5 +711,14 @@
     <data name = "SettingsChanged" xml:space="preserve">
         <value>Settings have been successfully changed. Please restart the application.</value>
     </data>
+    <data name="InsufficientBULs" xml:space="preserve">
+        <value>Insufficient BULs</value>
+    </data>
+    <data name="PurchaseBULs" xml:space="preserve">
+        <value>Insufficient BULs.&#xA;You can purchase BULs</value>
+    </data>
+    <data name="Purchase" xml:space="preserve">
+        <value>Purchase</value>
+    </data>
     
 </root>

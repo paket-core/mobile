@@ -776,6 +776,28 @@ namespace PaketGlobal
             }
         }
 
+        internal static string InsufficientBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("InsufficientBULs", resourceCulture);
+            }
+        }
 
+        internal static string Purchase
+        {
+            get
+            {
+                return ResourceManager.GetString("Purchase", resourceCulture);
+            }
+        }
+
+        internal static string PurchaseBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("PurchaseBULs", resourceCulture);
+            }
+        }
     }
 }

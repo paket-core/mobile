@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Plugin.DeviceInfo;
 
 using Xamarin.Forms;
-                 
+using static PaketGlobal.ServiceClient;
+
 namespace PaketGlobal
 {
     public partial class WalletPage : BasePage
@@ -15,6 +16,8 @@ namespace PaketGlobal
                 return BindingContext as WalletModel;
             }
         }
+
+        public bool ShowPurchaseBuls = false;
 
         private string recipient = "";
 
@@ -58,8 +61,6 @@ namespace PaketGlobal
             PickerXLMCurrency.ItemsSource = list;
             //crash in xaml for ios
 
-
-
             AddCommands();
         }
 
@@ -81,9 +82,25 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.IsNeedAlertDialogToClose = true;
 
+            if (ShowPurchaseBuls)
+            {
+                TitleView.Padding = new Thickness(50, 0, 0, 0);
+                CancelButton.IsVisible = true;
+            }
+
             if (fl)
             {
                 await LoadWallet();
+        
+                if (ShowPurchaseBuls)
+                {
+                    ShowEntry(PurchaseBULEntryViews);
+
+                    CancelButton.IsVisible = true;
+                    RefreshButton.IsVisible = false;
+
+                    PickerBULCurrency.Focus();
+                }
             }
         }
 
@@ -135,6 +152,17 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(SendBULStackView, SendBULTapCommand);
 
 
+            var titleCommand = new Command(() =>
+            {
+                if(ShowPurchaseBuls)
+                {
+                    Navigation.PopAsync(true);
+                }
+            });
+
+
+            XamEffects.Commands.SetTap(TitleView, titleCommand);
+
             var refreshCommand = new Command(async () =>
             {
                 PullToRefresh.IsRefreshing = true;
@@ -143,7 +171,11 @@ namespace PaketGlobal
                 await LoadWallet();
 
                 PullToRefresh.IsRefreshing = false;
-                RefreshButton.IsVisible = true;
+
+                if (!ShowPurchaseBuls)
+                {
+                    RefreshButton.IsVisible = true;
+                }
             });
 
             PullToRefresh.RefreshCommand = refreshCommand;
@@ -222,7 +254,10 @@ namespace PaketGlobal
             ActivityIndicatorXLM.IsRunning = false;
             ActivityIndicatorXLM.IsVisible = false;
 
-            RefreshButton.IsVisible = true;
+            if (!ShowPurchaseBuls)
+            {
+                RefreshButton.IsVisible = true;
+            }
 
             TransactionsBULScrollView.IsVisible = true;
             TransactionsLabel.IsVisible = true;
@@ -258,6 +293,10 @@ namespace PaketGlobal
             recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
         }
 
+        private void OnCancelClicked(object sender, EventArgs e)
+        {
+            Navigation.PopAsync(true);
+        }
 
         private void ShowXLMActivityClicked(object sender, EventArgs e)
         {
@@ -352,10 +391,28 @@ namespace PaketGlobal
                 catch (Exception ex)
                 {
                     EventHandler handler = (se, ee) => {
-                        EntryAmount.Focus();
+                        if(ee!=null)
+                        {
+                            ShowEntry(PurchaseBULEntryViews);
+
+                            if (PickerBULCurrency.SelectedItem == null)
+                            {
+                                PickerBULCurrency.Focus();
+                            }
+                        }
+                        else
+                        {
+                            EntryAmount.Focus();
+                        }
                     };
 
-                    ShowErrorMessage(ex.Message, false, handler);
+                    if(ex.Message== AppResources.InsufficientBULs)
+                    {
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                    }
+                    else{
+                        ShowErrorMessage(ex.Message, false, handler);
+                    }
                 }
 
 				App.ShowLoading(false);

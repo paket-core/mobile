@@ -139,6 +139,15 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request, pubkey);
 		}
 
+        public async Task<TrustData> PrepareTrust(string pubkey)
+        {
+            var request = PrepareRequest(apiVersion + "/prepare_trust", Method.POST);
+
+            if (pubkey != null)
+                request.AddParameter("from_pubkey", pubkey);
+
+            return await SendRequest<TrustData>(request, pubkey);
+        }
 
         public async Task<AddEventData> AddEvent(string eventType)
         {
@@ -236,7 +245,7 @@ namespace PaketGlobal
 
             if (myBalance == null || myBalance.Account.BalanceBUL < amount)
             {
-                throw new ServiceException(400, "Insufficient BULs");
+                throw new ServiceException(420,AppResources.InsufficientBULs);
             }
 
 			request.AddParameter("from_pubkey", fromPubkey);

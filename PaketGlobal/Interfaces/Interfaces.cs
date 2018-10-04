@@ -32,7 +32,7 @@ namespace PaketGlobal
 
 	public interface INotificationService
 	{
-        void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null);
+        void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null);
 		void ShowMessage(string text, bool lengthLong = false);
         void ShowPackageNotification(Package package, Action<string> callback);
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);

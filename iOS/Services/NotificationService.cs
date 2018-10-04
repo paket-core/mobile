@@ -27,7 +27,7 @@ namespace PaketGlobal.iOS
             Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
-        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null)
         {
             if(text.Length>0 && !isDialogShow)
             {
@@ -42,6 +42,11 @@ namespace PaketGlobal.iOS
 
                     //Add Action
                     alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false));
+
+                    if(nextButton != null)
+                    {
+                        alertController.AddAction(UIAlertAction.Create(nextButton, UIAlertActionStyle.Default, (obj) => isDialogShow = false));
+                    }
 
                     // Present Alert
                     app.Window.RootViewController.PresentViewController(alertController, true, null);

@@ -615,10 +615,31 @@ namespace PaketGlobal
             }
             catch (Exception exc)
             {
-                ShowErrorMessage(exc.Message);
+                EventHandler handler = (se, ee) => {
+                    if (ee != null)
+                    {
+                        ShowPurchaseBuls();
+                    }
+                };
+
+                if (exc.Message == AppResources.InsufficientBULs)
+                {
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else
+                {
+                    ShowErrorMessage(exc.Message);
+                }
             }
 
             ProgressView.IsVisible = false;
+        }
+
+        private void ShowPurchaseBuls()
+        {
+            WalletPage page = new WalletPage();
+            page.ShowPurchaseBuls = true;
+            this.Navigation.PushAsync(page);
         }
 
         private async void AssignClicked(object sender, System.EventArgs e)
@@ -666,7 +687,21 @@ namespace PaketGlobal
             }
             else
             {
-                ShowError(result);
+                EventHandler handler = (se, ee) => {
+                    if (ee != null)
+                    {
+                        ShowPurchaseBuls();
+                    }
+                };
+
+                if (result==StellarOperationResult.LowBULsCourier)
+                {
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else
+                {
+                    ShowError(result);
+                }
             }
 
             ProgressView.IsVisible = false;
@@ -734,7 +769,21 @@ namespace PaketGlobal
                 }
                 else
                 {
-                    ShowError(result);
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    if (result == StellarOperationResult.LowBULsCourier)
+                    {
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                    }
+                    else
+                    {
+                        ShowError(result);
+                    }
                 }
 
                 App.ShowLoading(false);

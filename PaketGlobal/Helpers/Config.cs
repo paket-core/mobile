@@ -2,9 +2,9 @@
 {
 	public class Config
 	{
-        internal const string BridgeService = "BridgeService";
-        internal const string RouteService = "RouteService";
-        internal const string IdentityService = "IdentityService";
+        internal const string BridgeService = "BridgeService1";
+        internal const string RouteService = "RouteService1";
+        internal const string IdentityService = "IdentityService1";
 
 		internal static string BridgeServerUrl = "http://itd.pub:11251";//Local
         internal static string RouteServerUrl = "http://itd.pub:11250";//Local

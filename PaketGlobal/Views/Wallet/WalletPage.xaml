@@ -21,13 +21,20 @@
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
                 <ScrollView x:Name="MainScrollView" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                     <RelativeLayout>
+
+            <Button x:Name="CancelButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
+                   Clicked="OnCancelClicked" IsVisible="false"
+                   RelativeLayout.XConstraint = "0"
+                   RelativeLayout.YConstraint = "23"/>
+                        
                         <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                            <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
+                            <StackLayout x:Name="TitleView" Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
                                 <Label x:Name="TitleLabel" Text="{local:Translate Wallet}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <Button WidthRequest="28" x:Name="RefreshButton" IsVisible="false" Clicked="ReloadClicked" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
+                                <Button x:Name="RefreshButton" WidthRequest="28"  IsVisible="false" Clicked="ReloadClicked" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
                             </StackLayout>
                             <Label Text="{local:Translate YourBalance}" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                         </StackLayout>
+                        
                         <BoxView x:Name="BackgroundView" IsEnabled="true" BackgroundColor="#F0F0F0" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-210}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=200}" />
                         <ScrollView x:Name="TopScrollView" BackgroundColor="Transparent" Orientation="Horizontal" Scrolled="WalletsScrolled" IsEnabled="false" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never" RelativeLayout.XConstraint="0" RelativeLayout.HeightConstraint="170" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.YConstraint="160">
                             <StackLayout BackgroundColor="Transparent" HeightRequest="170" Orientation="Horizontal" Spacing="0">

@@ -33,8 +33,6 @@ using Xamarin.Forms.GoogleMaps.Android;
 namespace PaketGlobal.Droid
 {
     [Activity(Label = "PaketGlobal.Droid", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-
-
     [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] {
             Intent.ActionView,
