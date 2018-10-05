@@ -25,10 +25,15 @@
                  <Label Text="{local:Translate WellcomeText1}" FontFamily="{StaticResource SemiBoldFont}" FontSize="36" TextColor="Black" XAlign="Center"/>
                  <Label Text="{local:Translate WellcomeText2}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" XAlign="Center"/>
                  <Label Text="{local:Translate WellcomeText3}" FontFamily="{StaticResource NormalFont}" FontSize="12" TextColor="#5F5F5F" XAlign="Center"/>
-                 <StackLayout Padding="0,40,0,0" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                
+                <StackLayout Padding="0,40,0,0" Spacing="10">
+                    <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
                     <Button Text="{local:Translate Start}" Clicked="OnRegistrationClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#4D64E8" WidthRequest="140" Style="{StaticResource DateButton}"/>
                     <Button Text="{local:Translate LogIn}" Clicked="OnLogInClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"/>
-                </StackLayout>
+                    </StackLayout>
+                    <Button VerticalOptions="Center" HorizontalOptions="Center" Text="{local:Translate MoreSettings}" Clicked="SettingsClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#2f3640" WidthRequest="140" Style="{StaticResource DateButton}"/>
+                </StackLayout> 
+          
             </StackLayout>
     </RelativeLayout>
     </local:BasePage.Content>

@@ -499,6 +499,10 @@ namespace PaketGlobal
         [DataMember(Name = "description")]
         public string Description { get; set; }
 
+        [DataMember(Name = "short-package-id")]
+        public string Short_package_id { get; set; }
+
+
         public bool IsExpiredInList
         {
             get{
@@ -727,6 +731,10 @@ namespace PaketGlobal
             {
                 try
                 {
+                    if(Short_package_id!=null)
+                    {
+                        return Short_package_id;
+                    }
                     var tryGetObject = JsonConvert.DeserializeObject<AddressData>(fromLocationAddress);
 
                     if (tryGetObject != null)

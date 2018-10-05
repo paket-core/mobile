@@ -368,7 +368,7 @@ namespace PaketGlobal
 						}
 					}
 
-					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddressJSON, ViewModel.ToLocationAddressJSON, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
+                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {

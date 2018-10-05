@@ -62,5 +62,11 @@ namespace PaketGlobal
             var page = new RestoreKeyPage();
             Navigation.PushAsync(page, true);
         }
+
+        private void SettingsClicked(object sender, System.EventArgs e)
+        {
+            var page = new SettingsPage();
+            Navigation.PushAsync(page);
+        }
     }
 }
