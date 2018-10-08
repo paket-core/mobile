@@ -611,6 +611,9 @@
     <BundleResource Include="Resources\euro_icon%403x.png" />
     <BundleResource Include="Resources\euro_icon%402x.png" />
     <BundleResource Include="Resources\euro_icon.png" />
+    <BundleResource Include="Resources\settings.png" />
+    <BundleResource Include="Resources\settings%402x.png" />
+    <BundleResource Include="Resources\settings%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

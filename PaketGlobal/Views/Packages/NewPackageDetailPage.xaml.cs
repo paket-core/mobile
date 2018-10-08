@@ -24,8 +24,6 @@ namespace PaketGlobal
 
             LocationArrow.Source = "right_arrow.png";
             InfoArrow.Source = "right_arrow.png";
-            FundsArrow.Source = "right_arrow.png";
-            PaymentArrow.Source = "dropdown_arrow.png";
             UsersArrow.Source = "right_arrow.png";
             EventsArrow.Source = "right_arrow.png";
 
@@ -210,61 +208,6 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PackageLinkLabel, packageLinkCommand);
 
 
-            //Funds
-            var fundsTapCommand = new Command(async () =>
-            {
-                bool isVisible = !FundsDetailsStackView.IsVisible;
-                if (isVisible)
-                {
-                    FundsDetailsStackView.IsVisible = true;
-                    await FundsDetailsStackView.FadeTo(1, 500, Easing.SinIn);
-                }
-                else
-                {
-                    await FundsDetailsStackView.FadeTo(0, 250, Easing.SinOut);
-                    FundsDetailsStackView.IsVisible = false;
-                }
-
-                FundsDetailsStackView.IsVisible = isVisible;
-
-                if (isVisible)
-                {
-                    FundsArrow.Source = "dropdown_arrow.png";
-                }
-                else
-                {
-                    FundsArrow.Source = "right_arrow.png";
-                }
-            });
-            XamEffects.Commands.SetTap(FundsTopStackView, fundsTapCommand);
-
-            //Payemnt
-            var paymentTapCommand = new Command(async () =>
-            {
-                bool isVisible = !PaymentDetailsStackView.IsVisible;
-                if (isVisible)
-                {
-                    PaymentDetailsStackView.IsVisible = true;
-                    await PaymentDetailsStackView.FadeTo(1, 500, Easing.SinIn);
-                }
-                else
-                {
-                    await PaymentDetailsStackView.FadeTo(0, 250, Easing.SinOut);
-                    PaymentDetailsStackView.IsVisible = false;
-                }
-
-                PaymentDetailsStackView.IsVisible = isVisible;
-
-                if (isVisible)
-                {
-                    PaymentArrow.Source = "dropdown_arrow.png";
-                }
-                else
-                {
-                    PaymentArrow.Source = "right_arrow.png";
-                }
-            });
-            XamEffects.Commands.SetTap(PaymentTopStackView, paymentTapCommand);
 
             //Users
             var usersTapCommand = new Command(async () =>
@@ -429,13 +372,7 @@ namespace PaketGlobal
             }
             else if (ViewModel.MyRole == PaketRole.Recipient)
             {
-                PaymentFrame.IsVisible = false;
-
-                UsersFrame.BackgroundColor = Color.FromHex("#F5F5F5");
-                UsersSubFrame.BackgroundColor = Color.White;
-
-                EventsFrameView.BackgroundColor = Color.White;
-                EventsSubFrameView.BackgroundColor = Color.FromHex("#F5F5F5");
+                PaymentMainStackView.IsVisible = false;
             }
             else if (ViewModel.MyRole == PaketRole.Launcher)
             {

@@ -77,14 +77,38 @@ namespace PaketGlobal
 
             var selectFromLocation = new Command(() =>
             {
-                var picker = new LocationPickerPage(LocationPickerType.From);
+                GooglePlace place = null;
+
+                if (ViewModel.FromLocationGPS!=null)
+                {
+                    string location = ViewModel.FromLocationGPS;
+
+                    place = new GooglePlace();
+                    place.Address = ViewModel.FromLocationAddress;
+                    place.Latitude = Convert.ToDouble(location.Split(',')[0]);
+                    place.Longitude = Convert.ToDouble(location.Split(',')[1]);
+                }
+
+                var picker = new LocationPickerPage(LocationPickerType.From, place);
                 picker.eventHandler = DidSelectLocationHandler;
                 Navigation.PushAsync(picker, true);
             });
 
             var selectToLocation = new Command(() =>
             {
-                var picker = new LocationPickerPage(LocationPickerType.To);
+                GooglePlace place = null;
+
+                if (ViewModel.ToLocationGPS != null)
+                {
+                    string location = ViewModel.ToLocationGPS;
+
+                    place = new GooglePlace();
+                    place.Address = ViewModel.ToLocationAddress;
+                    place.Latitude = Convert.ToDouble(location.Split(',')[0]);
+                    place.Longitude = Convert.ToDouble(location.Split(',')[1]);
+                }
+
+                var picker = new LocationPickerPage(LocationPickerType.To, place);
                 picker.eventHandler = DidSelectLocationHandler;
                 Navigation.PushAsync(picker, true);
             });

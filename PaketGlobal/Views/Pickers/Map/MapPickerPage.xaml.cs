@@ -12,11 +12,13 @@ namespace PaketGlobal
         public LocationPickerPageEventHandler eventHandler;
 
         private AddressData addressData;
+        private GooglePlace SelectedAddress;
 
-        public MapPickerPage()
+        public MapPickerPage(GooglePlace selectedAddress = null)
         {
             InitializeComponent();
 
+            SelectedAddress = selectedAddress;
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
@@ -45,7 +47,15 @@ namespace PaketGlobal
                 }
             };
 
-            if(!App.Locator.LocationHelper.lat.Equals(0.0))
+            if(SelectedAddress!=null)
+            {
+                SelectButton.Opacity = 1;
+
+                MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(SelectedAddress.Latitude, SelectedAddress.Longitude), 20d);
+
+                LoadAddress(SelectedAddress.Latitude, SelectedAddress.Longitude);
+            }
+            else if (!App.Locator.LocationHelper.lat.Equals(0.0))
             {
                 MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng), 20d);
             }
@@ -66,7 +76,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if (fl)
+            if (fl && SelectedAddress==null)
             {
                 LoadInitialPosition();
             }

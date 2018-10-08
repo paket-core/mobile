@@ -891,6 +891,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\euro_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\euro_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\settings.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

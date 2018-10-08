@@ -658,7 +658,7 @@
         <value>You do not have permission to view the phone number yet</value>
     </data>
     <data name="USERS" xml:space="preserve">
-        <value>USERS</value>
+        <value>ACCOUNTS</value>
     </data>
     <data name="Description" xml:space="preserve">
         <value>Description</value>
@@ -685,7 +685,7 @@
         <value>This application is unavailable in the United States</value>
     </data>
     <data name="AccountAddress" xml:space="preserve">
-        <value>Account address</value>
+        <value>Stellar address</value>
     </data>
     <data name="SendPackage" xml:space="preserve">
         <value>Send Package</value>

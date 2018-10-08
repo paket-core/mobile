@@ -18,6 +18,11 @@
                           RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=40}"  
                           Source="wellcome_image.png">
             </Image>
+            
+            <Button Image="settings.png" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="32" RelativeLayout.WidthConstraint="32"
+                    RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-42}"
+                    RelativeLayout.YConstraint = "10" Clicked="SettingsClicked"/>
+            
             <StackLayout BackgroundColor="Transparent"
                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-20}"
                   RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=10}" 
@@ -31,7 +36,6 @@
                     <Button Text="{local:Translate Start}" Clicked="OnRegistrationClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#4D64E8" WidthRequest="140" Style="{StaticResource DateButton}"/>
                     <Button Text="{local:Translate LogIn}" Clicked="OnLogInClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"/>
                     </StackLayout>
-                    <Button VerticalOptions="Center" HorizontalOptions="Center" Text="{local:Translate MoreSettings}" Clicked="SettingsClicked" BorderColor="Transparent" TextColor="White" BackgroundColor="#2f3640" WidthRequest="140" Style="{StaticResource DateButton}"/>
                 </StackLayout> 
           
             </StackLayout>
