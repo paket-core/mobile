@@ -41,7 +41,7 @@ namespace PaketGlobal
     public class RatioData : BaseData
     {
         [DataMember(Name = "ratio")]
-        public int Ratio { get; set; }
+        public string Ratio { get; set; }
     }
 
     [DataContract]
@@ -499,7 +499,7 @@ namespace PaketGlobal
         [DataMember(Name = "description")]
         public string Description { get; set; }
 
-        [DataMember(Name = "short-package-id")]
+        [DataMember(Name = "short_package_id")]
         public string Short_package_id { get; set; }
 
 
@@ -789,6 +789,10 @@ namespace PaketGlobal
                     OnPropertyChanged("Status");
                     OnPropertyChanged("StatusIconWithText");
                     OnPropertyChanged("ProgressIcon");
+                    OnPropertyChanged("VisibleSecondCircle");
+                    OnPropertyChanged("VisibleFirstCircle");
+                    OnPropertyChanged("VisibleThirdCircle");
+                    OnPropertyChanged("VisibleLastCircle");
                 }
             }
         }
@@ -946,19 +950,70 @@ namespace PaketGlobal
             }
         }
 
+        public bool VisibleFirstCircle
+        {
+            get{
+                if (Status == "waiting pickup")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public bool VisibleSecondCircle
+        {
+            get
+            {
+                if (Status == "in transit")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+
+    public bool VisibleLastCircle
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+        public bool VisibleThirdCircle
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public float Progress
         {
             get { 
                 if (Status == "waiting pickup")
                 {
-                    return 0.1f;
+                    return 0.5f;
                 }
                 else if (Status == "delivered")
                 {
                     return 1.0f;
                 }
 
-                return 0.5f;
+                return 0.7f;
             }
         }
 

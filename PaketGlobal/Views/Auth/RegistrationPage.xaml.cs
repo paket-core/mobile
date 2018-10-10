@@ -43,6 +43,10 @@ namespace PaketGlobal
 				ViewModel.UserName = userData.PaketUser;
 				ViewModel.FullName = userData.FullName;
 				ViewModel.Address = userData.Address;
+                if(ViewModel.Address==null)
+                {
+                    ViewModel.Address = ISO3166.GetCurrentCountryName();
+                }
             }
             else{
                 ViewModel.Address = ISO3166.GetCurrentCountryName();
@@ -90,7 +94,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if(ViewModel.Address.ToLower()=="united states of america" ||  ViewModel.Address.ToLower() == "usa")
+            if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
             {
                 errorLabel.IsVisible = true;
                 generateButton.IsEnabled = false;

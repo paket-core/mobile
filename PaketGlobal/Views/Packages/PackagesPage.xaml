@@ -81,16 +81,31 @@
                         </StackLayout>
                             
                         </StackLayout>
-                        <local:PaketProgress Progress="{Binding Progress, Mode=OneWay}" 
+                        <local:PaketProgress x:Name="ProgressView" Progress="{Binding Progress, Mode=OneWay}" 
                                              RelativeLayout.XConstraint="37" 
                                              RelativeLayout.YConstraint="77"
                                              RelativeLayout.HeightConstraint="1"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.81}"/>
+                        
                         <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="33" RelativeLayout.YConstraint="71"/>
-                        <Image Source="{Binding ProgressIcon, Mode=OneWay}" HorizontalOptions="Start"
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleFirstCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressView, Property=Width, Factor=0.47}"
+                               RelativeLayout.YConstraint="66"/>
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleSecondCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressView, Property=Width, Factor=0.67}"
+                               RelativeLayout.YConstraint="66"/>
+                        
+                        <Image Source="point_1" HorizontalOptions="Start" IsVisible="{Binding VisibleLastCircle, Mode=OneWay}"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.88}"
                                        RelativeLayout.YConstraint="71"/>
+                            
+                        <Image Source="point_2" HorizontalOptions="Start" IsVisible="{Binding VisibleThirdCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.86}"
+                                       RelativeLayout.YConstraint="66"/>
+                        
                         <StackLayout Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="95"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.83}">
                             <StackLayout Spacing="0" HorizontalOptions="StartAndExpand">

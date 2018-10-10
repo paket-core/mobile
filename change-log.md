@@ -12,6 +12,17 @@ Milestone version: v.1.2.6
 
 ### Milestone v.1.2.6
 
+08-10-2018
+
+* Click on address or map should go to relevant address
+    https://github.com/paket-core/mobile/issues/109
+* Reorder profile page
+    https://github.com/paket-core/mobile/issues/111
+* Reorder package info page
+    https://github.com/paket-core/mobile/issues/112 
+* Smaller "more settings" button in login screen
+    https://github.com/paket-core/mobile/issues/113 
+
 04-10-2018
 
 * Insufficient funds error should include a button to purchase funds

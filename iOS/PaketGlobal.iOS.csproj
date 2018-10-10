@@ -614,6 +614,9 @@
     <BundleResource Include="Resources\settings.png" />
     <BundleResource Include="Resources\settings%402x.png" />
     <BundleResource Include="Resources\settings%403x.png" />
+    <BundleResource Include="Resources\big_point%403x.png" />
+    <BundleResource Include="Resources\big_point%402x.png" />
+    <BundleResource Include="Resources\big_point.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

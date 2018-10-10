@@ -896,6 +896,13 @@
     <AndroidResource Include="Resources\drawable-xhdpi\settings.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\settings.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable\big_point.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\point_0.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\point_2.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

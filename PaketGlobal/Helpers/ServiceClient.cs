@@ -547,10 +547,14 @@ namespace PaketGlobal
                     }
                 }
 
-                if(!response.ResponseUri.ToString().Contains("package_photo"))
+                if(response.ResponseUri!=null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                    if (!response.ResponseUri.ToString().Contains("package_photo"))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                    }
                 }
+           
 
                 ServiceStackSerializer.HandleStatusCode(response);
                 return response.Data;

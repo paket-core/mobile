@@ -51,9 +51,9 @@ namespace PaketGlobal
                 Config.RouteServerUrl = RouteEntry.Text;
                 Config.IdentityServerUrl = FundEntry.Text;
 
-                Application.Current.Properties.Add(Config.BridgeService, Config.BridgeServerUrl);
-                Application.Current.Properties.Add(Config.IdentityService, Config.IdentityServerUrl);
-                Application.Current.Properties.Add(Config.RouteService, Config.RouteServerUrl);
+                Application.Current.Properties[Config.BridgeService] = Config.BridgeServerUrl;
+                Application.Current.Properties[Config.IdentityService] = Config.IdentityServerUrl;
+                Application.Current.Properties[Config.RouteService] = Config.RouteServerUrl;    
                 Application.Current.SavePropertiesAsync();
 
                 ShowErrorMessage(AppResources.SettingsChanged);

@@ -60,16 +60,32 @@
                                             <StackLayout BackgroundColor="Transparent" Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="17" RelativeLayout.YConstraint="15">
                                                 <Image Source="{Binding StatusIconWithText}" HorizontalOptions="Start" VerticalOptions="Start"/>
                                             </StackLayout>
-                                            <local:PaketProgress Progress="{Binding Status, Converter={StaticResource packageProgressStatusConverter}, Mode=OneWay}"
+                                            
+                                            <local:PaketProgress x:Name="ProgressBarView" Progress="{Binding Progress, Mode=OneWay}"
                                              RelativeLayout.XConstraint="20" 
                                              RelativeLayout.YConstraint="55"
                                              RelativeLayout.HeightConstraint="1"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.87}"/>
-                                            <Image Source="point_0.png" HorizontalOptions="Start"
+                                            
+                        <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="15" RelativeLayout.YConstraint="49"/>
-                                            <Image Source="{Binding ProgressIcon}" HorizontalOptions="Start"
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleFirstCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressBarView, Property=Width, Factor=0.47}"
+                               RelativeLayout.YConstraint="44"/>
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleSecondCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressBarView, Property=Width, Factor=0.67}"
+                               RelativeLayout.YConstraint="44"/>
+                        
+                        <Image Source="point_1" HorizontalOptions="Start" IsVisible="{Binding VisibleLastCircle, Mode=OneWay}"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.91}"
                                        RelativeLayout.YConstraint="49"/>
+                            
+                        <Image Source="point_2" HorizontalOptions="Start" IsVisible="{Binding VisibleThirdCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.89}"
+                                       RelativeLayout.YConstraint="44"/>
+                                            
                                             <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
                                                                     

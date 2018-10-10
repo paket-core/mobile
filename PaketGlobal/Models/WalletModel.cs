@@ -26,11 +26,11 @@ namespace PaketGlobal
                 Application.Current.Properties.TryGetValue(Constants.BULL_RATIO, out fromStorageBul);
                 Application.Current.Properties.TryGetValue(Constants.XLM_RATIO, out fromStorageXlm);
 
-                int bul = Convert.ToInt32(fromStorageBul as string);
-                int xlm = Convert.ToInt32(fromStorageXlm as string);
+                var bul = Convert.ToDouble(fromStorageBul as string);
+                var xlm = Convert.ToDouble(fromStorageXlm as string);
 
-                XLM_Ratio = (double)xlm / 100.0;
-                BUL_Ratio = (double)bul / 100.0;
+                XLM_Ratio = xlm;
+                BUL_Ratio = bul;
             }
         }
 
@@ -182,12 +182,12 @@ namespace PaketGlobal
             if(xlm != null && bul != null)
             {
 
-                Application.Current.Properties[Constants.BULL_RATIO] = Convert.ToString(xlm.Ratio);
-                Application.Current.Properties[Constants.XLM_RATIO] = Convert.ToString(xlm.Ratio);
+                Application.Current.Properties[Constants.BULL_RATIO] = xlm.Ratio;
+                Application.Current.Properties[Constants.XLM_RATIO] = xlm.Ratio;
                 await Application.Current.SavePropertiesAsync();
 
-                XLM_Ratio = (double)xlm.Ratio / 100.0;
-                BUL_Ratio = (double)bul.Ratio / 100.0;
+                XLM_Ratio = Convert.ToDouble(xlm.Ratio);
+                BUL_Ratio = Convert.ToDouble(bul.Ratio);
             }
         }
 	}
