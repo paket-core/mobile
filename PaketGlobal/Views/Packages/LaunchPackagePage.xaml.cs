@@ -6,7 +6,7 @@ using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 using libphonenumber;
-
+using System.Threading.Tasks;
 
 namespace PaketGlobal
 {
@@ -122,10 +122,10 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(LauncherCountryCodeLabel, selectMyCountryCommand);
             XamEffects.Commands.SetTap(RecipientCountryCodeLabel, selectRecipientCountryCommand);
             XamEffects.Commands.SetTap(FromLocationLabel, selectFromLocation);
-            XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
+          //  XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
             XamEffects.Commands.SetTap(FromLocationImage, selectFromLocation);
             XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
-            XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
+           // XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationImage, selectToLocation);
         }
 
@@ -133,7 +133,16 @@ namespace PaketGlobal
         {
             base.OnAppearing();
 
+            App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = true;
+
             App.Locator.DeviceService.setStausBarLight();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = false;
         }
 
         private void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
@@ -163,15 +172,15 @@ namespace PaketGlobal
 
         private async void SetLocationImage(LocationPickerType pickerType, double lat, double lng)
         {
-            var size = 240;
+            var size = 300;
 
 #if __ANDROID__
-            size = 280;
+            size = 340;
 #endif
 
             var mapHelper = new MapHelper();
 
-            var mapImage = await mapHelper.GetStaticMap(lat, lng, 14, size, size);
+            var mapImage = await mapHelper.GetStaticMap(lat, lng, 18, size, size);
 
             MemoryStream stream = null;
 
@@ -230,7 +239,16 @@ namespace PaketGlobal
 
         private void OnBack(object sender, System.EventArgs e)
         {
-            Navigation.PopAsync();
+            //.
+            EventHandler handler = (se, ee) => {
+                if (ee != null)
+                {
+                    Navigation.PopAsync();
+                }
+            };
+
+            ShowErrorMessage(AppResources.LaunchLeaveMessage, false, handler, AppResources.Leave, AppResources.Cancel);
+
         }
 
 
@@ -396,10 +414,23 @@ namespace PaketGlobal
 
                     if (result == StellarOperationResult.Success)
                     {
+                        App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = false;
+
                         await System.Threading.Tasks.Task.Delay(2000);
                         await App.Locator.Packages.Load();
 
-                        OnBack(BackButton, null);
+                        await Navigation.PopAsync();
+                    }
+                    else if (result==StellarOperationResult.LowBULsLauncher)
+                    {
+                        EventHandler handler = (se, ee) => {
+                            if (ee != null)
+                            {
+                                ShowPurchaseBuls();
+                            }
+                        };
+
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
                     }
                     else
                     {
@@ -501,9 +532,9 @@ namespace PaketGlobal
         {
             if (sender == EntryRecepient)
             {
-                if (!ValidationHelper.ValidateTextField(EntryPayment.Text))
+                if (!ValidationHelper.ValidateTextField(EntryRecipientPhoneNumber.Text))
                 {
-                    EntryPayment.Focus();
+                    EntryRecipientPhoneNumber.Focus();
                 }
             }
             else if (sender == EntryPayment)
@@ -522,21 +553,30 @@ namespace PaketGlobal
             }
         }
 
+        public async void Scroll()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(0.2f));
+            await MainScrollView.ScrollToAsync(MainScrollView.ScrollX, MainScrollView.ScrollY - 30, false);
+        }
+
         protected override bool IsValid()
         {
             if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
             {
                 EntryRecepient.FocusField();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.LauncherFullPhoneNumber))
             {
                 EntryLauncherPhoneNumber.Focus();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.RecipientFullPhoneNumber))
             {
                 EntryRecipientPhoneNumber.Focus();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.FromLocationGPS))
@@ -581,16 +621,20 @@ namespace PaketGlobal
             else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
             {
                 EntryPayment.Focus();
+
                 return false;
             }
             else if (!ValidationHelper.ValidateNumber(EntryCollateral.Text))
             {
                 EntryCollateral.Focus();
+
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(EntryDescription.Text))
             {
                 EntryDescription.Focus();
+                Scroll();
+
                 return false;
             }
       

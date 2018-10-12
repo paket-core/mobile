@@ -799,5 +799,22 @@ namespace PaketGlobal
                 return ResourceManager.GetString("PurchaseBULs", resourceCulture);
             }
         }
+
+        internal static string LaunchLeaveMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchLeaveMessage", resourceCulture);
+            }
+        }
+
+        internal static string Leave
+        {
+            get
+            {
+                return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
+
     }
 }

@@ -41,9 +41,9 @@ namespace PaketGlobal
 #if __ANDROID__
             HeaderView.TranslationY = -20;
             BULFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
-            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150; 
+            XLMFrameView.WidthRequest = (double)App.Locator.DeviceService.ScreenWidth() - 150;
 
-            if(CrossDeviceInfo.Current.Model.ToLower().Contains("htc_m10h"))
+            if (CrossDeviceInfo.Current.Model.ToLower().Contains("htc_m10h"))
             {
                 IsAnimationEnabled = false;
             }
@@ -62,6 +62,7 @@ namespace PaketGlobal
             //crash in xaml for ios
 
             AddCommands();
+            EnableDisableButton();
         }
 
         protected override void OnDisappearing()
@@ -91,7 +92,7 @@ namespace PaketGlobal
             if (fl)
             {
                 await LoadWallet();
-        
+
                 if (ShowPurchaseBuls)
                 {
                     ShowEntry(PurchaseBULEntryViews);
@@ -154,7 +155,7 @@ namespace PaketGlobal
 
             var titleCommand = new Command(() =>
             {
-                if(ShowPurchaseBuls)
+                if (ShowPurchaseBuls)
                 {
                     Navigation.PopAsync(true);
                 }
@@ -192,14 +193,15 @@ namespace PaketGlobal
                 stackLayout.FadeTo(1, 500, Easing.SinIn);
                 stackLayout.ScaleTo(1, 250);
             }
-            else{
+            else
+            {
                 stackLayout.IsVisible = true;
             }
 
-            if(stackLayout==PurchaseBULEntryViews)
+            if (stackLayout == PurchaseBULEntryViews)
             {
                 var visible = SendBULEntryViews.IsVisible;
-                if(visible)
+                if (visible)
                 {
                     HideEntry(SendBULEntryViews);
                 }
@@ -216,7 +218,7 @@ namespace PaketGlobal
 
         private void HideEntry(StackLayout stackLayout)
         {
-            if(IsAnimationEnabled)
+            if (IsAnimationEnabled)
             {
                 Action<double> callback = input => stackLayout.HeightRequest = input;
 
@@ -231,22 +233,24 @@ namespace PaketGlobal
 #else
             stackLayout.FadeTo(0, length, easing);
 #endif
-                stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) => {
+                stackLayout.Animate("invis", callback, startingHeight, endingHeight, rate, length, easing, (double arg1, bool arg2) =>
+                {
                     stackLayout.IsVisible = false;
                     stackLayout.HeightRequest = startingHeight;
-                });   
+                });
             }
-            else{
+            else
+            {
                 stackLayout.IsVisible = false;
             }
         }
 
 
-		
 
-		private async System.Threading.Tasks.Task LoadWallet()
-		{
-			await ViewModel.Load();
+
+        private async System.Threading.Tasks.Task LoadWallet()
+        {
+            await ViewModel.Load();
 
             ActivityIndicatorBUL.IsRunning = false;
             ActivityIndicatorBUL.IsVisible = false;
@@ -263,7 +267,7 @@ namespace PaketGlobal
             TransactionsLabel.IsVisible = true;
 
             TopScrollView.IsEnabled = true;
-		}
+        }
 
 
         private async void ReloadClicked(object sender, System.EventArgs e)
@@ -291,6 +295,7 @@ namespace PaketGlobal
         {
             EntryRecepient.Text = e.Item;
             recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+            EnableDisableButton();
         }
 
         private void OnCancelClicked(object sender, EventArgs e)
@@ -313,7 +318,7 @@ namespace PaketGlobal
             EntryRecepient.ToDefaultState();
 
             SendBULSSuccessView.IsVisible = false;
-            SundBULSMainStackView.IsVisible = true;    
+            SundBULSMainStackView.IsVisible = true;
 
             HideEntry(SendBULEntryViews);
         }
@@ -334,6 +339,8 @@ namespace PaketGlobal
             }
 
             HideEntry(PurchaseXLMEntryViews);
+
+            EnableDisableButton();
         }
 
         private void DonePurchaseBULSClicked(object sender, EventArgs e)
@@ -345,39 +352,42 @@ namespace PaketGlobal
             PurchaseBULSSuccessView.IsVisible = false;
             PurchaseBULMainView.IsVisible = true;
 
-            if(PurchaseBullAddress != null)
+            if (PurchaseBullAddress != null)
             {
                 App.Locator.ClipboardService.SendTextToClipboard(PurchaseBullAddress);
                 ShowMessage(AppResources.Copied);
             }
 
             HideEntry(PurchaseBULEntryViews);
+
+            EnableDisableButton();
         }
 
         private async void SendClicked(object sender, EventArgs e)
-		{
-            if(EntryRecepient.IsBusy)
+        {
+            if (EntryRecepient.IsBusy)
             {
                 return;
             }
-            else if(recipient.Length==0)
+            else if (recipient.Length == 0)
             {
                 EntryRecepient.FocusField();
             }
-			else if (IsValid())
+            else if (IsValid())
             {
-				Unfocus();
+                Unfocus();
 
-				App.ShowLoading(true);
+                App.ShowLoading(true);
 
-                try{
+                try
+                {
                     double amount = double.Parse(EntryAmount.Text);
 
-					var trans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
+                    var trans = await App.Locator.BridgeServiceClient.PrepareSendBuls(App.Locator.Profile.Pubkey, recipient, amount);
                     if (trans != null)
                     {
                         var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, trans.Transaction);
-						var result = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
+                        var result = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 
                         if (result != null)
                         {
@@ -386,12 +396,13 @@ namespace PaketGlobal
                             SundBULSMainStackView.IsVisible = false;
                             SendBULSSuccessView.IsVisible = true;
                         }
-                    } 
+                    }
                 }
                 catch (Exception ex)
                 {
-                    EventHandler handler = (se, ee) => {
-                        if(ee!=null)
+                    EventHandler handler = (se, ee) =>
+                    {
+                        if (ee != null)
                         {
                             ShowEntry(PurchaseBULEntryViews);
 
@@ -406,24 +417,29 @@ namespace PaketGlobal
                         }
                     };
 
-                    if(ex.Message== AppResources.InsufficientBULs)
+                    if (ex.Message == AppResources.InsufficientBULs)
                     {
                         ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
                     }
-                    else{
+                    else
+                    {
                         ShowErrorMessage(ex.Message, false, handler);
                     }
                 }
 
-				App.ShowLoading(false);
-		    }
-		}
+                App.ShowLoading(false);
+
+                EnableDisableButton();
+            }
+        }
 
         private async void BuyBULClicked(object sender, System.EventArgs e)
-		{
-			if (IsValid(SpendCurrency.BUL)) {
+        {
+            if (IsValid(SpendCurrency.BUL))
+            {
 
-                try{
+                try
+                {
                     App.ShowLoading(true);
 
                     var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
@@ -442,20 +458,25 @@ namespace PaketGlobal
                         PurchaseBULMainView.IsVisible = false;
                         PurchaseBULSSuccessView.IsVisible = true;
                     }
- 
+
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                 }
 
                 App.ShowLoading(false);
-			}
-		}
 
-		private async void BuyXLMClicked(object sender, System.EventArgs e)
-		{
-			if (IsValid(SpendCurrency.XLM)) {
-                try{
+                EnableDisableButton();
+
+            }
+        }
+
+        private async void BuyXLMClicked(object sender, System.EventArgs e)
+        {
+            if (IsValid(SpendCurrency.XLM))
+            {
+                try
+                {
                     App.ShowLoading(true);
 
                     var currency = (PaymentCurrency)PickerXLMCurrency.SelectedItem;
@@ -471,21 +492,27 @@ namespace PaketGlobal
 
                         PurchaseXLMMainView.IsVisible = false;
                         PurchaseXLMSuccessView.IsVisible = true;
+
+
                     }
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                 }
 
                 App.ShowLoading(false);
-			}
-		}
+
+                EnableDisableButton();
+
+            }
+        }
 
         private async void FieldUnfocus(object sender, EventArgs e)
         {
             if (sender == EntryRecepient)
             {
                 recipient = await EntryRecepient.CheckValidCallSignOrPubKey();
+                EnableDisableButton();
             }
         }
 
@@ -507,7 +534,7 @@ namespace PaketGlobal
             }
             else if (sender == EntryAmountForBUL)
             {
-                if (PickerBULCurrency.SelectedItem==null)
+                if (PickerBULCurrency.SelectedItem == null)
                 {
                     PickerBULCurrency.Focus();
                 }
@@ -521,21 +548,28 @@ namespace PaketGlobal
             }
         }
 
-        private void PickerUnfocused(object sender, EventArgs e){
-            if(sender==PickerBULCurrency)
+        private void PickerUnfocused(object sender, EventArgs e)
+        {
+            if (sender == PickerBULCurrency)
             {
-                if(PickerBULCurrency.SelectedItem!=null)
+                if (PickerBULCurrency.SelectedItem != null)
                 {
                     IconBULCurrencyView.IsVisible = true;
 
                     var currency = (PaymentCurrency)PickerBULCurrency.SelectedItem;
 
-                    if(currency == PaymentCurrency.BTC)
+                    if (currency == PaymentCurrency.BTC)
                     {
-                        IconBULCurrencyView.Source = "btc_icon.png"; 
+                        IconBULCurrencyView.Source = "btc_icon.png";
                     }
-                    else{
+                    else
+                    {
                         IconBULCurrencyView.Source = "eth_icon.png";
+                    }
+
+                    if (ShowPurchaseBuls)
+                    {
+                        EntryAmountForBUL.Focus();
                     }
                 }
             }
@@ -557,53 +591,68 @@ namespace PaketGlobal
                     }
                 }
             }
+
+            EnableDisableButton();
         }
 
-		protected override bool IsValid()
-		{
-			if (!ValidationHelper.ValidateTextField(EntryRecepient.Text)) {
+        protected override bool IsValid()
+        {
+            if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
+            {
                 EntryRecepient.Focus();
-				return false;
-			}
-			if (!ValidationHelper.ValidateNumber(EntryAmount.Text)) {
+                return false;
+            }
+            if (!ValidationHelper.ValidateNumber(EntryAmount.Text))
+            {
                 EntryAmount.Focus();
-				return false;
-			}
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		private bool IsValid(SpendCurrency spendCurrency)
-		{
-			if (spendCurrency == SpendCurrency.BUL) {
-				if (PickerBULCurrency.SelectedItem == null) {
-                    
-                    EventHandler handleCurrencyHandler = (s, e) => {                         PickerBULCurrency.Focus();} ;                      ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler); 
-					return false;
-				}
-				if (!ValidationHelper.ValidateNumber(EntryAmountForBUL.Text)) {
+        private bool IsValid(SpendCurrency spendCurrency)
+        {
+            if (spendCurrency == SpendCurrency.BUL)
+            {
+                if (PickerBULCurrency.SelectedItem == null)
+                {
+
+                    EventHandler handleCurrencyHandler = (s, e) =>
+                    {                         PickerBULCurrency.Focus();
+                    };                      ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler);
+
+                    return false;
+                }
+                if (!ValidationHelper.ValidateNumber(EntryAmountForBUL.Text))
+                {
                     EntryAmountForBUL.Focus();
-					return false;
-				}
-			} else {
-				if (PickerXLMCurrency.SelectedItem == null) {
-					
-                    EventHandler handleCurrencyHandler = (s, e) => {
+                    return false;
+                }
+            }
+            else
+            {
+                if (PickerXLMCurrency.SelectedItem == null)
+                {
+
+                    EventHandler handleCurrencyHandler = (s, e) =>
+                    {
                         PickerXLMCurrency.Focus();
                     };
 
                     ShowErrorMessage(AppResources.PleaseSelectPaymentCurrency, false, handleCurrencyHandler);
 
-					return false;
-				}
-				if (!ValidationHelper.ValidateNumber(EntryAmountForXLM.Text)) {
+                    return false;
+                }
+                if (!ValidationHelper.ValidateNumber(EntryAmountForXLM.Text))
+                {
                     EntryAmountForXLM.Focus();
-					return false;
-				}
-			}
+                    return false;
+                }
+            }
 
-			return true;
-		}
+            return true;
+        }
 
         private void TransactionsScrolled(object sender, Xamarin.Forms.ScrolledEventArgs e)
         {
@@ -664,12 +713,82 @@ namespace PaketGlobal
 
         void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
         {
-       
+
         }
 
         void Handle_Unfocused(object sender, Xamarin.Forms.FocusEventArgs e)
         {
-      
+
         }
-	}
+
+        private void Handle_Progress_TextChanged(object sender, EventArgs e)
+        {
+            EnableDisableButton();
+        }
+
+        void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            EnableDisableButton();
+        }
+
+        private void EnableDisableButton()
+        {
+            EnableDisableSendButton();
+            EnableDisableBullButton();
+            EnableDisableXlmButton();
+        }
+
+        private void EnableDisableBullButton()
+        {
+            if (PickerBULCurrency.SelectedItem == null)
+            {
+                BuyBullButton.Disabled = true;
+            }
+            else if (!ValidationHelper.ValidateNumber(EntryAmountForBUL.Text))
+            {
+                BuyBullButton.Disabled = true;
+            }
+            else{
+                BuyBullButton.Disabled = false;
+            }
+        }
+
+        private void EnableDisableXlmButton()
+        {
+            if (PickerXLMCurrency.SelectedItem == null)
+            {
+                BullXlmButton.Disabled = true;
+            }
+            else if (!ValidationHelper.ValidateNumber(EntryAmountForXLM.Text))
+            {
+                BullXlmButton.Disabled = true;
+            }
+            else
+            {
+                BullXlmButton.Disabled = false;
+            }
+        }
+
+
+
+        private void EnableDisableSendButton()
+        {
+            if (EntryRecepient.IsBusy)
+            {
+                SendBULButton.Disabled = true;
+            }
+            else if (recipient.Length == 0)
+            {
+                SendBULButton.Disabled = true;
+            }
+            else if (!IsValid())
+            {
+                SendBULButton.Disabled = true;
+            }
+            else
+            {
+                SendBULButton.Disabled = false;
+            }
+        }
+    }
 }

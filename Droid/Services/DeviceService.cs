@@ -13,6 +13,7 @@ namespace PaketGlobal.Droid
     public class DeviceService : IDeviceService
     {
         private bool isNeedAlertDialogToClose = false;
+        private bool isNeedAlertDialogToCloseLaunchPackage = false;
 
         public bool IsNeedAlertDialogToClose { 
             get{
@@ -23,6 +24,19 @@ namespace PaketGlobal.Droid
                 isNeedAlertDialogToClose = value;
             } 
         }
+
+        public bool IsNeedAlertDialogToCloseLaunchPackage
+        {
+            get
+            {
+                return isNeedAlertDialogToCloseLaunchPackage;
+            }
+            set
+            {
+                isNeedAlertDialogToCloseLaunchPackage = value;
+            }
+        }
+
 
         public bool IsIphoneX()
         {

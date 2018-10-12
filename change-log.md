@@ -6,12 +6,42 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.6
+Milestone version: v.1.2.7
 
 ## Change Log
 
-### Milestone v.1.2.6
+### Milestone v.1.2.7
 
+12-10-2018
+
+* Autocomplete call signs
+    https://github.com/paket-core/mobile/issues/120
+* Change details on available package list
+    https://github.com/paket-core/mobile/issues/115
+* Show title of missing fields when jumping to them
+    https://github.com/paket-core/mobile/issues/128
+* Remove all mentions of PaKeT global
+    https://github.com/paket-core/mobile/issues/116
+* Disable auto correct on some fields
+    https://github.com/paket-core/mobile/issues/117
+* Ask to confirm leaving Send Package form
+    https://github.com/paket-core/mobile/issues/127  
+    
+11-10-2018
+
+* Hide events foldable section
+    https://github.com/paket-core/mobile/issues/123
+* Insufficient funds error should include a button to purchase funds
+    https://github.com/paket-core/mobile/issues/96
+* Small maps are hard to read
+    https://github.com/paket-core/mobile/issues/118
+* Always include country warning
+    https://github.com/paket-core/mobile/issues/119
+* Replace links with buttons
+    https://github.com/paket-core/mobile/issues/90
+    
+### Milestone v.1.2.6
+    
 08-10-2018
 
 * Click on address or map should go to relevant address

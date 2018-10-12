@@ -35,7 +35,7 @@
                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                       RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=BackButton, Property=Y, Factor=1, Constant=60}">
                 <RelativeLayout>
-                    <ScrollView BackgroundColor="Transparent" 
+                    <ScrollView BackgroundColor="Transparent" x:Name="MainScrollView"
                                 HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
                                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
@@ -108,43 +108,43 @@
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6,Constant=-10}"
                                            xe:TouchEffect.Color="Gray" XAlign="End" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                                <Frame x:Name="FromLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
-                                        RelativeLayout.HeightConstraint="80"
-                                        RelativeLayout.WidthConstraint="80"
-                                        Padding = "0"
-                                        OutlineColor="#a9e2e3"
-                                        RelativeLayout.YConstraint="75"
-                                        RelativeLayout.XConstraint="0"        
-                                        HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
-                                                    <Image x:Name="FromLocationImage" Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                                </Frame>
+                                                <local:CircleImage
+                            BorderThickness="3" x:Name="FromLocationImage" xe:TouchEffect.Color="Gray"
+                            RelativeLayout.HeightConstraint="100"
+                            RelativeLayout.WidthConstraint="100"
+                            HeightRequest="100"
+                            WidthRequest="100"
+                            FillColor="White"
+                            RelativeLayout.YConstraint="75"
+                            RelativeLayout.XConstraint="0"        
+                            BorderColor="#a9e2e3"></local:CircleImage>
                                                 <Label Text="{local:Translate Distance}"
                                            RelativeLayout.HeightConstraint="30"
-                                           RelativeLayout.YConstraint="95"
+                                           RelativeLayout.YConstraint="105" 
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
                                                 <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
-                                              RelativeLayout.XConstraint="79"
-                                              RelativeLayout.YConstraint="115"
-                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
+                                              RelativeLayout.XConstraint="99"
+                                              RelativeLayout.YConstraint="125"
+                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-120}"
                                               />
                                                 <Label Text="{Binding Distance}"
                                            RelativeLayout.HeightConstraint="30"
-                                           RelativeLayout.YConstraint="120"
+                                           RelativeLayout.YConstraint="130"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                <Frame x:Name="ToLocationFrame" xe:TouchEffect.Color="Gray" BackgroundColor="#FAFAFA"
-                                        Padding = "0"
-                                        OutlineColor="#a9e2e3"
-                                        RelativeLayout.HeightConstraint="80"
-                                        RelativeLayout.WidthConstraint="80"
-                                        RelativeLayout.YConstraint="75"
-                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
-                                        HasShadow="false" CornerRadius="40" BorderColor="#a9e2e3" IsClippedToBounds="true">
-                                                    <Image x:Name="ToLocationImage" Source="map_black_icon.png" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                                </Frame>
+                                                <local:CircleImage  
+                            BorderThickness="3" x:Name="ToLocationImage" xe:TouchEffect.Color="Gray"
+                            RelativeLayout.HeightConstraint="100"
+                            RelativeLayout.WidthConstraint="100"
+                            HeightRequest="100"
+                            FillColor="White"
+                            WidthRequest="100"
+                            RelativeLayout.YConstraint="75"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
+                            BorderColor="#a9e2e3"></local:CircleImage>
                                             </RelativeLayout>
                                         </Frame>
                                     </StackLayout>

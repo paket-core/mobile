@@ -100,6 +100,13 @@ namespace PaketGlobal
             return await SendRequest<RatioData>(request);
         }
 
+        public async Task<CallsignsData> GetCallsigns()
+        {
+            var request = PrepareRequest(apiVersion + "/callsigns", Method.POST);
+            
+            return await SendRequest<CallsignsData>(request);
+        }
+
         public async Task<PackagePhotoData> GetPackagePhoto(string puckageId)
         {
             var request = PrepareRequest(apiVersion + "/package_photo", Method.POST);
@@ -151,6 +158,11 @@ namespace PaketGlobal
 
         public async Task<AddEventData> AddEvent(string eventType)
         {
+            if(App.Locator.Profile.Pubkey==null)
+            {
+                return new AddEventData();
+            }
+
             var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
 
             string location = null;

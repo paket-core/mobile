@@ -36,6 +36,13 @@ namespace PaketGlobal
         public string Address { get; set; }
     }
 
+    [DataContract]
+    public class CallsignsData : BaseData
+    {
+        [DataMember(Name = "callsigns")]
+        public List<string> Callsigns { get; set; }
+    }
+    //
 
     [DataContract]
     public class RatioData : BaseData
@@ -632,7 +639,7 @@ namespace PaketGlobal
                 double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
                 double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s = helper.GetStaticMapUri(to_lat, to_lng, 14, 280, 280);
+                var s = helper.GetStaticMapUri(to_lat, to_lng, 18, 280, 280);
 
                 return s;
             }
@@ -645,7 +652,7 @@ namespace PaketGlobal
                 double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
                 double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s =  helper.GetStaticMapUri(from_lat, from_lng, 14, 280, 280);
+                var s =  helper.GetStaticMapUri(from_lat, from_lng, 18, 280, 280);
 
                 return s;
             }

@@ -122,15 +122,16 @@
             </DataTemplate>
             <DataTemplate x:Key="AvailablePackages">
                 <local:CellWithoutSelection>
-                    <RelativeLayout>
+                         <RelativeLayout>
                         <StackLayout Orientation="Vertical" 
                                  Padding="10,0,10,10"  BackgroundColor="Transparent"
-                                 HeightRequest="150"
+                                 HeightRequest="245"
                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
-                            <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="150"
+                            <local:PaketFrameWithShadow BackgroundColor="White" HorizontalOptions="Fill" VerticalOptions="Fill" HeightRequest="245"
                                  CornerRadius="15"/>
                         </StackLayout>
-                        <StackLayout Spacing="5" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="30"
+                        
+                        <StackLayout Spacing="5" Orientation="Horizontal" RelativeLayout.XConstraint="30" RelativeLayout.YConstraint="20"
                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.84}">
                             <Image Source="red_pin.png" HorizontalOptions="Center" VerticalOptions="Center"/>
                             <Label Text="{Binding DistanceToPickup, Mode=OneWay}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
@@ -139,25 +140,88 @@
                             <Label XAlign="End" Text="{Binding ShortEscrow,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
                             </StackLayout>
                         </StackLayout>
+                        
+                        <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
+                                           RelativeLayout.HeightConstraint="35"
+                                           RelativeLayout.YConstraint="70"
+                                           RelativeLayout.XConstraint="35"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
+                                           TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
+
+                        <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
+                                           RelativeLayout.HeightConstraint="35"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
+                                           RelativeLayout.YConstraint="70"
+                                           RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6,Constant=-35}"
+                                           XAlign="End" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
+                        
+                         <Label Text="{local:Translate Distance}"
+                                           RelativeLayout.HeightConstraint="30"
+                                           RelativeLayout.YConstraint="135" 
+                                           RelativeLayout.XConstraint="85"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
+                                           TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+
+                        <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
+                                              RelativeLayout.XConstraint="99"
+                                              RelativeLayout.YConstraint="150"
+                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-160}"
+                                              />
+
+                        <Label Text="{Binding Distance}"
+                                           RelativeLayout.HeightConstraint="30"
+                                           RelativeLayout.YConstraint="155"
+                                           RelativeLayout.XConstraint="85"
+                                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
+                                           TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                        
                         <local:CircleImage  
                             Source="{Binding FromImage,Mode=OneWay}"
                             BorderThickness="3"
-                            RelativeLayout.HeightConstraint="60"
-                            RelativeLayout.WidthConstraint="60"
-                            HeightRequest="60"
-                            WidthRequest="60"
+                            RelativeLayout.HeightConstraint="80"
+                            RelativeLayout.WidthConstraint="80"
+                            HeightRequest="80"
+                            WidthRequest="80"
                             FillColor="#D8D8D8"
-                            RelativeLayout.YConstraint="75"
+                            RelativeLayout.YConstraint="110"
                             RelativeLayout.XConstraint="30"        
-                            BorderColor="#a9e2e3"></local:CircleImage>
-                        <Label YAlign="Center" HeightRequest="60" RelativeLayout.HeightConstraint="60" RelativeLayout.YConstraint="75" RelativeLayout.XConstraint="100"
-                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-220}"
+                            BorderColor="#a9e2e3"/>
+                        
+                        <local:CircleImage  
+                            Source="{Binding ToImage,Mode=OneWay}"
+                            BorderThickness="3"
+                            RelativeLayout.HeightConstraint="80"
+                            RelativeLayout.WidthConstraint="80"
+                            HeightRequest="80"
+                            WidthRequest="80"
+                            FillColor="#D8D8D8"
+                            RelativeLayout.YConstraint="110"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-110}"        
+                            BorderColor="#a9e2e3"/>
+                        
+                        <StackLayout Spacing="10" Orientation="Horizontal" RelativeLayout.XConstraint="35" RelativeLayout.YConstraint="200"
+                                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.82}">
+                                     
+                           <StackLayout Spacing="0" VerticalOptions="Center" HorizontalOptions="StartAndExpand">
+                                  <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                  <Label Text="{Binding DeadlineString,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                            </StackLayout>
+                            
+                        <StackLayout Spacing="0" VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                            <Label XAlign="End" Text="{local:Translate PaymentUpperCase}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                            <Label XAlign="End" Text="{Binding FormattedPayment, StringFormat='{0} BUL'}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                        </StackLayout>
+                            
+                        </StackLayout>
+                        
+<!--                        <Label YAlign="Center" HeightRequest="60" RelativeLayout.HeightConstraint="60" RelativeLayout.YConstraint="75" RelativeLayout.XConstraint="120"
+                                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-230}"
                                    XAlign="Start" Text="{Binding FromLocationAddress,Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="12" TextColor="#787878"/>
                         <StackLayout Spacing="0" RelativeLayout.YConstraint="90" HorizontalOptions="EndAndExpand"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.92}">
                             <Label XAlign="End" Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
                             <Label XAlign="End" Text="{Binding DeadlineString,Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
-                        </StackLayout>
+                        </StackLayout>-->
                     </RelativeLayout>
                 </local:CellWithoutSelection>
             </DataTemplate>

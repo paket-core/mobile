@@ -33,7 +33,7 @@ namespace PaketGlobal.Droid
 
 		}
 
-        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null)
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null, string cancelButton = null)
         {
             if(text.Length>0 && !isDialogShow)
             {
@@ -45,10 +45,17 @@ namespace PaketGlobal.Droid
                     isDialogShow = false;
                 }));
 
+                string btn = "OK";
+
+                if (cancelButton!=null)
+                {
+                    btn = cancelButton;
+                }
+
                 AlertDialog alert = dialog.Create();
-                alert.SetTitle("Paket Global");
+                alert.SetTitle("DeliverIt");
                 alert.SetMessage(text);
-                alert.SetButton("OK", (c, ev) => {
+                alert.SetButton(btn, (c, ev) => {
                     isDialogShow = false;
 
                     if (eventHandler != null)

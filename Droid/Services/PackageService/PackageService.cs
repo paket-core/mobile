@@ -53,6 +53,12 @@ namespace PaketGlobal.Droid
                 {
                     StopForeground(true);
                     StopSelf();
+
+                    MainActivity.IsStoppedServices = true;
+                    MainActivity.Instance.StopLocationUpdate();
+                    MainActivity.Instance.StopEventsService();
+                    MainActivity.Instance.StopPackageService();
+
                 }
 
                 return StartCommandResult.Sticky;

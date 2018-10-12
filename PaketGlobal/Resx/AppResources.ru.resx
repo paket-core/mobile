@@ -655,7 +655,7 @@
         <value>Посылка была успешно назначена</value>
     </data>
     <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Подождите пока курьер возьмет ваш заказ.&#xA;Тогда вы сможете показать ему QR-КОД</value>
+        <value>Подождите пока курьер возьмет ваш заказ.&#xA;Тогда вы сможете сделать депозит.</value>
     </data>
     <data name="Deposit" xml:space="preserve">
         <value>Депозитный платеж</value>
@@ -731,5 +731,17 @@
     </data>
     <data name="Purchase" xml:space="preserve">
         <value>Купить</value>
+    </data>
+    <data name="ReadWhy" xml:space="preserve">
+        <value>Почему?</value>
+    </data>
+    <data name="LaunchLeaveMessage" xml:space="preserve">
+        <value>Закрыть экран? Вся введеная информация будет потеряна.</value>
+    </data>
+    <data name="Leave" xml:space="preserve">
+        <value>Закрыть</value>
+    </data>
+    <data name="PaymentUpperCase" xml:space="preserve">
+        <value>ОПЛАТА</value>
     </data>
 </root>

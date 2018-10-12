@@ -56,12 +56,15 @@
                                         <Label TextColor="Black" Text="{local:Translate Social}" HorizontalOptions="Start" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" />
                                         <Image Source="social_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26" />
                                     </StackLayout>
-                                    <StackLayout Spacing="20">
-                                            <StackLayout Spacing="0" xe:TouchEffect.Color="Gray" x:Name="JoinTelegramView">
-                                            <Label TextColor="#A7A7A7" Text="Telegram" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                                            <Label TextColor="#3498db" Text="{local:Translate JoinTelegram}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                            <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
-                                        </StackLayout>
+                                    <StackLayout Spacing="10">
+                                            
+                                        <local:ButtonWithTextImage Clicked="TelegramClicked" HeightRequest="40" BtnColor="#53C5C7"
+                                                                       Image="tg_icon.png" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Text="Join Telegram"/>
+
+                                         <local:ButtonWithTextImage Clicked="FacebookClicked" HeightRequest="40" BtnColor="#4D64E8" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Image="tw_icon.png"
+                                                                       Text="Join our Twitter"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Frame>
@@ -82,18 +85,29 @@
                                             <Label x:Name="GitLabel" Text="1.0"  TextColor="#555555" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>
-                                        <StackLayout Spacing="0" xe:TouchEffect.Color="Gray" x:Name="AppUrlView">
+                                        <StackLayout Spacing="5">
                                             <Label TextColor="#A7A7A7" Text="{local:Translate AppURL}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                                            <Label TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                            
+                                                <local:ButtonWithTextImage Clicked="AppClicked" HeightRequest="40" BtnColor="#53C5C7" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Image="world_icon.png"
+                                                                       Text="Click to open"/>
+                                            
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>
-                                        <StackLayout Spacing="0" xe:TouchEffect.Color="Gray" x:Name="PaketUrlView">
+                                        <StackLayout Spacing="5">
                                             <Label TextColor="#A7A7A7" Text="{local:Translate PaketURL}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                                            <Label TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                            
+                                               <local:ButtonWithTextImage Clicked="PaketClicked" HeightRequest="40" BtnColor="#53C5C7" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Image="pak_icon.png"
+                                                                       Text="Click to open"/>
+                                            
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>
                                          <StackLayout Spacing="0">
-                                            <local:PaketButton WidthRequest="280" VerticalOptions="Center" HorizontalOptions="Center" Text="{local:Translate MoreSettings}" Clicked="SettingsClicked" ButtonBackground="#4D64E8" />
+                                                <local:ButtonWithTextImage Clicked="SettingsClicked" HeightRequest="40" BtnColor="#4D64E8" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Image="st_icon.png"
+                                                                       Text="More Settings"/>
+                                            
                                             <BoxView HeightRequest="40" BackgroundColor="Transparent" HorizontalOptions="Fill" />
                                         </StackLayout>
                                     </StackLayout>

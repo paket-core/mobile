@@ -617,6 +617,39 @@
     <BundleResource Include="Resources\big_point%403x.png" />
     <BundleResource Include="Resources\big_point%402x.png" />
     <BundleResource Include="Resources\big_point.png" />
+    <BundleResource Include="Resources\paket_button%403x.png" />
+    <BundleResource Include="Resources\paket_button%402x.png" />
+    <BundleResource Include="Resources\paket_button.png" />
+    <BundleResource Include="Resources\app_button%403x.png" />
+    <BundleResource Include="Resources\app_button%402x.png" />
+    <BundleResource Include="Resources\app_button.png" />
+    <BundleResource Include="Resources\fb_button%403x.png" />
+    <BundleResource Include="Resources\fb_button%402x.png" />
+    <BundleResource Include="Resources\fb_button.png" />
+    <BundleResource Include="Resources\tg_button%403x.png" />
+    <BundleResource Include="Resources\tg_button%402x.png" />
+    <BundleResource Include="Resources\tg_button.png" />
+    <BundleResource Include="Resources\moresettings_button%403x.png" />
+    <BundleResource Include="Resources\moresettings_button%402x.png" />
+    <BundleResource Include="Resources\moresettings_button.png" />
+    <BundleResource Include="Resources\st_icon%403x.png" />
+    <BundleResource Include="Resources\st_icon%402x.png" />
+    <BundleResource Include="Resources\st_icon.png" />
+    <BundleResource Include="Resources\pak_icon%403x.png" />
+    <BundleResource Include="Resources\pak_icon%402x.png" />
+    <BundleResource Include="Resources\pak_icon.png" />
+    <BundleResource Include="Resources\world_icon%403x.png" />
+    <BundleResource Include="Resources\world_icon%402x.png" />
+    <BundleResource Include="Resources\world_icon.png" />
+    <BundleResource Include="Resources\tg_icon%403x.png" />
+    <BundleResource Include="Resources\tg_icon%402x.png" />
+    <BundleResource Include="Resources\tg_icon.png" />
+    <BundleResource Include="Resources\settings_button%403x.png" />
+    <BundleResource Include="Resources\settings_button%402x.png" />
+    <BundleResource Include="Resources\settings_button.png" />
+    <BundleResource Include="Resources\tw_icon.png" />
+    <BundleResource Include="Resources\tw_icon%402x.png" />
+    <BundleResource Include="Resources\tw_icon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
@@ -647,6 +680,7 @@
     <Compile Include="Services\LocationManager.cs" />
     <Compile Include="ViewRenders\CircleImageRender.cs" />
     <Compile Include="ViewRenders\PaketSliderRender.cs" />
+    <Compile Include="ViewRenders\NativeAutoSuggestBox.iOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

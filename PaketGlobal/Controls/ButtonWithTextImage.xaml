@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:PaketGlobal" x:Class="PaketGlobal.ButtonWithTextImage"
+       BackgroundColor="Transparent" HasShadow="false" Padding="0">
+       
+    <RelativeLayout>
+         <local:PaketButton Clicked="Handle_Clicked" Style="{StaticResource ButtonWithImageStyle}" x:Name="Button"
+                             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"/>
+        
+        <Image x:Name="Icon" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-14}"
+                 RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-40}"/>
+        
+        <Label x:Name="TextLabel" RelativeLayout.YConstraint="1"
+               RelativeLayout.XConstraint="25" YAlign="Center"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+               RelativeLayout.WidthConstraint="150"
+               TextColor="White"  FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
+        
+    </RelativeLayout>
+    
+</Frame>

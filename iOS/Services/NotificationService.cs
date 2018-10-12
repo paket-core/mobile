@@ -27,7 +27,7 @@ namespace PaketGlobal.iOS
             Toast.GlobalAppearance.Color = UIColor.Black.ColorWithAlpha(0.7f);
 		}
 
-        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null)
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null, string cancelButton = null)
         {
             if(text.Length>0 && !isDialogShow)
             {
@@ -38,10 +38,16 @@ namespace PaketGlobal.iOS
                     AppDelegate app = UIApplication.SharedApplication.Delegate as AppDelegate;
 
                     //Create Alert
-                    var alertController = UIAlertController.Create("Paket Global", text, UIAlertControllerStyle.Alert);
+                    var alertController = UIAlertController.Create("DeliverIt", text, UIAlertControllerStyle.Alert);
 
                     //Add Action
-                    alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false));
+                    if(cancelButton!=null)
+                    {
+                        alertController.AddAction(UIAlertAction.Create(cancelButton, UIAlertActionStyle.Default, (obj) => isDialogShow = false))
+                    }
+                    else{
+                        alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false))
+                    }
 
                     if(nextButton != null)
                     {

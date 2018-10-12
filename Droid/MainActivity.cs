@@ -32,7 +32,7 @@ using Xamarin.Forms.GoogleMaps.Android;
 
 namespace PaketGlobal.Droid
 {
-    [Activity(Label = "PaketGlobal.Droid", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "DeliverIt", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] {
             Intent.ActionView,
@@ -53,6 +53,8 @@ namespace PaketGlobal.Droid
 
         private Intent EventServiceIntent;
         private Intent PackageServiceIntent;
+
+        public static bool IsStoppedServices = false;
 
 
         protected override void OnCreate(Bundle bundle)
@@ -141,7 +143,18 @@ namespace PaketGlobal.Droid
 
         public override void OnBackPressed()
         {
-            if(App.Locator.DeviceService.IsNeedAlertDialogToClose)
+            if(App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage)
+            {
+                EventHandler handler = (se, ee) => {
+                    if (ee != null)
+                    {
+                        base.OnBackPressed();
+                    }
+                };
+
+                App.Locator.NotificationService.ShowErrorMessage(AppResources.LaunchLeaveMessage, false, handler, AppResources.Leave, AppResources.Cancel);
+            }
+            else if(App.Locator.DeviceService.IsNeedAlertDialogToClose)
             {
                 var builder = new AlertDialog.Builder(this);
                 builder.SetTitle("PaketGlobal");
@@ -316,7 +329,7 @@ namespace PaketGlobal.Droid
 
         public void StopPackageService()
         {
-            if (PackageServiceIntent != null)
+            if (PackageServiceIntent != null && !IsStoppedServices)
             {
                 Android.App.Application.Context.StopService(PackageServiceIntent);
                 PackageServiceIntent = null;
@@ -329,7 +342,7 @@ namespace PaketGlobal.Droid
 
         public void StartEventsService()
         {
-            if(EventServiceIntent==null)
+            if(EventServiceIntent==null && !IsStoppedServices)
             {
                 EventServiceIntent = new Intent(this, typeof(EventService));
                 Android.App.Application.Context.StartService(EventServiceIntent);
@@ -352,11 +365,16 @@ namespace PaketGlobal.Droid
 
         public void StartLocationUpdate()
         {
-            LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
-                LocationAppManager.Current.LocationService.LocationChanged += HandleLocationChanged;
-            };
+            if(!IsStoppedServices)
+            {
+                LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
+                    LocationAppManager.Current.LocationService.LocationChanged += HandleLocationChanged;
+                };
 
-            LocationAppManager.StartLocationService();
+                LocationAppManager.StartLocationService();
+            }
+
+          
         }
 
         public void StopLocationUpdate()

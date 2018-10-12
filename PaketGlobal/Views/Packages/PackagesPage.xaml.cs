@@ -90,6 +90,8 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+            App.LoadCallSigns();
+
             BindingContext = App.Locator.Packages;
 
             FilterPackage.Radius = 20;

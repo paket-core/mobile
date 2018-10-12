@@ -38,18 +38,7 @@ namespace PaketGlobal
                 NotificationsButton.Image = "swift_off.png";
             }
 
-            var appLinkCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri(Constants.APP_URL));
-            });
-            XamEffects.Commands.SetTap(AppUrlView, appLinkCommand);
-
-            var paketLinkCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri(Constants.PAKET_URL));
-            });
-            XamEffects.Commands.SetTap(PaketUrlView, paketLinkCommand);
-
+ 
             var languageCommand = new Command(async () =>
             {
                 var page = new LanguagePage();
@@ -59,13 +48,6 @@ namespace PaketGlobal
                 await mainPage.Navigation.PushAsync(page);
             });
             XamEffects.Commands.SetTap(LanguageView, languageCommand);
-
-
-            var joinTelegramCommand = new Command(() =>
-            {
-                Device.OpenUri(new Uri(Constants.TELEGRAM_URL));
-            });
-            XamEffects.Commands.SetTap(JoinTelegramView, joinTelegramCommand);
 
 
             var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
@@ -112,5 +94,26 @@ namespace PaketGlobal
 
             mainPage.Navigation.PushAsync(page);
         }
+
+        private void FacebookClicked(object sender, System.EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.TWITTER_URL));
+        }
+
+        private void TelegramClicked(object sender, System.EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.TELEGRAM_URL));
+        }
+
+        private void PaketClicked(object sender, System.EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.PAKET_URL));
+        }
+
+        private void AppClicked(object sender, System.EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.APP_URL));
+        }
+
     }
 }

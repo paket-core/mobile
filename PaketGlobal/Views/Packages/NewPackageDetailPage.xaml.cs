@@ -61,7 +61,7 @@ namespace PaketGlobal
             LoadPhoto();
             LoadBarcode();
             CheckVisiblePayments();
-            AddEvents();
+          //  AddEvents();
 
             MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
             {
@@ -418,6 +418,8 @@ namespace PaketGlobal
                     BarcodeImage.IsVisible = true;
                 }
             }
+
+            BarcodeInfoLabel.IsVisible = BarcodeImage.IsVisible;
         }
 
         private async void OnBack(object sender, System.EventArgs e)
@@ -540,7 +542,18 @@ namespace PaketGlobal
             {
                 var result = await StellarHelper.LaunchPackage(ViewModel.PaketId, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
-                if (result != StellarOperationResult.Success)
+                if(result == StellarOperationResult.LowBULsCourier)
+                {
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else if (result != StellarOperationResult.Success)
                 {
                     ShowError(result);
                 }

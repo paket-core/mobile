@@ -64,10 +64,8 @@ namespace PaketGlobal
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-
-            MapView = null;
-        
         }
+
         protected override void OnAppearing()
         {
             var fl = firstLoad;
@@ -115,15 +113,19 @@ namespace PaketGlobal
                 return;
             }
 
-            var place = new GooglePlace();
-            place.Address = AddressLabel.Text;
-            place.Latitude = MapView.CameraPosition.Target.Latitude;
-            place.Longitude = MapView.CameraPosition.Target.Longitude;
-            place.Country = addressData.Country;
+            if(MapView!=null)
+            {
+                var place = new GooglePlace();
+                place.Address = AddressLabel.Text;
+                place.Latitude = MapView.CameraPosition.Target.Latitude;
+                place.Longitude = MapView.CameraPosition.Target.Longitude;
+                place.Country = addressData.Country;
 
-            Navigation.PopAsync(false);
+                Navigation.PopAsync(false);
 
-            eventHandler(this, new LocationPickerPageEventArgs(place));
+                eventHandler(this, new LocationPickerPageEventArgs(place));
+            }
+         
         }
 
 

@@ -11,6 +11,7 @@ using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Plugin.DeviceInfo;
 using Newtonsoft.Json;
 using Firebase.Xamarin.Database;
+using System.Collections.Generic;
 
 namespace PaketGlobal
 {
@@ -29,6 +30,8 @@ namespace PaketGlobal
 			get { return Locator.AppInfoService.PackageName; }
 		}
 
+        public static new List<string> CallSigns = new List<string>();
+
 		public App()
         {
             // This lookup NOT required for Windows platforms - the Culture will be automatically set
@@ -44,7 +47,7 @@ namespace PaketGlobal
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
 
-			Network.UseTestNetwork();//TODO for test porposals
+		    Network.UseTestNetwork();//TODO for test porposals
 
 			Locator.IdentityServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
 			Locator.IdentityServiceClient.TrySign = Locator.Profile.SignData;
@@ -73,8 +76,23 @@ namespace PaketGlobal
                 var navigationPage = new NavigationPage(new MainPage());
                 MainPage = navigationPage;
             });
+
+
 		}
 
+
+        public static async void LoadCallSigns()
+        {
+            var result = await App.Locator.IdentityServiceClient.GetCallsigns();
+
+            if(result!=null)
+            {
+                if(result.Callsigns!=null)
+                {
+                    App.CallSigns = result.Callsigns;
+                }
+            }
+        }
 
 
 		/// <summary>

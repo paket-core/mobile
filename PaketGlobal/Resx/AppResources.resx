@@ -643,7 +643,7 @@
         <value>The package was successfully assigned</value>
     </data>
     <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to show him the QR code.</value>
+        <value>Please wait some courier to assign your package.&#xA;Then you would be able to make deposit.</value>
     </data>
     <data name="Deposit" xml:space="preserve">
         <value>Deposit Payment</value>
@@ -682,7 +682,7 @@
         <value>Country</value>
     </data>
     <data name="UnsuportedUSACountry" xml:space="preserve">
-        <value>This application is unavailable in the United States</value>
+        <value>This application is unavailable&#xA;in the United States</value>
     </data>
     <data name="AccountAddress" xml:space="preserve">
         <value>Stellar address</value>
@@ -720,5 +720,18 @@
     <data name="Purchase" xml:space="preserve">
         <value>Purchase</value>
     </data>
+    <data name="ReadWhy" xml:space="preserve">
+        <value>Read why</value>
+    </data>
+    <data name="LaunchLeaveMessage" xml:space="preserve">
+        <value>Do you want to leave this page? All entered information will not be saved</value>
+    </data>
+    <data name="Leave" xml:space="preserve">
+        <value>Leave</value>
+    </data>
+    <data name="PaymentUpperCase" xml:space="preserve">
+        <value>PAYMENT</value>
+    </data>
+    
     
 </root>

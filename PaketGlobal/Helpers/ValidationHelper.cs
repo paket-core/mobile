@@ -22,6 +22,19 @@ namespace PaketGlobal
 				return false;
 			}
 
+            try
+            {
+                var value = link.Replace(',', '.');
+
+                if (Convert.ToDouble(value).Equals(0))
+                {
+                    return false;
+                }
+            }
+            catch{
+                return false;
+            }
+
 			//var r = new Regex ("^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$");
 			//var match = r.Match (link);
 			//return match.Success;

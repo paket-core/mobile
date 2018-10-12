@@ -9,6 +9,7 @@ namespace PaketGlobal.iOS
     public class DeviceService : IDeviceService
     {
         private bool isNeedAlertDialogToClose = false;
+        private bool isNeedAlertDialogToCloseLaunchPackage = false;
 
         public bool IsNeedAlertDialogToClose
         {
@@ -19,6 +20,18 @@ namespace PaketGlobal.iOS
             set
             {
                 isNeedAlertDialogToClose = value;
+            }
+        }
+
+        public bool IsNeedAlertDialogToCloseLaunchPackage
+        {
+            get
+            {
+                return isNeedAlertDialogToCloseLaunchPackage;
+            }
+            set
+            {
+                isNeedAlertDialogToCloseLaunchPackage = value;
             }
         }
 

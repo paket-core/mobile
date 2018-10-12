@@ -85,8 +85,9 @@
                                                                   Placholder="{local:Translate EnterRecipient}"
                                                                   Completed="FieldCompleted"
                                                                   Unfocus="FieldUnfocus"
-                                                                    ClickOnAddressButton="AddressButtonClicked"/>
-                                                <local:PaketEntry x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
+                                                                  ChangedText="Handle_Progress_TextChanged"
+                                                                  ClickOnAddressButton="AddressButtonClicked"/>
+                                                <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
                                                 <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="{local:Translate Send}" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                                             </StackLayout>
                                         </StackLayout>
@@ -123,12 +124,12 @@
                                                     <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
                                                         <Image  VerticalOptions="Start"  Source="euro_icon.png" HorizontalOptions="Start" />
                                                         <StackLayout Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                                            <local:PaketEntry BackgroundV="4" x:Name="EntryAmountForBUL" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
+                                                            <local:PaketEntry BackgroundV="4" TextChanged="Handle_TextChanged" x:Name="EntryAmountForBUL" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                                 </StackLayout>
-                                                <local:PaketButton HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyBULClicked" ButtonBackground="#4D64E8" />
+                                                <local:PaketButton x:Name="BuyBullButton" HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyBULClicked" ButtonBackground="#4D64E8" />
                                             </StackLayout>
                                         </StackLayout>
                                         <StackLayout x:Name="PurchaseBULSSuccessView" Spacing="25" IsVisible="false">
@@ -168,12 +169,12 @@
                                                     <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="Transparent">
                                                         <Image  VerticalOptions="Start"  Source="euro_icon.png" HorizontalOptions="Start" />
                                                         <StackLayout Spacing="0" VerticalOptions="End" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent">
-                                                            <local:PaketEntry x:Name="EntryAmountForXLM" BackgroundV="4" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
+                                                            <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="EntryAmountForXLM" BackgroundV="4" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate AmountEuro}" HeightRequest="40" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                                 </StackLayout>
-                                                <local:PaketButton HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyXLMClicked" ButtonBackground="#4D64E8" />
+                                                <local:PaketButton x:Name="BullXlmButton" HorizontalOptions="Center" Text="{local:Translate Purchase}" Clicked="BuyXLMClicked" ButtonBackground="#4D64E8" />
                                             </StackLayout>
                                         </StackLayout>
                                         <StackLayout x:Name="PurchaseXLMSuccessView" Spacing="25" IsVisible="false">

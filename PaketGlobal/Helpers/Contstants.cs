@@ -29,8 +29,11 @@ namespace PaketGlobal
         public const string APP_URL = "https://github.com/paket-core/mobile";
         public const string PAKET_URL = "https://paket.global";
         public const string PAKET_PRIVACY_URL = "https://paket.global/privacy-policy";
+        public const string WHY_BLOCKED = "https://medium.com/@oren_gampel/paket-not-in-the-usa-2872cbc70907";
 
         public const string TELEGRAM_URL = "https://t.me/joinchat/G9T-tkXBHHNnpQ8oYFGSvw";
+        public const string TWITTER_URL = "https://twitter.com/PaketProtocol";
+
 
     }
 }

@@ -23,9 +23,9 @@
                           RelativeLayout.YConstraint="90"
                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                     <StackLayout  Spacing="25">
-                        <local:PaketEntry x:Name="entryMnemonic"  BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate MnemonicPhrase}" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entryMnemonic" TextChanged="Handle_TextChanged" BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate MnemonicPhrase}" HeightRequest="40"/>
                         <Label Text="{local:Translate Or}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
-                        <local:PaketEntry x:Name="entrySecretKey" BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate SecretKey}" HeightRequest="40"/>
+                        <local:PaketEntry x:Name="entrySecretKey" TextChanged="Handle_TextChanged" BackgroundV="1" FontSize="Default" LineColor="#E5E5E5" Keyboard="Text" Placeholder="{local:Translate SecretKey}" HeightRequest="40"/>
                     </StackLayout>
                     <local:PaketButton x:Name="restoreButton" Text="{local:Translate RestoreKey}" Clicked="LoginClicked" ButtonBackground="#4D64E8"/>
                 </StackLayout>
