@@ -22,6 +22,7 @@ namespace PaketGlobal
         public const string PACKAGE_ASSIGN = "PackageAssign";
 
         public const string ADDRESS_BOOK = "address_book";
+        public const string CALL_SIGNS_BOOK = "call_signs";
 
         public const string BULL_RATIO = "BULL_RATIO_VALUE";
         public const string XLM_RATIO = "XLM_RATIO_VALUE";

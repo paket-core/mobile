@@ -43,6 +43,8 @@ namespace dotMorten.Xamarin.Forms
                 Android.App.Application.Context
 #endif
                 );
+
+
             NativeAutoSuggestBox.SuggestionChosen += (s, e) => { SuggestionChosen?.Invoke(this, new AutoSuggestBoxSuggestionChosenEventArgs(e.SelectedItem)); };
             NativeAutoSuggestBox.TextChanged += (s, e) => { 
                 suppressTextChangedEvent = true;
@@ -241,6 +243,13 @@ namespace dotMorten.Xamarin.Forms
         {
             get { return GetValue(ItemsSourceProperty) as System.Collections.IList; }
             set { SetValue(ItemsSourceProperty, value); }
+        }
+
+        public void MakeFocus()
+        {
+#if __ANDROID__
+            NativeAutoSuggestBox.MakeRequestFocus();
+#endif
         }
 
         /// <summary>

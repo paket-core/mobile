@@ -30,8 +30,6 @@ namespace PaketGlobal
 			get { return Locator.AppInfoService.PackageName; }
 		}
 
-        public static new List<string> CallSigns = new List<string>();
-
 		public App()
         {
             // This lookup NOT required for Windows platforms - the Culture will be automatically set
@@ -79,21 +77,6 @@ namespace PaketGlobal
 
 
 		}
-
-
-        public static async void LoadCallSigns()
-        {
-            var result = await App.Locator.IdentityServiceClient.GetCallsigns();
-
-            if(result!=null)
-            {
-                if(result.Callsigns!=null)
-                {
-                    App.CallSigns = result.Callsigns;
-                }
-            }
-        }
-
 
 		/// <summary>
 		/// Shows the loading indicator.

@@ -331,6 +331,8 @@ namespace PaketGlobal.Droid
         {
             if (PackageServiceIntent != null && !IsStoppedServices)
             {
+
+
                 Android.App.Application.Context.StopService(PackageServiceIntent);
                 PackageServiceIntent = null;
             }

@@ -401,7 +401,7 @@ namespace PaketGlobal
                 {
                     var transaction = result.Transaction;
 
-                    var signedCreate = await SignTransaction(App.Locator.Profile.KeyPair, transaction);
+                    var signedCreate = await SignTransaction(kp, transaction);
                     if (signedCreate != null)
                     {
                         var submitCreate = await App.Locator.BridgeServiceClient.SubmitTransaction(signedCreate);

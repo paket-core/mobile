@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="MyTheme" parent="MyTheme.Base">
-    </style>
     <!-- Base theme applied no matter what API -->
     <style name="MyTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
@@ -20,12 +18,12 @@
          colorControlHighlight and colorSwitchThumbNormal. -->
         <item name="windowActionModeOverlay">true</item>
         <item name="android:autoCompleteTextViewStyle">@style/cursorColor</item>
-
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="colorControlActivated">#808080</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
     </style>
-    
-    
-<style name="MyTheme.Splash" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowBackground">@drawable/splash_background</item> 
+    <style name="MyTheme.Splash" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
         <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
         <item name="windowNoTitle">true</item>
         <!--We will be using the toolbar so no need to show ActionBar-->
@@ -45,13 +43,15 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:autoCompleteTextViewStyle">@style/cursorColor</item>
-
-</style>
-    
-<style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
         <item name="android:textCursorDrawable">@drawable/cursor</item>
-</style>
-    
+        <item name="colorControlActivated">#808080</item>
+        <item name="autoCompleteTextViewStyle">@style/cursorColor</item>
+    </style>
+    <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="colorControlActivated">#4D64E8</item>
+        <item name="android:colorAccent">#FFAB40</item>
+    </style>
     <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#FFAB40</item>
     </style>

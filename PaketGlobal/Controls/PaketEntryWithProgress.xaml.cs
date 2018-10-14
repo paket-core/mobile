@@ -177,7 +177,7 @@ namespace PaketGlobal
 
         public void FocusField()
         {
-            staticSuggestBox.Focus();
+            staticSuggestBox.MakeFocus();
         }
 
         private void ShowErrorWithText(string text)
@@ -295,10 +295,28 @@ namespace PaketGlobal
             ToDefaultState();
 
             // Filter the list based on text input
-            staticSuggestBox.ItemsSource = string.IsNullOrWhiteSpace(staticSuggestBox.Text) ? null : App.CallSigns.Where(s => s.StartsWith(staticSuggestBox.Text, StringComparison.InvariantCultureIgnoreCase)).ToList();         }
+            staticSuggestBox.ItemsSource = string.IsNullOrWhiteSpace(staticSuggestBox.Text) ? null : AddressBookHelper.CallSigns.Where(s => s.StartsWith(staticSuggestBox.Text, StringComparison.InvariantCultureIgnoreCase)).ToList();         }
 
         private void SuggestBox_QuerySubmitted(object sender, AutoSuggestBoxQuerySubmittedEventArgs e)         {
             staticSuggestBox.Unfocus();
-             //if (e.ChosenSuggestion == null)             //    status.Text = "Query submitted: " + e.QueryText;             //else                 //status.Text = "Suggestion chosen: " + e.ChosenSuggestion;         } 
+
+            //if (e.ChosenSuggestion == null)
+            //    status.Text = "Query submitted: " + e.QueryText;
+            //else
+            //status.Text = "Suggestion chosen: " + e.ChosenSuggestion;
+        }
+        
+        public void MakeCustomOffset()
+        {
+
+#if __ANDROID__
+            StatusImage.TranslationY = StatusImage.TranslationY + 4;
+            SelectButton.TranslationY = SelectButton.TranslationY + 4;
+            ProgressIndicator.TranslationY = ProgressIndicator.TranslationY + 4;
+
+            ProgressIndicator.TranslationX = ProgressIndicator.TranslationX - 4;
+            StatusImage.TranslationX = StatusImage.TranslationX - 4;
+#endif
+        } 
     }
 }

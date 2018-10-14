@@ -127,6 +127,8 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
            // XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationImage, selectToLocation);
+
+            EntryRecepient.MakeCustomOffset();
         }
 
         protected override void OnAppearing()
@@ -330,22 +332,28 @@ namespace PaketGlobal
         {
             await Plugin.Media.CrossMedia.Current.Initialize();
 
-            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            {
-                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large,
-            });
-
-            if (photo != null)
-            {
-                PhotoButton.Image = AppResources.ReTakePhoto;
-
-				PhotoSource = GetImageBytes(photo.GetStream());
-
-                PhotoImage.Source = ImageSource.FromStream(() => {
-					return photo.GetStream();
+            try{
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large,
                 });
 
-                PhotoImage.IsVisible = true;
+                if (photo != null)
+                {
+                    PhotoButton.Image = AppResources.ReTakePhoto;
+
+                    PhotoSource = GetImageBytes(photo.GetStream());
+
+                    PhotoImage.Source = ImageSource.FromStream(() => {
+                        return photo.GetStream();
+                    });
+
+                    PhotoImage.IsVisible = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                ShowErrorMessage(ex.Message);
             }
         }
 
@@ -402,8 +410,9 @@ namespace PaketGlobal
 
 					if (hasPermission) {
 						var locator = CrossGeolocator.Current;
+                      //  locator.DesiredAccuracy = DesiredAccuracy.Value;
 
-						var position = await locator.GetPositionAsync();
+                        var position = await locator.GetPositionAsync();
 
 						if (position != null) {
 							location = position.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
@@ -556,7 +565,7 @@ namespace PaketGlobal
         public async void Scroll()
         {
             await Task.Delay(TimeSpan.FromSeconds(0.2f));
-            await MainScrollView.ScrollToAsync(MainScrollView.ScrollX, MainScrollView.ScrollY - 30, false);
+            await MainScrollView.ScrollToAsync(MainScrollView.ScrollX, MainScrollView.ScrollY - 40, false);
         }
 
         protected override bool IsValid()

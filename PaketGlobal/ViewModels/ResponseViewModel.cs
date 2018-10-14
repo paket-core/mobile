@@ -762,7 +762,7 @@ namespace PaketGlobal
         public int StatusSortValue
         {
             get {
-                if(IsExpiredInList)
+                if(IsExpiredInList ||IsExpired)
                 {
                     return 1;
                 }

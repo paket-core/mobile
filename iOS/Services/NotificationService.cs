@@ -43,10 +43,10 @@ namespace PaketGlobal.iOS
                     //Add Action
                     if(cancelButton!=null)
                     {
-                        alertController.AddAction(UIAlertAction.Create(cancelButton, UIAlertActionStyle.Default, (obj) => isDialogShow = false))
+                        alertController.AddAction(UIAlertAction.Create(cancelButton, UIAlertActionStyle.Default, (obj) => isDialogShow = false));
                     }
                     else{
-                        alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false))
+                        alertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => isDialogShow = false));
                     }
 
                     if(nextButton != null)

@@ -15,73 +15,55 @@ namespace dotMorten.Xamarin.Forms
     /// <summary>
     ///  Extends AutoCompleteTextView to have similar APIs and behavior to UWP's AutoSuggestBox, which greatly simplifies wrapping it
     /// </summary>
-    internal class NativeAutoSuggestBox : AutoCompleteTextView
+    public class NativeAutoSuggestBox : AutoCompleteTextView
     {
         private bool suppressTextChangedEvent;
         private Func<object, string> textFunc;
         private SuggestCompleteAdapter adapter;
 
+        public NativeAutoSuggestBox(Context context, Android.Util.IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
+        {
+            Init();
+        }
+
+        public NativeAutoSuggestBox(Context context, Android.Util.IAttributeSet attrs) : base(context,attrs)
+        {
+            Init();
+        }
+
         public NativeAutoSuggestBox(Context context) : base(context)
+        {
+            Init();
+        }
+
+        private void Init()
         {
             SetMaxLines(1);
             Threshold = 0;
 
             ItemClick += OnItemClick;
             Adapter = adapter = new SuggestCompleteAdapter(Context, Android.Resource.Layout.SimpleDropDownItem1Line);
-            SetBackgroundColor(Android.Graphics.Color.Transparent);
+
+            //
+            //setba
+
             SetPadding(0, this.PaddingTop, this.PaddingRight, this.PaddingBottom);
             CompoundDrawablePadding = 25;
 
             Typeface tf = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Medium.ttf");
             this.SetTypeface(tf, TypefaceStyle.Normal);
             this.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
+
             this.SetHintTextColor(Android.Graphics.Color.ParseColor("#A7A7A7"));
             this.SetLinkTextColor(Android.Graphics.Color.Black);
             this.SetTextColor(Android.Graphics.Color.Black);
+            this.SetBackgroundColor(Android.Graphics.Color.Transparent);
+
+            // this.SetHighlightColor(Android.Graphics.Color.Black);
+            // this.Background.SetColorFilter(Android.Graphics.Color.Black, PorterDuff.Mode.SrcAtop);
+
             var result = new Android.Text.InputTypes();
-
-            var capitalizedSentenceEnabled = false;
-            var capitalizedWordsEnabled = false;
-            var capitalizedCharacterEnabled = false;
-
-            var spellcheckEnabled = false;
-            var suggestionsEnabled = false;
-                  
-            if (!capitalizedSentenceEnabled && !spellcheckEnabled && !suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagNoSuggestions;
-
-            if (!capitalizedSentenceEnabled && !spellcheckEnabled && suggestionsEnabled)
-            {
-                // Due to the nature of android, TextFlagAutoCorrect includes Spellcheck
-                result = InputTypes.ClassText | InputTypes.TextFlagAutoCorrect;
-            }
-
-            if (!capitalizedSentenceEnabled && spellcheckEnabled && !suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagAutoComplete;
-
-            if (!capitalizedSentenceEnabled && spellcheckEnabled && suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagAutoCorrect;
-
-            if (capitalizedSentenceEnabled && !spellcheckEnabled && !suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagNoSuggestions;
-
-            if (capitalizedSentenceEnabled && !spellcheckEnabled && suggestionsEnabled)
-            {
-                // Due to the nature of android, TextFlagAutoCorrect includes Spellcheck
-                result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoCorrect;
-            }
-
-            if (capitalizedSentenceEnabled && spellcheckEnabled && !suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoComplete;
-
-            if (capitalizedSentenceEnabled && spellcheckEnabled && suggestionsEnabled)
-                result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoCorrect;
-
-            if (capitalizedWordsEnabled)
-                result = result | InputTypes.TextFlagCapWords;
-
-            if (capitalizedCharacterEnabled)
-                result = result | InputTypes.TextFlagCapCharacters;
+            result = InputTypes.ClassText | InputTypes.TextFlagNoSuggestions;
 
             this.InputType = result;
         }
@@ -93,6 +75,16 @@ namespace dotMorten.Xamarin.Forms
                 adapter.UpdateList(Enumerable.Empty<string>(), labelFunc);
             else
                 adapter.UpdateList(items.OfType<object>(), labelFunc);
+        }
+
+        public void MakeRequestFocus()
+        {
+            this.RequestFocus();
+
+            InputMethodManager inputMethodManager = (InputMethodManager)Android.App.Application.Context.GetSystemService(Context.InputMethodService);
+            inputMethodManager.ShowSoftInput(this, ShowFlags.Forced);
+            inputMethodManager.ToggleSoftInput(ShowFlags.Forced, HideSoftInputFlags.ImplicitOnly);
+
         }
 
         public new string Text

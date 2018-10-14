@@ -90,7 +90,7 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            App.LoadCallSigns();
+            AddressBookHelper.LoadCallSigns();
 
             BindingContext = App.Locator.Packages;
 
