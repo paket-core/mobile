@@ -412,10 +412,10 @@
         <value>Git Commit</value>
     </data>
     <data name="AppURL" xml:space="preserve">
-        <value>App URL</value>
+        <value>Browse Application Page</value>
     </data>
     <data name="PaketURL" xml:space="preserve">
-        <value>Paket URL</value>
+        <value>Browse PAKET Website</value>
     </data>
     <data name="ClickToOpen" xml:space="preserve">
         <value>Click to open</value>

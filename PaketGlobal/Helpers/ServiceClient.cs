@@ -635,7 +635,7 @@ namespace PaketGlobal
 
                         if(error != null)
                         {
-                            if(error.Error.Message.ToLower()=="internal server error" || response.StatusCode==HttpStatusCode.InternalServerError)
+                            if(response.StatusCode==HttpStatusCode.InternalServerError)
                             {
                                 var method = response.ResponseUri.Segments.Last();
 
@@ -728,14 +728,28 @@ namespace PaketGlobal
 			}
 		}
 
-		[DataContract]
-		public class Error
-		{
+        [DataContract]
+        public class Error
+        {
             [DataMember(Name = "error_code")]
             public int ErrorCode { get; set; }
             [DataMember(Name = "message")]
-            public string Message { get; set; }
-		}
+            public string ErrorMessage { get; set; }
+            [DataMember(Name = "debug")]
+            public string DebugMessage { get; set; }
+
+            public string Message
+            {
+                get{
+                    if(DebugMessage!=null)
+                    {
+                        return DebugMessage;
+                    }
+
+                    return ErrorMessage;
+                }
+            }
+        }
 
 		[DataContract]
 		public class ErrorReply

@@ -85,21 +85,17 @@
                                             <Label x:Name="GitLabel" Text="1.0"  TextColor="#555555" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>
-                                        <StackLayout Spacing="5">
-                                            <Label TextColor="#A7A7A7" Text="{local:Translate AppURL}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                                            
+                                        <StackLayout Spacing="5">                                            
                                                 <local:ButtonWithTextImage Clicked="AppClicked" HeightRequest="40" BtnColor="#53C5C7" VerticalOptions="Center" HorizontalOptions="Center"
                                                                        Image="world_icon.png"
-                                                                       Text="Click to open"/>
+                                                                       Text="{local:Translate AppURL}"/>
                                             
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>
-                                        <StackLayout Spacing="5">
-                                            <Label TextColor="#A7A7A7" Text="{local:Translate PaketURL}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                                            
+                                        <StackLayout Spacing="5">                                            
                                                <local:ButtonWithTextImage Clicked="PaketClicked" HeightRequest="40" BtnColor="#53C5C7" VerticalOptions="Center" HorizontalOptions="Center"
                                                                        Image="pak_icon.png"
-                                                                       Text="Click to open"/>
+                                                                       Text="{local:Translate PaketURL}"/>
                                             
                                             <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
                                         </StackLayout>

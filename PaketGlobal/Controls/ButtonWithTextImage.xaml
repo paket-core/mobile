@@ -13,7 +13,7 @@
         <Label x:Name="TextLabel" RelativeLayout.YConstraint="1"
                RelativeLayout.XConstraint="25" YAlign="Center"
                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-               RelativeLayout.WidthConstraint="150"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-80}"
                TextColor="White"  FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
         
     </RelativeLayout>
