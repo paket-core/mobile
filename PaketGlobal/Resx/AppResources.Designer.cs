@@ -744,5 +744,77 @@ namespace PaketGlobal
             }
         }
 
+        internal static string MaxDistance
+        {
+            get
+            {
+                return ResourceManager.GetString("MaxDistance", resourceCulture);
+            }
+        }
+
+        internal static string InvalidUrl
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+
+        internal static string SettingsChanged
+        {
+            get
+            {
+                return ResourceManager.GetString("SettingsChanged", resourceCulture);
+            }
+        }
+
+        internal static string CreatePackage
+        {
+            get
+            {
+                return ResourceManager.GetString("CreatePackage", resourceCulture);
+            }
+        }
+
+        internal static string InsufficientBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("InsufficientBULs", resourceCulture);
+            }
+        }
+
+        internal static string Purchase
+        {
+            get
+            {
+                return ResourceManager.GetString("Purchase", resourceCulture);
+            }
+        }
+
+        internal static string PurchaseBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("PurchaseBULs", resourceCulture);
+            }
+        }
+
+        internal static string LaunchLeaveMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("LaunchLeaveMessage", resourceCulture);
+            }
+        }
+
+        internal static string Leave
+        {
+            get
+            {
+                return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
+
     }
 }

@@ -43,6 +43,10 @@ namespace PaketGlobal
 				ViewModel.UserName = userData.PaketUser;
 				ViewModel.FullName = userData.FullName;
 				ViewModel.Address = userData.Address;
+                if(ViewModel.Address==null)
+                {
+                    ViewModel.Address = ISO3166.GetCurrentCountryName();
+                }
             }
             else{
                 ViewModel.Address = ISO3166.GetCurrentCountryName();
@@ -50,12 +54,12 @@ namespace PaketGlobal
 
             if (IsAddedInfo)
             {
-                generateButton.Text = AppResources.CompleteRegistration;
+                GenerateButton.Text = AppResources.CompleteRegistration;
                 titleLabel.Text = AppResources.AddInfo;
             }
             else if (isAddedInfo == false && IsFinishActivation == true)
             {
-                generateButton.Text = AppResources.CompleteRegistration;
+                GenerateButton.Text = AppResources.CompleteRegistration;
                 titleLabel.Text = AppResources.AddInfo;
 
                 entryFullName.Text = userData.FullName;
@@ -88,14 +92,22 @@ namespace PaketGlobal
 
             XamEffects.Commands.SetTap(termsOfServiceLabel, selectTermsCommand);
 
+            var whyTapCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri(Constants.WHY_BLOCKED));
+            });
+
+            XamEffects.Commands.SetTap(whyButton, whyTapCommand);
+
+
             App.Locator.DeviceService.setStausBarLight();
 
-            if(ViewModel.Address.ToLower()=="united states of america" ||  ViewModel.Address.ToLower() == "usa")
+            if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
             {
-                errorLabel.IsVisible = true;
-                generateButton.IsEnabled = false;
-                generateButton.ButtonBackground = "#A7A7A7";
+                ErrorView.IsVisible = true;
             }
+
+            EnableDisableButton();
         }
 
         public RegistrationPage()
@@ -123,15 +135,13 @@ namespace PaketGlobal
 
             if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
             {
-                errorLabel.IsVisible = true;
-                generateButton.IsEnabled = false;
-                generateButton.ButtonBackground = "#A7A7A7";
+                ErrorView.IsVisible = true;
             }
             else{
-                errorLabel.IsVisible = false;
-                generateButton.IsEnabled = true;
-                generateButton.ButtonBackground = "#53C5C7";
+                ErrorView.IsVisible = false;
             }
+
+            EnableDisableButton();
         }
 
 
@@ -307,6 +317,8 @@ namespace PaketGlobal
             }
         }
 
+    
+
         private void FieldCompleted(object sender, EventArgs e)
         {
             if (sender == entryUserName)
@@ -336,22 +348,22 @@ namespace PaketGlobal
         {
             if (!ValidationHelper.ValidateTextField(entryUserName.Text))
             {
-                entryUserName.Focus();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(entryFullName.Text))
             {
-                entryFullName.Focus();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(entryPhoneNumber.Text))
             {
-                entryPhoneNumber.Focus();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(entryUserAddress.Text))
             {
-                entryUserAddress.Focus();
+                return false;
+            }
+            else if (entryUserAddress.Text.ToLower() == "united states of america" || entryUserAddress.Text.ToLower() == "usa")
+            {
                 return false;
             }
 
@@ -366,19 +378,9 @@ namespace PaketGlobal
             entryPhoneNumber.IsEnabled = enabled;
         }
 
-        void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
-            if (ViewModel.Address.ToLower() == "united states" || ViewModel.Address.ToLower() == "usa")
-            {
-                errorLabel.IsVisible = true;
-                generateButton.IsEnabled = false;
-                generateButton.ButtonBackground = "#A7A7A7";
-            }
-            else{
-                errorLabel.IsVisible = false;
-                generateButton.IsEnabled = true;
-                generateButton.ButtonBackground = "#53C5C7";
-            }
+            EnableDisableButton();
         }
 
         void Handle_Focused(object sender, Xamarin.Forms.FocusEventArgs e)
@@ -388,6 +390,23 @@ namespace PaketGlobal
             var picker = new AddressPickerPage();
             picker.eventHandler = DidSelectAddressHandler;
             Navigation.PushAsync(picker, true);
+        }
+
+        private void ReadClicked(object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.WHY_BLOCKED));
+        }
+
+        private void EnableDisableButton()
+        {
+            if (!IsValid())
+            {
+                GenerateButton.Disabled = true;
+            }
+            else
+            {
+                GenerateButton.Disabled = false;
+            }
         }
     }
 }

@@ -26,6 +26,10 @@ namespace PaketGlobal
              typeof(PaketButton), null,
              propertyChanged: (bindable, oldVal, newVal) => ((PaketButton)bindable).OnButtonBackgroundChange((string)newVal));
 
+        public static readonly BindableProperty DisabledProperty = BindableProperty.Create(nameof(Disabled), typeof(bool),
+          typeof(PaketButton), false,
+          propertyChanged: (bindable, oldVal, newVal) => ((PaketButton)bindable).OnIsDisabled((bool)newVal));
+
         public event EventHandler Clicked;
 
         public PaketButton()
@@ -58,6 +62,11 @@ namespace PaketGlobal
             set => SetValue(ButtonBackgroundProperty, value);
         }
 
+        public bool Disabled
+        {
+            get => (bool)GetValue(DisabledProperty);
+            set => SetValue(DisabledProperty, value);
+        }
 
         public bool IsBusy
         {
@@ -84,7 +93,25 @@ namespace PaketGlobal
             Command.Execute(CommandParameter);
         }
 
-        private async void OnIsBusy(bool value)
+        private void OnIsDisabled(bool value)
+        {
+            if(!value)
+            {
+                InnerButton.Opacity = 1.0f;
+                if(ButtonBackground==null)
+                {
+                    ButtonBackground = "#53C5C7";
+                }
+                InnerButton.BackgroundColor = Color.FromHex(ButtonBackground);
+            }
+            else
+            {
+                InnerButton.Opacity = 0.5f;
+                InnerButton.BackgroundColor = Color.FromHex("#A7A7A7");
+            }
+        }
+
+         private async void OnIsBusy(bool value)
         {
             if (value)
             {

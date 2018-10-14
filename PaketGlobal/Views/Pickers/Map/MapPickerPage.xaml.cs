@@ -11,10 +11,14 @@ namespace PaketGlobal
         public delegate void LocationPickerPageEventHandler(object sender, LocationPickerPageEventArgs args);
         public LocationPickerPageEventHandler eventHandler;
 
-        public MapPickerPage()
+        private AddressData addressData;
+        private GooglePlace SelectedAddress;
+
+        public MapPickerPage(GooglePlace selectedAddress = null)
         {
             InitializeComponent();
 
+            SelectedAddress = selectedAddress;
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
@@ -43,7 +47,15 @@ namespace PaketGlobal
                 }
             };
 
-            if(!App.Locator.LocationHelper.lat.Equals(0.0))
+            if(SelectedAddress!=null)
+            {
+                SelectButton.Opacity = 1;
+
+                MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(SelectedAddress.Latitude, SelectedAddress.Longitude), 20d);
+
+                LoadAddress(SelectedAddress.Latitude, SelectedAddress.Longitude);
+            }
+            else if (!App.Locator.LocationHelper.lat.Equals(0.0))
             {
                 MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng), 20d);
             }
@@ -52,10 +64,8 @@ namespace PaketGlobal
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-
-            MapView = null;
-        
         }
+
         protected override void OnAppearing()
         {
             var fl = firstLoad;
@@ -64,7 +74,7 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if (fl)
+            if (fl && SelectedAddress==null)
             {
                 LoadInitialPosition();
             }
@@ -103,14 +113,19 @@ namespace PaketGlobal
                 return;
             }
 
-            var place = new GooglePlace();
-            place.Address = AddressLabel.Text;
-            place.Latitude = MapView.CameraPosition.Target.Latitude;
-            place.Longitude = MapView.CameraPosition.Target.Longitude;
+            if(MapView!=null)
+            {
+                var place = new GooglePlace();
+                place.Address = AddressLabel.Text;
+                place.Latitude = MapView.CameraPosition.Target.Latitude;
+                place.Longitude = MapView.CameraPosition.Target.Longitude;
+                place.Country = addressData.Country;
 
-            Navigation.PopAsync(false);
+                Navigation.PopAsync(false);
 
-            eventHandler(this, new LocationPickerPageEventArgs(place));
+                eventHandler(this, new LocationPickerPageEventArgs(place));
+            }
+         
         }
 
 
@@ -133,14 +148,24 @@ namespace PaketGlobal
                         var address = addresses[0];
                         string formatedAddress = "";
 
+                        addressData = new AddressData();
+
                         if (address.SubThoroughfare != null)
                         {
                             formatedAddress = address.Thoroughfare + " " + address.SubThoroughfare + ", " + address.Locality;
+
+                            addressData.Address = address.Thoroughfare + " " + address.SubThoroughfare;
                         }
                         else
                         {
                             formatedAddress = address.Thoroughfare + ", " + address.Locality;
+
+                            addressData.Address = address.Thoroughfare;
                         }
+
+                        addressData.Country = address.CountryCode;
+
+
                         AddressLabel.Text = formatedAddress;
                     }
                 }

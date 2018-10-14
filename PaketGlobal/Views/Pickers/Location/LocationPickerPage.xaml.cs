@@ -28,16 +28,18 @@ namespace PaketGlobal
         private int minimumSearchText = 2;
         private GooglePlacesHelper GooglePlaces = new GooglePlacesHelper();
         private List<AutoCompletePrediction> AutoCompletePlaces;
+        private GooglePlace SelectedAddress;
 
         public delegate void LocationPickerPageEventHandler(object sender, LocationPickerPageEventArgs args);
         public LocationPickerPageEventHandler eventHandler;
 
         private string Location = null;
 
-        public LocationPickerPage(LocationPickerType pickerType)
+        public LocationPickerPage(LocationPickerType pickerType, GooglePlace selectedAddress = null)
         {
             InitializeComponent();
 
+            SelectedAddress = selectedAddress;
             PickerType = pickerType;
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
@@ -65,6 +67,11 @@ namespace PaketGlobal
             }
 
             PlacesRetrieved(new AutoCompleteResult());
+
+            if(SelectedAddress != null)
+            {
+                SearchField.Text = SelectedAddress.Address;
+            }
         }
 
         protected override async void OnAppearing()
@@ -164,7 +171,7 @@ namespace PaketGlobal
             else{
                 ItemsListView.SelectedItem = null;
 
-                var page = new MapPickerPage();
+                var page = new MapPickerPage(SelectedAddress);
                 page.eventHandler = DidSelectLocationHandler;
                 await Navigation.PushAsync(page, true);
             }

@@ -100,5 +100,17 @@ namespace PaketGlobal
 
             App.ShowLoading(false);  
         }
+
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (!ValidationHelper.ValidateTextField(entryCode.Text))
+            {
+                verifyButton.Disabled = true;
+            }
+            else{
+                verifyButton.Disabled = false;
+            }
+
+        }
     }
 }

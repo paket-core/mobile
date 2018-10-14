@@ -22,6 +22,12 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+            LocationArrow.Source = "right_arrow.png";
+            InfoArrow.Source = "right_arrow.png";
+            UsersArrow.Source = "right_arrow.png";
+            EventsArrow.Source = "right_arrow.png";
+
+
             BarcodeData = barcodePackageData;
 
             CanAcceptPackage = canAcceptPackage;
@@ -55,7 +61,7 @@ namespace PaketGlobal
             LoadPhoto();
             LoadBarcode();
             CheckVisiblePayments();
-            AddEvents();
+          //  AddEvents();
 
             MessagingCenter.Subscribe<PackagesModel, Package>(this, Constants.DISPLAY_PACKAGE_CHANGED, (sender, arg) =>
             {
@@ -120,6 +126,16 @@ namespace PaketGlobal
                 }
 
                 LocationDetailsStackView.IsVisible = isVisible;
+
+                if(isVisible)
+                {
+                    LocationArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    LocationArrow.Source = "right_arrow.png";
+                }
+
             });
             XamEffects.Commands.SetTap(LocationTopStackView, locationTapCommand);
 
@@ -139,6 +155,15 @@ namespace PaketGlobal
                 }
 
                 InfoDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    InfoArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    InfoArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(InfoTopStackView, infoTapCommand);
 
@@ -183,43 +208,6 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(PackageLinkLabel, packageLinkCommand);
 
 
-            //Funds
-            var fundsTapCommand = new Command(async () =>
-            {
-                bool isVisible = !FundsDetailsStackView.IsVisible;
-                if (isVisible)
-                {
-                    FundsDetailsStackView.IsVisible = true;
-                    await FundsDetailsStackView.FadeTo(1, 500, Easing.SinIn);
-                }
-                else
-                {
-                    await FundsDetailsStackView.FadeTo(0, 250, Easing.SinOut);
-                    FundsDetailsStackView.IsVisible = false;
-                }
-
-                FundsDetailsStackView.IsVisible = isVisible;
-            });
-            XamEffects.Commands.SetTap(FundsTopStackView, fundsTapCommand);
-
-            //Payemnt
-            var paymentTapCommand = new Command(async () =>
-            {
-                bool isVisible = !PaymentDetailsStackView.IsVisible;
-                if (isVisible)
-                {
-                    PaymentDetailsStackView.IsVisible = true;
-                    await PaymentDetailsStackView.FadeTo(1, 500, Easing.SinIn);
-                }
-                else
-                {
-                    await PaymentDetailsStackView.FadeTo(0, 250, Easing.SinOut);
-                    PaymentDetailsStackView.IsVisible = false;
-                }
-
-                PaymentDetailsStackView.IsVisible = isVisible;
-            });
-            XamEffects.Commands.SetTap(PaymentTopStackView, paymentTapCommand);
 
             //Users
             var usersTapCommand = new Command(async () =>
@@ -237,6 +225,15 @@ namespace PaketGlobal
                 }
 
                 UsersDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    UsersArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    UsersArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(UsersTopStackView, usersTapCommand);
 
@@ -256,6 +253,15 @@ namespace PaketGlobal
                 }
 
                 EventsDetailsStackView.IsVisible = isVisible;
+
+                if (isVisible)
+                {
+                    EventsArrow.Source = "dropdown_arrow.png";
+                }
+                else
+                {
+                    EventsArrow.Source = "right_arrow.png";
+                }
             });
             XamEffects.Commands.SetTap(EventsTopStackView, eventsTapCommand);
         }
@@ -322,7 +328,6 @@ namespace PaketGlobal
 
                     DepositButton.IsVisible = false;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
                 }
 
@@ -334,7 +339,6 @@ namespace PaketGlobal
 
                     DepositButton.IsVisible = false;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
 
                     LauncherPhoneButton.IsVisible = false;
@@ -351,7 +355,6 @@ namespace PaketGlobal
                     RecipientPhoneButton.IsVisible = false;
                     RecipientContactLabel.Text = AppResources.CourierNotContactVisible;
 
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
 
                     WaitingStackView.IsVisible = true;
@@ -366,6 +369,10 @@ namespace PaketGlobal
                     RecipientPhoneButton.IsVisible = true;
                     RecipientContactLabel.Text = ViewModel.RecipientContact;
                 }
+            }
+            else if (ViewModel.MyRole == PaketRole.Recipient)
+            {
+                PaymentMainStackView.IsVisible = false;
             }
             else if (ViewModel.MyRole == PaketRole.Launcher)
             {
@@ -402,7 +409,6 @@ namespace PaketGlobal
 
                 if (ViewModel.PaymentTransaction == null)
                 {
-                    BarcodeArrow.IsVisible = false;
                     BarcodeImage.IsVisible = false;
                 }
                 else
@@ -410,9 +416,10 @@ namespace PaketGlobal
                     WaitingStackView.IsVisible = false;
 
                     BarcodeImage.IsVisible = true;
-                    BarcodeArrow.IsVisible = true;
                 }
             }
+
+            BarcodeInfoLabel.IsVisible = BarcodeImage.IsVisible;
         }
 
         private async void OnBack(object sender, System.EventArgs e)
@@ -535,7 +542,18 @@ namespace PaketGlobal
             {
                 var result = await StellarHelper.LaunchPackage(ViewModel.PaketId, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
-                if (result != StellarOperationResult.Success)
+                if(result == StellarOperationResult.LowBULsLauncher)
+                {
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else if (result != StellarOperationResult.Success)
                 {
                     ShowError(result);
                 }
@@ -547,10 +565,31 @@ namespace PaketGlobal
             }
             catch (Exception exc)
             {
-                ShowErrorMessage(exc.Message);
+                EventHandler handler = (se, ee) => {
+                    if (ee != null)
+                    {
+                        ShowPurchaseBuls();
+                    }
+                };
+
+                if (exc.Message == AppResources.InsufficientBULs)
+                {
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else
+                {
+                    ShowErrorMessage(exc.Message);
+                }
             }
 
             ProgressView.IsVisible = false;
+        }
+
+        private void ShowPurchaseBuls()
+        {
+            WalletPage page = new WalletPage();
+            page.ShowPurchaseBuls = true;
+            this.Navigation.PushAsync(page);
         }
 
         private async void AssignClicked(object sender, System.EventArgs e)
@@ -598,7 +637,21 @@ namespace PaketGlobal
             }
             else
             {
-                ShowError(result);
+                EventHandler handler = (se, ee) => {
+                    if (ee != null)
+                    {
+                        ShowPurchaseBuls();
+                    }
+                };
+
+                if (result==StellarOperationResult.LowBULsCourier)
+                {
+                    ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                }
+                else
+                {
+                    ShowError(result);
+                }
             }
 
             ProgressView.IsVisible = false;
@@ -666,7 +719,21 @@ namespace PaketGlobal
                 }
                 else
                 {
-                    ShowError(result);
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    if (result == StellarOperationResult.LowBULsCourier)
+                    {
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                    }
+                    else
+                    {
+                        ShowError(result);
+                    }
                 }
 
                 App.ShowLoading(false);

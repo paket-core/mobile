@@ -2,10 +2,27 @@
 using System.Collections.Generic;
 using Acr.UserDialogs;
 using Android.App;
+using Android.Content;
+using static Android.App.SearchManager;
 
 namespace PaketGlobal.Droid
 {
-	public class NotificationService : INotificationService
+    public class OnDismissListener : Java.Lang.Object, IDialogInterfaceOnDismissListener
+    {
+        private readonly Action action;
+
+        public OnDismissListener(Action action)
+        {
+            this.action = action;
+        }
+
+        public void OnDismiss(IDialogInterface dialog)
+        {
+            this.action();
+        }
+    }
+
+    public class NotificationService : INotificationService
 	{
         private BannerView mBanner;
         private Action<string> callback;
@@ -16,17 +33,29 @@ namespace PaketGlobal.Droid
 
 		}
 
-        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null)
+        public void ShowErrorMessage(string text, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null, string cancelButton = null)
         {
             if(text.Length>0 && !isDialogShow)
             {
                 isDialogShow = true;
 
                 Android.App.AlertDialog.Builder dialog = new AlertDialog.Builder(Xamarin.Forms.Forms.Context);
+                dialog.SetOnDismissListener(new OnDismissListener(() =>
+                {
+                    isDialogShow = false;
+                }));
+
+                string btn = "OK";
+
+                if (cancelButton!=null)
+                {
+                    btn = cancelButton;
+                }
+
                 AlertDialog alert = dialog.Create();
-                alert.SetTitle("Paket Global");
+                alert.SetTitle("DeliverIt");
                 alert.SetMessage(text);
-                alert.SetButton("OK", (c, ev) => {
+                alert.SetButton(btn, (c, ev) => {
                     isDialogShow = false;
 
                     if (eventHandler != null)
@@ -34,6 +63,19 @@ namespace PaketGlobal.Droid
                         eventHandler.Invoke(this, null);
                     }
                 });
+
+                if(nextButton != null)
+                {
+                    alert.SetButton2(nextButton, (c, ev) => {
+                        isDialogShow = false;
+
+                        if (eventHandler != null)
+                        {
+                            eventHandler.Invoke(this, EventArgs.Empty);
+                        }
+                    });
+                }
+
                 alert.Show(); 
             }
         }

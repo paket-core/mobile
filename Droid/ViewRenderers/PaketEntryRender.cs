@@ -13,6 +13,7 @@ using PaketGlobal;
 using PaketGlobal.Droid;
 
 using System.ComponentModel;
+using Android.Text;
 
 [assembly: ExportRenderer(typeof(PaketEntry), typeof(PaketEntryRenderer))]
 namespace PaketGlobal.Droid
@@ -50,6 +51,7 @@ namespace PaketGlobal.Droid
             Control.SetPadding(0, Control.PaddingTop, Control.PaddingRight, Control.PaddingBottom);
 
             var editText = this.Control;
+            editText.SetHintTextColor(Android.Graphics.Color.ParseColor("#A7A7A7"));
 
             if (!string.IsNullOrEmpty(element.Image))
             {
@@ -64,7 +66,72 @@ namespace PaketGlobal.Droid
                 }
             }
 
-            if(element.CapSentences==1)
+            if (element.DisableAutoCorrect)
+            {
+                var result = new Android.Text.InputTypes();
+
+                var capitalizedSentenceEnabled = false;
+                var capitalizedWordsEnabled = false;
+                var capitalizedCharacterEnabled = false;
+
+                var spellcheckEnabled = false;
+                var suggestionsEnabled = false;
+
+
+                if (element.CapSentences == 1)
+                {
+                    capitalizedWordsEnabled = true;
+
+                }
+                else if (element.CapSentences == 2)
+                {
+                  
+                }
+                else
+                {
+                    capitalizedSentenceEnabled = true;
+                }
+
+                if (!capitalizedSentenceEnabled && !spellcheckEnabled && !suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagNoSuggestions;
+
+                if (!capitalizedSentenceEnabled && !spellcheckEnabled && suggestionsEnabled)
+                {
+                    // Due to the nature of android, TextFlagAutoCorrect includes Spellcheck
+                    result = InputTypes.ClassText | InputTypes.TextFlagAutoCorrect;
+                }
+
+                if (!capitalizedSentenceEnabled && spellcheckEnabled && !suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagAutoComplete;
+
+                if (!capitalizedSentenceEnabled && spellcheckEnabled && suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagAutoCorrect;
+
+                if (capitalizedSentenceEnabled && !spellcheckEnabled && !suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagNoSuggestions;
+
+                if (capitalizedSentenceEnabled && !spellcheckEnabled && suggestionsEnabled)
+                {
+                    // Due to the nature of android, TextFlagAutoCorrect includes Spellcheck
+                    result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoCorrect;
+                }
+
+                if (capitalizedSentenceEnabled && spellcheckEnabled && !suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoComplete;
+
+                if (capitalizedSentenceEnabled && spellcheckEnabled && suggestionsEnabled)
+                    result = InputTypes.ClassText | InputTypes.TextFlagCapSentences | InputTypes.TextFlagAutoCorrect;
+
+                if (capitalizedWordsEnabled)
+                    result = result | InputTypes.TextFlagCapWords;
+
+                if (capitalizedCharacterEnabled)
+                    result = result | InputTypes.TextFlagCapCharacters;
+
+                editText.InputType = result;
+
+            }
+            else if (element.CapSentences==1)
             {
 				editText.SetRawInputType(Android.Text.InputTypes.ClassText | Android.Text.InputTypes.TextFlagCapWords);
             }

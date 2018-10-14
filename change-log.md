@@ -6,9 +6,92 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.5
+Milestone version: v.1.2.7
 
 ## Change Log
+
+### Milestone v.1.2.7
+
+12-10-2018
+
+* Autocomplete call signs
+    https://github.com/paket-core/mobile/issues/120
+* Change details on available package list
+    https://github.com/paket-core/mobile/issues/115
+* Show title of missing fields when jumping to them
+    https://github.com/paket-core/mobile/issues/128
+* Remove all mentions of PaKeT global
+    https://github.com/paket-core/mobile/issues/116
+* Disable auto correct on some fields
+    https://github.com/paket-core/mobile/issues/117
+* Ask to confirm leaving Send Package form
+    https://github.com/paket-core/mobile/issues/127  
+    
+11-10-2018
+
+* Hide events foldable section
+    https://github.com/paket-core/mobile/issues/123
+* Insufficient funds error should include a button to purchase funds
+    https://github.com/paket-core/mobile/issues/96
+* Small maps are hard to read
+    https://github.com/paket-core/mobile/issues/118
+* Always include country warning
+    https://github.com/paket-core/mobile/issues/119
+* Replace links with buttons
+    https://github.com/paket-core/mobile/issues/90
+    
+### Milestone v.1.2.6
+    
+08-10-2018
+
+* Click on address or map should go to relevant address
+    https://github.com/paket-core/mobile/issues/109
+* Reorder profile page
+    https://github.com/paket-core/mobile/issues/111
+* Reorder package info page
+    https://github.com/paket-core/mobile/issues/112 
+* Smaller "more settings" button in login screen
+    https://github.com/paket-core/mobile/issues/113 
+
+04-10-2018
+
+* Insufficient funds error should include a button to purchase funds
+    https://github.com/paket-core/mobile/issues/96
+    
+03-10-2018
+
+* To and From get confused 
+    https://github.com/paket-core/mobile/issues/100
+* Sort lists of packages by status, so expired packages are at the bottom
+    https://github.com/paket-core/mobile/issues/105
+* Add unfold indication on package details accordion
+    https://github.com/paket-core/mobile/issues/104
+* Clicking new package notification should take the user to "mine" package 
+    https://github.com/paket-core/mobile/issues/99
+* Add EUR symbol to the left of all EUR input fields
+    https://github.com/paket-core/mobile/issues/103
+* QR code should only be visible to the person currently holding the package
+    https://github.com/paket-core/mobile/issues/102
+* Save draft of forms in case of error 
+    https://github.com/paket-core/mobile/issues/97
+    
+28-09-2018
+
+* Settings file
+    https://github.com/paket-core/mobile/issues/95
+
+27-09-2018
+
+* Leaner filter widget on available packages screen
+    https://github.com/paket-core/mobile/issues/84
+* User name (call-sign) input field should start keyboard with small letter
+    https://github.com/paket-core/mobile/issues/94
+* Login button looks disabled
+    https://github.com/paket-core/mobile/issues/93
+* Error in displaying unique phone number error
+    https://github.com/paket-core/mobile/issues/67
+* Running notification behaviour
+    https://github.com/paket-core/mobile/issues/92
 
 ### Milestone v.1.2.5
 

@@ -93,6 +93,11 @@ namespace PaketGlobal.iOS
                 textField.AutocapitalizationType = UITextAutocapitalizationType.None;
             }
 
+            if(element.DisableAutoCorrect)
+            {
+                textField.SpellCheckingType = UITextSpellCheckingType.No;
+            }
+
         }
 
         private UIView GetImageView(string imagePath, int height, int width)

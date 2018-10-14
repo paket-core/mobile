@@ -33,11 +33,26 @@ namespace PaketGlobal
 
         public string Address { get; set; }
 
+        public string Country { get; set; }
+
         public GooglePlace(JObject jsonObject)
         {
             Name = (string)jsonObject["result"]["name"];
             Latitude = (double)jsonObject["result"]["geometry"]["location"]["lat"];
             Longitude = (double)jsonObject["result"]["geometry"]["location"]["lng"];
+            JArray address_components = (JArray)jsonObject["result"]["address_components"];
+            var count = address_components.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var obj = address_components[i];
+                var type = (string)obj["types"][0];
+                if(type=="country")
+                {
+                    Country = (string)obj["short_name"];
+                }
+
+            }
             Raw = jsonObject.ToString();
         }
 

@@ -74,12 +74,27 @@ namespace PaketGlobal
 
             PullToRefresh.RefreshCommand = refreshCommand;
 
-
             SwipeListener swipeListener = new SwipeListener(this.Content, this);
 
             PubkeyLabel.Text = App.Locator.Profile.Pubkey;
 
-		}
+            var whyTapCommand = new Command(() =>
+            {
+                Device.OpenUri(new Uri(Constants.WHY_BLOCKED));
+            });
+
+            XamEffects.Commands.SetTap(whyButton, whyTapCommand);
+
+            if (ViewModel.Address!=null)
+            {
+                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+                {
+                    ErrorView.IsVisible = true;
+                }
+            }
+
+            EnableDisableButton();
+        }
 
         public void onBottomSwipe(View view)
         {
@@ -152,7 +167,18 @@ namespace PaketGlobal
             ActivityIndicator.IsRunning = false;
             MainScrollView.IsVisible = true;
             LogoutButton.IsVisible = true;
-		}
+
+            if (ViewModel.Address != null)
+            {
+                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+                {
+                    ErrorView.IsVisible = true;
+                }
+                else{
+                    ErrorView.IsVisible = false;
+                }
+            }
+        }
 
         private void OnLogoutClicked(object sender, System.EventArgs e)
 		{
@@ -228,16 +254,20 @@ namespace PaketGlobal
 		protected override bool IsValid()
 		{
             if (!ValidationHelper.ValidateTextField(ViewModel.FullName)) {
-                EntryFullName.Focus();
             	return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.PhoneNumber)) {
-                PhoneEntry.Focus();
             	return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.Address)) {
-            	AddressEntry.Focus();
             	return false;
+            }
+            else if (!ValidationHelper.ValidateTextField(ViewModel.Address))
+            {
+                return false;
+            }
+            else if(ErrorView.IsVisible){
+                return false;
             }
 
             return true;
@@ -252,10 +282,46 @@ namespace PaketGlobal
             Navigation.PushAsync(picker, true);
         }
 
+        private void ReadClicked(object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri(Constants.WHY_BLOCKED));
+        }
+
         private void DidSelectAddressHandler(object sender, CountryPickerPageEventArgs e)
         {
             ViewModel.Address = e.Item.Name;
+
+            if (ViewModel.Address != null)
+            {
+                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+                {
+                    ErrorView.IsVisible = true;
+                }
+                else
+                {
+                    ErrorView.IsVisible = false;
+                }
+            }
+
+            EnableDisableButton();
         }
 
-	}
+        private void Handle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            EnableDisableButton();
+        }
+
+        private void EnableDisableButton()
+        {
+            if (!IsValid())
+            {
+                UpdateButton.Disabled = true;
+            }
+            else
+            {
+                UpdateButton.Disabled = false;
+            }
+        }
+
+    }
 }

@@ -16,7 +16,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidUseManagedDesignTimeResourceGenerator>false</AndroidUseManagedDesignTimeResourceGenerator>
     <AndroidSupportedAbis>armeabi-v7a;armeabi;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
@@ -112,20 +112,11 @@
     <Reference Include="CountlySdk18">
       <HintPath>..\packages\CountlySDK.Xamarin.Android.1.1.0\lib\MonoAndroid10\CountlySdk18.dll</HintPath>
     </Reference>
-    <Reference Include="XamEffects">
-      <HintPath>..\packages\XamEffects.1.5.0\lib\MonoAndroid\XamEffects.dll</HintPath>
-    </Reference>
-    <Reference Include="XamEffects.Droid">
-      <HintPath>..\packages\XamEffects.1.5.0\lib\MonoAndroid\XamEffects.Droid.dll</HintPath>
-    </Reference>
     <Reference Include="CommonServiceLocator">
       <HintPath>..\packages\CommonServiceLocator.2.0.3\lib\netstandard2.0\CommonServiceLocator.dll</HintPath>
     </Reference>
     <Reference Include="Nett">
       <HintPath>..\packages\Nett.0.9.0\lib\netstandard2.0\Nett.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.106.3.1\lib\netstandard2.0\RestSharp.dll</HintPath>
@@ -358,6 +349,36 @@
     <Reference Include="XamarinFormsGesture.Droid">
       <HintPath>..\packages\Vapolia.XamarinFormsGesture.3.0.0\lib\MonoAndroid1.0\XamarinFormsGesture.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="crypto">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Xamarin">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\Firebase.Xamarin.dll</HintPath>
+    </Reference>
+    <Reference Include="JWT">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Firebase.Xamarin.0.3.6\lib\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="XamEffects">
+      <HintPath>..\packages\XamEffects.1.5.1\lib\MonoAndroid\XamEffects.dll</HintPath>
+    </Reference>
+    <Reference Include="XamEffects.Droid">
+      <HintPath>..\packages\XamEffects.1.5.1\lib\MonoAndroid\XamEffects.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -410,6 +431,7 @@
     <Compile Include="ViewRenderers\CircleImageRender.cs" />
     <Compile Include="ViewRenderers\PaketSliderRender.cs" />
     <Compile Include="Services\PackageService\PackageService.cs" />
+    <Compile Include="ViewRenderers\NativeAutoSuggestBox.Android.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -860,6 +882,84 @@
     <AndroidResource Include="Resources\drawable-xhdpi\not_found_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\not_found_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\not_found_icon.png" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\right_arrow.png" />
+    <AndroidResource Include="Resources\drawable\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\euro_icon.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\settings.png" />
+    <AndroidResource Include="Resources\drawable\big_point.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\big_point.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\point_0.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\point_2.png" />
+    <AndroidResource Include="Resources\drawable\app_button.png" />
+    <AndroidResource Include="Resources\drawable\fb_button.png" />
+    <AndroidResource Include="Resources\drawable\paket_button.png" />
+    <AndroidResource Include="Resources\drawable\tg_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\app_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\fb_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\paket_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tg_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\app_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\fb_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\paket_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\tg_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\app_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\fb_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\paket_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\tg_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\app_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\fb_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\paket_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\tg_button.png" />
+    <AndroidResource Include="Resources\drawable\moresettings_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\moresettings_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\moresettings_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\moresettings_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\moresettings_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\st_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\pak_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\world_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tg_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\settings_button.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tw_icon.png" />
+    <AndroidResource Include="Resources\drawable\st_icon.png" />
+    <AndroidResource Include="Resources\drawable\pak_icon.png" />
+    <AndroidResource Include="Resources\drawable\world_icon.png" />
+    <AndroidResource Include="Resources\drawable\tg_icon.png" />
+    <AndroidResource Include="Resources\drawable\settings_button.png" />
+    <AndroidResource Include="Resources\drawable\tw_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\st_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\pak_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\world_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\tg_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\settings_button.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\tw_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\tg_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\st_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\pak_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\world_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\settings_button.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\tw_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\st_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\pak_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\world_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\tg_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\settings_button.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\tw_icon.png" />
+    <AndroidResource Include="Resources\drawable\cursor.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

@@ -36,8 +36,14 @@ namespace PaketGlobal
         public static readonly BindableProperty PaddingRightProperty =
             BindableProperty.Create(nameof(PaddingRight), typeof(int), typeof(PaketEntry), 0);
 
+        public static readonly BindableProperty DisableAutoCorrectProperty =
+            BindableProperty.Create(nameof(DisableAutoCorrect), typeof(bool), typeof(PaketEntry), false);
 
-
+        public bool DisableAutoCorrect
+        {
+            get { return (bool)GetValue(DisableAutoCorrectProperty); }
+            set { SetValue(DisableAutoCorrectProperty, value); }
+        }
 
         public int CapSentences
         {

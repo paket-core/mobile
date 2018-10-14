@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -41,7 +41,7 @@
                         <local:PaketEntry x:Name="SearchField"
                       HeightRequest="44"
                       FontFamily="{StaticResource NormalFont}" FontSize="14"
-                      TextColor="Black"
+                      TextColor="Black" DisableAutoCorrect="true"
                       TextChanged="TextChanged" ImageWidth="20" ImageHeight="20" Image="search_field_icon.png"/>
                     </StackLayout>
 

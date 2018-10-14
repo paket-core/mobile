@@ -37,7 +37,19 @@
                         <StackLayout Spacing="20">
                            <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="{local:Translate UserName}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="EntryUserName" IsEnabled="false" Text="{Binding PaketUser, Mode=TwoWay}" Placeholder="{local:Translate EnterUserName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="EntryUserName" IsEnabled="false" Text="{Binding PaketUser, Mode=TwoWay}" Placeholder="{local:Translate EnterUserName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                           </StackLayout>
+                            <StackLayout Spacing="0">
+                              <Label TextColor="#A7A7A7" Text="{local:Translate FullName}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" Keyboard="Text" DisableAutoCorrect="true" CapSentences="1" x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="{local:Translate EnterFullName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                           </StackLayout>
+                            <StackLayout Spacing="0">
+                              <Label TextColor="#A7A7A7" Text="{local:Translate PhoneNumber}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="PhoneEntry" IsEnabled="false" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="{local:Translate EnterPhoneNumber}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                           </StackLayout>
+                            <StackLayout Spacing="0">
+                              <Label TextColor="#A7A7A7" Text="{local:Translate Country}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="AddressEntry" Focused="Handle_Focused" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterCountry}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                             <StackLayout Spacing="0">
                                 <Label TextColor="#A7A7A7" Text="{local:Translate AccountAddress}" HorizontalOptions="Start" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
@@ -46,24 +58,24 @@
                                           <Button Image="copy_icon.png" Clicked="PubkeyCopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
                                        </StackLayout>
                                        <BoxView HeightRequest="1" BackgroundColor="#E5E5E5" HorizontalOptions="Fill" />
+                            </StackLayout>             
+                            <StackLayout Spacing="5" x:Name="ErrorView" IsVisible="false">
+                             <Label  Text="{local:Translate UnsuportedUSACountry}" XAlign="Center"  FontFamily="{StaticResource NormalFont}" FontSize="14" TextColor="#D43F51"/>
+                    <!--         <local:ButtonWithTextImage WidthRequest="280" Clicked="ReadClicked" HeightRequest="40" BtnColor="#53C5C7" VerticalOptions="Center" HorizontalOptions="Center"
+                                                                       Image="world_icon.png"
+                                                                       Text="{local:Translate ReadWhy}"/>--> 
+                                            
+                                 <StackLayout WidthRequest="100" Spacing="0" VerticalOptions="Center" HorizontalOptions="Center">
+                                <Label x:Name="whyButton" Text="{local:Translate ReadWhy}" FontFamily="{StaticResource NormalFont}" FontSize="14" TextColor="#0645AD" VerticalOptions="Start" HorizontalOptions="Center"/>
+                                <BoxView HeightRequest="1" BackgroundColor="#0645AD" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
                             </StackLayout>
-                            <StackLayout Spacing="0">
-                              <Label TextColor="#A7A7A7" Text="{local:Translate PhoneNumber}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="PhoneEntry" IsEnabled="false" Keyboard="Telephone" Text="{Binding PhoneNumber, Mode=TwoWay}" Placeholder="{local:Translate EnterPhoneNumber}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
-                           </StackLayout>
-                           <StackLayout Spacing="0">
-                              <Label TextColor="#A7A7A7" Text="{local:Translate FullName}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry Keyboard="Text" CapSentences="1" x:Name="EntryFullName" Text="{Binding FullName, Mode=TwoWay}" Placeholder="{local:Translate EnterFullName}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
-                           </StackLayout>
-                           <StackLayout Spacing="0">
-                              <Label TextColor="#A7A7A7" Text="{local:Translate Address}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="AddressEntry" Focused="Handle_Focused" Keyboard="Text" Text="{Binding Address, Mode=TwoWay}" Placeholder="{local:Translate EnterCountry}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
-                           </StackLayout>
+                                            
+                        </StackLayout>
                         </StackLayout>
                      </StackLayout>
                      <Frame x:Name="KeysView" BackgroundColor="#FAFAFA" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="0" CornerRadius="18" HasShadow="false">
                         <StackLayout BackgroundColor="Transparent" Spacing="25" Padding="22,22,22,0">
-                           <StackLayout Orientation="Horizontal" Padding="0,0,10,0">
+                           <StackLayout IsVisible="false" Orientation="Horizontal" Padding="0,0,10,0">
                               <Label TextColor="Black" Text="{local:Translate KeysSettings}" HorizontalOptions="Start" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15" />
                               <Image Source="key_icon.png" HorizontalOptions="EndAndExpand" HeightRequest="26" WidthRequest="26" />
                            </StackLayout>

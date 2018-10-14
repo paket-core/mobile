@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <local:BasePage
     NavigationPage.HasNavigationBar="False"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -27,7 +27,7 @@
         </xfg:Gradient>
     </xfg:ContentPageGloss.BackgroundGradient>
     <local:BasePage.Content>
-     <RelativeLayout>
+        <RelativeLayout>
             <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate PackageDetails}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
                    RelativeLayout.XConstraint="0"
@@ -35,9 +35,6 @@
             <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
                    RelativeLayout.XConstraint = "23" Clicked="OnBack"
                    RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=TitleLabel, Property=Y, Factor=1, Constant=12}"></Button>
-
-
-
             <Frame x:Name="PakagesView" BackgroundColor="White" 
                       Padding="0"
                       CornerRadius="20"
@@ -51,187 +48,223 @@
                 x:Name="PullToRefresh"
                 IsPullToRefreshEnabled="True"
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
-
-
                         <ScrollView BackgroundColor="Transparent"
                                     
                                 HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never"
                                       RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                                       RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-90}">
-
-
                             <StackLayout Spacing="0" >
-
-                            <local:PaketFrame x:Name="InfoPacketView" Padding="0" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
-                                <StackLayout x:Name="InfoStackVew" BackgroundColor="Transparent">
-                                                                     <RelativeLayout BackgroundColor="Transparent">
-                                        <StackLayout BackgroundColor="Transparent" Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="17" RelativeLayout.YConstraint="15">
-                                            <Image Source="{Binding StatusIconWithText}" HorizontalOptions="Start" VerticalOptions="Start"/>
-                                        </StackLayout>
-                                        <local:PaketProgress Progress="{Binding Status, Converter={StaticResource packageProgressStatusConverter}, Mode=OneWay}"
+                                <local:PaketFrame x:Name="InfoPacketView" Padding="0" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
+                                    <StackLayout x:Name="InfoStackVew" BackgroundColor="Transparent">
+                                        <RelativeLayout BackgroundColor="Transparent">
+                                            <StackLayout BackgroundColor="Transparent" Spacing="15" Orientation="Horizontal" RelativeLayout.XConstraint="17" RelativeLayout.YConstraint="15">
+                                                <Image Source="{Binding StatusIconWithText}" HorizontalOptions="Start" VerticalOptions="Start"/>
+                                            </StackLayout>
+                                            
+                                            <local:PaketProgress x:Name="ProgressBarView" Progress="{Binding Progress, Mode=OneWay}"
                                              RelativeLayout.XConstraint="20" 
                                              RelativeLayout.YConstraint="55"
                                              RelativeLayout.HeightConstraint="1"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.87}"/>
-                                        <Image Source="point_0.png" HorizontalOptions="Start"
+                                            
+                        <Image Source="point_0.png" HorizontalOptions="Start"
                                        RelativeLayout.XConstraint="15" RelativeLayout.YConstraint="49"/>
-                                        <Image Source="{Binding ProgressIcon}" HorizontalOptions="Start"
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleFirstCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressBarView, Property=Width, Factor=0.47}"
+                               RelativeLayout.YConstraint="44"/>
+                        
+                        <Image Source="big_point.png" HorizontalOptions="Start" IsVisible="{Binding VisibleSecondCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,ElementName=ProgressBarView, Property=Width, Factor=0.67}"
+                               RelativeLayout.YConstraint="44"/>
+                        
+                        <Image Source="point_1" HorizontalOptions="Start" IsVisible="{Binding VisibleLastCircle, Mode=OneWay}"
                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.91}"
                                        RelativeLayout.YConstraint="49"/>
-                                        <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
+                            
+                        <Image Source="point_2" HorizontalOptions="Start" IsVisible="{Binding VisibleThirdCircle, Mode=OneWay}"
+                                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.89}"
+                                       RelativeLayout.YConstraint="44"/>
+                                            
+                                            <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="73"
                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.9}">
-                                            <StackLayout BackgroundColor="Transparent" Spacing="0" HorizontalOptions="StartAndExpand">
-                                                <Label Text="{local:Translate Sent}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
-                                                <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                                                                    
+                                                
+                                                <StackLayout BackgroundColor="Transparent" Spacing="0" HorizontalOptions="StartAndExpand">
+                                                    <Label Text="{local:Translate Sent}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878"/>
+                                                    <Label Text="{Binding SendTimeString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black"/>
+                                                </StackLayout>
+                                                <StackLayout BackgroundColor="Transparent" Spacing="0" HorizontalOptions="EndAndExpand">
+                                                    <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
+                                                    <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
+                                                </StackLayout>
                                             </StackLayout>
-                                            <StackLayout BackgroundColor="Transparent" Spacing="0" HorizontalOptions="EndAndExpand">
-                                                <Label Text="{local:Translate Deadline}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10" TextColor="#787878" XAlign="End"/>
-                                                <Label Text="{Binding DeadlineString, Mode=OneWay}" FontFamily="{StaticResource SemiBoldFont}" FontSize="12" TextColor="Black" XAlign="End"/>
-                                            </StackLayout>
-                                        </StackLayout>
-                                        <StackLayout BackgroundColor="Transparent" Spacing="20"
+                                            <StackLayout BackgroundColor="Transparent" Spacing="20"
                                                           RelativeLayout.XConstraint="18" RelativeLayout.YConstraint="115"
              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-15}">
-                                            <StackLayout Spacing="10" Padding="0,0,15,0">
-                                                <StackLayout Spacing="3">
-                                                    <StackLayout Spacing="0">
-                                                        <Label TextColor="#A7A7A7" Text="{local:Translate YRole}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                        <Label TextColor="#555555" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                    </StackLayout>
-                                                    <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                                </StackLayout>
-                                                <StackLayout Spacing="3">
-                                                    <StackLayout Spacing="0">
-                                                        <Label TextColor="#A7A7A7" Text="Escrow Pubkey"   XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                        <StackLayout Orientation="Horizontal" Padding="0,0,2,0" Spacing="10">
-                                                            <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" Text="{Binding PaketId, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                            <Button Image="copy_icon.png" x:Name="EscrowPubKeyButton" Clicked="CopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
-                                                        </StackLayout>
-                                                    </StackLayout>
-                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                                </StackLayout>
-                                                <BoxView  HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
-                                            </StackLayout>
-                                            <Button HorizontalOptions="Center" Clicked="RefundClicked" x:Name="RefundButton"  Text="Refund" BorderColor="Transparent" TextColor="White" BackgroundColor="#D43F51" WidthRequest="160" Style="{StaticResource DateButton}"
-                                            IsVisible="{Binding DeliveryStatusPrivate,
-                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
-                                            Mode=OneWay}"/>
-                                            <Button HorizontalOptions="Center" Clicked="ReclaimClicked"  x:Name="ReclaimButton" Text="Reclaim" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
-                                            IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
-                                            <Label TextColor="#5F5F5F" x:Name="ReclaimLabel" Text="{local:Translate PackageDelivered}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
-                                           IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
-                                            <Label TextColor="#5F5F5F" x:Name="RefundLabel" Text="{local:Translate PackageExpired}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
-                                            IsVisible="{Binding DeliveryStatusPrivate,
-                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
-                                            Mode=OneWay}"/>
-                                            <BoxView IsVisible="{Binding DeliveryStatusPrivate,
+                                                
+                                                <BoxView IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                                  <BoxView IsVisible="{Binding DeliveryStatusPrivate,
                                             Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
                                             Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
-                                            <BoxView IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
-                                            <Label TextColor="#5F5F5F" x:Name="AssignLabel" Text="{local:Translate PackageCanAssign}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
+                                                
+                                                            <Button HorizontalOptions="Center" Clicked="RefundClicked" x:Name="RefundButton"  Text="Refund" BorderColor="Transparent" TextColor="White" BackgroundColor="#D43F51" WidthRequest="160" Style="{StaticResource DateButton}"
+                                            IsVisible="{Binding DeliveryStatusPrivate,
+                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
+                                            Mode=OneWay}"/>
+                                                <Button HorizontalOptions="Center" Clicked="ReclaimClicked"  x:Name="ReclaimButton" Text="Reclaim" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                            IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
+                                                <Label TextColor="#5F5F5F" x:Name="ReclaimLabel" Text="{local:Translate PackageDelivered}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
+                                           IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}"/>
+                                                <Label TextColor="#5F5F5F" x:Name="RefundLabel" Text="{local:Translate PackageExpired}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
+                                            IsVisible="{Binding DeliveryStatusPrivate,
+                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
+                                            Mode=OneWay}"/>
+                                                <BoxView IsVisible="{Binding DeliveryStatusPrivate,
+                                            Converter={StaticResource deliveryStatusToRefundVisibilityConverter},
+                                            Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                                <BoxView IsVisible="{Binding DeliveryStatusPrivate, Converter={StaticResource refundStatusToReclaimVisibilityConverter}, Mode=OneWay}" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                                <Label TextColor="#5F5F5F" x:Name="AssignLabel" Text="{local:Translate PackageCanAssign}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="12"
                                             IsVisible="false"/>
-                                            <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="{local:Translate AcceptPackage}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                                <Button HorizontalOptions="Center" x:Name="AcceptButton" Clicked="AcceptClicked" Text="{local:Translate AcceptPackage}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
                                             IsVisible="false"/>
-                                            <Button HorizontalOptions="Center" x:Name="AssignButton" Clicked="AssignClicked" Text="{local:Translate Take}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
+                                                <Button HorizontalOptions="Center" x:Name="AssignButton" Clicked="AssignClicked" Text="{local:Translate Take}" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="160" Style="{StaticResource DateButton}"
                                             IsVisible="false"/>
-                                            <BoxView x:Name="EmptyBox" IsVisible="false" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
-                                        </StackLayout>
-                                    </RelativeLayout>       
-                                </StackLayout>
-
-                            </local:PaketFrame>
-
-                            <Frame Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
-
+                                                <BoxView x:Name="EmptyBox" IsVisible="false" HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                                
+                                                
+                                                
+                                                <StackLayout Spacing="10" Padding="0,0,15,0">
+                                                    <StackLayout Spacing="3">
+                                                        <StackLayout Spacing="0">
+                                                            <Label TextColor="#A7A7A7" Text="{local:Translate YRole}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                            <Label TextColor="#555555" x:Name="RoleLabel" Text="{Binding RoleString, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                        <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout Spacing="3">
+                                                        <StackLayout Spacing="0">
+                                                            <Label TextColor="#A7A7A7" Text="Short-code"   XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                            <StackLayout Orientation="Horizontal" Padding="0,0,2,0" Spacing="10">
+                                                                <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" Text="{Binding ShortEscrow, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                                <Button IsVisible="false" Image="copy_icon.png" x:Name="EscrowPubKeyButton" Clicked="CopyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                        <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout Spacing="3" >
+                                                        <StackLayout Spacing="0">
+                                                            <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                            <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                        <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout Spacing="3" >
+                                                        <StackLayout Spacing="0">
+                                                            <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                            <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                        <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                    <StackLayout x:Name="PaymentMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
+                                                        <StackLayout Spacing="5" x:Name="PaymentDetailsStackView" Padding="0,5,0,0">
+                                                            <StackLayout Padding="0,0,5,0" Spacing="0" x:Name="BarcodeView" Orientation="Horizontal">
+                                                                <Label x:Name="BarcodeInfoLabel" TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="{local:Translate PackageBarcodeInfo}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                                                            </StackLayout>
+                                                            <StackLayout x:Name="WaitingStackView" IsVisible="false" Padding="0,10,0,10" Spacing="20">
+                                                                <Label TextColor="#16305C" IsVisible="false" x:Name="WaitingAssignLabel" HorizontalOptions="StartAndExpand" Text="{local:Translate WaitingAssignCourierToPackage}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
+                                                                <local:PaketButton IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="290" Text="{local:Translate Deposit}" x:Name="DepositButton" Clicked="DepositClicked"/>
+                                                            </StackLayout>
+                                                            <zxing:ZXingBarcodeImageView IsVisible="true" x:Name="BarcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="300"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView  HeightRequest="10" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </RelativeLayout>
+                                    </StackLayout>
+                                </local:PaketFrame>
+                                <Frame Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
                                     <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
-
-
-                                         <StackLayout x:Name="LocationMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-                                        <StackLayout x:Name="LocationTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate Locations}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                           </StackLayout>
-                                        <StackLayout Padding="20,0,20,0" Opacity="0" x:Name="LocationDetailsStackView" IsVisible="false" Spacing="10" HorizontalOptions="FillAndExpand">
-                                            <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
-                                                <RelativeLayout>
-                                                    <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="0" Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                    </Frame>
-                                                    <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
-                                                        <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                    </Frame>
-                                                    <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
+                                        <StackLayout x:Name="LocationMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
+                                            <StackLayout x:Name="LocationTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
+                                                <Label TextColor="Black" Text="{local:Translate Locations}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                <Image x:Name="LocationArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            <StackLayout Padding="20,0,20,0" Opacity="0" x:Name="LocationDetailsStackView" IsVisible="false" Spacing="10" HorizontalOptions="FillAndExpand">
+                                                <Frame BackgroundColor="Transparent" HasShadow="false" Padding="0" HorizontalOptions="FillAndExpand">
+                                                    <RelativeLayout>
+                                                        <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="0" Padding="1" HasShadow="false" HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                            <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate ToLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                        </Frame>
+                                                        <Frame RelativeLayout.YConstraint="0" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-60}" Padding="1" HasShadow="false" HorizontalOptions="EndAndExpand" VerticalOptions="Start" BackgroundColor="Black" CornerRadius="9" WidthRequest="50" HeightRequest="18">
+                                                            <Label HorizontalOptions="Center" XAlign="Center" VerticalOptions="Start" TextColor="White" Text="{local:Translate FromLocation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
+                                                        </Frame>
+                                                        <Label x:Name="FromLocationLabel" Text="{Binding FromLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="0"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            xe:TouchEffect.Color="Gray" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                                    <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
+                                                        <Label x:Name="ToLocationLabel" Text="{Binding ToLocationAddress}"
                                            RelativeLayout.HeightConstraint="35"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.4}"
                                            RelativeLayout.YConstraint="30"
                                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.6,Constant=-10}"
                                            xe:TouchEffect.Color="Gray" XAlign="End" TextColor="#555555" FontFamily="{StaticResource SemiBoldFont}" FontSize="12"/>
-                                                    <local:CircleImage  
+                                                        <local:CircleImage  
                             Source="{Binding FromImage,Mode=OneWay}"
                             BorderThickness="3"
-                            RelativeLayout.HeightConstraint="80"
-                            RelativeLayout.WidthConstraint="80"
-                            HeightRequest="80"
-                            WidthRequest="80"
+                            RelativeLayout.HeightConstraint="100"
+                            RelativeLayout.WidthConstraint="100"
+                            HeightRequest="100"
+                            WidthRequest="100"
                             FillColor="#D8D8D8"
                             RelativeLayout.YConstraint="75"
                             RelativeLayout.XConstraint="0"        
                             BorderColor="#a9e2e3"></local:CircleImage>
-                                                    <Label Text="{local:Translate Distance}"
+                                                        <Label Text="{local:Translate Distance}"
                                            RelativeLayout.HeightConstraint="30"
-                                           RelativeLayout.YConstraint="95"
+                                           RelativeLayout.YConstraint="105"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                    <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
-                                              RelativeLayout.XConstraint="79"
-                                              RelativeLayout.YConstraint="115"
-                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
+                                                        <BoxView HeightRequest="1" BackgroundColor="#a9e2e3" 
+                                              RelativeLayout.XConstraint="99"
+                                              RelativeLayout.YConstraint="125"
+                                              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-120}"
                                               />
-                                                    <Label Text="{Binding Distance}"
+                                                        <Label Text="{Binding Distance}"
                                            RelativeLayout.HeightConstraint="30"
-                                           RelativeLayout.YConstraint="120"
+                                           RelativeLayout.YConstraint="130"
                                            RelativeLayout.XConstraint="85"
                                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-170}"
                                            TextColor="#A7A7A7" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="10"/>
-                                                    <local:CircleImage  
+                                                        <local:CircleImage  
                             Source="{Binding ToImage,Mode=OneWay}"
                             BorderThickness="3"
-                            RelativeLayout.HeightConstraint="80"
-                            RelativeLayout.WidthConstraint="80"
-                            HeightRequest="80"
-                            WidthRequest="80"
+                            RelativeLayout.HeightConstraint="100"
+                            RelativeLayout.WidthConstraint="100"
+                            HeightRequest="100"
+                            WidthRequest="100"
                             FillColor="#D8D8D8"
                             RelativeLayout.YConstraint="75"
-                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-100}"
                             BorderColor="#a9e2e3"></local:CircleImage>
-                                                </RelativeLayout>
-                                            </Frame>
-                                        </StackLayout>
-                                    </StackLayout>
-
-                                        
-
-                                    </local:PaketFrame>
-
-                            </Frame>
-
-                            <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
-
-                                    <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
-
-                                         <StackLayout x:Name="InfoMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-
-                                            <StackLayout x:Name="InfoTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                    </RelativeLayout>
+                                                </Frame>
                                             </StackLayout>
-
-                                        <StackLayout x:Name="InfoDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
+                                        </StackLayout>
+                                    </local:PaketFrame>
+                                </Frame>
+                                <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
+                                    <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
+                                        <StackLayout x:Name="InfoMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
+                                            <StackLayout x:Name="InfoTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
+                                                <Label TextColor="Black" Text="{local:Translate Information}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                <Image x:Name="InfoArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            <StackLayout x:Name="InfoDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
                                                 <Image xe:TouchEffect.Color="Gray" Source="placeholder.png" Aspect="AspectFill" IsVisible="true" x:Name="PhotoImage" BackgroundColor="White" HeightRequest="190"/>
                                                 <StackLayout Spacing="3">
                                                     <StackLayout Spacing="0">
@@ -242,126 +275,52 @@
                                                     </StackLayout>
                                                     <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                                 </StackLayout>
-                                                
                                                 <StackLayout Spacing="3">
-                                                <StackLayout Spacing="0">
-                                                    <Label TextColor="#A7A7A7" Text="Blockchain" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                    <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
-                                                        <Label x:Name="BlockChainLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                    </StackLayout>
-                                                </StackLayout>
-                                                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                            </StackLayout>
-
-                                                            <StackLayout Spacing="3" >
-                                                <StackLayout Spacing="0">
-                                                    <Label TextColor="#A7A7A7" Text="Package" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                    <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
-                                                        <Label x:Name="PackageLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                    </StackLayout>
-                                                </StackLayout>
-                                                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                            </StackLayout>
-
-                                                
-                                            </StackLayout>
-                                            
-                                         </StackLayout>
-                                        
-
-                                    </local:PaketFrame>
-                            </Frame>
-
-
-                             <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
-
-                                <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
-
-                                <StackLayout x:Name="FundsMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-
-                                            <StackLayout x:Name="FundsTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate Funds}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                            </StackLayout>
-
-
-                                            <StackLayout x:Name="FundsDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
-
-                                                       <StackLayout Spacing="5" >
-                                                <StackLayout Spacing="0">
-                                                    <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                    <Label TextColor="#555555" Text="{Binding FormattedPayment, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                </StackLayout>
-                                                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                            </StackLayout>
-
-                                                <StackLayout Spacing="5" >
-                                                <StackLayout Spacing="0">
-                                                    <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                    <Label TextColor="#555555" Text="{Binding FormattedCollateral, Mode=OneWay}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                </StackLayout>
-                                                <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                            </StackLayout>
-
-                                                
-                                            </StackLayout>
-                                            
-
-                                 </StackLayout>
-                                        
-                                </local:PaketFrame>
-
-                             </Frame>
-
-
-                            <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
-
-                              <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
-
-                                <StackLayout x:Name="PaymentMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-
-                                <StackLayout x:Name="PaymentTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate PaymentInfo}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                </StackLayout>
-
-                                         <StackLayout Spacing="5" x:Name="PaymentDetailsStackView" Padding="20,0,20,0">
-                                                <StackLayout Padding="0,0,5,0" Spacing="0" x:Name="BarcodeView" Orientation="Horizontal">
-                                                    <Label TextColor="#5F5F5F" HorizontalOptions="StartAndExpand" Text="{local:Translate PackageBarcodeInfo}" XAlign="Start" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                                                    <Image x:Name="BarcodeArrow" IsVisible="false" Opacity="0" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-                                                </StackLayout>
-                                                <StackLayout x:Name="WaitingStackView" IsVisible="false" Padding="0,10,0,10" Spacing="20">
-                                                    <Label TextColor="#16305C" IsVisible="false" x:Name="WaitingAssignLabel" HorizontalOptions="StartAndExpand" Text="{local:Translate WaitingAssignCourierToPackage}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="14"/>
-                                                    <local:PaketButton IsVisible="false" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="290" Text="{local:Translate Deposit}" x:Name="DepositButton" Clicked="DepositClicked"/>
-                                                </StackLayout>
-                                                <zxing:ZXingBarcodeImageView IsVisible="true" x:Name="BarcodeImage" HorizontalOptions="FillAndExpand" HeightRequest="300"/>
-                                            </StackLayout>
-                                            
-
-                                </StackLayout>
-
-
-                             </local:PaketFrame>
-                             </Frame>
-
-
-
-                              <Frame  Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
-
-                            <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
-
-                                             <StackLayout x:Name="UsersMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-
-                                            <StackLayout x:Name="UsersTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate USERS}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
-                                            </StackLayout>
-
-
-                                            <StackLayout WidthRequest="300" x:Name="UsersDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
-                                                    <StackLayout Spacing="3">
                                                     <StackLayout Spacing="0">
-                                                        <Label TextColor="#A7A7A7" Text="Launcher Pubkey"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <Label TextColor="#A7A7A7" Text="Blockchain" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label x:Name="BlockChainLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                                <StackLayout Spacing="3" >
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="Package" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label x:Name="PackageLinkLabel" xe:TouchEffect.Color="Gray" HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" LineBreakMode="MiddleTruncation" TextColor="#3498db" Text="{local:Translate ClickToOpen}"  FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </local:PaketFrame>
+                                </Frame>
+                                <Frame x:Name="UsersFrame" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
+                                    <local:PaketFrame x:Name="UsersSubFrame" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
+                                        <StackLayout x:Name="UsersMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
+                                            <StackLayout x:Name="UsersTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
+                                                <Label TextColor="Black" Text="{local:Translate USERS}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                <Image x:Name="UsersArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                                            </StackLayout>
+                                            <StackLayout WidthRequest="300" x:Name="UsersDetailsStackView" Spacing="10" Padding="20,0,20,0" IsVisible="false" Opacity="0">
+                                                <StackLayout Spacing="3">
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="Launcher account"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
                                                         <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
                                                             <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" Text="{Binding LauncherPubkey, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
                                                             <Button Image="copy_icon.png" Clicked="CopyLauncherPubkeyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+                                                </StackLayout>
+                                                <StackLayout Spacing="3">
+                                                    <StackLayout Spacing="0">
+                                                        <Label TextColor="#A7A7A7" Text="Recipient account"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
+                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
+                                                            <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" Text="{Binding RecipientPubkey, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
+                                                            <Button Image="copy_icon.png" Clicked="CopyRecipientPubkeyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
@@ -386,16 +345,6 @@
                                                     </StackLayout>
                                                     <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                                 </StackLayout>
-                                                <StackLayout Spacing="3">
-                                                    <StackLayout Spacing="0">
-                                                        <Label TextColor="#A7A7A7" Text="Recipient Pubkey"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                                        <StackLayout Orientation="Horizontal" Padding="0,0,0,0" Spacing="10">
-                                                            <Label HorizontalOptions="Start" VerticalOptions="Center" XAlign="Start" TextColor="#555555" LineBreakMode="MiddleTruncation" Text="{Binding RecipientPubkey, Mode=OneWay}" FontFamily="{StaticResource MediumFont}" FontSize="14"/>
-                                                            <Button Image="copy_icon.png" Clicked="CopyRecipientPubkeyClicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" VerticalOptions="Center" HeightRequest="{StaticResource CopyHeight}" WidthRequest="30" />
-                                                        </StackLayout>
-                                                    </StackLayout>
-                                                    <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
-                                                </StackLayout>
                                                 <StackLayout Spacing="3"  x:Name="RecipientCallSignView" IsVisible="false">
                                                     <StackLayout Spacing="0">
                                                         <Label TextColor="#A7A7A7" Text="Recipient Name"  XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
@@ -416,55 +365,34 @@
                                                     </StackLayout>
                                                     <BoxView  HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
                                                 </StackLayout>
-
                                             </StackLayout>
-
-
+                                            <BoxView BackgroundColor="Transparent" HeightRequest="20"/>
                                         </StackLayout>
-
-                            </local:PaketFrame>
-                             </Frame>
-
-
-                            <Frame x:Name="EventsFrameView" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
-                                <local:PaketFrame Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
-
-
-        <StackLayout x:Name="EventsMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
-
+                                    </local:PaketFrame>
+                                </Frame>
+                                <Frame IsVisible="false" x:Name="EventsFrameView" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="#F5F5F5">
+                                    <local:PaketFrame x:Name="EventsSubFrameView" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="White">
+                                        <StackLayout x:Name="EventsMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
                                             <StackLayout x:Name="EventsTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
-                                            <Label TextColor="Black" Text="{local:Translate Events}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                <Label TextColor="Black" Text="{local:Translate Events}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                                <Image x:Name="EventsArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
                                             </StackLayout>
-
-                                    <StackLayout Spacing="5" x:Name="EventsDetailsStackView" Padding="0,0,0,0" IsVisible="false" Opacity="0">
-
-                                          <Grid HorizontalOptions="FillAndExpand" HeightRequest="170">
-                                            <ScrollView  Orientation="Horizontal" x:Name="EventsScrollView" VerticalScrollBarVisibility="Never"
+                                            <StackLayout Spacing="5" x:Name="EventsDetailsStackView" Padding="0,0,0,0" IsVisible="false" Opacity="0">
+                                                <Grid HorizontalOptions="FillAndExpand" HeightRequest="170">
+                                                    <ScrollView  Orientation="Horizontal" x:Name="EventsScrollView" VerticalScrollBarVisibility="Never"
                              HorizontalScrollBarVisibility="Never"/>
-                                        </Grid>
-                                                
-                                    </StackLayout>
-
-                                            <BoxView HeightRequest="40" BackgroundColor="Transparent">
-                                                
-                                            </BoxView>
-                                        
-        </StackLayout>
-
-      
-                                        
-                                </local:PaketFrame>
-                            </Frame>   
-                                
+                                                </Grid>
+                                            </StackLayout>
+                                            <BoxView HeightRequest="40" BackgroundColor="Transparent"></BoxView>
+                                        </StackLayout>
+                                    </local:PaketFrame>
+                                </Frame>
                             </StackLayout>
-
-
                         </ScrollView>
-
-                        </local:PullToRefreshLayout>
-                    </RelativeLayout>
-                </Frame>
-                        <Frame x:Name="ProgressView"
+                    </local:PullToRefreshLayout>
+                </RelativeLayout>
+            </Frame>
+            <Frame x:Name="ProgressView"
                       HasShadow="false"
                       CornerRadius="0"
                       IsVisible = "false"

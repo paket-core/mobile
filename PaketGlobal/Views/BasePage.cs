@@ -89,16 +89,18 @@ namespace PaketGlobal
 			});
 		}
 
-        protected void ShowErrorMessage(string error, bool lengthLong = false, EventHandler eventHandler = null)
+        protected void ShowErrorMessage(string error, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null, string cancelButton = null)
         {
 			Device.BeginInvokeOnMainThread(() => {
-				App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler);
+                App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler, nextButton, cancelButton);
 			});
         }
 
-		#region Virtual methods
+ 
 
-		protected virtual void SetupUserInterface()
+        #region Virtual methods
+
+        protected virtual void SetupUserInterface()
 		{
 
 		}

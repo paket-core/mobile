@@ -14,6 +14,11 @@ using System.Threading;
 
 namespace PaketGlobal
 {
+    public class Escrow_Xdrs
+    {
+        public Kwargs escrow_xdrs;
+    }
+
     public class Kwargs
     {
         public Kwargs()
@@ -72,16 +77,16 @@ namespace PaketGlobal
 
 		public async Task<VerifyData> SendVerification()
 		{
-			var request = PrepareRequest(apiVersion + "/request_verification_token", Method.POST);
+			var request = PrepareRequest(apiVersion + "/request_verification_code", Method.POST);
 
 			return await SendRequest<VerifyData>(request);
 		}
 
         public async Task<VerifyData> VerifyCode(string code)
         {
-            var request = PrepareRequest(apiVersion + "/verify_token", Method.POST);
+            var request = PrepareRequest(apiVersion + "/verify_code", Method.POST);
 
-            request.AddParameter("verification_token", code);
+            request.AddParameter("verification_code", code);
 
             return await SendRequest<VerifyData>(request);
         }
@@ -93,6 +98,13 @@ namespace PaketGlobal
             request.AddParameter("currency", currency);
 
             return await SendRequest<RatioData>(request);
+        }
+
+        public async Task<CallsignsData> GetCallsigns()
+        {
+            var request = PrepareRequest(apiVersion + "/callsigns", Method.POST);
+            
+            return await SendRequest<CallsignsData>(request);
         }
 
         public async Task<PackagePhotoData> GetPackagePhoto(string puckageId)
@@ -134,9 +146,23 @@ namespace PaketGlobal
 			return await SendRequest<UserData>(request, pubkey);
 		}
 
+        public async Task<TrustData> PrepareTrust(string pubkey)
+        {
+            var request = PrepareRequest(apiVersion + "/prepare_trust", Method.POST);
+
+            if (pubkey != null)
+                request.AddParameter("from_pubkey", pubkey);
+
+            return await SendRequest<TrustData>(request, pubkey);
+        }
 
         public async Task<AddEventData> AddEvent(string eventType)
         {
+            if(App.Locator.Profile.Pubkey==null)
+            {
+                return new AddEventData();
+            }
+
             var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
 
             string location = null;
@@ -231,7 +257,7 @@ namespace PaketGlobal
 
             if (myBalance == null || myBalance.Account.BalanceBUL < amount)
             {
-                throw new ServiceException(400, "Insufficient BULs");
+                throw new ServiceException(420,AppResources.InsufficientBULs);
             }
 
 			request.AddParameter("from_pubkey", fromPubkey);
@@ -279,7 +305,7 @@ namespace PaketGlobal
                 location = location.Substring(0, 24);
             }
 
-            var request = PrepareRequest(apiVersion + "/assign_package", Method.POST);
+            var request = PrepareRequest(apiVersion + "/confirm_couriering", Method.POST);
 
             request.AddParameter("escrow_pubkey", escrowPubkey);
             if (location != null)
@@ -307,32 +333,32 @@ namespace PaketGlobal
 		{
 			var request = PrepareRequest(apiVersion + "/prepare_escrow", Method.POST);
 
-            var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
+            //var payment = StellarConverter.ConvertBULToStroops(paymentBuls);
 
-            if (StellarConverter.IsValidBUL(payment)==false)
-            {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
-            }
+            //if (StellarConverter.IsValidBUL(payment)==false)
+            //{
+            //    throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            //}
 
-            var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
+            //var collateral = StellarConverter.ConvertBULToStroops(collateralBuls);
 
-            if (StellarConverter.IsValidBUL(collateral)==false)
-            {
-                throw new ServiceException(400, "You can't specify more then 7 fractional digits");
-            }
+            //if (StellarConverter.IsValidBUL(collateral)==false)
+            //{
+            //    throw new ServiceException(400, "You can't specify more then 7 fractional digits");
+            //}
 
 			request.AddParameter("launcher_pubkey", launcherPubkey);
 			request.AddParameter("recipient_pubkey", recipientPubkey);
 			request.AddParameter("deadline_timestamp", deadlineTimestamp);
 			request.AddParameter("courier_pubkey", courierPubkey);
-            request.AddParameter("payment_buls", payment);
-            request.AddParameter("collateral_buls", collateral);
+            request.AddParameter("payment_buls", paymentBuls);
+            request.AddParameter("collateral_buls", collateralBuls);
 
 			return await SendRequest<LaunchPackageData>(request, escrowPubkey, customSign: customSign);
 		}
 
 		public async Task<PackageData> CreatePackage(string escrowPubkey, string recipientPubkey, string launcherPhone, string recipientPhone, long deadlineTimestamp, double paymentBuls, double collateralBuls,
-		                                                   string description, string toAddress, string fromAddress, string fromLocation, string toLocation, string eventLocation, byte[] packagePhoto, SignHandler customSign)
+                                                     string description, string fromAddress, string toAddress, string fromLocation, string toLocation, string eventLocation, byte[] packagePhoto, SignHandler customSign)
 		{
 			var request = PrepareRequest(apiVersion + "/create_package", Method.POST);
 
@@ -375,13 +401,17 @@ namespace PaketGlobal
                 location = location.Substring(0, 24);
             }
 
+
             var kwargs = new Kwargs();
             kwargs.merge_transaction = mergeTrans;
             kwargs.set_options_transaction = setOptionsTrans;
             kwargs.refund_transaction = refundTrans;
             kwargs.payment_transaction = paymentTrans;
 
-            var json = JsonConvert.SerializeObject(kwargs);
+            var escrow_xdrs = new Escrow_Xdrs();
+            escrow_xdrs.escrow_xdrs = kwargs;
+
+            var json = JsonConvert.SerializeObject(escrow_xdrs);
 
 			request.AddParameter("escrow_pubkey", escrowPubkey);
             request.AddParameter("kwargs", json);
@@ -529,10 +559,14 @@ namespace PaketGlobal
                     }
                 }
 
-                if(response.ContentLength < 300)
+                if(response.ResponseUri!=null)
                 {
-                    System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                    if (!response.ResponseUri.ToString().Contains("package_photo"))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Status: {0}, Content: {1}", response.StatusCode, response.Content);
+                    }
                 }
+           
 
                 ServiceStackSerializer.HandleStatusCode(response);
                 return response.Data;
@@ -601,7 +635,7 @@ namespace PaketGlobal
 
                         if(error != null)
                         {
-                            if(error.Error.Message.ToLower()=="internal server error" || response.StatusCode==HttpStatusCode.InternalServerError)
+                            if(response.StatusCode==HttpStatusCode.InternalServerError)
                             {
                                 var method = response.ResponseUri.Segments.Last();
 
@@ -694,14 +728,28 @@ namespace PaketGlobal
 			}
 		}
 
-		[DataContract]
-		public class Error
-		{
+        [DataContract]
+        public class Error
+        {
             [DataMember(Name = "error_code")]
             public int ErrorCode { get; set; }
             [DataMember(Name = "message")]
-            public string Message { get; set; }
-		}
+            public string ErrorMessage { get; set; }
+            [DataMember(Name = "debug")]
+            public string DebugMessage { get; set; }
+
+            public string Message
+            {
+                get{
+                    if(DebugMessage!=null)
+                    {
+                        return DebugMessage;
+                    }
+
+                    return ErrorMessage;
+                }
+            }
+        }
 
 		[DataContract]
 		public class ErrorReply

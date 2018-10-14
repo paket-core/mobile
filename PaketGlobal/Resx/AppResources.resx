@@ -412,10 +412,10 @@
         <value>Git Commit</value>
     </data>
     <data name="AppURL" xml:space="preserve">
-        <value>App URL</value>
+        <value>Browse Application Page</value>
     </data>
     <data name="PaketURL" xml:space="preserve">
-        <value>Paket URL</value>
+        <value>Browse PAKET Website</value>
     </data>
     <data name="ClickToOpen" xml:space="preserve">
         <value>Click to open</value>
@@ -643,7 +643,7 @@
         <value>The package was successfully assigned</value>
     </data>
     <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to show him the QR code.</value>
+        <value>Please wait some courier to assign your package.&#xA;Then you would be able to make deposit.</value>
     </data>
     <data name="Deposit" xml:space="preserve">
         <value>Deposit Payment</value>
@@ -658,7 +658,7 @@
         <value>You do not have permission to view the phone number yet</value>
     </data>
     <data name="USERS" xml:space="preserve">
-        <value>USERS</value>
+        <value>ACCOUNTS</value>
     </data>
     <data name="Description" xml:space="preserve">
         <value>Description</value>
@@ -682,10 +682,10 @@
         <value>Country</value>
     </data>
     <data name="UnsuportedUSACountry" xml:space="preserve">
-        <value>This application is unavailable in the United States</value>
+        <value>This application is unavailable&#xA;in the United States</value>
     </data>
     <data name="AccountAddress" xml:space="preserve">
-        <value>Account address</value>
+        <value>Stellar address</value>
     </data>
     <data name="SendPackage" xml:space="preserve">
         <value>Send Package</value>
@@ -696,6 +696,42 @@
         <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Please create new or receive&#xA;package now</value>
     </data>
-
-
+    <data name="MaxDistance" xml:space="preserve">
+        <value>Maximum distance</value>
+    </data>
+        <data name="MoreSettings" xml:space="preserve">
+        <value>More Settings</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="InvalidUrl" xml:space="preserve">
+        <value>Invalid Url</value>
+    </data>
+    <data name = "SettingsChanged" xml:space="preserve">
+        <value>Settings have been successfully changed. Please restart the application.</value>
+    </data>
+    <data name="InsufficientBULs" xml:space="preserve">
+        <value>Insufficient BULs</value>
+    </data>
+    <data name="PurchaseBULs" xml:space="preserve">
+        <value>Insufficient BULs.&#xA;You can purchase BULs</value>
+    </data>
+    <data name="Purchase" xml:space="preserve">
+        <value>Purchase</value>
+    </data>
+    <data name="ReadWhy" xml:space="preserve">
+        <value>Read why</value>
+    </data>
+    <data name="LaunchLeaveMessage" xml:space="preserve">
+        <value>Do you want to leave this page? All entered information will not be saved</value>
+    </data>
+    <data name="Leave" xml:space="preserve">
+        <value>Leave</value>
+    </data>
+    <data name="PaymentUpperCase" xml:space="preserve">
+        <value>PAYMENT</value>
+    </data>
+    
+    
 </root>

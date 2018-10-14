@@ -7,6 +7,8 @@ namespace PaketGlobal
 {
     public static class AddressBookHelper
     {
+        public static List<string> CallSigns = AddressBookHelper.GetCallSigns();
+
         public static List<string> GetItems()
         {
             List<string> items = new List<string>();
@@ -21,6 +23,41 @@ namespace PaketGlobal
             }
 
             return items;
+        }
+
+        public static List<string> GetCallSigns()
+        {
+            List<string> items = new List<string>();
+
+            object fromStorage;
+
+            if (Application.Current.Properties.ContainsKey(Constants.CALL_SIGNS_BOOK))
+            {
+                Application.Current.Properties.TryGetValue(Constants.CALL_SIGNS_BOOK, out fromStorage);
+
+                items = JsonConvert.DeserializeObject<List<string>>(fromStorage as string);
+            }
+
+            return items;
+        }
+
+        public static async void LoadCallSigns()
+        {
+            var result = await App.Locator.IdentityServiceClient.GetCallsigns();
+
+            if (result != null)
+            {
+                if (result.Callsigns != null)
+                {
+                    AddressBookHelper.CallSigns = result.Callsigns;
+
+                    var jsonValueToSave = JsonConvert.SerializeObject(result.Callsigns);
+
+                    Application.Current.Properties[Constants.CALL_SIGNS_BOOK] = jsonValueToSave;
+
+                    await Application.Current.SavePropertiesAsync();
+                }
+            }
         }
 
         public static void AddItem(string item)

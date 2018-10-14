@@ -2,11 +2,21 @@
 <RelativeLayout
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-      x:Class="PaketGlobal.PaketEntryWithProgress"
+    x:Class="PaketGlobal.PaketEntryWithProgress"
+    xmlns:dm="clr-namespace:dotMorten.Xamarin.Forms"
     xmlns:local="clr-namespace:PaketGlobal">
     <StackLayout x:Name="StackView" Spacing="0" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
         <Label x:Name="TopLabel" TextColor="#A7A7A7" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-        <local:PaketEntry x:Name="EntryView" TextChanged="FieldTextChanged" Unfocused="FieldUnfocused" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" HeightRequest="{StaticResource EntrySize}"/>
+<!--        <local:PaketEntry x:Name="EntryView" CapSentences="2" DisableAutoCorrect="true" TextChanged="FieldTextChanged" Unfocused="FieldUnfocused" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Text" HeightRequest="{StaticResource EntrySize}"/>
+-->       
+        <dm:AutoSuggestBox x:Name="staticSuggestBox"
+                           PlaceholderText="Enter a country" 
+                           Unfocused="FieldUnfocused"
+                           TextChanged="staticSuggestBox_TextChanged"
+                           QuerySubmitted="SuggestBox_QuerySubmitted" />
+        
+       <BoxView HeightRequest="1" BackgroundColor="#e0e0e0" HorizontalOptions="FillAndExpand" />
+
     </StackLayout>
     <ActivityIndicator x:Name="ProgressIndicator" IsRunning="false"
                        RelativeLayout.WidthConstraint="20"
@@ -16,13 +26,13 @@
     <Image x:Name="StatusImage" Source="warning.png" IsVisible="false"
                        RelativeLayout.WidthConstraint="20"
                        RelativeLayout.HeightConstraint="20"
-                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-10}"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-6}"
                        RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-25}"/>
     <Button x:Name="SelectButton" Image="book_icon.png" IsVisible="true"
             Pressed="SelectPressed"
             BackgroundColor="Transparent"
-                       RelativeLayout.WidthConstraint="28"
-                       RelativeLayout.HeightConstraint="28"
-                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-8}"
-                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-33}"/>
+                       RelativeLayout.WidthConstraint="32"
+                       RelativeLayout.HeightConstraint="32"
+                       RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=StackView, Property=Height, Factor=0.5, Constant=-12}"
+                       RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-37}"/>
 </RelativeLayout>

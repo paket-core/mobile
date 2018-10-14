@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.NBitcoin;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -24,15 +25,30 @@ namespace PaketGlobal
         public int Status { get; set; }
     }
 
-    //User
+    //address
+    [DataContract]
+    public class AddressData
+    {
+        [DataMember(Name = "country")]
+        public string Country { get; set; }
 
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
+    }
 
+    [DataContract]
+    public class CallsignsData : BaseData
+    {
+        [DataMember(Name = "callsigns")]
+        public List<string> Callsigns { get; set; }
+    }
+    //
 
     [DataContract]
     public class RatioData : BaseData
     {
         [DataMember(Name = "ratio")]
-        public int Ratio { get; set; }
+        public string Ratio { get; set; }
     }
 
     [DataContract]
@@ -320,9 +336,16 @@ namespace PaketGlobal
 
 
     [DataContract]
+    public class TrustData : BaseData
+    {
+        [DataMember(Name = "transaction")]
+        public string Transaction { get; set; }
+    }
+
+    [DataContract]
     public class LaunchPackageDetails : BaseData
     {
-        [DataMember(Name = "escrow_address")]
+        [DataMember(Name = "escrow_pubkey")]
         public string EscrowAddress { get; set; }
 
         [DataMember(Name = "set_options_transaction")]
@@ -341,7 +364,7 @@ namespace PaketGlobal
 	[DataContract]
 	public class LaunchPackageData : BaseData
 	{
-        [DataMember(Name = "package_details")]
+        [DataMember(Name = "escrow_details")]
         public LaunchPackageDetails LaunchPackageDetails { get; set; }
 	}
 
@@ -387,6 +410,7 @@ namespace PaketGlobal
         private string radiusString { get; set; }
         private bool isAvailableRunning = false;
         private bool isAvailableCompleted = false;
+   
 
         public bool IsAvailableRunning
         {
@@ -405,6 +429,7 @@ namespace PaketGlobal
             get
             {
                 return Convert.ToInt32(Radius).ToString() + " km";
+
             }
             set
             {
@@ -440,6 +465,21 @@ namespace PaketGlobal
 		private string toLocationAddress { get; set; }
 		private string status { get; set; }
 
+        private string fromCountry = "";
+        private string toCountry = "";
+
+        public string FromCountry
+        {
+            get { return fromCountry; }
+            set { SetProperty(ref fromCountry, value); }
+        }
+
+        public string ToCountry
+        {
+            get { return toCountry; }
+            set { SetProperty(ref toCountry, value); }
+        }
+
         public bool isNewPackage { get; set; }
         public bool isAssigned { get; set; }
 
@@ -465,6 +505,10 @@ namespace PaketGlobal
 
         [DataMember(Name = "description")]
         public string Description { get; set; }
+
+        [DataMember(Name = "short_package_id")]
+        public string Short_package_id { get; set; }
+
 
         public bool IsExpiredInList
         {
@@ -502,7 +546,7 @@ namespace PaketGlobal
                 {
                     foreach (PackageEvent ev in Events)
                     {
-                        if (ev.EventType == "assign package")
+                        if (ev.EventType == "courier confirmed")
                         {
                             return ev.UserPubKey;
                         }
@@ -595,7 +639,7 @@ namespace PaketGlobal
                 double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
                 double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s = helper.GetStaticMapUri(to_lat, to_lng, 14, 280, 280);
+                var s = helper.GetStaticMapUri(to_lat, to_lng, 18, 280, 280);
 
                 return s;
             }
@@ -608,7 +652,7 @@ namespace PaketGlobal
                 double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
                 double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s =  helper.GetStaticMapUri(from_lat, from_lng, 14, 280, 280);
+                var s =  helper.GetStaticMapUri(from_lat, from_lng, 18, 280, 280);
 
                 return s;
             }
@@ -625,6 +669,18 @@ namespace PaketGlobal
                     return AppResources.SelectLocation;
                 }
 
+                try{
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(fromLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Address;
+                    }
+                }
+                catch{
+                    return HttpUtility.UrlDecode(fromLocationAddress);
+                }
+               
                 return HttpUtility.UrlDecode(fromLocationAddress);
                 //return fromLocationAddress;
             }
@@ -642,6 +698,20 @@ namespace PaketGlobal
                 if (toLocationGPS == null)
                 {
                     return AppResources.SelectLocation;
+                }
+
+                try
+                {
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(toLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Address;
+                    }
+                }
+                catch
+                {
+                    return HttpUtility.UrlDecode(toLocationAddress);
                 }
 
                 return HttpUtility.UrlDecode(toLocationAddress);
@@ -666,11 +736,51 @@ namespace PaketGlobal
         {
             get
             {
-                return PaketId.Substring(0,3);
+                try
+                {
+                    if(Short_package_id!=null)
+                    {
+                        return Short_package_id;
+                    }
+                    var tryGetObject = JsonConvert.DeserializeObject<AddressData>(fromLocationAddress);
+
+                    if (tryGetObject != null)
+                    {
+                        return tryGetObject.Country + "-" + PaketId.Substring(PaketId.Length - 3, 3);
+
+                    }
+                }
+                catch
+                {
+                    return PaketId.Substring(PaketId.Length - 3, 3);
+                }
+
+                return PaketId.Substring(PaketId.Length - 3, 3);
             }
         }
 
-		[DataMember(Name = "status")]
+        public int StatusSortValue
+        {
+            get {
+                if(IsExpiredInList ||IsExpired)
+                {
+                    return 1;
+                }
+                else if (Status == "waiting pickup")
+                {
+                    return 4;
+                }
+                else if (Status == "delivered")
+                {
+                    return 2;
+                }
+                else{
+                    return 3;
+                }
+            }
+        }
+
+        [DataMember(Name = "status")]
         public string Status
         {
             get
@@ -686,6 +796,10 @@ namespace PaketGlobal
                     OnPropertyChanged("Status");
                     OnPropertyChanged("StatusIconWithText");
                     OnPropertyChanged("ProgressIcon");
+                    OnPropertyChanged("VisibleSecondCircle");
+                    OnPropertyChanged("VisibleFirstCircle");
+                    OnPropertyChanged("VisibleThirdCircle");
+                    OnPropertyChanged("VisibleLastCircle");
                 }
             }
         }
@@ -711,14 +825,44 @@ namespace PaketGlobal
 		[DataMember(Name = "events")]
 		public List<PackageEvent> Events { get; set; }
 
-		[DataMember(Name = "payment_transaction")]
-		public string PaymentTransaction { get; set; }
 
-        [DataMember(Name = "refund_transaction")]
-        public string RefundTransaction { get; set; }
+        [DataMember(Name = "escrow_xdrs")]
+        public Kwargs Escrow_Xdrs { get; set; }
 
-        [DataMember(Name = "merge_transaction")]
-        public string MergeTransaction { get; set; }
+        public string PaymentTransaction { 
+            get
+            {
+                if(Escrow_Xdrs==null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.payment_transaction;        
+            }
+        }
+
+        public string RefundTransaction
+        {
+            get
+            {
+                if (Escrow_Xdrs == null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.refund_transaction;
+            }
+        }
+
+        public string MergeTransaction
+        {
+            get
+            {
+                if (Escrow_Xdrs == null)
+                {
+                    return null;
+                }
+                return Escrow_Xdrs.merge_transaction;
+            }
+        }
 
 
 		public DeliveryStatus DeliveryStatus { get; set; }
@@ -813,19 +957,70 @@ namespace PaketGlobal
             }
         }
 
+        public bool VisibleFirstCircle
+        {
+            get{
+                if (Status == "waiting pickup")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        public bool VisibleSecondCircle
+        {
+            get
+            {
+                if (Status == "in transit")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+
+    public bool VisibleLastCircle
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+        public bool VisibleThirdCircle
+        {
+            get
+            {
+                if (Status == "delivered")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public float Progress
         {
             get { 
                 if (Status == "waiting pickup")
                 {
-                    return 0.1f;
+                    return 0.5f;
                 }
                 else if (Status == "delivered")
                 {
                     return 1.0f;
                 }
 
-                return 0.5f;
+                return 0.7f;
             }
         }
 
@@ -959,6 +1154,32 @@ namespace PaketGlobal
             }
         }
 
+        public string FromLocationAddressJSON
+        {
+            get{
+                var data = new AddressData();
+                data.Country = fromCountry;
+                data.Address = fromLocationAddress;
+
+                var json = JsonConvert.SerializeObject(data);
+
+                return json;
+            }
+        }
+
+        public string ToLocationAddressJSON
+        {
+            get
+            {
+                var data = new AddressData();
+                data.Country = toCountry;
+                data.Address = toLocationAddress;
+
+                var json = JsonConvert.SerializeObject(data);
+
+                return json;
+            }
+        }
 
 	}
 

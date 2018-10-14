@@ -6,7 +6,7 @@ using Plugin.Geolocator;
 using stellar_dotnetcore_sdk;
 using Xamarin.Forms;
 using libphonenumber;
-
+using System.Threading.Tasks;
 
 namespace PaketGlobal
 {
@@ -77,14 +77,38 @@ namespace PaketGlobal
 
             var selectFromLocation = new Command(() =>
             {
-                var picker = new LocationPickerPage(LocationPickerType.From);
+                GooglePlace place = null;
+
+                if (ViewModel.FromLocationGPS!=null)
+                {
+                    string location = ViewModel.FromLocationGPS;
+
+                    place = new GooglePlace();
+                    place.Address = ViewModel.FromLocationAddress;
+                    place.Latitude = Convert.ToDouble(location.Split(',')[0]);
+                    place.Longitude = Convert.ToDouble(location.Split(',')[1]);
+                }
+
+                var picker = new LocationPickerPage(LocationPickerType.From, place);
                 picker.eventHandler = DidSelectLocationHandler;
                 Navigation.PushAsync(picker, true);
             });
 
             var selectToLocation = new Command(() =>
             {
-                var picker = new LocationPickerPage(LocationPickerType.To);
+                GooglePlace place = null;
+
+                if (ViewModel.ToLocationGPS != null)
+                {
+                    string location = ViewModel.ToLocationGPS;
+
+                    place = new GooglePlace();
+                    place.Address = ViewModel.ToLocationAddress;
+                    place.Latitude = Convert.ToDouble(location.Split(',')[0]);
+                    place.Longitude = Convert.ToDouble(location.Split(',')[1]);
+                }
+
+                var picker = new LocationPickerPage(LocationPickerType.To, place);
                 picker.eventHandler = DidSelectLocationHandler;
                 Navigation.PushAsync(picker, true);
             });
@@ -98,18 +122,29 @@ namespace PaketGlobal
             XamEffects.Commands.SetTap(LauncherCountryCodeLabel, selectMyCountryCommand);
             XamEffects.Commands.SetTap(RecipientCountryCodeLabel, selectRecipientCountryCommand);
             XamEffects.Commands.SetTap(FromLocationLabel, selectFromLocation);
-            XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
+          //  XamEffects.Commands.SetTap(FromLocationFrame, selectFromLocation);
             XamEffects.Commands.SetTap(FromLocationImage, selectFromLocation);
             XamEffects.Commands.SetTap(ToLocationLabel, selectToLocation);
-            XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
+           // XamEffects.Commands.SetTap(ToLocationFrame, selectToLocation);
             XamEffects.Commands.SetTap(ToLocationImage, selectToLocation);
+
+            EntryRecepient.MakeCustomOffset();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
+            App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = true;
+
             App.Locator.DeviceService.setStausBarLight();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = false;
         }
 
         private void DidSelectLocationHandler(object sender, LocationPickerPageEventArgs e)
@@ -125,11 +160,13 @@ namespace PaketGlobal
             {
                 ViewModel.FromLocationGPS = location;
                 ViewModel.FromLocationAddress = address;
+                ViewModel.FromCountry = place.Country;
             }
             else if (page.PickerType == LocationPickerType.To)
             {
                 ViewModel.ToLocationGPS = location;
                 ViewModel.ToLocationAddress = address;
+                ViewModel.ToCountry = place.Country;
             }
 
             SetLocationImage(page.PickerType,place.Latitude,place.Longitude);
@@ -137,15 +174,15 @@ namespace PaketGlobal
 
         private async void SetLocationImage(LocationPickerType pickerType, double lat, double lng)
         {
-            var size = 240;
+            var size = 300;
 
 #if __ANDROID__
-            size = 280;
+            size = 340;
 #endif
 
             var mapHelper = new MapHelper();
 
-            var mapImage = await mapHelper.GetStaticMap(lat, lng, 14, size, size);
+            var mapImage = await mapHelper.GetStaticMap(lat, lng, 18, size, size);
 
             MemoryStream stream = null;
 
@@ -204,7 +241,16 @@ namespace PaketGlobal
 
         private void OnBack(object sender, System.EventArgs e)
         {
-            Navigation.PopAsync();
+            //.
+            EventHandler handler = (se, ee) => {
+                if (ee != null)
+                {
+                    Navigation.PopAsync();
+                }
+            };
+
+            ShowErrorMessage(AppResources.LaunchLeaveMessage, false, handler, AppResources.Leave, AppResources.Cancel);
+
         }
 
 
@@ -286,22 +332,28 @@ namespace PaketGlobal
         {
             await Plugin.Media.CrossMedia.Current.Initialize();
 
-            var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            {
-                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large,
-            });
-
-            if (photo != null)
-            {
-                PhotoButton.Image = AppResources.ReTakePhoto;
-
-				PhotoSource = GetImageBytes(photo.GetStream());
-
-                PhotoImage.Source = ImageSource.FromStream(() => {
-					return photo.GetStream();
+            try{
+                var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Large,
                 });
 
-                PhotoImage.IsVisible = true;
+                if (photo != null)
+                {
+                    PhotoButton.Image = AppResources.ReTakePhoto;
+
+                    PhotoSource = GetImageBytes(photo.GetStream());
+
+                    PhotoImage.Source = ImageSource.FromStream(() => {
+                        return photo.GetStream();
+                    });
+
+                    PhotoImage.IsVisible = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                ShowErrorMessage(ex.Message);
             }
         }
 
@@ -317,7 +369,8 @@ namespace PaketGlobal
 
         private async void CreateClicked(object sender, System.EventArgs e)
         {
-            if(EntryRecepient.IsBusy)
+        
+            if (EntryRecepient.IsBusy)
             {
                 return;
             }
@@ -357,22 +410,36 @@ namespace PaketGlobal
 
 					if (hasPermission) {
 						var locator = CrossGeolocator.Current;
+                      //  locator.DesiredAccuracy = DesiredAccuracy.Value;
 
-						var position = await locator.GetPositionAsync();
+                        var position = await locator.GetPositionAsync();
 
 						if (position != null) {
 							location = position.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
 						}
 					}
 
-					var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
+                    var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 
                     if (result == StellarOperationResult.Success)
                     {
+                        App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage = false;
+
                         await System.Threading.Tasks.Task.Delay(2000);
                         await App.Locator.Packages.Load();
 
-                        OnBack(BackButton, null);
+                        await Navigation.PopAsync();
+                    }
+                    else if (result==StellarOperationResult.LowBULsLauncher)
+                    {
+                        EventHandler handler = (se, ee) => {
+                            if (ee != null)
+                            {
+                                ShowPurchaseBuls();
+                            }
+                        };
+
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
                     }
                     else
                     {
@@ -381,7 +448,21 @@ namespace PaketGlobal
                 }
                 catch (Exception exc)
                 {
-                    ShowErrorMessage(exc.Message);
+                    EventHandler handler = (se, ee) => {
+                        if (ee != null)
+                        {
+                            ShowPurchaseBuls();
+                        }
+                    };
+
+                    if (exc.Message == AppResources.InsufficientBULs)
+                    {
+                        ShowErrorMessage(AppResources.PurchaseBULs, false, handler, AppResources.Purchase);
+                    }
+                    else
+                    {
+                        ShowErrorMessage(exc.Message);
+                    }
                 }
 
                 ProgressView.IsVisible = false;
@@ -389,6 +470,13 @@ namespace PaketGlobal
                 App.Locator.Wallet.StartTimer();
                 App.Locator.Packages.StartTimer();
             }
+        }
+
+        private void ShowPurchaseBuls()
+        {
+            WalletPage page = new WalletPage();
+            page.ShowPurchaseBuls = true;
+            this.Navigation.PushAsync(page);
         }
 
         private void ContactsButtonClicked(object sender, EventArgs e)
@@ -453,9 +541,9 @@ namespace PaketGlobal
         {
             if (sender == EntryRecepient)
             {
-                if (!ValidationHelper.ValidateTextField(EntryPayment.Text))
+                if (!ValidationHelper.ValidateTextField(EntryRecipientPhoneNumber.Text))
                 {
-                    EntryPayment.Focus();
+                    EntryRecipientPhoneNumber.Focus();
                 }
             }
             else if (sender == EntryPayment)
@@ -474,21 +562,30 @@ namespace PaketGlobal
             }
         }
 
+        public async void Scroll()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(0.2f));
+            await MainScrollView.ScrollToAsync(MainScrollView.ScrollX, MainScrollView.ScrollY - 40, false);
+        }
+
         protected override bool IsValid()
         {
             if (!ValidationHelper.ValidateTextField(EntryRecepient.Text))
             {
                 EntryRecepient.FocusField();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.LauncherFullPhoneNumber))
             {
                 EntryLauncherPhoneNumber.Focus();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.RecipientFullPhoneNumber))
             {
                 EntryRecipientPhoneNumber.Focus();
+                Scroll();
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(ViewModel.FromLocationGPS))
@@ -533,16 +630,20 @@ namespace PaketGlobal
             else if (!ValidationHelper.ValidateNumber(EntryPayment.Text))
             {
                 EntryPayment.Focus();
+
                 return false;
             }
             else if (!ValidationHelper.ValidateNumber(EntryCollateral.Text))
             {
                 EntryCollateral.Focus();
+
                 return false;
             }
             else if (!ValidationHelper.ValidateTextField(EntryDescription.Text))
             {
                 EntryDescription.Focus();
+                Scroll();
+
                 return false;
             }
       

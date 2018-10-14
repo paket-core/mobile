@@ -11,9 +11,12 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-            entrySecretKey.Text = "SBC6WGOCLBLQB63HVZM5VWAOTBM5A2Y6MQGNHUFQPUZMQZLQEWVLB4XM";
+           //entrySecretKey.Text = "SBOLPN4HNTCLA3BMRS6QG62PXZUFOZ5RRMT6LPJHUPGQLBP5PZY4YFIT";
+           //entrySecretKey.Text = "SDMDL7VIGJ77A4GFJLKPGSHMPQOVQ7OV6BMVGFSMOBWQMSCKV2QZGCS5";
 
             App.Locator.DeviceService.setStausBarBlack();
+
+            EnableDisableButton();
 
 #if __ANDROID__
             backButton.TranslationX = -30;
@@ -159,6 +162,22 @@ namespace PaketGlobal
         {
             entryMnemonic.IsEnabled = enabled;
             entrySecretKey.IsEnabled = enabled;
+        }
+
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            EnableDisableButton();
+        }
+
+        private void EnableDisableButton()
+        {
+            if (!ValidationHelper.ValidateMnemonic(entryMnemonic.Text) && !ValidationHelper.ValidateTextField(entrySecretKey.Text))
+            {
+                restoreButton.Disabled = true;
+            }
+            else{
+                restoreButton.Disabled = false;
+            }
         }
     }
 }

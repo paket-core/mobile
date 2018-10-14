@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using dotMorten.Xamarin.Forms;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -39,10 +40,11 @@ namespace PaketGlobal
         public event EventHandler Completed;
         public event EventHandler Unfocus;
         public event EventHandler ClickOnAddressButton;
+        public event EventHandler ChangedText;
 
         public string Text
         {
-            get => (string)EntryView.Text;
+            get => (string)staticSuggestBox.Text;
             set => SetValue(TextProperty, value);
         }
 
@@ -90,14 +92,13 @@ namespace PaketGlobal
 
         private void OnTextChange(string value)
         {
-            EntryView.Text = value;
-            EntryView.PaddingRight = 110;
+            staticSuggestBox.Text = value;
+            // EntryView.PaddingRight = 110;
         }
 
         private void OnPlacholderChange(string value)
         {
-         
-            EntryView.Placeholder = value;
+            staticSuggestBox.PlaceholderText = value;
         }
 
         private void OnTopTextChange(string value)
@@ -121,7 +122,7 @@ namespace PaketGlobal
         {
             if(value>0)
             {
-                EntryView.HeightRequest = value;
+                staticSuggestBox.HeightRequest = value;
             }
         }
 
@@ -129,7 +130,7 @@ namespace PaketGlobal
         {
             ProgressIndicator.IsRunning = value;
 
-            EntryView.IsEnabled = !value;
+            staticSuggestBox.IsEnabled = !value;
 
             if(value)
             {
@@ -170,11 +171,13 @@ namespace PaketGlobal
         private void FieldTextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             ToDefaultState();
+
+            ChangedText?.Invoke(this, EventArgs.Empty);
         }
 
         public void FocusField()
         {
-            EntryView.Focus();
+            staticSuggestBox.MakeFocus();
         }
 
         private void ShowErrorWithText(string text)
@@ -185,8 +188,6 @@ namespace PaketGlobal
             TopLabel.Text = text;
             TopLabel.IsVisible = true;
            
-            EntryView.LineColor = Color.FromHex("#D43F51");
-
             StatusImage.Source = "warning.png";
             StatusImage.IsVisible = true;
         }
@@ -198,9 +199,7 @@ namespace PaketGlobal
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
-
-            EntryView.LineColor = Color.FromHex("#E5E5E5");
-
+            
             StatusImage.Source = "success.png";
             StatusImage.IsVisible = true;
         }
@@ -212,9 +211,7 @@ namespace PaketGlobal
             TopLabel.Text = TopText;
             TopLabel.IsVisible = (TopLabel.Text.Length > 0);
             TopLabel.TextColor = Color.FromHex("#A7A7A7");
-
-            EntryView.LineColor = Color.FromHex("#E5E5E5");
-
+            
             StatusImage.IsVisible = false;
         }
 
@@ -293,5 +290,33 @@ namespace PaketGlobal
 
             return "";
         }
+
+        private void staticSuggestBox_TextChanged(object sender, AutoSuggestBoxTextChangedEventArgs e)         {
+            ToDefaultState();
+
+            // Filter the list based on text input
+            staticSuggestBox.ItemsSource = string.IsNullOrWhiteSpace(staticSuggestBox.Text) ? null : AddressBookHelper.CallSigns.Where(s => s.StartsWith(staticSuggestBox.Text, StringComparison.InvariantCultureIgnoreCase)).ToList();         }
+
+        private void SuggestBox_QuerySubmitted(object sender, AutoSuggestBoxQuerySubmittedEventArgs e)         {
+            staticSuggestBox.Unfocus();
+
+            //if (e.ChosenSuggestion == null)
+            //    status.Text = "Query submitted: " + e.QueryText;
+            //else
+            //status.Text = "Suggestion chosen: " + e.ChosenSuggestion;
+        }
+        
+        public void MakeCustomOffset()
+        {
+
+#if __ANDROID__
+            StatusImage.TranslationY = StatusImage.TranslationY + 4;
+            SelectButton.TranslationY = SelectButton.TranslationY + 4;
+            ProgressIndicator.TranslationY = ProgressIndicator.TranslationY + 4;
+
+            ProgressIndicator.TranslationX = ProgressIndicator.TranslationX - 4;
+            StatusImage.TranslationX = StatusImage.TranslationX - 4;
+#endif
+        } 
     }
 }

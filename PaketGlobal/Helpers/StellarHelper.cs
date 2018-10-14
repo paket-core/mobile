@@ -88,7 +88,7 @@ namespace PaketGlobal
 				return StellarOperationResult.LowBULsLauncher;
 			}
 
-			eventHandler("", new LaunchPackageEventArgs(AppResources.LaunchPackageStep2, currentStep / steps));
+			eventHandler("", new LaunchPackageEventArgs(AppResources.CreatePackage, currentStep / steps));
 			currentStep++;
 
 			var createResult = await App.Locator.RouteServiceClient.CreatePackage(escrowKP.Address, recipientPubkey, launcherPhone, recipientPhone, deadlineTimestamp, paymentBuls, collateralBuls,
@@ -391,36 +391,63 @@ namespace PaketGlobal
 			return result != null;
 		}
 
-		public static async Task<bool> AddTrustToken(KeyPair kp, string trustorSeed = "SC2PO5YMP7VISFX75OH2DWETTEZ4HVZOECMDXOZIP3NBU3OFISSQXAEP")
+		public static async Task<bool> AddTrustToken(KeyPair kp)
 		{
-			try {
-				var server = new Server(horizon_url);
-				var accResponse = await server.Accounts.Account(kp);
+            try
+            {
+                var result = await App.Locator.BridgeServiceClient.PrepareTrust(kp.Address);
 
-				var source = new Account(kp, accResponse.SequenceNumber);
-				var trustor = KeyPair.FromSecretSeed(trustorSeed);
+                if (result != null)
+                {
+                    var transaction = result.Transaction;
 
-				const string assetCode = "BUL";
-				var asset = stellar_dotnetcore_sdk.Asset.CreateNonNativeAsset(assetCode, trustor);
-				var operation = new ChangeTrustOperation.Builder(asset, "922337203685").SetSourceAccount(kp).Build();
+                    var signedCreate = await SignTransaction(kp, transaction);
+                    if (signedCreate != null)
+                    {
+                        var submitCreate = await App.Locator.BridgeServiceClient.SubmitTransaction(signedCreate);
+                        if (submitCreate != null)
+                        {
+                            return true;
+                        }
+                    }
+                }
 
-				var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(source).AddOperation(operation).Build();
-				transaction.Sign(source.KeyPair);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
 
-				var result = await server.SubmitTransaction(transaction);
+			//try {
+			//	var server = new Server(horizon_url);
+			//	var accResponse = await server.Accounts.Account(kp);
 
-				if (result != null) {
-					System.Diagnostics.Debug.WriteLine(String.Format("Hash: {0}", result.Hash));
-					System.Diagnostics.Debug.WriteLine(String.Format("EnvelopeXdr: {0}", result.EnvelopeXdr));
-					System.Diagnostics.Debug.WriteLine(String.Format("ResultXdr: {0}", result.ResultXdr));
-					return result != null && result.Hash != null;
-				}
+			//	var source = new Account(kp, accResponse.SequenceNumber);
+			//	var trustor = KeyPair.FromSecretSeed(trustorSeed);
 
-				return false;
-			} catch (Exception ex) {
-				System.Diagnostics.Debug.WriteLine(ex);
-				return false;
-			}
+			//	const string assetCode = "BUL";
+			//	var asset = stellar_dotnetcore_sdk.Asset.CreateNonNativeAsset(assetCode, trustor);
+			//	var operation = new ChangeTrustOperation.Builder(asset, "922337203685").SetSourceAccount(kp).Build();
+
+			//	var transaction = new stellar_dotnetcore_sdk.Transaction.Builder(source).AddOperation(operation).Build();
+			//	transaction.Sign(source.KeyPair);
+
+			//	var result = await server.SubmitTransaction(transaction);
+
+			//	if (result != null) {
+			//		System.Diagnostics.Debug.WriteLine(String.Format("Hash: {0}", result.Hash));
+			//		System.Diagnostics.Debug.WriteLine(String.Format("EnvelopeXdr: {0}", result.EnvelopeXdr));
+			//		System.Diagnostics.Debug.WriteLine(String.Format("ResultXdr: {0}", result.ResultXdr));
+			//		return result != null && result.Hash != null;
+			//	}
+
+			//	return false;
+			//} catch (Exception ex) {
+			//	System.Diagnostics.Debug.WriteLine(ex);
+			//	return false;
+			//}
 		}
 
 		public static async Task<string> SignTransaction(KeyPair keyPair, string xdrData)

@@ -90,6 +90,8 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+            AddressBookHelper.LoadCallSigns();
+
             BindingContext = App.Locator.Packages;
 
             FilterPackage.Radius = 20;
@@ -120,6 +122,11 @@ namespace PaketGlobal
             App.Locator.DeviceService.setStausBarLight();
 
             MessagingCenter.Subscribe<NewPackageDetailPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
+            {
+                AllClicked(AllButton, EventArgs.Empty);
+            });
+
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.OPEN_MINE_PACKAGES, (sender, arg) =>
             {
                 AllClicked(AllButton, EventArgs.Empty);
             });
@@ -347,11 +354,6 @@ namespace PaketGlobal
             }
 
             await ViewModel.Load();
-
-            if (Mode == PackagesMode.All)
-            {
-                PakagesView.ItemsSource = ViewModel.PackagesList;;
-            }
 
             if (ViewModel.PackagesList.Count == 0)
             {
