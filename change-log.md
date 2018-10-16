@@ -12,6 +12,16 @@ Milestone version: v.1.2.7
 
 ### Milestone v.1.2.7
 
+16-10-2018
+
+* Disable submit button on some states
+    https://github.com/paket-core/mobile/issues/125
+* Different texts for QR code button in different states
+    https://github.com/paket-core/mobile/issues/124
+* Change default servers to paket.global servers
+    https://github.com/paket-core/mobile/issues/134
+
+
 12-10-2018
 
 * Autocomplete call signs
