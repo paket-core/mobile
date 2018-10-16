@@ -98,16 +98,10 @@ namespace PaketGlobal
 
             PakagesView.RefreshCommand = RefreshListCommand;
 
-            if (MaxOffset <= 130.0f)
-            {
-                TitleLabel.TranslationY = 22;
-                RightButtons.TranslationY = 22;
-            }
+
 
 #if __ANDROID__
-            HeaderView.Spacing = 42;
-            HeaderView.TranslationY = -30;
-            TitleLabel.TranslationY = 0;
+           HeaderView.Spacing = 42;
 #else
             if(App.Locator.DeviceService.ScreenWidth()==320)
             {
@@ -117,18 +111,20 @@ namespace PaketGlobal
                 PakagesView.TranslationY = 3;
             }
 #endif
-            AvailableButton.TextColor = Color.LightGray;
+           // AvailableButton.TextColor = Color.LightGray;
 
             App.Locator.DeviceService.setStausBarLight();
 
             MessagingCenter.Subscribe<NewPackageDetailPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
             {
-                AllClicked(AllButton, EventArgs.Empty);
+                AllClicked(SegmentView, EventArgs.Empty);
+                SegmentView.SelectIndex(0);
             });
 
             MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.OPEN_MINE_PACKAGES, (sender, arg) =>
             {
-                AllClicked(AllButton, EventArgs.Empty);
+                AllClicked(SegmentView, EventArgs.Empty);
+                SegmentView.SelectIndex(0);
             });
 
         }
@@ -301,6 +297,17 @@ namespace PaketGlobal
             await LoadAvailablePackages(); 
         }
 
+        private void SegmentClicked(object sender, System.EventArgs e)
+        {
+            if(SegmentView.SelectedIndex==0)
+            {
+                this.AllClicked(sender,e);
+            }
+            else{
+                this.AvaliableClicked(sender, e);
+            }
+        }
+
         private async void AvaliableClicked(object sender, EventArgs e)
         {
             if(Mode==PackagesMode.Available)
@@ -308,13 +315,15 @@ namespace PaketGlobal
                 return;
             }
 
+            PakagesView.IsPullToRefreshEnabled = false;
+
             Mode = PackagesMode.Available;
 
-            AvailableButton.TextColor = Color.White;
-            AllButton.TextColor = Color.LightGray;
+          // AvailableButton.TextColor = Color.White;
+          //  AllButton.TextColor = Color.LightGray;
 
-            AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
-            AllLine.BackgroundColor = Color.Transparent;
+          //  AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
+          //  AllLine.BackgroundColor = Color.Transparent;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "AvailablePackagesList");
 
@@ -337,13 +346,15 @@ namespace PaketGlobal
                 return;
             }
 
+            PakagesView.IsPullToRefreshEnabled = true;
+
             Mode = PackagesMode.All;
 
-            AvailableButton.TextColor = Color.LightGray;
-            AllButton.TextColor = Color.White;
+          //  AvailableButton.TextColor = Color.LightGray;
+          //  AllButton.TextColor = Color.White;
 
-            AllLine.BackgroundColor = Color.FromHex("#53C5C7");
-            AvailableLine.BackgroundColor = Color.Transparent;
+         //  AllLine.BackgroundColor = Color.FromHex("#53C5C7");
+          //  AvailableLine.BackgroundColor = Color.Transparent;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "PackagesList");
 

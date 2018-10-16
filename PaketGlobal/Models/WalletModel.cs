@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -20,14 +21,16 @@ namespace PaketGlobal
 
             if(App.Current.Properties.ContainsKey(Constants.BULL_RATIO))
             {
+                CultureInfo myUSCulture = new CultureInfo("en-US");
+
                 object fromStorageBul;
                 object fromStorageXlm;
 
                 Application.Current.Properties.TryGetValue(Constants.BULL_RATIO, out fromStorageBul);
                 Application.Current.Properties.TryGetValue(Constants.XLM_RATIO, out fromStorageXlm);
 
-                var bul = Convert.ToDouble(fromStorageBul as string);
-                var xlm = Convert.ToDouble(fromStorageXlm as string);
+                var bul = Convert.ToDouble(fromStorageBul as string, myUSCulture);
+                var xlm = Convert.ToDouble(fromStorageXlm as string, myUSCulture);
 
                 XLM_Ratio = xlm;
                 BUL_Ratio = bul;
@@ -181,13 +184,14 @@ namespace PaketGlobal
 
             if(xlm != null && bul != null)
             {
+                CultureInfo myUSCulture = new CultureInfo("en-US");
 
                 Application.Current.Properties[Constants.BULL_RATIO] = xlm.Ratio;
                 Application.Current.Properties[Constants.XLM_RATIO] = xlm.Ratio;
                 await Application.Current.SavePropertiesAsync();
 
-                XLM_Ratio = Convert.ToDouble(xlm.Ratio);
-                BUL_Ratio = Convert.ToDouble(bul.Ratio);
+                XLM_Ratio = Convert.ToDouble(xlm.Ratio, myUSCulture);
+                BUL_Ratio = Convert.ToDouble(bul.Ratio, myUSCulture);
             }
         }
 	}

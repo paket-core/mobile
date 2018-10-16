@@ -146,6 +146,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestBoxSuggestionChosenEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestBoxTextChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestionBoxTextChangeReason.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SegmentView.xaml.cs">
+      <DependentUpon>SegmentView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -261,6 +264,10 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ButtonWithTextImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\SegmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

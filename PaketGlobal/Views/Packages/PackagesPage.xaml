@@ -37,7 +37,7 @@
                                 RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-30}"
                                 Maximum="200" Minimum="1"  Value="{Binding Radius, Mode=TwoWay}" ValueChanged="OnSliderValueChanged" />
                         <Label RelativeLayout.YConstraint="25"
-                               WidthRequest="150"
+                               WidthRequest="190"
                                RelativeLayout.XConstraint="30" 
                                XAlign="Start"
                                Text="{local:Translate MaxDistance}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black"/>
@@ -234,19 +234,14 @@
     </local:BasePage.Resources>
     <local:BasePage.Content>
         <RelativeLayout>
-            <Label x:Name="TitleLabel" TextColor="White" Text="{local:Translate MyPackages}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
-                   RelativeLayout.YConstraint="30"
-                   RelativeLayout.XConstraint="0"
-                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                   Opacity="0"/>
-            <StackLayout x:Name="RightButtons" Opacity="0" Spacing="15" HorizontalOptions="EndAndExpand" Orientation="Horizontal"
-                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.95}"
-                    RelativeLayout.YConstraint="18">
-                <Button Clicked="AcceptPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="qr_scan_btn.png" HorizontalOptions="Start"/>
-                <Button Clicked="LaunchPackageClicked" WidthRequest="30" BackgroundColor="Transparent" Image="add_icon_small.png" HorizontalOptions="StartAndExpand"/>
-            </StackLayout>
-            <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="0,55,0,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10"
-                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                   
+            <StackLayout Spacing="0" x:Name="MainHeaderView" BackgroundColor="Transparent"
+                         RelativeLayout.XConstraint="0"
+                         RelativeLayout.YConstraint="0"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                  
+                <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="0" Padding="0,30,0,0">
                 <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
                     <StackLayout Padding="25,0,0,0" Spacing="10" BackgroundColor="Transparent" Orientation="Vertical" VerticalOptions="Start" HorizontalOptions="Start">
                         <Label x:Name="MyPackagesTitleLabel" Text="{local:Translate MyPackages}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" 
@@ -259,17 +254,26 @@
                         <Button Style="{StaticResource DateButton}" Text="{local:Translate GetPackage}" BorderColor="Transparent" TextColor="White" Clicked="AcceptPackageClicked"  WidthRequest="126"  HeightRequest="40" BackgroundColor="#000000"  />
                     </StackLayout>
                 </StackLayout>
-                <StackLayout  Orientation="Horizontal" BackgroundColor="Transparent">
+                
+                <StackLayout Spacing="5">
+                    <local:SegmentView HorizontalOptions="Center" Clicked="SegmentClicked" x:Name="SegmentView"></local:SegmentView>
+                    <BoxView HeightRequest="10" BackgroundColor="Transparent"></BoxView>
+                </StackLayout>
+                
+<!--                <StackLayout Orientation="Horizontal" BackgroundColor="Transparent" Spacing="0">
                     <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
                         <Button Clicked="AllClicked" HorizontalOptions="FillAndExpand" x:Name="AllButton" Text="{local:Translate AllPackages}" BackgroundColor="Transparent" TextColor="White" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"/>
-                        <BoxView x:Name="AllLine" HeightRequest="3" BackgroundColor="#53C5C7" HorizontalOptions="FillAndExpand"/>
+                        <BoxView x:Name="AllLine" HeightRequest="5" BackgroundColor="#53C5C7" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
+                     <BoxView WidthRequest="1" BackgroundColor="#E5E5E5" Opacity="0.1"/>
+                   <StackLayout HorizontalOptions="FillAndExpand" Spacing="0">
                         <Button Clicked="AvaliableClicked" HorizontalOptions="FillAndExpand" x:Name="AvailableButton" Text="{local:Translate AvailablePackages}" BackgroundColor="Transparent" TextColor="White" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" />
-                        <BoxView x:Name="AvailableLine" HeightRequest="3" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand"/>
+                        <BoxView x:Name="AvailableLine" HeightRequest="5" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
-                </StackLayout>
+                </StackLayout> -->              
+                    
             </StackLayout>
+            
             <Views:ListView x:Name="PakagesView"
                       ItemTemplate="{StaticResource PackagesTemplateSelector}"
                       BackgroundColor="#F0F0F0" 
@@ -277,12 +281,13 @@
                       ItemSelected="PackageItemSelected"
                       IsPullToRefreshEnabled="true"
                       Scrolled="OnListViewScrolled"
-                      SeparatorVisibility="None" RowHeight="-1" HasUnevenRows="true" VerticalOptions="FillAndExpand"
-                      HorizontalOptions="FillAndExpand"
-                      RelativeLayout.XConstraint = "0"
-                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-223}"
-                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                      RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToView, ElementName=HeaderView, Property=Y, Factor=1, Constant=213}"></Views:ListView >
+                      SeparatorVisibility="None" RowHeight="-1" HasUnevenRows="true"/>
+                
+                
+
+                    
+            </StackLayout>
+
             <ActivityIndicator x:Name="ActivityIndicator" IsVisible="true" IsRunning="true"
                       VerticalOptions="CenterAndExpand"
                       Color="#606686"
