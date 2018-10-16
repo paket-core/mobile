@@ -643,17 +643,20 @@
         <value>The package was successfully assigned</value>
     </data>
     <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to make deposit.</value>
+        <value>Your package is waiting for a courier</value>
     </data>
     <data name="Deposit" xml:space="preserve">
         <value>Deposit Payment</value>
     </data>
     <data name="WaitingMakeDepositPackage" xml:space="preserve">
-        <value>Please make a deposit.&#xA;Then you can show the courier a QR code.</value>
+        <value>Courier found. Deposit payment into the escrow to launch the package.</value>
     </data>
     <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
         <value>Please wait when the launcher will make deposit.&#xA;Then you can accept the package.</value>
     </data>
+    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
+         <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
+     </data>
     <data name="CourierNotContactVisible" xml:space="preserve">
         <value>You do not have permission to view the phone number yet</value>
     </data>
@@ -731,6 +734,12 @@
     </data>
     <data name="PaymentUpperCase" xml:space="preserve">
         <value>PAYMENT</value>
+    </data>
+    <data name="WaitingCourierScan" xml:space="preserve">
+        <value>Let the courier scan this code to accept the package</value>
+    </data>
+    <data name="WaitingRecipientScan" xml:space="preserve">
+        <value>Let the recipient scan this code to accept the package</value>
     </data>
     
     

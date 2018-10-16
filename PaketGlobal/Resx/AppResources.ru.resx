@@ -141,9 +141,7 @@
     <data name="WaitingExpiredDepositPackage" xml:space="preserve">
         <value>Срок истек&#x0a;Вы не можете оплатить и запустить посылку.</value>
     </data>
-    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
-         <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
-     </data>
+
     <data name="AcceptPackage" xml:space="preserve">
         <value>Принять посылку</value>
     </data>
@@ -743,5 +741,11 @@
     </data>
     <data name="PaymentUpperCase" xml:space="preserve">
         <value>ОПЛАТА</value>
+    </data>
+    <data name="WaitingCourierScan" xml:space="preserve">
+        <value>Курьер должен отсканировать этот код, чтобы принять пакет</value>
+    </data>
+        <data name="WaitingRecipientScan" xml:space="preserve">
+        <value>Получатель должен отсканировать этот код, чтобы принять пакет</value>
     </data>
 </root>

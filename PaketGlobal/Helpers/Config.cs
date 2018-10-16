@@ -6,13 +6,13 @@
         internal const string RouteService = "RouteService1";
         internal const string IdentityService = "IdentityService1";
 
-		internal static string BridgeServerUrl = "http://itd.pub:11251";//Local
-        internal static string RouteServerUrl = "http://itd.pub:11250";//Local
-        internal static string IdentityServerUrl = "http://itd.pub:11252";//Local
+		//internal static string BridgeServerUrl = "http://itd.pub:11251";//Local
+        //internal static string RouteServerUrl = "http://itd.pub:11250";//Local
+        //internal static string IdentityServerUrl = "http://itd.pub:11252";//Local
 	
-        //internal static string BridgeServerUrl = "https://bridge.paket.global";//Global
-        //internal static string RouteServerUrl = "https://route.paket.global";//Global
-        //internal static string IdentityServerUrl = "https://fund.paket.global";//Global
+        internal static string BridgeServerUrl = "https://bridge.paket.global";//Global
+        internal static string RouteServerUrl = "https://route.paket.global";//Global
+        internal static string IdentityServerUrl = "https://fund.paket.global";//Global
 
 		internal const string PrefundTestUrl = "https://friendbot.stellar.org";
 		

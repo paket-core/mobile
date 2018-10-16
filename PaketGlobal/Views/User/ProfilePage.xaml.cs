@@ -93,7 +93,7 @@ namespace PaketGlobal
                 }
             }
 
-            EnableDisableButton();
+            UpdateButton.Disabled = true;
         }
 
         public void onBottomSwipe(View view)

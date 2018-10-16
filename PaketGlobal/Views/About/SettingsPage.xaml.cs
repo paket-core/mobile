@@ -27,11 +27,11 @@ namespace PaketGlobal
             BackButton.TranslationX = -30;
 #endif
 
-
             BridgeEntry.Text = Config.BridgeServerUrl;
             FundEntry.Text = Config.IdentityServerUrl;
             RouteEntry.Text = Config.RouteServerUrl;
 
+            UpdateButton.Disabled = true;
         }
 
         private void OnBack(object sender, System.EventArgs e)
@@ -75,9 +75,42 @@ namespace PaketGlobal
                 };
 
                 ShowErrorMessage(AppResources.InvalidUrl,false,handleHandler);
+            }         
+        }
+
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            EnableDisableButton();
+        }
+
+        protected override bool IsValid()
+        {
+            if(BridgeEntry.Text== Config.BridgeServerUrl && RouteEntry.Text== Config.RouteServerUrl && Config.IdentityServerUrl==FundEntry.Text)
+            {
+                return false;
             }
 
+            if (Uri.IsWellFormedUriString(BridgeEntry.Text, UriKind.Absolute) &&
+                Uri.IsWellFormedUriString(RouteEntry.Text, UriKind.Absolute) &&
+                Uri.IsWellFormedUriString(FundEntry.Text, UriKind.Absolute))
+            {
+
+                return true;
+            }
+
+            return false;
+        }
          
+        private void EnableDisableButton()
+        {
+            if (!IsValid())
+            {
+                UpdateButton.Disabled = true;
+            }
+            else
+            {
+                UpdateButton.Disabled = false;
+            }
         }
     }
 }

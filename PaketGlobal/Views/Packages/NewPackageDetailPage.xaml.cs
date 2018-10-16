@@ -333,6 +333,8 @@ namespace PaketGlobal
 
                 if (ViewModel.CourierPubkey == null)
                 {
+                    PaymentMainStackView.IsVisible = false;
+
                     WaitingStackView.IsVisible = true;
                     WaitingAssignLabel.IsVisible = true;
                     WaitingAssignLabel.Text = AppResources.WaitingCourierAssign;
@@ -368,6 +370,15 @@ namespace PaketGlobal
 
                     RecipientPhoneButton.IsVisible = true;
                     RecipientContactLabel.Text = ViewModel.RecipientContact;
+
+                    if(ViewModel.Status == "in transit")
+                    {
+                        BarcodeInfoLabel.Text = AppResources.WaitingRecipientScan;
+                    }
+                    else if (ViewModel.Status == "delivered")
+                    {
+                        PaymentMainStackView.IsVisible = false;
+                    }
                 }
             }
             else if (ViewModel.MyRole == PaketRole.Recipient)
@@ -382,6 +393,8 @@ namespace PaketGlobal
                     WaitingStackView.IsVisible = true;
                     WaitingAssignLabel.IsVisible = true;
                     WaitingAssignLabel.Text = AppResources.WaitingAssignCourierToPackage;
+                    WaitingAssignLabel.HorizontalTextAlignment = TextAlignment.Center;
+                    WaitingAssignLabel.VerticalTextAlignment = TextAlignment.Center;
                     DepositButton.IsVisible = true;
 
                     DepositButton.IsEnabled = false;
@@ -416,6 +429,15 @@ namespace PaketGlobal
                     WaitingStackView.IsVisible = false;
 
                     BarcodeImage.IsVisible = true;
+
+                    if(ViewModel.IsAcceptedPackageFromCourier)
+                    {
+                        BarcodeImage.IsVisible = false;
+                        PaymentMainStackView.IsVisible = false;
+                    }
+                    else{
+                        BarcodeInfoLabel.Text = AppResources.WaitingCourierScan; 
+                    }
                 }
             }
 

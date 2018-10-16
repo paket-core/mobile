@@ -297,9 +297,10 @@
                                         </StackLayout>
                                     </local:PaketFrame>
                                 </Frame>
-                                <Frame x:Name="UsersFrame" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White">
-                                    <local:PaketFrame x:Name="UsersSubFrame" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5">
-                                        <StackLayout x:Name="UsersMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0">
+                                <Frame x:Name="UsersFrame" Padding="0" CornerRadius="0" HasShadow="false" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <local:PaketFrame x:Name="UsersSubFrame" Padding="0,20,0,20" CornerRadius="0" HasShadow="false" TopCorners="20" BackgroundColor="#F5F5F5"
+                                                      HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <StackLayout x:Name="UsersMainStackView" BackgroundColor="Transparent" Spacing="15" Padding="0,0,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                             <StackLayout x:Name="UsersTopStackView" BackgroundColor="Transparent" Orientation="Horizontal" Padding="20,0,25,0">
                                                 <Label TextColor="Black" Text="{local:Translate USERS}" HorizontalOptions="Start" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                                 <Image x:Name="UsersArrow" IsVisible="true" Opacity="1" Source="dropdown_arrow_top.png" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>

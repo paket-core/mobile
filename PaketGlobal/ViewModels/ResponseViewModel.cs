@@ -37,10 +37,20 @@ namespace PaketGlobal
     }
 
     [DataContract]
+    public class Callsign 
+    {
+        [DataMember(Name = "call_sign")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "pubkey")]
+        public string Pubkey { get; set; }
+    }
+
+        [DataContract]
     public class CallsignsData : BaseData
     {
         [DataMember(Name = "callsigns")]
-        public List<string> Callsigns { get; set; }
+        public List<Callsign> Callsigns { get; set; }
     }
     //
 
@@ -538,7 +548,18 @@ namespace PaketGlobal
             }
         }
 
-		///[DataMember(Name = "courier_pubkey")]
+        public bool IsAcceptedPackageFromCourier
+        {
+            get{
+                if (Status == "in transit")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public string CourierPubkey
         {
             get{
@@ -563,14 +584,19 @@ namespace PaketGlobal
             get{
                 if (!App.Locator.LocationHelper.lat.Equals(0.0))
                 {
-                    var helper = new MapHelper();
+                    try{
+                        var helper = new MapHelper();
 
-                    double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
-                    double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+                        double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                        double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                    double distance = helper.distance(from_lat, from_lng, App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng);
+                        double distance = helper.distance(from_lat, from_lng, App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng);
 
-                    return String.Format("{0:0.00} KM", distance);
+                        return String.Format("{0:0.00} KM", distance);
+                    }
+                    catch{
+                        return "0 KM";
+                    }
                 }
 
                 return "0 KM"; 
@@ -586,17 +612,22 @@ namespace PaketGlobal
                     return "0 KM";
                 }
 
-                var helper = new MapHelper();
+                try{
+                    var helper = new MapHelper();
 
-				double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
-				double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-				double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
-				double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+                    double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                double distance = helper.distance(from_lat, from_lng, to_lat, to_lng);
+                    double distance = helper.distance(from_lat, from_lng, to_lat, to_lng);
 
-                return String.Format("{0:0.00} KM", distance);
+                    return String.Format("{0:0.00} KM", distance);
+                }
+                catch{
+                    return "0 KM";
+                }
             }
         }
 
@@ -634,27 +665,37 @@ namespace PaketGlobal
         {
             get
             {
-                var helper = new MapHelper();
+                try{
+                    var helper = new MapHelper();
 
-                double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
-                double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+                    double to_lat = Convert.ToDouble(toLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double to_lng = Convert.ToDouble(toLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s = helper.GetStaticMapUri(to_lat, to_lng, 18, 280, 280);
+                    var s = helper.GetStaticMapUri(to_lat, to_lng, 18, 280, 280);
 
-                return s;
+                    return s;
+                }
+                catch{
+                    return null;
+                }
             }
         }
 
         public string FromImage{
             get{
-                var helper = new MapHelper();
+                try{
+                    var helper = new MapHelper();
 
-                double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
-                double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lat = Convert.ToDouble(fromLocationGPS.Split(',')[0], System.Globalization.CultureInfo.InvariantCulture);
+                    double from_lng = Convert.ToDouble(fromLocationGPS.Split(',')[1], System.Globalization.CultureInfo.InvariantCulture);
 
-                var s =  helper.GetStaticMapUri(from_lat, from_lng, 18, 280, 280);
+                    var s = helper.GetStaticMapUri(from_lat, from_lng, 18, 280, 280);
 
-                return s;
+                    return s;
+                }
+                catch{
+                    return null;
+                }
             }
         }
 
@@ -682,7 +723,6 @@ namespace PaketGlobal
                 }
                
                 return HttpUtility.UrlDecode(fromLocationAddress);
-                //return fromLocationAddress;
             }
             set
             {
@@ -792,7 +832,13 @@ namespace PaketGlobal
             {
                 if (status != value)
                 {
-                    status = value;
+                    if(string.IsNullOrEmpty(value))
+                    {
+                        status = "waiting pickup";
+                    }
+                    else{
+                        status = value;
+                    }
                     OnPropertyChanged("Status");
                     OnPropertyChanged("StatusIconWithText");
                     OnPropertyChanged("ProgressIcon");
@@ -872,12 +918,24 @@ namespace PaketGlobal
 		}
 
 		public DateTime DeadlineDT {
-            get { return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime(); }
+            get { 
+                try{
+                    return DateTimeHelper.FromUnixTime(Deadline).ToLocalTime();
+                }
+                catch{
+                    return DateTime.Now;
+                }
+            }
 		}
 
 		public DateTime SendTimeDT {
             get{
-                return DateTime.Parse(SendTimestamp);
+                try{
+                    return DateTime.Parse(SendTimestamp);
+                }
+                catch{
+                    return DateTime.Now;
+                }
             }
 		}
 
@@ -896,15 +954,28 @@ namespace PaketGlobal
 
 		public string DeadlineString {
 			get { 
-                if(DeadlineDT.Year==1970) {
+                try{
+                    if (DeadlineDT.Year == 1970)
+                    {
+                        return "";
+                    }
+                    return DeadlineDT.ToString("dd.MM.yyyy");
+                }
+                catch{
                     return "";
                 }
-                return DeadlineDT.ToString("dd.MM.yyyy");
             }
 		}
 
 		public string SendTimeString {
-			get { return SendTimeDT.ToString("dd.MM.yyyy"); }
+			get { 
+                try{
+                    return SendTimeDT.ToString("dd.MM.yyyy");
+                }
+                catch{
+                    return "";
+                }
+            }
 		}
 
         public string StatusIconWithText

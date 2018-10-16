@@ -20,9 +20,11 @@ namespace PaketGlobal
                 titleLabel.TranslationY = 30;
             }
 #endif
+
+            verifyButton.Disabled = false;
         }
 
-		protected async override void OnAppearing()
+        protected async override void OnAppearing()
 		{
 			var fl = firstLoad;
 

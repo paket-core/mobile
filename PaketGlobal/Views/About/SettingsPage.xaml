@@ -36,15 +36,15 @@
                           <StackLayout Spacing="10">
                             <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Bridge Server" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="BridgeEntry" Placeholder="Bridge Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="BridgeEntry" Placeholder="Bridge Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                             <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Fund Server" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="FundEntry" Placeholder="Fund Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="FundEntry" Placeholder="Fund Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                             <StackLayout Spacing="0">
                               <Label TextColor="#A7A7A7" Text="Route Server" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10" />
-                              <local:PaketEntry x:Name="RouteEntry" Placeholder="Route Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
+                              <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="RouteEntry" Placeholder="Route Server" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}" />
                            </StackLayout>
                             <StackLayout Padding="0,30,0,30">
                                 <local:PaketButton WidthRequest="280" VerticalOptions="Center" HorizontalOptions="Center" x:Name="UpdateButton" Text="{local:Translate Save}" Clicked="SaveClicked" ButtonBackground="#4D64E8" />

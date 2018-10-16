@@ -33,9 +33,14 @@ namespace PaketGlobal
 
             if (Application.Current.Properties.ContainsKey(Constants.CALL_SIGNS_BOOK))
             {
-                Application.Current.Properties.TryGetValue(Constants.CALL_SIGNS_BOOK, out fromStorage);
+                try{
+                    Application.Current.Properties.TryGetValue(Constants.CALL_SIGNS_BOOK, out fromStorage);
 
-                items = JsonConvert.DeserializeObject<List<string>>(fromStorage as string);
+                    items = JsonConvert.DeserializeObject<List<string>>(fromStorage as string);
+                }
+                catch{
+                    return items;
+                }
             }
 
             return items;
@@ -49,9 +54,17 @@ namespace PaketGlobal
             {
                 if (result.Callsigns != null)
                 {
-                    AddressBookHelper.CallSigns = result.Callsigns;
+                    List<string> names = new List<string>();
+                    foreach (Callsign sign in result.Callsigns)
+                    {
+                        if(!string.IsNullOrEmpty(sign.Name))
+                        {
+                            names.Add(sign.Name);
+                        }
+                    }
+                    AddressBookHelper.CallSigns = names;
 
-                    var jsonValueToSave = JsonConvert.SerializeObject(result.Callsigns);
+                    var jsonValueToSave = JsonConvert.SerializeObject(names);
 
                     Application.Current.Properties[Constants.CALL_SIGNS_BOOK] = jsonValueToSave;
 
