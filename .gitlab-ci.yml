@@ -26,6 +26,7 @@ job:
   - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:AndroidBuildApplicationPackage=true /p:BuildProjectReferences=false /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:build /verbosity:quiet "%PROJECT_NAME%.sln"'
   #after_script:
   #- 'rd "%CI_PROJECT_DIR%"'
+
   
   artifacts:
     expire_in: 1 week
