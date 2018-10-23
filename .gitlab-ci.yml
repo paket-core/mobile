@@ -27,6 +27,8 @@ job:
   #after_script:
   #- 'rd "%CI_PROJECT_DIR%"'
 
+
+
   
   artifacts:
     expire_in: 1 week
