@@ -37,6 +37,8 @@ job:
     paths:
     - 'Droid/bin/Release/*.apk'
   tags:
-    - Android, Xamarin, Windows
+    - Android
+    - Xamarin
+    - Windows
   only:
     - tags
