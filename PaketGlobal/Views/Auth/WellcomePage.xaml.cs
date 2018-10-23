@@ -10,6 +10,11 @@ namespace PaketGlobal
         public WellcomePage()
         {
             InitializeComponent();
+
+#if __IOS__
+            SettingsButton.TranslationY = 20;
+#endif
+
         }
 
         protected async override void OnAppearing()

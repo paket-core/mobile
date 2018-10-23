@@ -89,6 +89,23 @@ namespace PaketGlobal.iOS
             }
         }
 
+        public void ShowPackageStringNotification(string title, string body, Action<string> action)
+        {
+            if (IsShow() == false)
+            {
+                callback = action;
+
+                var application = UIApplication.SharedApplication.Delegate as AppDelegate;
+
+                var bannerView = BannerView.View();
+                bannerView.SetPackageString(title, DidClickBanner);
+                bannerView.Show();
+                application.Window.AddSubview(bannerView);
+
+                CurrentPackageId = "";
+            }
+        }
+
         public void ShowPackageNotification(Package package, Action<string> action)
         {
             if (IsShow() == false)

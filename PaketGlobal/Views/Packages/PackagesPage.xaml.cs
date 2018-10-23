@@ -127,6 +127,23 @@ namespace PaketGlobal
                 SegmentView.SelectIndex(0);
             });
 
+
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.REFRESH_PACKAGES, async (sender, arg) =>
+            {
+                if (Mode == PackagesMode.All)
+                {
+                    AllClicked(SegmentView, EventArgs.Empty);
+                    SegmentView.SelectIndex(0);
+                    UpdatePackages();
+                }
+                else
+                {
+                    AllClicked(SegmentView, EventArgs.Empty);
+                    SegmentView.SelectIndex(0);
+                }
+           
+            });
+
         }
 
         protected async override void OnAppearing()
@@ -148,6 +165,9 @@ namespace PaketGlobal
                 await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
                 App.Locator.EventService.StartUseEvent();            
+            }
+            else{
+                UpdatePackages();
             }
 
             App.Locator.DeviceService.setStausBarLight();
@@ -191,6 +211,16 @@ namespace PaketGlobal
             //}
 
             //RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
+        }
+
+        private async void UpdatePackages()
+        {
+            await ViewModel.Load();
+
+            if (ViewModel.PackagesList.Count == 0)
+            {
+                ViewModel.PackagesList.Add(new NotFoundPackage());
+            }
         }
 
         private async Task LoadPackages()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -127,7 +128,27 @@ namespace PaketGlobal
 			}
 		}
 
-		private async System.Threading.Tasks.Task Refresh()
+        private async void SendEvent(long oldBalance, long newBalance, string currency)
+        {
+            try{
+                var kwargs = new WalletKwargs();
+                kwargs.old_balance = Convert.ToString(oldBalance);
+                kwargs.new_balance = Convert.ToString(newBalance);
+                kwargs.currency = currency;
+
+                var json = JsonConvert.SerializeObject(kwargs);
+
+                var result = await App.Locator.RouteServiceClient.AddEvent(Constants.BALANCE_CHANGED, json);
+
+                Console.WriteLine(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private async System.Threading.Tasks.Task Refresh()
 		{
 			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 
@@ -138,14 +159,23 @@ namespace PaketGlobal
 					Balance = bal;
 				}
 
-				if (bal.Account.BalanceBUL != Balance.Account.BalanceBUL) {
-					if (enabled) {
-						Device.BeginInvokeOnMainThread(() => {
-							App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details", DidClickNotification);
+                if (bal.Account.BalanceXLM != Balance.Account.BalanceXLM)
+                {
+                    SendEvent(Balance.Account.BalanceBUL, bal.Account.BalanceBUL, "XLM");
+                }
 
-						});
-					}
-				}
+                if (bal.Account.BalanceBUL != Balance.Account.BalanceBUL)
+                {
+                    SendEvent(Balance.Account.BalanceBUL, bal.Account.BalanceBUL, "BUL");
+
+                    if (enabled)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                            App.Locator.NotificationService.ShowWalletNotification("Your balance has been changed", "Please check your Wallet page\nfor more details", DidClickNotification);
+
+                        });
+                    }
+                }
 
 				Balance = bal;
 			}

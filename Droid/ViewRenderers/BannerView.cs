@@ -120,7 +120,28 @@ namespace PaketGlobal.Droid
                 DisplayBanner(title, subtitle, "color_wallet.png");
             }
         }
-     
+
+        public void ShowStringPackage(string title, string body)
+        {
+            if (!isShowing)
+            {
+                isShowing = true;
+
+                var icon = "delivered_icon.png";
+
+                if(title.ToLower().Contains("waiting"))
+                {
+                    icon = "waiting_pickup.png";
+                }
+                else if (title.ToLower().Contains("transit"))
+                {
+                    icon = "in_transit.png";
+                }
+
+                DisplayBanner(title, body, icon);
+            }
+        }
+
         public void ShowPackage(List<Package> packages)
         {
             if (!isShowing)

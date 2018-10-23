@@ -14,6 +14,20 @@ namespace PaketGlobal.Droid
     {
         private bool isNeedAlertDialogToClose = false;
         private bool isNeedAlertDialogToCloseLaunchPackage = false;
+        private string token = null;
+
+        public string FCMToken
+        {
+            get
+            {
+                return token;
+            }
+            set
+            {
+                token = value;
+            }
+        }
+   
 
         public bool IsNeedAlertDialogToClose { 
             get{

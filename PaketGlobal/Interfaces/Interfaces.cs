@@ -36,7 +36,8 @@ namespace PaketGlobal
 		void ShowMessage(string text, bool lengthLong = false);
         void ShowPackageNotification(Package package, Action<string> callback);
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);
-	}
+        void ShowPackageStringNotification(string title, string body, Action<string> callback);
+    }
 
 
     public interface IClipboardService
@@ -47,6 +48,8 @@ namespace PaketGlobal
 
     public interface IDeviceService
     {
+        string FCMToken { get; set; }
+
         bool IsIphoneX();
         bool IsIphonePlus();
 

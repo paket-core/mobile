@@ -133,19 +133,24 @@ namespace PaketGlobal
 
             //Task.Run(async () => { await DownloadConfig(); }).Wait();
 
-             if (Application.Current.Properties.ContainsKey(Config.BridgeService))
-            {
-                object bridgeService;
-                object fundService;
-                object routeService;
+            try{
+                if (Application.Current.Properties.ContainsKey(Config.BridgeService))
+                {
+                    object bridgeService;
+                    object fundService;
+                    object routeService;
 
-                Application.Current.Properties.TryGetValue(Config.BridgeService, out bridgeService);
-                Application.Current.Properties.TryGetValue(Config.IdentityService, out fundService);
-                Application.Current.Properties.TryGetValue(Config.RouteService, out routeService);
+                    Application.Current.Properties.TryGetValue(Config.BridgeService, out bridgeService);
+                    Application.Current.Properties.TryGetValue(Config.IdentityService, out fundService);
+                    Application.Current.Properties.TryGetValue(Config.RouteService, out routeService);
 
-                Config.BridgeServerUrl = (bridgeService as string);
-                Config.IdentityServerUrl = (fundService as string);
-                Config.RouteServerUrl = (routeService as string);
+                    Config.BridgeServerUrl = (bridgeService as string);
+                    Config.IdentityServerUrl = (fundService as string);
+                    Config.RouteServerUrl = (routeService as string);
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
             }
 
             // Models

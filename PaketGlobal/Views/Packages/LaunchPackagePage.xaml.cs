@@ -364,7 +364,6 @@ namespace PaketGlobal
                 input.CopyTo(ms);
                 return ms.ToArray();
             }
-
         }
 
         private async void CreateClicked(object sender, System.EventArgs e)

@@ -101,18 +101,20 @@ namespace PaketGlobal
 
         private void CreateTimer()
         {
-            if(timer==null)
-            {
-                timer = new System.Timers.Timer();
-                //Execute the function every 10 seconds.
-                timer.Interval = 10000;
-                //Don't start automaticly the timer.
-                timer.AutoReset = false;
-                //Attach a function to handle.
-                timer.Elapsed += async (sender, e) => await Refresh();
-                //Start timer.
-                timer.Start();
-            }
+            //REMOVE - WE USE PUSH NOTIFICATIONS
+
+            //if(timer==null)
+            //{
+            //    timer = new System.Timers.Timer();
+            //    //Execute the function every 10 seconds.
+            //    timer.Interval = 10000;
+            //    //Don't start automaticly the timer.
+            //    timer.AutoReset = false;
+            //    //Attach a function to handle.
+            //    timer.Elapsed += async (sender, e) => await Refresh();
+            //    //Start timer.
+            //    timer.Start();
+            //}
         }
 
 

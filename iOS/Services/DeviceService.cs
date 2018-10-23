@@ -11,6 +11,20 @@ namespace PaketGlobal.iOS
         private bool isNeedAlertDialogToClose = false;
         private bool isNeedAlertDialogToCloseLaunchPackage = false;
 
+        private string token = null;
+
+        public string FCMToken
+        {
+            get
+            {
+                return token;
+            }
+            set
+            {
+                token = value;
+            }
+        }
+
         public bool IsNeedAlertDialogToClose
         {
             get
@@ -36,7 +50,7 @@ namespace PaketGlobal.iOS
         }
 
         public bool IsIphoneX() {
-            return UIScreen.MainScreen.Bounds.Size.Height == 812;
+            return UIScreen.MainScreen.Bounds.Size.Height >= 812;
         }
 
         public bool IsIphonePlus()

@@ -19,6 +19,17 @@ namespace PaketGlobal
         public Kwargs escrow_xdrs;
     }
 
+    public class WalletKwargs
+    {
+        public WalletKwargs()
+        {
+
+        }
+        public string old_balance = "";
+        public string new_balance = "";
+        public string currency = "";
+    }
+
     public class Kwargs
     {
         public Kwargs()
@@ -156,7 +167,7 @@ namespace PaketGlobal
             return await SendRequest<TrustData>(request, pubkey);
         }
 
-        public async Task<AddEventData> AddEvent(string eventType)
+        public async Task<AddEventData> AddEvent(string eventType, string kwargs = null)
         {
             if(App.Locator.Profile.Pubkey==null)
             {
@@ -191,6 +202,11 @@ namespace PaketGlobal
             if (location != null)
             {
                 request.AddParameter("location", location);
+            }
+
+            if(kwargs!=null)
+            {
+                request.AddParameter("kwargs", kwargs);
             }
 
             return await SendRequest<AddEventData>(request);
@@ -294,9 +310,31 @@ namespace PaketGlobal
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}
 
-		#endregion Wallet
 
-		#region Packages
+        public async Task<BaseData> SendFCM(string fromPubkey)
+        {
+            var request = PrepareRequest("/action", Method.POST);
+
+            request.AddParameter("pubkey", fromPubkey);
+
+            return await SendRequest<BaseData>(request);
+        }
+
+        public async Task<BaseData> RegisterFCM(string fromPubkey, string fcmToken)
+        {
+            var request = PrepareRequest(apiVersion + "/set_notification_token", Method.POST);
+
+            if(fromPubkey != null && App.Locator.Profile.Activated && fcmToken!=null)
+            {
+                request.AddParameter("notification_token", fcmToken);
+            }
+          
+            return await SendRequest<BaseData>(request);
+        }
+
+        #endregion Wallet
+
+        #region Packages
 
         public async Task<AcceptPackageData> AssignPackage(string escrowPubkey, string location)
         {

@@ -18,6 +18,8 @@ namespace PaketGlobal
 
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "app used";
+        public const string REFRESH_PACKAGES = "refresh packages";
+        public const string BALANCE_CHANGED = "balance changed";
 
         public const string PACKAGE_ASSIGN = "PackageAssign";
 
@@ -35,6 +37,7 @@ namespace PaketGlobal
         public const string TELEGRAM_URL = "https://t.me/joinchat/G9T-tkXBHHNnpQ8oYFGSvw";
         public const string TWITTER_URL = "https://twitter.com/PaketProtocol";
 
+        public const string FCM_TOKEN = "FCM_TOKEN";
 
     }
 }

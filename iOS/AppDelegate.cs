@@ -12,11 +12,16 @@ using ProgressRingControl.Forms.Plugin.iOS;
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using UserNotifications;
+
+using Firebase.InstanceID;
+using Firebase.Core;
+using Firebase.CloudMessaging;
 
 namespace PaketGlobal.iOS
 {
     [Register("AppDelegate")]
-    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
+    public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate, IUNUserNotificationCenterDelegate, IMessagingDelegate
     {
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
@@ -59,6 +64,8 @@ namespace PaketGlobal.iOS
 
                 uiApplication.RegisterUserNotificationSettings(notificationSettings);
             }
+
+            RegisterRemoteNotifications();
 
             return base.FinishedLaunching(uiApplication, launchOptions);
         }
@@ -244,6 +251,133 @@ namespace PaketGlobal.iOS
 
             // schedule it
             application.ScheduleLocalNotification(notification);
+        }
+
+        private void RegisterRemoteNotifications()
+        {
+            Firebase.Core.App.Configure();
+
+            // get permission for notification
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                // iOS 10
+                var authOptions = UNAuthorizationOptions.Alert | UNAuthorizationOptions.Badge | UNAuthorizationOptions.Sound;
+                UNUserNotificationCenter.Current.RequestAuthorization(authOptions, (granted, error) =>
+                {
+                    Console.WriteLine(granted);
+                });
+
+                // For iOS 10 display notification (sent via APNS)
+                UNUserNotificationCenter.Current.Delegate = this;
+            }
+            else
+            {
+                // iOS 9 <=
+                var allNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound;
+                var settings = UIUserNotificationSettings.GetSettingsForTypes(allNotificationTypes, null);
+                UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
+            }
+
+            UIApplication.SharedApplication.RegisterForRemoteNotifications();
+
+            Messaging.SharedInstance.Delegate = this;  
+            Messaging.SharedInstance.ShouldEstablishDirectChannel = true;
+
+            App.Locator.DeviceService.FCMToken = Messaging.SharedInstance.FcmToken;
+        }
+
+        [Export("application:didRegisterUserNotificationSettings:")]
+        public override void DidRegisterUserNotificationSettings(UIApplication application, UIUserNotificationSettings notificationSettings)
+        {
+            Console.WriteLine("didRegisterUserNotificationSettings");
+        }
+
+        [Export("application:didRegisterForRemoteNotificationsWithDeviceToken:")]
+        public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+        {
+            Console.WriteLine("RegisteredForRemoteNotifications");
+            Messaging.SharedInstance.ApnsToken = deviceToken;
+            App.Locator.DeviceService.FCMToken = Messaging.SharedInstance.FcmToken;
+        }
+
+        [Export("application:didFailToRegisterForRemoteNotificationsWithError:")]
+        public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+        {
+            Console.WriteLine("FailedToRegisterForRemoteNotifications");
+        }
+
+        [Export("messaging:didReceiveRegistrationToken:")]
+        public void DidReceiveRegistrationToken(Messaging messaging, string fcmToken)
+        {
+            App.Locator.DeviceService.FCMToken = fcmToken;
+
+            if (App.Locator.Profile.Activated)
+            {
+                App.Locator.IdentityServiceClient.RegisterFCM(App.Locator.Profile.Pubkey, fcmToken);
+            }
+
+            Console.WriteLine(fcmToken);       
+        }
+
+  
+
+        [Export("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:")]
+        public void DidReceiveNotificationResponse(UNUserNotificationCenter center, UNNotificationResponse response, Action completionHandler)
+        {
+            Console.WriteLine("DidReceiveNotificationResponse");
+        }
+
+        [Export("application:didReceiveRemoteNotification:fetchCompletionHandler:")]
+        public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+        {
+            HandleMessage(userInfo);
+            completionHandler(UIBackgroundFetchResult.NewData);
+        }
+
+        [Export("messaging:didReceiveMessage:")]
+        public void DidReceiveMessage(Messaging messaging, RemoteMessage remoteMessage)
+        {
+            // Handle Data messages for iOS 10 and above.
+            HandleMessage(remoteMessage.AppData);
+        }
+
+        private void DidClickNotification(string obj)
+        {
+            if (obj == null)
+            {
+                obj = "";
+            }
+            Xamarin.Forms.MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.CLICK_PACKAGE_NOTIFICATION, obj);
+        }
+
+        void HandleMessage(NSDictionary message)
+        {
+            Console.WriteLine(message);
+
+            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
+            {
+                Xamarin.Forms.MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.REFRESH_PACKAGES, "");
+            });
+
+            try
+            {
+                var aps = message.ObjectForKey(new NSString("aps")) as NSDictionary;
+                var alert = aps.ObjectForKey(new NSString("alert")) as NSDictionary;
+                var title = alert.ObjectForKey(new NSString("title")) as NSString;
+                var body = alert.ObjectForKey(new NSString("body")) as NSString;
+                App.Locator.NotificationService.ShowPackageStringNotification(title.ToString(), body.ToString(), DidClickNotification);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public static void ShowMessage(string title, string message, UIViewController fromViewController, Action actionForOk = null)
+        {
+            var alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+            alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) => actionForOk?.Invoke()));
+            fromViewController.PresentViewController(alert, true, null);
         }
 
     }

@@ -30,6 +30,10 @@ using Android.Support.Design.Widget;
 using Plugin.Permissions;
 using Xamarin.Forms.GoogleMaps.Android;
 
+using Android.Gms.Common;
+using Firebase.Iid;
+using Android.Util;
+
 namespace PaketGlobal.Droid
 {
     [Activity(Label = "DeliverIt", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", Theme = "@style/MyTheme.Base", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -44,6 +48,10 @@ namespace PaketGlobal.Droid
 
     public class MainActivity : FormsAppCompatActivity
     {
+        static readonly string TAG = "MainActivity";
+        internal static readonly string CHANNEL_ID = "my_notification_channel";
+        internal static readonly int NOTIFICATION_ID = 100;
+
         internal static MainActivity Instance { get; private set; }
 
         private Dialog progressDialog;
@@ -55,20 +63,21 @@ namespace PaketGlobal.Droid
         private Intent PackageServiceIntent;
 
         public static bool IsStoppedServices = false;
+        public static bool IsActive = false;
 
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            
+
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             Xamarin.FormsMaps.Init(this, bundle);
-			Xamarin.FormsGoogleMaps.Init(this, bundle, null); 
+            Xamarin.FormsGoogleMaps.Init(this, bundle, null);
             Stormlion.PhotoBrowser.Droid.Platform.Init(this);
             Vapolia.Droid.Lib.Effects.PlatformGestureEffect.Init();
-                                 
+
             Countly.SharedInstance().Init(this, Config.CountlyServerURL, Config.CountlyAppKey).EnableCrashReporting();
             //Countly.SharedInstance().SetLoggingEnabled(true);
 
@@ -85,7 +94,7 @@ namespace PaketGlobal.Droid
 
             LoadApplication(new App());
 
-			UserDialogs.Init(this);
+            UserDialogs.Init(this);
 
             CrossCurrentActivity.Current.Init(this, bundle);
             CrossCurrentActivity.Current.Activity = this;
@@ -110,12 +119,48 @@ namespace PaketGlobal.Droid
                 }
             }
 
-            StartPackageService();
+            //StartPackageService();
+
+            IsPlayServicesAvailable();
+            CreateNotificationChannel();
+
+            var refreshedToken = FirebaseInstanceId.Instance.Token;
+            if(refreshedToken!=null)
+            {
+                App.Locator.DeviceService.FCMToken = refreshedToken;
+
+                SendRegistrationToServer(refreshedToken);
+            }
+        }
+
+        internal static async void SendRegistrationToServer(string token)
+        {
+            if (App.Locator.Profile.Activated)
+            {
+                var result = await App.Locator.IdentityServiceClient.RegisterFCM(App.Locator.Profile.Pubkey, token);
+                Console.WriteLine(result);
+            }
+        }
+
+        protected override void OnRestart()
+        {
+            base.OnRestart();
+
+            MainActivity.IsActive = true;
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            MainActivity.IsActive = true;
         }
 
         protected override void OnStart()
         {
             base.OnStart();
+
+            MainActivity.IsActive = true;
 
             PackageService.IsNeedRequestPackages = false;
             EventService.IsNeedSendEvents = true;
@@ -125,6 +170,8 @@ namespace PaketGlobal.Droid
 
         protected override void OnStop()
         {
+            MainActivity.IsActive = false;
+
             Countly.SharedInstance().OnStop();
 
             PackageService.IsNeedRequestPackages = true;
@@ -135,6 +182,8 @@ namespace PaketGlobal.Droid
 
         protected override void OnDestroy()
         {
+            MainActivity.IsActive = false;
+
             PackageService.IsNeedRequestPackages = true;
             EventService.IsNeedSendEvents = false;
 
@@ -143,9 +192,10 @@ namespace PaketGlobal.Droid
 
         public override void OnBackPressed()
         {
-            if(App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage)
+            if (App.Locator.DeviceService.IsNeedAlertDialogToCloseLaunchPackage)
             {
-                EventHandler handler = (se, ee) => {
+                EventHandler handler = (se, ee) =>
+                {
                     if (ee != null)
                     {
                         base.OnBackPressed();
@@ -154,15 +204,17 @@ namespace PaketGlobal.Droid
 
                 App.Locator.NotificationService.ShowErrorMessage(AppResources.LaunchLeaveMessage, false, handler, AppResources.Leave, AppResources.Cancel);
             }
-            else if(App.Locator.DeviceService.IsNeedAlertDialogToClose)
+            else if (App.Locator.DeviceService.IsNeedAlertDialogToClose)
             {
                 var builder = new AlertDialog.Builder(this);
                 builder.SetTitle("PaketGlobal");
                 builder.SetMessage("Do you really want to exit?");
-                builder.SetPositiveButton("Yes", (senderAlert, args) => {
+                builder.SetPositiveButton("Yes", (senderAlert, args) =>
+                {
                     this.FinishAffinity();
                 });
-                builder.SetNegativeButton("Cancel", (senderAlert, args) => {
+                builder.SetNegativeButton("Cancel", (senderAlert, args) =>
+                {
                 });
 
                 // Keep what runs on the UI thread to a minimum
@@ -183,7 +235,8 @@ namespace PaketGlobal.Droid
                     }
                 });
             }
-            else{
+            else
+            {
                 base.OnBackPressed();
             }
         }
@@ -193,12 +246,12 @@ namespace PaketGlobal.Droid
             base.OnActivityResult(requestCode, resultCode, data);
         }
 
-		public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-		{
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);         
-		}
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
 
 
         private void InitializeUIAsync()         {
@@ -211,107 +264,122 @@ namespace PaketGlobal.Droid
         {
             if (!SimpleIoc.Default.IsRegistered<INotificationService>())
             {
-                SimpleIoc.Default.Register<INotificationService>(() => {
+                SimpleIoc.Default.Register<INotificationService>(() =>
+                {
                     return new NotificationService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<IAppInfoService>())
             {
-                SimpleIoc.Default.Register<IAppInfoService>(() => {
+                SimpleIoc.Default.Register<IAppInfoService>(() =>
+                {
                     return new AppInfoService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<IAccountService>())
             {
-                SimpleIoc.Default.Register<IAccountService>(() => {
+                SimpleIoc.Default.Register<IAccountService>(() =>
+                {
                     return new AccountService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<IClipboardService>())
             {
-                SimpleIoc.Default.Register<IClipboardService>(() => {
+                SimpleIoc.Default.Register<IClipboardService>(() =>
+                {
                     return new ClipboardService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<IDeviceService>())
             {
-                SimpleIoc.Default.Register<IDeviceService>(() => {
+                SimpleIoc.Default.Register<IDeviceService>(() =>
+                {
                     return new DeviceService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<ILocationSharedService>())
             {
-                SimpleIoc.Default.Register<ILocationSharedService>(() => {
+                SimpleIoc.Default.Register<ILocationSharedService>(() =>
+                {
                     return new LocationSharedService();
                 });
             }
 
             if (!SimpleIoc.Default.IsRegistered<IEventSharedService>())
             {
-                SimpleIoc.Default.Register<IEventSharedService>(() => {
+                SimpleIoc.Default.Register<IEventSharedService>(() =>
+                {
                     return new EventSharedService();
                 });
             }
-		}
+        }
 
         #region ProgressBar
 
         public void ShowProgressDialog()
         {
-			if (progressDialog == null) {
-				progressDialog = new Dialog(this);
-				progressDialog.SetCancelable(false);
+            if (progressDialog == null)
+            {
+                progressDialog = new Dialog(this);
+                progressDialog.SetCancelable(false);
 
-				progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
-				progressDialog.SetContentView(Resource.Layout.progress_layout);
+                progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+                progressDialog.SetContentView(Resource.Layout.progress_layout);
 
-				circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
-				circularbar.Max = 100;
-				circularbar.Progress = 0;
-				circularbar.SecondaryProgress = 100;
+                circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
+                circularbar.Max = 100;
+                circularbar.Progress = 0;
+                circularbar.SecondaryProgress = 100;
 
-				progressStatus = 0;
-				progressStatus1 = 0;
+                progressStatus = 0;
+                progressStatus1 = 0;
 
-				progressThread = new System.Threading.Thread(new ThreadStart(delegate {
-					while (progressStatus < 100) {
-						progressStatus += 1;
-						progressStatus1 += 1;
-						circularbar.Progress = progressStatus1;
-						if (progressStatus == 99) {
-							progressStatus = 0;
-							progressStatus1 = 0;
-						}
-						System.Threading.Thread.Sleep(3);
-					}
-				}));
-				progressThread.Start();
-			}
+                progressThread = new System.Threading.Thread(new ThreadStart(delegate
+                {
+                    while (progressStatus < 100)
+                    {
+                        progressStatus += 1;
+                        progressStatus1 += 1;
+                        circularbar.Progress = progressStatus1;
+                        if (progressStatus == 99)
+                        {
+                            progressStatus = 0;
+                            progressStatus1 = 0;
+                        }
+                        System.Threading.Thread.Sleep(3);
+                    }
+                }));
+                progressThread.Start();
+            }
 
-			progressDialog.Show();
+            progressDialog.Show();
         }
 
-		public void HideProgressDialog()
-		{
-			if (progressDialog != null) {
-				try {
-					progressStatus = 101;
+        public void HideProgressDialog()
+        {
+            if (progressDialog != null)
+            {
+                try
+                {
+                    progressStatus = 101;
 
-					progressDialog.Dismiss();
-					progressThread.Abort();
+                    progressDialog.Dismiss();
+                    progressThread.Abort();
 
-					progressThread = null;
-					progressDialog = null;
-				} catch (Exception ex) {
-					Console.WriteLine(ex);
-				}
-			}
-		}
+                    progressThread = null;
+                    progressDialog = null;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
 
         #endregion
 
@@ -319,23 +387,21 @@ namespace PaketGlobal.Droid
 
         public void StartPackageService()
         {
-            if (PackageServiceIntent == null)
-            {
-                PackageServiceIntent = new Intent(this, typeof(PackageService));
-                Android.App.Application.Context.StartService(PackageServiceIntent);
-            }
+            //if (PackageServiceIntent == null)
+            //{
+            //    PackageServiceIntent = new Intent(this, typeof(PackageService));
+            //    Android.App.Application.Context.StartService(PackageServiceIntent);
+            //}
 
         }
 
         public void StopPackageService()
         {
-            if (PackageServiceIntent != null && !IsStoppedServices)
-            {
-
-
-                Android.App.Application.Context.StopService(PackageServiceIntent);
-                PackageServiceIntent = null;
-            }
+            //if (PackageServiceIntent != null && !IsStoppedServices)
+            //{
+            //    Android.App.Application.Context.StopService(PackageServiceIntent);
+            //    PackageServiceIntent = null;
+            //}
         }
 
         #endregion
@@ -344,21 +410,20 @@ namespace PaketGlobal.Droid
 
         public void StartEventsService()
         {
-            if(EventServiceIntent==null && !IsStoppedServices)
-            {
-                EventServiceIntent = new Intent(this, typeof(EventService));
-                Android.App.Application.Context.StartService(EventServiceIntent);
-            }
-          
+            //if (EventServiceIntent == null && !IsStoppedServices)
+            //{
+            //    EventServiceIntent = new Intent(this, typeof(EventService));
+            //    Android.App.Application.Context.StartService(EventServiceIntent);
+            //}
         }
 
         public void StopEventsService()
         {
-            if(EventServiceIntent!=null)
-            {
-                Android.App.Application.Context.StopService(EventServiceIntent);
-                EventServiceIntent = null;
-            }
+            //if (EventServiceIntent != null)
+            //{
+            //    Android.App.Application.Context.StopService(EventServiceIntent);
+            //    EventServiceIntent = null;
+            //}
         }
 
         #endregion
@@ -367,28 +432,74 @@ namespace PaketGlobal.Droid
 
         public void StartLocationUpdate()
         {
-            if(!IsStoppedServices)
-            {
-                LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) => {
-                    LocationAppManager.Current.LocationService.LocationChanged += HandleLocationChanged;
-                };
+            //if (!IsStoppedServices)
+            //{
+            //    LocationAppManager.Current.LocationServiceConnected += (object sender, ServiceConnectedEventArgs e) =>
+            //    {
+            //        LocationAppManager.Current.LocationService.LocationChanged += HandleLocationChanged;
+            //    };
 
-                LocationAppManager.StartLocationService();
-            }
-
-          
+            //    LocationAppManager.StartLocationService();
+            //}
         }
 
         public void StopLocationUpdate()
         {
-            LocationAppManager.StopLocationService();
+          //  LocationAppManager.StopLocationService();
         }
 
         public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
         {
-            
+
         }
 
         #endregion
-	}
+
+        #region FCM
+
+        public bool IsPlayServicesAvailable()
+        {
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    Console.WriteLine(GoogleApiAvailability.Instance.GetErrorString(resultCode)) ;
+                else
+                {
+                    Console.WriteLine("not supported");
+                    Finish();
+                }
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Google Play Services is available.") ;
+                return true;
+            }
+        }
+
+        void CreateNotificationChannel()
+        {
+            if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+            {
+                // Notification channels are new in API 26 (and not a part of the
+                // support library). There is no need to create a notification
+                // channel on older versions of Android.
+                return;
+            }
+
+            var channel = new NotificationChannel(CHANNEL_ID,
+                                                  "FCM Notifications",
+                                                  NotificationImportance.Default)
+            {
+
+                Description = "Firebase Cloud Messages appear in this channel"
+            };
+
+            var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
+            notificationManager.CreateNotificationChannel(channel);
+        }
+
+        #endregion
+    }
 }

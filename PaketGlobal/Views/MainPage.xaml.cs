@@ -10,12 +10,13 @@ namespace PaketGlobal
     {
         public MainPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
 
             this.On<Xamarin.Forms.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(true);
 
             Unsubscribe();
             Subscribe();
+            TrySendToken();
         }
 
         protected override void OnAppearing()
@@ -31,6 +32,14 @@ namespace PaketGlobal
         private void Logout()
         {
             Unsubscribe();
+        }
+
+        private async void TrySendToken()
+        {
+            if (App.Locator.DeviceService.FCMToken != null)
+            {
+                await App.Locator.IdentityServiceClient.RegisterFCM(App.Locator.Profile.Pubkey, App.Locator.DeviceService.FCMToken);
+            }
         }
 
         private void Subscribe()
