@@ -12,6 +12,18 @@ Milestone version: v.1.2.7
 
 ### Milestone v.1.2.7
 
+24-10-2018
+
+* Add events from background process
+    https://github.com/paket-core/mobile/issues/137
+* Add explenatory text when choosing locations
+    https://github.com/paket-core/mobile/issues/136
+* Add default phone number for launcher
+    https://github.com/paket-core/mobile/issues/138
+* Opening address book takes too long
+    https://github.com/paket-core/mobile/issues/139
+    
+    
 16-10-2018
 
 * Disable submit button on some states
