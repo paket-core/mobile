@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
 using Android.Telephony;
@@ -132,6 +133,23 @@ namespace PaketGlobal.Droid
             segmentation.Add("method", method);
 
             Countly.SharedInstance().RecordEvent("Show_Generic_Error", segmentation, 1);
+        }
+
+        public Task<string> OpenAddressBook()
+        {
+            var task = new TaskCompletionSource<string>();
+            try
+            {
+                IntentHelper.OpenContactPicker((path) =>
+                {
+                    task.SetResult(path);
+                });
+            }
+            catch (Exception ex)
+            {
+                task.SetException(ex);
+            }
+            return task.Task;
         }
     }
 }

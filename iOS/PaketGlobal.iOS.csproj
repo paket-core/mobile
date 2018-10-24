@@ -691,6 +691,7 @@
     <Compile Include="ViewRenders\CircleImageRender.cs" />
     <Compile Include="ViewRenders\PaketSliderRender.cs" />
     <Compile Include="ViewRenders\NativeAutoSuggestBox.iOS.cs" />
+    <Compile Include="Services\ContactPicker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

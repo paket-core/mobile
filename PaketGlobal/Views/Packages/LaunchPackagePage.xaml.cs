@@ -30,7 +30,7 @@ namespace PaketGlobal
 
             //set launcher phone
             var profile = App.Locator.ProfileModel;
-            var number = profile.PhoneNumber;
+            var number = profile.StoredPhoneNumber;
       
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.Instance;
             try
@@ -478,14 +478,46 @@ namespace PaketGlobal
             this.Navigation.PushAsync(page);
         }
 
-        private void ContactsButtonClicked(object sender, EventArgs e)
+        private async void ContactsButtonClicked(object sender, EventArgs e)
         {
             this.Unfocus();
 
-            ContactsBookPage page = new ContactsBookPage();
-            page.eventHandler = DidSelectRecipientPhoneHandler;
-            this.Navigation.PushAsync(page);
+            try
+            {
+                var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Contacts);
+
+                if (hasPermission)
+                {
+                    var result = await App.Locator.DeviceService.OpenAddressBook();
+                    if(result!=null)
+                    {
+                        var contact = new BookContact("",result,"");
+
+                        if (contact.CountryCode != null)
+                        {
+                            ViewModel.RecipientPhoneCode = contact.CountryCode;
+                            ViewModel.RecipientPhoneNumber = contact.NationalPhone;
+                        }
+                        else
+                        {
+                            ViewModel.RecipientPhoneNumber = contact.SimplePhone;
+                        }
+                    }
+                }
+                else
+                {
+                    ShowMessage(AppResources.ContactsAccessNotGranted);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            //ContactsBookPage page = new ContactsBookPage();
+            //page.eventHandler = DidSelectRecipientPhoneHandler;
+            //this.Navigation.PushAsync(page);
         }
+
 
         private void AddressButtonClicked(object sender, EventArgs e)
         {

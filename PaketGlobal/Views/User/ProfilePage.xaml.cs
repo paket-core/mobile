@@ -199,7 +199,9 @@ namespace PaketGlobal
                     ShowErrorMessage(AppResources.ProfileNotSaved);
                 }
 
-				App.ShowLoading(false);
+                Application.Current.Properties[Constants.STORED_PHONE] = ViewModel.PhoneNumber;
+
+                App.ShowLoading(false);
 			}
 		}
 

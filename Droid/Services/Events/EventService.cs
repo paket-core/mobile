@@ -5,6 +5,7 @@ using Android.Content;
 using Android.OS;
 using System.Threading;
 using Plugin.Geolocator;
+using Android.Support.V4.App;
 
 namespace PaketGlobal.Droid
 {
@@ -14,7 +15,7 @@ namespace PaketGlobal.Droid
     {
         public static bool IsNeedSendEvents = false;
 
-        private int DELAY_BETWEEN_LOG_MESSAGES = 3600000;
+        private int DELAY_BETWEEN_LOG_MESSAGES = 600000;
         private int SERVICE_RUNNING_NOTIFICATION_ID = 10000;
         private const string SERVICE_STARTED_KEY = "enets_has_service_been_started";
         private const string ACTION_MAIN_ACTIVITY = "PaketGlobalEvent.action.MAIN_ACTIVITY";
@@ -136,9 +137,65 @@ namespace PaketGlobal.Droid
         {
             if (App.Locator.Profile.Activated && EventService.IsNeedSendEvents)
             {
-				var result = await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
+                var result = await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_USED);
                 Console.WriteLine(result);
+
+                var resultPackages = await App.Locator.RouteServiceClient.MyPackages();
+
+                if (resultPackages != null && resultPackages.Packages != null)
+                {
+                    var packages = resultPackages.Packages;
+
+                    bool enabled = App.Locator.AccountService.ShowNotifications;
+
+                    if (enabled)
+                    {
+                        foreach (Package p1 in packages)
+                        {
+                            var isExpiredNeedShow = App.Locator.Packages.IsPackageExpiredNeedShow(p1);
+
+                            if (isExpiredNeedShow)
+                            {
+                                var text = "Your package " + p1.ShortEscrow + " expired";
+                                PublishLocalNotification(text, "Please check your Packages archive for more details");
+                            }
+                        }
+                    }
+                }
             }
+        }
+
+        private void PublishLocalNotification(string title, string text)
+        {
+            var intent = new Intent(this, typeof(MainActivity));
+            intent.PutExtra("title", title); // Passed parameters to MainActivity.cs
+            intent.PutExtra("text", text);
+            intent.AddFlags(ActivityFlags.ClearTop);
+
+            var pendingIntent = PendingIntent.GetActivity(this, 1, intent, PendingIntentFlags.Immutable);
+
+            // Instantiate the builder and set notification elements:
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "90")
+                .SetContentTitle(title)
+                .SetContentText(text)
+                .SetAutoCancel(true)
+                .SetContentIntent(pendingIntent)
+                .SetSmallIcon(Resource.Drawable.ic_notification);
+
+
+            // Build the notification:
+            Notification notification = builder.Build();
+            notification.Defaults |= NotificationDefaults.Vibrate;
+            notification.Defaults |= NotificationDefaults.Sound;
+
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+
+            // Publish the notification:
+            const int notificationId = 0;
+            notificationManager.Notify(notificationId, notification);
         }
 
     }

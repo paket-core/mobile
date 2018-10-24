@@ -37,27 +37,6 @@ namespace PaketGlobal
             get
             {
                 return ImageSource.FromFile("empty_photo.png");
-                //                if(ContactPhoto=="empty_photo.png")
-                //                {
-                //                    return ImageSource.FromFile(ContactPhoto);
-                //                }
-                //                else{
-                //#if __IOS__
-                //                    var uri = new Uri(ContactPhoto);
-                //                    return ImageSource.FromUri(uri);
-                //#elif __ANDROID__
-                //                    var uri = Android.Net.Uri.Parse(new System.Uri(ContactPhoto).ToString());
-
-                //                    // or when not in an activity (e.g. a service):
-                //                    var stream = Android.App.Application.Context.ContentResolver.OpenInputStream(uri);
-
-                //                    // eventually convert the stream to imagesource for consumption in Xamarin Forms:
-                //                    var imagesource = Xamarin.Forms.ImageSource.FromStream(() => stream);
-
-                //                    return imagesource;
-                //#endif
-                //    }
-                //}
             }
         }
 
@@ -77,7 +56,7 @@ namespace PaketGlobal
                 {
                     PhoneNumber numberProto = phoneUtil.Parse(InternationalPhone, "");
                     var fPhone = numberProto.Format(PhoneNumberUtil.PhoneNumberFormat.NATIONAL);
-                    return "+" + fPhone;
+                    return fPhone;
                 }
                 catch (NumberParseException)
                 {
@@ -122,7 +101,12 @@ namespace PaketGlobal
                 try
                 {
                     PhoneNumber numberProto = phoneUtil.Parse(InternationalPhone, "");
-                    return Convert.ToString(numberProto.CountryCode);
+                    var s = Convert.ToString(numberProto.CountryCode);
+                    if(!s.Contains("+"))
+                    {
+                        s = "+" + s;
+                    }
+                    return s;
                 }
                 catch (NumberParseException)
                 {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CoreTelephony;
 using CountlySDK;
 using Foundation;
@@ -131,6 +132,35 @@ namespace PaketGlobal.iOS
         {
             var dict = new NSDictionary("error", errorMessage, "method",method);
             Countly.SharedInstance().RecordEvent("Show_Generic_Error", dict);
+        }
+
+        public Task<string> OpenAddressBook(){
+            var task = new TaskCompletionSource<string>();
+            try
+            {
+                ContactPicker.Select(GetController(), (obj) =>
+                {
+                    if (obj == null)
+                    {
+                        task.SetResult(null);
+                    }
+                    else
+                    {
+                        var values = obj.GetPhones().GetValues();
+                        task.SetResult(values.Length > 0 ? values[0] : null);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                task.SetException(ex);
+            }
+            return task.Task;
+        }
+
+        private UIViewController GetController()
+        {
+            return UIApplication.SharedApplication.KeyWindow.RootViewController;
         }
     }
 }

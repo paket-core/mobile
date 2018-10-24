@@ -70,7 +70,10 @@ namespace PaketGlobal
 
 						var infosResult = await App.Locator.IdentityServiceClient.UserInfos();
 						if (infosResult != null && !String.IsNullOrWhiteSpace(infosResult.UserDetails.PhoneNumber)) {
-							CheckActivation();
+
+                            Application.Current.Properties[Constants.STORED_PHONE] = infosResult.UserDetails.PhoneNumber;
+
+                            CheckActivation();
 						} else {
 							var page = new RegistrationPage(true, result.UserDetails);
 

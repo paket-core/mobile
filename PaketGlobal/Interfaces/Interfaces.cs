@@ -68,6 +68,7 @@ namespace PaketGlobal
         bool IsNeedAlertDialogToClose { get; set; }
         bool IsNeedAlertDialogToCloseLaunchPackage { get; set; }
         void SendErrorEvent(string errorMessage, string method);
+        Task<string> OpenAddressBook();
     }
 
     public interface ILocationSharedService

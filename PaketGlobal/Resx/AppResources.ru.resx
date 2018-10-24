@@ -748,4 +748,10 @@
         <data name="WaitingRecipientScan" xml:space="preserve">
         <value>Получатель должен отсканировать этот код, чтобы принять пакет</value>
     </data>
+   <data name="SelectToLocation" xml:space="preserve">
+        <value>Куда доставить?</value>
+    </data>  
+   <data name="SelectFromLocation" xml:space="preserve">
+        <value>Откуда забрать?</value>
+    </data> 
 </root>

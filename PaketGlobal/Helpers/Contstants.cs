@@ -17,7 +17,7 @@ namespace PaketGlobal
         public const string OPEN_MINE_PACKAGES = "OPEN_MINE_PACKAGES";
 
         public const string EVENT_APP_START = "app launched";
-        public const string EVENT_APP_USED = "app used";
+        public const string EVENT_APP_USED = "background process activated";
         public const string REFRESH_PACKAGES = "refresh packages";
         public const string BALANCE_CHANGED = "balance changed";
 
@@ -38,6 +38,9 @@ namespace PaketGlobal
         public const string TWITTER_URL = "https://twitter.com/PaketProtocol";
 
         public const string FCM_TOKEN = "FCM_TOKEN";
+
+        internal const string STORED_PHONE = "STORED_PHONE";
+
 
     }
 }

@@ -707,7 +707,7 @@ namespace PaketGlobal
             {
                 if (fromLocationGPS == null)
                 {
-                    return AppResources.SelectLocation;
+                    return AppResources.SelectFromLocation;
                 }
 
                 try{
@@ -737,7 +737,7 @@ namespace PaketGlobal
             get{
                 if (toLocationGPS == null)
                 {
-                    return AppResources.SelectLocation;
+                    return AppResources.SelectToLocation;
                 }
 
                 try

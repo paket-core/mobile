@@ -51,7 +51,13 @@ namespace PaketGlobal.iOS
 
                     if(nextButton != null)
                     {
-                        alertController.AddAction(UIAlertAction.Create(nextButton, UIAlertActionStyle.Default, (obj) => isDialogShow = false));
+                        alertController.AddAction(UIAlertAction.Create(nextButton, UIAlertActionStyle.Default, (action) => {
+                            isDialogShow = false;
+                            if(eventHandler!=null)
+                            {
+                                eventHandler.Invoke(this, EventArgs.Empty);
+                            }
+                        }));
                     }
 
                     // Present Alert

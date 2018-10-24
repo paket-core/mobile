@@ -185,7 +185,7 @@ namespace PaketGlobal.Droid
             MainActivity.IsActive = false;
 
             PackageService.IsNeedRequestPackages = true;
-            EventService.IsNeedSendEvents = false;
+            EventService.IsNeedSendEvents = true;
 
             base.OnDestroy();
         }
@@ -244,6 +244,11 @@ namespace PaketGlobal.Droid
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
+
+            if (IntentHelper.IsMobileIntent(requestCode))
+            {
+                IntentHelper.ActivityResult(requestCode, data);
+            }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
@@ -318,6 +323,16 @@ namespace PaketGlobal.Droid
                 });
             }
         }
+
+        #region Addrss Book
+
+        public void OpenAddressBook()
+        {
+            var contactPickerIntent = new Intent(Intent.ActionPick, Android.Provider.ContactsContract.Contacts.ContentUri);
+            StartActivityForResult(contactPickerIntent, 101);
+        }
+
+        #endregion
 
         #region ProgressBar
 
@@ -410,20 +425,20 @@ namespace PaketGlobal.Droid
 
         public void StartEventsService()
         {
-            //if (EventServiceIntent == null && !IsStoppedServices)
-            //{
-            //    EventServiceIntent = new Intent(this, typeof(EventService));
-            //    Android.App.Application.Context.StartService(EventServiceIntent);
-            //}
+            if (EventServiceIntent == null && !IsStoppedServices)
+            {
+                EventServiceIntent = new Intent(this, typeof(EventService));
+                Android.App.Application.Context.StartService(EventServiceIntent);
+            }
         }
 
         public void StopEventsService()
         {
-            //if (EventServiceIntent != null)
-            //{
-            //    Android.App.Application.Context.StopService(EventServiceIntent);
-            //    EventServiceIntent = null;
-            //}
+            if (EventServiceIntent != null)
+            {
+                Android.App.Application.Context.StopService(EventServiceIntent);
+                EventServiceIntent = null;
+            }
         }
 
         #endregion

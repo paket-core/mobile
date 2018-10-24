@@ -443,6 +443,7 @@
     <Compile Include="ViewRenderers\NativeAutoSuggestBox.Android.cs" />
     <Compile Include="Services\FirebaseIIDService.cs" />
     <Compile Include="Services\FirebaseMessagingService.cs" />
+    <Compile Include="Services\IntentHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

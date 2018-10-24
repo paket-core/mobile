@@ -59,10 +59,12 @@ namespace PaketGlobal
 
             if (PickerType == LocationPickerType.To)
             {
+                TitleLabel.Text = AppResources.SelectToLocation;
                 SearchField.Placeholder = AppResources.LocationPickerTypeTo;
             }
             else if (PickerType == LocationPickerType.From)
             {
+                TitleLabel.Text = AppResources.SelectFromLocation;
                 SearchField.Placeholder = AppResources.LocationPickerTypeFrom;
             }
 
@@ -171,7 +173,7 @@ namespace PaketGlobal
             else{
                 ItemsListView.SelectedItem = null;
 
-                var page = new MapPickerPage(SelectedAddress);
+                var page = new MapPickerPage(PickerType,SelectedAddress);
                 page.eventHandler = DidSelectLocationHandler;
                 await Navigation.PushAsync(page, true);
             }

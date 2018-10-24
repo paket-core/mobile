@@ -12,7 +12,13 @@ namespace PaketGlobal
             InitializeComponent();
 
 #if __IOS__
-            SettingsButton.TranslationY = 20;
+            if (App.Locator.DeviceService.IsIphoneX())
+            {
+                SettingsButton.TranslationY = 44;
+            }
+            else{
+                SettingsButton.TranslationY = 22;
+            }
 #endif
 
         }

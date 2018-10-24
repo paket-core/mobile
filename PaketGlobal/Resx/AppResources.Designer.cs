@@ -832,6 +832,21 @@ namespace PaketGlobal
             }
         }
 
+        internal static string SelectFromLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectFromLocation", resourceCulture);
+            }
+        }
+
+        internal static string SelectToLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectToLocation", resourceCulture);
+            }
+        }
 
     }
 }

@@ -741,6 +741,12 @@
     <data name="WaitingRecipientScan" xml:space="preserve">
         <value>Let the recipient scan this code to accept the package</value>
     </data>
+     <data name="SelectToLocation" xml:space="preserve">
+        <value>Choose package destination</value>
+    </data>  
+   <data name="SelectFromLocation" xml:space="preserve">
+        <value>Choose package pickup location</value>
+    </data>  
     
     
 </root>

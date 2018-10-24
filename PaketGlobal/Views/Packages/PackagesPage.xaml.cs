@@ -103,11 +103,18 @@ namespace PaketGlobal
 #if __ANDROID__
            HeaderView.Spacing = 42;
 #else
-            if(App.Locator.DeviceService.ScreenWidth()==320)
+            HeaderView.Spacing = 30;
+
+            if (App.Locator.DeviceService.ScreenWidth()==320)
             {
                 PakagesView.TranslationY = 20;
             }
-            else{
+            else if(App.Locator.DeviceService.IsIphoneX())
+            {
+                HeaderView.Padding = new Thickness(0, 60, 0, 0);
+            }
+            else
+            {
                 PakagesView.TranslationY = 3;
             }
 #endif
