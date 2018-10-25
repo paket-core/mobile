@@ -185,17 +185,29 @@
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout BackgroundColor="White" Spacing="25" Padding="20,0,20,0">
-                                <Label TextColor="Black" Text="{local:Translate Funds}" XAlign="Start"  FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
+                                <Label TextColor="Black" Text="{local:Translate Funds}" XAlign="Start" FontFamily="{StaticResource SemiBoldFont}" FontSize="15"/>
                                 <StackLayout Spacing="10">
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Payment}" XAlign="Start"  FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
-                                                          ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
+                                        <StackLayout Orientation="Horizontal" Spacing="10">
+                                            <local:PaketEntry x:Name="EntryPayment" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                                          ImageWidth="20" ImageHeight="10" Image="bul_icon.png" TextChanged="Handle_TextChanged"
+                                                          BackgroundV="4" HorizontalOptions="FillAndExpand"/>
+                                            <Label x:Name="PaymentEuroLabel" Margin="0,3,0,0" VerticalOptions="Center" HorizontalOptions="End" IsVisible="false" FontFamily="{StaticResource MediumFont}" FontSize="15"/>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                                     </StackLayout>
                                     <StackLayout Spacing="0">
                                         <Label TextColor="#A7A7A7" Text="{local:Translate Collateral}" XAlign="Start" FontFamily="{StaticResource MediumFont}" FontSize="10"/>
-                                        <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
-                                                          ImageWidth="20" ImageHeight="10" Image="bul_icon.png"/>
+                                       
+                                    
+                                                                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                             <local:PaketEntry x:Name="EntryCollateral" Completed="FieldCompleted" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" LineColor="#E5E5E5" HeightRequest="{StaticResource EntrySize}"
+                                                           BackgroundV="4" HorizontalOptions="FillAndExpand" ImageWidth="20" ImageHeight="10" Image="bul_icon.png" TextChanged="Handle_TextChanged"/>
+                                            <Label x:Name="CollateralEuroLabel" Margin="0,3,0,0" VerticalOptions="Center" HorizontalOptions="End" IsVisible="false" FontFamily="{StaticResource MediumFont}" FontSize="15"/>
+                                        </StackLayout>
+                                        
+                                        <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

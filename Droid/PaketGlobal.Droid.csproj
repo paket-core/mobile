@@ -972,6 +972,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\settings_button.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\tw_icon.png" />
     <AndroidResource Include="Resources\drawable\cursor.xml" />
+    <AndroidResource Include="Resources\drawable\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\waiting_driver.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

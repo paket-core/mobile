@@ -12,6 +12,15 @@ Milestone version: v.1.2.7
 
 ### Milestone v.1.2.7
 
+25-10-2018
+
+* Add a welcome message after restoring or creating account
+    https://github.com/paket-core/mobile/issues/141
+* Add a relaxing message while waiting for account creation
+    https://github.com/paket-core/mobile/issues/140
+* When entering a price in BUL, automatically show price in EUR
+    https://github.com/paket-core/mobile/issues/142
+
 24-10-2018
 
 * Add events from background process
@@ -22,7 +31,6 @@ Milestone version: v.1.2.7
     https://github.com/paket-core/mobile/issues/138
 * Opening address book takes too long
     https://github.com/paket-core/mobile/issues/139
-    
     
 16-10-2018
 

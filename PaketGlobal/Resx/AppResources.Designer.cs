@@ -848,5 +848,21 @@ namespace PaketGlobal
             }
         }
 
+        internal static string WellcomeCreationMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("WellcomeCreationMessage", resourceCulture);
+            }
+        }
+
+        internal static string WellcomeRestoreMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("WellcomeRestoreMessage", resourceCulture);
+            }
+        }
+
     }
 }

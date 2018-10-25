@@ -700,5 +700,67 @@ namespace PaketGlobal
             ProgressLabel.Text = e.Message;
         }
 
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (sender==EntryPayment)
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryPayment.Text))
+                    {
+                        PaymentEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryPayment.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        PaymentEuroLabel.Text = euro;
+
+                        if (!PaymentEuroLabel.IsVisible)
+                        {
+                            PaymentEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    PaymentEuroLabel.IsVisible = false;
+                }
+            }
+            else if(sender==EntryCollateral){
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryCollateral.Text))
+                    {
+                        CollateralEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryCollateral.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        CollateralEuroLabel.Text = euro;
+
+                        if (!CollateralEuroLabel.IsVisible)
+                        {
+                            CollateralEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    CollateralEuroLabel.IsVisible = false;
+                }
+            }
+        }
 	}
 }

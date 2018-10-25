@@ -660,6 +660,9 @@
     <BundleResource Include="Resources\tw_icon%402x.png" />
     <BundleResource Include="Resources\tw_icon%403x.png" />
     <BundleResource Include="GoogleService-Info.plist" />
+    <BundleResource Include="Resources\waiting_driver%403x.png" />
+    <BundleResource Include="Resources\waiting_driver%402x.png" />
+    <BundleResource Include="Resources\waiting_driver.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

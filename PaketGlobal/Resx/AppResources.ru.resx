@@ -754,4 +754,21 @@
    <data name="SelectFromLocation" xml:space="preserve">
         <value>Откуда забрать?</value>
     </data> 
+    
+    <data name="WaitingAccountCreation" xml:space="preserve">
+        <value>Ваша учетная запись Stellar создается, пожалуйста подождите</value>
+    </data>  
+    
+    <data name="WellcomeCreationMessage" xml:space="preserve">
+        <value>Ваша учетная запись создана - добро пожаловать в сеть PAKET</value>
+    </data>
+    
+    <data name="WellcomeRestoreMessage" xml:space="preserve">
+        <value>Ваша учетная запись восстановлена - добро пожаловать в сеть PAKET</value>
+    </data>
+    
+           <data name="Continue" xml:space="preserve">
+        <value>Продолжить</value>
+    </data>
+    
 </root>

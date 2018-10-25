@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.WaitingAccountCreationPage"
+    xmlns:local="clr-namespace:PaketGlobal"
+    xmlns:xlabs="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+    xmlns:xe="clr-namespace:XamEffects;assembly=XamEffects">
+    <local:BasePage.Content>
+    <RelativeLayout>
+            <Image BackgroundColor="Transparent" x:Name="ImageWaiting"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Aspect="AspectFit"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.11}"
+                          RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=40}"  
+                          Source="waiting_driver.png">
+            </Image>
+            
+            <Image BackgroundColor="Transparent" x:Name="ImageWellcome"
+                          VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Aspect="AspectFit"
+                          Opacity="0"
+                          RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-80}"
+                          RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.11}"
+                          RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=40}"  
+                          Source="wellcome_image.png">
+            </Image>
+            
+            
+            <StackLayout x:Name="StackWaiting" BackgroundColor="Transparent" Padding="30,0,30,0" Spacing="20"
+                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-20}"
+                  RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=10}" 
+                  RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
+                 <Label Text="{local:Translate WaitingAccountCreation}" FontFamily="{StaticResource SemiBoldFont}" FontSize="14" TextColor="Black" XAlign="Center"/> 
+                 <ActivityIndicator IsEnabled="true" IsRunning="true" IsVisible="true"/>
+            </StackLayout>
+            
+            <StackLayout x:Name="StackWellcome" BackgroundColor="Transparent" Padding="30,0,30,0" Spacing="20" Opacity="0"
+                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-20}"
+                  RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=10}" 
+                  RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
+                 <Label Text="{local:Translate WellcomeCreationMessage}" x:Name="WellcomeLabel" FontFamily="{StaticResource SemiBoldFont}" FontSize="17" TextColor="Black" XAlign="Center"/> 
+                <Button HorizontalOptions="Center" Text="{local:Translate Continue}" Clicked="OnContinue" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"/>
+            </StackLayout>
+            
+    </RelativeLayout>
+    </local:BasePage.Content>
+</local:BasePage>

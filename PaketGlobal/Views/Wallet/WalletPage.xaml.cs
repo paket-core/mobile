@@ -729,6 +729,37 @@ namespace PaketGlobal
         void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             EnableDisableButton();
+
+            if(sender==EntryAmount)
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryAmount.Text))
+                    {
+                        PaymentEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryAmount.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        PaymentEuroLabel.Text = euro;
+
+                        if (!PaymentEuroLabel.IsVisible)
+                        {
+                            PaymentEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    PaymentEuroLabel.IsVisible = false;
+                }
+            }
         }
 
         private void EnableDisableButton()
