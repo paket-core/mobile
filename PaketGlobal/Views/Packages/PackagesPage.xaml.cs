@@ -169,7 +169,7 @@ namespace PaketGlobal
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
                 await App.Locator.ProfileModel.Load();
-                await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
+                var res =  await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
                 App.Locator.EventService.StartUseEvent();            
             }

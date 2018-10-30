@@ -22,7 +22,12 @@ namespace PaketGlobal
 
 		public T GetInstance<T>(string key = null)
 		{
-			return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
+            try{
+                return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
+                }
+            catch (Exception ex){
+                return default(T);
+            }
 		}
 
 		public Profile Profile {

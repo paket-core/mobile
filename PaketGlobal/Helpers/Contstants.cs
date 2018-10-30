@@ -17,7 +17,7 @@ namespace PaketGlobal
         public const string OPEN_MINE_PACKAGES = "OPEN_MINE_PACKAGES";
 
         public const string EVENT_APP_START = "app launched";
-        public const string EVENT_APP_USED = "background process activated";
+        public const string EVENT_APP_USED = "heartbeat";
         public const string REFRESH_PACKAGES = "refresh packages";
         public const string BALANCE_CHANGED = "balance changed";
 
@@ -41,6 +41,6 @@ namespace PaketGlobal
 
         internal const string STORED_PHONE = "STORED_PHONE";
 
-
+        public const string PUB_KEY = "PUB_KEY";
     }
 }

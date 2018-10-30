@@ -191,7 +191,7 @@ namespace PaketGlobal.Droid
 
             // Get the notification manager:
             NotificationManager notificationManager =
-                GetSystemService(Context.NotificationService) as NotificationManager;
+                Android.App.Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
 
             // Publish the notification:
             const int notificationId = 0;

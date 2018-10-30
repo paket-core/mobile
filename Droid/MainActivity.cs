@@ -33,6 +33,9 @@ using Xamarin.Forms.GoogleMaps.Android;
 using Android.Gms.Common;
 using Firebase.Iid;
 using Android.Util;
+using Android.App.Job;
+using Android.Icu.Util;
+using JobSchedulerType = Android.App.Job.JobScheduler;
 
 namespace PaketGlobal.Droid
 {
@@ -65,10 +68,13 @@ namespace PaketGlobal.Droid
         public static bool IsStoppedServices = false;
         public static bool IsActive = false;
 
+        JobScheduler jobScheduler;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+
+            jobScheduler = (JobScheduler)GetSystemService(JobSchedulerService);
 
             XamEffects.Droid.Effects.Init();
             XFGloss.Droid.Library.Init(this, bundle);
@@ -125,12 +131,14 @@ namespace PaketGlobal.Droid
             CreateNotificationChannel();
 
             var refreshedToken = FirebaseInstanceId.Instance.Token;
-            if(refreshedToken!=null)
+            if (refreshedToken != null)
             {
                 App.Locator.DeviceService.FCMToken = refreshedToken;
 
                 SendRegistrationToServer(refreshedToken);
             }
+
+            ScheduleJob();
         }
 
         internal static async void SendRegistrationToServer(string token)
@@ -163,7 +171,7 @@ namespace PaketGlobal.Droid
             MainActivity.IsActive = true;
 
             PackageService.IsNeedRequestPackages = false;
-            EventService.IsNeedSendEvents = true;
+            EventService.IsNeedSendEvents = false;
 
             Countly.SharedInstance().OnStart(this);
         }
@@ -175,7 +183,7 @@ namespace PaketGlobal.Droid
             Countly.SharedInstance().OnStop();
 
             PackageService.IsNeedRequestPackages = true;
-            EventService.IsNeedSendEvents = true;
+            EventService.IsNeedSendEvents = false;
 
             base.OnStop();
         }
@@ -185,7 +193,7 @@ namespace PaketGlobal.Droid
             MainActivity.IsActive = false;
 
             PackageService.IsNeedRequestPackages = true;
-            EventService.IsNeedSendEvents = true;
+            EventService.IsNeedSendEvents = false;
 
             base.OnDestroy();
         }
@@ -425,20 +433,20 @@ namespace PaketGlobal.Droid
 
         public void StartEventsService()
         {
-            if (EventServiceIntent == null && !IsStoppedServices)
-            {
-                EventServiceIntent = new Intent(this, typeof(EventService));
-                Android.App.Application.Context.StartService(EventServiceIntent);
-            }
+            //if (EventServiceIntent == null && !IsStoppedServices)
+            //{
+            //    EventServiceIntent = new Intent(this, typeof(EventService));
+            //    Android.App.Application.Context.StartService(EventServiceIntent);
+            //}
         }
 
         public void StopEventsService()
         {
-            if (EventServiceIntent != null)
-            {
-                Android.App.Application.Context.StopService(EventServiceIntent);
-                EventServiceIntent = null;
-            }
+            //if (EventServiceIntent != null)
+            //{
+            //    Android.App.Application.Context.StopService(EventServiceIntent);
+            //    EventServiceIntent = null;
+            //}
         }
 
         #endregion
@@ -460,7 +468,7 @@ namespace PaketGlobal.Droid
 
         public void StopLocationUpdate()
         {
-          //  LocationAppManager.StopLocationService();
+            //  LocationAppManager.StopLocationService();
         }
 
         public void HandleLocationChanged(object sender, LocationChangedEventArgs e)
@@ -478,7 +486,7 @@ namespace PaketGlobal.Droid
             if (resultCode != ConnectionResult.Success)
             {
                 if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
-                    Console.WriteLine(GoogleApiAvailability.Instance.GetErrorString(resultCode)) ;
+                    Console.WriteLine(GoogleApiAvailability.Instance.GetErrorString(resultCode));
                 else
                 {
                     Console.WriteLine("not supported");
@@ -488,7 +496,7 @@ namespace PaketGlobal.Droid
             }
             else
             {
-                Console.WriteLine("Google Play Services is available.") ;
+                Console.WriteLine("Google Play Services is available.");
                 return true;
             }
         }
@@ -513,6 +521,42 @@ namespace PaketGlobal.Droid
 
             var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
             notificationManager.CreateNotificationChannel(channel);
+        }
+
+        #endregion
+
+        #region Job
+
+        private void ScheduleJob()
+        {
+                //    .SetMinimumLatency(1000)    // Wait at least 1 second
+                //.SetOverrideDeadline(5000)  // But no longer than 5 seconds
+
+            var tm = (JobSchedulerType)GetSystemService(Context.JobSchedulerService);
+            var jobs = tm.AllPendingJobs;
+            tm.CancelAll();
+
+            JobInfo.Builder builder = this.CreateJobInfoBuilder()
+                .SetPersisted(true)
+                .SetRequiresDeviceIdle(false)
+                .SetPeriodic(900000) //call every 15 min
+                .SetRequiredNetworkType(NetworkType.Any);
+
+         //   JobInfo.Builder builder = this.CreateJobInfoBuilder()
+         //.SetPersisted(false)
+         //.SetMinimumLatency(1000)    // Wait at least 1 second
+         //.SetOverrideDeadline(5000)  // But no longer than 5 seconds
+         //.SetRequiredNetworkType(NetworkType.Any);
+
+            int result = jobScheduler.Schedule(builder.Build());
+            if (result == JobScheduler.ResultSuccess)
+            {
+                Log.Debug(TAG, "Job started!");
+            }
+            else
+            {
+                Log.Warn(TAG, "Problem starting the job " + result);
+            }
         }
 
         #endregion

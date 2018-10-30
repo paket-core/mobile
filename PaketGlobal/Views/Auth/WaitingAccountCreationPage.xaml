@@ -45,7 +45,7 @@
                   RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0,Constant=10}" 
                   RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.6}">
                  <Label Text="{local:Translate WellcomeCreationMessage}" x:Name="WellcomeLabel" FontFamily="{StaticResource SemiBoldFont}" FontSize="17" TextColor="Black" XAlign="Center"/> 
-                <Button HorizontalOptions="Center" Text="{local:Translate Continue}" Clicked="OnContinue" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"/>
+                <Button x:Name="NextButton" HorizontalOptions="Center" Text="{local:Translate Continue}" Clicked="OnContinue" BorderColor="Transparent" TextColor="White" BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"/>
             </StackLayout>
             
     </RelativeLayout>

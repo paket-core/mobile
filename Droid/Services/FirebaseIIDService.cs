@@ -14,10 +14,15 @@ namespace FCMClient
         const string TAG = "MyFirebaseIIDService";
         public override void OnTokenRefresh()
         {
-            var refreshedToken = FirebaseInstanceId.Instance.Token;
-            App.Locator.DeviceService.FCMToken = refreshedToken;
+            try{
+                var refreshedToken = FirebaseInstanceId.Instance.Token;
+                App.Locator.DeviceService.FCMToken = refreshedToken;
 
-            SendRegistrationToServer(refreshedToken);
+                SendRegistrationToServer(refreshedToken);
+            }
+            catch (Exception ex){
+
+            }
         }
 
         void SendRegistrationToServer(string token)

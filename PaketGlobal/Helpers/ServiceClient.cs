@@ -167,17 +167,29 @@ namespace PaketGlobal
             return await SendRequest<TrustData>(request, pubkey);
         }
 
-        public async Task<AddEventData> AddEvent(string eventType, string kwargs = null)
+        public async Task<AddEventData> AddEvent(string eventType, string kwargs = null, string pubKey = null)
         {
-            if(App.Locator.Profile.Pubkey==null)
+            var sendPubkey = "";
+
+            if(pubKey==null)
             {
-                return new AddEventData();
+                if (App.Locator.Profile.Pubkey == null)
+                {
+                    return new AddEventData();
+                }
+                else{
+                    sendPubkey = App.Locator.Profile.Pubkey;
+                }
+            }
+            else{
+                sendPubkey = pubKey;
             }
 
-            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
 
             string location = null;
 
+            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
             if (hasPermission)
             {
                 var locator = CrossGeolocator.Current;
@@ -209,7 +221,7 @@ namespace PaketGlobal
                 request.AddParameter("kwargs", kwargs);
             }
 
-            return await SendRequest<AddEventData>(request);
+            return await SendRequest<AddEventData>(request, sendPubkey);
         }
 
 		#endregion User
@@ -463,7 +475,7 @@ namespace PaketGlobal
             return await SendRequest<BaseData>(request);
 		}
 
-		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
+        public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null, string pubKey = null)
 		{
 			var request = PrepareRequest(apiVersion + "/my_packages", Method.POST);
 
@@ -473,8 +485,14 @@ namespace PaketGlobal
 			//	request.AddParameter("from_date", ut.ToString());
 			//}
 
-			return await SendRequest<PackagesData>(request);
-		}
+            if(pubKey==null)
+            {
+                return await SendRequest<PackagesData>(request);
+            }
+            else{
+                return await SendRequest<PackagesData>(request,pubKey);
+            }
+        }
 
         public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
         {

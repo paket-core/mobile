@@ -10,6 +10,11 @@ namespace PaketGlobal.iOS
 {
     public class AccountService : IAccountService
     {
+        public void SetPubKey(string pbkey)
+        {
+          
+        }
+
         public string UserName
         {
             get

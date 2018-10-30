@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using Android.Content;
 using Xamarin.Auth;
 using Xamarin.Forms;
 
@@ -9,6 +9,14 @@ namespace PaketGlobal.Droid
 {
     public class AccountService : IAccountService
     {
+        public void SetPubKey(string pbkey)
+        {
+            ISharedPreferences pref = Android.App.Application.Context.GetSharedPreferences("DeliverIt_UserInfo", FileCreationMode.Private);
+            ISharedPreferencesEditor edit = pref.Edit();
+            edit.PutString("pubkey", pbkey);
+            edit.Apply();
+        }
+
         public string UserName
         {
             get

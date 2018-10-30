@@ -57,6 +57,9 @@ namespace PaketGlobal
 			if (Locator.Profile.Activated) 
             {
                 var navigationPage = new NavigationPage(new MainPage());
+
+                App.Locator.AccountService.SetPubKey(App.Locator.Profile.Pubkey);
+
                 MainPage = navigationPage;
 			} 
             else {

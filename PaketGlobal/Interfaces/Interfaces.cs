@@ -7,7 +7,8 @@ namespace PaketGlobal
 {
 	public interface IAccountService
 	{
-		string UserName { get; }
+        void SetPubKey(string pbkey);
+        string UserName { get; }
 		string FullName { get; }
 		string PhoneNumber { get; }
 		string Seed { get; }

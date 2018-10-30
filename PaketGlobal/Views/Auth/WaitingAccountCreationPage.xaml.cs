@@ -24,6 +24,16 @@ namespace PaketGlobal
             {
                 WellcomeLabel.Text = AppResources.WellcomeRestoreMessage;
             }
+
+            var onContinueCommand = new Command(() =>
+            {
+                App.Locator.Profile.Activated = true;
+
+                var navigationPage = new NavigationPage(new MainPage());
+
+                Application.Current.MainPage = navigationPage;
+            });
+            XamEffects.Commands.SetTap(NextButton, onContinueCommand);
         }
 
         public void GoBack()
@@ -39,6 +49,7 @@ namespace PaketGlobal
         private void OnContinue(object sender, System.EventArgs e)
         {
             App.Locator.Profile.Activated = true;
+            App.Locator.AccountService.SetPubKey(App.Locator.Profile.Pubkey);
 
             var navigationPage = new NavigationPage(new MainPage());
 

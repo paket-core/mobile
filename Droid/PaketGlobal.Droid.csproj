@@ -444,6 +444,8 @@
     <Compile Include="Services\FirebaseIIDService.cs" />
     <Compile Include="Services\FirebaseMessagingService.cs" />
     <Compile Include="Services\IntentHelper.cs" />
+    <Compile Include="Services\Job\JobSchedulerHelpers.cs" />
+    <Compile Include="Services\Job\EventJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -977,6 +979,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\waiting_driver.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\waiting_driver.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\back_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -989,6 +996,7 @@
     <Folder Include="ViewRenderers\Autocomplete\" />
     <Folder Include="Resources\xml\" />
     <Folder Include="Services\PackageService\" />
+    <Folder Include="Services\Job\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />

@@ -59,7 +59,12 @@ namespace PaketGlobal
                 App.Locator.Profile.DeleteCredentials();
             }
 
-            App.Locator.DeviceService.setStausBarBlack();
+            try{
+                App.Locator.DeviceService.setStausBarBlack();
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
+            }
         }
 
         private void OnRegistrationClicked(object sender, System.EventArgs e)
