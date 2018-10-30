@@ -529,9 +529,7 @@ namespace PaketGlobal.Droid
 
         private void ScheduleJob()
         {
-                //    .SetMinimumLatency(1000)    // Wait at least 1 second
-                //.SetOverrideDeadline(5000)  // But no longer than 5 seconds
-
+         
             var tm = (JobSchedulerType)GetSystemService(Context.JobSchedulerService);
             var jobs = tm.AllPendingJobs;
             tm.CancelAll();
@@ -539,7 +537,7 @@ namespace PaketGlobal.Droid
             JobInfo.Builder builder = this.CreateJobInfoBuilder()
                 .SetPersisted(true)
                 .SetRequiresDeviceIdle(false)
-                .SetPeriodic(900000) //call every 15 min
+                .SetPeriodic(900000)
                 .SetRequiredNetworkType(NetworkType.Any);
 
          //   JobInfo.Builder builder = this.CreateJobInfoBuilder()

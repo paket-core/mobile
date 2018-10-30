@@ -40,7 +40,7 @@ namespace PaketGlobal.Droid
 
             calculator.Execute();
 
-            return true; // No more work to do!
+            return false; // No more work to do!
         }
 
         public override bool OnStopJob(JobParameters @params)
@@ -60,7 +60,7 @@ namespace PaketGlobal.Droid
                 this.jobService = jobService;
             }
 
-            async System.Threading.Tasks.Task<long> GetFibonacciForAsync()
+            async System.Threading.Tasks.Task<long> TrySendEventsAndPackages()
             {
                 await SendEventsAndCheckPackages();
 
@@ -88,6 +88,8 @@ namespace PaketGlobal.Droid
 
                 var position = await locator.GetPositionAsync();
 
+                PublishLocalNotification("event", "get location");
+
                 if (position != null)
                 {
                     location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -109,6 +111,11 @@ namespace PaketGlobal.Droid
                 var response = await client.PostAsync(url, formContent);
 
                 var content = await response.Content.ReadAsStringAsync();
+
+                if(content!=null)
+                {
+                    PublishLocalNotification("event", content);
+                }
 
                 return true;
             }
@@ -176,6 +183,8 @@ namespace PaketGlobal.Droid
 
             async System.Threading.Tasks.Task<long> SendEventsAndCheckPackages()
             {
+                PublishLocalNotification("event", "trying send event");
+
                 try
                 {
                     ISharedPreferences preferences = Application.Context.GetSharedPreferences("DeliverIt_UserInfo", FileCreationMode.Private);
@@ -185,7 +194,13 @@ namespace PaketGlobal.Droid
                     if (pubKey.Length > 0)
                     {
                         await SendEvent(pubKey);
+
+                        PublishLocalNotification("event", "DONE");
+
                         await CheckPackages(pubKey);
+                    }
+                    else{
+                        PublishLocalNotification("event", "I can not read the data from the preferences. Empty public key");
                     }
                 }
                 catch (Exception ex)
@@ -198,16 +213,15 @@ namespace PaketGlobal.Droid
 
             protected override long RunInBackground(params long[] @params)
             {
-                return GetFibonacciForAsync().Result;
+                return TrySendEventsAndPackages().Result;
             }
+
 
             protected override void OnPostExecute(long result)
             {
                 base.OnPostExecute(result);
                 
                 jobService.JobFinished(jobService.parameters, false);
-
-                Log.Debug(TAG, "Finished with fibonacci calculation: " + result);
             }
 
 
