@@ -1,36 +1,24 @@
 variables:
   PROJECT_NAME: "PaketGlobal"
-stages:
-  - build
-job:
-  stage: build
-  before_script:
-  - echo "starting build for %PROJECT_NAME%"
-  - echo "Restoring NuGet Packages..."
-  - 'setlocal'
-  - 'chcp 65001' #Change code page
-  - echo Import-Module BitsTransfer > download_nuget.ps1
+before_script:
+  - nuget restore
   - 'echo Start-BitsTransfer "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" >> download_nuget.ps1'
   - powershell -ExecutionPolicy Unrestricted "& "".\download_nuget.ps1""" 
   - del download_nuget.ps1
   - nuget.exe restore
   - del nuget.exe
-  - '"C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -property installationPath > tmpFile'
-  - set /p VSWHERE= < tmpFile
-  - del tmpFile
-  - call "%VSWHERE%\VC\Auxiliary\Build\vcvars64.bat"
+stages:
+  - build
+job:
+  stage: build
   script:
-  - echo "Release build..."
-  - set PATH=%PATH%;%ANDROID_HOME%\tools\bin;%ANDROID_HOME%\build-tools\25.0.3
-  #- 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:rebuild /verbosity:quiet "%PROJECT_NAME%.sln"'
-  - 'msbuild /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo /p:Configuration=Release /p:Platform="Any CPU" /p:AndroidBuildApplicationPackage=true /p:BuildProjectReferences=false /p:AndroidSdkDirectory=%ANDROID_HOME% /p:androidSdkPath=%ANDROID_HOME% /t:build /verbosity:quiet "%PROJECT_NAME%.sln"'
-  #after_script:
-  #- 'rd "%CI_PROJECT_DIR%"'
+    - cd Droid
+    - msbuild /t:SignAndroidPackage /t:restore /p:Configuration=Release /p:AndroidEnableMultiDex=true
   artifacts:
     expire_in: 1 week
     paths:
-    - 'Droid/bin/Release/*.apk'
+      - 'Droid/bin/Release/*.apk'
   tags:
-    - Android
+      - Xamarin
   only:
-    - tags
+      - tags
