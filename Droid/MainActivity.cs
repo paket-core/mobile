@@ -137,8 +137,6 @@ namespace PaketGlobal.Droid
 
                 SendRegistrationToServer(refreshedToken);
             }
-
-            ScheduleJob();
         }
 
         internal static async void SendRegistrationToServer(string token)
@@ -174,6 +172,8 @@ namespace PaketGlobal.Droid
             EventService.IsNeedSendEvents = false;
 
             Countly.SharedInstance().OnStart(this);
+
+            ScheduleJob();
         }
 
         protected override void OnStop()

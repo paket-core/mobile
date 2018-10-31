@@ -71,6 +71,16 @@ namespace FCMNotifications
                 intent.PutExtra(key, data[key]);
             }
 
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            {
+                var chan = new NotificationChannel(MainActivity.CHANNEL_ID, "push notification", NotificationImportance.High);
+                chan.LightColor = Android.Graphics.Color.Blue;
+                chan.LockscreenVisibility = NotificationVisibility.Public;
+
+                var service = Android.App.Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+                service.CreateNotificationChannel(chan);
+            }
+
             var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NOTIFICATION_ID, intent, PendingIntentFlags.OneShot);
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.CHANNEL_ID)
@@ -80,8 +90,12 @@ namespace FCMNotifications
                                       .SetAutoCancel(true)
                                       .SetContentIntent(pendingIntent);
 
+            Notification notification = notificationBuilder.Build();
+            notification.Defaults |= NotificationDefaults.Vibrate;
+            notification.Defaults |= NotificationDefaults.Sound;
+
             var notificationManager = NotificationManagerCompat.From(this);
-            notificationManager.Notify(MainActivity.NOTIFICATION_ID, notificationBuilder.Build());
+            notificationManager.Notify(MainActivity.NOTIFICATION_ID, notification);
         }
 
         private void DidClickNotification(string obj)

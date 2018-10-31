@@ -4,6 +4,7 @@ using System.Net.Http;
 using Android.App;
 using Android.App.Job;
 using Android.Content;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.App;
@@ -49,11 +50,12 @@ namespace PaketGlobal.Droid
   
             return true; 
         }
-
+        
 
         class CalculatorTask : AsyncTask<long, Java.Lang.Void, long>
         {
             readonly EventJob jobService;
+            private bool needDebug = false;
 
             public CalculatorTask(EventJob jobService)
             {
@@ -79,26 +81,62 @@ namespace PaketGlobal.Droid
 
             async System.Threading.Tasks.Task<bool> SendEvent(string pubKey)
             {
-                string url = Config.RouteServerUrl + "/" + Config.RouteServerVersion + "/add_event";
+              
+                PublishLocalNotification("event", "get current location");
 
                 var location = "";
                 var eventName = Constants.EVENT_APP_USED;
 
-                var locator = Plugin.Geolocator.CrossGeolocator.Current;
+                var locationManager = Android.App.Application.Context.GetSystemService(Context.LocationService) as LocationManager;
+                var criteria = new Criteria { PowerRequirement = Power.Medium };
+                var bestProvider = locationManager.GetBestProvider(criteria,true);
+                var lastLocation = locationManager.GetLastKnownLocation(bestProvider);
 
-                var position = await locator.GetPositionAsync();
-
-                PublishLocalNotification("event", "get location");
-
-                if (position != null)
+                if(lastLocation!=null)
                 {
-                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    location = lastLocation.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + lastLocation.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                     if (location.Length > 24)
                     {
                         location = location.Substring(0, 24);
                     }
                 }
+
+                string url = Config.RouteServerUrl + "/" + Config.RouteServerVersion + "/add_event";
+
+                var locator = Plugin.Geolocator.CrossGeolocator.Current;
+
+                if(string.IsNullOrEmpty(location))
+                {
+                    var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5));
+
+                    if (position != null)
+                    {
+                        location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                        if (location.Length > 24)
+                        {
+                            location = location.Substring(0, 24);
+                        }
+                    }
+
+                    if (position == null)
+                    {
+                        PublishLocalNotification("event", "get last location");
+
+                        position = await locator.GetLastKnownLocationAsync();
+
+                        if (position != null)
+                        {
+                            location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                            if (location.Length > 24)
+                            {
+                                location = location.Substring(0, 24);
+                            }
+                        }
+                    }
+                }           
 
                 var formContent = new FormUrlEncodedContent(new[]{
                             new KeyValuePair<string, string>("event_type", eventName),
@@ -227,15 +265,34 @@ namespace PaketGlobal.Droid
 
             private void PublishLocalNotification(string title, string text)
             {
+                if(title=="event" && needDebug==false)
+                {
+                    return;
+                }
+
+                var channelId = "90";
+                var channelName = "job service";
+
+                if(Build.VERSION.SdkInt >= BuildVersionCodes.O)
+                {
+                    var chan = new NotificationChannel(channelId, channelName, NotificationImportance.High);
+                    chan.LightColor = Android.Graphics.Color.Blue;
+                    chan.LockscreenVisibility = NotificationVisibility.Public;
+
+                    var service = Android.App.Application.Context.GetSystemService(Context.NotificationService) as NotificationManager;
+                    service.CreateNotificationChannel(chan);
+                }
+
+
                 var intent = new Intent(Android.App.Application.Context, typeof(MainActivity));
-                intent.PutExtra("title", title); // Passed parameters to MainActivity.cs
+                intent.PutExtra("title", title);
                 intent.PutExtra("text", text);
                 intent.AddFlags(ActivityFlags.ClearTop);
 
                 var pendingIntent = PendingIntent.GetActivity(Android.App.Application.Context, 1, intent, PendingIntentFlags.Immutable);
 
                 // Instantiate the builder and set notification elements:
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(Android.App.Application.Context, "90")
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(Android.App.Application.Context, channelId)
                     .SetContentTitle(title)
                     .SetContentText(text)
                     .SetAutoCancel(true)
@@ -247,7 +304,6 @@ namespace PaketGlobal.Droid
                 Notification notification = builder.Build();
                 notification.Defaults |= NotificationDefaults.Vibrate;
                 notification.Defaults |= NotificationDefaults.Sound;
-
 
                 // Get the notification manager:
                 NotificationManager notificationManager =
