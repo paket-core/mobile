@@ -694,7 +694,7 @@
         <value>Send Package</value>
     </data>
     <data name="GetPackage" xml:space="preserve">
-        <value>Recieve Package</value>
+        <value>Receive Package</value>
     </data>
         <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Please create new or receive&#xA;package now</value>

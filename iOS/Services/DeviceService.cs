@@ -162,5 +162,9 @@ namespace PaketGlobal.iOS
         {
             return UIApplication.SharedApplication.KeyWindow.RootViewController;
         }
+
+        public void StartJobService()
+        {
+        }
     }
 }

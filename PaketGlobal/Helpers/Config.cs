@@ -26,7 +26,11 @@
 		internal const string CountlyAppKey = "21cba638718aa2289f59862a87919d9cb159ba99";
 
         internal const string GooglePlacesKEY = "AIzaSyDBRCrs7vfP_9gSaieSNs2wMqSZYFRuiz8";
-        internal const string GoogleFirebase = "https://paketglobal-fierbase.firebaseio.com/";
+        internal const string GoogleFirebase = "https://paket-test-217708.firebaseio.com/";
 
-	}
+        internal static int UpdateTimeInterval = 15;
+
+        internal const string UpdateTimeIntervalKey = "UpdateTimeIntervalKey";
+
+    }
 }

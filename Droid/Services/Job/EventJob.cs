@@ -221,7 +221,31 @@ namespace PaketGlobal.Droid
 
             async System.Threading.Tasks.Task<long> SendEventsAndCheckPackages()
             {
-                PublishLocalNotification("event", "trying send event");
+               PublishLocalNotification("event", "trying send event");
+
+                //disable doze
+                try
+                {
+                    Intent intent = new Intent();
+                    String packageName = Application.Context.PackageName;
+
+                    PowerManager pm = (PowerManager)Application.Context.GetSystemService(Context.PowerService);
+                    if (pm.IsIgnoringBatteryOptimizations(packageName))
+                        intent.SetAction(Android.Provider.Settings.ActionIgnoreBatteryOptimizationSettings);
+                    else
+                    {
+                        intent.SetAction(Android.Provider.Settings.ActionRequestIgnoreBatteryOptimizations);
+                        intent.SetData(Android.Net.Uri.Parse("package:" + packageName));
+                    }
+
+                    intent.AddFlags(ActivityFlags.NewTask);
+
+                    Application.Context.StartActivity(intent);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
 
                 try
                 {

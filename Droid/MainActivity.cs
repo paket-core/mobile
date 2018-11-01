@@ -173,7 +173,6 @@ namespace PaketGlobal.Droid
 
             Countly.SharedInstance().OnStart(this);
 
-            ScheduleJob();
         }
 
         protected override void OnStop()
@@ -527,9 +526,29 @@ namespace PaketGlobal.Droid
 
         #region Job
 
-        private void ScheduleJob()
+        public void ScheduleJob()
         {
-         
+            try{
+                Intent intent = new Intent();
+                String packageName = Application.Context.PackageName;
+
+                PowerManager pm = (PowerManager)Application.Context.GetSystemService(Context.PowerService);
+                if (pm.IsIgnoringBatteryOptimizations(packageName))
+                    intent.SetAction(Android.Provider.Settings.ActionIgnoreBatteryOptimizationSettings);
+                else
+                {
+                    intent.SetAction(Android.Provider.Settings.ActionRequestIgnoreBatteryOptimizations);
+                    intent.SetData(Android.Net.Uri.Parse("package:" + packageName));
+                }
+
+                intent.AddFlags(ActivityFlags.NewTask);
+
+                Application.Context.StartActivity(intent);
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
+            }
+
             var tm = (JobSchedulerType)GetSystemService(Context.JobSchedulerService);
             var jobs = tm.AllPendingJobs;
             tm.CancelAll();
@@ -537,15 +556,9 @@ namespace PaketGlobal.Droid
             JobInfo.Builder builder = this.CreateJobInfoBuilder()
                 .SetPersisted(true)
                 .SetRequiresDeviceIdle(false)
-                .SetPeriodic(900000)
+                .SetPeriodic(Config.UpdateTimeInterval * 60000)
                 .SetRequiredNetworkType(NetworkType.Any);
-
-         //   JobInfo.Builder builder = this.CreateJobInfoBuilder()
-         //.SetPersisted(false)
-         //.SetMinimumLatency(1000)    // Wait at least 1 second
-         //.SetOverrideDeadline(5000)  // But no longer than 5 seconds
-         //.SetRequiredNetworkType(NetworkType.Any);
-
+                
             int result = jobScheduler.Schedule(builder.Build());
             if (result == JobScheduler.ResultSuccess)
             {

@@ -66,6 +66,8 @@ namespace PaketGlobal
         void ShowProgress();
         void HideProgress();
 
+        void StartJobService();
+
         bool IsNeedAlertDialogToClose { get; set; }
         bool IsNeedAlertDialogToCloseLaunchPackage { get; set; }
         void SendErrorEvent(string errorMessage, string method);

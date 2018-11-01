@@ -27,9 +27,15 @@ namespace PaketGlobal.Droid
         {
             if (_callback == null)
                 return;
-            if (requestCode == RequestCodes.ContactPicker)
-            {
-                _callback(GetContactFromUri(data.Data));
+           
+            try{
+                if (requestCode == RequestCodes.ContactPicker)
+                {
+                    _callback(GetContactFromUri(data.Data));
+                }
+            }
+            catch{
+                _callback(null);
             }
         }
         static string GetContactFromUri(Android.Net.Uri contactUri)

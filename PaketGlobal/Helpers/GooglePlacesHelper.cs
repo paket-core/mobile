@@ -162,7 +162,7 @@ namespace PaketGlobal
             var constructedUrl = $"{url}?input={input}&types={pType}&key={Config.GooglePlacesKEY}&language={language}";
             if(Location!=null)
             {
-                constructedUrl = constructedUrl + "&location=" + Location + "&radius=50000&strictbounds";
+                constructedUrl = constructedUrl + "&location=" + Location;
             }
             return constructedUrl;
         }

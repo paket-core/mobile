@@ -142,7 +142,11 @@ namespace PaketGlobal.Droid
             {
                 IntentHelper.OpenContactPicker((path) =>
                 {
-                    task.SetResult(path);
+                    if(path != null)
+                    {
+                        task.SetResult(path);
+                    }
+                  
                 });
             }
             catch (Exception ex)
@@ -150,6 +154,11 @@ namespace PaketGlobal.Droid
                 task.SetException(ex);
             }
             return task.Task;
+        }
+
+        public void StartJobService()
+        {
+            MainActivity.Instance.ScheduleJob();
         }
     }
 }
