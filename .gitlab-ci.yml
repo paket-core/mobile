@@ -20,5 +20,7 @@ job:
       - 'Droid/bin/Release/*.apk'
   tags:
       - Xamarin
+      - Android
+      - Windows
   only:
-      - tags
+      - master
