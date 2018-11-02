@@ -559,8 +559,8 @@
         <value>You can reclaim your payment and collateral</value>
     </data>
     <data name="ContactsAccessNotGranted" xml:space="preserve">
-         <value>You must grant access to contacts to select the recipient's phone</value>
-     </data>
+        <value>You must grant access to contacts to select the recipient's phone</value>
+    </data>
     <data name="PackageDescText1" xml:space="preserve">
         <value>Package Description</value>
     </data>
@@ -655,8 +655,8 @@
         <value>Please wait when the launcher will make deposit.&#xA;Then you can accept the package.</value>
     </data>
     <data name="WaitingExpiredDepositPackage" xml:space="preserve">
-         <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
-     </data>
+        <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
+    </data>
     <data name="CourierNotContactVisible" xml:space="preserve">
         <value>You do not have permission to view the phone number yet</value>
     </data>
@@ -696,13 +696,13 @@
     <data name="GetPackage" xml:space="preserve">
         <value>Receive Package</value>
     </data>
-        <data name="NoPackagesFoundSubtitle" xml:space="preserve">
+    <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Please create new or receive&#xA;package now</value>
     </data>
     <data name="MaxDistance" xml:space="preserve">
         <value>Maximum distance</value>
     </data>
-        <data name="MoreSettings" xml:space="preserve">
+    <data name="MoreSettings" xml:space="preserve">
         <value>More Settings</value>
     </data>
     <data name="Save" xml:space="preserve">
@@ -741,27 +741,25 @@
     <data name="WaitingRecipientScan" xml:space="preserve">
         <value>Let the recipient scan this code to accept the package</value>
     </data>
-     <data name="SelectToLocation" xml:space="preserve">
+    <data name="SelectToLocation" xml:space="preserve">
         <value>Choose package destination</value>
-    </data>  
-   <data name="SelectFromLocation" xml:space="preserve">
+    </data>
+    <data name="SelectFromLocation" xml:space="preserve">
         <value>Choose package pickup location</value>
-    </data>  
-
+    </data>
     <data name="WaitingAccountCreation" xml:space="preserve">
         <value>Your Stellar account is being created, this can take up to a minute</value>
-    </data>  
-    
+    </data>
     <data name="WellcomeCreationMessage" xml:space="preserve">
         <value>Your account has been created - welcome to the PAKET network</value>
     </data>
-    
     <data name="WellcomeRestoreMessage" xml:space="preserve">
         <value>Your account has been restored - welcome back to the PAKET network</value>
     </data>
-    
-       <data name="Continue" xml:space="preserve">
+    <data name="Continue" xml:space="preserve">
         <value>Continue</value>
     </data>
-    
+    <data name="PurchaseManyBULs" xml:space="preserve">
+        <value>Purchase is currently limited to €50</value>
+    </data>
 </root>

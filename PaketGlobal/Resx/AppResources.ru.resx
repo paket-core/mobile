@@ -141,7 +141,6 @@
     <data name="WaitingExpiredDepositPackage" xml:space="preserve">
         <value>Срок истек&#x0a;Вы не можете оплатить и запустить посылку.</value>
     </data>
-
     <data name="AcceptPackage" xml:space="preserve">
         <value>Принять посылку</value>
     </data>
@@ -745,30 +744,28 @@
     <data name="WaitingCourierScan" xml:space="preserve">
         <value>Курьер должен отсканировать этот код, чтобы принять пакет</value>
     </data>
-        <data name="WaitingRecipientScan" xml:space="preserve">
+    <data name="WaitingRecipientScan" xml:space="preserve">
         <value>Получатель должен отсканировать этот код, чтобы принять пакет</value>
     </data>
-   <data name="SelectToLocation" xml:space="preserve">
+    <data name="SelectToLocation" xml:space="preserve">
         <value>Куда доставить?</value>
-    </data>  
-   <data name="SelectFromLocation" xml:space="preserve">
+    </data>
+    <data name="SelectFromLocation" xml:space="preserve">
         <value>Откуда забрать?</value>
-    </data> 
-    
+    </data>
     <data name="WaitingAccountCreation" xml:space="preserve">
         <value>Ваша учетная запись Stellar создается, пожалуйста подождите</value>
-    </data>  
-    
+    </data>
     <data name="WellcomeCreationMessage" xml:space="preserve">
         <value>Ваша учетная запись создана - добро пожаловать в сеть PAKET</value>
     </data>
-    
     <data name="WellcomeRestoreMessage" xml:space="preserve">
         <value>Ваша учетная запись восстановлена - добро пожаловать в сеть PAKET</value>
     </data>
-    
-           <data name="Continue" xml:space="preserve">
+    <data name="Continue" xml:space="preserve">
         <value>Продолжить</value>
     </data>
-    
+    <data name="PurchaseManyBULs" xml:space="preserve">
+        <value>Покупка ограничена до €50</value>
+    </data>
 </root>

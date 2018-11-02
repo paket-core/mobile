@@ -55,7 +55,6 @@ namespace PaketGlobal.Droid
         class CalculatorTask : AsyncTask<long, Java.Lang.Void, long>
         {
             readonly EventJob jobService;
-            private bool needDebug = false;
 
             public CalculatorTask(EventJob jobService)
             {
@@ -82,8 +81,6 @@ namespace PaketGlobal.Droid
             async System.Threading.Tasks.Task<bool> SendEvent(string pubKey)
             {
               
-                PublishLocalNotification("event", "get current location");
-
                 var location = "";
                 var eventName = Constants.EVENT_APP_USED;
 
@@ -122,8 +119,6 @@ namespace PaketGlobal.Droid
 
                     if (position == null)
                     {
-                        PublishLocalNotification("event", "get last location");
-
                         position = await locator.GetLastKnownLocationAsync();
 
                         if (position != null)
@@ -146,14 +141,7 @@ namespace PaketGlobal.Droid
 
                 var client = CreateClient(pubKey);
 
-                var response = await client.PostAsync(url, formContent);
-
-                var content = await response.Content.ReadAsStringAsync();
-
-                if(content!=null)
-                {
-                    PublishLocalNotification("event", content);
-                }
+                await client.PostAsync(url, formContent);
 
                 return true;
             }
@@ -221,8 +209,6 @@ namespace PaketGlobal.Droid
 
             async System.Threading.Tasks.Task<long> SendEventsAndCheckPackages()
             {
-               PublishLocalNotification("event", "trying send event");
-
                 //disable doze
                 try
                 {
@@ -256,18 +242,14 @@ namespace PaketGlobal.Droid
                     if (pubKey.Length > 0)
                     {
                         await SendEvent(pubKey);
-
-                        PublishLocalNotification("event", "DONE");
-
+                        
                         await CheckPackages(pubKey);
                     }
-                    else{
-                        PublishLocalNotification("event", "I can not read the data from the preferences. Empty public key");
-                    }
+                   
                 }
                 catch (Exception ex)
                 {
-                    PublishLocalNotification("error", ex.Message);
+                    Console.WriteLine(ex);
                 }
 
                 return 0;
@@ -289,11 +271,6 @@ namespace PaketGlobal.Droid
 
             private void PublishLocalNotification(string title, string text)
             {
-                if(title=="event" && needDebug==false)
-                {
-                    return;
-                }
-
                 var channelId = "90";
                 var channelName = "job service";
 

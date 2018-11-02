@@ -6,9 +6,22 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.7
+Milestone version: v.1.3.0
 
 ## Change Log
+
+### Milestone v.1.3.0
+
+02-11-2018
+
+* Fix phrasing of error when attempting to purchase too many BULs
+    https://github.com/paket-core/mobile/issues/145
+* Remove debug banners for events
+    https://github.com/paket-core/mobile/issues/146
+* Use remote settings
+    https://github.com/paket-core/mobile/issues/144
+* Add events from background process
+    https://github.com/paket-core/mobile/issues/137
 
 ### Milestone v.1.2.7
 

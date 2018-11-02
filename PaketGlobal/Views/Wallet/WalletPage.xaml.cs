@@ -446,19 +446,29 @@ namespace PaketGlobal
 
                     double amount = double.Parse(EntryAmountForBUL.Text);
 
-                    var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
-
-                    if (result != null)
+                    if(amount>50)
                     {
-                        PurchaseBullAddress = result.PaymentAddress;
+                        EventHandler handleCurrencyHandler = (s, e) =>
+                        {
+                            EntryAmountForBUL.Focus();
+                        };
 
-                        var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency, result.PaymentAddress);
-                        PurchaseBULSuccessLabel.Text = successString;
-
-                        PurchaseBULMainView.IsVisible = false;
-                        PurchaseBULSSuccessView.IsVisible = true;
+                        ShowErrorMessage(AppResources.PurchaseManyBULs, false, handleCurrencyHandler);
                     }
+                    else{
+                        var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
 
+                        if (result != null)
+                        {
+                            PurchaseBullAddress = result.PaymentAddress;
+
+                            var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency, result.PaymentAddress);
+                            PurchaseBULSuccessLabel.Text = successString;
+
+                            PurchaseBULMainView.IsVisible = false;
+                            PurchaseBULSSuccessView.IsVisible = true;
+                        }
+                    }                  
                 }
                 catch (Exception)
                 {

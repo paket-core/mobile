@@ -864,5 +864,13 @@ namespace PaketGlobal
             }
         }
 
+        internal static string PurchaseManyBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("PurchaseManyBULs", resourceCulture);
+            }
+        }
+
     }
 }
