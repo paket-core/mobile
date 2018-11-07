@@ -155,7 +155,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\UnderConstructionPage.xaml.cs">
       <DependentUpon>UnderConstructionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Services\FirendlyService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\FriendlyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />

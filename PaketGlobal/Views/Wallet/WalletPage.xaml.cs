@@ -250,7 +250,7 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task LoadWallet()
         {
-            if (!App.Locator.FirendlyService.IsFundWorking)
+            if (!App.Locator.FriendlyService.IsFundWorking)
             {
                 ShowErrorMessage(AppResources.WalletFundNotWorking);
             }
@@ -280,7 +280,7 @@ namespace PaketGlobal
         {
             App.ShowLoading(true);
 
-            if (!App.Locator.FirendlyService.IsFundWorking)
+            if (!App.Locator.FriendlyService.IsFundWorking)
             {
                 ShowErrorMessage(AppResources.WalletFundNotWorking);
             }
@@ -448,7 +448,7 @@ namespace PaketGlobal
 
         private async void BuyBULClicked(object sender, System.EventArgs e)
         {
-            if (!App.Locator.FirendlyService.IsFundWorking)
+            if (!App.Locator.FriendlyService.IsFundWorking)
             {
                 ShowErrorMessage(AppResources.WalletFundNotWorking);
                 return;
@@ -502,7 +502,7 @@ namespace PaketGlobal
 
         private async void BuyXLMClicked(object sender, System.EventArgs e)
         {
-            if (!App.Locator.FirendlyService.IsFundWorking)
+            if (!App.Locator.FriendlyService.IsFundWorking)
             {
                 ShowErrorMessage(AppResources.WalletFundNotWorking);
                 return;

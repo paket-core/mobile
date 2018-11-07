@@ -16,7 +16,7 @@ namespace PaketGlobal
     }
     public delegate void ConnectivityTypeChangedEventHandler(object sender, ConnectivityTypeChangedEventArgs e);
 
-    public class FirendlyService
+    public class FriendlyService
     {
         HttpClient httpClient = new HttpClient();
 
@@ -26,7 +26,7 @@ namespace PaketGlobal
         public bool IsBridgeWorking = true;
         public bool IsFundWorking = true;
 
-        public FirendlyService()
+        public FriendlyService()
         {
             Run();
             MonitorConnection();

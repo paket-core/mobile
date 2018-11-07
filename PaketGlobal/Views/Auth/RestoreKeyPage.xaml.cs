@@ -46,7 +46,7 @@ namespace PaketGlobal
             {
                 Unfocus();
 
-                if (!App.Locator.FirendlyService.IsFundWorking)
+                if (!App.Locator.FriendlyService.IsFundWorking)
                 {
                     ShowErrorMessage(AppResources.RegistrationFundNotWorking);
                     return;

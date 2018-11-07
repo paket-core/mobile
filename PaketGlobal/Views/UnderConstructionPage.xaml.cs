@@ -20,7 +20,7 @@ namespace PaketGlobal
                 DetailLabel.Text = AppResources.NoInternetConnection;
             }
 
-            App.Locator.FirendlyService.Pause();
+            App.Locator.FriendlyService.Pause();
         }
 
         private async void RefreshInfo()
@@ -34,7 +34,7 @@ namespace PaketGlobal
         {
             if(IsInternetError)
             {
-                if(App.Locator.FirendlyService.IsConnected())
+                if(App.Locator.FriendlyService.IsConnected())
                 {
                     RefreshInfo();
 
@@ -46,13 +46,13 @@ namespace PaketGlobal
             else{
                 App.ShowLoading(true);
 
-                var working = await App.Locator.FirendlyService.CheckServers();
+                var working = await App.Locator.FriendlyService.CheckServers();
 
                 App.ShowLoading(false);
 
                 if (working)
                 {
-                    App.Locator.FirendlyService.Resume();
+                    App.Locator.FriendlyService.Resume();
 
                     await Navigation.PopModalAsync(true);
 

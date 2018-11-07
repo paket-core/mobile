@@ -70,9 +70,9 @@ namespace PaketGlobal
 			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
-        public FirendlyService FirendlyService
+        public FriendlyService FriendlyService
         {
-            get { return SimpleIoc.Default.GetInstance<FirendlyService>(); }
+            get { return SimpleIoc.Default.GetInstance<FriendlyService>(); }
         }
 
         public LocationHelper LocationHelper
@@ -135,9 +135,9 @@ namespace PaketGlobal
 				SimpleIoc.Default.Register<WalletModel>();
 			}
 
-            if (!SimpleIoc.Default.IsRegistered<FirendlyService>())
+            if (!SimpleIoc.Default.IsRegistered<FriendlyService>())
             {
-                SimpleIoc.Default.Register<FirendlyService>();
+                SimpleIoc.Default.Register<FriendlyService>();
             }
 
             if (!SimpleIoc.Default.IsRegistered<Workspace>()) {

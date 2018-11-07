@@ -206,7 +206,7 @@ namespace PaketGlobal
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
 
-            App.Locator.FirendlyService.Resume();
+            App.Locator.FriendlyService.Resume();
         }
 
         protected override void OnSleep()
@@ -215,7 +215,7 @@ namespace PaketGlobal
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, "");
 
-            App.Locator.FirendlyService.Pause();
+            App.Locator.FriendlyService.Pause();
         }
 
         protected override void OnStart()
@@ -224,7 +224,7 @@ namespace PaketGlobal
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
 
-            App.Locator.FirendlyService.Resume();
+            App.Locator.FriendlyService.Resume();
         }
 
         #region Firebase config

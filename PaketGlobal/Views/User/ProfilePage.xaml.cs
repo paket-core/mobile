@@ -161,7 +161,7 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-            if (!App.Locator.FirendlyService.IsFundWorking)
+            if (!App.Locator.FriendlyService.IsFundWorking)
             {
                 ShowErrorMessage(AppResources.ProfileFundNotWorking);
             }
