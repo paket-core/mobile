@@ -250,13 +250,7 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task LoadWallet()
         {
-            if (!App.Locator.FriendlyService.IsFundWorking)
-            {
-                ShowErrorMessage(AppResources.WalletFundNotWorking);
-            }
-            else{
-                await ViewModel.Load();
-            }
+            await ViewModel.Load();
 
             ActivityIndicatorBUL.IsRunning = false;
             ActivityIndicatorBUL.IsVisible = false;
@@ -280,14 +274,7 @@ namespace PaketGlobal
         {
             App.ShowLoading(true);
 
-            if (!App.Locator.FriendlyService.IsFundWorking)
-            {
-                ShowErrorMessage(AppResources.WalletFundNotWorking);
-            }
-            else
-            {
-                await ViewModel.Load();
-            }
+            await ViewModel.Load();
 
             App.ShowLoading(false);
         }

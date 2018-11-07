@@ -106,14 +106,14 @@ namespace PaketGlobal
             }
             else
             {
-                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
+                var navPage = new NavigationPage(new WellcomePage());
                 MainPage = navPage;
             }
 
 
             MessagingCenter.Subscribe<Workspace, bool>(this, Constants.LOGOUT, (sender, arg) =>
             {
-                var navPage = Locator.NavigationService.Initialize(new WellcomePage());
+                var navPage = new NavigationPage(new WellcomePage());
                 MainPage = navPage;
             });
 
@@ -130,8 +130,10 @@ namespace PaketGlobal
                 {
                     App.IsShowedFriendlyScreen = true;
 
-                    var page = new UnderConstructionPage(true);
-                    MainPage.Navigation.PushModalAsync(page, false);
+                    Device.BeginInvokeOnMainThread(() => {
+                        var page = new UnderConstructionPage(true);
+                        MainPage.Navigation.PushModalAsync(page, true);
+                    });
                 }
 
             });
@@ -142,8 +144,10 @@ namespace PaketGlobal
                 {
                     App.IsShowedFriendlyScreen = true;
 
-                    var page = new UnderConstructionPage();
-                    MainPage.Navigation.PushModalAsync(page,false);
+                    Device.BeginInvokeOnMainThread(() => {
+                        var page = new UnderConstructionPage();
+                        MainPage.Navigation.PushModalAsync(page, true);
+                    });
                 }
 
             });

@@ -25,9 +25,15 @@ namespace PaketGlobal
 
         private async void RefreshInfo()
         {
-            await App.Locator.Packages.Load();
-            await App.Locator.Wallet.Load();
-            await App.Locator.ProfileModel.Load();
+            try{
+                await App.Locator.Packages.Load();
+                await App.Locator.Wallet.Load();
+                await App.Locator.ProfileModel.Load();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         private async void Handle_Clicked(object sender, System.EventArgs e)
@@ -41,6 +47,8 @@ namespace PaketGlobal
                     await Navigation.PopModalAsync(true);
 
                     App.IsShowedFriendlyScreen = false;
+
+                    App.Locator.FriendlyService.Resume();
                 }
             }
             else{

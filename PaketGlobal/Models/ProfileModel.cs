@@ -50,17 +50,24 @@ namespace PaketGlobal
 
 		public async Task Load()
 		{
-			var result = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
-			if (result != null) {
-				PaketUser = result.UserDetails.PaketUser;
-			}
+            try{
+                var result = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
+                if (result != null)
+                {
+                    PaketUser = result.UserDetails.PaketUser;
+                }
 
-			var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
-			if (userInfo != null) {
-				FullName = userInfo.UserDetails.FullName;
-				PhoneNumber = userInfo.UserDetails.PhoneNumber;
-				Address = userInfo.UserDetails.Address;
-                Application.Current.Properties[Constants.STORED_PHONE] = phoneNumber;
+                var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
+                if (userInfo != null)
+                {
+                    FullName = userInfo.UserDetails.FullName;
+                    PhoneNumber = userInfo.UserDetails.PhoneNumber;
+                    Address = userInfo.UserDetails.Address;
+                    Application.Current.Properties[Constants.STORED_PHONE] = phoneNumber;
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
             }
 		}
 

@@ -25,6 +25,7 @@ namespace PaketGlobal
         public bool IsRouteWorking = true;
         public bool IsBridgeWorking = true;
         public bool IsFundWorking = true;
+        int count = 0;
 
         public FriendlyService()
         {
@@ -50,11 +51,23 @@ namespace PaketGlobal
 
         private async void Run()
         {
+            StopTimer();
+
             bool isWorking = await CheckServers();
+
+            StartTimer();
+
+            //count++;
+
             if (!isWorking)
             {
                 MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.SERVERS_NOT_WORKING, "");
             }
+
+            //if(count>=8)
+            //{
+            //    MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.SERVERS_NOT_WORKING, "");
+            //}
         }
 
         private void StartTimer()
@@ -117,7 +130,6 @@ namespace PaketGlobal
 
         public async Task<bool> CheckServers()
         {
-            StopTimer();
 
             try
             {
@@ -129,9 +141,7 @@ namespace PaketGlobal
                 if (bridgeResponse.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     IsBridgeWorking = false;
-
-                    StartTimer();
-
+                    
                     return false;
                 }
 
@@ -143,9 +153,7 @@ namespace PaketGlobal
                 if (routeResponse.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     IsRouteWorking = false;
-
-                    StartTimer();
-
+                    
                     return false;
                 }
 
@@ -157,8 +165,6 @@ namespace PaketGlobal
                 if (idResponse.StatusCode != System.Net.HttpStatusCode.OK)
                 {
                     IsFundWorking = false;
-
-                    StartTimer();
                 }
                 else{
                     IsFundWorking = true;
@@ -168,9 +174,7 @@ namespace PaketGlobal
             {
                 Console.WriteLine(ex);
             }
-
-            StartTimer();
-
+            
             IsRouteWorking = true;
             IsBridgeWorking = true;
 

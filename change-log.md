@@ -12,6 +12,11 @@ Milestone version: v.1.3.0
 
 ### Milestone v.1.3.0
 
+07-11-2018
+
+* If a server is down, the app should show a friendly, and hopefully informative message
+    https://github.com/paket-core/mobile/issues/147
+
 02-11-2018
 
 * Fix phrasing of error when attempting to purchase too many BULs

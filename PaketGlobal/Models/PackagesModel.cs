@@ -120,43 +120,49 @@ namespace PaketGlobal
 
         public async System.Threading.Tasks.Task Load()
         {
-            StopTimer();
+            try{
+                StopTimer();
 
-			var result = await App.Locator.RouteServiceClient.MyPackages();
-            if (result != null)
-            {
-                var sorted = result.Packages.OrderByDescending(h => h.StatusSortValue);
-
-                PackagesList = sorted.ToList();
-
-                if (timer == null)
+                var result = await App.Locator.RouteServiceClient.MyPackages();
+                if (result != null)
                 {
-                    isneedTimer = true;
+                    var sorted = result.Packages.OrderByDescending(h => h.StatusSortValue);
 
-                    CreateTimer();
-                }
-            }
+                    PackagesList = sorted.ToList();
 
-            bool enabled = App.Locator.AccountService.ShowNotifications;
-
-            foreach (Package p1 in PackagesList)
-            {
-                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
-
-                if (isExpiredNeedShow)
-                {
-                    if (enabled)
+                    if (timer == null)
                     {
-                        Device.BeginInvokeOnMainThread(() => {
-                            App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
-                        });
+                        isneedTimer = true;
+
+                        CreateTimer();
                     }
                 }
+
+                bool enabled = App.Locator.AccountService.ShowNotifications;
+
+                foreach (Package p1 in PackagesList)
+                {
+                    var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
+
+                    if (isExpiredNeedShow)
+                    {
+                        if (enabled)
+                        {
+                            Device.BeginInvokeOnMainThread(() => {
+                                App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+                            });
+                        }
+                    }
+                }
+
+                App.Locator.AccountService.SavePackages(PackagesList);
+
+                CheckLocationUpdate();
             }
-
-            App.Locator.AccountService.SavePackages(PackagesList);
-
-            CheckLocationUpdate();
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)

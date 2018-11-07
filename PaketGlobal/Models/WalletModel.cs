@@ -110,22 +110,30 @@ namespace PaketGlobal
 
 		public async System.Threading.Tasks.Task Load()
 		{
-            StopTimer();
+            try
+            {
+                StopTimer();
 
-            LoadRatio();
+                LoadRatio();
 
-			var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
-			if (bal != null) {
-                
-				Balance = bal;
-
-                if (timer == null)
+                var bal = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
+                if (bal != null)
                 {
-                    isneedTimer = true;
 
-                    CreateTimer();
+                    Balance = bal;
+
+                    if (timer == null)
+                    {
+                        isneedTimer = true;
+
+                        CreateTimer();
+                    }
                 }
-			}
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 		}
 
         private async void SendEvent(long oldBalance, long newBalance, string currency)
