@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PaketGlobal"
+             x:Class="PaketGlobal.UnderConstructionPage">
+    <ContentPage.Content>
+        <RelativeLayout>
+            <Image WidthRequest="200" HeightRequest="200" Source="construction_image.png" Aspect="AspectFit"
+                   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5,Constant=-230}"
+                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5,Constant=-100}"/>
+            <StackLayout Orientation="Vertical" Spacing="5" Padding="20,10,20,10"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5,Constant=-10}">
+                 <Label x:Name="TitleLabel" TextColor="Gray" Text="{local:Translate Oops}" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
+                    HorizontalOptions="Center"/>
+                 <Label x:Name="DetailLabel" TextColor="Gray" Text="{local:Translate ServersNotWorking}" XAlign="Center" FontFamily="{StaticResource NormalFont}" FontSize="16"
+                    HorizontalOptions="Center"/>
+            </StackLayout>
+            <Button x:Name="NextButton"
+                    HorizontalOptions="Center"
+                    Text="{local:Translate TryAgain}"
+                    Clicked="Handle_Clicked"
+                    BorderColor="Transparent" TextColor="White"
+                    BackgroundColor="#53C5C7" WidthRequest="140" Style="{StaticResource DateButton}"
+                    RelativeLayout.XConstraint = "10"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-20}"
+                    RelativeLayout.YConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1,Constant=-90}"/>
+        </RelativeLayout>
+    </ContentPage.Content>
+</ContentPage>

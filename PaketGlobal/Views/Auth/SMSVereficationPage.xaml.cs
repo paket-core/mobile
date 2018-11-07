@@ -52,6 +52,12 @@ namespace PaketGlobal
             {
                 Unfocus();
 
+                if (!App.Locator.FirendlyService.IsFundWorking)
+                {
+                    ShowErrorMessage(AppResources.RegistrationFundNotWorking);
+                    return;
+                }
+
                 var page = new WaitingAccountCreationPage();
                 await Navigation.PushAsync(page, false);
                 await Task.Delay(1000);

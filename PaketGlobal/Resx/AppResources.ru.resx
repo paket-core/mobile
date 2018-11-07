@@ -768,4 +768,28 @@
     <data name="PurchaseManyBULs" xml:space="preserve">
         <value>Покупка ограничена до €50</value>
     </data>
+    <data name="ServersNotWorking" xml:space="preserve">
+        <value>Наши сервера на обслуживании&#xA;Попробуйте повторить попытку позже…</value>
+    </data>
+   <data name="Oops" xml:space="preserve">
+        <value>Ой</value>
+    </data>   
+    <data name="NoInternetConnection" xml:space="preserve">
+        <value>Нет подключения к интернету&#xA;Проверьте ваше соединение</value>
+    </data> 
+    <data name="TryAgain" xml:space="preserve">
+        <value>Повторить</value>
+    </data> 
+    <data name="Default500Error" xml:space="preserve">
+        <value>Что-то пошло не так&#xA;Наши сервера на обслуживании&#xA;Попробуйте повторить попытку позже…</value>
+    </data> 
+    <data name="RegistrationFundNotWorking" xml:space="preserve">
+        <value>Регистрация не работает в данный момент&#xA;Попробуйте повторить попытку позже…</value>
+    </data>  
+    <data name="WalletFundNotWorking" xml:space="preserve">
+        <value>Не возможно купить BULS/XLM&#xA;Попробуйте повторить попытку позже…</value>
+    </data>
+    <data name="ProfileFundNotWorking" xml:space="preserve">
+        <value>Невозможно получить информацию о вашем профиле в данный момент&#xA;Попробуйте повторить попытку позже…</value>
+    </data> 
 </root>

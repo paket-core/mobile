@@ -13,14 +13,23 @@ namespace PaketGlobal
 				NetworkConnected (this, e);
 		}
 
-		public event EventHandler<EventArgs> ConnectionError;
-		protected internal virtual void OnConnectionError (EventArgs e)
+		public event EventHandler<ConnectionErrorEventArgs> ConnectionError;
+        protected internal virtual void OnConnectionError (ConnectionErrorEventArgs e)
 		{
 			if (ConnectionError != null)
 				ConnectionError (this, e);
 		}
 
-		public event EventHandler<UnAuthorizedException> AuthenticationRequired;
+        public event EventHandler<EventArgs> InternalError;
+        protected internal virtual void OnInternalError(EventArgs e)
+        {
+            if (InternalError != null)
+                InternalError(this, e);
+        }
+
+
+
+        public event EventHandler<UnAuthorizedException> AuthenticationRequired;
 		protected internal virtual void OnAuthenticationRequired (UnAuthorizedException e)
 		{
 			if (AuthenticationRequired != null)

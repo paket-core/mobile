@@ -663,6 +663,12 @@
     <BundleResource Include="Resources\waiting_driver%403x.png" />
     <BundleResource Include="Resources\waiting_driver%402x.png" />
     <BundleResource Include="Resources\waiting_driver.png" />
+    <BundleResource Include="Resources\back_icon%403x.png" />
+    <BundleResource Include="Resources\back_icon%402x.png" />
+    <BundleResource Include="Resources\back_icon.png" />
+    <BundleResource Include="Resources\construction_image%403x.png" />
+    <BundleResource Include="Resources\construction_image%402x.png" />
+    <BundleResource Include="Resources\construction_image.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />

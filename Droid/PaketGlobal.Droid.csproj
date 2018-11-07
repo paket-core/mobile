@@ -984,6 +984,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\back_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\back_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\construction_image.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

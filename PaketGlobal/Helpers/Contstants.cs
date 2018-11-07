@@ -15,6 +15,9 @@ namespace PaketGlobal
         public const string DISPLAY_PACKAGE_CHANGED = "CurrentDisplayPackageChanged";
         public const string CHANGE_LANGUAGE = "ChangeLanguage";
         public const string OPEN_MINE_PACKAGES = "OPEN_MINE_PACKAGES";
+        public const string NO_INERNET_CONNECTION = "NO_INERNET_CONNECTION";
+
+
 
         public const string EVENT_APP_START = "app launched";
         public const string EVENT_APP_USED = "heartbeat";
@@ -42,5 +45,7 @@ namespace PaketGlobal
         internal const string STORED_PHONE = "STORED_PHONE";
 
         public const string PUB_KEY = "PUB_KEY";
+
+        public const string SERVERS_NOT_WORKING = "SERVERS_NOT_WORKING";
     }
 }

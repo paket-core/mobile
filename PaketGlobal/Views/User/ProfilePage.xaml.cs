@@ -161,7 +161,13 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-            await ViewModel.Load();
+            if (!App.Locator.FirendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.ProfileFundNotWorking);
+            }
+            else{
+                await ViewModel.Load();
+            }
 
             ActivityIndicator.IsVisible = false;
             ActivityIndicator.IsRunning = false;

@@ -21,6 +21,8 @@ namespace PaketGlobal
 
     public partial class App : Xamarin.Forms.Application
     {
+        public static bool IsShowedFriendlyScreen = false;
+
         private static Locator _locator;
         public static Locator Locator { get { return _locator ?? (_locator = new Locator()); } }
 
@@ -121,6 +123,31 @@ namespace PaketGlobal
                 MainPage = navigationPage;
             });
 
+
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.NO_INERNET_CONNECTION, (sender, arg) =>
+            {
+                if (!App.IsShowedFriendlyScreen)
+                {
+                    App.IsShowedFriendlyScreen = true;
+
+                    var page = new UnderConstructionPage(true);
+                    MainPage.Navigation.PushModalAsync(page, false);
+                }
+
+            });
+
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.SERVERS_NOT_WORKING, (sender, arg) =>
+            {
+                if(!App.IsShowedFriendlyScreen)
+                {
+                    App.IsShowedFriendlyScreen = true;
+
+                    var page = new UnderConstructionPage();
+                    MainPage.Navigation.PushModalAsync(page,false);
+                }
+
+            });
+
             DownloadConfig();
         }
 
@@ -178,6 +205,8 @@ namespace PaketGlobal
             base.OnResume();
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
+
+            App.Locator.FirendlyService.Resume();
         }
 
         protected override void OnSleep()
@@ -185,6 +214,8 @@ namespace PaketGlobal
             base.OnSleep();
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.STOP_APP, "");
+
+            App.Locator.FirendlyService.Pause();
         }
 
         protected override void OnStart()
@@ -192,6 +223,8 @@ namespace PaketGlobal
             base.OnStart();
 
             MessagingCenter.Send<string, string>(Constants.NOTIFICATION, Constants.START_APP, "");
+
+            App.Locator.FirendlyService.Resume();
         }
 
         #region Firebase config

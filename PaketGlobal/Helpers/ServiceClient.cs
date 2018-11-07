@@ -572,7 +572,9 @@ namespace PaketGlobal
 
         private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false, CancellationTokenSource cancellationTokenSource = null)
 		{
-			var client = customClient ?? restClient;
+            var resource = request.Resource;
+
+            var client = customClient ?? restClient;
 
 			if (signData) 
                 SignRequest(request, pubkey, client, customSign: customSign);
@@ -624,14 +626,23 @@ namespace PaketGlobal
                 }
            
 
-                ServiceStackSerializer.HandleStatusCode(response);
+                ServiceStackSerializer.HandleStatusCode(response, resource);
                 return response.Data;
             }
             catch (WebException e)
             {
                 System.Diagnostics.Debug.WriteLine("SendRequest to: {0} Error: {1}", client.BaseUrl, e.ToString());
                 if (!suppressNoConnection)
-                    App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+                {
+                    try
+                    {
+                        App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(resource));
+                    }
+                    catch
+                    {
+                        App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(""));
+                    }
+                }
             }
             catch (ServiceException e)
             {
@@ -674,7 +685,7 @@ namespace PaketGlobal
 				
 			}
 
-			public static void HandleStatusCode(IRestResponse response)
+            public static void HandleStatusCode(IRestResponse response, string resource = null)
 			{
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -684,7 +695,12 @@ namespace PaketGlobal
                 {
                     if(response.Content.Length==0 && response.StatusCode == 0)
                     {
-                        App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+                        try{
+                            App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(resource));
+                        }
+                        catch{
+                            App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(""));
+                        }
                     }
                     else{
                         var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
@@ -696,6 +712,13 @@ namespace PaketGlobal
                                 var method = response.ResponseUri.Segments.Last();
 
                                 App.Locator.DeviceService.SendErrorEvent(response.Content,method);
+
+                                if (!ServiceClient.IgnoreErrors.Contains<string>(method))
+                                {
+                                    App.Locator.Workspace.OnInternalError(EventArgs.Empty);
+
+                                    throw new ServiceException((int)response.StatusCode, "");
+                                }
                             }
                         }
 
@@ -783,6 +806,16 @@ namespace PaketGlobal
 				ServiceException = e;
 			}
 		}
+
+        public class ConnectionErrorEventArgs : EventArgs
+        {
+            public string Method { get; set; }
+
+            public ConnectionErrorEventArgs(string method)
+            {
+                Method = method;
+            }
+        }
 
         [DataContract]
         public class Error

@@ -158,6 +158,12 @@ namespace PaketGlobal
             {
                 Unfocus();
 
+                if (!App.Locator.FirendlyService.IsFundWorking)
+                {
+                    ShowErrorMessage(AppResources.RegistrationFundNotWorking);
+                    return;
+                }
+
                 App.ShowLoading(true);
 
                 if (IsFinishActivation == true)

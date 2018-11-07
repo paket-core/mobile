@@ -26,6 +26,8 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
+            AddressBookHelper.LoadCallSigns();
+
             BindingContext = package;
 
             //set launcher phone

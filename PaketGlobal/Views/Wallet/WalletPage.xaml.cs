@@ -91,7 +91,7 @@ namespace PaketGlobal
 
             if (fl)
             {
-                await LoadWallet();
+                 await LoadWallet();
 
                 if (ShowPurchaseBuls)
                 {
@@ -101,7 +101,7 @@ namespace PaketGlobal
                     RefreshButton.IsVisible = false;
 
                     PickerBULCurrency.Focus();
-                }
+                }              
             }
         }
 
@@ -250,7 +250,13 @@ namespace PaketGlobal
 
         private async System.Threading.Tasks.Task LoadWallet()
         {
-            await ViewModel.Load();
+            if (!App.Locator.FirendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+            }
+            else{
+                await ViewModel.Load();
+            }
 
             ActivityIndicatorBUL.IsRunning = false;
             ActivityIndicatorBUL.IsVisible = false;
@@ -274,7 +280,14 @@ namespace PaketGlobal
         {
             App.ShowLoading(true);
 
-            await ViewModel.Load();
+            if (!App.Locator.FirendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+            }
+            else
+            {
+                await ViewModel.Load();
+            }
 
             App.ShowLoading(false);
         }
@@ -435,6 +448,12 @@ namespace PaketGlobal
 
         private async void BuyBULClicked(object sender, System.EventArgs e)
         {
+            if (!App.Locator.FirendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+                return;
+            }
+
             if (IsValid(SpendCurrency.BUL))
             {
 
@@ -448,7 +467,7 @@ namespace PaketGlobal
 
                     if(amount>50)
                     {
-                        EventHandler handleCurrencyHandler = (s, e) =>
+                        EventHandler handleCurrencyHandler = (s, ev) =>
                         {
                             EntryAmountForBUL.Focus();
                         };
@@ -483,6 +502,12 @@ namespace PaketGlobal
 
         private async void BuyXLMClicked(object sender, System.EventArgs e)
         {
+            if (!App.Locator.FirendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+                return;
+            }
+
             if (IsValid(SpendCurrency.XLM))
             {
                 try

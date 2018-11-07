@@ -872,5 +872,46 @@ namespace PaketGlobal
             }
         }
 
+        internal static string NoInternetConnection
+        {
+            get
+            {
+                return ResourceManager.GetString("NoInternetConnection", resourceCulture);
+            }
+        }
+
+        internal static string RegistrationFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("RegistrationFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string WalletFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("WalletFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string ProfileFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string Default500Error
+        {
+            get
+            {
+                return ResourceManager.GetString("Default500Error", resourceCulture);
+            }
+        }
+
+
     }
 }

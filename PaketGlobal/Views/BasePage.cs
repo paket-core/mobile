@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using GalaSoft.MvvmLight.Ioc;
 using System.Threading.Tasks;
+using static PaketGlobal.ServiceClient;
 
 namespace PaketGlobal
 {
@@ -24,7 +25,8 @@ namespace PaketGlobal
 			}
 			App.Locator.Workspace.AuthenticationRequired += WorkspaceAuthenticationError;
 			App.Locator.Workspace.ConnectionError += WorkspaceConnectionError;
-			App.Locator.Workspace.NetworkConnected += WorkspaceNetworkConnected;
+            App.Locator.Workspace.InternalError += InternalServiceError;
+            App.Locator.Workspace.NetworkConnected += WorkspaceNetworkConnected;
 			App.Locator.Workspace.ServiceError += WorkspaceServiceError;
 			App.Locator.Workspace.LoggedOut += WorkspaceLoggedOut;
 			if (firstLoad) {
@@ -39,7 +41,8 @@ namespace PaketGlobal
 			App.Locator.Workspace.NetworkConnected -= WorkspaceNetworkConnected;
 			App.Locator.Workspace.ServiceError -= WorkspaceServiceError;
 			App.Locator.Workspace.LoggedOut -= WorkspaceLoggedOut;
-			if (ForegroundChanged != null) {
+            App.Locator.Workspace.InternalError -= InternalServiceError;
+            if (ForegroundChanged != null) {
 				ForegroundChanged(false);
 			}
 			base.OnDisappearing();
@@ -52,9 +55,28 @@ namespace PaketGlobal
 			System.Diagnostics.Debug.WriteLine(args);//TODO for Debug only
 		}
 
-		protected virtual void WorkspaceConnectionError(object sender, EventArgs e)
+        protected virtual void InternalServiceError(object sender, EventArgs args)
+        {
+            if(App.IsShowedFriendlyScreen==false)
+            {
+                ShowErrorMessage(AppResources.Default500Error);
+            }
+        }
+
+        protected virtual void WorkspaceConnectionError(object sender, ConnectionErrorEventArgs args)
 		{
-            ShowErrorMessage(AppResources.ConnectionError);
+            if(App.IsShowedFriendlyScreen==false)
+            {
+                //check methods
+                if(args.Method.ToLower().Contains("add_event")
+                  || args.Method.ToLower().Contains("callsigns"))
+                {
+
+                }
+                else{
+                    ShowErrorMessage(AppResources.ConnectionError);
+                }
+            }
 		}
 
 		protected virtual void WorkspaceNetworkConnected(object sender, EventArgs e)
@@ -91,9 +113,12 @@ namespace PaketGlobal
 
         protected void ShowErrorMessage(string error, bool lengthLong = false, EventHandler eventHandler = null, string nextButton = null, string cancelButton = null)
         {
-			Device.BeginInvokeOnMainThread(() => {
-                App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler, nextButton, cancelButton);
-			});
+            if(string.IsNullOrEmpty(error) == false)
+            {
+                Device.BeginInvokeOnMainThread(() => {
+                    App.Locator.NotificationService.ShowErrorMessage(error, lengthLong, eventHandler, nextButton, cancelButton);
+                });
+            }
         }
 
  

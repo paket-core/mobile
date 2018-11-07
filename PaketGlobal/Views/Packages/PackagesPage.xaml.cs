@@ -175,6 +175,7 @@ namespace PaketGlobal
             }
             else{
                 UpdatePackages();
+                AddressBookHelper.LoadCallSigns();
             }
 
             App.Locator.DeviceService.setStausBarLight();
