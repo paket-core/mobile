@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -17,10 +18,16 @@ namespace PaketGlobal.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.SplashScreen);
+            try{
+                SetContentView(Resource.Layout.SplashScreen);
 
-            FindViewById<TextView>(Resource.Id.AppVersionLabel).Text = $"Version {PackageManager.GetPackageInfo(PackageName, 0).VersionName}" 
+                FindViewById<TextView>(Resource.Id.AppVersionLabel).Text = $"Version {PackageManager.GetPackageInfo(PackageName, 0).VersionName}"
                 + "\n" + ThisAssembly.Git.Commit;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
 		// Launches the startup task

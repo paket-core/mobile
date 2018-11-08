@@ -87,7 +87,7 @@ namespace PaketGlobal
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize | WindowSoftInputModeAdjust.Pan);              XamEffects.Effects.Init();
 
-            Network.UseTestNetwork();//TODO for test porposals
+             Network.UseTestNetwork();//TODO for test porposals
 
             Locator.IdentityServiceClient.TryGetPubKey = () => Locator.Profile.Pubkey;
             Locator.IdentityServiceClient.TrySign = Locator.Profile.SignData;

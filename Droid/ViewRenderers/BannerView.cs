@@ -97,13 +97,19 @@ namespace PaketGlobal.Droid
             Typeface tfNormal = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Regular.ttf");
 
 
-            var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
-            title.SetTypeface(tfMedium, TypefaceStyle.Normal);
-            title.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
+            try{
+                var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
+                title.SetTypeface(tfMedium, TypefaceStyle.Normal);
+                title.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
 
-            var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
-            subtitle.SetTypeface(tfNormal, TypefaceStyle.Normal);
-            subtitle.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+                var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
+                subtitle.SetTypeface(tfNormal, TypefaceStyle.Normal);
+                subtitle.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             innerView.Visibility = ViewStates.Gone;
         }
@@ -180,13 +186,19 @@ namespace PaketGlobal.Droid
         {
             int resID = Resources.GetIdentifier(iconName.Replace(".png", ""), "drawable", this.Context.PackageName);
 
-            var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
-            var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
-            var image = innerView.FindViewById(Resource.Id.image_banner) as ImageView;
+            try{
+                var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
+                var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
+                var image = innerView.FindViewById(Resource.Id.image_banner) as ImageView;
 
-            title.Text = titleString;
-            subtitle.Text = subTitleString;
-            image.SetImageResource(resID);
+                title.Text = titleString;
+                subtitle.Text = subTitleString;
+                image.SetImageResource(resID);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             var wm = Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
             var prms = new WindowManagerLayoutParams(WindowManagerLayoutParams.WrapContent, WindowManagerLayoutParams.WrapContent, WindowManagerTypes.ApplicationPanel,

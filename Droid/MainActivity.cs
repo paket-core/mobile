@@ -345,41 +345,46 @@ namespace PaketGlobal.Droid
 
         public void ShowProgressDialog()
         {
-            if (progressDialog == null)
-            {
-                progressDialog = new Dialog(this);
-                progressDialog.SetCancelable(false);
-
-                progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
-                progressDialog.SetContentView(Resource.Layout.progress_layout);
-
-                circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
-                circularbar.Max = 100;
-                circularbar.Progress = 0;
-                circularbar.SecondaryProgress = 100;
-
-                progressStatus = 0;
-                progressStatus1 = 0;
-
-                progressThread = new System.Threading.Thread(new ThreadStart(delegate
+            try{
+                if (progressDialog == null)
                 {
-                    while (progressStatus < 100)
-                    {
-                        progressStatus += 1;
-                        progressStatus1 += 1;
-                        circularbar.Progress = progressStatus1;
-                        if (progressStatus == 99)
-                        {
-                            progressStatus = 0;
-                            progressStatus1 = 0;
-                        }
-                        System.Threading.Thread.Sleep(3);
-                    }
-                }));
-                progressThread.Start();
-            }
+                    progressDialog = new Dialog(this);
+                    progressDialog.SetCancelable(false);
 
-            progressDialog.Show();
+                    progressDialog.Window.SetBackgroundDrawable(new ColorDrawable(Android.Graphics.Color.Transparent));
+                    progressDialog.SetContentView(Resource.Layout.progress_layout);
+
+                    circularbar = progressDialog.FindViewById<ProgressBar>(Resource.Id.circularProgressbar);
+                    circularbar.Max = 100;
+                    circularbar.Progress = 0;
+                    circularbar.SecondaryProgress = 100;
+
+                    progressStatus = 0;
+                    progressStatus1 = 0;
+
+                    progressThread = new System.Threading.Thread(new ThreadStart(delegate
+                    {
+                        while (progressStatus < 100)
+                        {
+                            progressStatus += 1;
+                            progressStatus1 += 1;
+                            circularbar.Progress = progressStatus1;
+                            if (progressStatus == 99)
+                            {
+                                progressStatus = 0;
+                                progressStatus1 = 0;
+                            }
+                            System.Threading.Thread.Sleep(3);
+                        }
+                    }));
+                    progressThread.Start();
+                }
+
+                progressDialog.Show();
+            }
+            catch(Exception ex){
+                Console.WriteLine(ex);
+            }
         }
 
         public void HideProgressDialog()

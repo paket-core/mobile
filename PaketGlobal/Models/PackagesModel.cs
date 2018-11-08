@@ -181,6 +181,8 @@ namespace PaketGlobal
             var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
             if (result != null)
             {
+                //var packages = result.Packages;
+                //if(packages.)
                 AvailablePackagesList = result.Packages;
             }
         }

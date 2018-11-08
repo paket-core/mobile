@@ -84,7 +84,8 @@ namespace PaketGlobal
 
         private PackagesMode Mode = PackagesMode.All;
         private FilterPackages FilterPackage = new FilterPackages();
-        private CancellationTokenSource cancellationTokenSource;  
+        private CancellationTokenSource cancellationTokenSource;
+        private NotFoundPackage LocalNotFoundPackage = new NotFoundPackage();
 
         public PackagesPage()
         {
@@ -223,11 +224,24 @@ namespace PaketGlobal
 
         private async void UpdatePackages()
         {
-            await ViewModel.Load();
 
-            if (ViewModel.PackagesList.Count == 0)
+            if(Mode==PackagesMode.Available)
             {
-                ViewModel.PackagesList.Add(new NotFoundPackage());
+               await LoadAvailablePackages();
+            }
+            else{
+                await ViewModel.Load();
+
+                if (ViewModel.PackagesList.Count == 0)
+                {
+                    FooterLayout.IsVisible = true;
+                    FooterLayout.HeightRequest = 250;
+                }
+                else
+                {
+                    FooterLayout.IsVisible = false;
+                    FooterLayout.HeightRequest = 0;
+                }
             }
         }
 
@@ -240,8 +254,15 @@ namespace PaketGlobal
 
             if (ViewModel.PackagesList.Count == 0)
             {
-                ViewModel.PackagesList.Add(new NotFoundPackage());
+                FooterLayout.IsVisible = true;
+                FooterLayout.HeightRequest = 250;
             }
+            else
+            {
+                FooterLayout.IsVisible = false;
+                FooterLayout.HeightRequest = 0;
+            }
+
         }
 
         private async Task LoadAvailablePackages()
@@ -266,10 +287,16 @@ namespace PaketGlobal
             {
                 var list = ViewModel.AvailablePackagesList;
                 list.Insert(0, FilterPackage);
-
-                if(list.Count==1)
+        
+                if (list.Count == 1)
                 {
-                    list.Add(new NotFoundPackage());
+                    FooterLayout.IsVisible = true;
+                    FooterLayout.HeightRequest = 250;
+                }
+                else
+                {
+                    FooterLayout.IsVisible = false;
+                    FooterLayout.HeightRequest = 0;
                 }
             }
 
@@ -285,7 +312,7 @@ namespace PaketGlobal
         {
             if (e.SelectedItem == null) 
                 return;
-
+            
             PakagesView.SelectedItem = null;
 
             var pkgData = (Package)PakagesView.SelectedItem;
@@ -388,11 +415,11 @@ namespace PaketGlobal
 
             Mode = PackagesMode.All;
 
-          //  AvailableButton.TextColor = Color.LightGray;
-          //  AllButton.TextColor = Color.White;
+            //  AvailableButton.TextColor = Color.LightGray;
+            //  AllButton.TextColor = Color.White;
 
-         //  AllLine.BackgroundColor = Color.FromHex("#53C5C7");
-          //  AvailableLine.BackgroundColor = Color.Transparent;
+            //  AllLine.BackgroundColor = Color.FromHex("#53C5C7");
+            //  AvailableLine.BackgroundColor = Color.Transparent;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "PackagesList");
 
@@ -406,7 +433,12 @@ namespace PaketGlobal
 
             if (ViewModel.PackagesList.Count == 0)
             {
-                ViewModel.PackagesList.Add(new NotFoundPackage());
+                FooterLayout.IsVisible = true;
+                FooterLayout.HeightRequest = 250;
+            }
+            else{
+                FooterLayout.IsVisible = false;
+                FooterLayout.HeightRequest = 0;
             }
 
             ActivityIndicator.IsRunning = false;

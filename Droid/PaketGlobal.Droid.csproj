@@ -428,7 +428,6 @@
     <Compile Include="Services\Location\ServiceConnectedEventArgs.cs" />
     <Compile Include="Services\Location\LocationAppManager.cs" />
     <Compile Include="Services\Location\LocationSharedService.cs" />
-    <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
     <Compile Include="Services\Events\EventService.cs" />
     <Compile Include="Services\Events\EventSharedService.cs" />
     <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxArrayAdapter.cs" />

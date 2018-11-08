@@ -16,11 +16,11 @@
         <ResourceDictionary>
             <DataTemplate x:Key="NotFoundPackage">
                 <local:CellWithoutSelection IsEnabled="true" Height="250">
-                    <StackLayout Spacing="15" Padding="0,20,0,0" HeightRequest="250">
-                        <Image Source="not_found_icon" HeightRequest="56" WidthRequest="56" VerticalOptions="Center"/>
+                  <StackLayout Spacing="15" Padding="0,20,0,0" HeightRequest="250">
+                       <!-- <Image Source="not_found_icon.png" HeightRequest="56" WidthRequest="56" VerticalOptions="Center"/>
                         <Label Text = "{local:Translate NoPackagesFound}" XAlign="Center" YAlign="Center" TextColor="#000000" FontFamily="{StaticResource SemiBoldFont}" FontSize="24"/>
                         <Label Text = "{local:Translate NoPackagesFoundSubtitle}" XAlign="Center" YAlign="Center" TextColor="#5F5F5F" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
-                        <local:PaketButton HorizontalOptions="Center" Text="{local:Translate SendPackage}" Clicked="LaunchPackageClicked"  WidthRequest="240"  HeightRequest="50" ButtonBackground="#4D64E8"  />
+                        <local:PaketButton HorizontalOptions="Center" Text="{local:Translate SendPackage}" Clicked="LaunchPackageClicked"  WidthRequest="240"  HeightRequest="50" ButtonBackground="#4D64E8"  />-->
                     </StackLayout>
                 </local:CellWithoutSelection>
             </DataTemplate>
@@ -274,14 +274,26 @@
                     
             </StackLayout>
             
-            <Views:ListView x:Name="PakagesView"
+            <ListView x:Name="PakagesView"
                       ItemTemplate="{StaticResource PackagesTemplateSelector}"
                       BackgroundColor="#F0F0F0" 
                       ItemsSource="{Binding PackagesList}" 
                       ItemSelected="PackageItemSelected"
                       IsPullToRefreshEnabled="true"
-                      Scrolled="OnListViewScrolled"
-                      SeparatorVisibility="None" RowHeight="-1" HasUnevenRows="true"/>
+                     
+                      SeparatorVisibility="None" RowHeight="-1" HasUnevenRows="true" Footer="">
+               
+                       <ListView.Footer>
+                 <StackLayout IsVisible="false" x:Name="FooterLayout" Spacing="15" Padding="0,20,0,0" HeightRequest="250">
+                        <Image Source="not_found_icon" HeightRequest="56" WidthRequest="56" VerticalOptions="Center"/>
+                        <Label Text = "{local:Translate NoPackagesFound}" XAlign="Center" YAlign="Center" TextColor="#000000" FontFamily="{StaticResource SemiBoldFont}" FontSize="24"/>
+                        <Label Text = "{local:Translate NoPackagesFoundSubtitle}" XAlign="Center" YAlign="Center" TextColor="#5F5F5F" FontFamily="{StaticResource NormalFont}" FontSize="12"/>
+                      <local:PaketButton HorizontalOptions="Center" Text="{local:Translate SendPackage}" Clicked="LaunchPackageClicked"  WidthRequest="240"  HeightRequest="50" ButtonBackground="#4D64E8"  />
+                  </StackLayout>            
+    </ListView.Footer>
+                    
+                
+            </ListView>
                 
                 
 
