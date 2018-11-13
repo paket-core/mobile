@@ -26,11 +26,13 @@ namespace PaketGlobal
 		{
 			InitializeComponent();
 
+            AddressBookHelper.LoadCallSigns();
+
             BindingContext = package;
 
             //set launcher phone
             var profile = App.Locator.ProfileModel;
-            var number = profile.PhoneNumber;
+            var number = profile.StoredPhoneNumber;
       
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.Instance;
             try
@@ -364,7 +366,6 @@ namespace PaketGlobal
                 input.CopyTo(ms);
                 return ms.ToArray();
             }
-
         }
 
         private async void CreateClicked(object sender, System.EventArgs e)
@@ -479,14 +480,46 @@ namespace PaketGlobal
             this.Navigation.PushAsync(page);
         }
 
-        private void ContactsButtonClicked(object sender, EventArgs e)
+        private async void ContactsButtonClicked(object sender, EventArgs e)
         {
             this.Unfocus();
 
-            ContactsBookPage page = new ContactsBookPage();
-            page.eventHandler = DidSelectRecipientPhoneHandler;
-            this.Navigation.PushAsync(page);
+            try
+            {
+                var hasPermission = await Utils.CheckPermissions(Plugin.Permissions.Abstractions.Permission.Contacts);
+
+                if (hasPermission)
+                {
+                    var result = await App.Locator.DeviceService.OpenAddressBook();
+                    if(result!=null)
+                    {
+                        var contact = new BookContact("",result,"");
+
+                        if (contact.CountryCode != null)
+                        {
+                            ViewModel.RecipientPhoneCode = contact.CountryCode;
+                            ViewModel.RecipientPhoneNumber = contact.NationalPhone;
+                        }
+                        else
+                        {
+                            ViewModel.RecipientPhoneNumber = contact.SimplePhone;
+                        }
+                    }
+                }
+                else
+                {
+                    ShowMessage(AppResources.ContactsAccessNotGranted);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            //ContactsBookPage page = new ContactsBookPage();
+            //page.eventHandler = DidSelectRecipientPhoneHandler;
+            //this.Navigation.PushAsync(page);
         }
+
 
         private void AddressButtonClicked(object sender, EventArgs e)
         {
@@ -669,5 +702,67 @@ namespace PaketGlobal
             ProgressLabel.Text = e.Message;
         }
 
+        private void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
+        {
+            if (sender==EntryPayment)
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryPayment.Text))
+                    {
+                        PaymentEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryPayment.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        PaymentEuroLabel.Text = euro;
+
+                        if (!PaymentEuroLabel.IsVisible)
+                        {
+                            PaymentEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    PaymentEuroLabel.IsVisible = false;
+                }
+            }
+            else if(sender==EntryCollateral){
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryCollateral.Text))
+                    {
+                        CollateralEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryCollateral.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        CollateralEuroLabel.Text = euro;
+
+                        if (!CollateralEuroLabel.IsVisible)
+                        {
+                            CollateralEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    CollateralEuroLabel.IsVisible = false;
+                }
+            }
+        }
 	}
 }

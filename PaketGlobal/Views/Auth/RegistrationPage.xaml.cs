@@ -158,6 +158,12 @@ namespace PaketGlobal
             {
                 Unfocus();
 
+                if (!App.Locator.FriendlyService.IsFundWorking)
+                {
+                    ShowErrorMessage(AppResources.RegistrationFundNotWorking);
+                    return;
+                }
+
                 App.ShowLoading(true);
 
                 if (IsFinishActivation == true)
@@ -175,7 +181,9 @@ namespace PaketGlobal
 														   kd.KeyPair.SecretSeed,
 														   kd.MnemonicString);
 
-						if (App.Locator.Profile.MnemonicGenerated) {
+                        Application.Current.Properties[Constants.STORED_PHONE] = ViewModel.FullPhoneNumber;
+
+                        if (App.Locator.Profile.MnemonicGenerated) {
 							var page = new ViewMnemonicPage();
 							await Navigation.PushAsync(page, true);
 						} else {
@@ -208,7 +216,9 @@ namespace PaketGlobal
 																   kd.KeyPair.SecretSeed,
 																   kd.MnemonicString);
 
-								if (App.Locator.Profile.MnemonicGenerated) {
+                                Application.Current.Properties[Constants.STORED_PHONE] = ViewModel.FullPhoneNumber;
+
+                                if (App.Locator.Profile.MnemonicGenerated) {
 									var page = new ViewMnemonicPage();
 									await Navigation.PushAsync(page, true);
 								} else {

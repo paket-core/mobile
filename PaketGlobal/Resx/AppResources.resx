@@ -559,8 +559,8 @@
         <value>You can reclaim your payment and collateral</value>
     </data>
     <data name="ContactsAccessNotGranted" xml:space="preserve">
-         <value>You must grant access to contacts to select the recipient's phone</value>
-     </data>
+        <value>You must grant access to contacts to select the recipient's phone</value>
+    </data>
     <data name="PackageDescText1" xml:space="preserve">
         <value>Package Description</value>
     </data>
@@ -643,16 +643,19 @@
         <value>The package was successfully assigned</value>
     </data>
     <data name="WaitingAssignCourierToPackage" xml:space="preserve">
-        <value>Please wait some courier to assign your package.&#xA;Then you would be able to make deposit.</value>
+        <value>Your package is waiting for a courier</value>
     </data>
     <data name="Deposit" xml:space="preserve">
         <value>Deposit Payment</value>
     </data>
     <data name="WaitingMakeDepositPackage" xml:space="preserve">
-        <value>Please make a deposit.&#xA;Then you can show the courier a QR code.</value>
+        <value>Courier found. Deposit payment into the escrow to launch the package.</value>
     </data>
     <data name="WaitingLauncherMakeDeposit" xml:space="preserve">
         <value>Please wait when the launcher will make deposit.&#xA;Then you can accept the package.</value>
+    </data>
+    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
+        <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
     </data>
     <data name="CourierNotContactVisible" xml:space="preserve">
         <value>You do not have permission to view the phone number yet</value>
@@ -691,15 +694,15 @@
         <value>Send Package</value>
     </data>
     <data name="GetPackage" xml:space="preserve">
-        <value>Recieve Package</value>
+        <value>Receive Package</value>
     </data>
-        <data name="NoPackagesFoundSubtitle" xml:space="preserve">
+    <data name="NoPackagesFoundSubtitle" xml:space="preserve">
         <value>Please create new or receive&#xA;package now</value>
     </data>
     <data name="MaxDistance" xml:space="preserve">
         <value>Maximum distance</value>
     </data>
-        <data name="MoreSettings" xml:space="preserve">
+    <data name="MoreSettings" xml:space="preserve">
         <value>More Settings</value>
     </data>
     <data name="Save" xml:space="preserve">
@@ -732,6 +735,85 @@
     <data name="PaymentUpperCase" xml:space="preserve">
         <value>PAYMENT</value>
     </data>
+    <data name="WaitingCourierScan" xml:space="preserve">
+        <value>Let the courier scan this code to accept the package</value>
+    </data>
+    <data name="WaitingRecipientScan" xml:space="preserve">
+        <value>Let the recipient scan this code to accept the package</value>
+    </data>
+    <data name="SelectToLocation" xml:space="preserve">
+        <value>Choose package destination</value>
+    </data>
+    <data name="SelectFromLocation" xml:space="preserve">
+        <value>Choose package pickup location</value>
+    </data>
+    <data name="WaitingAccountCreation" xml:space="preserve">
+        <value>Your Stellar account is being created, this can take up to a minute</value>
+    </data>
+    <data name="WellcomeCreationMessage" xml:space="preserve">
+        <value>Your account has been created - welcome to the PAKET network</value>
+    </data>
+    <data name="WellcomeRestoreMessage" xml:space="preserve">
+        <value>Your account has been restored - welcome back to the PAKET network</value>
+    </data>
+    <data name="Continue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    <data name="PurchaseManyBULs" xml:space="preserve">
+        <value>Purchase is currently limited to €50</value>
+    </data>
+    <data name="ServersNotWorking" xml:space="preserve">
+        <value>Unable to connect to the PAKET network&#xA;Please come back later…</value>
+    </data>
+   <data name="Oops" xml:space="preserve">
+        <value>Whoops</value>
+    </data>   
+    <data name="NoInternetConnection" xml:space="preserve">
+        <value>No internet connection&#xA;Check your connection</value>
+    </data> 
+    <data name="TryAgain" xml:space="preserve">
+        <value>Try Again</value>
+    </data> 
+    <data name="Default500Error" xml:space="preserve">
+        <value>Something went wrong&#xA;Our servers are under construction&#xA;Please try again later…</value>
+    </data>
+    <data name="RegistrationFundNotWorking" xml:space="preserve">
+        <value>Registration is full at the moment, please try again soon</value>
+    </data>  
+    <data name="WalletFundNotWorking" xml:space="preserve">
+        <value>No BULs / XLM currently available for purchase, please try again soon</value>
+    </data> 
+    <data name="ProfileFundNotWorking" xml:space="preserve">
+        <value>Can't get your profile info at the moment, please try again soon</value>
+    </data> 
     
+    
+    <data name="ErrorCode105" xml:space="preserve">
+        <value>Too big data. Unable to write to the database</value>
+    </data> 
+    <data name="ErrorCode310" xml:space="preserve">
+        <value>Verification code invalid or expired</value>
+    </data> 
+    <data name="ErrorCode320" xml:space="preserve">
+        <value>Daily fund limit reached</value>
+    </data> 
+    <data name="ErrorCode400" xml:space="preserve">
+        <value>Package is not valid</value>
+    </data> 
+    <data name="ErrorCode304" xml:space="preserve">
+        <value>This phone number is already used</value>
+    </data> 
+    <data name="ErrorCode301" xml:space="preserve">
+        <value>User with provided pubkey or call sign already exists</value>
+    </data> 
+    <data name="ErrorCode300" xml:space="preserve">
+        <value>User does not exists</value>
+    </data> 
+    <data name="ErrorCode103" xml:space="preserve">
+        <value>Invalid signature</value>
+    </data> 
+    <data name="ErrorCode100" xml:space="preserve">
+        <value>Please fill in all fields</value>
+    </data> 
     
 </root>

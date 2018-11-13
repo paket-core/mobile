@@ -22,7 +22,12 @@ namespace PaketGlobal
 
 		public T GetInstance<T>(string key = null)
 		{
-			return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
+            try{
+                return key != null ? SimpleIoc.Default.GetInstance<T>(key) : SimpleIoc.Default.GetInstance<T>();
+                }
+            catch (Exception ex){
+                return default(T);
+            }
 		}
 
 		public Profile Profile {
@@ -65,6 +70,11 @@ namespace PaketGlobal
 			get { return SimpleIoc.Default.GetInstance<WalletModel>(); }
 		}
 
+        public FriendlyService FriendlyService
+        {
+            get { return SimpleIoc.Default.GetInstance<FriendlyService>(); }
+        }
+
         public LocationHelper LocationHelper
         {
             get { return GetInstance<LocationHelper>(); }
@@ -103,50 +113,13 @@ namespace PaketGlobal
         }
 
 
-        async Task DownloadConfig()
-        {
-            var firebase = new FirebaseClient(Config.GoogleFirebase);
-
-            var items = await firebase
-                .Child("urls")
-                .OnceAsync<FierbaseResponse>();
-
-            if(items != null)
-            {
-                foreach (var item in items)
-                {
-                    if(item.Object.bridge != null && item.Object.route != null && item.Object.fund != null)
-                    {
-                        Config.BridgeServerUrl = item.Object.bridge;
-                        Config.RouteServerUrl = item.Object.route;
-                        Config.IdentityServerUrl = item.Object.fund;
-                    }
-                }
-            }
-        }
-
+       
 		/// <summary>
 		/// Register all the used ViewModels, Services et. al. with the IoC Container
 		/// </summary>
 		public Locator()
 		{
-
-            //Task.Run(async () => { await DownloadConfig(); }).Wait();
-
-             if (Application.Current.Properties.ContainsKey(Config.BridgeService))
-            {
-                object bridgeService;
-                object fundService;
-                object routeService;
-
-                Application.Current.Properties.TryGetValue(Config.BridgeService, out bridgeService);
-                Application.Current.Properties.TryGetValue(Config.IdentityService, out fundService);
-                Application.Current.Properties.TryGetValue(Config.RouteService, out routeService);
-
-                Config.BridgeServerUrl = (bridgeService as string);
-                Config.IdentityServerUrl = (fundService as string);
-                Config.RouteServerUrl = (routeService as string);
-            }
+           // Task.Run(async () => { await DownloadConfig(); }).Wait();
 
             // Models
             if (!SimpleIoc.Default.IsRegistered<ProfileModel>())
@@ -162,7 +135,12 @@ namespace PaketGlobal
 				SimpleIoc.Default.Register<WalletModel>();
 			}
 
-			if (!SimpleIoc.Default.IsRegistered<Workspace>()) {
+            if (!SimpleIoc.Default.IsRegistered<FriendlyService>())
+            {
+                SimpleIoc.Default.Register<FriendlyService>();
+            }
+
+            if (!SimpleIoc.Default.IsRegistered<Workspace>()) {
 				SimpleIoc.Default.Register<Workspace>(() => new Workspace());
 			}
 

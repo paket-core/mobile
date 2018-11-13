@@ -146,6 +146,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestBoxSuggestionChosenEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestBoxTextChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Autocomplete\AutoSuggestionBoxTextChangeReason.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SegmentView.xaml.cs">
+      <DependentUpon>SegmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Auth\WaitingAccountCreationPage.xaml.cs">
+      <DependentUpon>WaitingAccountCreationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\UnderConstructionPage.xaml.cs">
+      <DependentUpon>UnderConstructionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Services\FriendlyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml" />
@@ -261,6 +271,18 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\ButtonWithTextImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\SegmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\Auth\WaitingAccountCreationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\UnderConstructionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

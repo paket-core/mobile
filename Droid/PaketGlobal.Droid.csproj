@@ -379,6 +379,15 @@
     <Reference Include="XamEffects.Droid">
       <HintPath>..\packages\XamEffects.1.5.1\lib\MonoAndroid\XamEffects.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Firebase.Common">
+      <HintPath>..\packages\Xamarin.Firebase.Common.60.1142.1\lib\MonoAndroid80\Xamarin.Firebase.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Firebase.Iid">
+      <HintPath>..\packages\Xamarin.Firebase.Iid.60.1142.1\lib\MonoAndroid80\Xamarin.Firebase.Iid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Firebase.Messaging">
+      <HintPath>..\packages\Xamarin.Firebase.Messaging.60.1142.1\lib\MonoAndroid80\Xamarin.Firebase.Messaging.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AboutAssets.txt" />
@@ -419,7 +428,6 @@
     <Compile Include="Services\Location\ServiceConnectedEventArgs.cs" />
     <Compile Include="Services\Location\LocationAppManager.cs" />
     <Compile Include="Services\Location\LocationSharedService.cs" />
-    <Compile Include="ViewRenderers\DelayedProgressDialog.cs" />
     <Compile Include="Services\Events\EventService.cs" />
     <Compile Include="Services\Events\EventSharedService.cs" />
     <Compile Include="ViewRenderers\Autocomplete\XfxComboBoxArrayAdapter.cs" />
@@ -432,6 +440,11 @@
     <Compile Include="ViewRenderers\PaketSliderRender.cs" />
     <Compile Include="Services\PackageService\PackageService.cs" />
     <Compile Include="ViewRenderers\NativeAutoSuggestBox.Android.cs" />
+    <Compile Include="Services\FirebaseIIDService.cs" />
+    <Compile Include="Services\FirebaseMessagingService.cs" />
+    <Compile Include="Services\IntentHelper.cs" />
+    <Compile Include="Services\Job\JobSchedulerHelpers.cs" />
+    <Compile Include="Services\Job\EventJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -960,6 +973,21 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\settings_button.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\tw_icon.png" />
     <AndroidResource Include="Resources\drawable\cursor.xml" />
+    <AndroidResource Include="Resources\drawable\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\waiting_driver.png" />
+    <AndroidResource Include="Resources\drawable\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\back_icon.png" />
+    <AndroidResource Include="Resources\drawable\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\construction_image.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />
@@ -972,6 +1000,7 @@
     <Folder Include="ViewRenderers\Autocomplete\" />
     <Folder Include="Resources\xml\" />
     <Folder Include="Services\PackageService\" />
+    <Folder Include="Services\Job\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\Poppins-Bold.ttf" />
@@ -979,6 +1008,9 @@
     <AndroidAsset Include="Assets\Poppins-Regular.ttf" />
     <AndroidAsset Include="Assets\Poppins-SemiBold.ttf" />
     <AndroidAsset Include="Assets\SpaceMono-Bold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
   <Import Project="..\PaketGlobal\PaketGlobal.projitems" Label="Shared" Condition="Exists('..\PaketGlobal\PaketGlobal.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
@@ -1011,4 +1043,7 @@
   <Import Project="..\packages\Xamarin.GooglePlayServices.Tasks.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Tasks.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Tasks.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Tasks.targets')" />
   <Import Project="..\packages\Xamarin.GooglePlayServices.Base.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Base.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Base.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Base.targets')" />
   <Import Project="..\packages\Xamarin.GooglePlayServices.Maps.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Maps.targets" Condition="Exists('..\packages\Xamarin.GooglePlayServices.Maps.60.1142.1\build\MonoAndroid80\Xamarin.GooglePlayServices.Maps.targets')" />
+  <Import Project="..\packages\Xamarin.Firebase.Common.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Common.targets" Condition="Exists('..\packages\Xamarin.Firebase.Common.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Common.targets')" />
+  <Import Project="..\packages\Xamarin.Firebase.Iid.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Iid.targets" Condition="Exists('..\packages\Xamarin.Firebase.Iid.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Iid.targets')" />
+  <Import Project="..\packages\Xamarin.Firebase.Messaging.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Messaging.targets" Condition="Exists('..\packages\Xamarin.Firebase.Messaging.60.1142.1\build\MonoAndroid80\Xamarin.Firebase.Messaging.targets')" />
 </Project>

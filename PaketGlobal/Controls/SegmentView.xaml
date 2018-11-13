@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:local="clr-namespace:PaketGlobal"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PaketGlobal.SegmentView">
+
+    <Frame Padding="0" x:Name="FrameView"
+           RelativeLayout.XConstraint="15"
+           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-30}"
+           HeightRequest="44" HasShadow="false" CornerRadius="22" BackgroundColor="#4255BD">
+        
+    </Frame>
+    
+    <Frame x:Name="SelectedView" Padding="0" 
+           RelativeLayout.XConstraint="17"
+           RelativeLayout.YConstraint="2"
+           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-17}"
+           HeightRequest="40" HasShadow="false" CornerRadius="20" BackgroundColor="White">
+        
+    </Frame>
+    
+    <Label BackgroundColor="Transparent" x:Name="FirstLabel" FontFamily="{StaticResource SemiBoldFont}" FontSize="17" TextColor="Black" Text="{local:Translate AllPackages}"
+            RelativeLayout.XConstraint="17"
+            RelativeLayout.YConstraint="3"
+            XAlign="Center"
+            YAlign="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5,Constant=-17}"
+            HeightRequest="40"></Label>
+    
+     <Label BackgroundColor="Transparent" x:Name="SecondLabel" FontFamily="{StaticResource SemiBoldFont}" FontSize="17" TextColor="#E5E5E5" Text="{local:Translate AvailablePackages}"
+            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=0}"
+            RelativeLayout.YConstraint="3"
+            XAlign="Center"
+            YAlign="Center"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5,Constant=-17}"
+            HeightRequest="40"></Label>
+    
+</RelativeLayout>

@@ -80,6 +80,27 @@ namespace PaketGlobal.iOS.ViewRenders
             });
         }
 
+        public void SetPackageString(string title, Action callback)
+        {
+            _callback = callback;
+
+            TitleLabel.Text = title;
+
+            var icon = "delivered_icon.png";
+
+            if (title.ToLower().Contains("waiting"))
+            {
+                icon = "waiting_pickup.png";
+            }
+            else if (title.ToLower().Contains("transit"))
+            {
+                icon = "in_transit.png";
+            }
+
+
+            IconView.Image = new UIImage(icon);
+        }
+
         public void SetPackage(Package package, Action callback)
         {
             _callback = callback;

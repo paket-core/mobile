@@ -71,44 +71,44 @@ namespace PaketGlobal.Droid
 
 		protected override void Dispose (bool disposing)
 		{
-			if (disposing && !_disposed) {
-				_disposed = true;
+			//if (disposing && !_disposed) {
+				//_disposed = true;
 
-				RemoveAllViews ();
+				//RemoveAllViews ();
 
-				foreach (Page pageToRemove in Element.Children) {
-					IVisualElementRenderer pageRenderer = Platform.GetRenderer (pageToRemove);
+				//foreach (Page pageToRemove in Element.Children) {
+				//	IVisualElementRenderer pageRenderer = Platform.GetRenderer (pageToRemove);
 
-					if (pageRenderer != null) {
-						pageRenderer.ViewGroup.RemoveFromParent ();
-						pageRenderer.Dispose ();
-					}
+				//	if (pageRenderer != null) {
+				//		pageRenderer.ViewGroup.RemoveFromParent ();
+				//		pageRenderer.Dispose ();
+				//	}
 
-                    pageToRemove.PropertyChanged -= OnPagePropertyChanged;
-					// pageToRemove.ClearValue (Platform.RendererProperty);
-				}
+    //                pageToRemove.PropertyChanged -= OnPagePropertyChanged;
+				//	// pageToRemove.ClearValue (Platform.RendererProperty);
+				//}
 
-			    if (_badges != null)
-			    {
-			        _badges.Clear();
-			        _badges = null;
-			    }
+			 //   if (_badges != null)
+			 //   {
+			 //       _badges.Clear();
+			 //       _badges = null;
+			 //   }
 
-				if (_bottomBar != null) {
-					_bottomBar.SetOnTabClickListener (null);
-					_bottomBar.Dispose ();
-					_bottomBar = null;
-				}
+				//if (_bottomBar != null) {
+				//	_bottomBar.SetOnTabClickListener (null);
+				//	_bottomBar.Dispose ();
+				//	_bottomBar = null;
+				//}
 
-				if (_frameLayout != null) {
-					_frameLayout.Dispose ();
-					_frameLayout = null;
-				}
+				//if (_frameLayout != null) {
+				//	_frameLayout.Dispose ();
+				//	_frameLayout = null;
+				//}
 
 				/*if (Element != null) {
 					PageController.InternalChildren.CollectionChanged -= OnChildrenCollectionChanged;
 				}*/
-			}
+		//}
 
 			base.Dispose (disposing);
 		}
@@ -261,10 +261,19 @@ namespace PaketGlobal.Droid
 
 				_bottomBar.Measure (MeasureSpecFactory.MakeMeasureSpec (width, MeasureSpecMode.Exactly), MeasureSpecFactory.MakeMeasureSpec (tabsHeight, MeasureSpecMode.Exactly));
 				_bottomBar.Layout (0, 0, width, tabsHeight);
-			}
+			}      
 
-			base.OnLayout (changed, l, t, r, b);
-		}
+            base.OnLayout (changed, l, t, r, b);
+
+            //for (int i = 0; i < _bottomBar.ItemContainer.ChildCount; i++)
+            //{
+            //    var bottomBarTab = _bottomBar.ItemContainer.GetChildAt(i);
+            //    var tabIcon = bottomBarTab.FindViewById<Android.Support.V7.Widget.AppCompatImageView>(BottomNavigationBar.Resource.Id.bb_bottom_bar_icon);
+            //    tabIcon.SetScaleType(ImageView.ScaleType.);
+            //    tabIcon.ScaleX = 0.0f;
+            //    tabIcon.ScaleY = 0.0f;
+            //}
+        }
 
 	    void UpdateSelectedTabIndex(Page page)
 	    {

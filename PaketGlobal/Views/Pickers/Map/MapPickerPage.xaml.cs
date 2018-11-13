@@ -13,12 +13,15 @@ namespace PaketGlobal
 
         private AddressData addressData;
         private GooglePlace SelectedAddress;
+        public LocationPickerType PickerType;
 
-        public MapPickerPage(GooglePlace selectedAddress = null)
+        public MapPickerPage(LocationPickerType pickerType, GooglePlace selectedAddress = null)
         {
             InitializeComponent();
 
             SelectedAddress = selectedAddress;
+            PickerType = pickerType;
+
 #if __IOS__
             if (App.Locator.DeviceService.IsIphoneX() == true)
             {
@@ -58,6 +61,15 @@ namespace PaketGlobal
             else if (!App.Locator.LocationHelper.lat.Equals(0.0))
             {
                 MapView.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(App.Locator.LocationHelper.lat, App.Locator.LocationHelper.lng), 20d);
+            }
+
+            if (PickerType == LocationPickerType.To)
+            {
+                TitleLabel.Text = AppResources.SelectToLocation;
+            }
+            else if (PickerType == LocationPickerType.From)
+            {
+                TitleLabel.Text = AppResources.SelectFromLocation;
             }
         }
 

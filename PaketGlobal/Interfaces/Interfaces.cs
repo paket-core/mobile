@@ -7,7 +7,8 @@ namespace PaketGlobal
 {
 	public interface IAccountService
 	{
-		string UserName { get; }
+        void SetPubKey(string pbkey);
+        string UserName { get; }
 		string FullName { get; }
 		string PhoneNumber { get; }
 		string Seed { get; }
@@ -36,7 +37,8 @@ namespace PaketGlobal
 		void ShowMessage(string text, bool lengthLong = false);
         void ShowPackageNotification(Package package, Action<string> callback);
         void ShowWalletNotification(string title, string subTitle, Action<string> callback);
-	}
+        void ShowPackageStringNotification(string title, string body, Action<string> callback);
+    }
 
 
     public interface IClipboardService
@@ -47,6 +49,8 @@ namespace PaketGlobal
 
     public interface IDeviceService
     {
+        string FCMToken { get; set; }
+
         bool IsIphoneX();
         bool IsIphonePlus();
 
@@ -62,9 +66,12 @@ namespace PaketGlobal
         void ShowProgress();
         void HideProgress();
 
+        void StartJobService();
+
         bool IsNeedAlertDialogToClose { get; set; }
         bool IsNeedAlertDialogToCloseLaunchPackage { get; set; }
         void SendErrorEvent(string errorMessage, string method);
+        Task<string> OpenAddressBook();
     }
 
     public interface ILocationSharedService

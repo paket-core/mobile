@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
 using Android.Telephony;
@@ -14,6 +15,20 @@ namespace PaketGlobal.Droid
     {
         private bool isNeedAlertDialogToClose = false;
         private bool isNeedAlertDialogToCloseLaunchPackage = false;
+        private string token = null;
+
+        public string FCMToken
+        {
+            get
+            {
+                return token;
+            }
+            set
+            {
+                token = value;
+            }
+        }
+   
 
         public bool IsNeedAlertDialogToClose { 
             get{
@@ -118,6 +133,32 @@ namespace PaketGlobal.Droid
             segmentation.Add("method", method);
 
             Countly.SharedInstance().RecordEvent("Show_Generic_Error", segmentation, 1);
+        }
+
+        public Task<string> OpenAddressBook()
+        {
+            var task = new TaskCompletionSource<string>();
+            try
+            {
+                IntentHelper.OpenContactPicker((path) =>
+                {
+                    if(path != null)
+                    {
+                        task.SetResult(path);
+                    }
+                  
+                });
+            }
+            catch (Exception ex)
+            {
+                task.SetException(ex);
+            }
+            return task.Task;
+        }
+
+        public void StartJobService()
+        {
+            MainActivity.Instance.ScheduleJob();
         }
     }
 }

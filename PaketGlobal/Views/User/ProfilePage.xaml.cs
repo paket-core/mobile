@@ -93,7 +93,7 @@ namespace PaketGlobal
                 }
             }
 
-            EnableDisableButton();
+            UpdateButton.Disabled = true;
         }
 
         public void onBottomSwipe(View view)
@@ -161,7 +161,13 @@ namespace PaketGlobal
 
 		private async System.Threading.Tasks.Task LoadProfile()
 		{
-            await ViewModel.Load();
+            if (!App.Locator.FriendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.ProfileFundNotWorking);
+            }
+            else{
+                await ViewModel.Load();
+            }
 
             ActivityIndicator.IsVisible = false;
             ActivityIndicator.IsRunning = false;
@@ -199,7 +205,9 @@ namespace PaketGlobal
                     ShowErrorMessage(AppResources.ProfileNotSaved);
                 }
 
-				App.ShowLoading(false);
+                Application.Current.Properties[Constants.STORED_PHONE] = ViewModel.PhoneNumber;
+
+                App.ShowLoading(false);
 			}
 		}
 

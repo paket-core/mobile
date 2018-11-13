@@ -141,9 +141,6 @@
     <data name="WaitingExpiredDepositPackage" xml:space="preserve">
         <value>Срок истек&#x0a;Вы не можете оплатить и запустить посылку.</value>
     </data>
-    <data name="WaitingExpiredDepositPackage" xml:space="preserve">
-         <value>Deadline Expired&#x0a;You can not create a deposit and launch a package</value>
-     </data>
     <data name="AcceptPackage" xml:space="preserve">
         <value>Принять посылку</value>
     </data>
@@ -744,4 +741,84 @@
     <data name="PaymentUpperCase" xml:space="preserve">
         <value>ОПЛАТА</value>
     </data>
+    <data name="WaitingCourierScan" xml:space="preserve">
+        <value>Курьер должен отсканировать этот код, чтобы принять пакет</value>
+    </data>
+    <data name="WaitingRecipientScan" xml:space="preserve">
+        <value>Получатель должен отсканировать этот код, чтобы принять пакет</value>
+    </data>
+    <data name="SelectToLocation" xml:space="preserve">
+        <value>Куда доставить?</value>
+    </data>
+    <data name="SelectFromLocation" xml:space="preserve">
+        <value>Откуда забрать?</value>
+    </data>
+    <data name="WaitingAccountCreation" xml:space="preserve">
+        <value>Ваша учетная запись Stellar создается, пожалуйста подождите</value>
+    </data>
+    <data name="WellcomeCreationMessage" xml:space="preserve">
+        <value>Ваша учетная запись создана - добро пожаловать в сеть PAKET</value>
+    </data>
+    <data name="WellcomeRestoreMessage" xml:space="preserve">
+        <value>Ваша учетная запись восстановлена - добро пожаловать в сеть PAKET</value>
+    </data>
+    <data name="Continue" xml:space="preserve">
+        <value>Продолжить</value>
+    </data>
+    <data name="PurchaseManyBULs" xml:space="preserve">
+        <value>Покупка ограничена до €50</value>
+    </data>
+    <data name="ServersNotWorking" xml:space="preserve">
+        <value>Наши сервера на обслуживании&#xA;Попробуйте повторить попытку позже…</value>
+    </data>
+   <data name="Oops" xml:space="preserve">
+        <value>Ой</value>
+    </data>   
+    <data name="NoInternetConnection" xml:space="preserve">
+        <value>Нет подключения к интернету&#xA;Проверьте ваше соединение</value>
+    </data> 
+    <data name="TryAgain" xml:space="preserve">
+        <value>Повторить</value>
+    </data> 
+    <data name="Default500Error" xml:space="preserve">
+        <value>Что-то пошло не так&#xA;Наши сервера на обслуживании&#xA;Попробуйте повторить попытку позже…</value>
+    </data> 
+    <data name="RegistrationFundNotWorking" xml:space="preserve">
+        <value>Регистрация не работает в данный момент&#xA;Попробуйте повторить попытку позже…</value>
+    </data>  
+    <data name="WalletFundNotWorking" xml:space="preserve">
+        <value>Не возможно купить BULS/XLM&#xA;Попробуйте повторить попытку позже…</value>
+    </data>
+    <data name="ProfileFundNotWorking" xml:space="preserve">
+        <value>Невозможно получить информацию о вашем профиле в данный момент&#xA;Попробуйте повторить попытку позже…</value>
+    </data> 
+    
+    <data name="ErrorCode105" xml:space="preserve">
+        <value>Слишком большие данные. Не удалось записать в базу данных</value>
+    </data> 
+    <data name="ErrorCode310" xml:space="preserve">
+        <value>Код верефикации не верный или истек</value>
+    </data> 
+    <data name="ErrorCode320" xml:space="preserve">
+        <value>Привышен дневной лимит</value>
+    </data> 
+    <data name="ErrorCode400" xml:space="preserve">
+        <value>Пакет не найден или не существует</value>
+    </data> 
+    <data name="ErrorCode304" xml:space="preserve">
+        <value>Этот номер телефона уже используется</value>
+    </data> 
+    <data name="ErrorCode301" xml:space="preserve">
+        <value>Такой пользователь уже существует</value>
+    </data> 
+    <data name="ErrorCode300" xml:space="preserve">
+        <value>Пользователь не найден</value>
+    </data> 
+    <data name="ErrorCode103" xml:space="preserve">
+        <value>Не верная подпись</value>
+    </data> 
+    <data name="ErrorCode100" xml:space="preserve">
+        <value>Пожалуйста заполините все поля</value>
+    </data>
+    
 </root>

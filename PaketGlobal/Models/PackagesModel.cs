@@ -101,60 +101,68 @@ namespace PaketGlobal
 
         private void CreateTimer()
         {
-            if(timer==null)
-            {
-                timer = new System.Timers.Timer();
-                //Execute the function every 10 seconds.
-                timer.Interval = 10000;
-                //Don't start automaticly the timer.
-                timer.AutoReset = false;
-                //Attach a function to handle.
-                timer.Elapsed += async (sender, e) => await Refresh();
-                //Start timer.
-                timer.Start();
-            }
+            //REMOVE - WE USE PUSH NOTIFICATIONS
+
+            //if(timer==null)
+            //{
+            //    timer = new System.Timers.Timer();
+            //    //Execute the function every 10 seconds.
+            //    timer.Interval = 10000;
+            //    //Don't start automaticly the timer.
+            //    timer.AutoReset = false;
+            //    //Attach a function to handle.
+            //    timer.Elapsed += async (sender, e) => await Refresh();
+            //    //Start timer.
+            //    timer.Start();
+            //}
         }
 
 
         public async System.Threading.Tasks.Task Load()
         {
-            StopTimer();
+            try{
+                StopTimer();
 
-			var result = await App.Locator.RouteServiceClient.MyPackages();
-            if (result != null)
-            {
-                var sorted = result.Packages.OrderByDescending(h => h.StatusSortValue);
-
-                PackagesList = sorted.ToList();
-
-                if (timer == null)
+                var result = await App.Locator.RouteServiceClient.MyPackages();
+                if (result != null)
                 {
-                    isneedTimer = true;
+                    var sorted = result.Packages.OrderByDescending(h => h.StatusSortValue);
 
-                    CreateTimer();
-                }
-            }
+                    PackagesList = sorted.ToList();
 
-            bool enabled = App.Locator.AccountService.ShowNotifications;
-
-            foreach (Package p1 in PackagesList)
-            {
-                var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
-
-                if (isExpiredNeedShow)
-                {
-                    if (enabled)
+                    if (timer == null)
                     {
-                        Device.BeginInvokeOnMainThread(() => {
-                            App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
-                        });
+                        isneedTimer = true;
+
+                        CreateTimer();
                     }
                 }
+
+                bool enabled = App.Locator.AccountService.ShowNotifications;
+
+                foreach (Package p1 in PackagesList)
+                {
+                    var isExpiredNeedShow = IsPackageExpiredNeedShow(p1);
+
+                    if (isExpiredNeedShow)
+                    {
+                        if (enabled)
+                        {
+                            Device.BeginInvokeOnMainThread(() => {
+                                App.Locator.NotificationService.ShowPackageNotification(p1, DidClickNotification);
+                            });
+                        }
+                    }
+                }
+
+                App.Locator.AccountService.SavePackages(PackagesList);
+
+                CheckLocationUpdate();
             }
-
-            App.Locator.AccountService.SavePackages(PackagesList);
-
-            CheckLocationUpdate();
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public async System.Threading.Tasks.Task LoadAvailable(int radius, CancellationTokenSource cancellationTokenSource)
@@ -173,6 +181,8 @@ namespace PaketGlobal
             var result = await App.Locator.RouteServiceClient.AvailablePackages(location,radius,cancellationTokenSource);
             if (result != null)
             {
+                //var packages = result.Packages;
+                //if(packages.)
                 AvailablePackagesList = result.Packages;
             }
         }

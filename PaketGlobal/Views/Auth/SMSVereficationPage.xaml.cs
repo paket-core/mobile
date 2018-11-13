@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace PaketGlobal
@@ -20,9 +20,11 @@ namespace PaketGlobal
                 titleLabel.TranslationY = 30;
             }
 #endif
+
+            verifyButton.Disabled = false;
         }
 
-		protected async override void OnAppearing()
+        protected async override void OnAppearing()
 		{
 			var fl = firstLoad;
 
@@ -50,7 +52,15 @@ namespace PaketGlobal
             {
                 Unfocus();
 
-                App.ShowLoading(true);
+                if (!App.Locator.FriendlyService.IsFundWorking)
+                {
+                    ShowErrorMessage(AppResources.RegistrationFundNotWorking);
+                    return;
+                }
+
+                var page = new WaitingAccountCreationPage();
+                await Navigation.PushAsync(page, false);
+                await Task.Delay(1000);
 
                 try
                 {
@@ -60,30 +70,31 @@ namespace PaketGlobal
                         var trusted = await StellarHelper.CheckTokenTrusted();
                         if (trusted)
                         {
-                            OpenMainPage();
+                            page.OpenMainPage();
                         }
                         else{
                             var added = await StellarHelper.AddTrustToken(App.Locator.Profile.KeyPair);
 
                             if (added)
                             {
-                                OpenMainPage();
+                                page.OpenMainPage();
                             }
                             else
                             {
+                                page.GoBack();
+
                                 ShowErrorMessage(AppResources.ErrorAddTrustToken);
-                                App.ShowLoading(false);
                             }
                         }
                     }
                     else
                     {
-                        App.ShowLoading(false);
+                        page.GoBack();
                     }
                 }
                 catch (Exception ex)
                 {
-                    App.ShowLoading(false);
+                    page.GoBack();
 
                     ShowErrorMessage(ex.Message);
                 }

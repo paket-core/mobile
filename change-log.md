@@ -6,11 +6,59 @@ Enhancements and Fixes
 
 ## Curent Version
 
-Milestone version: v.1.2.7
+Milestone version: v.1.3.0
 
 ## Change Log
 
+### Milestone v.1.3.0
+
+07-11-2018
+
+* If a server is down, the app should show a friendly, and hopefully informative message
+    https://github.com/paket-core/mobile/issues/147
+
+02-11-2018
+
+* Fix phrasing of error when attempting to purchase too many BULs
+    https://github.com/paket-core/mobile/issues/145
+* Remove debug banners for events
+    https://github.com/paket-core/mobile/issues/146
+* Use remote settings
+    https://github.com/paket-core/mobile/issues/144
+* Add events from background process
+    https://github.com/paket-core/mobile/issues/137
+
 ### Milestone v.1.2.7
+
+25-10-2018
+
+* Add a welcome message after restoring or creating account
+    https://github.com/paket-core/mobile/issues/141
+* Add a relaxing message while waiting for account creation
+    https://github.com/paket-core/mobile/issues/140
+* When entering a price in BUL, automatically show price in EUR
+    https://github.com/paket-core/mobile/issues/142
+
+24-10-2018
+
+* Add events from background process
+    https://github.com/paket-core/mobile/issues/137
+* Add explenatory text when choosing locations
+    https://github.com/paket-core/mobile/issues/136
+* Add default phone number for launcher
+    https://github.com/paket-core/mobile/issues/138
+* Opening address book takes too long
+    https://github.com/paket-core/mobile/issues/139
+    
+16-10-2018
+
+* Disable submit button on some states
+    https://github.com/paket-core/mobile/issues/125
+* Different texts for QR code button in different states
+    https://github.com/paket-core/mobile/issues/124
+* Change default servers to paket.global servers
+    https://github.com/paket-core/mobile/issues/134
+
 
 12-10-2018
 

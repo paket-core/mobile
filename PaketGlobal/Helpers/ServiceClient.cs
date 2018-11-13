@@ -19,6 +19,17 @@ namespace PaketGlobal
         public Kwargs escrow_xdrs;
     }
 
+    public class WalletKwargs
+    {
+        public WalletKwargs()
+        {
+
+        }
+        public string old_balance = "";
+        public string new_balance = "";
+        public string currency = "";
+    }
+
     public class Kwargs
     {
         public Kwargs()
@@ -156,17 +167,29 @@ namespace PaketGlobal
             return await SendRequest<TrustData>(request, pubkey);
         }
 
-        public async Task<AddEventData> AddEvent(string eventType)
+        public async Task<AddEventData> AddEvent(string eventType, string kwargs = null, string pubKey = null)
         {
-            if(App.Locator.Profile.Pubkey==null)
+            var sendPubkey = "";
+
+            if(pubKey==null)
             {
-                return new AddEventData();
+                if (App.Locator.Profile.Pubkey == null)
+                {
+                    return new AddEventData();
+                }
+                else{
+                    sendPubkey = App.Locator.Profile.Pubkey;
+                }
+            }
+            else{
+                sendPubkey = pubKey;
             }
 
-            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+
 
             string location = null;
 
+            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
             if (hasPermission)
             {
                 var locator = CrossGeolocator.Current;
@@ -193,7 +216,12 @@ namespace PaketGlobal
                 request.AddParameter("location", location);
             }
 
-            return await SendRequest<AddEventData>(request);
+            if(kwargs!=null)
+            {
+                request.AddParameter("kwargs", kwargs);
+            }
+
+            return await SendRequest<AddEventData>(request, sendPubkey);
         }
 
 		#endregion User
@@ -294,9 +322,31 @@ namespace PaketGlobal
 			return await SendRequest<PrepareCreateAccountData>(request);
 		}
 
-		#endregion Wallet
 
-		#region Packages
+        public async Task<BaseData> SendFCM(string fromPubkey)
+        {
+            var request = PrepareRequest("/action", Method.POST);
+
+            request.AddParameter("pubkey", fromPubkey);
+
+            return await SendRequest<BaseData>(request);
+        }
+
+        public async Task<BaseData> RegisterFCM(string fromPubkey, string fcmToken)
+        {
+            var request = PrepareRequest(apiVersion + "/set_notification_token", Method.POST);
+
+            if(fromPubkey != null && App.Locator.Profile.Activated && fcmToken!=null)
+            {
+                request.AddParameter("notification_token", fcmToken);
+            }
+          
+            return await SendRequest<BaseData>(request);
+        }
+
+        #endregion Wallet
+
+        #region Packages
 
         public async Task<AcceptPackageData> AssignPackage(string escrowPubkey, string location)
         {
@@ -425,7 +475,7 @@ namespace PaketGlobal
             return await SendRequest<BaseData>(request);
 		}
 
-		public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null)
+        public async Task<PackagesData> MyPackages(bool showInactive = false, DateTime? fromDate = null, string pubKey = null)
 		{
 			var request = PrepareRequest(apiVersion + "/my_packages", Method.POST);
 
@@ -435,8 +485,14 @@ namespace PaketGlobal
 			//	request.AddParameter("from_date", ut.ToString());
 			//}
 
-			return await SendRequest<PackagesData>(request);
-		}
+            if(pubKey==null)
+            {
+                return await SendRequest<PackagesData>(request);
+            }
+            else{
+                return await SendRequest<PackagesData>(request,pubKey);
+            }
+        }
 
         public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
         {
@@ -516,7 +572,9 @@ namespace PaketGlobal
 
         private async Task<T> SendRequest<T>(RestRequest request, string pubkey = null, bool signData = true, RestClient customClient = null, SignHandler customSign = null, RawBytes rb = null, System.IO.Stream responseStream = null, bool preferSSL = false, bool suppressUnAuthorized = false, bool suppressNoConnection = false, bool suppressServerErrors = false, CancellationTokenSource cancellationTokenSource = null)
 		{
-			var client = customClient ?? restClient;
+            var resource = request.Resource;
+
+            var client = customClient ?? restClient;
 
 			if (signData) 
                 SignRequest(request, pubkey, client, customSign: customSign);
@@ -568,14 +626,23 @@ namespace PaketGlobal
                 }
            
 
-                ServiceStackSerializer.HandleStatusCode(response);
+                ServiceStackSerializer.HandleStatusCode(response, resource);
                 return response.Data;
             }
             catch (WebException e)
             {
                 System.Diagnostics.Debug.WriteLine("SendRequest to: {0} Error: {1}", client.BaseUrl, e.ToString());
                 if (!suppressNoConnection)
-                    App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+                {
+                    try
+                    {
+                        App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(resource));
+                    }
+                    catch
+                    {
+                        App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(""));
+                    }
+                }
             }
             catch (ServiceException e)
             {
@@ -618,7 +685,7 @@ namespace PaketGlobal
 				
 			}
 
-			public static void HandleStatusCode(IRestResponse response)
+            public static void HandleStatusCode(IRestResponse response, string resource = null)
 			{
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -628,7 +695,12 @@ namespace PaketGlobal
                 {
                     if(response.Content.Length==0 && response.StatusCode == 0)
                     {
-                        App.Locator.Workspace.OnConnectionError(EventArgs.Empty);
+                        try{
+                            App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(resource));
+                        }
+                        catch{
+                            App.Locator.Workspace.OnConnectionError(new ConnectionErrorEventArgs(""));
+                        }
                     }
                     else{
                         var error = JsonConvert.DeserializeObject<ErrorReply>(response.Content);
@@ -640,6 +712,13 @@ namespace PaketGlobal
                                 var method = response.ResponseUri.Segments.Last();
 
                                 App.Locator.DeviceService.SendErrorEvent(response.Content,method);
+
+                                if (!ServiceClient.IgnoreErrors.Contains<string>(method))
+                                {
+                                    App.Locator.Workspace.OnInternalError(EventArgs.Empty);
+
+                                    throw new ServiceException((int)response.StatusCode, "");
+                                }
                             }
                         }
 
@@ -728,20 +807,62 @@ namespace PaketGlobal
 			}
 		}
 
+        public class ConnectionErrorEventArgs : EventArgs
+        {
+            public string Method { get; set; }
+
+            public ConnectionErrorEventArgs(string method)
+            {
+                Method = method;
+            }
+        }
+
         [DataContract]
         public class Error
         {
-            [DataMember(Name = "error_code")]
+            [DataMember(Name = "internal_error_code")]
             public int ErrorCode { get; set; }
             [DataMember(Name = "message")]
             public string ErrorMessage { get; set; }
             [DataMember(Name = "debug")]
             public string DebugMessage { get; set; }
 
+
             public string Message
             {
                 get{
-                    if(DebugMessage!=null)
+                    if(ErrorCode>0)
+                    {
+                        switch (ErrorCode)
+                        {
+                            case 105:
+                                return AppResources.ErrorCode105;
+                            case 310:
+                                return AppResources.ErrorCode310;
+                            case 320:
+                                return AppResources.ErrorCode320;
+                            case 400:
+                                return AppResources.ErrorCode400;
+                            case 304:
+                                return AppResources.ErrorCode304;
+                            case 301:
+                                return AppResources.ErrorCode301;
+                            case 300:
+                                return AppResources.ErrorCode300;
+                            case 103:
+                                return AppResources.ErrorCode103;
+                            case 100:
+                                return AppResources.ErrorCode100;
+                            default:
+                                if (DebugMessage != null)
+                                {
+                                    return DebugMessage;
+                                }
+
+                                return ErrorMessage;
+                        }
+                    }
+                    else if(DebugMessage!=null)
                     {
                         return DebugMessage;
                     }

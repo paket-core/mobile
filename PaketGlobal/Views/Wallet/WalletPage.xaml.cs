@@ -91,7 +91,7 @@ namespace PaketGlobal
 
             if (fl)
             {
-                await LoadWallet();
+                 await LoadWallet();
 
                 if (ShowPurchaseBuls)
                 {
@@ -101,7 +101,7 @@ namespace PaketGlobal
                     RefreshButton.IsVisible = false;
 
                     PickerBULCurrency.Focus();
-                }
+                }              
             }
         }
 
@@ -435,6 +435,12 @@ namespace PaketGlobal
 
         private async void BuyBULClicked(object sender, System.EventArgs e)
         {
+            if (!App.Locator.FriendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+                return;
+            }
+
             if (IsValid(SpendCurrency.BUL))
             {
 
@@ -446,19 +452,29 @@ namespace PaketGlobal
 
                     double amount = double.Parse(EntryAmountForBUL.Text);
 
-                    var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
-
-                    if (result != null)
+                    if(amount>50)
                     {
-                        PurchaseBullAddress = result.PaymentAddress;
+                        EventHandler handleCurrencyHandler = (s, ev) =>
+                        {
+                            EntryAmountForBUL.Focus();
+                        };
 
-                        var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency, result.PaymentAddress);
-                        PurchaseBULSuccessLabel.Text = successString;
-
-                        PurchaseBULMainView.IsVisible = false;
-                        PurchaseBULSSuccessView.IsVisible = true;
+                        ShowErrorMessage(AppResources.PurchaseManyBULs, false, handleCurrencyHandler);
                     }
+                    else{
+                        var result = await App.Locator.IdentityServiceClient.PurchaseBULs(amount, currency);
 
+                        if (result != null)
+                        {
+                            PurchaseBullAddress = result.PaymentAddress;
+
+                            var successString = String.Format("Please send your {0} to the address {1} to purchase your BULs", currency, result.PaymentAddress);
+                            PurchaseBULSuccessLabel.Text = successString;
+
+                            PurchaseBULMainView.IsVisible = false;
+                            PurchaseBULSSuccessView.IsVisible = true;
+                        }
+                    }                  
                 }
                 catch (Exception)
                 {
@@ -473,6 +489,12 @@ namespace PaketGlobal
 
         private async void BuyXLMClicked(object sender, System.EventArgs e)
         {
+            if (!App.Locator.FriendlyService.IsFundWorking)
+            {
+                ShowErrorMessage(AppResources.WalletFundNotWorking);
+                return;
+            }
+
             if (IsValid(SpendCurrency.XLM))
             {
                 try
@@ -729,6 +751,37 @@ namespace PaketGlobal
         void Handle_TextChanged(object sender, Xamarin.Forms.TextChangedEventArgs e)
         {
             EnableDisableButton();
+
+            if(sender==EntryAmount)
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(EntryAmount.Text))
+                    {
+                        PaymentEuroLabel.IsVisible = false;
+                    }
+                    else
+                    {
+                        double payment = double.Parse(EntryAmount.Text);
+
+                        double result = payment * App.Locator.Wallet.BUL_Ratio;
+
+                        var euro = "€" + StellarConverter.ConvertEuroValueToString(result);
+
+                        PaymentEuroLabel.Text = euro;
+
+                        if (!PaymentEuroLabel.IsVisible)
+                        {
+                            PaymentEuroLabel.IsVisible = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    PaymentEuroLabel.IsVisible = false;
+                }
+            }
         }
 
         private void EnableDisableButton()

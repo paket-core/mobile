@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "484400466465",
+    "firebase_url": "https://paket-test-217708.firebaseio.com",
+    "project_id": "paket-test-217708",
+    "storage_bucket": "paket-test-217708.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484400466465:android:9c3ff3f5a3b18d58",
+        "android_client_info": {
+          "package_name": "com.paket.PaketGlobal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484400466465-k51ia8d7ja2t8082oi76lgibdptjrbur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHySnPz5U-gDze0VKcFR0aovy8eUT_Hio"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

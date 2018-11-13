@@ -816,5 +816,172 @@ namespace PaketGlobal
             }
         }
 
+        internal static string WaitingCourierScan
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingCourierScan", resourceCulture);
+            }
+        }
+
+        internal static string WaitingRecipientScan
+        {
+            get
+            {
+                return ResourceManager.GetString("WaitingRecipientScan", resourceCulture);
+            }
+        }
+
+        internal static string SelectFromLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectFromLocation", resourceCulture);
+            }
+        }
+
+        internal static string SelectToLocation
+        {
+            get
+            {
+                return ResourceManager.GetString("SelectToLocation", resourceCulture);
+            }
+        }
+
+        internal static string WellcomeCreationMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("WellcomeCreationMessage", resourceCulture);
+            }
+        }
+
+        internal static string WellcomeRestoreMessage
+        {
+            get
+            {
+                return ResourceManager.GetString("WellcomeRestoreMessage", resourceCulture);
+            }
+        }
+
+        internal static string PurchaseManyBULs
+        {
+            get
+            {
+                return ResourceManager.GetString("PurchaseManyBULs", resourceCulture);
+            }
+        }
+
+        internal static string NoInternetConnection
+        {
+            get
+            {
+                return ResourceManager.GetString("NoInternetConnection", resourceCulture);
+            }
+        }
+
+        internal static string RegistrationFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("RegistrationFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string WalletFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("WalletFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string ProfileFundNotWorking
+        {
+            get
+            {
+                return ResourceManager.GetString("ProfileFundNotWorking", resourceCulture);
+            }
+        }
+
+        internal static string Default500Error
+        {
+            get
+            {
+                return ResourceManager.GetString("Default500Error", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode105
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode105", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode310
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode310", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode320
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode320", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode400
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode400", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode304
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode304", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode301
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode301", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode300
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode300", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode103
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode103", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode100
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode100", resourceCulture);
+            }
+        }
     }
 }

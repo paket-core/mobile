@@ -11,8 +11,9 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
-           //entrySecretKey.Text = "SBOLPN4HNTCLA3BMRS6QG62PXZUFOZ5RRMT6LPJHUPGQLBP5PZY4YFIT";
-           //entrySecretKey.Text = "SDMDL7VIGJ77A4GFJLKPGSHMPQOVQ7OV6BMVGFSMOBWQMSCKV2QZGCS5";
+          entrySecretKey.Text = "SBOLPN4HNTCLA3BMRS6QG62PXZUFOZ5RRMT6LPJHUPGQLBP5PZY4YFIT";
+            // entrySecretKey.Text = "SB6MPNBY5C3POXIBYK25PLT6TLZ6SLDGRL4HJMNNPU7KPYOPZGKLI6OQ";
+          // entrySecretKey.Text = "SAAU3WOGFO5R7KVUP52FSVIGPEDMMBN5HXZLCT3YIBQOUNY3CUOU2JMR";
 
             App.Locator.DeviceService.setStausBarBlack();
 
@@ -45,6 +46,12 @@ namespace PaketGlobal
             {
                 Unfocus();
 
+                if (!App.Locator.FriendlyService.IsFundWorking)
+                {
+                    ShowErrorMessage(AppResources.RegistrationFundNotWorking);
+                    return;
+                }
+
                 App.ShowLoading(true);
 
                 try
@@ -70,7 +77,10 @@ namespace PaketGlobal
 
 						var infosResult = await App.Locator.IdentityServiceClient.UserInfos();
 						if (infosResult != null && !String.IsNullOrWhiteSpace(infosResult.UserDetails.PhoneNumber)) {
-							CheckActivation();
+
+                            Application.Current.Properties[Constants.STORED_PHONE] = infosResult.UserDetails.PhoneNumber;
+
+                            CheckActivation();
 						} else {
 							var page = new RegistrationPage(true, result.UserDetails);
 
@@ -118,12 +128,12 @@ namespace PaketGlobal
                     //    App.Locator.Profile.SetCredentials(App.Locator.Profile.UserName,
                     //                                       userInfo.UserDetails.FullName, userInfo.UserDetails.PhoneNumber, userInfo.UserDetails.Address,
                     //                                       App.Locator.Profile.KeyPair.SecretSeed, App.Locator.Profile.Mnemonic);
-                        
+
                     //}
 
-                    var navigationPage = new NavigationPage(new MainPage());
+                    var page = new WaitingAccountCreationPage(true,true);
 
-                    Application.Current.MainPage = navigationPage;
+                    await Navigation.PushAsync(page, true);
 
                     App.ShowLoading(false); 
                 }

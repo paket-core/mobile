@@ -19,7 +19,7 @@
                           Source="wellcome_image.png">
             </Image>
             
-            <Button Image="settings.png" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="32" RelativeLayout.WidthConstraint="32"
+            <Button x:Name="SettingsButton" Image="settings.png" BackgroundColor="Transparent" RelativeLayout.HeightConstraint="32" RelativeLayout.WidthConstraint="32"
                     RelativeLayout.XConstraint = "{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1,Constant=-42}"
                     RelativeLayout.YConstraint = "10" Clicked="SettingsClicked"/>
             

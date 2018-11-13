@@ -15,9 +15,14 @@ namespace PaketGlobal
         public const string DISPLAY_PACKAGE_CHANGED = "CurrentDisplayPackageChanged";
         public const string CHANGE_LANGUAGE = "ChangeLanguage";
         public const string OPEN_MINE_PACKAGES = "OPEN_MINE_PACKAGES";
+        public const string NO_INERNET_CONNECTION = "NO_INERNET_CONNECTION";
+
+
 
         public const string EVENT_APP_START = "app launched";
-        public const string EVENT_APP_USED = "app used";
+        public const string EVENT_APP_USED = "heartbeat";
+        public const string REFRESH_PACKAGES = "refresh packages";
+        public const string BALANCE_CHANGED = "balance changed";
 
         public const string PACKAGE_ASSIGN = "PackageAssign";
 
@@ -35,6 +40,12 @@ namespace PaketGlobal
         public const string TELEGRAM_URL = "https://t.me/joinchat/G9T-tkXBHHNnpQ8oYFGSvw";
         public const string TWITTER_URL = "https://twitter.com/PaketProtocol";
 
+        public const string FCM_TOKEN = "FCM_TOKEN";
 
+        internal const string STORED_PHONE = "STORED_PHONE";
+
+        public const string PUB_KEY = "PUB_KEY";
+
+        public const string SERVERS_NOT_WORKING = "SERVERS_NOT_WORKING";
     }
 }

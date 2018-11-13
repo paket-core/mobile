@@ -97,13 +97,19 @@ namespace PaketGlobal.Droid
             Typeface tfNormal = Typeface.CreateFromAsset(Android.App.Application.Context.Assets, "Poppins-Regular.ttf");
 
 
-            var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
-            title.SetTypeface(tfMedium, TypefaceStyle.Normal);
-            title.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
+            try{
+                var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
+                title.SetTypeface(tfMedium, TypefaceStyle.Normal);
+                title.SetTextSize(Android.Util.ComplexUnitType.Dip, 14);
 
-            var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
-            subtitle.SetTypeface(tfNormal, TypefaceStyle.Normal);
-            subtitle.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+                var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
+                subtitle.SetTypeface(tfNormal, TypefaceStyle.Normal);
+                subtitle.SetTextSize(Android.Util.ComplexUnitType.Dip, 12);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             innerView.Visibility = ViewStates.Gone;
         }
@@ -120,7 +126,28 @@ namespace PaketGlobal.Droid
                 DisplayBanner(title, subtitle, "color_wallet.png");
             }
         }
-     
+
+        public void ShowStringPackage(string title, string body)
+        {
+            if (!isShowing)
+            {
+                isShowing = true;
+
+                var icon = "delivered_icon.png";
+
+                if(title.ToLower().Contains("waiting"))
+                {
+                    icon = "waiting_pickup.png";
+                }
+                else if (title.ToLower().Contains("transit"))
+                {
+                    icon = "in_transit.png";
+                }
+
+                DisplayBanner(title, body, icon);
+            }
+        }
+
         public void ShowPackage(List<Package> packages)
         {
             if (!isShowing)
@@ -159,13 +186,19 @@ namespace PaketGlobal.Droid
         {
             int resID = Resources.GetIdentifier(iconName.Replace(".png", ""), "drawable", this.Context.PackageName);
 
-            var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
-            var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
-            var image = innerView.FindViewById(Resource.Id.image_banner) as ImageView;
+            try{
+                var title = innerView.FindViewById(Resource.Id.text_banner_title) as TextView;
+                var subtitle = innerView.FindViewById(Resource.Id.text_banner_subtitle) as TextView;
+                var image = innerView.FindViewById(Resource.Id.image_banner) as ImageView;
 
-            title.Text = titleString;
-            subtitle.Text = subTitleString;
-            image.SetImageResource(resID);
+                title.Text = titleString;
+                subtitle.Text = subTitleString;
+                image.SetImageResource(resID);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             var wm = Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
             var prms = new WindowManagerLayoutParams(WindowManagerLayoutParams.WrapContent, WindowManagerLayoutParams.WrapContent, WindowManagerTypes.ApplicationPanel,

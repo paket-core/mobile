@@ -10,6 +10,17 @@ namespace PaketGlobal
         public WellcomePage()
         {
             InitializeComponent();
+
+#if __IOS__
+            if (App.Locator.DeviceService.IsIphoneX())
+            {
+                SettingsButton.TranslationY = 44;
+            }
+            else{
+                SettingsButton.TranslationY = 22;
+            }
+#endif
+
         }
 
         protected async override void OnAppearing()
@@ -48,7 +59,12 @@ namespace PaketGlobal
                 App.Locator.Profile.DeleteCredentials();
             }
 
-            App.Locator.DeviceService.setStausBarBlack();
+            try{
+                App.Locator.DeviceService.setStausBarBlack();
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
+            }
         }
 
         private void OnRegistrationClicked(object sender, System.EventArgs e)

@@ -84,7 +84,8 @@ namespace PaketGlobal
 
         private PackagesMode Mode = PackagesMode.All;
         private FilterPackages FilterPackage = new FilterPackages();
-        private CancellationTokenSource cancellationTokenSource;  
+        private CancellationTokenSource cancellationTokenSource;
+        private NotFoundPackage LocalNotFoundPackage = new NotFoundPackage();
 
         public PackagesPage()
         {
@@ -98,37 +99,57 @@ namespace PaketGlobal
 
             PakagesView.RefreshCommand = RefreshListCommand;
 
-            if (MaxOffset <= 130.0f)
-            {
-                TitleLabel.TranslationY = 22;
-                RightButtons.TranslationY = 22;
-            }
+
 
 #if __ANDROID__
-            HeaderView.Spacing = 42;
-            HeaderView.TranslationY = -30;
-            TitleLabel.TranslationY = 0;
+           HeaderView.Spacing = 42;
 #else
-            if(App.Locator.DeviceService.ScreenWidth()==320)
+            HeaderView.Spacing = 30;
+
+            if (App.Locator.DeviceService.ScreenWidth()==320)
             {
                 PakagesView.TranslationY = 20;
             }
-            else{
+            else if(App.Locator.DeviceService.IsIphoneX())
+            {
+                HeaderView.Padding = new Thickness(0, 60, 0, 0);
+            }
+            else
+            {
                 PakagesView.TranslationY = 3;
             }
 #endif
-            AvailableButton.TextColor = Color.LightGray;
+           // AvailableButton.TextColor = Color.LightGray;
 
             App.Locator.DeviceService.setStausBarLight();
 
             MessagingCenter.Subscribe<NewPackageDetailPage, string>(this, Constants.PACKAGE_ASSIGN, (sender, arg) =>
             {
-                AllClicked(AllButton, EventArgs.Empty);
+                AllClicked(SegmentView, EventArgs.Empty);
+                SegmentView.SelectIndex(0);
             });
 
             MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.OPEN_MINE_PACKAGES, (sender, arg) =>
             {
-                AllClicked(AllButton, EventArgs.Empty);
+                AllClicked(SegmentView, EventArgs.Empty);
+                SegmentView.SelectIndex(0);
+            });
+
+
+            MessagingCenter.Subscribe<string, string>(Constants.NOTIFICATION, Constants.REFRESH_PACKAGES, async (sender, arg) =>
+            {
+                if (Mode == PackagesMode.All)
+                {
+                    AllClicked(SegmentView, EventArgs.Empty);
+                    SegmentView.SelectIndex(0);
+                    UpdatePackages();
+                }
+                else
+                {
+                    AllClicked(SegmentView, EventArgs.Empty);
+                    SegmentView.SelectIndex(0);
+                }
+           
             });
 
         }
@@ -149,9 +170,13 @@ namespace PaketGlobal
                 await LoadPackages();
                 await App.Locator.Wallet.Load();
                 await App.Locator.ProfileModel.Load();
-                await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
+                var res =  await App.Locator.RouteServiceClient.AddEvent(Constants.EVENT_APP_START);
 
                 App.Locator.EventService.StartUseEvent();            
+            }
+            else{
+                UpdatePackages();
+                AddressBookHelper.LoadCallSigns();
             }
 
             App.Locator.DeviceService.setStausBarLight();
@@ -197,6 +222,29 @@ namespace PaketGlobal
             //RelativeLayout.SetHeightConstraint(PakagesView, Constraint.RelativeToParent((parent) => { return parent.Height - MaxOffset + 30; }));
         }
 
+        private async void UpdatePackages()
+        {
+
+            if(Mode==PackagesMode.Available)
+            {
+               await LoadAvailablePackages();
+            }
+            else{
+                await ViewModel.Load();
+
+                if (ViewModel.PackagesList.Count == 0)
+                {
+                    FooterLayout.IsVisible = true;
+                    FooterLayout.HeightRequest = 250;
+                }
+                else
+                {
+                    FooterLayout.IsVisible = false;
+                    FooterLayout.HeightRequest = 0;
+                }
+            }
+        }
+
         private async Task LoadPackages()
         {
             await ViewModel.Load();
@@ -206,8 +254,15 @@ namespace PaketGlobal
 
             if (ViewModel.PackagesList.Count == 0)
             {
-                ViewModel.PackagesList.Add(new NotFoundPackage());
+                FooterLayout.IsVisible = true;
+                FooterLayout.HeightRequest = 250;
             }
+            else
+            {
+                FooterLayout.IsVisible = false;
+                FooterLayout.HeightRequest = 0;
+            }
+
         }
 
         private async Task LoadAvailablePackages()
@@ -232,10 +287,16 @@ namespace PaketGlobal
             {
                 var list = ViewModel.AvailablePackagesList;
                 list.Insert(0, FilterPackage);
-
-                if(list.Count==1)
+        
+                if (list.Count == 1)
                 {
-                    list.Add(new NotFoundPackage());
+                    FooterLayout.IsVisible = true;
+                    FooterLayout.HeightRequest = 250;
+                }
+                else
+                {
+                    FooterLayout.IsVisible = false;
+                    FooterLayout.HeightRequest = 0;
                 }
             }
 
@@ -251,7 +312,7 @@ namespace PaketGlobal
         {
             if (e.SelectedItem == null) 
                 return;
-
+            
             PakagesView.SelectedItem = null;
 
             var pkgData = (Package)PakagesView.SelectedItem;
@@ -301,6 +362,17 @@ namespace PaketGlobal
             await LoadAvailablePackages(); 
         }
 
+        private void SegmentClicked(object sender, System.EventArgs e)
+        {
+            if(SegmentView.SelectedIndex==0)
+            {
+                this.AllClicked(sender,e);
+            }
+            else{
+                this.AvaliableClicked(sender, e);
+            }
+        }
+
         private async void AvaliableClicked(object sender, EventArgs e)
         {
             if(Mode==PackagesMode.Available)
@@ -308,13 +380,15 @@ namespace PaketGlobal
                 return;
             }
 
+            PakagesView.IsPullToRefreshEnabled = true;
+
             Mode = PackagesMode.Available;
 
-            AvailableButton.TextColor = Color.White;
-            AllButton.TextColor = Color.LightGray;
+          // AvailableButton.TextColor = Color.White;
+          //  AllButton.TextColor = Color.LightGray;
 
-            AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
-            AllLine.BackgroundColor = Color.Transparent;
+          //  AvailableLine.BackgroundColor = Color.FromHex("#53C5C7");
+          //  AllLine.BackgroundColor = Color.Transparent;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "AvailablePackagesList");
 
@@ -337,13 +411,15 @@ namespace PaketGlobal
                 return;
             }
 
+            PakagesView.IsPullToRefreshEnabled = true;
+
             Mode = PackagesMode.All;
 
-            AvailableButton.TextColor = Color.LightGray;
-            AllButton.TextColor = Color.White;
+            //  AvailableButton.TextColor = Color.LightGray;
+            //  AllButton.TextColor = Color.White;
 
-            AllLine.BackgroundColor = Color.FromHex("#53C5C7");
-            AvailableLine.BackgroundColor = Color.Transparent;
+            //  AllLine.BackgroundColor = Color.FromHex("#53C5C7");
+            //  AvailableLine.BackgroundColor = Color.Transparent;
 
             PakagesView.SetBinding(ListView.ItemsSourceProperty, "PackagesList");
 
@@ -357,7 +433,12 @@ namespace PaketGlobal
 
             if (ViewModel.PackagesList.Count == 0)
             {
-                ViewModel.PackagesList.Add(new NotFoundPackage());
+                FooterLayout.IsVisible = true;
+                FooterLayout.HeightRequest = 250;
+            }
+            else{
+                FooterLayout.IsVisible = false;
+                FooterLayout.HeightRequest = 0;
             }
 
             ActivityIndicator.IsRunning = false;

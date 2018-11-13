@@ -16,8 +16,9 @@
         <RelativeLayout>
             <Label x:Name="TitleLabel" Text="{local:Translate SelectLocationSmall}" TextColor="White" XAlign="Center" FontFamily="{StaticResource SemiBoldFont}" FontSize="16"
                    RelativeLayout.YConstraint="30"
-                   RelativeLayout.XConstraint="0"
-                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"/>
+                   RelativeLayout.XConstraint="60"
+                   RelativeLayout.HeightConstraint="44"
+                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-120}"/>
             <Button x:Name="BackButton" BackgroundColor="Transparent" Image="arrow_back_white.png"
                    Clicked="OnBack"
                    RelativeLayout.XConstraint = "23"

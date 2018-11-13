@@ -51,10 +51,10 @@ namespace PaketGlobal
 
         private void OnColorChange(string value)
         {
-            Button.ButtonBackground = value;
+            Button.BackgroundColor = Color.FromHex(value);
         }
 
-        void Handle_Clicked(object sender, System.EventArgs e)
+        private void Handle_Clicked(object sender, System.EventArgs e)
         {
             Clicked?.Invoke(this, EventArgs.Empty);
         }
@@ -63,6 +63,13 @@ namespace PaketGlobal
         {
             InitializeComponent();
 
+            var tapCommand = new Command(() =>
+            {
+                Clicked?.Invoke(this, EventArgs.Empty);
+            });
+
+            XamEffects.Commands.SetTap(TextLabel, tapCommand);
+            XamEffects.Commands.SetTap(Icon, tapCommand);
         }
     }
 }

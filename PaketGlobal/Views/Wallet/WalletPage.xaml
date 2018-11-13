@@ -30,7 +30,7 @@
                         <StackLayout BackgroundColor="Transparent" x:Name="HeaderView" Spacing="20" Padding="27,40,27,30" RelativeLayout.XConstraint="0" RelativeLayout.YConstraint="10" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
                             <StackLayout x:Name="TitleView" Orientation="Horizontal" BackgroundColor="Transparent" Padding="0">
                                 <Label x:Name="TitleLabel" Text="{local:Translate Wallet}" FontFamily="{StaticResource SemiBoldFont}" FontSize="24" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <Button x:Name="RefreshButton" WidthRequest="28"  IsVisible="false" Clicked="ReloadClicked" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
+                                <Button x:Name="RefreshButton" WidthRequest="28" Opacity="0"  IsVisible="false" Clicked="ReloadClicked" BackgroundColor="Transparent" Image="refresh_icon.png" HorizontalOptions="Start" VerticalOptions="Center" />
                             </StackLayout>
                             <Label Text="{local:Translate YourBalance}" FontFamily="{StaticResource SemiBoldFont}" FontSize="16" TextColor="White" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
                         </StackLayout>
@@ -87,7 +87,18 @@
                                                                   Unfocus="FieldUnfocus"
                                                                   ChangedText="Handle_Progress_TextChanged"
                                                                   ClickOnAddressButton="AddressButtonClicked"/>
-                                                <local:PaketEntry TextChanged="Handle_TextChanged" x:Name="EntryAmount" Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
+                                               
+                                        <StackLayout Spacing="0">
+                                        <StackLayout Orientation="Horizontal" Spacing="10">
+                                            <local:PaketEntry TextChanged="Handle_TextChanged" 
+                                                              x:Name="EntryAmount" BackgroundV="4" HorizontalOptions="FillAndExpand"
+                                                              Completed="FieldCompleted" LineColor="#E5E5E5" Keyboard="Numeric" Placeholder="{local:Translate EnterAmount}" HeightRequest="40" />
+                                            <Label x:Name="PaymentEuroLabel" Margin="0,3,5,0" VerticalOptions="Center" HorizontalOptions="End" IsVisible="false" FontFamily="{StaticResource MediumFont}" FontSize="15"/>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" HorizontalOptions="FillAndExpand" VerticalOptions="Center" BackgroundColor="#E5E5E5"></BoxView>
+                                        </StackLayout>
+                                                                                                
+                                                
                                                 <local:PaketButton HorizontalOptions="Center" x:Name="SendBULButton" Text="{local:Translate Send}" Clicked="SendClicked" ButtonBackground="#4D64E8" />
                                             </StackLayout>
                                         </StackLayout>

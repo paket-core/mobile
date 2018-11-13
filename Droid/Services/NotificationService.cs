@@ -119,16 +119,37 @@ namespace PaketGlobal.Droid
             mBanner.ShowPackage(list);
         }
 
+        public void ShowPackageStringNotification(string title, string body, Action<string> action)
+        {
+            var context = MainActivity.Instance;
+
+            if (mBanner == null)
+            {
+                mBanner = new BannerView(context);
+                mBanner.BannerFinished += HandleBannerFinished;
+            }
+
+            callback = action;
+
+            mBanner.ShowStringPackage(title, body);
+        }
+
         protected virtual void HandleBannerFinished(bool canceled, Package package)
         {
-            if (!canceled)
+           if (!canceled)
             {
                 if(package == null)
                 {
                     callback(null);
                 }
                 else{
-                    callback(package.PaketId);         
+                    if(package==null)
+                    {
+                        callback(null);
+                    }
+                    else{
+                        callback(package.PaketId);
+                    }
                 }
             }
         }

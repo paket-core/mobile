@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace PaketGlobal
 {
@@ -30,19 +31,44 @@ namespace PaketGlobal
 			set { SetProperty(ref address, value); }
 		}
 
+        public string StoredPhoneNumber
+        {
+            get{
+
+                object fromStorage;
+
+                if (Application.Current.Properties.ContainsKey(Constants.STORED_PHONE))
+                {
+                    Application.Current.Properties.TryGetValue(Constants.STORED_PHONE, out fromStorage);
+
+                    return fromStorage as string;
+                }
+
+                return null;
+            }
+        }
+
 		public async Task Load()
 		{
-			var result = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
-			if (result != null) {
-				PaketUser = result.UserDetails.PaketUser;
-			}
+            try{
+                var result = await App.Locator.IdentityServiceClient.GetUser(App.Locator.Profile.Pubkey, null);
+                if (result != null)
+                {
+                    PaketUser = result.UserDetails.PaketUser;
+                }
 
-			var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
-			if (userInfo != null) {
-				FullName = userInfo.UserDetails.FullName;
-				PhoneNumber = userInfo.UserDetails.PhoneNumber;
-				Address = userInfo.UserDetails.Address;
-			}
+                var userInfo = await App.Locator.IdentityServiceClient.UserInfos();
+                if (userInfo != null)
+                {
+                    FullName = userInfo.UserDetails.FullName;
+                    PhoneNumber = userInfo.UserDetails.PhoneNumber;
+                    Address = userInfo.UserDetails.Address;
+                    Application.Current.Properties[Constants.STORED_PHONE] = phoneNumber;
+                }
+            }
+            catch (Exception ex){
+                Console.WriteLine(ex);
+            }
 		}
 
 		public async Task<bool> Save()
