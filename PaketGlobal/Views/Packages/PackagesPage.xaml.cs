@@ -380,7 +380,7 @@ namespace PaketGlobal
                 return;
             }
 
-            PakagesView.IsPullToRefreshEnabled = false;
+            PakagesView.IsPullToRefreshEnabled = true;
 
             Mode = PackagesMode.Available;
 

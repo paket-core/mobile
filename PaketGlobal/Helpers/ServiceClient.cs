@@ -820,17 +820,49 @@ namespace PaketGlobal
         [DataContract]
         public class Error
         {
-            [DataMember(Name = "error_code")]
+            [DataMember(Name = "internal_error_code")]
             public int ErrorCode { get; set; }
             [DataMember(Name = "message")]
             public string ErrorMessage { get; set; }
             [DataMember(Name = "debug")]
             public string DebugMessage { get; set; }
 
+
             public string Message
             {
                 get{
-                    if(DebugMessage!=null)
+                    if(ErrorCode>0)
+                    {
+                        switch (ErrorCode)
+                        {
+                            case 105:
+                                return AppResources.ErrorCode105;
+                            case 310:
+                                return AppResources.ErrorCode310;
+                            case 320:
+                                return AppResources.ErrorCode320;
+                            case 400:
+                                return AppResources.ErrorCode400;
+                            case 304:
+                                return AppResources.ErrorCode304;
+                            case 301:
+                                return AppResources.ErrorCode301;
+                            case 300:
+                                return AppResources.ErrorCode300;
+                            case 103:
+                                return AppResources.ErrorCode103;
+                            case 100:
+                                return AppResources.ErrorCode100;
+                            default:
+                                if (DebugMessage != null)
+                                {
+                                    return DebugMessage;
+                                }
+
+                                return ErrorMessage;
+                        }
+                    }
+                    else if(DebugMessage!=null)
                     {
                         return DebugMessage;
                     }

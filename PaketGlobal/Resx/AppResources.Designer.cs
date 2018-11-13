@@ -912,6 +912,76 @@ namespace PaketGlobal
             }
         }
 
+        internal static string ErrorCode105
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode105", resourceCulture);
+            }
+        }
 
+        internal static string ErrorCode310
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode310", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode320
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode320", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode400
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode400", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode304
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode304", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode301
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode301", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode300
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode300", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode103
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode103", resourceCulture);
+            }
+        }
+
+        internal static string ErrorCode100
+        {
+            get
+            {
+                return ResourceManager.GetString("ErrorCode100", resourceCulture);
+            }
+        }
     }
 }

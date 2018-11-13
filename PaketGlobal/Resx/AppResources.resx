@@ -787,4 +787,33 @@
         <value>Can't get your profile info at the moment, please try again soon</value>
     </data> 
     
+    
+    <data name="ErrorCode105" xml:space="preserve">
+        <value>Too big data. Unable to write to the database</value>
+    </data> 
+    <data name="ErrorCode310" xml:space="preserve">
+        <value>Verification code invalid or expired</value>
+    </data> 
+    <data name="ErrorCode320" xml:space="preserve">
+        <value>Daily fund limit reached</value>
+    </data> 
+    <data name="ErrorCode400" xml:space="preserve">
+        <value>Package is not valid</value>
+    </data> 
+    <data name="ErrorCode304" xml:space="preserve">
+        <value>This phone number is already used</value>
+    </data> 
+    <data name="ErrorCode301" xml:space="preserve">
+        <value>User with provided pubkey or call sign already exists</value>
+    </data> 
+    <data name="ErrorCode300" xml:space="preserve">
+        <value>User does not exists</value>
+    </data> 
+    <data name="ErrorCode103" xml:space="preserve">
+        <value>Invalid signature</value>
+    </data> 
+    <data name="ErrorCode100" xml:space="preserve">
+        <value>Please fill in all fields</value>
+    </data> 
+    
 </root>

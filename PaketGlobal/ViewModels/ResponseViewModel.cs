@@ -196,7 +196,7 @@ namespace PaketGlobal
             get
             {
                 double result = Account.BalanceBUL / 10000000.0f;
-                result = result * App.Locator.Wallet.XLM_Ratio;
+                result = result * App.Locator.Wallet.BUL_Ratio;
 
                 return "€" + StellarConverter.ConvertEuroValueToString(result);
             }
