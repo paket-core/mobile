@@ -748,7 +748,7 @@
         <value>Choose package pickup location</value>
     </data>
     <data name="WaitingAccountCreation" xml:space="preserve">
-        <value>Your Stellar account is being created, this can take up to a minute</value>
+        <value>Your Stellar account is being created, this can take up to one minute</value>
     </data>
     <data name="WellcomeCreationMessage" xml:space="preserve">
         <value>Your account has been created - welcome to the PAKET network</value>
