@@ -763,7 +763,7 @@
         <value>Purchase is currently limited to €50</value>
     </data>
     <data name="ServersNotWorking" xml:space="preserve">
-        <value>Unable to connect to the PAKET network&#xA;Please come back later…</value>
+        <value>Unable to connect to the PAKET network&#xA;Please retry…</value>
     </data>
    <data name="Oops" xml:space="preserve">
         <value>Whoops</value>
@@ -775,24 +775,24 @@
         <value>Try Again</value>
     </data> 
     <data name="Default500Error" xml:space="preserve">
-        <value>Something went wrong&#xA;Our servers are under construction&#xA;Please try again later…</value>
+        <value>Our servers are under construction&#xA;Please try again later…</value>
     </data>
     <data name="RegistrationFundNotWorking" xml:space="preserve">
         <value>Registration is full at the moment, please try again soon</value>
     </data>  
     <data name="WalletFundNotWorking" xml:space="preserve">
-        <value>No BULs / XLM currently available for purchase, please try again soon</value>
+        <value>No BULs / XLM currently available for purchase, please try again later</value>
     </data> 
     <data name="ProfileFundNotWorking" xml:space="preserve">
-        <value>Can't get your profile info at the moment, please try again soon</value>
+        <value>Can't get your profile info at the moment, please try again later</value>
     </data> 
     
     
     <data name="ErrorCode105" xml:space="preserve">
-        <value>Too big data. Unable to write to the database</value>
+        <value>Unable to write to the database: Data is too big.</value>
     </data> 
     <data name="ErrorCode310" xml:space="preserve">
-        <value>Verification code invalid or expired</value>
+        <value>The verification code is invalid or expired</value>
     </data> 
     <data name="ErrorCode320" xml:space="preserve">
         <value>Daily fund limit reached</value>
