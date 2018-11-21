@@ -983,5 +983,14 @@ namespace PaketGlobal
                 return ResourceManager.GetString("ErrorCode100", resourceCulture);
             }
         }
+
+        internal static string FailSeedNotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("FailSeedNotFound", resourceCulture);
+            }
+        }
+
     }
 }

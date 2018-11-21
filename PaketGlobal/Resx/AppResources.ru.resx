@@ -820,5 +820,7 @@
     <data name="ErrorCode100" xml:space="preserve">
         <value>Пожалуйста заполините все поля</value>
     </data>
-    
+    <data name="FailSeedNotFound" xml:space="preserve">
+        <value>Не найден приватный ключ пакета</value>
+    </data> 
 </root>

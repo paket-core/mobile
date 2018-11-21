@@ -94,8 +94,7 @@
                             </StackLayout>
                         </StackLayout>
                     </local:PaketFrame>
-                    <Button BackgroundColor="Transparent" Image="next_button.png" WidthRequest="290" HeightRequest="50"
-                          VerticalOptions="Center" Clicked="OnNext"/>
+                    <local:PaketButton WidthRequest="280" HorizontalOptions="Center" Clicked="OnNext" Text="{local:Translate Done}" ButtonBackground="#4D64E8"/>
                 </StackLayout>
             </RelativeLayout>
         </ScrollView>

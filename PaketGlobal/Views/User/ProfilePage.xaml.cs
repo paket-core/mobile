@@ -85,13 +85,13 @@ namespace PaketGlobal
 
             XamEffects.Commands.SetTap(whyButton, whyTapCommand);
 
-            if (ViewModel.Address!=null)
-            {
-                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
-                {
-                    ErrorView.IsVisible = true;
-                }
-            }
+            //if (ViewModel.Address!=null)
+            //{
+            //    //if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            //    //{
+            //    //    ErrorView.IsVisible = true;
+            //    //}
+            //}
 
             UpdateButton.Disabled = true;
         }
@@ -174,16 +174,16 @@ namespace PaketGlobal
             MainScrollView.IsVisible = true;
             LogoutButton.IsVisible = true;
 
-            if (ViewModel.Address != null)
-            {
-                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
-                {
-                    ErrorView.IsVisible = true;
-                }
-                else{
-                    ErrorView.IsVisible = false;
-                }
-            }
+            //if (ViewModel.Address != null)
+            //{
+            //    if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            //    {
+            //        ErrorView.IsVisible = true;
+            //    }
+            //    else{
+            //        ErrorView.IsVisible = false;
+            //    }
+            //}
         }
 
         private void OnLogoutClicked(object sender, System.EventArgs e)
@@ -299,17 +299,17 @@ namespace PaketGlobal
         {
             ViewModel.Address = e.Item.Name;
 
-            if (ViewModel.Address != null)
-            {
-                if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
-                {
-                    ErrorView.IsVisible = true;
-                }
-                else
-                {
-                    ErrorView.IsVisible = false;
-                }
-            }
+            //if (ViewModel.Address != null)
+            //{
+            //    if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            //    {
+            //        ErrorView.IsVisible = true;
+            //    }
+            //    else
+            //    {
+            //        ErrorView.IsVisible = false;
+            //    }
+            //}
 
             EnableDisableButton();
         }

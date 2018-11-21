@@ -121,7 +121,7 @@ namespace PaketGlobal
                 escrowKP = KeyPair.FromSecretSeed(seed);
             }
             else{
-                escrowKP = KeyPair.Random();
+                return StellarOperationResult.FailSeedNotFound;
             }
 
             double steps = 12;

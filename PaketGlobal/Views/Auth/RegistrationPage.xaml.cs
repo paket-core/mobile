@@ -102,10 +102,10 @@ namespace PaketGlobal
 
             App.Locator.DeviceService.setStausBarLight();
 
-            if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
-            {
-                ErrorView.IsVisible = true;
-            }
+            //if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            //{
+            //    ErrorView.IsVisible = true;
+            //}
 
             EnableDisableButton();
         }
@@ -133,13 +133,13 @@ namespace PaketGlobal
         {
             ViewModel.Address = e.Item.Name;
 
-            if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
-            {
-                ErrorView.IsVisible = true;
-            }
-            else{
-                ErrorView.IsVisible = false;
-            }
+            //if (ViewModel.Address.ToLower() == "united states of america" || ViewModel.Address.ToLower() == "usa")
+            //{
+            //    ErrorView.IsVisible = true;
+            //}
+            //else{
+            //    ErrorView.IsVisible = false;
+            //}
 
             EnableDisableButton();
         }
@@ -372,10 +372,10 @@ namespace PaketGlobal
             {
                 return false;
             }
-            else if (entryUserAddress.Text.ToLower() == "united states of america" || entryUserAddress.Text.ToLower() == "usa")
-            {
-                return false;
-            }
+            //else if (entryUserAddress.Text.ToLower() == "united states of america" || entryUserAddress.Text.ToLower() == "usa")
+            //{
+            //    return false;
+            //}
 
             return true;
         }

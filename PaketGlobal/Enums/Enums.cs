@@ -28,7 +28,8 @@ namespace PaketGlobal
 		FaileSubmitOptions,
 		IncositentBalance,
 		FailAcceptPackage,
-		FailSendCollateral
+		FailSendCollateral,
+        FailSeedNotFound
 	}
 
     public static class StellarOperationResultMethods
@@ -72,6 +73,9 @@ namespace PaketGlobal
                     break;
                 case StellarOperationResult.FailSendCollateral:
                     message = AppResources.FailSendCollateral;
+                    break;
+                case StellarOperationResult.FailSeedNotFound:
+                    message = AppResources.FailSeedNotFound;
                     break;
                 default:
                     message = AppResources.UnknownError;

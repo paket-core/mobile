@@ -815,5 +815,9 @@
     <data name="ErrorCode100" xml:space="preserve">
         <value>Please fill in all fields</value>
     </data> 
+   <data name="FailSeedNotFound" xml:space="preserve">
+        <value>Package seed not found</value>
+    </data> 
+    
     
 </root>
