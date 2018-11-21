@@ -1252,9 +1252,38 @@ namespace PaketGlobal
             }
         }
 
-	}
+        public string EscrowSeedFromEvents
+        {
+            get{
+                try{
+                    foreach(PackageEvent ev in Events)
+                    {
+                        if(ev.EventType == "escrow seed added")
+                        {
+                            var kwargs = JsonConvert.DeserializeObject<EventKwargs>(ev.Kwargs);
 
-	[DataContract]
+                            return kwargs.Escrow_seed;
+                        }
+                    }
+                }
+                catch{
+                    return null;
+                }
+                return null;
+            }
+        }
+
+
+    }
+
+    [DataContract]
+    public class EventKwargs
+    {
+        [DataMember(Name = "escrow_seed")]
+        public string Escrow_seed { get; set; }
+    }
+        
+    [DataContract]
 	public class PackageEvent
 	{
 		[DataMember(Name = "event_type")]
@@ -1273,8 +1302,10 @@ namespace PaketGlobal
         [DataMember(Name = "user_pubkey")]
         public string UserPubKey { get; set; }
 
+        [DataMember(Name = "kwargs")]
+        public string Kwargs { get; set; }
 
-		[DataMember(Name = "GPS")]
+        [DataMember(Name = "GPS")]
 		public double[] GPS { get; set; }
 
 		public DateTime TimestampDT {

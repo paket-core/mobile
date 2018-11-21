@@ -9,9 +9,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.PacketGlobal.itdimension</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.3.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
@@ -91,7 +89,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
-		<string>newsstand-content</string>
 		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
@@ -116,5 +113,9 @@
 	<string>This app needs access to the photo gallery</string>
 	<key>NSLocationUsageDescription</key>
 	<string>The location is required for tracking packages</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Use calender</string>
+	<key>CFBundleVersion</key>
+	<string>3</string>
 </dict>
 </plist>

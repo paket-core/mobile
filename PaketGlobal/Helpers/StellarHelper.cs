@@ -98,6 +98,8 @@ namespace PaketGlobal
 			if (createResult != null) {
                 var packedId = createResult.Package.PaketId;
 
+             //   var assignResult = await App.Locator.RouteServiceClient.AddEscrowSeedToPackage(packedId, escrowKP.SecretSeed);
+
                 App.Locator.Profile.AddPackageKeyPair(packedId, escrowKP.SecretSeed);
 
 				return StellarOperationResult.Success;
@@ -107,11 +109,13 @@ namespace PaketGlobal
 			return StellarOperationResult.FailedLaunchPackage;
 		}
 
-        public static async Task<StellarOperationResult> LaunchPackage (string paketID, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
+        public static async Task<StellarOperationResult> LaunchPackage (Package package, string recipientPubkey, long deadlineTimestamp, string courierPubkey, double paymentBuls, double collateralBuls, LaunchPackageEventHandler eventHandler)
 		{
+            var paketID = package.PaketId;
+
             KeyPair escrowKP = null;
 
-            var seed = App.Locator.Profile.PackageKeyPair(paketID);
+            var seed = App.Locator.Profile.PackageKeyPair(package);
             if( seed != null)
             {
                 escrowKP = KeyPair.FromSecretSeed(seed);

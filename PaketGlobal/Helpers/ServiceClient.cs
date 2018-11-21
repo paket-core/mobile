@@ -14,6 +14,11 @@ using System.Threading;
 
 namespace PaketGlobal
 {
+    public class EscrowSeedXdrs
+    {
+        public String escrow_seed;
+    }
+
     public class Escrow_Xdrs
     {
         public Kwargs escrow_xdrs;
@@ -165,6 +170,47 @@ namespace PaketGlobal
                 request.AddParameter("from_pubkey", pubkey);
 
             return await SendRequest<TrustData>(request, pubkey);
+        }
+
+        public async Task<AddEventData> AddEscrowSeedToPackage(string pubkey, string seed)
+        {
+            var request = PrepareRequest(apiVersion + "/add_event", Method.POST);
+
+            var kwargs = new EscrowSeedXdrs();
+            kwargs.escrow_seed = seed;
+
+            var json = JsonConvert.SerializeObject(kwargs);
+
+            string location = null;
+
+            var hasPermission = await Utils.OnlyCheckPermissions(Plugin.Permissions.Abstractions.Permission.Location);
+            if (hasPermission)
+            {
+                var locator = CrossGeolocator.Current;
+
+                var position = await locator.GetLastKnownLocationAsync();
+
+                if (position != null)
+                {
+                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+                    if (location.Length > 24)
+                    {
+                        location = location.Substring(0, 24);
+                    }
+                }
+            }
+
+            request.AddParameter("event_type", "escrow_seed");
+            request.AddParameter("escrow_pubkey", pubkey);
+            request.AddParameter("kwargs", json);
+
+            if(location!=null)
+            {
+                request.AddParameter("location", location);
+            }
+
+            return await SendRequest<AddEventData>(request, App.Locator.Profile.Pubkey);
         }
 
         public async Task<AddEventData> AddEvent(string eventType, string kwargs = null, string pubKey = null)

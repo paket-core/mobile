@@ -34,6 +34,7 @@ namespace dotMorten.Xamarin.Forms
             inputText.EditingChanged += InputText_EditingChanged;
             inputText.EndedWithReason += InputText_EndedWithReason;
             inputText.ReturnKeyType = UIKit.UIReturnKeyType.Search;
+            inputText.BorderStyle = UITextBorderStyle.None;
 
             AddSubview(inputText);
             inputText.TopAnchor.ConstraintEqualTo(TopAnchor).Active = true;

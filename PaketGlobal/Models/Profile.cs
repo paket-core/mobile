@@ -140,20 +140,22 @@ namespace PaketGlobal
         {
             Application.Current.Properties[paketId] = seed;
             Application.Current.SavePropertiesAsync();
+
+            //also send escrow_seed to the server
         }
 
-        public string PackageKeyPair(string pakedId)
+        public string PackageKeyPair(Package package)
         {
-            if (Application.Current.Properties.ContainsKey(pakedId))
+            if (Application.Current.Properties.ContainsKey(package.PaketId))
             {
                 object fromStorage;
 
-                Application.Current.Properties.TryGetValue(pakedId, out fromStorage);
+                Application.Current.Properties.TryGetValue(package.PaketId, out fromStorage);
 
                 return (fromStorage as string);
             }
 
-            return null;
+            return package.EscrowSeedFromEvents;
         }
 
 		public bool AddTransaction(string paketId, string paymentTranscation)

@@ -988,6 +988,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\construction_image.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\construction_image.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\construction_image.png" />
+    <AndroidResource Include="Resources\drawable\notification_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\notification_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\notification_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\notification_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\notification_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModel\" />

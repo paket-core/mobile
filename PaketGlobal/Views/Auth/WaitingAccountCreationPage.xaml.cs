@@ -25,15 +25,18 @@ namespace PaketGlobal
                 WellcomeLabel.Text = AppResources.WellcomeRestoreMessage;
             }
 
-            var onContinueCommand = new Command(() =>
+            if(Device.RuntimePlatform == Device.Android)
             {
-                App.Locator.Profile.Activated = true;
+                var onContinueCommand = new Command(() =>
+                {
+                    App.Locator.Profile.Activated = true;
 
-                var navigationPage = new NavigationPage(new MainPage());
+                    var navigationPage = new NavigationPage(new MainPage());
 
-                Application.Current.MainPage = navigationPage;
-            });
-            XamEffects.Commands.SetTap(NextButton, onContinueCommand);
+                    Application.Current.MainPage = navigationPage;
+                });
+                XamEffects.Commands.SetTap(NextButton, onContinueCommand);
+            }
         }
 
         public void GoBack()

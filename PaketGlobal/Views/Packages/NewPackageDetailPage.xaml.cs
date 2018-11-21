@@ -562,7 +562,7 @@ namespace PaketGlobal
 
             try
             {
-                var result = await StellarHelper.LaunchPackage(ViewModel.PaketId, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
+                var result = await StellarHelper.LaunchPackage(ViewModel, ViewModel.RecipientPubkey, ViewModel.Deadline, ViewModel.CourierPubkey, ViewModel.Payment, ViewModel.Collateral, FinalizePackageEvents);
 
                 if(result == StellarOperationResult.LowBULsLauncher)
                 {
