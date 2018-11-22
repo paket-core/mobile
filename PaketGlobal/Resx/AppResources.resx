@@ -361,10 +361,10 @@
         <value>Check courier balance</value>
     </data>
     <data name="LaunchPackageStep3" xml:space="preserve">
-        <value>Create escrow account</value>
+        <value>Creating an escrow account</value>
     </data>
     <data name="LaunchPackageStep4" xml:space="preserve">
-        <value>Sign escrow transaction</value>
+        <value>Signing the escrow transaction</value>
     </data>
     <data name="LaunchPackageStep5" xml:space="preserve">
         <value>Submit escrow transaction</value>
