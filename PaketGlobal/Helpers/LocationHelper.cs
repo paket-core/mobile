@@ -14,6 +14,31 @@ namespace PaketGlobal
             
         }
 
+        public static string TrimLocation(double lat, double lng)
+        {
+            try{
+                var latString = lat.ToString("0.######",System.Globalization.CultureInfo.InvariantCulture);
+                var lngString = lng.ToString("0.######",System.Globalization.CultureInfo.InvariantCulture);
+
+                var location = latString + "," + lngString;
+
+                if (location != null)
+                {
+                    if (location.Length > 24)
+                    {
+                        location = location.Substring(0, 24);
+                    }
+
+                    return location;
+                }
+
+                return "";
+            }
+            catch{
+                return "";
+            }
+        }
+
         public async Task<Plugin.Geolocator.Abstractions.Position> GetLocation(bool canGetLast = false)
         {
             if (canGetLast && !lat.Equals(0.0))
@@ -42,7 +67,7 @@ namespace PaketGlobal
         {
             if(canGetLast && !lat.Equals(0.0))
             {
-                var location = lat.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + lng.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                var location = LocationHelper.TrimLocation(lat, lng);
 
                 return location; 
             }
@@ -57,7 +82,7 @@ namespace PaketGlobal
 
                 if (position != null)
                 {
-                    var location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    var location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
 
                     lat = position.Latitude;
                     lng = position.Longitude;

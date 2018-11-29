@@ -475,10 +475,10 @@
         <value>You are almost there</value>
     </data>
     <data name="MnemonicWordConfirm" xml:space="preserve">
-        <value>Please enter 5th word&#xA;from your mnemonic&#xA;phrase</value>
+        <value>Please enter &lt;number&gt; word&#xA;from your mnemonic&#xA;phrase</value>
     </data>
     <data name="MnemonicWord" xml:space="preserve">
-        <value>5th word</value>
+        <value>&lt;number&gt; word</value>
     </data>
     <data name="PackageEnterRecipient" xml:space="preserve">
         <value>Enter name or public key</value>
@@ -818,6 +818,11 @@
    <data name="FailSeedNotFound" xml:space="preserve">
         <value>Package seed not found</value>
     </data> 
-    
+    <data name="InvalidSecretKey" xml:space="preserve">
+        <value>The Secret key is invalid</value>
+    </data> 
+    <data name="InvalidMnemonic" xml:space="preserve">
+        <value>The Mnemonic phrase is invalid</value>
+    </data> 
     
 </root>

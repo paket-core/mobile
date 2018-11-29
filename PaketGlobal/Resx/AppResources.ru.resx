@@ -487,10 +487,10 @@
         <value>Осталось чуть-чуть</value>
     </data>
     <data name="MnemonicWordConfirm" xml:space="preserve">
-        <value>Пожалуйста введите 5ое слово&#xA;с вашей фразы</value>
+        <value>Пожалуйста введите &lt;number&gt; слово&#xA;с вашей фразы</value>
     </data>
     <data name="MnemonicWord" xml:space="preserve">
-        <value>5ое слово</value>
+        <value>&lt;number&gt; слово</value>
     </data>
     <data name="PackageEnterRecipient" xml:space="preserve">
         <value>Введите имя или ключ</value>
@@ -822,5 +822,11 @@
     </data>
     <data name="FailSeedNotFound" xml:space="preserve">
         <value>Не найден приватный ключ пакета</value>
+    </data> 
+    <data name="InvalidSecretKey" xml:space="preserve">
+        <value>Недействительный секретный ключ</value>
+    </data> 
+    <data name="InvalidMnemonic" xml:space="preserve">
+        <value>Мнемоническая фраза недействительна</value>
     </data> 
 </root>

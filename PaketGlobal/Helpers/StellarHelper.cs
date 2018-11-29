@@ -54,16 +54,7 @@ namespace PaketGlobal
 		                                                               string fromAddress, string toAddress, long deadlineTimestamp, double paymentBuls, double collateralBuls,
 		                                                               string eventLocation, string fromLocation, string toLocation, byte[] packagePhoto, LaunchPackageEventHandler eventHandler)
 		{
-            if (toLocation.Length > 24)
-            {
-                toLocation = toLocation.Substring(0, 24);
-            }
-
-            if (fromLocation.Length > 24)
-            {
-                fromLocation = fromLocation.Substring(0, 24);
-            }
-
+      
 			double steps = 3;
 			double currentStep = 1;
 
@@ -302,6 +293,7 @@ namespace PaketGlobal
 
         public static async Task<StellarOperationResult> AssignPackage(string escrowPubkey, long collateral, string location, LaunchPackageEventHandler eventHandler)
         {
+       
             double steps = 3;
             double currentStep = 1;
 
@@ -330,6 +322,7 @@ namespace PaketGlobal
 
 		public static async Task<StellarOperationResult> AcceptPackageAsCourier(string escrowPubkey, long collateral, string paymentTransaction, string location)
 		{
+         
 			var courierBalance = await App.Locator.BridgeServiceClient.Balance(App.Locator.Profile.Pubkey);
 			if (courierBalance == null || courierBalance.Account.BalanceBUL < collateral) {
 				return StellarOperationResult.LowBULsCourier;
@@ -362,9 +355,10 @@ namespace PaketGlobal
 
 		public static async Task<StellarOperationResult> AcceptPackageAsRecipient(string escrowPubkey, string paymentTransaction, string location)
 		{
-			//var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
+   
+            //var courierBalance = await App.Locator.ServiceClient.Balance(App.Locator.Profile.Pubkey);
 
-			var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, paymentTransaction);//sign the payment transaction
+            var signed = await StellarHelper.SignTransaction(App.Locator.Profile.KeyPair, paymentTransaction);//sign the payment transaction
 			var submitResult = await App.Locator.BridgeServiceClient.SubmitTransaction(signed);
 			if (submitResult != null) {
 				var result = await App.Locator.RouteServiceClient.AcceptPackage(escrowPubkey, location);//accept the package

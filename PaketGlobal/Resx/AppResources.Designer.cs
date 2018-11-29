@@ -992,5 +992,21 @@ namespace PaketGlobal
             }
         }
 
+        internal static string InvalidSecretKey
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidSecretKey", resourceCulture);
+            }
+        }
+
+
+        internal static string InvalidMnemonic
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidMnemonic", resourceCulture);
+            }
+        }
     }
 }

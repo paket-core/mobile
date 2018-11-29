@@ -155,7 +155,8 @@ namespace PaketGlobal
 
             var place = e.Item;
 
-            string location = place.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + place.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
+            string location = LocationHelper.TrimLocation(place.Latitude, place.Longitude);
+
             string address = place.Address;
 
             if(page.PickerType == LocationPickerType.From)
@@ -416,9 +417,9 @@ namespace PaketGlobal
                         var position = await locator.GetPositionAsync();
 
 						if (position != null) {
-							location = position.Latitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString("F7", System.Globalization.CultureInfo.InvariantCulture);
-						}
-					}
+                            location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
+                        }
+                    }
 
                     var result = await StellarHelper.CreatePackage(escrowKP, recipient, ViewModel.LauncherFullPhoneNumber, ViewModel.RecipientFullPhoneNumber, EntryDescription.Text, ViewModel.FromLocationAddress, ViewModel.ToLocationAddress, vm.Deadline, payment, collateral, location, ViewModel.FromLocationGPS, ViewModel.ToLocationGPS, PhotoSource, LaunchPackageEvents);
 

@@ -192,12 +192,7 @@ namespace PaketGlobal
 
                 if (position != null)
                 {
-                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                    if (location.Length > 24)
-                    {
-                        location = location.Substring(0, 24);
-                    }
+                    location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
                 }
             }
 
@@ -244,12 +239,7 @@ namespace PaketGlobal
 
                 if (position != null)
                 {
-                    location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                    if (location.Length > 24)
-                    {
-                        location = location.Substring(0, 24);
-                    }
+                    location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
                 }
             }
 
@@ -396,11 +386,7 @@ namespace PaketGlobal
 
         public async Task<AcceptPackageData> AssignPackage(string escrowPubkey, string location)
         {
-            if (location.Length > 24)
-            {
-                location = location.Substring(0, 24);
-            }
-
+          
             var request = PrepareRequest(apiVersion + "/confirm_couriering", Method.POST);
 
             request.AddParameter("escrow_pubkey", escrowPubkey);
@@ -492,12 +478,6 @@ namespace PaketGlobal
 		{
 			var request = PrepareRequest(apiVersion + "/assign_xdrs", Method.POST);
 
-            if (location.Length > 24)
-            {
-                location = location.Substring(0, 24);
-            }
-
-
             var kwargs = new Kwargs();
             kwargs.merge_transaction = mergeTrans;
             kwargs.set_options_transaction = setOptionsTrans;
@@ -542,11 +522,7 @@ namespace PaketGlobal
 
         public async Task<AvailablePackagesData> AvailablePackages(string location, int radius, CancellationTokenSource cancellationTokenSource)
         {
-            if (location.Length > 24)
-            {
-                location = location.Substring(0, 24);
-            }
-
+       
             var request = PrepareRequest(apiVersion + "/available_packages", Method.POST);
 
             request.AddParameter("location", location);

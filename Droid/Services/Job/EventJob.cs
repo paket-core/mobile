@@ -91,30 +91,20 @@ namespace PaketGlobal.Droid
 
                 if(lastLocation!=null)
                 {
-                    location = lastLocation.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + lastLocation.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                    if (location.Length > 24)
-                    {
-                        location = location.Substring(0, 24);
-                    }
+                    location = LocationHelper.TrimLocation(lastLocation.Latitude, lastLocation.Longitude);
                 }
 
                 string url = Config.RouteServerUrl + "/" + Config.RouteServerVersion + "/add_event";
 
                 var locator = Plugin.Geolocator.CrossGeolocator.Current;
 
-                if(string.IsNullOrEmpty(location))
+                if (string.IsNullOrEmpty(location))
                 {
                     var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(5));
 
                     if (position != null)
                     {
-                        location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                        if (location.Length > 24)
-                        {
-                            location = location.Substring(0, 24);
-                        }
+                        location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
                     }
 
                     if (position == null)
@@ -123,25 +113,20 @@ namespace PaketGlobal.Droid
 
                         if (position != null)
                         {
-                            location = position.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-                            if (location.Length > 24)
-                            {
-                                location = location.Substring(0, 24);
-                            }
+                            location = LocationHelper.TrimLocation(position.Latitude, position.Longitude);
                         }
                     }
-                }           
 
-                var formContent = new FormUrlEncodedContent(new[]{
+                    var formContent = new FormUrlEncodedContent(new[]{
                             new KeyValuePair<string, string>("event_type", eventName),
                             new KeyValuePair<string, string>("location", location),
                         });
 
+                    var client = CreateClient(pubKey);
 
-                var client = CreateClient(pubKey);
-
-                await client.PostAsync(url, formContent);
+                    await client.PostAsync(url, formContent);
+                }
+                             
 
                 return true;
             }

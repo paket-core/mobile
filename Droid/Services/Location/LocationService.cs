@@ -226,12 +226,9 @@ namespace PaketGlobal.Droid
 
                     if (myRole == PaketRole.Courier && package.PaymentTransaction!=null && package.Status.ToLower() == "in transit")
                     {
-						var locationString = location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                        if (locationString.Length > 24)
-                        {
-                            locationString = locationString.Substring(0, 24);
-                        }
-						await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationString);
+                        var locationStr = LocationHelper.TrimLocation(location.Latitude, location.Longitude);
+
+                        await App.Locator.RouteServiceClient.ChangeLocation(package.PaketId, locationStr);
                     }
                 }
             }

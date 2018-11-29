@@ -20,8 +20,8 @@ namespace PaketGlobal
 
             int wordIndex = randomIndex + 1;
 
-            entryWord.Placeholder = entryWord.Placeholder.Replace("5", wordIndex.ToString());
-            wordLabel.Text = wordLabel.Text.Replace("5", wordIndex.ToString());
+            entryWord.Placeholder = entryWord.Placeholder.Replace("<number>", wordIndex.ToString());
+            wordLabel.Text = wordLabel.Text.Replace("<number>", wordIndex.ToString());
 
             App.Locator.DeviceService.setStausBarLight();
         }

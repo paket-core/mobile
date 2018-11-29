@@ -104,7 +104,17 @@ namespace PaketGlobal
 
                     App.Locator.Profile.KeyPair = null;
 
-                    ShowErrorMessage(ex is OutOfMemoryException ? "Secret key is invalid" : ex.Message);
+                    if(!string.IsNullOrEmpty(entrySecretKey.Text))
+                    {
+                        ShowErrorMessage(AppResources.InvalidSecretKey);
+                    }
+                    else if (!string.IsNullOrEmpty(entryMnemonic.Text))
+                    {
+                        ShowErrorMessage(AppResources.InvalidMnemonic);
+                    }
+                    else{
+                        ShowErrorMessage(ex.Message);
+                    }
                 }
             }
         }
